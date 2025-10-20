@@ -150,7 +150,16 @@
   // Get current consent
   function getConsent(): CookieConsent | null {
     const stored = localStorage.getItem(COOKIE_CONSENT_KEY);
-    return stored ? JSON.parse(stored) : null;
+    if (!stored) return null;
+
+    try {
+      return JSON.parse(stored);
+    } catch (error) {
+      console.error('Failed to parse cookie consent data:', error);
+      // Clear corrupted data
+      localStorage.removeItem(COOKIE_CONSENT_KEY);
+      return null;
+    }
   }
 
   // Save consent
@@ -249,19 +258,39 @@
     modal?.classList.add('hidden');
   }
 
-  // Event listeners
-  document.getElementById('cookie-accept-btn')?.addEventListener('click', acceptAll);
-  document.getElementById('cookie-reject-btn')?.addEventListener('click', rejectOptional);
-  document.getElementById('cookie-settings-btn')?.addEventListener('click', showSettings);
-  document.getElementById('cookie-modal-close')?.addEventListener('click', () => modal?.classList.add('hidden'));
-  document.getElementById('cookie-save-settings')?.addEventListener('click', saveSettings);
-  document.getElementById('cookie-accept-all-modal')?.addEventListener('click', acceptAll);
-
-  // Close modal on escape key
-  document.addEventListener('keydown', (e) => {
+  // Event handlers with cleanup
+  const closeModal = () => modal?.classList.add('hidden');
+  const handleEscape = (e: KeyboardEvent) => {
     if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
       modal.classList.add('hidden');
     }
+  };
+
+  // Event listeners
+  const acceptBtn = document.getElementById('cookie-accept-btn');
+  const rejectBtn = document.getElementById('cookie-reject-btn');
+  const settingsBtn = document.getElementById('cookie-settings-btn');
+  const modalClose = document.getElementById('cookie-modal-close');
+  const saveSettingsBtn = document.getElementById('cookie-save-settings');
+  const acceptAllModalBtn = document.getElementById('cookie-accept-all-modal');
+
+  acceptBtn?.addEventListener('click', acceptAll);
+  rejectBtn?.addEventListener('click', rejectOptional);
+  settingsBtn?.addEventListener('click', showSettings);
+  modalClose?.addEventListener('click', closeModal);
+  saveSettingsBtn?.addEventListener('click', saveSettings);
+  acceptAllModalBtn?.addEventListener('click', acceptAll);
+  document.addEventListener('keydown', handleEscape);
+
+  // Cleanup function for Astro view transitions
+  document.addEventListener('astro:before-swap', () => {
+    acceptBtn?.removeEventListener('click', acceptAll);
+    rejectBtn?.removeEventListener('click', rejectOptional);
+    settingsBtn?.removeEventListener('click', showSettings);
+    modalClose?.removeEventListener('click', closeModal);
+    saveSettingsBtn?.removeEventListener('click', saveSettings);
+    acceptAllModalBtn?.removeEventListener('click', acceptAll);
+    document.removeEventListener('keydown', handleEscape);
   });
 </script>
 

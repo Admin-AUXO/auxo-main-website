@@ -329,13 +329,20 @@ const base = import.meta.env.BASE_URL;
     }, 5000);
   }
 
-  // Company size selection
+  // Company size selection handlers
+  const sizeOptionHandlers = new Map<Element, EventListener>();
+  const handleSizeClick = function(this: HTMLElement) {
+    document.querySelectorAll('.size-option').forEach(b => b.classList.remove('selected'));
+    this.classList.add('selected');
+    const sizeInput = document.getElementById('company-size') as HTMLInputElement;
+    if (sizeInput && this.dataset.value) {
+      sizeInput.value = this.dataset.value;
+    }
+  };
+
   document.querySelectorAll('.size-option').forEach(btn => {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.size-option').forEach(b => b.classList.remove('selected'));
-      this.classList.add('selected');
-      document.getElementById('company-size').value = this.dataset.value;
-    });
+    sizeOptionHandlers.set(btn, handleSizeClick.bind(btn));
+    btn.addEventListener('click', sizeOptionHandlers.get(btn)!);
   });
 
   function updateProgress(): void {
@@ -390,19 +397,19 @@ const base = import.meta.env.BASE_URL;
     return true;
   }
 
-  nextBtn?.addEventListener('click', () => {
+  const handleNext = () => {
     if (validateStep(currentStep)) {
       currentStep++;
       showStep(currentStep);
     }
-  });
+  };
 
-  prevBtn?.addEventListener('click', () => {
+  const handlePrev = () => {
     currentStep--;
     showStep(currentStep);
-  });
+  };
 
-  submitBtn?.addEventListener('click', async () => {
+  const handleSubmit = async () => {
     if (!validateStep(currentStep)) return;
     if (isSubmitting) return; // Prevent double submission
 
@@ -412,10 +419,17 @@ const base = import.meta.env.BASE_URL;
     if (submitBtn) submitBtn.disabled = true;
 
     try {
-      // Collect form data with type safety
+      // XSS Prevention: Sanitize user input
+      const sanitizeInput = (input: string): string => {
+        const div = document.createElement('div');
+        div.textContent = input;
+        return div.innerHTML.trim();
+      };
+
+      // Collect form data with type safety and XSS prevention
       const getInputValue = (id: string): string => {
         const el = document.getElementById(id) as HTMLInputElement | null;
-        return el?.value || '';
+        return sanitizeInput(el?.value || '');
       };
 
       const formData = {
@@ -426,7 +440,7 @@ const base = import.meta.env.BASE_URL;
         industry: getInputValue('industry'),
         companySize: getInputValue('company-size'),
         role: getInputValue('role'),
-        services: Array.from(document.querySelectorAll<HTMLInputElement>('input[name="services[]"]:checked')).map(cb => cb.value),
+        services: Array.from(document.querySelectorAll<HTMLInputElement>('input[name="services[]"]:checked')).map(cb => sanitizeInput(cb.value)),
         timeline: getInputValue('timeline'),
         budget: getInputValue('budget'),
         message: getInputValue('message'),
@@ -502,8 +516,25 @@ const base = import.meta.env.BASE_URL;
         submitBtn.disabled = false;
       }
     }
-  });
+  };
+
+  nextBtn?.addEventListener('click', handleNext);
+  prevBtn?.addEventListener('click', handlePrev);
+  submitBtn?.addEventListener('click', handleSubmit);
 
   // Initialize
   showStep(1);
+
+  // Cleanup function for Astro view transitions
+  document.addEventListener('astro:before-swap', () => {
+    nextBtn?.removeEventListener('click', handleNext);
+    prevBtn?.removeEventListener('click', handlePrev);
+    submitBtn?.removeEventListener('click', handleSubmit);
+
+    // Clean up size option handlers
+    sizeOptionHandlers.forEach((handler, btn) => {
+      btn.removeEventListener('click', handler);
+    });
+    sizeOptionHandlers.clear();
+  });
 </script>

@@ -157,13 +157,18 @@ const navItems = [
   btn?.addEventListener('click', toggleMenu);
 
   // Mobile dropdown toggles
+  const mobileDropdownHandlers = new Map<Element, EventListener>();
+
   document.querySelectorAll('.mobile-dropdown-btn').forEach(button => {
-    button.addEventListener('click', () => {
+    const handler = () => {
       const content = button.nextElementSibling;
       const icon = button.querySelector('svg');
       content?.classList.toggle('hidden');
       icon?.classList.toggle('rotate-180');
-    });
+    };
+
+    mobileDropdownHandlers.set(button, handler);
+    button.addEventListener('click', handler);
   });
 
   // Close mobile menu when clicking outside
@@ -212,5 +217,11 @@ const navItems = [
     btn?.removeEventListener('click', toggleMenu);
     document.removeEventListener('click', handleOutsideClick);
     window.removeEventListener('scroll', debouncedScroll);
+
+    // Clean up mobile dropdown handlers
+    mobileDropdownHandlers.forEach((handler, button) => {
+      button.removeEventListener('click', handler);
+    });
+    mobileDropdownHandlers.clear();
   });
 </script>

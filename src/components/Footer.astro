@@ -171,7 +171,7 @@ const currentYear = new Date().getFullYear();
   const newsletterEmail = document.getElementById('newsletter-email') as HTMLInputElement | null;
   const newsletterMessage = document.getElementById('newsletter-message');
 
-  newsletterForm?.addEventListener('submit', async (e) => {
+  const handleNewsletterSubmit = async (e: Event) => {
     e.preventDefault();
 
     if (!newsletterEmail || !newsletterMessage) return;
@@ -249,5 +249,12 @@ const currentYear = new Date().getFullYear();
         submitBtn.textContent = 'Subscribe';
       }
     }
+  };
+
+  newsletterForm?.addEventListener('submit', handleNewsletterSubmit);
+
+  // Cleanup function for Astro view transitions
+  document.addEventListener('astro:before-swap', () => {
+    newsletterForm?.removeEventListener('submit', handleNewsletterSubmit);
   });
 </script>

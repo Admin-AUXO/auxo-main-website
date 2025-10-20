@@ -170,9 +170,16 @@ const base = import.meta.env.BASE_URL;
     place-items: center;
     border-radius: 0;
     transform-origin: center center;
-    visibility: hidden;
     box-shadow: 0 4px 12px rgba(163, 230, 53, 0.3);
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+    animation: tileReveal 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   }
+
+  .logo-tile:nth-child(1) { animation-delay: 0s; }
+  .logo-tile:nth-child(2) { animation-delay: 0.1s; }
+  .logo-tile:nth-child(3) { animation-delay: 0.2s; }
+  .logo-tile:nth-child(4) { animation-delay: 0.3s; }
 
   .logo-char {
     font-family: var(--font-brand);
@@ -182,46 +189,83 @@ const base = import.meta.env.BASE_URL;
     line-height: 1;
   }
 
-  .logo-caption,
+  .logo-caption {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
+  }
+
   .hero-content {
     opacity: 0;
-    visibility: hidden;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s forwards;
+  }
+
+  @keyframes tileReveal {
+    to {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Reset animation on page navigation */
+  .hero-animation-reset .logo-tile {
+    animation: none;
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+  }
+
+  .hero-animation-reset .logo-caption,
+  .hero-animation-reset .hero-content {
+    animation: none;
+    opacity: 0;
+  }
+
+  /* Trigger animation */
+  .hero-animate .logo-tile {
+    animation: tileReveal 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  .hero-animate .logo-tile:nth-child(1) { animation-delay: 0s; }
+  .hero-animate .logo-tile:nth-child(2) { animation-delay: 0.1s; }
+  .hero-animate .logo-tile:nth-child(3) { animation-delay: 0.2s; }
+  .hero-animate .logo-tile:nth-child(4) { animation-delay: 0.3s; }
+
+  .hero-animate .logo-caption {
+    animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
+  }
+
+  .hero-animate .hero-content {
+    animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s forwards;
   }
 </style>
 
 <script>
-  // Optimized GSAP import - only import what we need
-  import { gsap } from 'gsap';
-  import { Power3 } from 'gsap';
-
   function runHeroAnimation() {
-    const tiles = document.querySelectorAll<HTMLElement>('.logo-tile');
-    const caption = document.querySelector<HTMLElement>('.logo-caption');
-    const heroContent = document.querySelector<HTMLElement>('.hero-content');
+    const heroSection = document.getElementById('hero');
 
-    // Type guard to ensure elements exist
-    if (!tiles.length || !caption || !heroContent) {
-      console.warn('Hero animation elements not found');
+    if (!heroSection) {
+      console.warn('Hero section not found');
       return;
     }
 
-    const tl = gsap.timeline({ defaults: { ease: Power3.easeOut } });
+    // Reset animation
+    heroSection.classList.remove('hero-animate');
+    heroSection.classList.add('hero-animation-reset');
 
-    // Animate logo tiles
-    tl.fromTo(tiles,
-      { scale: 0, rotation: -180, visibility: 'visible' },
-      { scale: 1, rotation: 0, duration: 0.7, stagger: 0.1 }
-    )
-    // Fade in brand text
-    .fromTo(caption,
-      { opacity: 0, y: 20, visibility: 'visible' },
-      { opacity: 1, y: 0, duration: 0.6 }
-    )
-    // Fade in hero content
-    .fromTo(heroContent,
-      { opacity: 0, y: 30, visibility: 'visible' },
-      { opacity: 1, y: 0, duration: 0.8 }
-    );
+    // Force reflow to restart animation
+    void heroSection.offsetWidth;
+
+    // Trigger animation
+    heroSection.classList.remove('hero-animation-reset');
+    heroSection.classList.add('hero-animate');
   }
 
   // Run animation on initial page load

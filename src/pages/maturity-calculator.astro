@@ -1,7 +1,7 @@
-const base = import.meta.env.BASE_URL;
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Icon } from 'astro-icon/components';
+
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -346,15 +346,31 @@ const base = import.meta.env.BASE_URL;
     5: { name: 'Optimized', description: 'You\'re a data-driven organization with advanced analytics as a competitive advantage.', color: '#22c55e' }
   };
 
+  // Constants
+  const TOTAL_QUESTIONS = questions.length;
+
   // State
   let currentQuestion = 0;
-  let answers = [];
+  let answers: number[] = [];
 
   // Elements
   const introScreen = document.getElementById('intro-screen');
   const questionScreen = document.getElementById('question-screen');
   const resultsScreen = document.getElementById('results-screen');
   const startBtn = document.getElementById('start-btn');
+
+  // Type guards
+  function getElementSafe<T extends HTMLElement>(id: string): T | null {
+    const element = document.getElementById(id);
+    return element as T | null;
+  }
+
+  function assertElement<T extends HTMLElement>(element: T | null, name: string): T {
+    if (!element) {
+      throw new Error(`Required element "${name}" not found`);
+    }
+    return element;
+  }
 
   // Start assessment
   startBtn?.addEventListener('click', () => {
@@ -363,22 +379,30 @@ const base = import.meta.env.BASE_URL;
     showQuestion(0);
   });
 
-  function showQuestion(index) {
+  function showQuestion(index: number): void {
     const q = questions[index];
     currentQuestion = index;
 
     // Update progress
-    const progress = ((index + 1) / questions.length) * 100;
-    document.getElementById('q-num')!.textContent = String(index + 1);
-    document.getElementById('q-progress')!.textContent = String(Math.round(progress));
-    (document.getElementById('q-bar') as HTMLElement).style.width = `${progress}%`;
+    const progress = ((index + 1) / TOTAL_QUESTIONS) * 100;
+    const qNum = getElementSafe('q-num');
+    const qProgress = getElementSafe('q-progress');
+    const qBar = getElementSafe<HTMLElement>('q-bar');
+
+    if (qNum) qNum.textContent = String(index + 1);
+    if (qProgress) qProgress.textContent = String(Math.round(progress));
+    if (qBar) qBar.style.width = `${progress}%`;
 
     // Update question
-    document.getElementById('category-name')!.textContent = q.category;
-    document.getElementById('question-text')!.textContent = q.question;
+    const categoryName = getElementSafe('category-name');
+    const questionText = getElementSafe('question-text');
+
+    if (categoryName) categoryName.textContent = q.category;
+    if (questionText) questionText.textContent = q.question;
 
     // Update options
-    const optionsContainer = document.getElementById('answer-options')!;
+    const optionsContainer = getElementSafe('answer-options');
+    if (!optionsContainer) return;
     optionsContainer.innerHTML = '';
 
     q.options.forEach((option, i) => {
@@ -401,11 +425,14 @@ const base = import.meta.env.BASE_URL;
     });
 
     // Update navigation
-    document.getElementById('q-back-btn')!.disabled = index === 0;
-    document.getElementById('q-next-btn')!.disabled = !answers[index];
+    const backBtn = getElementSafe<HTMLButtonElement>('q-back-btn');
+    const nextBtn = getElementSafe<HTMLButtonElement>('q-next-btn');
+
+    if (backBtn) backBtn.disabled = index === 0;
+    if (nextBtn) nextBtn.disabled = !answers[index];
   }
 
-  function selectAnswer(score: number) {
+  function selectAnswer(score: number): void {
     answers[currentQuestion] = score;
 
     // Visual feedback
@@ -415,7 +442,8 @@ const base = import.meta.env.BASE_URL;
     (event?.target as HTMLElement).closest('.answer-option')?.classList.add('border-lime-400', 'bg-lime-400/10');
 
     // Enable next button
-    document.getElementById('q-next-btn')!.disabled = false;
+    const nextBtn = getElementSafe<HTMLButtonElement>('q-next-btn');
+    if (nextBtn) nextBtn.disabled = false;
   }
 
   document.getElementById('q-back-btn')?.addEventListener('click', () => {
@@ -425,14 +453,14 @@ const base = import.meta.env.BASE_URL;
   });
 
   document.getElementById('q-next-btn')?.addEventListener('click', () => {
-    if (currentQuestion < questions.length - 1) {
+    if (currentQuestion < TOTAL_QUESTIONS - 1) {
       showQuestion(currentQuestion + 1);
     } else {
       showResults();
     }
   });
 
-  function showResults() {
+  function showResults(): void {
     questionScreen?.classList.add('hidden');
     resultsScreen?.classList.remove('hidden');
 
@@ -443,7 +471,7 @@ const base = import.meta.env.BASE_URL;
       if (!dimensionScores[q.category]) {
         dimensionScores[q.category] = { total: 0, count: 0 };
       }
-      dimensionScores[q.category].total += answers[i];
+      dimensionScores[q.category].total += answers[i] || 0;
       dimensionScores[q.category].count += 1;
     });
 
@@ -457,14 +485,20 @@ const base = import.meta.env.BASE_URL;
     const overallScore = Object.values(avgScores).reduce((a, b) => a + b, 0) / Object.keys(avgScores).length;
     const maturityLevel = Math.round(overallScore);
 
-    // Display overall score
+    // Display overall score with type guards
     const level = maturityLevels[maturityLevel as keyof typeof maturityLevels];
-    document.getElementById('maturity-level')!.textContent = level.name;
-    document.getElementById('maturity-description')!.textContent = level.description;
-    (document.getElementById('maturity-level') as HTMLElement).style.color = level.color;
+    const levelEl = getElementSafe('maturity-level');
+    const descEl = getElementSafe('maturity-description');
+
+    if (levelEl) {
+      levelEl.textContent = level.name;
+      (levelEl as HTMLElement).style.color = level.color;
+    }
+    if (descEl) descEl.textContent = level.description;
 
     // Display dimension scores
-    const dimensionResults = document.getElementById('dimension-results')!;
+    const dimensionResults = getElementSafe('dimension-results');
+    if (!dimensionResults) return;
     dimensionResults.innerHTML = '';
 
     Object.entries(avgScores).forEach(([dimension, score]) => {

@@ -1,4 +1,3 @@
-const base = import.meta.env.BASE_URL;
 ---
 export interface Props {
   title?: string;
@@ -15,7 +14,7 @@ export interface Props {
 const {
   title = 'AUXO Data Labs | Dubai Analytics Consultancy',
   description = 'Leading analytics consultancy in Dubai, UAE. Transform data into actionable insights with advanced analytics, AI solutions, and data strategy services.',
-  image = '/og-image.jpg',
+  image = '/og-image.svg',
   article = false,
   publishedTime,
   modifiedTime,
@@ -62,18 +61,149 @@ const base = import.meta.env.BASE_URL;
 
 <!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
-<link rel="apple-touch-icon" sizes="180x180" href={`${base}apple-touch-icon.png`} />
+<link rel="apple-touch-icon" sizes="180x180" href={`${base}apple-touch-icon.svg`} />
 
 <!-- RSS Feed -->
 <link rel="alternate" type="application/rss+xml" title={siteName} href={`${base}rss.xml`} />
 
-<!-- Preconnect to external domains for performance -->
+<!-- Resource Hints for Performance -->
+<!-- DNS prefetch for external domains -->
+<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+<link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+<!-- Preconnect to critical external domains -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-<!-- Font Optimization -->
+<!-- Font Optimization - Only load essential fonts -->
+<!-- Preload critical fonts for better performance -->
 <link
-  href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;600;700;800&family=Montserrat:wght@400;600;900&family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap"
-  rel="stylesheet"
-  fetchpriority="high"
+  rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&family=Montserrat:wght@900&display=swap"
+  as="style"
+  onload="this.onload=null;this.rel='stylesheet'"
 />
+<noscript>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&family=Montserrat:wght@900&display=swap"
+    rel="stylesheet"
+  />
+</noscript>
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${siteURL}#organization`,
+      "name": "AUXO Data Labs",
+      "url": siteURL,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${siteURL}${base}logo.svg`,
+        "width": "512",
+        "height": "512"
+      },
+      "description": "Leading analytics consultancy in Dubai, UAE, specializing in data-driven insights and business intelligence solutions.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dubai",
+        "addressCountry": "AE"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+971-4-XXX-XXXX",
+        "contactType": "customer service",
+        "areaServed": "AE",
+        "availableLanguage": ["en", "ar"]
+      },
+      "sameAs": [
+        "https://linkedin.com/company/auxo-data-labs",
+        "https://twitter.com/auxodata"
+      ]
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": `${siteURL}#localbusiness`,
+      "name": "AUXO Data Labs",
+      "image": ogImage,
+      "url": siteURL,
+      "telephone": "+971-4-XXX-XXXX",
+      "priceRange": "$$$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Dubai Internet City",
+        "addressLocality": "Dubai",
+        "addressCountry": "AE"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "25.0957",
+        "longitude": "55.1694"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:00",
+        "closes": "18:00"
+      }
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": `${siteURL}#service`,
+      "name": "AUXO Data Labs",
+      "provider": {
+        "@id": `${siteURL}#organization`
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "United Arab Emirates"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Data Analytics Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Business Intelligence & Reporting",
+              "description": "Interactive dashboards and automated reporting systems"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Advanced Data Analytics",
+              "description": "Predictive modeling and actionable business insights"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Machine Learning & AI Solutions",
+              "description": "Custom ML models and AI-driven automation"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteURL}#website`,
+      "url": siteURL,
+      "name": siteName,
+      "publisher": {
+        "@id": `${siteURL}#organization`
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": `${siteURL}/search?q={search_term_string}`,
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ]
+})} />

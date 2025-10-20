@@ -13,7 +13,7 @@ const currentYear = new Date().getFullYear();
       <!-- Brand Column -->
       <div class="lg:col-span-2">
         <div class="flex items-center space-x-3 mb-4">
-          <img src={`${base}logo.svg`} alt="AUXO" class="h-12 w-12" />
+          <img src={`${base}logo.svg`} alt="AUXO Data Labs Logo" class="h-12 w-12" />
           <span class="text-white text-xl font-semibold tracking-tight">Data Labs</span>
         </div>
         <p class="text-gray-400 text-sm mb-4 max-w-sm italic leading-relaxed">{siteData.tagline}</p>
@@ -39,11 +39,11 @@ const currentYear = new Date().getFullYear();
 
         <!-- Social Links -->
         <div class="flex gap-3">
-          <a href={siteData.social.linkedin} class="w-10 h-10 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black transition-all group" aria-label="LinkedIn">
-            <Icon name="mdi:linkedin" class="w-5 h-5" />
+          <a href={siteData.social.linkedin} class="w-10 h-10 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black transition-all focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-zinc-950" aria-label="Follow AUXO Data Labs on LinkedIn" target="_blank" rel="noopener noreferrer">
+            <Icon name="mdi:linkedin" class="w-5 h-5" aria-hidden="true" />
           </a>
-          <a href={siteData.social.twitter} class="w-10 h-10 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black transition-all group" aria-label="Twitter">
-            <Icon name="mdi:twitter" class="w-5 h-5" />
+          <a href={siteData.social.twitter} class="w-10 h-10 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black transition-all focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-zinc-950" aria-label="Follow AUXO Data Labs on Twitter" target="_blank" rel="noopener noreferrer">
+            <Icon name="mdi:twitter" class="w-5 h-5" aria-hidden="true" />
           </a>
         </div>
       </div>
@@ -114,19 +114,36 @@ const currentYear = new Date().getFullYear();
       <div class="max-w-md">
         <h4 class="font-bold text-white mb-2 text-sm uppercase tracking-wider">Stay Updated</h4>
         <p class="text-gray-400 text-sm mb-4 leading-relaxed">Subscribe to our newsletter for <em>insights and updates</em>.</p>
-        <form class="flex gap-2">
-          <input
-            type="email"
-            placeholder="Enter your email"
-            class="flex-1 px-4 py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-sm focus:outline-none focus:border-lime-400 transition-colors font-medium"
-            required
-          />
-          <button
-            type="submit"
-            class="px-6 py-2 bg-lime-400 text-black font-bold rounded-lg hover:bg-lime-500 transition-colors text-sm whitespace-nowrap"
-          >
-            Subscribe
-          </button>
+        <form id="newsletter-form" class="space-y-3">
+          <div class="flex gap-2">
+            <input
+              id="newsletter-email"
+              type="email"
+              placeholder="Enter your email"
+              class="flex-1 px-4 py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-sm focus:outline-none focus:border-lime-400 transition-colors font-medium"
+              required
+              aria-label="Email address for newsletter"
+            />
+            <button
+              type="submit"
+              class="px-6 py-2 bg-lime-400 text-black font-bold rounded-lg hover:bg-lime-500 transition-colors text-sm whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Subscribe
+            </button>
+          </div>
+          <label class="flex items-start gap-2 cursor-pointer group">
+            <input
+              type="checkbox"
+              id="newsletter-consent"
+              required
+              class="mt-0.5 w-4 h-4 text-lime-400 bg-zinc-900 border-zinc-700 rounded focus:ring-lime-400 focus:ring-2"
+            />
+            <span class="text-xs text-gray-400 leading-tight group-hover:text-gray-300 transition-colors">
+              I consent to receive marketing emails and understand I can unsubscribe at any time.
+              <a href="/privacy-policy" class="text-lime-400 hover:underline">Privacy Policy</a>
+            </span>
+          </label>
+          <p id="newsletter-message" class="text-xs hidden"></p>
         </form>
       </div>
     </div>
@@ -147,3 +164,90 @@ const currentYear = new Date().getFullYear();
     </div>
   </div>
 </footer>
+
+<script>
+  // Newsletter form handler
+  const newsletterForm = document.getElementById('newsletter-form');
+  const newsletterEmail = document.getElementById('newsletter-email') as HTMLInputElement | null;
+  const newsletterMessage = document.getElementById('newsletter-message');
+
+  newsletterForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!newsletterEmail || !newsletterMessage) return;
+
+    const email = newsletterEmail.value.trim();
+    const consentCheckbox = document.getElementById('newsletter-consent') as HTMLInputElement;
+    const submitBtn = newsletterForm.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+    // Validate consent
+    if (!consentCheckbox?.checked) {
+      newsletterMessage.textContent = 'Please consent to receive marketing emails';
+      newsletterMessage.className = 'text-xs text-red-400';
+      newsletterMessage.classList.remove('hidden');
+      return;
+    }
+
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      newsletterMessage.textContent = 'Please enter a valid email address';
+      newsletterMessage.className = 'text-xs text-red-400';
+      newsletterMessage.classList.remove('hidden');
+      return;
+    }
+
+    // Disable submit button
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Subscribing...';
+    }
+
+    try {
+      // TODO: Replace with actual newsletter API endpoint
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, timestamp: new Date().toISOString() }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Subscription failed');
+      }
+
+      // Success
+      newsletterMessage.textContent = 'Thank you for subscribing!';
+      newsletterMessage.className = 'text-xs mt-2 text-lime-400';
+      newsletterMessage.classList.remove('hidden');
+      newsletterEmail.value = '';
+
+      // Hide message after 5 seconds
+      setTimeout(() => {
+        newsletterMessage.classList.add('hidden');
+      }, 5000);
+
+    } catch (error) {
+      console.error('Newsletter subscription error:', error);
+
+      // For demo: Show success anyway (remove when backend is ready)
+      if (error instanceof Error && error.message.includes('Failed to fetch')) {
+        newsletterMessage.textContent = 'Subscribed successfully! (Demo mode)';
+        newsletterMessage.className = 'text-xs mt-2 text-lime-400';
+        newsletterMessage.classList.remove('hidden');
+        newsletterEmail.value = '';
+
+        setTimeout(() => newsletterMessage.classList.add('hidden'), 5000);
+      } else {
+        newsletterMessage.textContent = 'Subscription failed. Please try again.';
+        newsletterMessage.className = 'text-xs mt-2 text-red-400';
+        newsletterMessage.classList.remove('hidden');
+      }
+    } finally {
+      // Re-enable submit button
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Subscribe';
+      }
+    }
+  });
+</script>

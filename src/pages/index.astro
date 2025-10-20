@@ -190,14 +190,22 @@ const base = import.meta.env.BASE_URL;
 </style>
 
 <script>
-  import gsap from 'gsap';
+  // Optimized GSAP import - only import what we need
+  import { gsap } from 'gsap';
+  import { Power3 } from 'gsap';
 
   document.addEventListener('DOMContentLoaded', () => {
-    const tiles = document.querySelectorAll('.logo-tile');
-    const caption = document.querySelector('.logo-caption');
-    const heroContent = document.querySelector('.hero-content');
+    const tiles = document.querySelectorAll<HTMLElement>('.logo-tile');
+    const caption = document.querySelector<HTMLElement>('.logo-caption');
+    const heroContent = document.querySelector<HTMLElement>('.hero-content');
 
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    // Type guard to ensure elements exist
+    if (!tiles.length || !caption || !heroContent) {
+      console.warn('Hero animation elements not found');
+      return;
+    }
+
+    const tl = gsap.timeline({ defaults: { ease: Power3.easeOut } });
 
     // Animate logo tiles
     tl.fromTo(tiles,

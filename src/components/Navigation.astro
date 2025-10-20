@@ -24,8 +24,8 @@ const navItems = [
   <div class="container mx-auto px-4">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
-      <a href={base} class="flex items-center space-x-3 group">
-        <img src={`${base}logo.svg`} alt="AUXO" class="h-10 w-10 transition-transform group-hover:scale-110 group-hover:rotate-3" />
+      <a href={base} class="flex items-center space-x-3 group" aria-label="AUXO Data Labs Home">
+        <img src={`${base}logo.svg`} alt="AUXO Data Labs Logo" class="h-10 w-10 transition-transform group-hover:scale-110 group-hover:rotate-3" />
         <span class="text-white text-lg font-bold tracking-tight">Data Labs</span>
       </a>
 
@@ -86,8 +86,8 @@ const navItems = [
       </div>
 
       <!-- Mobile Menu Button -->
-      <button id="mobile-menu-button" class="md:hidden text-white p-2 rounded-lg hover:bg-zinc-800 transition-colors">
-        <svg class="w-6 h-6 menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <button id="mobile-menu-button" class="md:hidden text-white p-2 rounded-lg hover:bg-zinc-800 transition-colors focus:outline-none focus:ring-2 focus:ring-lime-400" aria-label="Toggle mobile menu" aria-expanded="false">
+        <svg class="w-6 h-6 menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path class="menu-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
           <path class="menu-close hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
@@ -129,17 +129,33 @@ const navItems = [
 </nav>
 
 <script>
+  // Utility: Debounce function for performance optimization
+  function debounce<T extends (...args: any[]) => void>(
+    func: T,
+    wait: number
+  ): (...args: Parameters<T>) => void {
+    let timeout: ReturnType<typeof setTimeout> | null = null;
+    return function(...args: Parameters<T>) {
+      if (timeout) clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), wait);
+    };
+  }
+
   // Mobile menu toggle
   const btn = document.getElementById('mobile-menu-button');
   const menu = document.getElementById('mobile-menu');
   const menuOpen = document.querySelector('.menu-open');
   const menuClose = document.querySelector('.menu-close');
 
-  btn?.addEventListener('click', () => {
+  const toggleMenu = () => {
+    const isExpanded = menu?.classList.contains('hidden') === false;
     menu?.classList.toggle('hidden');
     menuOpen?.classList.toggle('hidden');
     menuClose?.classList.toggle('hidden');
-  });
+    btn?.setAttribute('aria-expanded', String(!isExpanded));
+  };
+
+  btn?.addEventListener('click', toggleMenu);
 
   // Mobile dropdown toggles
   document.querySelectorAll('.mobile-dropdown-btn').forEach(button => {
@@ -152,30 +168,35 @@ const navItems = [
   });
 
   // Close mobile menu when clicking outside
-  document.addEventListener('click', (e) => {
+  const handleOutsideClick = (e: Event) => {
     const target = e.target as HTMLElement;
     if (!target.closest('nav') && !menu?.classList.contains('hidden')) {
       menu?.classList.add('hidden');
       menuOpen?.classList.remove('hidden');
       menuClose?.classList.add('hidden');
+      btn?.setAttribute('aria-expanded', 'false');
     }
-  });
+  };
 
-  // Scroll behavior - add shadow on scroll
-  let lastScroll = 0;
+  document.addEventListener('click', handleOutsideClick);
+
+  // Scroll behavior - add shadow on scroll (debounced for performance)
   const nav = document.querySelector('nav');
+  const SCROLL_THRESHOLD = 20;
 
-  window.addEventListener('scroll', () => {
+  const handleScroll = () => {
     const currentScroll = window.pageYOffset;
 
-    if (currentScroll > 20) {
+    if (currentScroll > SCROLL_THRESHOLD) {
       nav?.classList.add('shadow-lg', 'shadow-black/50');
     } else {
       nav?.classList.remove('shadow-lg', 'shadow-black/50');
     }
+  };
 
-    lastScroll = currentScroll;
-  });
+  // Debounced scroll handler to improve performance
+  const debouncedScroll = debounce(handleScroll, 10);
+  window.addEventListener('scroll', debouncedScroll, { passive: true });
 
   // Active link highlighting
   const currentPath = window.location.pathname;
@@ -184,5 +205,13 @@ const navItems = [
     if (currentPath === href || (currentPath.startsWith(href) && href !== '/')) {
       link.classList.add('text-lime-400', 'bg-lime-400/10');
     }
+  });
+
+  // Cleanup function for Astro view transitions
+  document.addEventListener('astro:before-swap', () => {
+    // Remove event listeners before page swap to prevent memory leaks
+    btn?.removeEventListener('click', toggleMenu);
+    document.removeEventListener('click', handleOutsideClick);
+    window.removeEventListener('scroll', debouncedScroll);
   });
 </script>

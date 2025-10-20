@@ -290,15 +290,44 @@ const base = import.meta.env.BASE_URL;
 </style>
 
 <script>
-  let currentStep = 1;
-  const totalSteps = 4;
+  // Constants
+  const TOTAL_STEPS = 4;
+  const API_TIMEOUT = 10000; // 10 seconds
 
+  // State
+  let currentStep = 1;
+  let isSubmitting = false;
+
+  // Elements
   const prevBtn = document.getElementById('prev-btn');
   const nextBtn = document.getElementById('next-btn');
   const submitBtn = document.getElementById('submit-btn');
   const progressBar = document.getElementById('progress-bar');
   const currentStepNum = document.getElementById('current-step-num');
   const progressPercent = document.getElementById('progress-percent');
+
+  // Utility: Show toast notification
+  function showNotification(message: string, type: 'success' | 'error' | 'warning' = 'error'): void {
+    const toast = document.createElement('div');
+    toast.className = `fixed top-24 right-4 z-50 px-6 py-4 rounded-lg shadow-lg transform transition-all duration-300 translate-x-0 ${
+      type === 'success' ? 'bg-lime-400 text-black' :
+      type === 'error' ? 'bg-red-500 text-white' :
+      'bg-yellow-500 text-black'
+    }`;
+    toast.innerHTML = `
+      <div class="flex items-center gap-3">
+        <span class="font-semibold">${message}</span>
+        <button onclick="this.parentElement.parentElement.remove()" class="hover:opacity-70">✕</button>
+      </div>
+    `;
+    document.body.appendChild(toast);
+
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+      toast.style.transform = 'translateX(400px)';
+      setTimeout(() => toast.remove(), 300);
+    }, 5000);
+  }
 
   // Company size selection
   document.querySelectorAll('.size-option').forEach(btn => {
@@ -309,49 +338,52 @@ const base = import.meta.env.BASE_URL;
     });
   });
 
-  function updateProgress() {
-    const percent = (currentStep / totalSteps) * 100;
-    progressBar.style.width = `${percent}%`;
-    currentStepNum.textContent = currentStep;
-    progressPercent.textContent = Math.round(percent);
+  function updateProgress(): void {
+    const percent = (currentStep / TOTAL_STEPS) * 100;
+    if (progressBar) progressBar.style.width = `${percent}%`;
+    if (currentStepNum) currentStepNum.textContent = String(currentStep);
+    if (progressPercent) progressPercent.textContent = String(Math.round(percent));
   }
 
-  function showStep(step) {
+  function showStep(step: number): void {
     document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
-    document.querySelector(`[data-step="${step}"]`).classList.add('active');
+    const stepEl = document.querySelector(`[data-step="${step}"]`);
+    stepEl?.classList.add('active');
 
-    prevBtn.disabled = step === 1;
+    if (prevBtn) prevBtn.disabled = step === 1;
 
-    if (step === totalSteps) {
-      nextBtn.classList.add('hidden');
-      submitBtn.classList.remove('hidden');
+    if (step === TOTAL_STEPS) {
+      nextBtn?.classList.add('hidden');
+      submitBtn?.classList.remove('hidden');
     } else {
-      nextBtn.classList.remove('hidden');
-      submitBtn.classList.add('hidden');
+      nextBtn?.classList.remove('hidden');
+      submitBtn?.classList.add('hidden');
     }
 
     updateProgress();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function validateStep(step) {
+  function validateStep(step: number): boolean {
     const currentStepEl = document.querySelector(`[data-step="${step}"]`);
-    const requiredFields = currentStepEl.querySelectorAll('[required]');
+    const requiredFields = currentStepEl?.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[required]');
+
+    if (!requiredFields) return false;
 
     for (let field of requiredFields) {
       if (field.type === 'checkbox') {
         // For step 3, at least one service must be selected
         if (step === 3) {
-          const serviceChecks = document.querySelectorAll('input[name="services[]"]');
+          const serviceChecks = document.querySelectorAll<HTMLInputElement>('input[name="services[]"]');
           const anyChecked = Array.from(serviceChecks).some(cb => cb.checked);
           if (!anyChecked) {
-            alert('Please select at least one service');
+            showNotification('Please select at least one service', 'warning');
             return false;
           }
         }
       } else if (!field.value.trim()) {
         field.focus();
-        alert('Please fill in all required fields');
+        showNotification('Please fill in all required fields', 'warning');
         return false;
       }
     }
@@ -372,33 +404,104 @@ const base = import.meta.env.BASE_URL;
 
   submitBtn?.addEventListener('click', async () => {
     if (!validateStep(currentStep)) return;
+    if (isSubmitting) return; // Prevent double submission
 
-    // Collect form data
-    const formData = {
-      name: document.getElementById('name').value,
-      email: document.getElementById('email').value,
-      company: document.getElementById('company').value,
-      phone: document.getElementById('phone').value,
-      industry: document.getElementById('industry').value,
-      companySize: document.getElementById('company-size').value,
-      role: document.getElementById('role').value,
-      services: Array.from(document.querySelectorAll('input[name="services[]"]:checked')).map(cb => cb.value),
-      timeline: document.getElementById('timeline').value,
-      budget: document.getElementById('budget').value,
-      message: document.getElementById('message').value,
-      hearAbout: document.getElementById('hear-about').value,
-      newsletter: document.getElementById('newsletter').checked,
-    };
+    isSubmitting = true;
+    const originalText = submitBtn?.textContent || '';
+    if (submitBtn) submitBtn.textContent = 'Submitting...';
+    if (submitBtn) submitBtn.disabled = true;
 
-    // Here you would normally send to your backend
-    // For now, we'll simulate a successful submission
-    console.log('Form submitted:', formData);
+    try {
+      // Collect form data with type safety
+      const getInputValue = (id: string): string => {
+        const el = document.getElementById(id) as HTMLInputElement | null;
+        return el?.value || '';
+      };
 
-    // Show success message
-    document.querySelector('.form-step.active').classList.remove('active');
-    document.getElementById('success-message').classList.remove('hidden');
-    document.querySelector('.flex.justify-between').classList.add('hidden');
-    document.querySelector('.mb-8').classList.add('hidden'); // Hide progress bar
+      const formData = {
+        name: getInputValue('name'),
+        email: getInputValue('email'),
+        company: getInputValue('company'),
+        phone: getInputValue('phone'),
+        industry: getInputValue('industry'),
+        companySize: getInputValue('company-size'),
+        role: getInputValue('role'),
+        services: Array.from(document.querySelectorAll<HTMLInputElement>('input[name="services[]"]:checked')).map(cb => cb.value),
+        timeline: getInputValue('timeline'),
+        budget: getInputValue('budget'),
+        message: getInputValue('message'),
+        hearAbout: getInputValue('hear-about'),
+        newsletter: (document.getElementById('newsletter') as HTMLInputElement)?.checked || false,
+        timestamp: new Date().toISOString(),
+      };
+
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email)) {
+        showNotification('Please enter a valid email address', 'warning');
+        return;
+      }
+
+      // Backend submission with timeout
+      // TODO: Replace with actual API endpoint
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT);
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+          signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+          throw new Error(`Server error: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log('Form submitted successfully:', result);
+
+        // Show success message
+        document.querySelector('.form-step.active')?.classList.remove('active');
+        document.getElementById('success-message')?.classList.remove('hidden');
+        document.querySelector('.flex.justify-between')?.classList.add('hidden');
+        document.querySelector('.mb-8')?.classList.add('hidden');
+
+        showNotification('Thank you! We\'ll be in touch soon.', 'success');
+
+      } catch (fetchError) {
+        if ((fetchError as Error).name === 'AbortError') {
+          throw new Error('Request timeout - please try again');
+        }
+        throw fetchError;
+      }
+
+    } catch (error) {
+      console.error('Form submission error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+
+      // For demo: Show success anyway (remove this when backend is ready)
+      if (errorMessage.includes('Failed to fetch') || errorMessage.includes('/api/contact')) {
+        console.warn('Backend not available - showing success for demo purposes');
+        document.querySelector('.form-step.active')?.classList.remove('active');
+        document.getElementById('success-message')?.classList.remove('hidden');
+        document.querySelector('.flex.justify-between')?.classList.add('hidden');
+        document.querySelector('.mb-8')?.classList.add('hidden');
+        showNotification('Form submitted (demo mode)', 'success');
+      } else {
+        showNotification(`Submission failed: ${errorMessage}`, 'error');
+      }
+
+    } finally {
+      isSubmitting = false;
+      if (submitBtn) {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }
+    }
   });
 
   // Initialize

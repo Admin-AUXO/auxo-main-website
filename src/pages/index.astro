@@ -16,7 +16,7 @@ const base = import.meta.env.BASE_URL;
   <Navigation />
 
   <!-- Hero Section with Animated Logo -->
-  <section id="hero" class="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-black via-zinc-950 to-black overflow-hidden pt-32 md:pt-40">
+  <section id="hero" class="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-black via-zinc-950 to-black overflow-hidden pt-20 pb-16">
     <!-- Background Effects -->
     <div class="absolute inset-0 opacity-20">
       <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-lime-400/10 rounded-full blur-3xl animate-pulse"></div>
@@ -26,8 +26,8 @@ const base = import.meta.env.BASE_URL;
     <div class="container mx-auto px-4 relative z-10">
       <div class="max-w-6xl mx-auto">
         <!-- Logo Animation Container -->
-        <div class="logo-reveal-container mb-10 flex justify-center">
-          <div class="logo-grid grid grid-cols-2 gap-3 w-44 md:w-52">
+        <div class="logo-reveal-container mb-6 flex justify-center">
+          <div class="logo-grid grid grid-cols-2 gap-2 w-32 md:w-40">
             <div class="logo-tile aspect-square" data-char="A"><span class="logo-char">A</span></div>
             <div class="logo-tile aspect-square" data-char="U"><span class="logo-char">U</span></div>
             <div class="logo-tile aspect-square" data-char="X"><span class="logo-char">X</span></div>
@@ -36,50 +36,50 @@ const base = import.meta.env.BASE_URL;
         </div>
 
         <!-- Brand Text -->
-        <div class="logo-caption text-center mb-7">
-          <h1 class="text-2xl md:text-3xl font-semibold mb-2 text-white tracking-tight">
+        <div class="logo-caption text-center mb-6">
+          <h1 class="text-xl md:text-2xl font-semibold mb-1 text-white tracking-tight">
             Data Labs
           </h1>
-          <p class="tagline text-base md:text-lg text-gray-400 font-light italic">Look Beyond Data</p>
+          <p class="tagline text-sm md:text-base text-gray-400 font-light italic">Look Beyond Data</p>
         </div>
 
         <!-- Hero Content -->
         <div class="hero-content text-center max-w-4xl mx-auto">
-          <div class="inline-block mb-5 px-4 py-2 bg-lime-400/10 border border-lime-400/30 rounded-full">
-            <span class="text-lime-400 text-sm font-semibold tracking-wide">Dubai's Premier Analytics Partner</span>
+          <div class="inline-block mb-4 px-4 py-1.5 bg-lime-400/10 border border-lime-400/30 rounded-full">
+            <span class="text-lime-400 text-xs md:text-sm font-semibold tracking-wide">Dubai's Premier Analytics Partner</span>
           </div>
 
-          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-5 leading-tight">
+          <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 leading-tight">
             Transform Data Into<br/>
             <span class="text-gradient-green">Actionable Insights</span>
           </h2>
 
-          <p class="text-base md:text-lg text-gray-400 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Empowering UAE businesses with <span class="font-medium text-gray-300">data-driven strategies</span>, advanced analytics, and AI solutions for sustainable growth
+          <p class="text-sm md:text-base text-gray-400 mb-6 max-w-2xl mx-auto leading-relaxed">
+            Empowering UAE businesses with data-driven strategies and AI solutions
           </p>
 
-          <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
-            <a href={`${base}contact`} class="group bg-lime-400 text-black px-8 py-3.5 rounded-lg font-semibold hover:bg-lime-500 transition-all shadow-lg shadow-lime-400/20 hover:shadow-lime-400/40 hover:scale-105">
+          <div class="flex flex-col sm:flex-row gap-3 justify-center mb-6">
+            <a href={`${base}contact`} class="group bg-lime-400 text-black px-6 py-2.5 rounded-lg font-semibold hover:bg-lime-500 transition-all shadow-lg shadow-lime-400/20 hover:shadow-lime-400/40 hover:scale-105 text-sm">
               Schedule Free Consultation
-              <Icon name="mdi:arrow-right" class="inline w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              <Icon name="mdi:arrow-right" class="inline w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </a>
-            <a href="#services" class="border-2 border-lime-400 text-lime-400 px-8 py-3.5 rounded-lg font-semibold hover:bg-lime-400 hover:text-black transition-all hover:scale-105">
+            <a href="#services" class="border-2 border-lime-400 text-lime-400 px-6 py-2.5 rounded-lg font-semibold hover:bg-lime-400 hover:text-black transition-all hover:scale-105 text-sm">
               Explore Services
             </a>
           </div>
 
-          <div class="flex flex-wrap justify-center gap-6 md:gap-8 text-sm text-gray-500">
-            <div class="flex items-center gap-2">
-              <Icon name="mdi:check-circle" class="w-5 h-5 text-lime-400" />
+          <div class="flex flex-wrap justify-center gap-4 md:gap-6 text-xs md:text-sm text-gray-500">
+            <div class="flex items-center gap-1.5">
+              <Icon name="mdi:check-circle" class="w-4 h-4 text-lime-400" />
               <span class="font-medium">UAE PDPL Compliant</span>
             </div>
-            <div class="flex items-center gap-2">
-              <Icon name="mdi:check-circle" class="w-5 h-5 text-lime-400" />
-              <span class="font-medium">Enterprise-Grade Security</span>
+            <div class="flex items-center gap-1.5">
+              <Icon name="mdi:check-circle" class="w-4 h-4 text-lime-400" />
+              <span class="font-medium">Enterprise Security</span>
             </div>
-            <div class="flex items-center gap-2">
-              <Icon name="mdi:check-circle" class="w-5 h-5 text-lime-400" />
-              <span class="font-medium">Dubai-Based Team</span>
+            <div class="flex items-center gap-1.5">
+              <Icon name="mdi:check-circle" class="w-4 h-4 text-lime-400" />
+              <span class="font-medium">Dubai-Based</span>
             </div>
           </div>
         </div>
@@ -87,10 +87,10 @@ const base = import.meta.env.BASE_URL;
     </div>
 
     <!-- Scroll Indicator -->
-    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+    <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce">
       <a href="#services" class="flex flex-col items-center text-gray-500 hover:text-lime-400 transition-colors">
-        <span class="text-xs mb-2">Scroll to explore</span>
-        <Icon name="mdi:chevron-down" class="w-6 h-6" />
+        <span class="text-xs mb-1">Scroll to explore</span>
+        <Icon name="mdi:chevron-down" class="w-5 h-5" />
       </a>
     </div>
   </section>

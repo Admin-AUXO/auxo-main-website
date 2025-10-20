@@ -1,7 +1,19 @@
 ---
+import { services } from '../data/services';
+
 const base = import.meta.env.BASE_URL;
+
 const navItems = [
-  { name: 'Services', href: `${base}services` },
+  {
+    name: 'Services',
+    href: `${base}services`,
+    dropdown: services.map(s => ({
+      name: s.title,
+      href: `${base}services/${s.id}`,
+      icon: s.icon,
+      description: s.description.substring(0, 60) + '...'
+    }))
+  },
   { name: 'About', href: `${base}about` },
   { name: 'Case Studies', href: `${base}case-studies` },
   { name: 'Blog', href: `${base}blog` },
@@ -9,38 +21,117 @@ const navItems = [
 ];
 ---
 
-<nav class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-gray-800 transition-all duration-300">
+<nav class="fixed top-0 w-full z-50 bg-black/95 backdrop-blur-lg border-b border-gray-800/50 transition-all duration-300">
   <div class="container mx-auto px-4">
     <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
       <a href={base} class="flex items-center space-x-3 group">
-        <img src={`${base}logo.svg`} alt="AUXO" class="h-10 w-10 transition-transform group-hover:scale-110 group-hover:rotate-2" />
-        <span class="text-white text-lg font-semibold tracking-tight">Data Labs</span>
+        <img src={`${base}logo.svg`} alt="AUXO" class="h-10 w-10 transition-transform group-hover:scale-110 group-hover:rotate-3" />
+        <span class="text-white text-lg font-bold tracking-tight">Data Labs</span>
       </a>
 
-      <div class="hidden md:flex items-center space-x-8">
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-1">
         {navItems.map(item => (
-          <a href={item.href} class="relative text-gray-300 hover:text-lime-400 transition-all duration-300 group font-medium">
-            {item.name}
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-lime-400 group-hover:w-full transition-all duration-300"></span>
-          </a>
+          item.dropdown ? (
+            <div class="relative group">
+              <button class="nav-link px-4 py-2 text-gray-300 hover:text-lime-400 transition-all duration-300 font-medium rounded-lg hover:bg-lime-400/5 flex items-center gap-1">
+                {item.name}
+                <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+
+              <!-- Mega Dropdown -->
+              <div class="absolute left-0 mt-2 w-[600px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
+                <div class="bg-zinc-900 border border-gray-800 rounded-xl shadow-2xl p-6">
+                  <div class="grid grid-cols-2 gap-4">
+                    {item.dropdown.map((sub: any) => (
+                      <a
+                        href={sub.href}
+                        class="group/item p-4 rounded-lg hover:bg-zinc-800 transition-all duration-200 border border-transparent hover:border-lime-400/30"
+                      >
+                        <div class="flex items-start gap-3">
+                          <div class="w-10 h-10 bg-lime-400/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-lime-400/20 transition-colors">
+                            <svg class="w-5 h-5 text-lime-400" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M12 2L2 7L12 12L22 7L12 2Z"></path>
+                              <path d="M2 17L12 22L22 17"></path>
+                              <path d="M2 12L12 17L22 12"></path>
+                            </svg>
+                          </div>
+                          <div class="flex-1">
+                            <h3 class="font-semibold text-white mb-1 text-sm group-hover/item:text-lime-400 transition-colors">
+                              {sub.name}
+                            </h3>
+                            <p class="text-xs text-gray-400 line-clamp-2">
+                              {sub.description}
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                  <div class="mt-4 pt-4 border-t border-gray-800">
+                    <a href={`${base}services`} class="text-sm text-lime-400 hover:text-lime-300 font-medium flex items-center gap-2">
+                      View All Services
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <a href={item.href} class="nav-link px-4 py-2 text-gray-300 hover:text-lime-400 transition-all duration-300 font-medium rounded-lg hover:bg-lime-400/5">
+              {item.name}
+            </a>
+          )
         ))}
+        <a href={`${base}contact`} class="ml-2 px-5 py-2 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-all hover:scale-105 shadow-lg shadow-lime-400/20">
+          Get Started
+        </a>
       </div>
 
-      <button id="mobile-menu-button" class="md:hidden text-white">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="width" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-button" class="md:hidden text-white p-2 rounded-lg hover:bg-zinc-800 transition-colors">
+        <svg class="w-6 h-6 menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path class="menu-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          <path class="menu-close hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
       </button>
     </div>
   </div>
 
-  <div id="mobile-menu" class="hidden md:hidden bg-black border-t border-gray-800">
-    <div class="px-4 py-4 space-y-3">
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-zinc-900 border-t border-gray-800 max-h-[calc(100vh-4rem)] overflow-y-auto">
+    <div class="px-4 py-4 space-y-2">
       {navItems.map(item => (
-        <a href={item.href} class="block text-gray-300 hover:text-lime-400 transition-colors">
-          {item.name}
-        </a>
+        item.dropdown ? (
+          <div class="mobile-dropdown">
+            <button class="mobile-dropdown-btn w-full flex items-center justify-between px-4 py-3 text-gray-300 hover:text-lime-400 hover:bg-zinc-800 rounded-lg transition-colors font-medium">
+              <span>{item.name}</span>
+              <svg class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div class="mobile-dropdown-content hidden pl-4 mt-2 space-y-1">
+              {item.dropdown.map((sub: any) => (
+                <a href={sub.href} class="block px-4 py-2 text-sm text-gray-400 hover:text-lime-400 hover:bg-zinc-800 rounded-lg transition-colors">
+                  {sub.name}
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a href={item.href} class="block px-4 py-3 text-gray-300 hover:text-lime-400 hover:bg-zinc-800 rounded-lg transition-colors font-medium">
+            {item.name}
+          </a>
+        )
       ))}
+      <a href={`${base}contact`} class="block mx-4 mt-4 px-5 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors text-center">
+        Get Started
+      </a>
     </div>
   </div>
 </nav>
@@ -49,21 +140,46 @@ const navItems = [
   // Mobile menu toggle
   const btn = document.getElementById('mobile-menu-button');
   const menu = document.getElementById('mobile-menu');
+  const menuOpen = document.querySelector('.menu-open');
+  const menuClose = document.querySelector('.menu-close');
+
   btn?.addEventListener('click', () => {
     menu?.classList.toggle('hidden');
+    menuOpen?.classList.toggle('hidden');
+    menuClose?.classList.toggle('hidden');
   });
 
-  // Scroll behavior - shrink nav on scroll
+  // Mobile dropdown toggles
+  document.querySelectorAll('.mobile-dropdown-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const content = button.nextElementSibling;
+      const icon = button.querySelector('svg');
+      content?.classList.toggle('hidden');
+      icon?.classList.toggle('rotate-180');
+    });
+  });
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest('nav') && !menu?.classList.contains('hidden')) {
+      menu?.classList.add('hidden');
+      menuOpen?.classList.remove('hidden');
+      menuClose?.classList.add('hidden');
+    }
+  });
+
+  // Scroll behavior - add shadow on scroll
   let lastScroll = 0;
   const nav = document.querySelector('nav');
 
   window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
 
-    if (currentScroll > 100) {
-      nav?.classList.add('shadow-lg');
+    if (currentScroll > 20) {
+      nav?.classList.add('shadow-lg', 'shadow-black/50');
     } else {
-      nav?.classList.remove('shadow-lg');
+      nav?.classList.remove('shadow-lg', 'shadow-black/50');
     }
 
     lastScroll = currentScroll;
@@ -71,10 +187,10 @@ const navItems = [
 
   // Active link highlighting
   const currentPath = window.location.pathname;
-  document.querySelectorAll('nav a').forEach(link => {
-    if (link.getAttribute('href') === currentPath ||
-        (currentPath.startsWith(link.getAttribute('href') || '') && link.getAttribute('href') !== '/')) {
-      link.classList.add('text-lime-400');
+  document.querySelectorAll('.nav-link').forEach(link => {
+    const href = link.getAttribute('href') || '';
+    if (currentPath === href || (currentPath.startsWith(href) && href !== '/')) {
+      link.classList.add('text-lime-400', 'bg-lime-400/10');
     }
   });
 </script>

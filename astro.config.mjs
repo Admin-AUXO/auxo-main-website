@@ -13,7 +13,12 @@ export default defineConfig({
   base: '/auxo-main-website',
   integrations: [
     mdx(),
-    sitemap(),
+    sitemap({
+      filter: (page) => !page.includes('/api/'), // Exclude API routes from sitemap
+      changefreq: 'weekly',
+      priority: 0.7,
+      lastmod: new Date(),
+    }),
     partytown({
       config: {
         forward: ['dataLayer.push'],
@@ -27,11 +32,26 @@ export default defineConfig({
         mdi: ['*'], // Material Design Icons
         lucide: ['*'], // Lucide icons
       },
+      svgoOptions: {
+        multipass: true,
+        plugins: [
+          {
+            name: 'preset-default',
+            params: {
+              overrides: {
+                removeViewBox: false,
+              },
+            },
+          },
+        ],
+      },
     }),
     compress({
       CSS: true,
       HTML: {
         removeAttributeQuotes: false,
+        minifyCSS: true,
+        minifyJS: true,
       },
       Image: false,
       JavaScript: true,
@@ -39,6 +59,9 @@ export default defineConfig({
       Logger: 1,
     }),
   ],
+  experimental: {
+    clientPrerender: true, // Enable client-side prerendering for faster navigation
+  },
   image: {
     service: {
       entrypoint: 'astro/assets/services/sharp',

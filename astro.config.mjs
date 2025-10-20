@@ -9,7 +9,8 @@ import icon from 'astro-icon';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://auxodata.ae', // Replace with your actual domain
+  site: 'https://admin-auxo.github.io',
+  base: '/auxo-main-website',
   integrations: [
     mdx(),
     sitemap(),

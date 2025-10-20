@@ -1,18 +1,19 @@
 ---
+const base = import.meta.env.BASE_URL;
 const navItems = [
-  { name: 'Services', href: '/services' },
-  { name: 'About', href: '/about' },
-  { name: 'Case Studies', href: '/case-studies' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Services', href: `${base}services` },
+  { name: 'About', href: `${base}about` },
+  { name: 'Case Studies', href: `${base}case-studies` },
+  { name: 'Blog', href: `${base}blog` },
+  { name: 'Contact', href: `${base}contact` },
 ];
 ---
 
 <nav class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-gray-800 transition-all duration-300">
   <div class="container mx-auto px-4">
     <div class="flex items-center justify-between h-16">
-      <a href="/" class="flex items-center space-x-3 group">
-        <img src="/logo.svg" alt="AUXO" class="h-10 w-10 transition-transform group-hover:scale-110 group-hover:rotate-2" />
+      <a href={base} class="flex items-center space-x-3 group">
+        <img src={`${base}logo.svg`} alt="AUXO" class="h-10 w-10 transition-transform group-hover:scale-110 group-hover:rotate-2" />
         <span class="text-white text-lg font-semibold tracking-tight">Data Labs</span>
       </a>
 

@@ -16,7 +16,6 @@ const navItems = [
   { name: 'About', href: `${base}about` },
   { name: 'Case Studies', href: `${base}case-studies` },
   { name: 'Blog', href: `${base}blog` },
-  { name: 'Contact', href: `${base}contact` },
 ];
 ---
 
@@ -24,8 +23,8 @@ const navItems = [
   <div class="container mx-auto px-4">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
-      <a href={base} class="flex items-center space-x-3 group" aria-label="AUXO Data Labs Home">
-        <img src={`${base}logo.svg`} alt="AUXO Data Labs Logo" class="h-10 w-10 transition-transform group-hover:scale-110 group-hover:rotate-3" />
+      <a href={`${base}`} class="flex items-center space-x-3 group" aria-label="AUXO Data Labs Home">
+        <img src="/logo.svg" alt="AUXO Data Labs Logo" class="h-10 w-10 transition-transform group-hover:scale-110 group-hover:rotate-3" />
         <span class="text-white text-lg font-bold tracking-tight">Data Labs</span>
       </a>
 

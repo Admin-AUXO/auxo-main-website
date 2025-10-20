@@ -30,7 +30,6 @@ export default defineConfig({
     icon({
       include: {
         mdi: ['*'], // Material Design Icons
-        lucide: ['*'], // Lucide icons
       },
       svgoOptions: {
         multipass: true,

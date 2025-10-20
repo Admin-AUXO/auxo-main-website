@@ -10,8 +10,7 @@ const navItems = [
     dropdown: services.map(s => ({
       name: s.title,
       href: `${base}services/${s.id}`,
-      icon: s.icon,
-      description: s.description.substring(0, 60) + '...'
+      icon: s.icon
     }))
   },
   { name: 'About', href: `${base}about` },
@@ -43,35 +42,28 @@ const navItems = [
               </button>
 
               <!-- Mega Dropdown -->
-              <div class="absolute left-0 mt-2 w-[600px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
-                <div class="bg-zinc-900 border border-gray-800 rounded-xl shadow-2xl p-6">
-                  <div class="grid grid-cols-2 gap-4">
+              <div class="absolute left-0 mt-2 w-[500px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
+                <div class="bg-zinc-900 border border-gray-800 rounded-xl shadow-2xl p-4">
+                  <div class="grid grid-cols-2 gap-2">
                     {item.dropdown.map((sub: any) => (
                       <a
                         href={sub.href}
-                        class="group/item p-4 rounded-lg hover:bg-zinc-800 transition-all duration-200 border border-transparent hover:border-lime-400/30"
+                        class="group/item flex items-center gap-3 p-3 rounded-lg hover:bg-zinc-800 transition-all duration-200 border border-transparent hover:border-lime-400/30"
                       >
-                        <div class="flex items-start gap-3">
-                          <div class="w-10 h-10 bg-lime-400/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-lime-400/20 transition-colors">
-                            <svg class="w-5 h-5 text-lime-400" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M12 2L2 7L12 12L22 7L12 2Z"></path>
-                              <path d="M2 17L12 22L22 17"></path>
-                              <path d="M2 12L12 17L22 12"></path>
-                            </svg>
-                          </div>
-                          <div class="flex-1">
-                            <h3 class="font-semibold text-white mb-1 text-sm group-hover/item:text-lime-400 transition-colors">
-                              {sub.name}
-                            </h3>
-                            <p class="text-xs text-gray-400 line-clamp-2">
-                              {sub.description}
-                            </p>
-                          </div>
+                        <div class="w-8 h-8 bg-lime-400/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-lime-400/20 transition-colors">
+                          <svg class="w-4 h-4 text-lime-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z"></path>
+                            <path d="M2 17L12 22L22 17"></path>
+                            <path d="M2 12L12 17L22 12"></path>
+                          </svg>
                         </div>
+                        <h3 class="font-semibold text-white text-sm group-hover/item:text-lime-400 transition-colors">
+                          {sub.name}
+                        </h3>
                       </a>
                     ))}
                   </div>
-                  <div class="mt-4 pt-4 border-t border-gray-800">
+                  <div class="mt-3 pt-3 border-t border-gray-800">
                     <a href={`${base}services`} class="text-sm text-lime-400 hover:text-lime-300 font-medium flex items-center gap-2">
                       View All Services
                       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

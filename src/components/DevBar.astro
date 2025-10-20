@@ -1,0 +1,141 @@
+---
+// Development toolbar - only shows in development mode
+const isDev = import.meta.env.DEV;
+
+const quickLinks = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services' },
+  { name: 'About', href: '/about' },
+  { name: 'Contact', href: '/contact' },
+  { name: 'Calculator', href: '/maturity-calculator' },
+  { name: 'Blog', href: '/blog' },
+  { name: 'Cases', href: '/case-studies' },
+];
+---
+
+{isDev && (
+  <div id="dev-bar" class="fixed bottom-0 left-0 right-0 z-[9999] bg-gradient-to-r from-purple-900 to-pink-900 border-t-2 border-purple-400 shadow-2xl transform transition-transform duration-300">
+    <div class="container mx-auto px-4 py-2">
+      <div class="flex items-center justify-between text-xs">
+        <!-- Left: Status & Info -->
+        <div class="flex items-center space-x-4">
+          <div class="flex items-center space-x-2">
+            <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            <span class="font-bold text-white">DEV MODE</span>
+          </div>
+          <div class="text-purple-200" id="dev-page-info">
+            {Astro.url.pathname}
+          </div>
+          <button id="dev-grid-toggle" class="px-2 py-1 bg-purple-700 hover:bg-purple-600 rounded text-white font-semibold">
+            Grid
+          </button>
+        </div>
+
+        <!-- Center: Quick Nav -->
+        <div class="hidden md:flex items-center space-x-2">
+          {quickLinks.map(link => (
+            <a
+              href={link.href}
+              class="px-3 py-1 bg-purple-800 hover:bg-purple-700 rounded text-white font-medium transition-colors"
+            >
+              {link.name}
+            </a>
+          ))}
+        </div>
+
+        <!-- Right: Tools -->
+        <div class="flex items-center space-x-2">
+          <button id="dev-contrast-toggle" class="px-2 py-1 bg-yellow-600 hover:bg-yellow-500 rounded text-black font-semibold">
+            A11y
+          </button>
+          <button id="dev-clear-cache" class="px-2 py-1 bg-red-600 hover:bg-red-500 rounded text-white font-semibold">
+            Clear Cache
+          </button>
+          <button id="dev-bar-minimize" class="px-2 py-1 bg-gray-700 hover:bg-gray-600 rounded text-white font-semibold">
+            ▼
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Development Grid Overlay (hidden by default) -->
+    <div id="dev-grid" class="hidden fixed inset-0 pointer-events-none z-[9998]">
+      <div class="container mx-auto h-full px-4">
+        <div class="grid grid-cols-12 gap-4 h-full">
+          {Array.from({ length: 12 }).map(() => (
+            <div class="bg-pink-500/10 border-x border-pink-500/30"></div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+<script is:inline>
+  if (import.meta.env.DEV) {
+    // Grid Toggle
+    const gridToggle = document.getElementById('dev-grid-toggle');
+    const grid = document.getElementById('dev-grid');
+
+    gridToggle?.addEventListener('click', () => {
+      grid?.classList.toggle('hidden');
+      gridToggle.classList.toggle('bg-pink-500');
+    });
+
+    // Contrast Toggle (for accessibility testing)
+    const contrastToggle = document.getElementById('dev-contrast-toggle');
+    contrastToggle?.addEventListener('click', () => {
+      document.body.classList.toggle('high-contrast');
+      contrastToggle.textContent = document.body.classList.contains('high-contrast') ? 'Normal' : 'A11y';
+    });
+
+    // Clear Cache
+    const clearCache = document.getElementById('dev-clear-cache');
+    clearCache?.addEventListener('click', () => {
+      localStorage.clear();
+      sessionStorage.clear();
+      location.reload();
+    });
+
+    // Minimize Dev Bar
+    const devBar = document.getElementById('dev-bar');
+    const minimizeBtn = document.getElementById('dev-bar-minimize');
+    let isMinimized = false;
+
+    minimizeBtn?.addEventListener('click', () => {
+      isMinimized = !isMinimized;
+      if (isMinimized) {
+        devBar.style.transform = 'translateY(calc(100% - 8px))';
+        minimizeBtn.textContent = '▲';
+      } else {
+        devBar.style.transform = 'translateY(0)';
+        minimizeBtn.textContent = '▼';
+      }
+    });
+
+    // Hover to reveal when minimized
+    devBar?.addEventListener('mouseenter', () => {
+      if (isMinimized) {
+        devBar.style.transform = 'translateY(0)';
+      }
+    });
+
+    devBar?.addEventListener('mouseleave', () => {
+      if (isMinimized) {
+        devBar.style.transform = 'translateY(calc(100% - 8px))';
+      }
+    });
+
+    // Add high-contrast styles dynamically
+    const style = document.createElement('style');
+    style.textContent = `
+      .high-contrast {
+        filter: contrast(1.5) !important;
+      }
+      .high-contrast * {
+        text-shadow: 0 0 2px rgba(0,0,0,0.8) !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+</script>

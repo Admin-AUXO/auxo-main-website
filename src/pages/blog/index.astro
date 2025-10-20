@@ -1,0 +1,212 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Icon } from 'astro-icon/components';
+import { getCollection } from 'astro:content';
+
+// Get all blog posts
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) =>
+  new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
+);
+
+// Featured post (most recent)
+const featuredPost = sortedPosts[0];
+const recentPosts = sortedPosts.slice(1);
+
+// Helper to format date
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(new Date(date));
+}
+
+// Helper to calculate read time
+function calculateReadTime(content: string) {
+  const wordsPerMinute = 200;
+  const wordCount = content.trim().split(/\s+/).length;
+  return Math.ceil(wordCount / wordsPerMinute);
+}
+---
+
+<BaseLayout
+  title="Blog - Data Analytics Insights | AUXO Data Labs"
+  description="Explore the latest insights, trends, and best practices in data analytics, business intelligence, and data science from the experts at AUXO Data Labs."
+>
+  <div class="pt-24 pb-16">
+    <div class="container mx-auto px-4">
+      <!-- Header -->
+      <div class="max-w-3xl mx-auto text-center mb-16">
+        <div class="inline-block px-4 py-2 bg-lime-400/10 border border-lime-400/20 rounded-full mb-4">
+          <span class="text-lime-400 text-sm font-semibold">Insights & Resources</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+          Data Analytics
+          <span class="text-lime-400"> Insights</span>
+        </h1>
+        <p class="text-xl text-gray-400">
+          Expert perspectives on data analytics, trends, best practices, and industry insights
+        </p>
+      </div>
+
+      {sortedPosts.length > 0 ? (
+        <>
+          <!-- Featured Post -->
+          {featuredPost && (
+            <div class="max-w-6xl mx-auto mb-16">
+              <a
+                href={`/blog/${featuredPost.slug}`}
+                class="group block bg-gradient-to-br from-zinc-900 to-zinc-950 border-2 border-zinc-800 rounded-2xl overflow-hidden hover:border-lime-400 transition-all duration-300"
+              >
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-0">
+                  <div class="aspect-video md:aspect-auto bg-gradient-to-br from-lime-400/20 to-green-500/20 flex items-center justify-center">
+                    {featuredPost.data.image ? (
+                      <img
+                        src={featuredPost.data.image}
+                        alt={featuredPost.data.title}
+                        class="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <Icon name="mdi:post" class="w-24 h-24 text-lime-400" />
+                    )}
+                  </div>
+
+                  <div class="p-8 md:p-12 flex flex-col justify-center">
+                    <div class="inline-block px-3 py-1 bg-lime-400 text-black text-xs font-bold rounded-full mb-4 w-fit">
+                      FEATURED
+                    </div>
+
+                    <h2 class="text-3xl font-bold mb-4 group-hover:text-lime-400 transition-colors">
+                      {featuredPost.data.title}
+                    </h2>
+
+                    <p class="text-gray-400 mb-6">
+                      {featuredPost.data.description}
+                    </p>
+
+                    <div class="flex items-center text-sm text-gray-500">
+                      <span>{formatDate(featuredPost.data.publishDate)}</span>
+                      <span class="mx-2">•</span>
+                      <span>{featuredPost.data.author}</span>
+                      {featuredPost.data.tags && featuredPost.data.tags.length > 0 && (
+                        <>
+                          <span class="mx-2">•</span>
+                          <span class="text-lime-400">#{featuredPost.data.tags[0]}</span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          )}
+
+          <!-- Recent Posts Grid -->
+          {recentPosts.length > 0 && (
+            <div class="max-w-6xl mx-auto">
+              <h2 class="text-2xl font-bold mb-8">Recent Posts</h2>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {recentPosts.map((post) => (
+                  <a
+                    href={`/blog/${post.slug}`}
+                    class="group bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden hover:border-lime-400 transition-all duration-300 hover:-translate-y-1"
+                  >
+                    <div class="aspect-video bg-gradient-to-br from-lime-400/20 to-green-500/20 flex items-center justify-center">
+                      {post.data.image ? (
+                        <img
+                          src={post.data.image}
+                          alt={post.data.title}
+                          class="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <Icon name="mdi:post" class="w-12 h-12 text-lime-400" />
+                      )}
+                    </div>
+
+                    <div class="p-6">
+                      {post.data.tags && post.data.tags.length > 0 && (
+                        <div class="flex flex-wrap gap-2 mb-3">
+                          {post.data.tags.slice(0, 2).map((tag: string) => (
+                            <span class="px-2 py-1 bg-lime-400/10 text-lime-400 text-xs rounded">
+                              #{tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
+                      <h3 class="text-xl font-bold mb-3 group-hover:text-lime-400 transition-colors line-clamp-2">
+                        {post.data.title}
+                      </h3>
+
+                      <p class="text-sm text-gray-400 mb-4 line-clamp-2">
+                        {post.data.description}
+                      </p>
+
+                      <div class="flex items-center text-xs text-gray-500">
+                        <span>{formatDate(post.data.publishDate)}</span>
+                        <span class="mx-2">•</span>
+                        <span>{post.data.author}</span>
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
+      ) : (
+        <!-- Empty State -->
+        <div class="max-w-2xl mx-auto text-center py-16">
+          <div class="w-24 h-24 bg-zinc-900 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Icon name="mdi:book-open" class="w-12 h-12 text-gray-600" />
+          </div>
+          <h2 class="text-2xl font-bold mb-4">Coming Soon</h2>
+          <p class="text-gray-400 mb-8">
+            We're working on bringing you valuable insights and content. Check back soon for articles on data analytics, best practices, and industry trends.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="/contact"
+              class="px-6 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors inline-flex items-center justify-center"
+            >
+              Subscribe for Updates
+            </a>
+            <a
+              href="/services"
+              class="px-6 py-3 bg-zinc-800 text-white font-semibold rounded-lg hover:bg-zinc-700 transition-colors inline-flex items-center justify-center"
+            >
+              Explore Services
+            </a>
+          </div>
+        </div>
+      )}
+
+      <!-- Newsletter Signup -->
+      <div class="max-w-4xl mx-auto mt-20">
+        <div class="bg-gradient-to-r from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8 md:p-12 text-center">
+          <Icon name="mdi:email-newsletter" class="w-16 h-16 text-lime-400 mx-auto mb-4" />
+          <h2 class="text-3xl font-bold mb-4">Stay Updated</h2>
+          <p class="text-gray-400 mb-8 max-w-2xl mx-auto">
+            Subscribe to our newsletter to receive the latest insights, trends, and best practices in data analytics
+          </p>
+          <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              class="flex-1 px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400"
+              required
+            />
+            <button
+              type="submit"
+              class="px-6 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors whitespace-nowrap"
+            >
+              Subscribe
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

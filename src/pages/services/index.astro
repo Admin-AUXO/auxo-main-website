@@ -1,0 +1,125 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { services } from '../../data/services';
+import { Icon } from 'astro-icon/components';
+---
+
+<BaseLayout
+  title="Data Analytics Services | AUXO Data Labs"
+  description="Comprehensive data analytics services including Business Intelligence, Advanced Analytics, Data Strategy, Data Engineering, Machine Learning, and Data Governance solutions."
+>
+  <div class="pt-24 pb-16">
+    <div class="container mx-auto px-4">
+      <!-- Header -->
+      <div class="max-w-3xl mx-auto text-center mb-16">
+        <div class="inline-block px-4 py-2 bg-lime-400/10 border border-lime-400/20 rounded-full mb-4">
+          <span class="text-lime-400 text-sm font-semibold tracking-wide">What We Do</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+          Comprehensive Data
+          <span class="text-lime-400"> Analytics Services</span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-400 leading-relaxed">
+          From <em>strategy to implementation</em>, we provide end-to-end data analytics solutions <span class="font-semibold text-gray-300">tailored to your business needs</span>
+        </p>
+      </div>
+
+      <!-- Services Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        {services.map((service) => (
+          <a
+            href={`/services/${service.id}`}
+            class="group bg-zinc-900 border-2 border-zinc-800 rounded-2xl p-8 hover:border-lime-400 transition-all duration-300 hover:transform hover:-translate-y-1"
+          >
+            <div class="w-14 h-14 bg-lime-400/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-lime-400/20 transition-colors">
+              <Icon name={service.icon} class="w-7 h-7 text-lime-400" />
+            </div>
+
+            <h3 class="text-xl font-bold mb-3 group-hover:text-lime-400 transition-colors tracking-tight">
+              {service.title}
+            </h3>
+
+            <p class="text-gray-400 mb-6 text-sm leading-relaxed">
+              {service.description}
+            </p>
+
+            <div class="flex items-center text-lime-400 font-bold text-sm">
+              Learn More
+              <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <!-- Process Section -->
+      <div class="max-w-5xl mx-auto mb-16">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Our Proven Process</h2>
+          <p class="text-gray-400 leading-relaxed"><em>A systematic approach to delivering data analytics excellence</em></p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-lime-400 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4 text-black font-bold text-xl">
+              1
+            </div>
+            <h3 class="font-bold mb-2 text-lg">Discovery</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">Understand your business challenges and data landscape</p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-lime-400 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4 text-black font-bold text-xl">
+              2
+            </div>
+            <h3 class="font-bold mb-2 text-lg">Strategy</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">Design <span class="font-medium text-gray-300">tailored solutions</span> aligned with your goals</p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-lime-400 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4 text-black font-bold text-xl">
+              3
+            </div>
+            <h3 class="font-bold mb-2 text-lg">Implementation</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">Build and deploy robust analytics solutions</p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-lime-400 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4 text-black font-bold text-xl">
+              4
+            </div>
+            <h3 class="font-bold mb-2 text-lg">Support</h3>
+            <p class="text-sm text-gray-400 leading-relaxed"><em>Ongoing optimization</em> and knowledge transfer</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-gradient-to-r from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8 md:p-12 text-center">
+          <h2 class="text-3xl font-bold mb-4">Ready to Get Started?</h2>
+          <p class="text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
+            Let's discuss how we can help transform your data into <span class="font-semibold text-gray-300">actionable insights</span> and competitive advantage
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="/contact"
+              class="px-8 py-4 bg-lime-400 text-black font-bold rounded-lg hover:bg-lime-500 transition-colors inline-flex items-center justify-center hover:shadow-lg hover:shadow-lime-400/30"
+            >
+              Schedule Consultation
+              <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
+            </a>
+            <a
+              href="/maturity-calculator"
+              class="px-8 py-4 bg-zinc-800 text-white font-bold rounded-lg hover:bg-zinc-700 transition-colors inline-flex items-center justify-center"
+            >
+              Assess Your Maturity
+              <Icon name="mdi:calculator" class="w-5 h-5 ml-2" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

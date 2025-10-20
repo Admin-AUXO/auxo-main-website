@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <linearGradient id="gradA" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A3E635;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#86D12F;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradU" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A3E635;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#86D12F;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradX" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A3E635;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#86D12F;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradO" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A3E635;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#86D12F;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="128" height="128" fill="#000"/>
+
+  <!-- 2x2 Grid of boxes - Sharp corners -->
+  <!-- Top-left - A -->
+  <rect x="8" y="8" width="52" height="52" fill="url(#gradA)"/>
+  <text x="34" y="46" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="32" fill="#000">A</text>
+
+  <!-- Top-right - U -->
+  <rect x="68" y="8" width="52" height="52" fill="url(#gradU)"/>
+  <text x="94" y="46" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="32" fill="#000">U</text>
+
+  <!-- Bottom-left - X -->
+  <rect x="8" y="68" width="52" height="52" fill="url(#gradX)"/>
+  <text x="34" y="106" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="32" fill="#000">X</text>
+
+  <!-- Bottom-right - O -->
+  <rect x="68" y="68" width="52" height="52" fill="url(#gradO)"/>
+  <text x="94" y="106" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="32" fill="#000">O</text>
+</svg>

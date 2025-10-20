@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "astro-docs": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.docs.astro.build/mcp"]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "A:\\AUXO\\Main Website"]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "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"
+      }
+    }
+  }
+}

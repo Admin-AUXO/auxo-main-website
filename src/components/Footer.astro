@@ -1,0 +1,148 @@
+---
+import { siteData } from '../data/site';
+import { services } from '../data/services';
+import { Icon } from 'astro-icon/components';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-zinc-950 border-t border-gray-800">
+  <div class="container mx-auto px-4 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+      <!-- Brand Column -->
+      <div class="lg:col-span-2">
+        <div class="flex items-center space-x-3 mb-4">
+          <img src="/logo.svg" alt="AUXO" class="h-12 w-12" />
+          <span class="text-white text-xl font-semibold tracking-tight">Data Labs</span>
+        </div>
+        <p class="text-gray-400 text-sm mb-4 max-w-sm italic leading-relaxed">{siteData.tagline}</p>
+        <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+          Transforming data into <span class="font-medium text-gray-300">actionable insights</span> for businesses across the UAE.
+        </p>
+
+        <!-- Contact Info -->
+        <div class="space-y-3 mb-6">
+          <div class="flex items-center gap-3 text-sm">
+            <Icon name="mdi:email" class="w-5 h-5 text-lime-400 flex-shrink-0" />
+            <a href={`mailto:${siteData.email}`} class="text-gray-400 hover:text-lime-400 transition-colors">{siteData.email}</a>
+          </div>
+          <div class="flex items-center gap-3 text-sm">
+            <Icon name="mdi:phone" class="w-5 h-5 text-lime-400 flex-shrink-0" />
+            <a href={`tel:${siteData.phone}`} class="text-gray-400 hover:text-lime-400 transition-colors">{siteData.phone}</a>
+          </div>
+          <div class="flex items-center gap-3 text-sm">
+            <Icon name="mdi:map-marker" class="w-5 h-5 text-lime-400 flex-shrink-0" />
+            <span class="text-gray-400">{siteData.address.city}, {siteData.address.country}</span>
+          </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="flex gap-3">
+          <a href={siteData.social.linkedin} class="w-10 h-10 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black transition-all group" aria-label="LinkedIn">
+            <Icon name="mdi:linkedin" class="w-5 h-5" />
+          </a>
+          <a href={siteData.social.twitter} class="w-10 h-10 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black transition-all group" aria-label="Twitter">
+            <Icon name="mdi:twitter" class="w-5 h-5" />
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links Column -->
+      <div>
+        <h4 class="font-bold text-white mb-4 text-sm uppercase tracking-wider">Quick Links</h4>
+        <ul class="space-y-3 text-sm font-medium">
+          <li><a href="/" class="text-gray-400 hover:text-lime-400 transition-colors flex items-center gap-2">
+            <Icon name="mdi:home" class="w-4 h-4" />Home
+          </a></li>
+          <li><a href="/about" class="text-gray-400 hover:text-lime-400 transition-colors flex items-center gap-2">
+            <Icon name="mdi:information" class="w-4 h-4" />About Us
+          </a></li>
+          <li><a href="/services" class="text-gray-400 hover:text-lime-400 transition-colors flex items-center gap-2">
+            <Icon name="mdi:briefcase" class="w-4 h-4" />Services
+          </a></li>
+          <li><a href="/case-studies" class="text-gray-400 hover:text-lime-400 transition-colors flex items-center gap-2">
+            <Icon name="mdi:chart-line" class="w-4 h-4" />Case Studies
+          </a></li>
+          <li><a href="/blog" class="text-gray-400 hover:text-lime-400 transition-colors flex items-center gap-2">
+            <Icon name="mdi:post" class="w-4 h-4" />Blog
+          </a></li>
+          <li><a href="/contact" class="text-gray-400 hover:text-lime-400 transition-colors flex items-center gap-2">
+            <Icon name="mdi:email-outline" class="w-4 h-4" />Contact
+          </a></li>
+        </ul>
+      </div>
+
+      <!-- Services Column -->
+      <div>
+        <h4 class="font-bold text-white mb-4 text-sm uppercase tracking-wider">Services</h4>
+        <ul class="space-y-3 text-sm font-medium">
+          {services.map(service => (
+            <li>
+              <a href={`/services/${service.id}`} class="text-gray-400 hover:text-lime-400 transition-colors">
+                {service.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Resources Column -->
+      <div>
+        <h4 class="font-bold text-white mb-4 text-sm uppercase tracking-wider">Resources</h4>
+        <ul class="space-y-3 text-sm font-medium">
+          <li><a href="/maturity-calculator" class="text-gray-400 hover:text-lime-400 transition-colors flex items-center gap-2">
+            <Icon name="mdi:calculator" class="w-4 h-4" />Maturity Assessment
+          </a></li>
+          <li><a href="/contact" class="text-gray-400 hover:text-lime-400 transition-colors flex items-center gap-2">
+            <Icon name="mdi:calendar" class="w-4 h-4" />Book Consultation
+          </a></li>
+        </ul>
+
+        <h4 class="font-bold text-white mb-4 mt-8 text-sm uppercase tracking-wider">Legal</h4>
+        <ul class="space-y-3 text-sm font-medium">
+          <li><a href="/privacy-policy" class="text-gray-400 hover:text-lime-400 transition-colors">Privacy Policy</a></li>
+          <li><a href="/terms" class="text-gray-400 hover:text-lime-400 transition-colors">Terms & Conditions</a></li>
+          <li><a href="/cookie-policy" class="text-gray-400 hover:text-lime-400 transition-colors">Cookie Policy</a></li>
+          <li><a href="/dpa" class="text-gray-400 hover:text-lime-400 transition-colors">DPA</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Newsletter Section -->
+    <div class="border-t border-gray-800 pt-8 mb-8">
+      <div class="max-w-md">
+        <h4 class="font-bold text-white mb-2 text-sm uppercase tracking-wider">Stay Updated</h4>
+        <p class="text-gray-400 text-sm mb-4 leading-relaxed">Subscribe to our newsletter for <em>insights and updates</em>.</p>
+        <form class="flex gap-2">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            class="flex-1 px-4 py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-sm focus:outline-none focus:border-lime-400 transition-colors font-medium"
+            required
+          />
+          <button
+            type="submit"
+            class="px-6 py-2 bg-lime-400 text-black font-bold rounded-lg hover:bg-lime-500 transition-colors text-sm whitespace-nowrap"
+          >
+            Subscribe
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-gray-500 text-sm font-medium">© {currentYear} AUXO Data Labs. All rights reserved.</p>
+      <div class="flex items-center gap-6 text-sm text-gray-500 font-medium">
+        <span class="flex items-center gap-2">
+          <Icon name="mdi:map-marker" class="w-4 h-4 text-lime-400" />
+          Dubai, UAE
+        </span>
+        <span class="flex items-center gap-2">
+          <Icon name="mdi:shield-check" class="w-4 h-4 text-lime-400" />
+          UAE PDPL Compliant
+        </span>
+      </div>
+    </div>
+  </div>
+</footer>

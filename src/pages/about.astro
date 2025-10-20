@@ -1,0 +1,210 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteData } from '../data/site';
+import { team } from '../data/team';
+import { Icon } from 'astro-icon/components';
+---
+
+<BaseLayout
+  title="About Us - Data Analytics Experts | AUXO Data Labs"
+  description="Learn about AUXO Data Labs, your trusted partner for data analytics and business intelligence solutions in the UAE and beyond."
+>
+  <div class="pt-24 pb-16">
+    <div class="container mx-auto px-4">
+      <!-- Hero Section -->
+      <div class="max-w-4xl mx-auto text-center mb-20">
+        <div class="inline-block px-4 py-2 bg-lime-400/10 border border-lime-400/20 rounded-full mb-4">
+          <span class="text-lime-400 text-sm font-semibold tracking-wide">About AUXO Data Labs</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+          Transforming Data Into
+          <span class="text-lime-400"> Competitive Advantage</span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-400 leading-relaxed">
+          We're a team of <span class="font-semibold text-gray-300">data scientists, engineers, and strategists</span> passionate about helping organizations unlock the full potential of their data.
+        </p>
+      </div>
+
+      <!-- Mission & Vision -->
+      <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+        <div class="bg-gradient-to-br from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8">
+          <div class="w-14 h-14 bg-lime-400 rounded-lg flex items-center justify-center mb-4">
+            <Icon name="mdi:target" class="w-8 h-8 text-black" />
+          </div>
+          <h2 class="text-2xl font-bold mb-4">Our Mission</h2>
+          <p class="text-gray-300 leading-relaxed">
+            To <em>democratize data analytics</em> by making enterprise-grade solutions accessible to organizations of all sizes, empowering them to make data-driven decisions that drive growth and innovation.
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8">
+          <div class="w-14 h-14 bg-lime-400 rounded-lg flex items-center justify-center mb-4">
+            <Icon name="mdi:eye" class="w-8 h-8 text-black" />
+          </div>
+          <h2 class="text-2xl font-bold mb-4">Our Vision</h2>
+          <p class="text-gray-300 leading-relaxed">
+            To be the <span class="font-semibold">Middle East's leading data analytics partner</span>, recognized for delivering transformative insights that enable organizations to thrive in an increasingly data-driven world.
+          </p>
+        </div>
+      </div>
+
+      <!-- Our Values -->
+      <div class="max-w-6xl mx-auto mb-20">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Our Core Values</h2>
+          <p class="text-gray-400 leading-relaxed"><em>The principles that guide everything we do</em></p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center hover:border-lime-400 transition-colors">
+            <Icon name="mdi:lightbulb" class="w-12 h-12 text-lime-400 mx-auto mb-4" />
+            <h3 class="font-bold mb-2 text-lg">Innovation</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">We embrace <span class="font-medium text-gray-300">cutting-edge technologies</span> and continuously evolve our solutions</p>
+          </div>
+
+          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center hover:border-lime-400 transition-colors">
+            <Icon name="mdi:handshake" class="w-12 h-12 text-lime-400 mx-auto mb-4" />
+            <h3 class="font-bold mb-2 text-lg">Partnership</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">Your success is our success. We work as an extension of your team</p>
+          </div>
+
+          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center hover:border-lime-400 transition-colors">
+            <Icon name="mdi:shield-check" class="w-12 h-12 text-lime-400 mx-auto mb-4" />
+            <h3 class="font-bold mb-2 text-lg">Integrity</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">We maintain the highest standards of <em>data security</em> and ethical practices</p>
+          </div>
+
+          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center hover:border-lime-400 transition-colors">
+            <Icon name="mdi:trophy" class="w-12 h-12 text-lime-400 mx-auto mb-4" />
+            <h3 class="font-bold mb-2 text-lg">Excellence</h3>
+            <p class="text-sm text-gray-400 leading-relaxed">We deliver <span class="font-medium text-gray-300">exceptional quality</span> in every project, no matter the size</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Why Choose Us -->
+      <div class="max-w-5xl mx-auto mb-20">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Why Choose AUXO?</h2>
+          <p class="text-gray-400">What sets us apart in the data analytics landscape</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+            <div class="text-4xl font-black text-lime-400 mb-2">100+</div>
+            <h3 class="font-bold mb-2">Projects Delivered</h3>
+            <p class="text-sm text-gray-400">Across diverse industries and use cases</p>
+          </div>
+
+          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+            <div class="text-4xl font-black text-lime-400 mb-2">50+</div>
+            <h3 class="font-bold mb-2">Happy Clients</h3>
+            <p class="text-sm text-gray-400">From startups to Fortune 500 companies</p>
+          </div>
+
+          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+            <div class="text-4xl font-black text-lime-400 mb-2">15+</div>
+            <h3 class="font-bold mb-2">Years Combined Experience</h3>
+            <p class="text-sm text-gray-400">Deep expertise across data analytics domains</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Section -->
+      <div class="max-w-5xl mx-auto mb-20">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Meet Our Team</h2>
+          <p class="text-gray-400">Data experts passionate about your success</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {team.map((member) => (
+            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center hover:border-lime-400 transition-all group">
+              <div class="w-24 h-24 bg-gradient-to-br from-lime-400 to-green-500 rounded-full mx-auto mb-4 flex items-center justify-center text-black text-3xl font-bold">
+                {member.name.split(' ').map(n => n[0]).join('')}
+              </div>
+              <h3 class="font-bold text-lg mb-1">{member.name}</h3>
+              <p class="text-lime-400 text-sm mb-3">{member.role}</p>
+              <p class="text-sm text-gray-400 mb-4">{member.bio}</p>
+              {member.linkedin && (
+                <a
+                  href={member.linkedin}
+                  class="inline-flex items-center text-sm text-gray-400 hover:text-lime-400 transition-colors"
+                >
+                  <Icon name="mdi:linkedin" class="w-4 h-4 mr-1" />
+                  Connect
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <div class="mt-8 text-center">
+          <p class="text-gray-400 mb-4">Interested in joining our team?</p>
+          <a
+            href="/contact"
+            class="inline-flex items-center px-6 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors"
+          >
+            We're Hiring
+            <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
+          </a>
+        </div>
+      </div>
+
+      <!-- Expertise Areas -->
+      <div class="max-w-5xl mx-auto mb-20">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold mb-4">Our Expertise</h2>
+          <p class="text-gray-400">Technologies and platforms we specialize in</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          {[
+            { name: 'Python', icon: 'mdi:language-python' },
+            { name: 'SQL', icon: 'mdi:database' },
+            { name: 'Power BI', icon: 'mdi:chart-bar' },
+            { name: 'Tableau', icon: 'mdi:chart-line' },
+            { name: 'AWS', icon: 'mdi:aws' },
+            { name: 'Azure', icon: 'mdi:microsoft-azure' },
+            { name: 'Snowflake', icon: 'mdi:snowflake' },
+            { name: 'Apache Spark', icon: 'mdi:lightning-bolt' },
+            { name: 'TensorFlow', icon: 'mdi:brain' },
+            { name: 'Docker', icon: 'mdi:docker' },
+            { name: 'Airflow', icon: 'mdi:air-filter' },
+            { name: 'dbt', icon: 'mdi:graph' }
+          ].map((tech) => (
+            <div class="bg-zinc-900 border border-zinc-800 rounded-lg p-4 text-center hover:border-lime-400 transition-colors">
+              <Icon name={tech.icon} class="w-8 h-8 text-lime-400 mx-auto mb-2" />
+              <p class="text-xs font-medium">{tech.name}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-gradient-to-r from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8 md:p-12 text-center">
+          <h2 class="text-3xl font-bold mb-4">Let's Work Together</h2>
+          <p class="text-gray-400 mb-8 max-w-2xl mx-auto">
+            Ready to transform your data into insights? We'd love to hear about your challenges and explore how we can help.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="/contact"
+              class="px-8 py-4 bg-lime-400 text-black font-bold rounded-lg hover:bg-lime-500 transition-colors inline-flex items-center justify-center"
+            >
+              Get in Touch
+              <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
+            </a>
+            <a
+              href="/services"
+              class="px-8 py-4 bg-zinc-800 text-white font-bold rounded-lg hover:bg-zinc-700 transition-colors inline-flex items-center justify-center"
+            >
+              View Our Services
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

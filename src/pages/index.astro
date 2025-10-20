@@ -1,0 +1,216 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import { Icon } from 'astro-icon/components';
+import { services } from '../data/services';
+import { siteData } from '../data/site';
+---
+
+<BaseLayout
+  title={`${siteData.name} | ${siteData.tagline}`}
+  description={siteData.description}
+  showNav={false}
+>
+  <Navigation />
+
+  <!-- Hero Section with Animated Logo -->
+  <section id="hero" class="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-black via-zinc-950 to-black overflow-hidden pt-32 md:pt-40">
+    <!-- Background Effects -->
+    <div class="absolute inset-0 opacity-20">
+      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-lime-400/10 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="max-w-6xl mx-auto">
+        <!-- Logo Animation Container -->
+        <div class="logo-reveal-container mb-10 flex justify-center">
+          <div class="logo-grid grid grid-cols-2 gap-3 w-44 md:w-52">
+            <div class="logo-tile aspect-square" data-char="A"><span class="logo-char">A</span></div>
+            <div class="logo-tile aspect-square" data-char="U"><span class="logo-char">U</span></div>
+            <div class="logo-tile aspect-square" data-char="X"><span class="logo-char">X</span></div>
+            <div class="logo-tile aspect-square" data-char="O"><span class="logo-char">O</span></div>
+          </div>
+        </div>
+
+        <!-- Brand Text -->
+        <div class="logo-caption text-center mb-7">
+          <h1 class="text-2xl md:text-3xl font-semibold mb-2 text-white tracking-tight">
+            Data Labs
+          </h1>
+          <p class="tagline text-base md:text-lg text-gray-400 font-light italic">Look Beyond Data</p>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="hero-content text-center max-w-4xl mx-auto">
+          <div class="inline-block mb-5 px-4 py-2 bg-lime-400/10 border border-lime-400/30 rounded-full">
+            <span class="text-lime-400 text-sm font-semibold tracking-wide">Dubai's Premier Analytics Partner</span>
+          </div>
+
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-5 leading-tight">
+            Transform Data Into<br/>
+            <span class="text-gradient-green">Actionable Insights</span>
+          </h2>
+
+          <p class="text-base md:text-lg text-gray-400 mb-8 max-w-3xl mx-auto leading-relaxed">
+            Empowering UAE businesses with <span class="font-medium text-gray-300">data-driven strategies</span>, advanced analytics, and AI solutions for sustainable growth
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+            <a href="/contact" class="group bg-lime-400 text-black px-8 py-3.5 rounded-lg font-semibold hover:bg-lime-500 transition-all shadow-lg shadow-lime-400/20 hover:shadow-lime-400/40 hover:scale-105">
+              Schedule Free Consultation
+              <Icon name="mdi:arrow-right" class="inline w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+            </a>
+            <a href="#services" class="border-2 border-lime-400 text-lime-400 px-8 py-3.5 rounded-lg font-semibold hover:bg-lime-400 hover:text-black transition-all hover:scale-105">
+              Explore Services
+            </a>
+          </div>
+
+          <div class="flex flex-wrap justify-center gap-6 md:gap-8 text-sm text-gray-500">
+            <div class="flex items-center gap-2">
+              <Icon name="mdi:check-circle" class="w-5 h-5 text-lime-400" />
+              <span class="font-medium">UAE PDPL Compliant</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <Icon name="mdi:check-circle" class="w-5 h-5 text-lime-400" />
+              <span class="font-medium">Enterprise-Grade Security</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <Icon name="mdi:check-circle" class="w-5 h-5 text-lime-400" />
+              <span class="font-medium">Dubai-Based Team</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <a href="#services" class="flex flex-col items-center text-gray-500 hover:text-lime-400 transition-colors">
+        <span class="text-xs mb-2">Scroll to explore</span>
+        <Icon name="mdi:chevron-down" class="w-6 h-6" />
+      </a>
+    </div>
+  </section>
+
+  <div class="relative z-10 bg-black">
+
+      <section id="services" class="py-28 bg-zinc-950">
+        <div class="container mx-auto px-4">
+          <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Our <span class="text-lime-400">Services</span></h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.slice(0, 6).map(service => (
+              <div class="bg-zinc-900 border border-gray-800 rounded-lg p-6 hover:border-lime-400/50 transition">
+                <Icon name={service.icon} class="w-12 h-12 text-lime-400 mb-4" />
+                <h3 class="text-xl font-bold mb-3">{service.title}</h3>
+                <p class="text-gray-400 mb-4 leading-relaxed">{service.description}</p>
+                <a href={`/services#${service.id}`} class="text-lime-400 hover:text-lime-500 text-sm font-semibold inline-flex items-center gap-1">
+                  Learn more <span class="transition-transform group-hover:translate-x-1">→</span>
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="py-28 bg-black border-t border-gray-800">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Why Choose <span class="text-lime-400">AUXO?</span></h2>
+            <p class="text-gray-400 max-w-2xl mx-auto leading-relaxed"><em>Your trusted analytics partner</em> in the UAE</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div class="text-center">
+              <div class="inline-flex items-center justify-center w-16 h-16 bg-lime-400/10 rounded-full mb-4">
+                <Icon name="mdi:map-marker" class="w-8 h-8 text-lime-400" />
+              </div>
+              <h3 class="text-xl font-bold mb-3">Dubai-Based Expertise</h3>
+              <p class="text-gray-400 leading-relaxed">Local team with deep understanding of UAE market dynamics and regulatory requirements</p>
+            </div>
+            <div class="text-center">
+              <div class="inline-flex items-center justify-center w-16 h-16 bg-lime-400/10 rounded-full mb-4">
+                <Icon name="mdi:certificate" class="w-8 h-8 text-lime-400" />
+              </div>
+              <h3 class="text-xl font-bold mb-3">Proven Track Record</h3>
+              <p class="text-gray-400 leading-relaxed">Delivering <span class="font-semibold text-gray-300">measurable results</span> through data-driven strategies and cutting-edge analytics</p>
+            </div>
+            <div class="text-center">
+              <div class="inline-flex items-center justify-center w-16 h-16 bg-lime-400/10 rounded-full mb-4">
+                <Icon name="mdi:security" class="w-8 h-8 text-lime-400" />
+              </div>
+              <h3 class="text-xl font-bold mb-3">Security & Compliance</h3>
+              <p class="text-gray-400 leading-relaxed">Full compliance with UAE PDPL, GDPR, and enterprise-grade security standards</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-28 bg-gradient-to-b from-black to-zinc-900">
+        <div class="container mx-auto px-4 text-center">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Data?</h2>
+          <p class="text-lg text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Schedule a <span class="font-semibold text-gray-300">free consultation</span> to discuss your analytics needs and discover how we can help you achieve your goals
+          </p>
+          <a href="/contact" class="inline-block bg-lime-400 text-black px-12 py-4 rounded-lg font-bold hover:bg-lime-500 transition text-base shadow-lg shadow-lime-400/20 hover:shadow-lime-400/40">
+            Get Started Today
+          </a>
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .logo-tile {
+    background: linear-gradient(135deg, var(--accent-green) 0%, #86D12F 100%);
+    display: grid;
+    place-items: center;
+    border-radius: 0;
+    transform-origin: center center;
+    visibility: hidden;
+    box-shadow: 0 4px 12px rgba(163, 230, 53, 0.3);
+  }
+
+  .logo-char {
+    font-family: var(--font-brand);
+    font-weight: 900;
+    font-size: clamp(2.5rem, 8vmin, 4rem);
+    color: #000000;
+    line-height: 1;
+  }
+
+  .logo-caption,
+  .hero-content {
+    opacity: 0;
+    visibility: hidden;
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const tiles = document.querySelectorAll('.logo-tile');
+    const caption = document.querySelector('.logo-caption');
+    const heroContent = document.querySelector('.hero-content');
+
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+    // Animate logo tiles
+    tl.fromTo(tiles,
+      { scale: 0, rotation: -180, visibility: 'visible' },
+      { scale: 1, rotation: 0, duration: 0.7, stagger: 0.1 }
+    )
+    // Fade in brand text
+    .fromTo(caption,
+      { opacity: 0, y: 20, visibility: 'visible' },
+      { opacity: 1, y: 0, duration: 0.6 }
+    )
+    // Fade in hero content
+    .fromTo(heroContent,
+      { opacity: 0, y: 30, visibility: 'visible' },
+      { opacity: 1, y: 0, duration: 0.8 }
+    );
+  });
+</script>
+</BaseLayout>

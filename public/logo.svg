@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
+  <defs>
+    <linearGradient id="gradA-nav" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A3E635;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#86D12F;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradU-nav" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A3E635;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#86D12F;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradX-nav" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A3E635;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#86D12F;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradO-nav" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A3E635;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#86D12F;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- 2x2 Grid - Sharp corners -->
+  <!-- Top-left - A -->
+  <rect x="0" y="0" width="18" height="18" fill="url(#gradA-nav)"/>
+  <text x="9" y="14" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="13" fill="#000">A</text>
+
+  <!-- Top-right - U -->
+  <rect x="22" y="0" width="18" height="18" fill="url(#gradU-nav)"/>
+  <text x="31" y="14" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="13" fill="#000">U</text>
+
+  <!-- Bottom-left - X -->
+  <rect x="0" y="22" width="18" height="18" fill="url(#gradX-nav)"/>
+  <text x="9" y="36" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="13" fill="#000">X</text>
+
+  <!-- Bottom-right - O -->
+  <rect x="22" y="22" width="18" height="18" fill="url(#gradO-nav)"/>
+  <text x="31" y="36" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="13" fill="#000">O</text>
+</svg>

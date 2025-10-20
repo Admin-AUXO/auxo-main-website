@@ -1,0 +1,215 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { services } from '../../data/services';
+import { Icon } from 'astro-icon/components';
+
+export async function getStaticPaths() {
+  return services.map(service => ({
+    params: { id: service.id },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+
+// Use cases data
+function getUseCases(serviceId: string) {
+  const useCases: Record<string, Array<{title: string, description: string}>> = {
+    'business-intelligence': [
+      { title: 'Executive Dashboards', description: 'Real-time KPI monitoring for C-suite decision-making' },
+      { title: 'Sales Performance Tracking', description: 'Monitor sales metrics, forecasts, and team performance' },
+      { title: 'Financial Reporting', description: 'Automated monthly/quarterly financial reports and variance analysis' },
+      { title: 'Operational Metrics', description: 'Track efficiency, productivity, and operational excellence' }
+    ],
+    'data-analytics': [
+      { title: 'Customer Churn Prediction', description: 'Identify at-risk customers before they leave' },
+      { title: 'Market Basket Analysis', description: 'Discover product associations and cross-sell opportunities' },
+      { title: 'Demand Forecasting', description: 'Predict future demand for inventory optimization' },
+      { title: 'Pricing Optimization', description: 'Data-driven pricing strategies to maximize revenue' }
+    ],
+    'data-strategy': [
+      { title: 'Digital Transformation', description: 'Develop data strategy for organization-wide transformation' },
+      { title: 'Data Modernization', description: 'Migrate from legacy systems to modern cloud infrastructure' },
+      { title: 'Analytics ROI Planning', description: 'Build business case for analytics investments' },
+      { title: 'Organizational Alignment', description: 'Align data initiatives with business objectives' }
+    ],
+    'data-engineering': [
+      { title: 'Data Warehouse Migration', description: 'Move from on-premise to cloud data warehouse' },
+      { title: 'Real-time Data Pipelines', description: 'Stream processing for real-time analytics' },
+      { title: 'Data Lake Implementation', description: 'Centralize all your data sources in a scalable data lake' },
+      { title: 'API Integration', description: 'Connect disparate systems for unified data view' }
+    ],
+    'ml-ai': [
+      { title: 'Document Processing', description: 'Automate document classification and data extraction' },
+      { title: 'Fraud Detection', description: 'Identify anomalous patterns and fraudulent transactions' },
+      { title: 'Personalization Engines', description: 'Deliver personalized content and recommendations' },
+      { title: 'Predictive Maintenance', description: 'Forecast equipment failures before they occur' }
+    ],
+    'data-governance': [
+      { title: 'GDPR Compliance', description: 'Implement frameworks for EU data protection compliance' },
+      { title: 'UAE PDPL Readiness', description: 'Ensure compliance with UAE Personal Data Protection Law' },
+      { title: 'Data Quality Management', description: 'Establish data quality standards and monitoring' },
+      { title: 'Master Data Management', description: 'Create single source of truth for critical data' }
+    ]
+  };
+  return useCases[serviceId] || [];
+}
+
+const useCases = getUseCases(service.id);
+---
+
+<BaseLayout
+  title={`${service.title} | AUXO Data Labs`}
+  description={service.description}
+>
+  <div class="pt-24 pb-16">
+    <div class="container mx-auto px-4">
+      <!-- Breadcrumb -->
+      <div class="max-w-5xl mx-auto mb-8">
+        <nav class="flex text-sm text-gray-400">
+          <a href="/" class="hover:text-lime-400">Home</a>
+          <span class="mx-2">/</span>
+          <a href="/services" class="hover:text-lime-400">Services</a>
+          <span class="mx-2">/</span>
+          <span class="text-white">{service.title}</span>
+        </nav>
+      </div>
+
+      <!-- Header -->
+      <div class="max-w-5xl mx-auto mb-16">
+        <div class="flex items-center space-x-4 mb-6">
+          <div class="w-16 h-16 bg-lime-400/10 rounded-xl flex items-center justify-center">
+            <Icon name={service.icon} class="w-8 h-8 text-lime-400" />
+          </div>
+          <div>
+            <div class="text-sm text-lime-400 font-semibold mb-1">Service</div>
+            <h1 class="text-4xl md:text-5xl font-bold">{service.title}</h1>
+          </div>
+        </div>
+        <p class="text-xl text-gray-400">{service.description}</p>
+      </div>
+
+      <!-- Two Column Layout -->
+      <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <!-- Main Content -->
+        <div class="lg:col-span-2 space-y-12">
+          <!-- Features -->
+          <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-8">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+              <Icon name="mdi:star" class="w-6 h-6 text-lime-400 mr-3" />
+              Key Features
+            </h2>
+            <ul class="space-y-4">
+              {service.features.map((feature) => (
+                <li class="flex items-start">
+                  <div class="w-6 h-6 bg-lime-400/20 rounded-full flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
+                    <Icon name="mdi:check" class="w-4 h-4 text-lime-400" />
+                  </div>
+                  <span class="text-gray-300">{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Deliverables -->
+          <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-8">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+              <Icon name="mdi:package-variant" class="w-6 h-6 text-lime-400 mr-3" />
+              What You'll Get
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {service.deliverables.map((deliverable) => (
+                <div class="flex items-start p-4 bg-zinc-800 rounded-lg">
+                  <Icon name="mdi:file-document" class="w-5 h-5 text-lime-400 mr-3 flex-shrink-0 mt-0.5" />
+                  <span class="text-sm text-gray-300">{deliverable}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Use Cases -->
+          <div class="bg-gradient-to-br from-lime-400/10 to-green-500/10 border border-lime-400/20 rounded-2xl p-8">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+              <Icon name="mdi:lightbulb" class="w-6 h-6 text-lime-400 mr-3" />
+              Common Use Cases
+            </h2>
+            <div class="space-y-4">
+              {useCases.map((useCase) => (
+                <div class="flex items-start">
+                  <div class="w-2 h-2 bg-lime-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                  <div>
+                    <h3 class="font-semibold mb-1">{useCase.title}</h3>
+                    <p class="text-sm text-gray-400">{useCase.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+          <div class="sticky top-24 space-y-6">
+            <!-- CTA Card -->
+            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
+              <h3 class="font-bold mb-4">Ready to Get Started?</h3>
+              <p class="text-sm text-gray-400 mb-6">
+                Schedule a free consultation to discuss your needs
+              </p>
+              <a
+                href="/contact"
+                class="block w-full py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors text-center"
+              >
+                Contact Us
+              </a>
+            </div>
+
+            <!-- Related Services -->
+            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
+              <h3 class="font-bold mb-4">Related Services</h3>
+              <div class="space-y-3">
+                {services
+                  .filter((s) => s.id !== service.id)
+                  .slice(0, 3)
+                  .map((s) => (
+                    <a
+                      href={`/services/${s.id}`}
+                      class="block p-3 bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-colors group"
+                    >
+                      <div class="flex items-center">
+                        <Icon name={s.icon} class="w-5 h-5 text-lime-400 mr-3" />
+                        <span class="text-sm font-medium group-hover:text-lime-400 transition-colors">
+                          {s.title}
+                        </span>
+                      </div>
+                    </a>
+                  ))}
+              </div>
+              <a
+                href="/services"
+                class="block mt-4 text-sm text-lime-400 hover:underline"
+              >
+                View All Services →
+              </a>
+            </div>
+
+            <!-- Assessment CTA -->
+            <div class="bg-gradient-to-br from-lime-400/10 to-green-500/10 border border-lime-400/20 rounded-2xl p-6">
+              <Icon name="mdi:calculator" class="w-10 h-10 text-lime-400 mb-3" />
+              <h3 class="font-bold mb-2">Assess Your Maturity</h3>
+              <p class="text-sm text-gray-400 mb-4">
+                Take our free assessment to discover your data analytics maturity level
+              </p>
+              <a
+                href="/maturity-calculator"
+                class="block w-full py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors text-center text-sm"
+              >
+                Take Assessment
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

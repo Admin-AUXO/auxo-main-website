@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-primary: #000000;
+    --bg-secondary: #0A0A0A;
+    --bg-card: #111111;
+    --accent-green: #A3E635;
+    --accent-green-dim: #A3E63533;
+    --accent-red: #ef4444;
+    --text-primary: #FFFFFF;
+    --text-secondary: #A0A0A0;
+    --text-tertiary: #666666;
+    --font-hero: 'Space Mono', monospace;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-display: 'Space Grotesk', 'Inter', sans-serif;
+    --font-brand: 'Montserrat', 'Inter', sans-serif;
+    --font-accent: 'Outfit', 'Inter', sans-serif;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply font-sans antialiased bg-black text-white;
+    font-family: var(--font-body);
+    font-feature-settings: 'kern' 1, 'liga' 1;
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  h1 {
+    font-weight: 800;
+  }
+
+  p {
+    line-height: 1.7;
+  }
+}
+
+@layer utilities {
+  /* Fluid Brand-Green Animations */
+  @keyframes glow-pulse {
+    0%, 100% {
+      box-shadow: 0 0 5px rgba(163, 230, 53, 0.3),
+                  0 0 10px rgba(163, 230, 53, 0.2),
+                  0 0 15px rgba(163, 230, 53, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 10px rgba(163, 230, 53, 0.5),
+                  0 0 20px rgba(163, 230, 53, 0.4),
+                  0 0 30px rgba(163, 230, 53, 0.3);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  @keyframes gradient-flow {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-glow-pulse {
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(163, 230, 53, 0.1) 50%,
+      transparent 100%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 3s infinite;
+  }
+
+  .animate-gradient-flow {
+    background-size: 200% 200%;
+    animation: gradient-flow 5s ease infinite;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.6s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.5s ease-out;
+  }
+
+  /* Stagger delays for list items */
+  .animate-delay-100 { animation-delay: 100ms; }
+  .animate-delay-200 { animation-delay: 200ms; }
+  .animate-delay-300 { animation-delay: 300ms; }
+  .animate-delay-400 { animation-delay: 400ms; }
+  .animate-delay-500 { animation-delay: 500ms; }
+
+  /* Smooth hover transitions */
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 0 20px rgba(163, 230, 53, 0.4),
+                0 0 40px rgba(163, 230, 53, 0.2);
+  }
+
+  /* Gradient text */
+  .text-gradient-green {
+    background: linear-gradient(135deg, #A3E635 0%, #22c55e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Box-based content layouts */
+  .content-box {
+    @apply bg-zinc-900 border border-zinc-800 rounded-2xl p-8 transition-all duration-300;
+  }
+
+  .content-box:hover {
+    @apply border-lime-400 shadow-lg;
+  }
+
+  .content-box-highlight {
+    @apply bg-gradient-to-br from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8;
+  }
+}

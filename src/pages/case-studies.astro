@@ -1,0 +1,258 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Icon } from 'astro-icon/components';
+
+// Sample case studies data (in production, this would come from a data file or CMS)
+const caseStudies = [
+  {
+    id: 'retail-analytics',
+    title: 'Retail Chain Sales Forecasting',
+    client: 'Leading UAE Retail Group',
+    industry: 'Retail & E-commerce',
+    challenge: 'Struggled with inventory management and sales forecasting across 50+ locations',
+    solution: 'Implemented predictive analytics platform with real-time inventory optimization',
+    results: [
+      '35% reduction in inventory costs',
+      '25% improvement in forecast accuracy',
+      '15% increase in revenue through better stock management',
+      'ROI achieved in 6 months'
+    ],
+    technologies: ['Python', 'Power BI', 'Azure Synapse', 'Prophet'],
+    icon: 'mdi:store',
+    color: 'from-blue-500/20 to-cyan-500/20',
+    borderColor: 'border-blue-500/30'
+  },
+  {
+    id: 'banking-fraud',
+    title: 'Real-time Fraud Detection System',
+    client: 'Regional Banking Institution',
+    industry: 'Financial Services',
+    challenge: 'High false-positive rate in fraud detection causing customer friction',
+    solution: 'Developed ML-powered fraud detection with real-time scoring and adaptive learning',
+    results: [
+      '70% reduction in false positives',
+      '95% fraud detection accuracy',
+      '$2M+ saved annually in fraud losses',
+      'Improved customer satisfaction scores'
+    ],
+    technologies: ['TensorFlow', 'Kafka', 'AWS SageMaker', 'Snowflake'],
+    icon: 'mdi:shield-check',
+    color: 'from-red-500/20 to-orange-500/20',
+    borderColor: 'border-red-500/30'
+  },
+  {
+    id: 'healthcare-analytics',
+    title: 'Patient Flow Optimization',
+    client: 'Multi-specialty Healthcare Provider',
+    industry: 'Healthcare',
+    challenge: 'Long patient wait times and inefficient resource allocation across departments',
+    solution: 'Built analytics platform to optimize patient scheduling and resource utilization',
+    results: [
+      '40% reduction in average wait times',
+      '30% improvement in resource utilization',
+      '92% patient satisfaction rate',
+      '20% increase in daily patient capacity'
+    ],
+    technologies: ['Tableau', 'SQL Server', 'Python', 'Airflow'],
+    icon: 'mdi:hospital',
+    color: 'from-green-500/20 to-emerald-500/20',
+    borderColor: 'border-green-500/30'
+  },
+  {
+    id: 'logistics-optimization',
+    title: 'Supply Chain & Route Optimization',
+    client: 'Logistics & Distribution Company',
+    industry: 'Transportation & Logistics',
+    challenge: 'Inefficient routing and high fuel costs across delivery fleet',
+    solution: 'Implemented AI-powered route optimization and demand forecasting system',
+    results: [
+      '25% reduction in fuel costs',
+      '35% improvement in on-time deliveries',
+      '18% increase in daily deliveries per vehicle',
+      'Reduced carbon footprint by 22%'
+    ],
+    technologies: ['Google OR-Tools', 'BigQuery', 'GCP', 'Looker'],
+    icon: 'mdi:truck-fast',
+    color: 'from-yellow-500/20 to-amber-500/20',
+    borderColor: 'border-yellow-500/30'
+  },
+  {
+    id: 'manufacturing-quality',
+    title: 'Predictive Maintenance & Quality Control',
+    client: 'Manufacturing Enterprise',
+    industry: 'Manufacturing',
+    challenge: 'Unplanned equipment downtime and quality control issues',
+    solution: 'Deployed IoT sensors and ML models for predictive maintenance and defect detection',
+    results: [
+      '60% reduction in unplanned downtime',
+      '45% decrease in defect rates',
+      '$1.5M saved in maintenance costs',
+      'Extended equipment lifespan by 3 years'
+    ],
+    technologies: ['Apache Spark', 'Azure IoT', 'Computer Vision', 'Power BI'],
+    icon: 'mdi:factory',
+    color: 'from-purple-500/20 to-pink-500/20',
+    borderColor: 'border-purple-500/30'
+  },
+  {
+    id: 'real-estate-insights',
+    title: 'Real Estate Market Intelligence',
+    client: 'Property Development Group',
+    industry: 'Real Estate',
+    challenge: 'Lacked data-driven insights for investment and pricing decisions',
+    solution: 'Created comprehensive market intelligence platform with pricing analytics',
+    results: [
+      '15% improvement in pricing accuracy',
+      '90% faster market analysis',
+      'Identified 12 high-ROI investment opportunities',
+      '3x increase in data-driven decision making'
+    ],
+    technologies: ['Python', 'Pandas', 'Plotly', 'PostgreSQL', 'Docker'],
+    icon: 'mdi:office-building',
+    color: 'from-lime-500/20 to-green-500/20',
+    borderColor: 'border-lime-500/30'
+  }
+];
+---
+
+<BaseLayout
+  title="Case Studies - Success Stories | AUXO Data Labs"
+  description="Explore real-world case studies showcasing how AUXO Data Labs has helped organizations across industries transform their data into competitive advantage."
+>
+  <div class="pt-24 pb-16">
+    <div class="container mx-auto px-4">
+      <!-- Header -->
+      <div class="max-w-3xl mx-auto text-center mb-16">
+        <div class="inline-block px-4 py-2 bg-lime-400/10 border border-lime-400/20 rounded-full mb-4">
+          <span class="text-lime-400 text-sm font-semibold">Client Success Stories</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+          Real Results from
+          <span class="text-lime-400"> Real Clients</span>
+        </h1>
+        <p class="text-xl text-gray-400">
+          Discover how we've helped organizations across industries unlock the power of their data
+        </p>
+      </div>
+
+      <!-- Stats Bar -->
+      <div class="max-w-5xl mx-auto mb-16">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center">
+            <div class="text-3xl font-black text-lime-400 mb-2">50+</div>
+            <p class="text-sm text-gray-400">Projects Delivered</p>
+          </div>
+          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center">
+            <div class="text-3xl font-black text-lime-400 mb-2">8</div>
+            <p class="text-sm text-gray-400">Industries Served</p>
+          </div>
+          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center">
+            <div class="text-3xl font-black text-lime-400 mb-2">$10M+</div>
+            <p class="text-sm text-gray-400">Value Generated</p>
+          </div>
+          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center">
+            <div class="text-3xl font-black text-lime-400 mb-2">98%</div>
+            <p class="text-sm text-gray-400">Client Satisfaction</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case Studies Grid -->
+      <div class="max-w-6xl mx-auto space-y-12">
+        {caseStudies.map((study, index) => (
+          <div class={`bg-zinc-900 border-2 ${study.borderColor} rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300`}>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-0">
+              <!-- Left: Icon & Basic Info -->
+              <div class={`bg-gradient-to-br ${study.color} p-8 flex flex-col justify-center items-center lg:items-start text-center lg:text-left`}>
+                <div class="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4">
+                  <Icon name={study.icon} class="w-12 h-12 text-white" />
+                </div>
+                <h3 class="text-2xl font-bold mb-2">{study.title}</h3>
+                <p class="text-sm text-gray-300 mb-4">{study.client}</p>
+                <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-semibold">
+                  {study.industry}
+                </div>
+              </div>
+
+              <!-- Right: Details -->
+              <div class="lg:col-span-2 p-8">
+                <div class="space-y-6">
+                  <!-- Challenge -->
+                  <div>
+                    <h4 class="text-sm font-bold text-lime-400 mb-2 flex items-center">
+                      <Icon name="mdi:alert-circle" class="w-4 h-4 mr-2" />
+                      CHALLENGE
+                    </h4>
+                    <p class="text-gray-300">{study.challenge}</p>
+                  </div>
+
+                  <!-- Solution -->
+                  <div>
+                    <h4 class="text-sm font-bold text-lime-400 mb-2 flex items-center">
+                      <Icon name="mdi:lightbulb" class="w-4 h-4 mr-2" />
+                      SOLUTION
+                    </h4>
+                    <p class="text-gray-300">{study.solution}</p>
+                  </div>
+
+                  <!-- Results -->
+                  <div>
+                    <h4 class="text-sm font-bold text-lime-400 mb-3 flex items-center">
+                      <Icon name="mdi:chart-line" class="w-4 h-4 mr-2" />
+                      RESULTS
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {study.results.map((result) => (
+                        <div class="flex items-start">
+                          <Icon name="mdi:check-circle" class="w-5 h-5 text-lime-400 mr-2 flex-shrink-0 mt-0.5" />
+                          <span class="text-sm text-gray-300">{result}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <!-- Technologies -->
+                  <div>
+                    <h4 class="text-sm font-bold text-gray-500 mb-2">Technologies Used</h4>
+                    <div class="flex flex-wrap gap-2">
+                      {study.technologies.map((tech) => (
+                        <span class="px-3 py-1 bg-zinc-800 border border-zinc-700 rounded text-xs text-gray-400">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- CTA Section -->
+      <div class="max-w-4xl mx-auto mt-20">
+        <div class="bg-gradient-to-r from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8 md:p-12 text-center">
+          <h2 class="text-3xl font-bold mb-4">Ready to Write Your Success Story?</h2>
+          <p class="text-gray-400 mb-8 max-w-2xl mx-auto">
+            Let's discuss how we can help you achieve similar results and transform your data into competitive advantage
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="/contact"
+              class="px-8 py-4 bg-lime-400 text-black font-bold rounded-lg hover:bg-lime-500 transition-colors inline-flex items-center justify-center"
+            >
+              Start Your Project
+              <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
+            </a>
+            <a
+              href="/services"
+              class="px-8 py-4 bg-zinc-800 text-white font-bold rounded-lg hover:bg-zinc-700 transition-colors inline-flex items-center justify-center"
+            >
+              Explore Services
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

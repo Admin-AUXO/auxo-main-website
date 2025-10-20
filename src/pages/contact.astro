@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MultiStepForm from '../components/MultiStepForm.astro';
+import { siteData } from '../data/site';
+import { Icon } from 'astro-icon/components';
+---
+
+<BaseLayout
+  title="Contact Us - Get Started with Data Analytics | AUXO Data Labs"
+  description="Ready to transform your data into insights? Contact AUXO Data Labs to discuss your data analytics needs. We're here to help you unlock the power of your data."
+>
+  <div class="pt-24 pb-16">
+    <div class="container mx-auto px-4">
+      <!-- Header -->
+      <div class="max-w-3xl mx-auto text-center mb-16">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+          Let's Build Your Data
+          <span class="text-lime-400"> Success Story</span>
+        </h1>
+        <p class="text-xl text-gray-400">
+          Tell us about your data analytics needs and we'll get back to you within 24 hours
+        </p>
+      </div>
+
+      <!-- Two Column Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
+        <!-- Contact Information Column -->
+        <div class="lg:col-span-1">
+          <div class="sticky top-24">
+            <h2 class="text-2xl font-bold mb-6">Get in Touch</h2>
+
+            <div class="space-y-6">
+              <!-- Email -->
+              <div class="flex items-start space-x-4">
+                <div class="w-10 h-10 bg-lime-400/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Icon name="mdi:email" class="w-5 h-5 text-lime-400" />
+                </div>
+                <div>
+                  <h3 class="font-semibold mb-1">Email</h3>
+                  <a href={`mailto:${siteData.email}`} class="text-gray-400 hover:text-lime-400 transition-colors">
+                    {siteData.email}
+                  </a>
+                </div>
+              </div>
+
+              <!-- Phone -->
+              <div class="flex items-start space-x-4">
+                <div class="w-10 h-10 bg-lime-400/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Icon name="mdi:phone" class="w-5 h-5 text-lime-400" />
+                </div>
+                <div>
+                  <h3 class="font-semibold mb-1">Phone</h3>
+                  <a href={`tel:${siteData.phone}`} class="text-gray-400 hover:text-lime-400 transition-colors">
+                    {siteData.phone}
+                  </a>
+                </div>
+              </div>
+
+              <!-- Location -->
+              <div class="flex items-start space-x-4">
+                <div class="w-10 h-10 bg-lime-400/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Icon name="mdi:map-marker" class="w-5 h-5 text-lime-400" />
+                </div>
+                <div>
+                  <h3 class="font-semibold mb-1">Location</h3>
+                  <p class="text-gray-400">
+                    {siteData.address.city}<br>
+                    {siteData.address.country}
+                  </p>
+                </div>
+              </div>
+
+              <!-- Social -->
+              <div class="flex items-start space-x-4">
+                <div class="w-10 h-10 bg-lime-400/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Icon name="mdi:share-variant" class="w-5 h-5 text-lime-400" />
+                </div>
+                <div>
+                  <h3 class="font-semibold mb-2">Follow Us</h3>
+                  <div class="flex gap-3">
+                    <a href={siteData.social.linkedin} class="w-8 h-8 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black transition-colors">
+                      <Icon name="mdi:linkedin" class="w-4 h-4" />
+                    </a>
+                    <a href={siteData.social.twitter} class="w-8 h-8 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black transition-colors">
+                      <Icon name="mdi:twitter" class="w-4 h-4" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Info Box -->
+            <div class="mt-8 p-6 bg-gradient-to-br from-lime-400/10 to-green-500/10 border border-lime-400/20 rounded-lg">
+              <h3 class="font-bold mb-2">Fast Response Time</h3>
+              <p class="text-sm text-gray-400">We typically respond to all inquiries within 24 hours during business days.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Column -->
+        <div class="lg:col-span-2">
+          <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8">
+            <MultiStepForm />
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Contact Options -->
+      <div class="max-w-4xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="text-center p-6 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-lime-400 transition-colors">
+            <Icon name="mdi:calendar-clock" class="w-12 h-12 text-lime-400 mx-auto mb-4" />
+            <h3 class="font-bold mb-2">Schedule a Call</h3>
+            <p class="text-sm text-gray-400 mb-4">Book a free 30-minute consultation</p>
+            <a href="https://calendly.com/auxodata" class="text-lime-400 hover:underline text-sm">Book Now →</a>
+          </div>
+
+          <div class="text-center p-6 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-lime-400 transition-colors">
+            <Icon name="mdi:file-document" class="w-12 h-12 text-lime-400 mx-auto mb-4" />
+            <h3 class="font-bold mb-2">Download Brochure</h3>
+            <p class="text-sm text-gray-400 mb-4">Learn more about our services</p>
+            <a href="/brochure.pdf" class="text-lime-400 hover:underline text-sm">Download PDF →</a>
+          </div>
+
+          <div class="text-center p-6 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-lime-400 transition-colors">
+            <Icon name="mdi:calculator" class="w-12 h-12 text-lime-400 mx-auto mb-4" />
+            <h3 class="font-bold mb-2">Maturity Assessment</h3>
+            <p class="text-sm text-gray-400 mb-4">Assess your data analytics maturity</p>
+            <a href="/maturity-calculator" class="text-lime-400 hover:underline text-sm">Take Assessment →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

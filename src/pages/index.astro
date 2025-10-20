@@ -16,18 +16,19 @@ const base = import.meta.env.BASE_URL;
   <Navigation />
 
   <!-- Hero Section with Animated Logo -->
-  <section id="hero" class="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-black via-zinc-950 to-black overflow-hidden pt-20 pb-16">
+  <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-black via-zinc-950 to-black overflow-hidden pt-20 pb-20">
     <!-- Background Effects -->
     <div class="absolute inset-0 opacity-20">
       <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-lime-400/10 rounded-full blur-3xl animate-pulse"></div>
       <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
     </div>
 
-    <div class="container mx-auto px-4 relative z-10">
-      <div class="max-w-6xl mx-auto">
+    <!-- Hero Content Container -->
+    <div class="container mx-auto px-4 relative z-10 flex-1 flex flex-col items-center justify-center">
+      <div class="w-full max-w-4xl mx-auto text-center">
         <!-- Logo Animation Container -->
-        <div class="logo-reveal-container mb-6 flex justify-center">
-          <div class="logo-grid grid grid-cols-2 gap-2 w-32 md:w-40">
+        <div class="logo-reveal-container mb-6">
+          <div class="logo-grid grid grid-cols-2 gap-2 w-32 md:w-40 mx-auto">
             <div class="logo-tile aspect-square" data-char="A"><span class="logo-char">A</span></div>
             <div class="logo-tile aspect-square" data-char="U"><span class="logo-char">U</span></div>
             <div class="logo-tile aspect-square" data-char="X"><span class="logo-char">X</span></div>
@@ -36,7 +37,7 @@ const base = import.meta.env.BASE_URL;
         </div>
 
         <!-- Brand Text -->
-        <div class="logo-caption text-center mb-6">
+        <div class="logo-caption mb-6">
           <h1 class="text-xl md:text-2xl font-semibold mb-1 text-white tracking-tight">
             Data Labs
           </h1>
@@ -44,7 +45,7 @@ const base = import.meta.env.BASE_URL;
         </div>
 
         <!-- Hero Content -->
-        <div class="hero-content text-center max-w-4xl mx-auto">
+        <div class="hero-content">
           <div class="inline-block mb-4 px-4 py-1.5 bg-lime-400/10 border border-lime-400/30 rounded-full">
             <span class="text-lime-400 text-xs md:text-sm font-semibold tracking-wide">Dubai's Premier Analytics Partner</span>
           </div>
@@ -87,10 +88,10 @@ const base = import.meta.env.BASE_URL;
     </div>
 
     <!-- Scroll Indicator -->
-    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce">
+    <div class="relative z-10 pb-6 animate-bounce">
       <a href="#services" class="flex flex-col items-center text-gray-500 hover:text-lime-400 transition-colors">
-        <span class="text-xs mb-1 text-center">Scroll to explore</span>
-        <Icon name="mdi:chevron-down" class="w-5 h-5 mx-auto" />
+        <span class="text-xs mb-1">Scroll to explore</span>
+        <Icon name="mdi:chevron-down" class="w-5 h-5" />
       </a>
     </div>
   </section>

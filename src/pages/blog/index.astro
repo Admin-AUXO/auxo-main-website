@@ -1,3 +1,4 @@
+const base = import.meta.env.BASE_URL;
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { Icon } from 'astro-icon/components';
@@ -28,6 +29,7 @@ function calculateReadTime(content: string) {
   const wordCount = content.trim().split(/\s+/).length;
   return Math.ceil(wordCount / wordsPerMinute);
 }
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
@@ -168,13 +170,13 @@ function calculateReadTime(content: string) {
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="/contact"
+              href={`${base}contact`}
               class="px-6 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors inline-flex items-center justify-center"
             >
               Subscribe for Updates
             </a>
             <a
-              href="/services"
+              href={`${base}services`}
               class="px-6 py-3 bg-zinc-800 text-white font-semibold rounded-lg hover:bg-zinc-700 transition-colors inline-flex items-center justify-center"
             >
               Explore Services

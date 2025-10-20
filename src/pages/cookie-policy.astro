@@ -1,6 +1,8 @@
+const base = import.meta.env.BASE_URL;
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LegalLayout from '../components/LegalLayout.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
@@ -85,7 +87,7 @@ import LegalLayout from '../components/LegalLayout.astro';
 
         <h2>8. Contact Us</h2>
         <p>
-          If you have questions about our use of cookies, please contact us through our <a href="/contact">contact page</a>.
+          If you have questions about our use of cookies, please contact us through our <a href={`${base}contact`}>contact page</a>.
         </p>
       </LegalLayout>
     </div>

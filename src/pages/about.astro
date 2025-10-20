@@ -3,6 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteData } from '../data/site';
 import { team } from '../data/team';
 import { Icon } from 'astro-icon/components';
+
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
@@ -142,7 +144,7 @@ import { Icon } from 'astro-icon/components';
         <div class="mt-8 text-center">
           <p class="text-gray-400 mb-4">Interested in joining our team?</p>
           <a
-            href="/contact"
+            href={`${base}contact`}
             class="inline-flex items-center px-6 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors"
           >
             We're Hiring
@@ -190,14 +192,14 @@ import { Icon } from 'astro-icon/components';
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="/contact"
+              href={`${base}contact`}
               class="px-8 py-4 bg-lime-400 text-black font-bold rounded-lg hover:bg-lime-500 transition-colors inline-flex items-center justify-center"
             >
               Get in Touch
               <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
             </a>
             <a
-              href="/services"
+              href={`${base}services`}
               class="px-8 py-4 bg-zinc-800 text-white font-bold rounded-lg hover:bg-zinc-700 transition-colors inline-flex items-center justify-center"
             >
               View Our Services

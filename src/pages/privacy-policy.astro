@@ -1,6 +1,8 @@
+const base = import.meta.env.BASE_URL;
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LegalLayout from '../components/LegalLayout.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
@@ -78,7 +80,7 @@ import LegalLayout from '../components/LegalLayout.astro';
 
         <h2>7. Cookies and Tracking Technologies</h2>
         <p>
-          We use cookies and similar tracking technologies to enhance your experience on our website. You can control cookies through your browser settings. For more information, please see our <a href="/cookie-policy">Cookie Policy</a>.
+          We use cookies and similar tracking technologies to enhance your experience on our website. You can control cookies through your browser settings. For more information, please see our <a href={`${base}cookie-policy`}>Cookie Policy</a>.
         </p>
 
         <h2>8. International Data Transfers</h2>
@@ -102,7 +104,7 @@ import LegalLayout from '../components/LegalLayout.astro';
         </p>
         <ul>
           <li>Email: privacy@auxodata.ae</li>
-          <li>Website: <a href="/contact">Contact Form</a></li>
+          <li>Website: <a href={`${base}contact`}>Contact Form</a></li>
         </ul>
       </LegalLayout>
     </div>

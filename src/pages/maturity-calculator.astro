@@ -1,6 +1,8 @@
+const base = import.meta.env.BASE_URL;
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Icon } from 'astro-icon/components';
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
@@ -171,7 +173,7 @@ import { Icon } from 'astro-icon/components';
                 <Icon name="mdi:email" class="w-5 h-5 mr-2" />
                 Email Results
               </button>
-              <a href="/contact" class="px-6 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors flex items-center justify-center">
+              <a href={`${base}contact`} class="px-6 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors flex items-center justify-center">
                 Get Expert Help →
               </a>
             </div>

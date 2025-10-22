@@ -395,6 +395,12 @@ Comprehensive SEO setup via `SEO.astro` component:
 ## 🎉 Changelog
 
 ### Latest Updates (January 2025)
+- ✅ **Content Layer API v5.0 Migration** - Upgraded from legacy API to modern loaders
+- ✅ **Blog Articles** - 3 comprehensive articles covering BI, Data Strategy, and ML
+- ✅ **Astro Configuration Optimizations** - Environment-aware compression, Partytown debug mode
+- ✅ **Base Path Verification** - All internal links properly use GitHub Pages base path
+- ✅ **VS Code Integration** - JSON schema support for content collections
+- ✅ **Comprehensive Documentation** - 35-page audit report and optimization guides
 - ✅ 2x2 grid logo implementation (favicon + navigation)
 - ✅ Multi-step lead generation form with 4 steps
 - ✅ Data analytics maturity calculator (20 questions, 5 dimensions)
@@ -413,8 +419,16 @@ Comprehensive SEO setup via `SEO.astro` component:
 
 ---
 
+## 📚 Additional Documentation
+
+- **[Astro Audit Report](docs/astro-audit.md)** - Comprehensive audit against Astro v5.14.6 docs
+- **[Optimizations Applied](docs/optimizations-applied.md)** - Details of recent optimizations
+- **[Changelog](CHANGELOG.md)** - Full version history
+
+---
+
 **Built with ❤️ in Dubai**
 
 **Status:** 🟢 Production Ready
-**Version:** 1.0.0
-**Last Updated:** January 2025
+**Version:** 1.1.0
+**Last Updated:** January 22, 2025

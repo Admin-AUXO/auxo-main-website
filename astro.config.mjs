@@ -70,8 +70,8 @@ export default defineConfig({
         // Run `npm run build` and check warnings for unused icons
         mdi: [
           // UI & Navigation Icons
-          'account-group', 'alert-circle', 'arrow-right', 'book-open',
-          'briefcase', 'calculator', 'calendar', 'calendar-clock',
+          'account', 'account-group', 'alert-circle', 'arrow-left', 'arrow-right', 'book-open',
+          'briefcase', 'calculator', 'calendar', 'calendar-clock', 'clock',
           'certificate', 'chart-bar', 'chart-line', 'check', 'check-circle',
           'chevron-down', 'database', 'download', 'email', 'email-newsletter',
           'email-outline', 'eye', 'file-document', 'handshake', 'home',

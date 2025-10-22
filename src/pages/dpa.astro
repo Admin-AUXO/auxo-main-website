@@ -1,15 +1,22 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LegalLayout from '../components/LegalLayout.astro';
+
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
   title="Data Processing Agreement | AUXO Data Labs"
-  description="Data Processing Agreement (DPA) for AUXO Data Labs' data analytics services."
+  description="Data Processing Agreement (DPA) for AUXO Data Labs' data analytics consultancy services in compliance with UAE PDPL and GDPR."
 >
   <div class="pt-24 pb-16">
     <div class="container mx-auto px-4">
-      <LegalLayout title="Data Processing Agreement (DPA)" lastUpdated="January 2025">
+      <LegalLayout
+        title="Data Processing Agreement (DPA)"
+        lastUpdated="January 15, 2025"
+        effectiveDate="January 1, 2025"
+        summary="This Data Processing Agreement governs how AUXO Data Labs processes personal data on behalf of our clients. It ensures compliance with UAE PDPL, GDPR, and international data protection standards for all data analytics consultancy services."
+      >
         <h2>1. Introduction</h2>
         <p>
           This Data Processing Agreement ("DPA") forms part of the service agreement between AUXO Data Labs ("Processor") and the Client ("Controller") for the provision of data analytics services. This DPA sets out the terms on which AUXO Data Labs processes personal data on behalf of the Client.

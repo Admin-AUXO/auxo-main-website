@@ -1,106 +1,450 @@
-const base = import.meta.env.BASE_URL;
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LegalLayout from '../components/LegalLayout.astro';
+
 const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
   title="Terms & Conditions | AUXO Data Labs"
-  description="Terms and conditions governing the use of AUXO Data Labs' website and services."
+  description="Terms and conditions governing the use of AUXO Data Labs' website and data analytics consultancy services."
 >
   <div class="pt-24 pb-16">
     <div class="container mx-auto px-4">
-      <LegalLayout title="Terms & Conditions" lastUpdated="January 2025">
-        <h2>1. Acceptance of Terms</h2>
-        <p>
-          By accessing and using the AUXO Data Labs website and services, you accept and agree to be bound by these Terms and Conditions. If you do not agree to these terms, please do not use our website or services.
-        </p>
+      <LegalLayout
+        title="Terms & Conditions"
+        lastUpdated="January 15, 2025"
+        effectiveDate="January 1, 2025"
+        summary="These Terms & Conditions govern your use of AUXO Data Labs' website and the provision of our data analytics consultancy services. By accessing our website or engaging our services, you agree to be bound by these terms."
+      >
+        <!-- Introduction -->
+        <div class="mb-8 p-6 bg-lime-400/5 border border-lime-400/20 rounded-lg">
+          <h2 class="!mt-0">Agreement to Terms</h2>
+          <p>
+            By accessing the AUXO Data Labs website (the "Website") or engaging our data analytics consultancy services (the "Services"), you ("Client," "you," or "your") accept and agree to be bound by these Terms and Conditions ("Terms") and our <a href={`${base}privacy-policy`}>Privacy Policy</a>. If you do not agree to these Terms, please do not use our Website or Services.
+          </p>
+          <p>
+            <strong>Effective Date:</strong> These Terms are effective as of the date you first access our Website or engage our Services.
+          </p>
+        </div>
+
+        <h2>1. Company Information</h2>
+        <p><strong>Legal Name:</strong> AUXO Data Labs</p>
+        <p><strong>Business Type:</strong> Data Analytics Consultancy</p>
+        <p><strong>Location:</strong> Dubai, United Arab Emirates</p>
+        <p><strong>Contact:</strong></p>
+        <ul>
+          <li>Email: hello@auxodata.ae</li>
+          <li>Website: <a href={`${base}contact`}>Contact Form</a></li>
+        </ul>
 
         <h2>2. Services Description</h2>
-        <p>
-          AUXO Data Labs provides data analytics consulting services, including but not limited to business intelligence, data strategy, data engineering, machine learning solutions, and data governance services. Specific service terms will be outlined in individual service agreements.
-        </p>
+        <p>AUXO Data Labs provides professional data analytics consultancy services, including but not limited to:</p>
+
+        <h3>2.1 Core Services</h3>
+        <ul>
+          <li><strong>Business Intelligence & Reporting:</strong> Dashboard development, automated reporting, data visualization using Power BI, Tableau, and similar platforms</li>
+          <li><strong>Advanced Data Analytics:</strong> Statistical analysis, predictive modeling, customer analytics, A/B testing, optimization strategies</li>
+          <li><strong>Data Strategy & Roadmap:</strong> Data maturity assessments, analytics strategy development, technology selection, implementation roadmaps</li>
+          <li><strong>Data Engineering & Integration:</strong> ETL pipeline development, data warehouse design, cloud data platforms, API integrations</li>
+          <li><strong>Machine Learning & AI Solutions:</strong> ML model development, AI-driven automation, recommendation systems, predictive maintenance</li>
+          <li><strong>Data Governance & Compliance:</strong> Data quality frameworks, PDPL/GDPR compliance, data cataloging, metadata management</li>
+        </ul>
+
+        <h3>2.2 Service Delivery Models</h3>
+        <ul>
+          <li><strong>Project-Based:</strong> Fixed-scope engagements with defined deliverables and timelines</li>
+          <li><strong>Retainer-Based:</strong> Ongoing support and advisory services on a monthly basis</li>
+          <li><strong>Time & Materials:</strong> Hourly or daily rate engagements for flexible scope work</li>
+          <li><strong>Hybrid Engagements:</strong> Combination of fixed deliverables with ongoing support</li>
+        </ul>
+
+        <p><strong>Note:</strong> Specific services, deliverables, timelines, and fees will be outlined in individual Statement of Work (SOW) or Service Agreement documents.</p>
 
         <h2>3. Use of Website</h2>
+
         <h3>3.1 Permitted Use</h3>
-        <p>You may use our website for lawful purposes only. You agree not to:</p>
+        <p>You may use our Website for lawful business purposes only. Permitted uses include:</p>
         <ul>
-          <li>Use the website in any way that violates applicable laws or regulations</li>
-          <li>Attempt to gain unauthorized access to our systems</li>
-          <li>Interfere with or disrupt the website's functionality</li>
-          <li>Transmit viruses or malicious code</li>
-          <li>Scrape, mine, or harvest data without permission</li>
+          <li>Browsing information about our services and company</li>
+          <li>Submitting inquiries through contact forms</li>
+          <li>Downloading resources made available for download</li>
+          <li>Using interactive tools (e.g., maturity assessment)</li>
+          <li>Subscribing to newsletters and updates</li>
         </ul>
 
-        <h3>3.2 Intellectual Property</h3>
-        <p>
-          All content on this website, including text, graphics, logos, and software, is the property of AUXO Data Labs and is protected by copyright and other intellectual property laws. You may not reproduce, distribute, or create derivative works without our written permission.
-        </p>
-
-        <h2>4. Service Agreements</h2>
-        <p>
-          Specific services provided by AUXO Data Labs will be governed by individual service agreements, which will include:
-        </p>
+        <h3>3.2 Prohibited Use</h3>
+        <p>You agree NOT to:</p>
         <ul>
-          <li>Scope of work and deliverables</li>
-          <li>Timeline and milestones</li>
-          <li>Fees and payment terms</li>
-          <li>Confidentiality provisions</li>
-          <li>Intellectual property rights</li>
-          <li>Limitation of liability</li>
+          <li>Use the Website in any way that violates applicable local, national, or international laws or regulations</li>
+          <li>Attempt to gain unauthorized access to our systems, servers, or networks</li>
+          <li>Interfere with or disrupt the Website's functionality or server infrastructure</li>
+          <li>Transmit viruses, malware, or any malicious code</li>
+          <li>Scrape, mine, or harvest data from the Website using automated tools without permission</li>
+          <li>Reverse engineer, decompile, or disassemble any software or technology</li>
+          <li>Impersonate AUXO Data Labs or any of our employees or representatives</li>
+          <li>Use the Website for competitive intelligence or benchmarking purposes without consent</li>
         </ul>
 
-        <h2>5. Confidentiality</h2>
+        <h3>3.3 Account Security</h3>
+        <p>If you create an account or access portal (for client project management), you are responsible for:</p>
+        <ul>
+          <li>Maintaining the confidentiality of your login credentials</li>
+          <li>All activities that occur under your account</li>
+          <li>Notifying us immediately of any unauthorized use</li>
+          <li>Using strong passwords and enabling two-factor authentication when available</li>
+        </ul>
+
+        <h2>4. Intellectual Property Rights</h2>
+
+        <h3>4.1 AUXO Data Labs Intellectual Property</h3>
+        <p>All content on the Website, including but not limited to:</p>
+        <ul>
+          <li>Text, graphics, logos, icons, images, and photographs</li>
+          <li>Software, code, and technical documentation</li>
+          <li>Methodologies, frameworks, and analytical models</li>
+          <li>Blog articles, whitepapers, and case studies</li>
+          <li>Trademarks, service marks, and trade names</li>
+        </ul>
+        <p>...are the exclusive property of AUXO Data Labs and are protected by:</p>
+        <ul>
+          <li>UAE copyright laws and international copyright treaties</li>
+          <li>Trademark laws and regulations</li>
+          <li>Trade secret and confidential information protections</li>
+        </ul>
+        <p>You may not reproduce, distribute, modify, create derivative works, publicly display, or exploit any content without our prior written permission.</p>
+
+        <h3>4.2 Client-Provided Materials</h3>
+        <p>You retain ownership of all data, content, and materials you provide to us ("Client Materials"). By providing Client Materials, you grant us a limited, non-exclusive license to:</p>
+        <ul>
+          <li>Use, process, and analyze the materials solely for delivering the Services</li>
+          <li>Create derivative works necessary for project deliverables</li>
+          <li>Store and backup materials during and after the engagement</li>
+        </ul>
+
+        <h3>4.3 Work Product and Deliverables</h3>
+        <p>Ownership of work product and deliverables will be specified in the individual Service Agreement. Typically:</p>
+        <ul>
+          <li><strong>Custom Deliverables:</strong> Ownership transfers to Client upon full payment (reports, dashboards, models specific to Client)</li>
+          <li><strong>Pre-Existing IP:</strong> AUXO retains ownership (proprietary frameworks, methodologies, reusable code libraries)</li>
+          <li><strong>Licensed Tools:</strong> Third-party tools remain property of respective vendors (Power BI, Tableau, etc.)</li>
+        </ul>
+
+        <h2>5. Service Agreements and Engagement Terms</h2>
+
+        <h3>5.1 Statement of Work (SOW)</h3>
+        <p>Each engagement will be governed by a Statement of Work that includes:</p>
+        <ul>
+          <li><strong>Scope of Work:</strong> Detailed description of deliverables, activities, and exclusions</li>
+          <li><strong>Timeline:</strong> Project phases, milestones, and completion dates</li>
+          <li><strong>Fees and Payment Terms:</strong> Pricing structure, payment schedule, and accepted payment methods</li>
+          <li><strong>Responsibilities:</strong> Client and AUXO obligations and dependencies</li>
+          <li><strong>Acceptance Criteria:</strong> How deliverables will be reviewed and approved</li>
+          <li><strong>Change Management:</strong> Process for handling scope changes and additional work</li>
+        </ul>
+
+        <h3>5.2 Fees and Payment</h3>
+        <p><strong>Payment Terms:</strong></p>
+        <ul>
+          <li>Invoices are due within 30 days of invoice date unless otherwise specified</li>
+          <li>Late payments may incur interest charges of 1.5% per month (or maximum allowed by law)</li>
+          <li>Services may be suspended for accounts more than 30 days overdue</li>
+          <li>Client is responsible for any bank fees, wire transfer charges, or currency conversion costs</li>
+        </ul>
+
+        <p><strong>Expenses:</strong></p>
+        <ul>
+          <li>Travel, accommodation, and other pre-approved expenses will be billed separately</li>
+          <li>Third-party software licenses or tools will be passed through at cost</li>
+          <li>All expenses require prior written approval from Client</li>
+        </ul>
+
+        <h3>5.3 Change Requests</h3>
+        <p>Changes to the agreed scope of work must be:</p>
+        <ul>
+          <li>Submitted in writing through formal change request process</li>
+          <li>Reviewed and priced by AUXO within 5 business days</li>
+          <li>Approved in writing by authorized Client representative</li>
+          <li>Documented in a Change Order with revised timeline and fees</li>
+        </ul>
+
+        <h2>6. Client Responsibilities</h2>
+        <p>To ensure successful project delivery, Client agrees to:</p>
+
+        <h3>6.1 Data and Access</h3>
+        <ul>
+          <li>Provide timely access to data, systems, and resources as outlined in the SOW</li>
+          <li>Ensure data quality and accuracy to the best of your ability</li>
+          <li>Provide necessary credentials, API keys, and system access</li>
+          <li>Obtain all required internal approvals and stakeholder buy-in</li>
+        </ul>
+
+        <h3>6.2 Collaboration and Communication</h3>
+        <ul>
+          <li>Assign a dedicated point of contact with decision-making authority</li>
+          <li>Participate in scheduled meetings, reviews, and workshops</li>
+          <li>Provide feedback on deliverables within agreed timeframes</li>
+          <li>Respond to information requests within 5 business days</li>
+        </ul>
+
+        <h3>6.3 Legal and Compliance</h3>
+        <ul>
+          <li>Ensure you have legal rights to provide all Client Materials</li>
+          <li>Warrant that use of Client Materials does not infringe third-party rights</li>
+          <li>Obtain necessary consents for personal data processing (where applicable)</li>
+          <li>Comply with all applicable data protection and privacy laws</li>
+        </ul>
+
+        <h2>7. Confidentiality</h2>
+
+        <h3>7.1 Definition of Confidential Information</h3>
+        <p>"Confidential Information" includes:</p>
+        <ul>
+          <li>Business data, financial information, and strategic plans</li>
+          <li>Technical data, algorithms, and proprietary methodologies</li>
+          <li>Customer lists, pricing information, and business processes</li>
+          <li>Any information marked as "Confidential" or that should reasonably be considered confidential</li>
+        </ul>
+
+        <h3>7.2 Obligations</h3>
+        <p>Both parties agree to:</p>
+        <ul>
+          <li>Maintain strict confidentiality of all Confidential Information</li>
+          <li>Use Confidential Information solely for the purposes of the engagement</li>
+          <li>Protect information with the same care used for their own confidential materials (minimum reasonable care)</li>
+          <li>Limit disclosure to employees and contractors with a need-to-know</li>
+          <li>Return or destroy Confidential Information upon request or project completion</li>
+        </ul>
+
+        <h3>7.3 Exceptions</h3>
+        <p>Confidentiality obligations do not apply to information that:</p>
+        <ul>
+          <li>Is or becomes publicly available through no breach of this agreement</li>
+          <li>Was rightfully known prior to disclosure</li>
+          <li>Is independently developed without use of Confidential Information</li>
+          <li>Is required to be disclosed by law or court order (with prior notice to disclosing party)</li>
+        </ul>
+
+        <h3>7.4 Duration</h3>
+        <p>Confidentiality obligations survive for 5 years after termination of the engagement or indefinitely for trade secrets.</p>
+
+        <h2>8. Data Protection and Privacy</h2>
+        <p>Both parties commit to compliance with:</p>
+        <ul>
+          <li>UAE Federal Decree-Law No. 45 of 2021 (UAE PDPL)</li>
+          <li>EU General Data Protection Regulation (GDPR) where applicable</li>
+          <li>Industry-specific regulations (e.g., healthcare, financial services)</li>
+        </ul>
+        <p>Data processing activities are governed by our <a href={`${base}dpa`}>Data Processing Agreement (DPA)</a> and <a href={`${base}privacy-policy`}>Privacy Policy</a>.</p>
+
+        <h2>9. Warranties and Disclaimers</h2>
+
+        <h3>9.1 Service Warranty</h3>
+        <p><strong>AUXO Data Labs warrants that:</strong></p>
+        <ul>
+          <li>Services will be performed with reasonable skill, care, and diligence</li>
+          <li>Services will substantially conform to the specifications in the SOW</li>
+          <li>We will use qualified personnel with relevant expertise</li>
+          <li>We will comply with applicable professional standards</li>
+        </ul>
+
+        <p><strong>Remedy for Breach:</strong> If Services fail to meet the warranty, we will re-perform the deficient Services at no additional charge. This is your sole and exclusive remedy for warranty breach.</p>
+
+        <h3>9.2 Website Disclaimer</h3>
         <p>
-          We understand the sensitive nature of client data. All client information shared with AUXO Data Labs will be treated as confidential and will not be disclosed to third parties without explicit consent, except as required by law.
+          THE WEBSITE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO:
+        </p>
+        <ul>
+          <li>Warranties of merchantability or fitness for a particular purpose</li>
+          <li>Warranties that the Website will be uninterrupted, error-free, or virus-free</li>
+          <li>Warranties regarding accuracy, reliability, or completeness of content</li>
+          <li>Warranties that defects will be corrected or that servers are secure</li>
+        </ul>
+
+        <h3>9.3 No Guarantee of Results</h3>
+        <p>
+          While we strive to deliver high-quality services, we cannot guarantee specific business outcomes or results. The success of analytics initiatives depends on many factors outside our control, including data quality, client implementation, and market conditions.
         </p>
 
-        <h2>6. Data Protection</h2>
+        <h2>10. Limitation of Liability</h2>
+
+        <h3>10.1 Exclusion of Consequential Damages</h3>
         <p>
-          We process personal data in accordance with our <a href={`${base}privacy-policy`}>Privacy Policy</a> and applicable data protection laws, including UAE PDPL and GDPR where applicable.
+          TO THE MAXIMUM EXTENT PERMITTED BY UAE LAW, AUXO DATA LABS SHALL NOT BE LIABLE FOR ANY:
+        </p>
+        <ul>
+          <li>Indirect, incidental, special, or consequential damages</li>
+          <li>Loss of profits, revenue, data, or business opportunities</li>
+          <li>Cost of substitute services or procurement</li>
+          <li>Damages arising from third-party claims</li>
+        </ul>
+        <p>This exclusion applies even if we have been advised of the possibility of such damages.</p>
+
+        <h3>10.2 Cap on Total Liability</h3>
+        <p>
+          Our total aggregate liability for all claims arising from or related to any Service Agreement shall not exceed the total fees paid by Client for the specific Services that gave rise to the liability in the 12 months preceding the claim.
         </p>
 
-        <h2>7. Limitation of Liability</h2>
+        <h3>10.3 Exceptions</h3>
+        <p>The limitations above do not apply to:</p>
+        <ul>
+          <li>Liability for death or personal injury caused by our negligence</li>
+          <li>Liability for fraud or fraudulent misrepresentation</li>
+          <li>Liability for gross negligence or willful misconduct</li>
+          <li>Liability that cannot be excluded under applicable law</li>
+          <li>Breaches of confidentiality obligations</li>
+        </ul>
+
+        <h2>11. Indemnification</h2>
+
+        <h3>11.1 Client Indemnification</h3>
+        <p>Client agrees to indemnify, defend, and hold harmless AUXO Data Labs from claims arising from:</p>
+        <ul>
+          <li>Client's breach of these Terms or any Service Agreement</li>
+          <li>Client's violation of applicable laws or regulations</li>
+          <li>Infringement of third-party intellectual property rights by Client Materials</li>
+          <li>Client's use of our deliverables in a manner not authorized by the SOW</li>
+        </ul>
+
+        <h3>11.2 AUXO Indemnification</h3>
+        <p>AUXO agrees to indemnify Client from third-party claims that our Services infringe valid intellectual property rights, provided that:</p>
+        <ul>
+          <li>Client promptly notifies us in writing of the claim</li>
+          <li>Client provides reasonable cooperation in the defense</li>
+          <li>We have sole control of the defense and settlement</li>
+        </ul>
+
+        <h2>12. Term and Termination</h2>
+
+        <h3>12.1 Term</h3>
+        <p>Individual Service Agreements will specify the term of engagement. These Terms remain in effect for as long as you access our Website or have an active Service Agreement.</p>
+
+        <h3>12.2 Termination for Convenience</h3>
+        <p>Either party may terminate a Service Agreement with:</p>
+        <ul>
+          <li><strong>30 days' written notice</strong> for retainer-based engagements</li>
+          <li><strong>Mutual written agreement</strong> for project-based work (subject to payment for work completed)</li>
+        </ul>
+
+        <h3>12.3 Termination for Cause</h3>
+        <p>Either party may terminate immediately if the other party:</p>
+        <ul>
+          <li>Materially breaches the Agreement and fails to cure within 15 days of written notice</li>
+          <li>Becomes insolvent, files for bankruptcy, or ceases business operations</li>
+          <li>Breaches confidentiality or data protection obligations</li>
+        </ul>
+
+        <h3>12.4 Effect of Termination</h3>
+        <p>Upon termination:</p>
+        <ul>
+          <li>Client must pay for all Services performed through the termination date</li>
+          <li>AUXO will deliver all completed work products</li>
+          <li>Each party will return or destroy Confidential Information (except as required for legal/accounting purposes)</li>
+          <li>Provisions regarding confidentiality, IP, liability, and indemnification survive termination</li>
+        </ul>
+
+        <h2>13. Force Majeure</h2>
         <p>
-          To the maximum extent permitted by law, AUXO Data Labs shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of our website or services. Our total liability shall not exceed the fees paid for the specific service in question.
+          Neither party shall be liable for failure to perform obligations due to events beyond reasonable control, including but not limited to:
+        </p>
+        <ul>
+          <li>Natural disasters (earthquakes, floods, pandemics)</li>
+          <li>War, terrorism, or civil unrest</li>
+          <li>Government actions, embargoes, or sanctions</li>
+          <li>Internet or telecommunications failures</li>
+          <li>Third-party service provider outages</li>
+        </ul>
+        <p>The affected party must provide prompt notice and use reasonable efforts to resume performance. If the force majeure event continues for more than 60 days, either party may terminate the affected Service Agreement.</p>
+
+        <h2>14. Independent Contractor</h2>
+        <p>
+          AUXO Data Labs is an independent contractor, not an employee, agent, partner, or joint venturer of Client. Nothing in these Terms creates an employment relationship, partnership, or agency. We are responsible for our own taxes, insurance, and employment obligations.
         </p>
 
-        <h2>8. Warranties and Disclaimers</h2>
-        <h3>8.1 Service Warranty</h3>
+        <h2>15. Subcontracting</h2>
         <p>
-          We warrant that our services will be performed with reasonable skill and care in accordance with industry standards.
+          AUXO may engage subcontractors or independent consultants to assist with Services, provided that:
+        </p>
+        <ul>
+          <li>We remain fully responsible for all work performed by subcontractors</li>
+          <li>All subcontractors are bound by equivalent confidentiality and data protection obligations</li>
+          <li>Client may request a list of subcontractors involved in their engagement</li>
+          <li>Client may object to specific subcontractors for reasonable cause</li>
+        </ul>
+
+        <h2>16. Governing Law and Dispute Resolution</h2>
+
+        <h3>16.1 Governing Law</h3>
+        <p>
+          These Terms and all Service Agreements shall be governed by and construed in accordance with the laws of the United Arab Emirates, without regard to conflict of law principles.
         </p>
 
-        <h3>8.2 Website Disclaimer</h3>
+        <h3>16.2 Jurisdiction</h3>
         <p>
-          Our website is provided "as is" without warranties of any kind, either express or implied. We do not warrant that the website will be uninterrupted, error-free, or free from viruses.
+          Any disputes arising from or related to these Terms shall be subject to the exclusive jurisdiction of the courts of Dubai, UAE.
         </p>
 
-        <h2>9. Indemnification</h2>
+        <h3>16.3 Dispute Resolution Process</h3>
+        <p>Before initiating legal proceedings, parties agree to:</p>
+        <ol>
+          <li><strong>Negotiation (30 days):</strong> Attempt to resolve disputes through good-faith negotiations between senior executives</li>
+          <li><strong>Mediation (60 days):</strong> If negotiation fails, engage in non-binding mediation with a mutually agreed mediator</li>
+          <li><strong>Arbitration/Litigation:</strong> If mediation fails, disputes may proceed to arbitration or court as specified in the Service Agreement</li>
+        </ol>
+
+        <h2>17. General Provisions</h2>
+
+        <h3>17.1 Entire Agreement</h3>
         <p>
-          You agree to indemnify and hold harmless AUXO Data Labs from any claims, damages, or expenses arising from your use of our website or services in violation of these terms.
+          These Terms, together with any applicable Service Agreement, Privacy Policy, and DPA, constitute the entire agreement between the parties and supersede all prior agreements, representations, or understandings (written or oral).
         </p>
 
-        <h2>10. Termination</h2>
+        <h3>17.2 Amendments</h3>
         <p>
-          We reserve the right to terminate or suspend access to our website or services at any time, without prior notice, for conduct that we believe violates these terms or is harmful to our business or other users.
+          We reserve the right to modify these Terms at any time. Changes will be effective immediately upon posting to the Website. Material changes will be communicated via email or Website notice. Your continued use of the Website or Services constitutes acceptance of modified Terms.
         </p>
 
-        <h2>11. Governing Law</h2>
+        <h3>17.3 Severability</h3>
         <p>
-          These Terms and Conditions shall be governed by and construed in accordance with the laws of the United Arab Emirates. Any disputes shall be subject to the exclusive jurisdiction of the courts of Dubai, UAE.
+          If any provision of these Terms is found to be invalid or unenforceable, that provision shall be modified to the minimum extent necessary, and the remaining provisions shall remain in full force and effect.
         </p>
 
-        <h2>12. Changes to Terms</h2>
+        <h3>17.4 Waiver</h3>
         <p>
-          We reserve the right to modify these Terms and Conditions at any time. Changes will be effective immediately upon posting to the website. Your continued use of our website or services constitutes acceptance of the modified terms.
+          Failure to enforce any provision of these Terms shall not constitute a waiver of that provision or any other provision. No waiver shall be effective unless in writing and signed by an authorized representative.
         </p>
 
-        <h2>13. Contact Information</h2>
+        <h3>17.5 Assignment</h3>
         <p>
-          For questions about these Terms and Conditions, please contact us through our <a href={`${base}contact`}>contact page</a>.
+          You may not assign or transfer these Terms or any Service Agreement without our prior written consent. We may assign our rights and obligations to an affiliate or successor entity with notice to you.
         </p>
+
+        <h3>17.6 Notices</h3>
+        <p>All notices must be in writing and sent to:</p>
+        <ul>
+          <li><strong>To AUXO:</strong> hello@auxodata.ae</li>
+          <li><strong>To Client:</strong> Email address provided in Service Agreement</li>
+        </ul>
+        <p>Notices are deemed received on the date sent if by email during business hours, or the next business day if sent after hours.</p>
+
+        <h3>17.7 Language</h3>
+        <p>
+          These Terms are prepared in English. If translated into other languages, the English version shall prevail in case of any conflict or ambiguity.
+        </p>
+
+        <h2>18. Contact Information</h2>
+        <p>For questions about these Terms & Conditions, please contact:</p>
+
+        <div class="my-6 p-6 bg-zinc-800 border border-zinc-700 rounded-lg">
+          <p class="!mb-2"><strong>AUXO Data Labs</strong></p>
+          <p class="!mb-2">Email: <a href="mailto:hello@auxodata.ae">hello@auxodata.ae</a></p>
+          <p class="!mb-2">Location: Dubai, United Arab Emirates</p>
+          <p class="!mb-0">Contact Form: <a href={`${base}contact`}>Visit Contact Page</a></p>
+        </div>
+
+        <div class="mt-8 p-6 bg-lime-400/10 border-l-4 border-lime-400 rounded-r-lg">
+          <p class="!mb-0"><strong>Professional Service Commitment:</strong> AUXO Data Labs is committed to delivering exceptional data analytics consultancy services with transparency, integrity, and accountability. These Terms reflect our commitment to establishing clear, fair, and mutually beneficial business relationships with our clients.</p>
+        </div>
       </LegalLayout>
     </div>
   </div>

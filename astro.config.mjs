@@ -55,13 +55,18 @@ export default defineConfig({
     partytown({
       config: {
         forward: ['dataLayer.push'],
+        // Enable debug mode in development for easier troubleshooting
+        debug: process.env.NODE_ENV === 'development',
       },
     }),
     tailwind({
+      // Base styles disabled - using custom reset in global.css
       applyBaseStyles: false,
     }),
     icon({
       include: {
+        // Only include icons actually used in the project to reduce bundle size
+        // Run `npm run build` and check warnings for unused icons
         mdi: [
           // UI & Navigation Icons
           'account-group', 'alert-circle', 'arrow-right', 'book-open',
@@ -88,6 +93,7 @@ export default defineConfig({
             name: 'preset-default',
             params: {
               overrides: {
+                // Preserve viewBox for responsive SVG scaling
                 removeViewBox: false,
               },
             },
@@ -98,22 +104,26 @@ export default defineConfig({
     compress({
       CSS: true,
       HTML: {
-        removeAttributeQuotes: false,
+        removeAttributeQuotes: false, // Prevents breaking attribute values
         minifyCSS: true,
         minifyJS: true,
       },
-      Image: true, // Enable image compression for production
+      Image: process.env.NODE_ENV === 'production', // Only compress images in production
       JavaScript: true,
       SVG: true,
-      Logger: 1,
+      Logger: process.env.NODE_ENV === 'development' ? 1 : 0, // Verbose in dev, silent in prod
     }),
   ],
-  experimental: {
-    clientPrerender: true, // Enable client-side prerendering for faster navigation
-  },
+  // Experimental features removed:
+  // - clientPrerender: Not beneficial for static GitHub Pages sites
+  //   (requires Speculation Rules API with limited browser support)
   image: {
     service: {
       entrypoint: 'astro/assets/services/sharp',
+      config: {
+        // Set reasonable limits for image processing
+        limitInputPixels: 50000000, // ~7000x7000px limit
+      },
     },
   },
   vite: {

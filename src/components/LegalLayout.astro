@@ -145,54 +145,114 @@ const legalPages = [
   .prose {
     color: #e5e5e5;
   }
+
+  /* Headings */
   .prose h2 {
     color: #A3E635;
     font-size: 1.875rem;
     font-weight: 700;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
   }
   .prose h3 {
     color: #ffffff;
-    font-size: 1.5rem;
+    font-size: 1.375rem;
     font-weight: 600;
-    margin-top: 2.5rem;
-    margin-bottom: 0.75rem;
-  }
-  /* Indent content after h3 headings for better visual hierarchy */
-  .prose h3 ~ *:not(h2):not(h3) {
-    margin-left: 2rem;
-  }
-  /* Reset indentation after h2 headings */
-  .prose h2 ~ *:not(h2):not(h3) {
-    margin-left: 0;
-  }
-  /* Re-apply indentation after h3 that follows h2 */
-  .prose h2 ~ h3 ~ *:not(h2):not(h3) {
-    margin-left: 2rem;
-  }
-  .prose p {
-    margin-bottom: 1.25rem;
-    line-height: 1.8;
-    text-align: justify;
-  }
-  .prose ul, .prose ol {
-    margin-left: 3.5rem;
+    margin-top: 2rem;
     margin-bottom: 1rem;
+    line-height: 1.4;
   }
+
+  /* Paragraphs - proper legal document formatting */
+  .prose p {
+    margin-bottom: 1rem;
+    line-height: 1.75;
+    text-align: left;
+    text-indent: 2rem;
+  }
+
+  /* First paragraph after headings should not be indented */
+  .prose h2 + p,
+  .prose h3 + p,
+  .prose h2 + div p:first-child,
+  .prose h3 + div p:first-child {
+    text-indent: 0;
+  }
+
+  /* Paragraphs in special containers (highlighted boxes) */
+  .prose div[class*="bg-"] p {
+    text-indent: 0;
+  }
+
+  /* Lists - proper hierarchy and spacing */
+  .prose ul, .prose ol {
+    margin-left: 2.5rem;
+    margin-bottom: 1.5rem;
+    margin-top: 0.75rem;
+  }
+
   .prose li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     color: #d4d4d4;
+    line-height: 1.75;
+    padding-left: 0.5rem;
   }
+
+  /* Nested lists */
+  .prose ul ul,
+  .prose ul ol,
+  .prose ol ul,
+  .prose ol ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 1.5rem;
+  }
+
+  /* Tables - proper spacing */
+  .prose table {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .prose table th,
+  .prose table td {
+    padding: 0.875rem 1rem;
+  }
+
+  /* Strong emphasis */
   .prose strong {
     color: #ffffff;
     font-weight: 600;
   }
+
+  /* Links */
   .prose a {
     color: #A3E635;
     text-decoration: underline;
+    text-underline-offset: 2px;
   }
   .prose a:hover {
     color: #bef264;
+  }
+
+  /* Special divs (callout boxes, highlighted sections) */
+  .prose > div[class*="bg-"],
+  .prose > div[class*="border-"] {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Ensure proper spacing between sections */
+  .prose > * + * {
+    margin-top: 0;
+  }
+
+  .prose > h2 + *:not(h3) {
+    margin-top: 0;
+  }
+
+  .prose > h3 + * {
+    margin-top: 0;
   }
 </style>

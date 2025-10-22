@@ -159,13 +159,25 @@ const legalPages = [
     margin-top: 2.5rem;
     margin-bottom: 0.75rem;
   }
+  /* Indent content after h3 headings for better visual hierarchy */
+  .prose h3 ~ *:not(h2):not(h3) {
+    margin-left: 2rem;
+  }
+  /* Reset indentation after h2 headings */
+  .prose h2 ~ *:not(h2):not(h3) {
+    margin-left: 0;
+  }
+  /* Re-apply indentation after h3 that follows h2 */
+  .prose h2 ~ h3 ~ *:not(h2):not(h3) {
+    margin-left: 2rem;
+  }
   .prose p {
     margin-bottom: 1.25rem;
     line-height: 1.8;
     text-align: justify;
   }
   .prose ul, .prose ol {
-    margin-left: 1.5rem;
+    margin-left: 3.5rem;
     margin-bottom: 1rem;
   }
   .prose li {

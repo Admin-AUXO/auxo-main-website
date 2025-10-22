@@ -154,8 +154,7 @@
 
     try {
       return JSON.parse(stored);
-    } catch (error) {
-      console.error('Failed to parse cookie consent data:', error);
+    } catch {
       // Clear corrupted data
       localStorage.removeItem(COOKIE_CONSENT_KEY);
       return null;
@@ -177,13 +176,11 @@
   function initializeServices(consent: CookieConsent): void {
     if (consent.analytics) {
       // TODO: Initialize Google Analytics when configured
-      console.log('Analytics enabled');
       // gtag('consent', 'update', { 'analytics_storage': 'granted' });
     }
 
     if (consent.marketing) {
       // TODO: Initialize marketing pixels when configured
-      console.log('Marketing enabled');
     }
   }
 

@@ -113,7 +113,7 @@ const base = import.meta.env.BASE_URL;
       },
       "contactPoint": {
         "@type": "ContactPoint",
-        "telephone": "+971-4-XXX-XXXX",
+        "email": "hello@auxodata.ae",
         "contactType": "customer service",
         "areaServed": "AE",
         "availableLanguage": ["en", "ar"]
@@ -129,7 +129,7 @@ const base = import.meta.env.BASE_URL;
       "name": "AUXO Data Labs",
       "image": ogImage,
       "url": siteURL,
-      "telephone": "+971-4-XXX-XXXX",
+      "email": "hello@auxodata.ae",
       "priceRange": "$$$$",
       "address": {
         "@type": "PostalAddress",
@@ -207,3 +207,33 @@ const base = import.meta.env.BASE_URL;
     }
   ]
 })} />
+
+<!-- BlogPosting Structured Data for Articles -->
+{article && publishedTime && (
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": title,
+    "description": description,
+    "image": ogImage,
+    "datePublished": publishedTime,
+    "dateModified": modifiedTime || publishedTime,
+    "author": {
+      "@type": "Organization",
+      "name": author || "AUXO Data Labs"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "AUXO Data Labs",
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${siteURL}${base}logo.svg`
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": canonical
+    },
+    "keywords": tags.join(', ')
+  })} />
+)}

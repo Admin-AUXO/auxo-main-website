@@ -227,8 +227,6 @@ const currentYear = new Date().getFullYear();
       }, 5000);
 
     } catch (error) {
-      console.error('Newsletter subscription error:', error);
-
       // For demo: Show success anyway (remove when backend is ready)
       if (error instanceof Error && error.message.includes('Failed to fetch')) {
         newsletterMessage.textContent = 'Subscribed successfully! (Demo mode)';

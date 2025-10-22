@@ -1,9 +1,9 @@
 export const team = [
   {
-    name: 'Your Name',
-    role: 'Founder & Chief Data Officer',
-    bio: 'Data science leader with 10+ years of experience in analytics and business intelligence across MENA region.',
-    image: '/team/placeholder.jpg',
-    linkedin: '#',
+    name: 'AUXO Data Labs',
+    role: 'Data Analytics Consultancy',
+    bio: 'Expert team of data scientists, engineers, and strategists with deep experience delivering analytics solutions across the UAE and MENA region. Specialized in transforming complex data challenges into actionable business insights.',
+    image: '/logo.svg',
+    linkedin: 'https://linkedin.com/company/auxodata',
   },
 ];

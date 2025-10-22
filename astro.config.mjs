@@ -11,6 +11,7 @@ import icon from 'astro-icon';
 export default defineConfig({
   site: 'https://admin-auxo.github.io',
   base: '/auxo-main-website/',
+  trailingSlash: 'never', // Enforce consistent URL structure
   integrations: [
     mdx(),
     sitemap({

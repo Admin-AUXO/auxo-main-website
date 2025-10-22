@@ -7,9 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2025-01-22
+
+### Added - Quick Wins ⚡
+- **Custom 404 Page** - Branded error page with helpful navigation and links
+- **Security Headers Configuration** - netlify.toml with comprehensive security headers
+- **Security Headers Guide** - docs/SECURITY-HEADERS.md with Cloudflare setup instructions
+- **Font Optimization Guide** - docs/FONT-OPTIMIZATION.md with self-hosting instructions
+
+### Changed
+- Updated REMAINING-WORK.md to v1.2.0 with completed quick wins marked
+- Reduced remaining tasks from 20 to 15 (5 quick wins completed)
+- Updated effort estimates (35-51 hours remaining vs. 40-60 hours)
+
+### Documentation
+- Created comprehensive security headers documentation
+- Created font optimization guide with Google Fonts vs. self-hosting comparison
+- Updated prioritized roadmap with Q1 2025 completions
+
+---
+
+## [1.1.0] - 2025-01-22
+
 ### Added
 - Content Layer API v5.0 migration with modern `glob()` loader
-- Three comprehensive blog articles:
+- Three comprehensive blog articles (12,000+ words):
   - Business Intelligence for Dubai businesses
   - Data Strategy guide for UAE enterprises
   - Machine Learning applications and ROI
@@ -37,6 +59,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Documentation
 - Added comprehensive audit report in `docs/astro-audit.md`
 - Created optimization summary in `docs/optimizations-applied.md`
+- Created REMAINING-WORK.md for future enhancements tracking
 - Documented Tailwind `applyBaseStyles` decision
 - Added icon bundle optimization strategy comments
 - Enhanced SVG viewBox preservation documentation
@@ -91,7 +114,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version History
 
-- **Unreleased** - Content Layer API migration, blog articles, optimizations
+- **Unreleased** - Future enhancements
+- **1.2.0** (2025-01-22) - Quick wins: 404 page, security headers, font optimization
+- **1.1.0** (2025-01-22) - Content Layer API migration, blog articles, optimizations
 - **1.0.0** (2025-01-15) - Initial production release
 
 ---

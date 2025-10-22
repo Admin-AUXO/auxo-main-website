@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Icon } from 'astro-icon/components';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title="404 - Page Not Found | AUXO Data Labs"
+  description="The page you're looking for doesn't exist. Return to AUXO Data Labs homepage or explore our services."
+>
+  <div class="min-h-screen flex items-center justify-center px-4 py-16">
+    <div class="max-w-2xl w-full text-center">
+      <!-- 404 Graphic -->
+      <div class="mb-8 relative">
+        <div class="text-9xl font-bold text-lime-400/10 select-none">404</div>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <Icon name="mdi:alert-circle-outline" class="w-32 h-32 text-lime-400 animate-pulse" />
+        </div>
+      </div>
+
+      <!-- Error Message -->
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+        Page Not Found
+      </h1>
+      <p class="text-xl text-gray-400 mb-8 leading-relaxed">
+        The page you're looking for doesn't exist or has been moved.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+        <a
+          href={base}
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-lime-400 text-black font-bold rounded-lg hover:bg-lime-500 transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-black"
+        >
+          <Icon name="mdi:home" class="w-5 h-5" />
+          Return Home
+        </a>
+        <a
+          href={`${base}contact`}
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-zinc-800 text-white font-bold rounded-lg hover:bg-zinc-700 transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-black"
+        >
+          <Icon name="mdi:email-outline" class="w-5 h-5" />
+          Contact Us
+        </a>
+      </div>
+
+      <!-- Helpful Links -->
+      <div class="border-t border-gray-800 pt-8">
+        <h2 class="text-lg font-semibold text-white mb-4">Explore AUXO Data Labs</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+          <a
+            href={`${base}services`}
+            class="flex flex-col items-center gap-2 p-4 bg-zinc-900 rounded-lg hover:bg-zinc-800 transition-colors group"
+          >
+            <Icon name="mdi:briefcase" class="w-6 h-6 text-lime-400 group-hover:scale-110 transition-transform" />
+            <span class="text-gray-400 group-hover:text-white transition-colors">Services</span>
+          </a>
+          <a
+            href={`${base}about`}
+            class="flex flex-col items-center gap-2 p-4 bg-zinc-900 rounded-lg hover:bg-zinc-800 transition-colors group"
+          >
+            <Icon name="mdi:information" class="w-6 h-6 text-lime-400 group-hover:scale-110 transition-transform" />
+            <span class="text-gray-400 group-hover:text-white transition-colors">About Us</span>
+          </a>
+          <a
+            href={`${base}blog`}
+            class="flex flex-col items-center gap-2 p-4 bg-zinc-900 rounded-lg hover:bg-zinc-800 transition-colors group"
+          >
+            <Icon name="mdi:post" class="w-6 h-6 text-lime-400 group-hover:scale-110 transition-transform" />
+            <span class="text-gray-400 group-hover:text-white transition-colors">Blog</span>
+          </a>
+          <a
+            href={`${base}maturity-calculator`}
+            class="flex flex-col items-center gap-2 p-4 bg-zinc-900 rounded-lg hover:bg-zinc-800 transition-colors group"
+          >
+            <Icon name="mdi:calculator" class="w-6 h-6 text-lime-400 group-hover:scale-110 transition-transform" />
+            <span class="text-gray-400 group-hover:text-white transition-colors">Assessment</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Search Suggestion -->
+      <div class="mt-8 text-sm text-gray-500">
+        <p>Lost? Try starting from our <a href={base} class="text-lime-400 hover:underline">homepage</a> or <a href={`${base}contact`} class="text-lime-400 hover:underline">contact us</a> for assistance.</p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

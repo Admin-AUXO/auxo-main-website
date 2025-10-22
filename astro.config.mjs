@@ -10,14 +10,14 @@ import icon from 'astro-icon';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://admin-auxo.github.io',
-  base: '/auxo-main-website/',
-  trailingSlash: 'never', // Enforce consistent URL structure
+  base: '/auxo-main-website',
+  trailingSlash: 'always', // Enforce consistent URL structure with trailing slashes
   integrations: [
     mdx(),
     sitemap({
       filter: (page) => !page.includes('/api/'), // Exclude API routes from sitemap
       customPages: [
-        'https://admin-auxo.github.io/auxo-main-website/',
+        'https://admin-auxo.github.io/auxo-main-website',
         'https://admin-auxo.github.io/auxo-main-website/about',
         'https://admin-auxo.github.io/auxo-main-website/services',
         'https://admin-auxo.github.io/auxo-main-website/contact',

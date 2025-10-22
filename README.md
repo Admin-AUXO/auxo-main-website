@@ -441,6 +441,7 @@ Comprehensive SEO setup via `SEO.astro` component:
 
 ## 📚 Documentation
 
+- **[Optimization Findings](docs/OPTIMIZATION-FINDINGS.md)** - ⭐ **NEW** Complete codebase analysis with 18+ categorized improvements
 - **[Remaining Work](docs/REMAINING-WORK.md)** - Future enhancements and roadmap (12 tasks, 29-44 hours)
 - **[Astro Audit Report](docs/astro-audit.md)** - Comprehensive audit against Astro v5.14.6 docs
 - **[Optimizations Applied](docs/optimizations-applied.md)** - Details of optimizations (v1.1.0)

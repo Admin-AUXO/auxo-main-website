@@ -18,8 +18,8 @@ pnpm-debug.log*
 .env.production
 .env.local
 
-# Note: .mcp.json is tracked but contains only placeholder API keys
-# Add real keys locally and never commit them
+# MCP server configuration (local only)
+.mcp.json
 
 # macOS-specific files
 .DS_Store

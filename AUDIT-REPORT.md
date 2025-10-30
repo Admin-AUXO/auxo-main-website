@@ -51,8 +51,8 @@
 
 ### 4. 📱 SOCIAL MEDIA PROFILES (HIGH PRIORITY)
 **Current URLs to verify:**
-- LinkedIn: https://linkedin.com/company/auxo-data-labs
-- Twitter: https://twitter.com/auxodata
+- LinkedIn: https://www.linkedin.com/company/auxo-data
+- X (Twitter): https://x.com/AuxoData
 
 **Action:** Visit each URL and confirm it works. If not, either create the profile or remove the link.
 

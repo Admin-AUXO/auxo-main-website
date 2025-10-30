@@ -49,15 +49,6 @@
 
 ---
 
-### 4. 📱 SOCIAL MEDIA PROFILES (HIGH PRIORITY)
-**Current URLs to verify:**
-- LinkedIn: https://www.linkedin.com/company/auxo-data
-- X (Twitter): https://x.com/AuxoData
-
-**Action:** Visit each URL and confirm it works. If not, either create the profile or remove the link.
-
----
-
 ### 5. 📧 EMAIL SERVICE INTEGRATION (HIGH PRIORITY)
 **Current:** Placeholder API endpoints exist but not connected
 
@@ -152,7 +143,7 @@ Copy and fill this out:
 ☐ 1. Phone: _______________________
 ☐ 2. Team Details: (provide 3-5 profiles in format above)
 ☐ 3. Case Studies: Real? ☐Yes ☐No | Authorized? ☐Yes ☐No | Option: ☐A ☐B ☐C
-☐ 4. Social URLs verified: ☐LinkedIn ☐Twitter
+☑ 4. Social URLs verified: ☑LinkedIn ☑Twitter
 ☐ 5. Email Services:
     - Contact: _____________ (API key: _________)
     - Newsletter: _____________ (API key: _________)

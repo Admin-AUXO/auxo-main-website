@@ -15,8 +15,8 @@ export const siteData = {
     },
   },
   social: {
-    linkedin: 'https://linkedin.com/company/auxo-data-labs',
-    twitter: 'https://twitter.com/auxodata',
+    linkedin: 'https://www.linkedin.com/company/auxo-data/',
+    twitter: 'https://x.com/AuxoData',
   },
   founded: 2025,
   stats: {

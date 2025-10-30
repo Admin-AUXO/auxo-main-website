@@ -72,60 +72,75 @@ const quickLinks = [
   </div>
 )}
 
-<script is:inline>
+<script>
   if (import.meta.env.DEV) {
     // Grid Toggle
     const gridToggle = document.getElementById('dev-grid-toggle');
     const grid = document.getElementById('dev-grid');
 
-    gridToggle?.addEventListener('click', () => {
+    const handleGridToggle = () => {
       grid?.classList.toggle('hidden');
-      gridToggle.classList.toggle('bg-pink-500');
-    });
+      gridToggle?.classList.toggle('bg-pink-500');
+    };
+
+    gridToggle?.addEventListener('click', handleGridToggle);
 
     // Contrast Toggle (for accessibility testing)
     const contrastToggle = document.getElementById('dev-contrast-toggle');
-    contrastToggle?.addEventListener('click', () => {
+    const handleContrastToggle = () => {
       document.body.classList.toggle('high-contrast');
-      contrastToggle.textContent = document.body.classList.contains('high-contrast') ? 'Normal' : 'A11y';
-    });
+      if (contrastToggle) {
+        contrastToggle.textContent = document.body.classList.contains('high-contrast') ? 'Normal' : 'A11y';
+      }
+    };
+
+    contrastToggle?.addEventListener('click', handleContrastToggle);
 
     // Clear Cache
     const clearCache = document.getElementById('dev-clear-cache');
-    clearCache?.addEventListener('click', () => {
+    const handleClearCache = () => {
       localStorage.clear();
       sessionStorage.clear();
       location.reload();
-    });
+    };
+
+    clearCache?.addEventListener('click', handleClearCache);
 
     // Minimize Dev Bar
     const devBar = document.getElementById('dev-bar');
     const minimizeBtn = document.getElementById('dev-bar-minimize');
     let isMinimized = false;
 
-    minimizeBtn?.addEventListener('click', () => {
+    const handleMinimize = () => {
       isMinimized = !isMinimized;
-      if (isMinimized) {
-        devBar.style.transform = 'translateY(calc(100% - 8px))';
-        minimizeBtn.textContent = '▲';
-      } else {
-        devBar.style.transform = 'translateY(0)';
-        minimizeBtn.textContent = '▼';
+      if (devBar && minimizeBtn) {
+        if (isMinimized) {
+          devBar.style.transform = 'translateY(calc(100% - 8px))';
+          minimizeBtn.textContent = '▲';
+        } else {
+          devBar.style.transform = 'translateY(0)';
+          minimizeBtn.textContent = '▼';
+        }
       }
-    });
+    };
+
+    minimizeBtn?.addEventListener('click', handleMinimize);
 
     // Hover to reveal when minimized
-    devBar?.addEventListener('mouseenter', () => {
-      if (isMinimized) {
+    const handleMouseEnter = () => {
+      if (isMinimized && devBar) {
         devBar.style.transform = 'translateY(0)';
       }
-    });
+    };
 
-    devBar?.addEventListener('mouseleave', () => {
-      if (isMinimized) {
+    const handleMouseLeave = () => {
+      if (isMinimized && devBar) {
         devBar.style.transform = 'translateY(calc(100% - 8px))';
       }
-    });
+    };
+
+    devBar?.addEventListener('mouseenter', handleMouseEnter);
+    devBar?.addEventListener('mouseleave', handleMouseLeave);
 
     // Add high-contrast styles dynamically
     const style = document.createElement('style');
@@ -138,5 +153,15 @@ const quickLinks = [
       }
     `;
     document.head.appendChild(style);
+
+    // Cleanup on view transition
+    document.addEventListener('astro:before-swap', () => {
+      gridToggle?.removeEventListener('click', handleGridToggle);
+      contrastToggle?.removeEventListener('click', handleContrastToggle);
+      clearCache?.removeEventListener('click', handleClearCache);
+      minimizeBtn?.removeEventListener('click', handleMinimize);
+      devBar?.removeEventListener('mouseenter', handleMouseEnter);
+      devBar?.removeEventListener('mouseleave', handleMouseLeave);
+    });
   }
 </script>

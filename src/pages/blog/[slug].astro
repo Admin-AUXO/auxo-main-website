@@ -15,15 +15,21 @@ export async function getStaticPaths() {
 
     // If no posts exist, return empty array
     if (!posts || posts.length === 0) {
-      console.warn('No blog posts found');
+      if (import.meta.env.DEV) {
+        console.warn('No blog posts found');
+      }
       return [];
     }
 
-    console.log(`Generating ${posts.length} blog post pages`);
+    if (import.meta.env.DEV) {
+      console.log(`Generating ${posts.length} blog post pages`);
+    }
 
     return posts.map(post => {
       if (!post.id) {
-        console.error('Post missing id:', post);
+        if (import.meta.env.DEV) {
+          console.error('Post missing id:', post);
+        }
         return null;
       }
 
@@ -36,7 +42,9 @@ export async function getStaticPaths() {
       };
     }).filter(Boolean);
   } catch (error) {
-    console.error('Error fetching blog posts:', error);
+    if (import.meta.env.DEV) {
+      console.error('Error fetching blog posts:', error);
+    }
     return [];
   }
 }

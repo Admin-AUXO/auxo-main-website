@@ -31,7 +31,6 @@ function calculateReadTime(content: string) {
   const wordCount = content.trim().split(/\s+/).length;
   return Math.ceil(wordCount / wordsPerMinute);
 }
-const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
@@ -195,22 +194,71 @@ const base = import.meta.env.BASE_URL;
           <p class="text-gray-400 mb-8 max-w-2xl mx-auto">
             Subscribe to our newsletter to receive the latest insights, trends, and best practices in data analytics
           </p>
-          <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+          <form id="blog-newsletter-form" class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
             <input
               type="email"
+              id="blog-newsletter-email"
               placeholder="Enter your email"
               class="flex-1 px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400"
               required
             />
             <button
               type="submit"
+              id="blog-newsletter-btn"
               class="px-6 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors whitespace-nowrap"
             >
               Subscribe
             </button>
           </form>
+          <p id="blog-newsletter-message" class="mt-4 text-sm"></p>
         </div>
       </div>
     </div>
   </div>
 </BaseLayout>
+
+<script>
+  const form = document.getElementById('blog-newsletter-form') as HTMLFormElement;
+  const emailInput = document.getElementById('blog-newsletter-email') as HTMLInputElement;
+  const button = document.getElementById('blog-newsletter-btn') as HTMLButtonElement;
+  const message = document.getElementById('blog-newsletter-message') as HTMLParagraphElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = emailInput?.value;
+    if (!email) return;
+
+    button.disabled = true;
+    button.textContent = 'Subscribing...';
+
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+
+      if (response.ok) {
+        message.textContent = 'Successfully subscribed!';
+        message.className = 'mt-4 text-sm text-lime-400';
+        form.reset();
+      } else {
+        throw new Error('Subscription failed');
+      }
+    } catch (error) {
+      // Demo mode - show success message
+      if (import.meta.env.DEV || error.message.includes('fetch')) {
+        message.textContent = 'Subscribed (demo mode) - API integration pending';
+        message.className = 'mt-4 text-sm text-yellow-400';
+        form.reset();
+      } else {
+        message.textContent = 'Failed to subscribe. Please try again.';
+        message.className = 'mt-4 text-sm text-red-400';
+      }
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Subscribe';
+    }
+  });
+</script>

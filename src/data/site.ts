@@ -19,4 +19,13 @@ export const siteData = {
     twitter: 'https://twitter.com/auxodata',
   },
   founded: 2025,
+  stats: {
+    projectsDelivered: '100+',
+    happyClients: '50+',
+    yearsExperience: '15+',
+    valueGenerated: '$10M+',
+    clientSatisfaction: '98%',
+    industriesServed: '8',
+  },
+  privacyEmail: 'privacy@auxodata.ae',
 };

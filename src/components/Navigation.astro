@@ -168,6 +168,19 @@ const navItems: NavItem[] = [
 
   btn?.addEventListener('click', toggleMenu);
 
+  // Close mobile menu when clicking on any link
+  const closeMobileMenu = () => {
+    menu?.classList.add('hidden');
+    menuOpen?.classList.remove('hidden');
+    menuClose?.classList.add('hidden');
+    btn?.setAttribute('aria-expanded', 'false');
+  };
+
+  // Add click listeners to all mobile menu links
+  document.querySelectorAll('#mobile-menu a').forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+
   // Mobile dropdown toggles
   const mobileDropdownHandlers = new Map<Element, EventListener>();
 
@@ -229,6 +242,11 @@ const navItems: NavItem[] = [
     btn?.removeEventListener('click', toggleMenu);
     document.removeEventListener('click', handleOutsideClick);
     window.removeEventListener('scroll', debouncedScroll);
+
+    // Clean up mobile menu link handlers
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+      link.removeEventListener('click', closeMobileMenu);
+    });
 
     // Clean up mobile dropdown handlers
     mobileDropdownHandlers.forEach((handler, button) => {

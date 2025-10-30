@@ -107,7 +107,7 @@ const base = import.meta.env.BASE_URL;
                 <Icon name={service.icon} class="w-12 h-12 text-lime-400 mb-4" />
                 <h3 class="text-xl font-bold mb-3">{service.title}</h3>
                 <p class="text-gray-400 mb-4 leading-relaxed">{service.description}</p>
-                <a href={`/services#${service.id}`} class="text-lime-400 hover:text-lime-500 text-sm font-semibold inline-flex items-center gap-1">
+                <a href={`${base}services/${service.id}`} class="text-lime-400 hover:text-lime-500 text-sm font-semibold inline-flex items-center gap-1">
                   Learn more <span class="transition-transform group-hover:translate-x-1">→</span>
                 </a>
               </div>
@@ -252,7 +252,9 @@ const base = import.meta.env.BASE_URL;
     const heroSection = document.getElementById('hero');
 
     if (!heroSection) {
-      console.warn('Hero section not found');
+      if (import.meta.env.DEV) {
+        console.warn('Hero section not found');
+      }
       return;
     }
 

@@ -1,0 +1,180 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Icon } from 'astro-icon/components';
+import { faqData } from '../data/faq';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title="Frequently Asked Questions | AUXO Data Labs"
+  description="Find answers to common questions about our data analytics services, pricing, process, technology, and how we can help your business in Dubai and UAE."
+>
+  <div class="pt-24 pb-16">
+    <div class="container mx-auto px-4">
+      <!-- Hero Section -->
+      <div class="max-w-4xl mx-auto text-center mb-16">
+        <div class="inline-block px-3 py-1 bg-lime-400/10 border border-lime-400/20 rounded-full mb-4">
+          <span class="text-lime-400 text-xs font-semibold uppercase tracking-wide">FAQ</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+          Frequently Asked Questions
+        </h1>
+        <p class="text-xl text-gray-400 leading-relaxed">
+          Find answers to common questions about our data analytics services, pricing, and how we can help transform your business.
+        </p>
+      </div>
+
+      <!-- FAQ Content -->
+      <div class="max-w-7xl mx-auto">
+        <!-- Category Tabs -->
+        <div class="mb-12">
+          <div class="flex flex-wrap gap-3 justify-center">
+            {faqData.map((category, index) => (
+              <button
+                data-category={category.category}
+                class={`category-tab px-6 py-3 rounded-lg font-semibold transition-all flex items-center gap-2 ${
+                  index === 0
+                    ? 'bg-lime-400 text-black'
+                    : 'bg-zinc-900 text-gray-400 hover:bg-zinc-800 hover:text-lime-400 border border-zinc-800'
+                }`}
+              >
+                <Icon name={category.icon} class="w-5 h-5" />
+                {category.category}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <!-- FAQ Categories -->
+        {faqData.map((category, categoryIndex) => (
+          <div
+            data-category-content={category.category}
+            class={`category-content ${categoryIndex === 0 ? '' : 'hidden'}`}
+          >
+            <div class="grid grid-cols-1 gap-4">
+              {category.questions.map((item) => (
+                <div class="faq-item bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
+                  <button class="faq-question w-full text-left px-6 py-5 flex items-center justify-between hover:bg-zinc-800 transition-colors">
+                    <span class="font-semibold text-lg text-white pr-4">{item.q}</span>
+                    <Icon name="mdi:chevron-down" class="faq-chevron w-6 h-6 text-lime-400 transition-transform flex-shrink-0" />
+                  </button>
+                  <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
+                    <div class="px-6 pb-5 text-gray-300 leading-relaxed">
+                      {item.a}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- CTA Section -->
+      <div class="max-w-4xl mx-auto mt-16">
+        <div class="bg-gradient-to-r from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8 text-center">
+          <h3 class="text-2xl font-bold mb-4">Still Have Questions?</h3>
+          <p class="text-gray-300 mb-6">
+            Our team is here to help. Get in touch and we'll answer any questions you have about our services.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href={`${base}contact/`}
+              class="inline-flex items-center justify-center px-8 py-3 bg-lime-400 text-black font-bold rounded-lg hover:bg-lime-300 transition-colors"
+            >
+              Contact Us
+              <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
+            </a>
+            <a
+              href={`${base}maturity-calculator/`}
+              class="inline-flex items-center justify-center px-8 py-3 bg-zinc-800 text-white font-bold rounded-lg hover:bg-zinc-700 transition-colors border border-zinc-700"
+            >
+              <Icon name="mdi:calculator" class="w-5 h-5 mr-2" />
+              Try Maturity Calculator
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  // Category switching
+  const categoryTabs = document.querySelectorAll('.category-tab');
+  const categoryContents = document.querySelectorAll('.category-content');
+
+  categoryTabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const category = tab.getAttribute('data-category');
+
+      // Update active tab
+      categoryTabs.forEach((t) => {
+        if (t.getAttribute('data-category') === category) {
+          t.classList.remove('bg-zinc-900', 'text-gray-400', 'border', 'border-zinc-800');
+          t.classList.add('bg-lime-400', 'text-black');
+        } else {
+          t.classList.remove('bg-lime-400', 'text-black');
+          t.classList.add('bg-zinc-900', 'text-gray-400', 'border', 'border-zinc-800');
+        }
+      });
+
+      // Show/hide content
+      categoryContents.forEach((content) => {
+        if (content.getAttribute('data-category-content') === category) {
+          content.classList.remove('hidden');
+        } else {
+          content.classList.add('hidden');
+        }
+      });
+
+      // Close all expanded FAQs when switching categories
+      document.querySelectorAll('.faq-answer').forEach((answer) => {
+        answer.style.maxHeight = '0';
+      });
+      document.querySelectorAll('.faq-chevron').forEach((chevron) => {
+        chevron.classList.remove('rotate-180');
+      });
+    });
+  });
+
+  // FAQ accordion
+  const faqQuestions = document.querySelectorAll('.faq-question');
+
+  faqQuestions.forEach((question) => {
+    question.addEventListener('click', () => {
+      const faqItem = question.parentElement;
+      const answer = faqItem.querySelector('.faq-answer');
+      const chevron = question.querySelector('.faq-chevron');
+      const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+
+      if (isOpen) {
+        // Close
+        answer.style.maxHeight = '0';
+        chevron.classList.remove('rotate-180');
+      } else {
+        // Open
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        chevron.classList.add('rotate-180');
+      }
+    });
+  });
+</script>
+
+<style>
+  .faq-chevron {
+    transition: transform 0.3s ease;
+  }
+
+  .category-tab {
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .category-tab {
+      font-size: 0.875rem;
+      padding: 0.625rem 1rem;
+    }
+  }
+</style>

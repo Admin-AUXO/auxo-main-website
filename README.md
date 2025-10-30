@@ -146,23 +146,12 @@ This website is built using modern web technologies chosen for performance, main
 
 ## Deployment
 
-### Live Websites
-
 **Production**
 - URL: https://auxodata.com
 - Hosting: GitHub Pages
 - Deploy: Automated on push to `master` branch
-
-**Staging**
-- URL: Netlify-provided staging URL
-- Hosting: Netlify
-- Deploy: Automated on push to `develop` or `staging` branch
-
-### Infrastructure
-- **CI/CD**: GitHub Actions workflows
-- **DNS**: Custom domain configuration
-- **CDN**: Automatic via hosting provider
-- **SSL**: Automatic HTTPS certificates
+- CI/CD: GitHub Actions workflow
+- SSL: Automatic HTTPS certificates
 
 ---
 

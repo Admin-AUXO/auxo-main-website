@@ -8,6 +8,281 @@
 
 ---
 
+## 🔔 ACTION REQUIRED FROM YOU
+
+The following issues require information or decisions from you to proceed. Please review and provide the requested details:
+
+### 1. 📞 PHONE NUMBER (HIGH PRIORITY)
+**Current:** `+971 4 XXX XXXX` (placeholder)
+**File:** `src/data/site.ts:7`
+**Action Required:** Please provide the actual company phone number
+
+**How to fix:**
+1. Open `src/data/site.ts`
+2. Replace line 7: `phone: '+971 4 XXX XXXX',`
+3. With your real number: `phone: '+971 4 555 1234',` (example format)
+4. Save and commit
+
+---
+
+### 2. 👥 TEAM PROFILES (HIGH PRIORITY)
+**Current:** Only company profile, no individual team members
+**File:** `src/data/team.ts`
+**Action Required:** Provide team member information
+
+**What I need for each team member:**
+```typescript
+{
+  name: "John Smith",                    // Full name
+  role: "Lead Data Scientist",           // Job title
+  bio: "10+ years in analytics...",      // 2-3 sentences
+  image: "/team/john-smith.jpg",         // Photo (see #7 for images)
+  linkedin: "https://linkedin.com/in/johnsmith",  // Optional
+  twitter: "https://twitter.com/johnsmith"        // Optional
+}
+```
+
+**Recommended:** 3-5 key team members (CEO, CTO, Lead Data Scientist, etc.)
+
+**How to fix:**
+1. Provide team member details in the format above
+2. I'll update `src/data/team.ts`
+3. Provide professional headshot photos (see Image Requirements below)
+
+---
+
+### 3. 📊 CASE STUDIES VERIFICATION (HIGH PRIORITY)
+**Current:** 6 case studies with anonymous clients ("Leading UAE Retail Group", etc.)
+**File:** `src/pages/case-studies.astro:7-116`
+**Action Required:** Confirm authenticity and authorization
+
+**Questions I need answered:**
+1. Are these real projects? ☐ Yes ☐ No (if No, page must be removed)
+2. Do you have client permission to publish? ☐ Yes ☐ No
+3. Can you use actual client names? ☐ Yes ☐ No
+4. If anonymous, is it due to NDAs? ☐ Yes ☐ No
+
+**Options:**
+- **Option A:** If real with permission → Provide actual client names
+- **Option B:** If real with NDA → Keep anonymous but add disclaimer:
+  ```
+  "Client names confidential per non-disclosure agreements"
+  ```
+- **Option C:** If placeholder/example → **Remove page immediately** (legal risk)
+
+**If Option A, provide for each case study:**
+- Actual client name (or keep anonymous)
+- Client testimonial quote (optional but strongly recommended)
+- Permission confirmation
+
+---
+
+### 4. 📱 SOCIAL MEDIA PROFILES (HIGH PRIORITY)
+**Current:** May be placeholder URLs
+**File:** `src/data/site.ts:17-20`
+**Action Required:** Verify these URLs exist and are correct
+
+**Current URLs:**
+- LinkedIn: https://linkedin.com/company/auxo-data-labs
+- Twitter: https://twitter.com/auxodata
+
+**What to do:**
+1. Visit each URL and confirm it works
+2. If URL doesn't exist yet:
+   - **Option A:** Create the social profile
+   - **Option B:** Remove the link from site.ts
+3. Provide any additional social profiles (Instagram, Facebook, etc.)
+
+---
+
+### 5. 📧 EMAIL SERVICE INTEGRATION (HIGH PRIORITY)
+**Current:** API endpoints created but not connected to email service
+**Files:** `src/pages/api/contact.ts`, `src/pages/api/newsletter.ts`
+**Action Required:** Choose email service provider and provide credentials
+
+**Step 1: Choose Email Service Provider**
+
+**For Contact Form (Transactional Emails):**
+- ☐ SendGrid (Recommended - $20-100/month)
+- ☐ AWS SES (Cheapest - $0.10 per 1000 emails)
+- ☐ Postmark (Best deliverability - $15/month)
+- ☐ Other: _______________
+
+**For Newsletter (Marketing Emails):**
+- ☐ Mailchimp (Most popular - Free up to 500 contacts)
+- ☐ ConvertKit (Creator-focused - $25/month)
+- ☐ SendGrid Marketing (Same account as above)
+- ☐ Brevo (formerly Sendinblue - Free up to 300/day)
+- ☐ Other: _______________
+
+**Step 2: Provide API Credentials**
+
+Once you choose providers, I need:
+
+**For Contact Form Service:**
+```bash
+API_KEY=your_api_key_here
+FROM_EMAIL=noreply@auxodata.ae
+TO_EMAIL=hello@auxodata.ae (where contact forms should be sent)
+```
+
+**For Newsletter Service:**
+```bash
+API_KEY=your_api_key_here
+LIST_ID=your_list_id_here (audience/list identifier)
+```
+
+**Step 3: Domain Verification**
+
+Most services require domain verification:
+1. Provider will give you DNS records (TXT, CNAME)
+2. Add these to your domain DNS settings
+3. Confirm verification in provider dashboard
+4. Let me know when complete
+
+**I can help with:**
+- Setting up the chosen service
+- Configuring DNS records
+- Writing the integration code
+- Testing the implementation
+
+---
+
+### 6. 📈 GOOGLE ANALYTICS SETUP (MEDIUM PRIORITY)
+**Current:** Cookie consent implemented but Analytics not configured
+**File:** `src/components/CookieConsent.astro:177-184`
+**Action Required:** Provide Google Analytics credentials (if you want analytics)
+
+**Do you want to track website analytics?**
+- ☐ Yes - Provide details below
+- ☐ No - I'll remove the cookie consent Analytics option
+
+**If Yes, provide:**
+```bash
+GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
+# Get this from: https://analytics.google.com/
+# Create property → Web → Get Measurement ID
+```
+
+**Optional but recommended:**
+```bash
+GOOGLE_TAG_MANAGER_ID=GTM-XXXXXXX
+# More powerful, allows adding other tracking tools without code changes
+```
+
+**I will then:**
+1. Add the Analytics script to `BaseLayout.astro`
+2. Implement consent mode properly
+3. Test that consent choices are respected
+
+---
+
+### 7. 🖼️ IMAGES NEEDED (MEDIUM PRIORITY)
+**Current:** No images on site (only SVG logos/icons)
+**Action Required:** Provide professional images
+
+**Critical Images:**
+
+**A. Team Photos** (for About page)
+- Quantity: 3-5 professional headshots
+- Format: JPG or PNG
+- Dimensions: 400x400px minimum (square)
+- Quality: High-resolution, professional lighting
+- Background: Solid or blurred, professional setting
+
+**B. Open Graph Image** (for social media sharing)
+- Currently: `public/og-image.svg` (poor social media support)
+- Need: `public/og-image.png`
+- Dimensions: **1200x630px** (exact - required by Facebook/Twitter)
+- Content: Company logo + tagline + branding
+- Format: PNG or JPG
+
+**C. Blog Post Featured Images** (optional but recommended)
+- Quantity: 6 images (one per blog post)
+- Dimensions: 1200x600px
+- Topics:
+  1. Business Intelligence dashboard screenshot
+  2. Data analytics visualization
+  3. Strategy/planning concept
+  4. Data engineering/cloud infrastructure
+  5. Machine learning/AI concept
+  6. Data governance/compliance
+- Can use stock photos from Unsplash/Pexels (free)
+
+**How to provide images:**
+1. Upload to cloud storage (Google Drive, Dropbox, etc.)
+2. Share link with me
+3. I'll optimize and add to site with proper formats (WebP, lazy loading)
+
+**Alternative:** I can suggest specific stock photos from free sources if you don't have custom images ready.
+
+---
+
+### 8. 📅 COMPANY FOUNDING DATE (QUICK FIX)
+**Current:** `founded: 2025`
+**File:** `src/data/site.ts:21`
+**Question:** Is AUXO actually founded in 2025, or should this be an earlier year?
+
+If earlier, provide: `founded: 20XX` (year)
+
+---
+
+### 9. 🔐 PRIVACY/DPO EMAIL (QUICK FIX)
+**Current:** `privacy@auxodata.ae` used in multiple places but not centralized
+**Action Required:** Confirm this email address exists and is monitored
+
+**Questions:**
+1. Does privacy@auxodata.ae exist? ☐ Yes ☐ No
+2. If No, what email should handle privacy requests? _______________
+3. Who is your Data Protection Officer (DPO)? _______________
+
+**This email appears on:**
+- Privacy Policy page
+- Legal Layout footer
+- GDPR/UAE PDPL compliance sections
+
+---
+
+### 10. 💰 PRICING INFORMATION (OPTIONAL)
+**Current:** No pricing or engagement models mentioned
+**Action Required:** Decide if you want to show pricing transparency
+
+**Options:**
+- ☐ Add pricing ranges: "Projects typically $50K-$150K, 8-12 weeks"
+- ☐ Add engagement models: "Project-based, Retainer, Team Augmentation"
+- ☐ Keep pricing private: "Contact us for custom quote"
+
+**If you want pricing visibility, provide:**
+- Typical project range: $_____ to $_____
+- Typical duration: _____ weeks/months
+- Available engagement models: _______________
+- Minimum project size: $_____
+
+---
+
+## 📋 SUMMARY CHECKLIST
+
+Copy this and fill it out:
+
+```
+☐ 1. Phone Number: _______________________
+☐ 2. Team Member Details: (attach document)
+☐ 3. Case Studies: Real? ☐ Yes ☐ No | Authorized? ☐ Yes ☐ No
+☐ 4. Social Media URLs verified: ☐ LinkedIn ☐ Twitter
+☐ 5. Email Service Choice:
+    - Contact Form: _____________ (API key: _________)
+    - Newsletter: _____________ (API key: _________)
+☐ 6. Google Analytics: Want it? ☐ Yes (ID: _____) ☐ No
+☐ 7. Images: (share link to folder)
+☐ 8. Founded Year: _____
+☐ 9. Privacy Email: _______________________
+☐ 10. Pricing Info: ☐ Add details ☐ Keep private
+```
+
+**Once you provide this information, I can complete the remaining fixes in 2-4 hours.**
+
+---
+
 ## IMPLEMENTATION STATUS
 
 ### ✅ Fixed Issues (12 of 38 = 32% resolved)

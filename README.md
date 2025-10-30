@@ -4,7 +4,7 @@
 
 The official digital presence for AUXO Data Labs - a Dubai-based data analytics consultancy specializing in Business Intelligence, Data Strategy, and Advanced Analytics for enterprises across the UAE and MENA region.
 
-![AUXO Data Labs](https://auxodata.ae/og-image.jpg)
+![AUXO Data Labs](https://auxodata.com/og-image.jpg)
 
 ---
 
@@ -149,7 +149,7 @@ This website is built using modern web technologies chosen for performance, main
 ### Live Websites
 
 **Production**
-- URL: https://auxodata.ae
+- URL: https://auxodata.com
 - Hosting: GitHub Pages
 - Deploy: Automated on push to `master` branch
 
@@ -273,8 +273,8 @@ Distinctive 2x2 grid design with A-U-X-O tiles, used in favicon and navigation.
 ## Support & Contact
 
 **AUXO Data Labs**
-📧 Email: hello@auxodata.ae
-🌐 Website: https://auxodata.ae
+📧 Email: hello@auxodata.com
+🌐 Website: https://auxodata.com
 📍 Location: Dubai, United Arab Emirates
 
 **Social Media**
@@ -282,7 +282,7 @@ LinkedIn: https://www.linkedin.com/company/auxo-data/
 X (Twitter): https://x.com/AuxoData
 
 **Privacy Inquiries**
-Email: privacy@auxodata.ae
+Email: privacy@auxodata.com
 
 ---
 

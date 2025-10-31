@@ -60,16 +60,16 @@ const navItems: NavItem[] = [
               </button>
 
               <!-- Dropdown -->
-              <div class="absolute left-0 mt-2 {item.name === 'Services' ? 'w-[520px]' : 'w-[280px]'} opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 -translate-y-2 pointer-events-none group-hover:pointer-events-auto">
-                <div class="bg-zinc-900/95 backdrop-blur-lg border border-lime-400/20 rounded-xl shadow-2xl shadow-black/50 p-3">
-                  <div class="{item.name === 'Services' ? 'grid grid-cols-2 gap-2' : 'space-y-1'}">
+              <div class:list={["absolute left-0 mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 -translate-y-2 pointer-events-none group-hover:pointer-events-auto", item.name === 'Services' ? 'w-[600px]' : 'w-[280px]']}>
+                <div class="bg-zinc-900/95 backdrop-blur-lg border border-lime-400/20 rounded-xl shadow-2xl shadow-black/50 p-4">
+                  <div class:list={[item.name === 'Services' ? 'grid grid-cols-2 gap-3' : 'space-y-1']}>
                     {item.dropdown.map((sub: DropdownItem) => (
                       <a
                         href={sub.href}
-                        class="group/item flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-zinc-800 transition-all duration-200 border border-transparent hover:border-lime-400/30"
+                        class="group/item flex items-start gap-3 px-4 py-3.5 rounded-lg hover:bg-zinc-800 transition-all duration-200 border border-transparent hover:border-lime-400/30"
                       >
                         {item.name === 'Services' ? (
-                          <div class="w-9 h-9 bg-gradient-to-br from-lime-400/20 to-lime-500/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:from-lime-400/30 group-hover/item:to-lime-500/20 transition-all">
+                          <div class="w-10 h-10 bg-gradient-to-br from-lime-400/20 to-lime-500/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:from-lime-400/30 group-hover/item:to-lime-500/20 transition-all mt-0.5">
                             <svg class="w-5 h-5 text-lime-400" fill="currentColor" viewBox="0 0 24 24">
                               <path d="M12 2L2 7L12 12L22 7L12 2Z"></path>
                               <path d="M2 17L12 22L22 17"></path>
@@ -79,7 +79,7 @@ const navItems: NavItem[] = [
                         ) : (
                           <div class="w-2 h-2 rounded-full bg-lime-400/50 group-hover/item:bg-lime-400 transition-colors"></div>
                         )}
-                        <span class="font-medium text-gray-300 text-sm group-hover/item:text-lime-400 transition-colors">
+                        <span class="font-medium text-gray-300 text-sm group-hover/item:text-lime-400 transition-colors leading-relaxed">
                           {sub.name}
                         </span>
                       </a>

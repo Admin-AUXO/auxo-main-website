@@ -24,7 +24,7 @@ const {
 } = Astro.props;
 
 const siteName = 'AUXO Data Labs';
-const siteURL = Astro.site || 'https://auxodata.ae';
+const siteURL = Astro.site || 'https://auxodata.com';
 const canonical = canonicalURL || new URL(Astro.url.pathname, siteURL).href;
 const ogImage = new URL(image, siteURL).href;
 const base = import.meta.env.BASE_URL;
@@ -98,6 +98,7 @@ const base = import.meta.env.BASE_URL;
       "@type": "Organization",
       "@id": `${siteURL}#organization`,
       "name": "AUXO Data Labs",
+      "alternateName": ["AUXO Data", "AUXOData", "AUXO"],
       "url": siteURL,
       "logo": {
         "@type": "ImageObject",
@@ -106,14 +107,16 @@ const base = import.meta.env.BASE_URL;
         "height": "512"
       },
       "description": "Leading analytics consultancy in Dubai, UAE, specializing in data-driven insights and business intelligence solutions.",
+      "foundingDate": "2025",
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "Dubai Internet City",
         "addressLocality": "Dubai",
         "addressCountry": "AE"
       },
       "contactPoint": {
         "@type": "ContactPoint",
-        "email": "hello@auxodata.ae",
+        "email": "hello@auxodata.com",
         "contactType": "customer service",
         "areaServed": "AE",
         "availableLanguage": ["en", "ar"]
@@ -121,6 +124,16 @@ const base = import.meta.env.BASE_URL;
       "sameAs": [
         "https://www.linkedin.com/company/auxo-data/",
         "https://x.com/AuxoData"
+      ],
+      "knowsAbout": [
+        "Data Analytics",
+        "Business Intelligence",
+        "Machine Learning",
+        "Artificial Intelligence",
+        "Data Engineering",
+        "Predictive Analytics",
+        "Data Strategy",
+        "Data Governance"
       ]
     },
     {
@@ -129,7 +142,7 @@ const base = import.meta.env.BASE_URL;
       "name": "AUXO Data Labs",
       "image": ogImage,
       "url": siteURL,
-      "email": "hello@auxodata.ae",
+      "email": "hello@auxodata.com",
       "priceRange": "$$$$",
       "address": {
         "@type": "PostalAddress",

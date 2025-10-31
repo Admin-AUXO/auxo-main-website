@@ -2,8 +2,8 @@ export const siteData = {
   name: 'AUXO Data Labs',
   tagline: 'Look Beyond Data',
   description: 'Leading analytics consultancy in Dubai, UAE, specializing in data-driven insights and business intelligence solutions.',
-  url: 'https://auxodata.ae',
-  email: 'hello@auxodata.ae',
+  url: 'https://auxodata.com',
+  email: 'hello@auxodata.com',
   phone: '+971 4 XXX XXXX',
   address: {
     street: 'Dubai Internet City',
@@ -27,5 +27,5 @@ export const siteData = {
     clientSatisfaction: '98%',
     industriesServed: '8',
   },
-  privacyEmail: 'privacy@auxodata.ae',
+  privacyEmail: 'privacy@auxodata.com',
 };

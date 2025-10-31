@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { Icon } from 'astro-icon/components';
 
 const base = import.meta.env.BASE_URL;
@@ -82,16 +83,16 @@ function calculateReadTime(content: string) {
 >
   <article class="pt-24 pb-16">
     <div class="container mx-auto px-4">
-      <!-- Breadcrumb -->
-      <nav class="max-w-4xl mx-auto mb-8 text-sm text-gray-500">
-        <ol class="flex items-center gap-2">
-          <li><a href={base} class="hover:text-lime-400 transition-colors">Home</a></li>
-          <li><Icon name="mdi:chevron-down" class="w-4 h-4 rotate-[-90deg]" /></li>
-          <li><a href={`${base}blog`} class="hover:text-lime-400 transition-colors">Blog</a></li>
-          <li><Icon name="mdi:chevron-down" class="w-4 h-4 rotate-[-90deg]" /></li>
-          <li class="text-lime-400">{post.data.title}</li>
-        </ol>
-      </nav>
+      <!-- Breadcrumb with Structured Data -->
+      <div class="max-w-4xl mx-auto">
+        <Breadcrumbs
+          items={[
+            { label: 'Home', href: base },
+            { label: 'Blog', href: `${base}blog/` },
+            { label: post.data.title }
+          ]}
+        />
+      </div>
 
       <!-- Article Header -->
       <header class="max-w-4xl mx-auto mb-12">

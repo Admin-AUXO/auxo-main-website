@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { services } from '../../data/services';
 import { Icon } from 'astro-icon/components';
 
@@ -66,15 +67,15 @@ const useCases = getUseCases(service.id);
 >
   <div class="pt-24 pb-16">
     <div class="container mx-auto px-4">
-      <!-- Breadcrumb -->
-      <div class="max-w-5xl mx-auto mb-8">
-        <nav class="flex text-sm text-gray-400">
-          <a href={base} class="hover:text-lime-400">Home</a>
-          <span class="mx-2">/</span>
-          <a href={`${base}services`} class="hover:text-lime-400">Services</a>
-          <span class="mx-2">/</span>
-          <span class="text-white">{service.title}</span>
-        </nav>
+      <!-- Breadcrumb with Structured Data -->
+      <div class="max-w-5xl mx-auto">
+        <Breadcrumbs
+          items={[
+            { label: 'Home', href: base },
+            { label: 'Services', href: `${base}services/` },
+            { label: service.title }
+          ]}
+        />
       </div>
 
       <!-- Header -->

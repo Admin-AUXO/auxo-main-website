@@ -1,9 +1,37 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import FAQSchema from '../components/FAQSchema.astro';
 import { Icon } from 'astro-icon/components';
 
 const base = import.meta.env.BASE_URL;
+
+// FAQ data for structured data
+const calculatorFAQs = [
+  {
+    question: "What is a data maturity assessment?",
+    answer: "A data maturity assessment evaluates your organization's current data capabilities across key dimensions including data strategy, infrastructure, analytics capabilities, governance, and organizational readiness. It helps identify strengths, gaps, and opportunities for improvement in your data journey."
+  },
+  {
+    question: "How long does the assessment take?",
+    answer: "The AUXO Data Maturity Assessment typically takes 5-10 minutes to complete. It consists of targeted questions across five key dimensions of data maturity."
+  },
+  {
+    question: "What will I get from this assessment?",
+    answer: "You'll receive an overall maturity score (1-5), detailed scores for each dimension, personalized recommendations for improvement, and insights into your organization's data strengths and areas for development."
+  },
+  {
+    question: "Is the maturity assessment free?",
+    answer: "Yes, the AUXO Data Maturity Assessment is completely free. There are no hidden costs or obligations. We provide this tool to help organizations understand their data capabilities and identify improvement opportunities."
+  },
+  {
+    question: "How is my data used?",
+    answer: "Your assessment responses are used only to calculate your maturity score and provide personalized recommendations. We respect your privacy and handle all data according to our privacy policy and UAE PDPL regulations."
+  }
+];
 ---
+
+<FAQSchema faqs={calculatorFAQs} />
 
 <BaseLayout
   title="Data Analytics Maturity Assessment | AUXO Data Labs"
@@ -11,6 +39,16 @@ const base = import.meta.env.BASE_URL;
 >
   <div class="pt-24 pb-16">
     <div class="container mx-auto px-4">
+      <!-- Breadcrumb with Structured Data -->
+      <div class="max-w-4xl mx-auto">
+        <Breadcrumbs
+          items={[
+            { label: 'Home', href: base },
+            { label: 'Maturity Assessment Calculator' }
+          ]}
+        />
+      </div>
+
       <!-- Header -->
       <div class="max-w-4xl mx-auto text-center mb-12">
         <div class="inline-block px-4 py-2 bg-lime-400/10 border border-lime-400/20 rounded-full mb-4">

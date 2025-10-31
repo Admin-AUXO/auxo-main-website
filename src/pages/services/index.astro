@@ -1,10 +1,37 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQSchema from '../../components/FAQSchema.astro';
 import { services } from '../../data/services';
 import { Icon } from 'astro-icon/components';
 
 const base = import.meta.env.BASE_URL;
+
+// FAQ data for structured data
+const servicesFAQs = [
+  {
+    question: "What data analytics services does AUXO Data Labs offer?",
+    answer: "AUXO Data Labs offers six core services: Business Intelligence & Reporting, Advanced Data Analytics (Predictive Analytics), Data Strategy & Consulting, Data Engineering & Infrastructure, Machine Learning & AI Solutions, and Data Governance & Quality. Each service is tailored to help organizations transform data into actionable insights."
+  },
+  {
+    question: "How do I choose the right data analytics service for my business?",
+    answer: "The right service depends on your current data maturity, business objectives, and specific challenges. We recommend starting with our free Data Maturity Assessment to understand your current capabilities, or contact us for a consultation where we'll assess your needs and recommend the most appropriate solution."
+  },
+  {
+    question: "Do you work with businesses of all sizes?",
+    answer: "Yes, we work with organizations of all sizes across various industries in the UAE and beyond. Our services are scalable and can be customized to fit your organization's size, budget, and specific requirements."
+  },
+  {
+    question: "What industries do you specialize in?",
+    answer: "We serve clients across multiple industries including retail, healthcare, finance, logistics, manufacturing, and professional services. Our team has experience adapting data analytics solutions to meet the unique challenges and requirements of different sectors."
+  },
+  {
+    question: "How long does a typical data analytics project take?",
+    answer: "Project timelines vary based on scope and complexity. A Business Intelligence dashboard might take 4-8 weeks, while a comprehensive data strategy or ML implementation could take 3-6 months. We'll provide a detailed timeline during the initial consultation based on your specific requirements."
+  }
+];
 ---
+
+<FAQSchema faqs={servicesFAQs} />
 
 <BaseLayout
   title="Data Analytics Services | AUXO Data Labs"

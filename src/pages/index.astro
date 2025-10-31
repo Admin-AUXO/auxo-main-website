@@ -47,16 +47,16 @@ const base = import.meta.env.BASE_URL;
         <!-- Hero Content -->
         <div class="hero-content">
           <div class="inline-block mb-4 px-4 py-1.5 bg-lime-400/10 border border-lime-400/30 rounded-full">
-            <span class="text-lime-400 text-xs md:text-sm font-semibold tracking-wide">Rethink Data. Rethink Decisions.</span>
+            <span class="text-lime-400 text-xs md:text-sm font-semibold tracking-wide">Unlock Insights. Drive Decisions.</span>
           </div>
 
           <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 leading-tight">
-            Transform Data Into<br/>
-            <span class="text-gradient-green">Actionable Insights</span>
+            Turn Information Into<br/>
+            <span class="text-gradient-green">Actionable Intelligence</span>
           </h2>
 
           <p class="text-sm md:text-base text-gray-400 mb-6 max-w-2xl mx-auto leading-relaxed">
-            Empowering UAE businesses with data-driven strategies and AI solutions
+            Empowering UAE businesses with advanced analytics and AI solutions
           </p>
 
           <div class="flex flex-col sm:flex-row gap-3 justify-center mb-6">
@@ -135,7 +135,7 @@ const base = import.meta.env.BASE_URL;
                 <Icon name="mdi:certificate" class="w-8 h-8 text-lime-400" />
               </div>
               <h3 class="text-xl font-bold mb-3">Proven Track Record</h3>
-              <p class="text-gray-400 leading-relaxed">Delivering <span class="font-semibold text-gray-300">measurable results</span> through data-driven strategies and cutting-edge analytics</p>
+              <p class="text-gray-400 leading-relaxed">Delivering <span class="font-semibold text-gray-300">measurable results</span> through strategic insights and cutting-edge analytics</p>
             </div>
             <div class="text-center">
               <div class="inline-flex items-center justify-center w-16 h-16 bg-lime-400/10 rounded-full mb-4">
@@ -148,13 +148,128 @@ const base = import.meta.env.BASE_URL;
         </div>
       </section>
 
-      <section class="py-28 bg-gradient-to-b from-black to-zinc-900">
+      <!-- Maturity Assessment Section -->
+      <section class="py-28 bg-gradient-to-b from-zinc-900 to-black border-t border-gray-800">
+        <div class="container mx-auto px-4">
+          <div class="max-w-5xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <!-- Left: Content -->
+              <div>
+                <div class="inline-block px-4 py-2 bg-lime-400/10 border border-lime-400/20 rounded-full mb-4">
+                  <span class="text-lime-400 text-sm font-semibold">Free Assessment Tool</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                  Discover Your Analytics<br/>
+                  <span class="text-lime-400">Maturity Level</span>
+                </h2>
+                <p class="text-lg text-gray-400 mb-6 leading-relaxed">
+                  Take our comprehensive 5-minute assessment to understand where your organization stands and get personalized recommendations for growth.
+                </p>
+
+                <div class="space-y-3 mb-8">
+                  <div class="flex items-start gap-3">
+                    <Icon name="mdi:check-circle" class="w-6 h-6 text-lime-400 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p class="font-semibold text-white">Evaluate 5 Key Dimensions</p>
+                      <p class="text-sm text-gray-400">Infrastructure, Analytics, People, Culture, and Governance</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <Icon name="mdi:check-circle" class="w-6 h-6 text-lime-400 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p class="font-semibold text-white">Get Instant Results</p>
+                      <p class="text-sm text-gray-400">Receive your maturity score and actionable recommendations</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <Icon name="mdi:check-circle" class="w-6 h-6 text-lime-400 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p class="font-semibold text-white">100% Free & Anonymous</p>
+                      <p class="text-sm text-gray-400">No registration required, completely confidential</p>
+                    </div>
+                  </div>
+                </div>
+
+                <a href={`${base}maturity-calculator`} class="inline-flex items-center gap-2 bg-lime-400 text-black px-8 py-3.5 rounded-lg font-bold hover:bg-lime-500 transition-all shadow-lg shadow-lime-400/20 hover:shadow-lime-400/40 hover:scale-105">
+                  Start Free Assessment
+                  <Icon name="mdi:arrow-right" class="w-5 h-5" />
+                </a>
+              </div>
+
+              <!-- Right: Visual -->
+              <div class="relative">
+                <div class="bg-gradient-to-br from-zinc-800 to-zinc-900 border border-lime-400/20 rounded-2xl p-8 shadow-2xl">
+                  <h3 class="text-xl font-bold mb-6 text-center">Assessment Dimensions</h3>
+                  <div class="space-y-4">
+                    <div class="bg-zinc-800/50 rounded-lg p-4">
+                      <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-3">
+                          <div class="w-10 h-10 bg-lime-400/20 rounded-lg flex items-center justify-center">
+                            <Icon name="mdi:database" class="w-5 h-5 text-lime-400" />
+                          </div>
+                          <span class="font-medium">Infrastructure</span>
+                        </div>
+                        <span class="text-lime-400 font-bold">4.2/5</span>
+                      </div>
+                      <div class="h-2 bg-zinc-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-lime-400 to-green-500" style="width: 84%"></div>
+                      </div>
+                    </div>
+
+                    <div class="bg-zinc-800/50 rounded-lg p-4">
+                      <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-3">
+                          <div class="w-10 h-10 bg-lime-400/20 rounded-lg flex items-center justify-center">
+                            <Icon name="mdi:chart-bar" class="w-5 h-5 text-lime-400" />
+                          </div>
+                          <span class="font-medium">Analytics</span>
+                        </div>
+                        <span class="text-lime-400 font-bold">3.8/5</span>
+                      </div>
+                      <div class="h-2 bg-zinc-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-lime-400 to-green-500" style="width: 76%"></div>
+                      </div>
+                    </div>
+
+                    <div class="bg-zinc-800/50 rounded-lg p-4">
+                      <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-3">
+                          <div class="w-10 h-10 bg-lime-400/20 rounded-lg flex items-center justify-center">
+                            <Icon name="mdi:account-group" class="w-5 h-5 text-lime-400" />
+                          </div>
+                          <span class="font-medium">People & Skills</span>
+                        </div>
+                        <span class="text-lime-400 font-bold">3.5/5</span>
+                      </div>
+                      <div class="h-2 bg-zinc-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-lime-400 to-green-500" style="width: 70%"></div>
+                      </div>
+                    </div>
+
+                    <div class="text-center mt-6 pt-6 border-t border-zinc-700">
+                      <p class="text-2xl font-bold text-lime-400 mb-1">Managed Level</p>
+                      <p class="text-sm text-gray-400">Example Result Preview</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Decorative elements -->
+                <div class="absolute -top-4 -right-4 w-24 h-24 bg-lime-400/10 rounded-full blur-2xl"></div>
+                <div class="absolute -bottom-4 -left-4 w-32 h-32 bg-green-500/10 rounded-full blur-2xl"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="py-28 bg-gradient-to-b from-black to-zinc-900 border-t border-gray-800">
         <div class="container mx-auto px-4 text-center">
-          <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Data?</h2>
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Business?</h2>
           <p class="text-lg text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
             Schedule a <span class="font-semibold text-gray-300">free consultation</span> to discuss your analytics needs and discover how we can help you achieve your goals
           </p>
-          <a href={`${base}contact`} class="inline-block bg-lime-400 text-black px-12 py-4 rounded-lg font-bold hover:bg-lime-500 transition text-base shadow-lg shadow-lime-400/20 hover:shadow-lime-400/40">
+          <a href={`${base}contact`} class="inline-block bg-lime-400 text-black px-12 py-4 rounded-lg font-bold hover:bg-lime-500 transition text-base shadow-lg shadow-lime-400/20 hover:shadow-lime-400/40 hover:scale-105">
             Get Started Today
           </a>
         </div>

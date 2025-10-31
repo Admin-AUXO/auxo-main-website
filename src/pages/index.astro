@@ -23,7 +23,7 @@ const latestPosts = allPosts
   <Navigation />
 
   <!-- Hero Section with Animated Logo -->
-  <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-black via-zinc-950 to-black overflow-hidden pt-20 pb-20">
+  <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-black via-zinc-950 to-black overflow-hidden pt-32 pb-20">
     <!-- Background Effects -->
     <div class="absolute inset-0 opacity-20">
       <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-lime-400/10 rounded-full blur-3xl animate-pulse"></div>
@@ -220,8 +220,8 @@ const latestPosts = allPosts
           <div class="max-w-5xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               <!-- Step 1 -->
-              <div class="relative">
-                <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-lime-400/30 rounded-xl p-6 hover:border-lime-400/50 transition-all">
+              <div class="relative flex">
+                <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-lime-400/30 rounded-xl p-6 hover:border-lime-400/50 transition-all flex flex-col h-full w-full">
                   <div class="absolute -top-4 -left-4 w-12 h-12 bg-lime-400 rounded-full flex items-center justify-center font-bold text-black text-xl shadow-lg shadow-lime-400/50">
                     1
                   </div>
@@ -237,8 +237,8 @@ const latestPosts = allPosts
               </div>
 
               <!-- Step 2 -->
-              <div class="relative">
-                <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-lime-400/30 rounded-xl p-6 hover:border-lime-400/50 transition-all">
+              <div class="relative flex">
+                <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-lime-400/30 rounded-xl p-6 hover:border-lime-400/50 transition-all flex flex-col h-full w-full">
                   <div class="absolute -top-4 -left-4 w-12 h-12 bg-lime-400 rounded-full flex items-center justify-center font-bold text-black text-xl shadow-lg shadow-lime-400/50">
                     2
                   </div>
@@ -254,8 +254,8 @@ const latestPosts = allPosts
               </div>
 
               <!-- Step 3 -->
-              <div class="relative">
-                <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-lime-400/30 rounded-xl p-6 hover:border-lime-400/50 transition-all">
+              <div class="relative flex">
+                <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-lime-400/30 rounded-xl p-6 hover:border-lime-400/50 transition-all flex flex-col h-full w-full">
                   <div class="absolute -top-4 -left-4 w-12 h-12 bg-lime-400 rounded-full flex items-center justify-center font-bold text-black text-xl shadow-lg shadow-lime-400/50">
                     3
                   </div>
@@ -271,8 +271,8 @@ const latestPosts = allPosts
               </div>
 
               <!-- Step 4 -->
-              <div class="relative">
-                <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-lime-400/30 rounded-xl p-6 hover:border-lime-400/50 transition-all">
+              <div class="relative flex">
+                <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-lime-400/30 rounded-xl p-6 hover:border-lime-400/50 transition-all flex flex-col h-full w-full">
                   <div class="absolute -top-4 -left-4 w-12 h-12 bg-lime-400 rounded-full flex items-center justify-center font-bold text-black text-xl shadow-lg shadow-lime-400/50">
                     4
                   </div>
@@ -357,34 +357,28 @@ const latestPosts = allPosts
               <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
                   <div class="w-16 h-16 mb-3 flex items-center justify-center">
-                    <svg class="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
-                      <path class="text-orange-500" d="M13.5 2c-2.28 0-4.37.82-6 2.18C5.87 2.82 3.78 2 1.5 2v9c0 4.97 3.43 9 8.5 9s8.5-4.03 8.5-9V2c-2.28 0-4.37.82-6 2.18V2h1.5z"/>
-                    </svg>
+                    <img src="https://techicons.dev/icons/aws" alt="AWS" class="w-full h-full object-contain" />
                   </div>
                   <span class="font-semibold text-sm text-center">AWS</span>
                 </div>
 
                 <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
                   <div class="w-16 h-16 mb-3 flex items-center justify-center">
-                    <svg class="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
-                      <path class="text-blue-500" d="M11.5 2L2 7l9.5 5L21 7l-9.5-5zM2 17l9.5 5 9.5-5M2 12l9.5 5 9.5-5"/>
-                    </svg>
+                    <img src="https://techicons.dev/icons/azure" alt="Azure" class="w-full h-full object-contain" />
                   </div>
                   <span class="font-semibold text-sm text-center">Azure</span>
                 </div>
 
                 <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
                   <div class="w-16 h-16 mb-3 flex items-center justify-center">
-                    <svg class="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
-                      <path class="text-red-500" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                    </svg>
+                    <img src="https://techicons.dev/icons/gcp" alt="Google Cloud Platform" class="w-full h-full object-contain" />
                   </div>
                   <span class="font-semibold text-sm text-center">GCP</span>
                 </div>
 
                 <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
                   <div class="w-16 h-16 mb-3 flex items-center justify-center">
-                    <Icon name="mdi:database" class="w-full h-full text-blue-400" />
+                    <img src="https://techicons.dev/icons/docker" alt="Docker" class="w-full h-full object-contain" />
                   </div>
                   <span class="font-semibold text-sm text-center">Docker</span>
                 </div>
@@ -397,35 +391,35 @@ const latestPosts = allPosts
               <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
                 <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
                   <div class="w-16 h-16 mb-3 flex items-center justify-center">
-                    <Icon name="mdi:chart-bar" class="w-full h-full text-orange-400" />
+                    <img src="https://techicons.dev/icons/tableau" alt="Tableau" class="w-full h-full object-contain" />
                   </div>
                   <span class="font-semibold text-sm text-center">Tableau</span>
                 </div>
 
                 <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
                   <div class="w-16 h-16 mb-3 flex items-center justify-center">
-                    <Icon name="mdi:chart-bar" class="w-full h-full text-yellow-400" />
+                    <img src="https://techicons.dev/icons/powerbi" alt="Power BI" class="w-full h-full object-contain" />
                   </div>
                   <span class="font-semibold text-sm text-center">Power BI</span>
                 </div>
 
                 <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
                   <div class="w-16 h-16 mb-3 flex items-center justify-center">
-                    <Icon name="mdi:chart-line" class="w-full h-full text-orange-500" />
+                    <img src="https://techicons.dev/icons/looker" alt="Looker" class="w-full h-full object-contain" />
                   </div>
                   <span class="font-semibold text-sm text-center">Looker</span>
                 </div>
 
                 <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
                   <div class="w-16 h-16 mb-3 flex items-center justify-center">
-                    <Icon name="mdi:chart-bar" class="w-full h-full text-purple-400" />
+                    <img src="https://techicons.dev/icons/metabase" alt="Metabase" class="w-full h-full object-contain" />
                   </div>
                   <span class="font-semibold text-sm text-center">Metabase</span>
                 </div>
 
                 <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
                   <div class="w-16 h-16 mb-3 flex items-center justify-center">
-                    <Icon name="mdi:chart-line" class="w-full h-full text-pink-400" />
+                    <img src="https://techicons.dev/icons/superset" alt="Apache Superset" class="w-full h-full object-contain" />
                   </div>
                   <span class="font-semibold text-sm text-center">Superset</span>
                 </div>
@@ -438,35 +432,35 @@ const latestPosts = allPosts
               <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
                 <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
                   <div class="w-16 h-16 mb-3 flex items-center justify-center">
-                    <Icon name="mdi:database" class="w-full h-full text-blue-400" />
+                    <img src="https://techicons.dev/icons/python" alt="Python" class="w-full h-full object-contain" />
                   </div>
                   <span class="font-semibold text-sm text-center">Python</span>
                 </div>
 
                 <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
                   <div class="w-16 h-16 mb-3 flex items-center justify-center">
-                    <Icon name="mdi:database" class="w-full h-full text-orange-500" />
+                    <img src="https://techicons.dev/icons/apachespark" alt="Apache Spark" class="w-full h-full object-contain" />
                   </div>
                   <span class="font-semibold text-sm text-center">Apache Spark</span>
                 </div>
 
                 <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
                   <div class="w-16 h-16 mb-3 flex items-center justify-center">
-                    <Icon name="mdi:database" class="w-full h-full text-red-400" />
+                    <img src="https://techicons.dev/icons/airflow" alt="Apache Airflow" class="w-full h-full object-contain" />
                   </div>
                   <span class="font-semibold text-sm text-center">Airflow</span>
                 </div>
 
                 <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
                   <div class="w-16 h-16 mb-3 flex items-center justify-center">
-                    <Icon name="mdi:lightbulb" class="w-full h-full text-lime-400" />
+                    <img src="https://techicons.dev/icons/tensorflow" alt="TensorFlow" class="w-full h-full object-contain" />
                   </div>
                   <span class="font-semibold text-sm text-center">TensorFlow</span>
                 </div>
 
                 <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
                   <div class="w-16 h-16 mb-3 flex items-center justify-center">
-                    <Icon name="mdi:lightbulb" class="w-full h-full text-purple-400" />
+                    <img src="https://techicons.dev/icons/pytorch" alt="PyTorch" class="w-full h-full object-contain" />
                   </div>
                   <span class="font-semibold text-sm text-center">PyTorch</span>
                 </div>

@@ -4,8 +4,15 @@ import Navigation from '../components/Navigation.astro';
 import { Icon } from 'astro-icon/components';
 import { services } from '../data/services';
 import { siteData } from '../data/site';
+import { getCollection } from 'astro:content';
 
 const base = import.meta.env.BASE_URL;
+
+// Get latest blog posts
+const allPosts = await getCollection('blog');
+const latestPosts = allPosts
+  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+  .slice(0, 3);
 ---
 
 <BaseLayout
@@ -98,6 +105,88 @@ const base = import.meta.env.BASE_URL;
 
   <div class="relative z-10 bg-black">
 
+      <!-- Problem Statement Section -->
+      <section class="py-20 bg-black border-t border-gray-800">
+        <div class="container mx-auto px-4">
+          <div class="max-w-4xl mx-auto text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+              Are You Struggling with <span class="text-lime-400">Analytics Challenges?</span>
+            </h2>
+            <p class="text-lg text-gray-400 leading-relaxed">
+              Many UAE businesses face similar obstacles when trying to leverage their data effectively
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div class="bg-zinc-900 border border-red-500/20 rounded-xl p-6 hover:border-red-500/40 transition-all">
+              <div class="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-4">
+                <Icon name="mdi:alert-circle" class="w-6 h-6 text-red-400" />
+              </div>
+              <h3 class="text-xl font-bold mb-3">Siloed Data</h3>
+              <p class="text-gray-400 leading-relaxed">
+                Information scattered across spreadsheets, databases, and systems with no unified view
+              </p>
+            </div>
+
+            <div class="bg-zinc-900 border border-red-500/20 rounded-xl p-6 hover:border-red-500/40 transition-all">
+              <div class="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-4">
+                <Icon name="mdi:clock-alert" class="w-6 h-6 text-red-400" />
+              </div>
+              <h3 class="text-xl font-bold mb-3">Slow Insights</h3>
+              <p class="text-gray-400 leading-relaxed">
+                Weeks or months to get answers to critical business questions when you need them now
+              </p>
+            </div>
+
+            <div class="bg-zinc-900 border border-red-500/20 rounded-xl p-6 hover:border-red-500/40 transition-all">
+              <div class="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-4">
+                <Icon name="mdi:account-question" class="w-6 h-6 text-red-400" />
+              </div>
+              <h3 class="text-xl font-bold mb-3">Skills Gap</h3>
+              <p class="text-gray-400 leading-relaxed">
+                Lack of in-house analytics expertise to turn raw information into strategic decisions
+              </p>
+            </div>
+
+            <div class="bg-zinc-900 border border-red-500/20 rounded-xl p-6 hover:border-red-500/40 transition-all">
+              <div class="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-4">
+                <Icon name="mdi:currency-usd-off" class="w-6 h-6 text-red-400" />
+              </div>
+              <h3 class="text-xl font-bold mb-3">Unclear ROI</h3>
+              <p class="text-gray-400 leading-relaxed">
+                Investing in tools and platforms without seeing measurable business impact or value
+              </p>
+            </div>
+
+            <div class="bg-zinc-900 border border-red-500/20 rounded-xl p-6 hover:border-red-500/40 transition-all">
+              <div class="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-4">
+                <Icon name="mdi:shield-alert" class="w-6 h-6 text-red-400" />
+              </div>
+              <h3 class="text-xl font-bold mb-3">Compliance Concerns</h3>
+              <p class="text-gray-400 leading-relaxed">
+                Uncertainty about UAE PDPL, GDPR compliance and data governance requirements
+              </p>
+            </div>
+
+            <div class="bg-zinc-900 border border-red-500/20 rounded-xl p-6 hover:border-red-500/40 transition-all">
+              <div class="w-12 h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-4">
+                <Icon name="mdi:chart-line-variant" class="w-6 h-6 text-red-400" />
+              </div>
+              <h3 class="text-xl font-bold mb-3">Limited Scalability</h3>
+              <p class="text-gray-400 leading-relaxed">
+                Current analytics setup can't keep pace with your business growth and evolving needs
+              </p>
+            </div>
+          </div>
+
+          <div class="text-center mt-12">
+            <p class="text-lg text-lime-400 font-semibold">
+              We help you overcome these challenges with proven methodologies and cutting-edge solutions
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section id="services" class="py-28 bg-zinc-950">
         <div class="container mx-auto px-4">
           <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Our <span class="text-lime-400">Services</span></h2>
@@ -116,7 +205,108 @@ const base = import.meta.env.BASE_URL;
         </div>
       </section>
 
+      <!-- How We Work Section -->
       <section class="py-28 bg-black border-t border-gray-800">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+              Our <span class="text-lime-400">Proven Methodology</span>
+            </h2>
+            <p class="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+              A structured approach to turn your analytics vision into reality
+            </p>
+          </div>
+
+          <div class="max-w-5xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <!-- Step 1 -->
+              <div class="relative">
+                <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-lime-400/30 rounded-xl p-6 hover:border-lime-400/50 transition-all">
+                  <div class="absolute -top-4 -left-4 w-12 h-12 bg-lime-400 rounded-full flex items-center justify-center font-bold text-black text-xl shadow-lg shadow-lime-400/50">
+                    1
+                  </div>
+                  <div class="w-14 h-14 bg-lime-400/10 rounded-lg flex items-center justify-center mb-4 mt-2">
+                    <Icon name="mdi:compass" class="w-7 h-7 text-lime-400" />
+                  </div>
+                  <h3 class="text-xl font-bold mb-3">Discover</h3>
+                  <p class="text-gray-400 leading-relaxed text-sm">
+                    We assess your current state, understand your business goals, and identify key opportunities for impact
+                  </p>
+                </div>
+                <div class="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-lime-400 to-transparent"></div>
+              </div>
+
+              <!-- Step 2 -->
+              <div class="relative">
+                <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-lime-400/30 rounded-xl p-6 hover:border-lime-400/50 transition-all">
+                  <div class="absolute -top-4 -left-4 w-12 h-12 bg-lime-400 rounded-full flex items-center justify-center font-bold text-black text-xl shadow-lg shadow-lime-400/50">
+                    2
+                  </div>
+                  <div class="w-14 h-14 bg-lime-400/10 rounded-lg flex items-center justify-center mb-4 mt-2">
+                    <Icon name="mdi:floor-plan" class="w-7 h-7 text-lime-400" />
+                  </div>
+                  <h3 class="text-xl font-bold mb-3">Design</h3>
+                  <p class="text-gray-400 leading-relaxed text-sm">
+                    We create a tailored analytics roadmap with clear milestones, technology choices, and success metrics
+                  </p>
+                </div>
+                <div class="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-lime-400 to-transparent"></div>
+              </div>
+
+              <!-- Step 3 -->
+              <div class="relative">
+                <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-lime-400/30 rounded-xl p-6 hover:border-lime-400/50 transition-all">
+                  <div class="absolute -top-4 -left-4 w-12 h-12 bg-lime-400 rounded-full flex items-center justify-center font-bold text-black text-xl shadow-lg shadow-lime-400/50">
+                    3
+                  </div>
+                  <div class="w-14 h-14 bg-lime-400/10 rounded-lg flex items-center justify-center mb-4 mt-2">
+                    <Icon name="mdi:rocket-launch" class="w-7 h-7 text-lime-400" />
+                  </div>
+                  <h3 class="text-xl font-bold mb-3">Deploy</h3>
+                  <p class="text-gray-400 leading-relaxed text-sm">
+                    We implement solutions using agile sprints, ensuring rapid delivery and continuous feedback loops
+                  </p>
+                </div>
+                <div class="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-lime-400 to-transparent"></div>
+              </div>
+
+              <!-- Step 4 -->
+              <div class="relative">
+                <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-lime-400/30 rounded-xl p-6 hover:border-lime-400/50 transition-all">
+                  <div class="absolute -top-4 -left-4 w-12 h-12 bg-lime-400 rounded-full flex items-center justify-center font-bold text-black text-xl shadow-lg shadow-lime-400/50">
+                    4
+                  </div>
+                  <div class="w-14 h-14 bg-lime-400/10 rounded-lg flex items-center justify-center mb-4 mt-2">
+                    <Icon name="mdi:chart-box" class="w-7 h-7 text-lime-400" />
+                  </div>
+                  <h3 class="text-xl font-bold mb-3">Optimize</h3>
+                  <p class="text-gray-400 leading-relaxed text-sm">
+                    We monitor performance, refine models, and continuously improve to maximize your ROI and business value
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Additional Value Props -->
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="text-center p-6 bg-zinc-900/50 rounded-xl border border-zinc-800">
+                <div class="text-3xl font-bold text-lime-400 mb-2">2-4 Weeks</div>
+                <p class="text-gray-400 text-sm">Time to First Insights</p>
+              </div>
+              <div class="text-center p-6 bg-zinc-900/50 rounded-xl border border-zinc-800">
+                <div class="text-3xl font-bold text-lime-400 mb-2">Agile</div>
+                <p class="text-gray-400 text-sm">Iterative Approach</p>
+              </div>
+              <div class="text-center p-6 bg-zinc-900/50 rounded-xl border border-zinc-800">
+                <div class="text-3xl font-bold text-lime-400 mb-2">100%</div>
+                <p class="text-gray-400 text-sm">Transparent Process</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-28 bg-zinc-950 border-t border-gray-800">
         <div class="container mx-auto px-4">
           <div class="text-center mb-16">
             <h2 class="text-3xl md:text-4xl font-bold mb-4">Why Choose <span class="text-lime-400">AUXO?</span></h2>
@@ -144,6 +334,150 @@ const base = import.meta.env.BASE_URL;
               <h3 class="text-xl font-bold mb-3">Security & Compliance</h3>
               <p class="text-gray-400 leading-relaxed">Full compliance with UAE PDPL, GDPR, and enterprise-grade security standards</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Technology Stack Section -->
+      <section class="py-28 bg-black border-t border-gray-800">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+              Powered by <span class="text-lime-400">Leading Technologies</span>
+            </h2>
+            <p class="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+              We leverage cutting-edge tools and platforms to deliver enterprise-grade analytics solutions
+            </p>
+          </div>
+
+          <div class="max-w-6xl mx-auto">
+            <!-- Cloud & Infrastructure -->
+            <div class="mb-12">
+              <h3 class="text-xl font-bold mb-6 text-center text-gray-300">Cloud & Infrastructure</h3>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
+                  <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                    <svg class="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
+                      <path class="text-orange-500" d="M13.5 2c-2.28 0-4.37.82-6 2.18C5.87 2.82 3.78 2 1.5 2v9c0 4.97 3.43 9 8.5 9s8.5-4.03 8.5-9V2c-2.28 0-4.37.82-6 2.18V2h1.5z"/>
+                    </svg>
+                  </div>
+                  <span class="font-semibold text-sm text-center">AWS</span>
+                </div>
+
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
+                  <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                    <svg class="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
+                      <path class="text-blue-500" d="M11.5 2L2 7l9.5 5L21 7l-9.5-5zM2 17l9.5 5 9.5-5M2 12l9.5 5 9.5-5"/>
+                    </svg>
+                  </div>
+                  <span class="font-semibold text-sm text-center">Azure</span>
+                </div>
+
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
+                  <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                    <svg class="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
+                      <path class="text-red-500" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                  </div>
+                  <span class="font-semibold text-sm text-center">GCP</span>
+                </div>
+
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
+                  <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                    <Icon name="mdi:docker" class="w-full h-full text-blue-400" />
+                  </div>
+                  <span class="font-semibold text-sm text-center">Docker</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Analytics & BI -->
+            <div class="mb-12">
+              <h3 class="text-xl font-bold mb-6 text-center text-gray-300">Analytics & Business Intelligence</h3>
+              <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
+                  <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                    <Icon name="mdi:chart-box" class="w-full h-full text-orange-400" />
+                  </div>
+                  <span class="font-semibold text-sm text-center">Tableau</span>
+                </div>
+
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
+                  <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                    <Icon name="mdi:microsoft" class="w-full h-full text-yellow-400" />
+                  </div>
+                  <span class="font-semibold text-sm text-center">Power BI</span>
+                </div>
+
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
+                  <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                    <Icon name="mdi:google-analytics" class="w-full h-full text-orange-500" />
+                  </div>
+                  <span class="font-semibold text-sm text-center">Looker</span>
+                </div>
+
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
+                  <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                    <Icon name="mdi:chart-scatter-plot" class="w-full h-full text-purple-400" />
+                  </div>
+                  <span class="font-semibold text-sm text-center">Metabase</span>
+                </div>
+
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
+                  <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                    <Icon name="mdi:chart-line" class="w-full h-full text-pink-400" />
+                  </div>
+                  <span class="font-semibold text-sm text-center">Superset</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Data Engineering & ML -->
+            <div>
+              <h3 class="text-xl font-bold mb-6 text-center text-gray-300">Data Engineering & Machine Learning</h3>
+              <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
+                  <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                    <Icon name="mdi:language-python" class="w-full h-full text-blue-400" />
+                  </div>
+                  <span class="font-semibold text-sm text-center">Python</span>
+                </div>
+
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
+                  <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                    <Icon name="mdi:code-braces" class="w-full h-full text-orange-500" />
+                  </div>
+                  <span class="font-semibold text-sm text-center">Apache Spark</span>
+                </div>
+
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
+                  <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                    <Icon name="mdi:air-filter" class="w-full h-full text-red-400" />
+                  </div>
+                  <span class="font-semibold text-sm text-center">Airflow</span>
+                </div>
+
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
+                  <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                    <Icon name="mdi:brain" class="w-full h-full text-lime-400" />
+                  </div>
+                  <span class="font-semibold text-sm text-center">TensorFlow</span>
+                </div>
+
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all group">
+                  <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                    <Icon name="mdi:lightning-bolt" class="w-full h-full text-purple-400" />
+                  </div>
+                  <span class="font-semibold text-sm text-center">PyTorch</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-12 text-center">
+            <p class="text-gray-400">
+              Plus many more technologies tailored to your specific needs
+            </p>
           </div>
         </div>
       </section>
@@ -262,8 +596,172 @@ const base = import.meta.env.BASE_URL;
         </div>
       </section>
 
+      <!-- Blog Preview Section -->
+      <section class="py-28 bg-zinc-950 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+              Latest <span class="text-lime-400">Insights</span>
+            </h2>
+            <p class="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+              Expert perspectives on analytics, AI, and digital transformation in the UAE
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
+            {latestPosts.map(post => (
+              <article class="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden hover:border-lime-400/30 transition-all group">
+                <div class="p-6">
+                  <!-- Category Badge -->
+                  <div class="inline-block px-3 py-1 bg-lime-400/10 border border-lime-400/20 rounded-full mb-4">
+                    <span class="text-lime-400 text-xs font-semibold uppercase tracking-wide">
+                      {post.data.category}
+                    </span>
+                  </div>
+
+                  <!-- Title -->
+                  <h3 class="text-xl font-bold mb-3 group-hover:text-lime-400 transition-colors line-clamp-2">
+                    {post.data.title}
+                  </h3>
+
+                  <!-- Description -->
+                  <p class="text-gray-400 mb-4 leading-relaxed line-clamp-3 text-sm">
+                    {post.data.description}
+                  </p>
+
+                  <!-- Meta -->
+                  <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                    <span>{new Date(post.data.pubDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                    <span>{post.data.readTime}</span>
+                  </div>
+
+                  <!-- Read More Link -->
+                  <a
+                    href={`${base}blog/${post.slug}`}
+                    class="inline-flex items-center gap-2 text-lime-400 hover:text-lime-300 font-semibold text-sm group-hover:gap-3 transition-all"
+                  >
+                    Read Article
+                    <Icon name="mdi:arrow-right" class="w-4 h-4" />
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div class="text-center">
+            <a
+              href={`${base}blog`}
+              class="inline-flex items-center gap-2 px-8 py-3 bg-zinc-800 border border-zinc-700 text-white rounded-lg hover:border-lime-400/50 hover:bg-zinc-700 transition-all font-semibold"
+            >
+              View All Articles
+              <Icon name="mdi:arrow-right" class="w-5 h-5" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Launch Offer Section -->
+      <section class="py-28 bg-gradient-to-b from-black to-zinc-950 border-t border-gray-800 relative overflow-hidden">
+        <!-- Background decoration -->
+        <div class="absolute inset-0 opacity-10">
+          <div class="absolute top-0 right-0 w-96 h-96 bg-lime-400 rounded-full blur-3xl"></div>
+          <div class="absolute bottom-0 left-0 w-96 h-96 bg-green-500 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10">
+          <div class="max-w-4xl mx-auto">
+            <div class="bg-gradient-to-br from-zinc-900 to-black border-2 border-lime-400/40 rounded-2xl p-8 md:p-12 shadow-2xl shadow-lime-400/20">
+              <!-- Badge -->
+              <div class="flex justify-center mb-6">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-lime-400 text-black rounded-full font-bold text-sm">
+                  <Icon name="mdi:star" class="w-5 h-5" />
+                  <span>Founding Client Offer</span>
+                  <Icon name="mdi:star" class="w-5 h-5" />
+                </div>
+              </div>
+
+              <h2 class="text-3xl md:text-4xl font-bold mb-4 text-center">
+                Be Among Our <span class="text-lime-400">First 10 Partners</span>
+              </h2>
+
+              <p class="text-lg text-gray-300 mb-8 text-center max-w-2xl mx-auto leading-relaxed">
+                As a new consultancy, we're offering exclusive benefits to our founding clients who trust us to transform their analytics capabilities
+              </p>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-zinc-800/50 border border-lime-400/20 rounded-xl p-6">
+                  <div class="flex items-start gap-3 mb-3">
+                    <div class="w-10 h-10 bg-lime-400/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Icon name="mdi:percent" class="w-6 h-6 text-lime-400" />
+                    </div>
+                    <div>
+                      <h3 class="font-bold text-xl mb-1">30% Discount</h3>
+                      <p class="text-gray-400 text-sm">On your first 3-month engagement</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-zinc-800/50 border border-lime-400/20 rounded-xl p-6">
+                  <div class="flex items-start gap-3 mb-3">
+                    <div class="w-10 h-10 bg-lime-400/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Icon name="mdi:check-decagram" class="w-6 h-6 text-lime-400" />
+                    </div>
+                    <div>
+                      <h3 class="font-bold text-xl mb-1">Priority Support</h3>
+                      <p class="text-gray-400 text-sm">Direct access to our senior team</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-zinc-800/50 border border-lime-400/20 rounded-xl p-6">
+                  <div class="flex items-start gap-3 mb-3">
+                    <div class="w-10 h-10 bg-lime-400/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Icon name="mdi:gift" class="w-6 h-6 text-lime-400" />
+                    </div>
+                    <div>
+                      <h3 class="font-bold text-xl mb-1">Free Assessment</h3>
+                      <p class="text-gray-400 text-sm">Comprehensive maturity evaluation (AED 5,000 value)</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-zinc-800/50 border border-lime-400/20 rounded-xl p-6">
+                  <div class="flex items-start gap-3 mb-3">
+                    <div class="w-10 h-10 bg-lime-400/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Icon name="mdi:handshake" class="w-6 h-6 text-lime-400" />
+                    </div>
+                    <div>
+                      <h3 class="font-bold text-xl mb-1">Partner Status</h3>
+                      <p class="text-gray-400 text-sm">Preferred pricing for 12 months</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-gradient-to-r from-lime-400/10 to-green-500/10 border border-lime-400/30 rounded-xl p-6 mb-8">
+                <div class="flex items-center justify-center gap-3 mb-2">
+                  <Icon name="mdi:clock-alert" class="w-6 h-6 text-lime-400" />
+                  <span class="font-bold text-lg">Limited Time Offer</span>
+                </div>
+                <p class="text-center text-gray-300">
+                  Only <span class="text-lime-400 font-bold">7 spots remaining</span> for founding clients
+                </p>
+              </div>
+
+              <div class="text-center">
+                <a href={`${base}contact`} class="inline-flex items-center gap-2 bg-lime-400 text-black px-10 py-4 rounded-lg font-bold hover:bg-lime-500 transition-all shadow-lg shadow-lime-400/30 hover:shadow-lime-400/50 hover:scale-105 text-lg">
+                  Claim Your Spot Now
+                  <Icon name="mdi:arrow-right" class="w-5 h-5" />
+                </a>
+                <p class="text-sm text-gray-500 mt-4">No long-term contracts required • Cancel anytime</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- CTA Section -->
-      <section class="py-28 bg-gradient-to-b from-black to-zinc-900 border-t border-gray-800">
+      <section class="py-28 bg-gradient-to-b from-zinc-950 to-zinc-900 border-t border-gray-800">
         <div class="container mx-auto px-4 text-center">
           <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Business?</h2>
           <p class="text-lg text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">

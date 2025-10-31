@@ -154,32 +154,114 @@ const base = import.meta.env.BASE_URL;
       </div>
 
       <!-- Expertise Areas -->
-      <div class="max-w-5xl mx-auto mb-20">
+      <div class="max-w-6xl mx-auto mb-20">
         <div class="text-center mb-12">
           <h2 class="text-3xl font-bold mb-4">Our Expertise</h2>
           <p class="text-gray-400">Technologies and platforms we specialize in</p>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {[
-            { name: 'Python', icon: 'mdi:language-python' },
-            { name: 'SQL', icon: 'mdi:database' },
-            { name: 'Power BI', icon: 'mdi:chart-bar' },
-            { name: 'Tableau', icon: 'mdi:chart-line' },
-            { name: 'AWS', icon: 'mdi:aws' },
-            { name: 'Azure', icon: 'mdi:microsoft-azure' },
-            { name: 'Snowflake', icon: 'mdi:snowflake' },
-            { name: 'Apache Spark', icon: 'mdi:lightning-bolt' },
-            { name: 'TensorFlow', icon: 'mdi:brain' },
-            { name: 'Docker', icon: 'mdi:docker' },
-            { name: 'Airflow', icon: 'mdi:air-filter' },
-            { name: 'dbt', icon: 'mdi:graph' }
-          ].map((tech) => (
-            <div class="bg-zinc-900 border border-zinc-800 rounded-lg p-4 text-center hover:border-lime-400 transition-colors">
-              <Icon name={tech.icon} class="w-8 h-8 text-lime-400 mx-auto mb-2" />
-              <p class="text-xs font-medium">{tech.name}</p>
+        <div class="space-y-12">
+          <!-- Cloud & Infrastructure -->
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-center text-gray-300">Cloud & Infrastructure</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all">
+                <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                  <img src="https://cdn.simpleicons.org/amazonwebservices/FF9900" alt="AWS" class="w-full h-full object-contain" />
+                </div>
+                <span class="font-semibold text-sm text-center">AWS</span>
+              </div>
+
+              <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all">
+                <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                  <img src="https://cdn.simpleicons.org/microsoftazure/0078D4" alt="Azure" class="w-full h-full object-contain" />
+                </div>
+                <span class="font-semibold text-sm text-center">Azure</span>
+              </div>
+
+              <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all">
+                <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                  <i class="si si-googlecloud" style="font-size: 48px; color: #4285F4;"></i>
+                </div>
+                <span class="font-semibold text-sm text-center">GCP</span>
+              </div>
+
+              <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all">
+                <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                  <i class="si si-docker" style="font-size: 48px; color: #2496ED;"></i>
+                </div>
+                <span class="font-semibold text-sm text-center">Docker</span>
+              </div>
             </div>
-          ))}
+          </div>
+
+          <!-- Analytics & BI -->
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-center text-gray-300">Analytics & Business Intelligence</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all">
+                <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                  <img src="https://cdn.simpleicons.org/tableau/E97627" alt="Tableau" class="w-full h-full object-contain" />
+                </div>
+                <span class="font-semibold text-sm text-center">Tableau</span>
+              </div>
+
+              <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all">
+                <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                  <img src="https://cdn.simpleicons.org/powerbi/F2C811" alt="Power BI" class="w-full h-full object-contain" />
+                </div>
+                <span class="font-semibold text-sm text-center">Power BI</span>
+              </div>
+
+              <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all">
+                <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                  <i class="si si-looker" style="font-size: 48px; color: #4285F4;"></i>
+                </div>
+                <span class="font-semibold text-sm text-center">Looker</span>
+              </div>
+
+              <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all">
+                <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                  <i class="si si-metabase" style="font-size: 48px; color: #509EE3;"></i>
+                </div>
+                <span class="font-semibold text-sm text-center">Metabase</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Data Engineering & ML -->
+          <div>
+            <h3 class="text-xl font-bold mb-6 text-center text-gray-300">Data Engineering & Machine Learning</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all">
+                <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                  <i class="si si-python" style="font-size: 48px; color: #3776AB;"></i>
+                </div>
+                <span class="font-semibold text-sm text-center">Python</span>
+              </div>
+
+              <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all">
+                <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                  <i class="si si-apachespark" style="font-size: 48px; color: #E25A1C;"></i>
+                </div>
+                <span class="font-semibold text-sm text-center">Apache Spark</span>
+              </div>
+
+              <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all">
+                <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                  <i class="si si-apacheairflow" style="font-size: 48px; color: #017CEE;"></i>
+                </div>
+                <span class="font-semibold text-sm text-center">Airflow</span>
+              </div>
+
+              <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-lime-400/30 transition-all">
+                <div class="w-16 h-16 mb-3 flex items-center justify-center">
+                  <i class="si si-tensorflow" style="font-size: 48px; color: #FF6F00;"></i>
+                </div>
+                <span class="font-semibold text-sm text-center">TensorFlow</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

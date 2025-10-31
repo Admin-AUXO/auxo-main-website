@@ -59,25 +59,37 @@ When proposing changes, use the [Conventional Commits](https://www.conventionalc
 
 #### Code Style & Conventions
 
--   **Comments:** Add comments only when necessary to explain *why* a piece of code is written a certain way, not *what* it does.
+-   **Comments:** Add comments only when necessary to explain *why* a piece of code is written a certain way, not *what* it does. Avoid obvious comments.
 -   **Naming Conventions:**
     -   Components: `PascalCase` (e.g., `MyComponent.astro`)
     -   Variables and functions: `camelCase` (e.g., `myVariable`, `myFunction`)
     -   TypeScript interfaces: `PascalCase` (e.g., `MyInterface`)
--   **Imports:** Keep imports organized at the top of the file.
+-   **Imports:** Keep imports organized at the top of the file, grouped as follows:
+    1.  Astro imports
+    2.  Third-party library imports
+    3.  Internal component imports
+    4.  Data imports
+    5.  Type imports
+-   **Tailwind CSS:** While there is no strict linter for class order, try to follow a consistent pattern (e.g., layout, spacing, typography, colors, effects).
 
-#### Handling Dependencies
+#### Dos and Don’ts (Best Practices)
 
--   **Adding a new dependency:** Before adding a new dependency, evaluate its necessity and impact on bundle size. Propose the addition with a clear justification.
--   **Updating dependencies:** When instructed to update dependencies, use `npm outdated` to check for outdated packages and `npm update` to apply updates according to `package.json`.
+-   **DO** use the data files in `src/data/` to manage content. This is the primary way to update text, links, and other data on the site.
+-   **DO** reuse existing components from `src/components/` whenever possible.
+-   **DO** ensure all new components and pages are accessible (a11y) by using semantic HTML and ARIA attributes where necessary. The ESLint configuration will help with this.
+-   **DO** use Astro's `getCollection` API to query blog posts from `src/content/blog/`.
+-   **DON'T** hard-code strings directly into components or pages. If the text is likely to change, add it to the appropriate file in `src/data/`.
+-   **DON'T** duplicate code. If you find yourself writing the same code in multiple places, create a reusable component.
+-   **DON'T** add large client-side JavaScript libraries without a very strong justification. This is a static-first site, and performance is a key priority.
+-   **DON'T** use `<a>` tags for internal navigation without using the `base` variable. All internal links should be relative to the base URL (e.g., `<a href={base}>Home</a>`).
 
-#### API Integration
+#### Common "Gotchas" to Avoid
 
--   The API endpoints in `src/pages/api/` are currently placeholders. When implementing the backend logic:
-    -   Ensure all sensitive information (API keys, secrets) is stored in environment variables (see `/.env.example`).
-    -   Implement robust validation and error handling.
-    -   For the newsletter, implement a double opt-in mechanism to comply with anti-spam regulations.
-    -   Consider implementing rate limiting and spam protection (e.g., reCAPTCHA) for public-facing endpoints.
+-   **Client-side Scripts:** Remember that Astro components are server-only by default. If you need to add client-side interactivity, you must use a `<script>` tag within the `.astro` file. The existing interactive components like `MultiStepForm.astro` and `MaturityCalculator.astro` are good examples of this pattern.
+-   **API Endpoints are Placeholders:** The API endpoints in `src/pages/api/` are not connected to any backend services. Do not assume they are functional. Any work on them will require implementing the actual email/database integration.
+-   **Base URL:** The project is configured with a `base` URL in `astro.config.mjs`. All internal links and asset paths must be prefixed with the `base` variable to work correctly in both development and production. **Critical:** API calls in client-side scripts must also use the base URL.
+-   **Image Optimization:** While Astro's image optimization is powerful, be mindful of the image formats and sizes you use. Large, unoptimized images can still slow down the site.
+-   **ESLint Version Mismatch:** The project currently uses ESLint v9 with a deprecated v8 config format. The lint command will not work until migrated to flat config or ESLint is downgraded.
 
 ---
 
@@ -156,8 +168,10 @@ This section outlines the visual identity of the AUXO Data Labs website.
 
 #### Iconography
 
--   **Library:** The project uses [Material Design Icons](https://materialdesignicons.com/) via the `astro-icon` integration.
--   **Configuration:** The list of included icons is managed in `astro.config.mjs` to optimize bundle size.
+-   **Primary Library:** The project uses [Material Design Icons](https://materialdesignicons.com/) via the `astro-icon` integration for most UI icons.
+-   **Technology Icons:** The homepage technology section uses [Simple Icons Font](https://github.com/simple-icons/simple-icons-font) loaded via CDN for brand/technology logos.
+-   **Configuration:** The list of included MDI icons is managed in `astro.config.mjs` to optimize bundle size.
+-   **Important:** Simple Icons CDN stylesheet must be included in pages that use technology icons (currently: `index.astro`).
 
 ---
 
@@ -304,3 +318,157 @@ The project uses GitHub Actions for CI/CD, located in `.github/workflows/`.
 
 -   **Source:** The `.env.example` file provides a template for all required variables.
 -   **Key Variables:** `PUBLIC_SITE_URL`, `PUBLIC_GOOGLE_ANALYTICS_ID`, `MAILCHIMP_API_KEY`, `SENDGRID_API_KEY`.
+
+---
+
+## PART 5: KNOWN ISSUES & CURRENT STATUS
+
+This section documents the current state of the project and known issues that need to be addressed.
+
+### 14. Critical Issues
+
+#### 14.1 ESLint Configuration Not Working
+-   **Status:** Broken
+-   **Issue:** Project uses ESLint v9 but has a deprecated v8 config file (`.eslintrc.cjs`)
+-   **Impact:** `npm run lint` command fails completely
+-   **Action Required:** Migrate to ESLint v9 flat config format or downgrade to ESLint v8
+
+#### 14.2 Missing Dependencies
+-   **Status:** Incomplete
+-   **Issue:** `@astrojs/check` and `typescript` are not installed but referenced in package.json scripts
+-   **Impact:** `npm run check` command cannot run
+-   **Action Required:** Run `npm install -D @astrojs/check typescript`
+
+#### 14.3 Simple Icons CDN Not Loaded
+-   **Status:** Bug
+-   **Location:** `src/pages/index.astro` (Technology section, lines 359-506)
+-   **Issue:** Uses Simple Icons font classes but CDN stylesheet is not loaded
+-   **Impact:** All technology brand icons are invisible on the homepage
+-   **Action Required:** Add Simple Icons CDN to page head or SEO component
+
+#### 14.4 API Endpoints Non-Functional
+-   **Status:** Placeholder
+-   **Location:** `src/pages/api/contact.ts`, `src/pages/api/newsletter.ts`
+-   **Issue:** Endpoints only log to console, do not send emails or store data
+-   **Impact:** Contact form and newsletter appear to work but don't actually function
+-   **Action Required:** Integrate with email service (SendGrid, AWS SES, etc.) or disable forms
+
+### 15. High Priority Issues
+
+#### 15.1 Newsletter API Base URL Bug
+-   **Status:** Bug
+-   **Location:** `src/components/Footer.astro:211`
+-   **Issue:** Uses `/api/newsletter` instead of `${base}api/newsletter`
+-   **Impact:** Will break in production GitHub Pages deployment
+-   **Action Required:** Update fetch URL to include base path
+
+#### 15.2 Missing Input Validation
+-   **Status:** Security Risk
+-   **Location:** All form submissions and API endpoints
+-   **Issue:** No validation library, basic regex only
+-   **Impact:** Vulnerable to injection attacks, poor data quality
+-   **Action Required:** Implement Zod or similar validation library
+
+#### 15.3 No Rate Limiting
+-   **Status:** Security Risk
+-   **Location:** API endpoints
+-   **Issue:** No protection against spam or abuse
+-   **Impact:** Vulnerable to DoS attacks and spam
+-   **Action Required:** Implement rate limiting
+
+#### 15.4 Placeholder Contact Information
+-   **Status:** Incomplete
+-   **Location:** `src/data/site.ts:7`
+-   **Issue:** Phone number is `+971 4 XXX XXXX`
+-   **Impact:** Users cannot contact via phone, looks unprofessional
+-   **Action Required:** Add real phone number or remove from display
+
+### 16. Medium Priority Issues
+
+#### 16.1 No Blog Content
+-   **Status:** Incomplete
+-   **Location:** `src/content/blog/`
+-   **Issue:** Blog pages exist but no posts published
+-   **Impact:** Empty blog page, broken links from homepage
+-   **Action Required:** Create initial blog posts or hide blog links
+
+#### 16.2 Console Logs in Production
+-   **Status:** Code Quality
+-   **Location:** API endpoints and various scripts
+-   **Issue:** `console.log` statements will run in production
+-   **Impact:** Information leakage, performance overhead
+-   **Action Required:** Remove or wrap in environment checks
+
+#### 16.3 Missing Security Headers
+-   **Status:** Security Enhancement
+-   **Issue:** No CSP, X-Frame-Options, X-Content-Type-Options headers
+-   **Impact:** Increased attack surface
+-   **Action Required:** Configure security headers in deployment settings
+
+### 17. Optimization Opportunities
+
+-   **Image Optimization:** Not using Astro's `<Image />` component consistently
+-   **Font Loading:** Could add `&display=swap` to Google Fonts URL
+-   **Lazy Loading:** Implement Intersection Observer for below-fold content
+-   **CSS Audit:** Verify all custom CSS classes are used, remove unused
+-   **Type Consolidation:** Create shared `types/` directory for common interfaces
+
+### 18. Documentation Gaps
+
+-   **Environment Variables:** `.env.example` needs verification of all required variables
+-   **Component Documentation:** Some complex components lack inline documentation
+-   **Setup Instructions:** README could include troubleshooting section
+
+### 19. Testing & Quality Assurance
+
+-   **No Unit Tests:** Project has no test suite
+-   **No E2E Tests:** No automated testing of user flows
+-   **No CI Checks:** GitHub Actions only run deployment, not quality checks
+-   **Manual Testing Required:** All features need manual verification
+
+For a detailed breakdown of all issues with severity ratings, timelines, and specific fixes, see [`AUDIT_FINDINGS.md`](./AUDIT_FINDINGS.md).
+
+---
+
+## APPENDIX: Quick Reference
+
+### File Locations Quick Reference
+-   **Homepage:** `src/pages/index.astro`
+-   **Navigation:** `src/components/Navigation.astro`
+-   **Footer:** `src/components/Footer.astro`
+-   **SEO:** `src/components/SEO.astro`
+-   **Base Layout:** `src/layouts/BaseLayout.astro`
+-   **Site Data:** `src/data/site.ts`
+-   **Services Data:** `src/data/services.ts`
+-   **Global Styles:** `src/styles/global.css`
+-   **Astro Config:** `astro.config.mjs`
+-   **Tailwind Config:** `tailwind.config.js`
+-   **TypeScript Config:** `tsconfig.json`
+
+### Common Commands
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run preview      # Preview production build
+npm run lint         # Run ESLint (currently broken)
+npm run lint:fix     # Auto-fix linting issues (currently broken)
+npm run check        # Type check (requires missing dependencies)
+```
+
+### Base URL Usage
+```astro
+---
+const base = import.meta.env.BASE_URL;
+---
+<a href={`${base}about`}>About</a>
+<img src={`${base}logo.svg`} />
+<script>
+  fetch(`${import.meta.env.BASE_URL}api/contact`, { ... });
+</script>
+```
+
+---
+
+**Last Updated:** 2025-11-01
+**Document Version:** 2.0
+**Project Status:** Active Development

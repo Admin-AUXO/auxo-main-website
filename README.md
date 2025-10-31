@@ -58,6 +58,15 @@ Portfolio of successful client engagements across retail, finance, healthcare, a
 
 ---
 
+## 📚 Documentation
+
+For detailed technical information and development guidelines, see:
+
+- **[Technical Documentation](./docs/TECHNICAL_DOCUMENTATION.md)** - Comprehensive guide for developers including architecture, components, workflows, and coding standards
+- **[Audit Findings](./docs/AUDIT_FINDINGS.md)** - Complete audit report with issues, optimizations, and recommendations
+
+---
+
 ## Key Features
 
 ### For Visitors

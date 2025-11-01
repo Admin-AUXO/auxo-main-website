@@ -19,9 +19,9 @@ import * as brevo from '@getbrevo/brevo';
 
 // Initialize Brevo
 const BREVO_API_KEY = import.meta.env.BREVO_API_KEY;
-const FROM_EMAIL = import.meta.env.BREVO_FROM_EMAIL || 'noreply@auxodata.ae';
+const FROM_EMAIL = import.meta.env.BREVO_FROM_EMAIL || 'noreply@auxodata.com';
 const FROM_NAME = import.meta.env.BREVO_FROM_NAME || 'AUXO Data Labs';
-const CONTACT_EMAIL = import.meta.env.CONTACT_EMAIL || 'hello@auxodata.ae';
+const CONTACT_EMAIL = import.meta.env.CONTACT_EMAIL || 'hello@auxodata.com';
 
 let apiInstance: brevo.TransactionalEmailsApi | null = null;
 
@@ -199,7 +199,7 @@ Thank you for reaching out to AUXO Data Labs. We have received your message and 
 Your Message:
 ${message}
 
-In the meantime, feel free to explore our services at https://auxodata.ae
+In the meantime, feel free to explore our services at https://auxodata.com
 
 Best regards,
 The AUXO Data Labs Team
@@ -207,8 +207,8 @@ The AUXO Data Labs Team
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 AUXO Data Labs
 Leading Analytics Consultancy in Dubai, UAE
-Website: https://auxodata.ae
-Email: hello@auxodata.ae`;
+Website: https://auxodata.com
+Email: hello@auxodata.com`;
       confirmationEmail.htmlContent = `
 <!DOCTYPE html>
 <html>
@@ -241,15 +241,15 @@ Email: hello@auxodata.ae`;
         ${message.replace(/\n/g, '<br>')}
       </div>
 
-      <p>In the meantime, feel free to explore our <a href="https://auxodata.ae/services" style="color: #A3E635;">services</a> and <a href="https://auxodata.ae/blog" style="color: #A3E635;">blog</a> for insights on data analytics.</p>
+      <p>In the meantime, feel free to explore our <a href="https://auxodata.com/services" style="color: #A3E635;">services</a> and <a href="https://auxodata.com/blog" style="color: #A3E635;">blog</a> for insights on data analytics.</p>
 
       <p>Best regards,<br><strong>The AUXO Data Labs Team</strong></p>
     </div>
     <div class="footer">
       <strong>AUXO Data Labs</strong><br>
       Leading Analytics Consultancy in Dubai, UAE<br><br>
-      <a href="https://auxodata.ae">Website</a> |
-      <a href="mailto:hello@auxodata.ae">Email</a>
+      <a href="https://auxodata.com">Website</a> |
+      <a href="mailto:hello@auxodata.com">Email</a>
     </div>
   </div>
 </body>

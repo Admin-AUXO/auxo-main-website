@@ -86,7 +86,7 @@ When proposing changes, use the [Conventional Commits](https://www.conventionalc
 #### Common "Gotchas" to Avoid
 
 -   **Client-side Scripts:** Remember that Astro components are server-only by default. If you need to add client-side interactivity, you must use a `<script>` tag within the `.astro` file. The existing interactive components like `MultiStepForm.astro` and `MaturityCalculator.astro` are good examples of this pattern.
--   **API Endpoints:** The API endpoints in `src/pages/api/` have comprehensive Zod validation and rate limiting implemented, but are not yet connected to email services. They validate inputs securely and enforce rate limits, but don't send actual emails. Email service integration (SendGrid, AWS SES, etc.) is still required for full functionality.
+-   **API Endpoints:** The API endpoints in `src/pages/api/` are fully integrated with Brevo for email delivery. They have comprehensive Zod validation and rate limiting implemented. **IMPORTANT:** Brevo requires verified sender emails before any emails can be sent. Ensure `BREVO_FROM_EMAIL` is verified in your Brevo dashboard.
 -   **Base URL:** The project is configured with a `base` URL in `astro.config.mjs`. All internal links and asset paths must be prefixed with the `base` variable to work correctly in both development and production. **Critical:** API calls in client-side scripts must also use the base URL (e.g., `fetch(\`${import.meta.env.BASE_URL}api/contact\`)`).
 -   **Image Optimization:** While Astro's image optimization is powerful, be mindful of the image formats and sizes you use. Large, unoptimized images can still slow down the site.
 -   **ESLint Configuration:** The project uses ESLint v9 with flat config format (`eslint.config.js`). All linting commands work correctly. Do not revert to the old `.eslintrc.cjs` format.
@@ -672,7 +672,8 @@ The project includes two secured API endpoints in `src/pages/api/` with comprehe
 
 #### `/api/contact`
 
--   **Purpose:** Handles submissions from the multi-step contact form.
+-   **Purpose:** Handles submissions from the multi-step contact form and sends emails via Brevo.
+-   **Email Service:** Brevo (Sendinblue) transactional email API
 -   **Security:**
     - Zod validation for all inputs (name, email, company, message)
     - Honeypot field for spam detection
@@ -683,16 +684,20 @@ The project includes two secured API endpoints in `src/pages/api/` with comprehe
     - Email: RFC-compliant format, max 255 characters
     - Company: 2-200 characters (optional)
     - Message: 10-5000 characters
+-   **Email Flow:**
+    - Sends notification email to business (`CONTACT_EMAIL`)
+    - Sends confirmation email to user with professional HTML template
 -   **Response Codes:**
-    - 200: Success
+    - 200: Success (email sent)
     - 400: Validation error (with field-specific messages)
     - 429: Rate limit exceeded (with Retry-After header)
-    - 500: Server error
--   **Data Flow:** `MultiStepForm.astro` -> `POST /api/contact` -> `contact.ts` -> Validation -> Rate Limit Check -> (TODO: Email Service)
+    - 500: Server error or email service failure
+-   **Data Flow:** `MultiStepForm.astro` -> `POST /api/contact` -> `contact.ts` -> Validation -> Rate Limit Check -> Brevo API -> Email Delivery
 
 #### `/api/newsletter`
 
--   **Purpose:** Handles submissions from the newsletter signup form.
+-   **Purpose:** Handles newsletter subscriptions and manages contacts in Brevo.
+-   **Email Service:** Brevo (Sendinblue) contacts and transactional email API
 -   **Security:**
     - Zod validation for email and consent
     - Rate limiting: 2 requests per hour per IP
@@ -700,12 +705,16 @@ The project includes two secured API endpoints in `src/pages/api/` with comprehe
 -   **Validation Rules:**
     - Email: RFC-compliant format, max 255 characters
     - Consent: Must be true
+-   **Email Flow:**
+    - Adds subscriber to Brevo contact list (list ID: 2)
+    - Sends double opt-in confirmation email
+    - Handles duplicate subscriptions gracefully
 -   **Response Codes:**
-    - 200: Success
+    - 200: Success (contact added, confirmation email sent)
     - 400: Validation error
     - 429: Rate limit exceeded
-    - 500: Server error
--   **Data Flow:** `Footer.astro` -> `POST /api/newsletter` -> `newsletter.ts` -> Validation -> Rate Limit Check -> (TODO: Email Marketing Platform)
+    - 500: Server error or Brevo API failure
+-   **Data Flow:** `Footer.astro` -> `POST /api/newsletter` -> `newsletter.ts` -> Validation -> Rate Limit Check -> Brevo Contacts API -> Brevo Email API -> Email Delivery
 
 #### Rate Limiting Implementation
 
@@ -793,7 +802,15 @@ The project implements multiple layers of security for forms and API endpoints:
 ### 13. Environment Variables
 
 -   **Source:** The `.env.example` file provides a template for all required variables.
--   **Key Variables:** `PUBLIC_SITE_URL`, `PUBLIC_GOOGLE_ANALYTICS_ID`, `MAILCHIMP_API_KEY`, `SENDGRID_API_KEY`.
+-   **Key Variables:**
+    - `PUBLIC_SITE_URL`: Base URL for the website (e.g., https://auxodata.com)
+    - `BREVO_API_KEY`: Brevo (Sendinblue) API key for email services
+    - `BREVO_FROM_EMAIL`: Verified sender email address (must be verified in Brevo dashboard)
+    - `BREVO_FROM_NAME`: Display name for sender (e.g., "AUXO Data Labs")
+    - `CONTACT_EMAIL`: Email address to receive contact form submissions
+    - `PUBLIC_GOOGLE_ANALYTICS_ID`: Google Analytics measurement ID (optional)
+
+**Important:** All Brevo environment variables are required for the contact form and newsletter to function. The `BREVO_FROM_EMAIL` must be verified in your Brevo account before emails can be sent.
 
 ---
 
@@ -841,9 +858,14 @@ const base = import.meta.env.BASE_URL;
 ---
 
 **Last Updated:** 2025-11-01
-**Document Version:** 2.3
+**Document Version:** 2.4
 **Project Status:** Active Development - Production Ready
 **Recent Updates:**
+- ✅ Integrated Brevo (Sendinblue) email service for all forms
+- ✅ Implemented transactional emails for contact form (notification + confirmation)
+- ✅ Implemented newsletter subscription with double opt-in
+- ✅ Added professional HTML email templates with AUXO branding
+- ✅ Updated environment variables for Brevo configuration
 - Added comprehensive audit guidelines for AI agents (Section 2.5)
 - Documented audit methodology, best practices, and documentation format
 - Created standard templates for audit reports

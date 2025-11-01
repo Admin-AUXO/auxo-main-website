@@ -1,5 +1,5 @@
 # robots.txt for AUXO Data Labs
-# https://auxodata.ae
+# https://auxodata.com
 
 User-agent: *
 Allow: /

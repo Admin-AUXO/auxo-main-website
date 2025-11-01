@@ -115,9 +115,8 @@ Follow this systematic approach for comprehensive audits:
 
 1. **Read Documentation First:**
    - Read this entire `TECHNICAL_DOCUMENTATION.md` file
-   - Review existing `AUDIT_FINDINGS.md` to understand previous issues
-   - Check `COMPLETED_FIXES.md` to avoid flagging already-resolved issues
    - Review `README.md` for project overview
+   - Check git history to understand previous changes and avoid flagging already-resolved issues
 
 2. **Understand the Stack:**
    - Identify all frameworks, libraries, and tools in use
@@ -273,7 +272,7 @@ Classify every issue using these categories:
 
 #### Audit Documentation Format
 
-**Always** use the following structure for audit findings documents. Reference `docs/AUDIT_FINDINGS.md` as the canonical example.
+**Always** use the following structure for audit findings documents.
 
 ##### Document Structure
 
@@ -363,12 +362,12 @@ For each issue, include:
 -   ✅ **Include time estimates** for each fix
 -   ✅ **Reference specific files and line numbers** for all issues
 -   ✅ **Group related issues** under the same category
--   ✅ **Verify issues still exist** before documenting (check COMPLETED_FIXES.md)
+-   ✅ **Verify issues still exist** before documenting (check git history)
 -   ✅ **Provide multiple solution options** when applicable
 -   ✅ **Include acceptance criteria** for each issue
 -   ✅ **Use consistent formatting** following the standard template
--   ✅ **Create separate historical document** (COMPLETED_FIXES.md) for fixed issues
--   ✅ **Keep AUDIT_FINDINGS.md focused** on TODO items only
+-   ✅ **Create separate historical document** for completed fixes
+-   ✅ **Keep audit findings focused** on TODO items only
 -   ✅ **Test your findings** - Don't report hypothetical issues
 -   ✅ **Consider the deployment environment** (GitHub Pages, Netlify)
 -   ✅ **Check for false positives** from automated tools
@@ -417,8 +416,8 @@ Here's a complete audit workflow example:
 
 ```markdown
 1. Read TECHNICAL_DOCUMENTATION.md (this file)
-2. Read existing AUDIT_FINDINGS.md
-3. Read COMPLETED_FIXES.md to see what's already fixed
+2. Review README.md for project overview
+3. Check git history for recent changes
 4. Run: npm install
 5. Run: npm run dev (check for console errors)
 6. Run: npm run build (check for build errors)
@@ -433,26 +432,26 @@ Here's a complete audit workflow example:
 15. Check for broken links and missing images
 16. Test responsive design
 17. Run Lighthouse audit
-18. Document findings in AUDIT_FINDINGS.md format
+18. Document findings using standard format
 19. Create plan with priorities and time estimates
 20. Update TECHNICAL_DOCUMENTATION.md if needed
 ```
 
 #### Creating the Audit Report
 
-After completing the audit, create or update three documents:
+After completing the audit, create or update documentation in the `docs/` directory:
 
-1. **`AUDIT_FINDINGS.md`** - Active TODO items only
+1. **Active Audit Findings** - TODO items only
    - Remove any items that have been fixed
    - Focus on remaining work
    - Use the standard template above
 
-2. **`COMPLETED_FIXES.md`** - Historical record
+2. **Completed Fixes** - Historical record
    - Document what was fixed and when
    - Include commit hashes
    - List files created/modified
 
-3. **`AUDIT_SUMMARY.md`** - Executive overview
+3. **Audit Summary** - Executive overview
    - One-page summary for stakeholders
    - High-level status
    - Production readiness assessment
@@ -467,8 +466,8 @@ After documenting findings:
 4. **Fix issues systematically** starting with P0
 5. **Test thoroughly** after each fix
 6. **Update documentation** as you go
-7. **Mark items complete** in AUDIT_FINDINGS.md
-8. **Move completed items** to COMPLETED_FIXES.md
+7. **Mark items complete** in audit findings
+8. **Move completed items** to historical fixes document
 9. **Commit changes** with clear commit messages
 10. **Update this documentation** if new patterns emerge
 

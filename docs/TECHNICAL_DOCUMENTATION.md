@@ -91,6 +91,387 @@ When proposing changes, use the [Conventional Commits](https://www.conventionalc
 -   **Image Optimization:** While Astro's image optimization is powerful, be mindful of the image formats and sizes you use. Large, unoptimized images can still slow down the site.
 -   **ESLint Configuration:** The project uses ESLint v9 with flat config format (`eslint.config.js`). All linting commands work correctly. Do not revert to the old `.eslintrc.cjs` format.
 
+### 2.5 Conducting Code Audits (Agent Guide)
+
+This section provides comprehensive guidelines for AI agents conducting code audits of the AUXO website. Following these standards ensures consistent, actionable audit reports.
+
+#### Audit Overview
+
+A code audit is a systematic review of the entire codebase to identify issues related to security, functionality, performance, code quality, and best practices. The goal is to produce actionable findings that can be prioritized and addressed systematically.
+
+#### When to Conduct an Audit
+
+-   **Initial onboarding:** When first encountering the codebase
+-   **Before major releases:** To ensure production readiness
+-   **After significant changes:** To verify no regressions were introduced
+-   **Periodic reviews:** Quarterly or bi-annually to maintain code quality
+-   **User request:** When explicitly asked to audit the codebase
+
+#### Audit Methodology
+
+Follow this systematic approach for comprehensive audits:
+
+##### 1. Preparation Phase
+
+1. **Read Documentation First:**
+   - Read this entire `TECHNICAL_DOCUMENTATION.md` file
+   - Review existing `AUDIT_FINDINGS.md` to understand previous issues
+   - Check `COMPLETED_FIXES.md` to avoid flagging already-resolved issues
+   - Review `README.md` for project overview
+
+2. **Understand the Stack:**
+   - Identify all frameworks, libraries, and tools in use
+   - Note the Node.js version and package versions
+   - Review `package.json` for dependencies
+   - Check for deprecated or outdated packages
+
+3. **Set Up Local Environment:**
+   - Run `npm install` to install dependencies
+   - Run `npm run dev` to verify local development works
+   - Run `npm run build` to check for build errors
+   - Run `npm run check` for TypeScript errors
+   - Run `npm run lint` for linting issues
+
+##### 2. Systematic Review Phase
+
+Audit the codebase in this order for comprehensive coverage:
+
+**A. Critical Security Issues (Priority 1)**
+
+-   **Input Validation:**
+  - Check all API endpoints in `src/pages/api/` for input validation
+  - Verify Zod schemas exist for all user inputs
+  - Look for SQL injection, XSS, and command injection vulnerabilities
+  - Check for proper sanitization of user-provided data
+
+-   **Authentication & Authorization:**
+  - Review any auth mechanisms
+  - Check for exposed credentials or API keys in code
+  - Verify `.env` files are in `.gitignore`
+
+-   **Security Headers:**
+  - Check `public/_headers` for CSP, X-Frame-Options, HSTS
+  - Verify CORS configuration is not overly permissive
+
+-   **Rate Limiting:**
+  - Verify API endpoints have rate limiting
+  - Check rate limit configurations are appropriate
+
+-   **Dependencies:**
+  - Run `npm audit` to check for vulnerable packages
+  - Identify outdated packages that need updates
+
+**B. Functional Issues (Priority 2)**
+
+-   **Build Process:**
+  - Check for build errors or warnings
+  - Verify all imports resolve correctly
+  - Test production build: `npm run build && npm run preview`
+
+-   **Configuration Files:**
+  - Verify `astro.config.mjs`, `tailwind.config.js`, `tsconfig.json`, `eslint.config.js`
+  - Check for deprecated configuration formats
+  - Ensure all paths and aliases resolve correctly
+
+-   **API Endpoints:**
+  - Test all endpoints in `src/pages/api/`
+  - Verify error handling is comprehensive
+  - Check for proper HTTP status codes
+  - Ensure responses don't expose sensitive information
+
+-   **Client-Side Scripts:**
+  - Review all `<script>` tags in `.astro` files
+  - Check for DOM query errors (missing null checks)
+  - Verify event handlers have error handling
+  - Look for memory leaks (unremoved event listeners)
+
+**C. Code Quality Issues (Priority 3)**
+
+-   **TypeScript:**
+  - Run `npm run check` and document all type errors
+  - Check for excessive use of `any` type
+  - Verify interfaces are properly defined
+
+-   **ESLint:**
+  - Run `npm run lint` and document violations
+  - Check for disabled rules that should be enabled
+  - Verify accessibility rules are enforced
+
+-   **Code Duplication:**
+  - Identify duplicated logic that should be abstracted
+  - Check for copy-pasted components that should be unified
+
+-   **Unused Code:**
+  - Look for unused imports, variables, functions
+  - Identify dead code paths
+  - Check for commented-out code blocks
+
+**D. Performance Issues (Priority 4)**
+
+-   **Bundle Size:**
+  - Check for large dependencies that could be tree-shaken
+  - Identify opportunities for code splitting
+  - Review client-side JavaScript size
+
+-   **Image Optimization:**
+  - Check if images use Astro's `<Image />` component
+  - Verify images are in modern formats (WebP, AVIF)
+  - Look for unoptimized large images
+
+-   **Caching:**
+  - Review cache headers in `public/_headers`
+  - Check for appropriate cache strategies
+
+**E. Content & Accessibility (Priority 5)**
+
+-   **Accessibility:**
+  - Verify semantic HTML usage
+  - Check for ARIA attributes where needed
+  - Ensure color contrast meets WCAG standards
+  - Verify keyboard navigation works
+
+-   **SEO:**
+  - Check meta tags are present and correct
+  - Verify structured data (JSON-LD) is valid
+  - Check for proper heading hierarchy
+  - Verify `robots.txt` and sitemap exist
+
+-   **Content Completeness:**
+  - Check for placeholder text or Lorem ipsum
+  - Verify all data files are populated
+  - Look for broken internal links
+  - Check for missing images or assets
+
+##### 3. Testing Phase
+
+-   **Manual Testing:**
+  - Navigate through all pages in the browser
+  - Test all forms and interactive elements
+  - Verify responsive design on different screen sizes
+  - Test in multiple browsers (Chrome, Firefox, Safari)
+
+-   **Automated Testing:**
+  - Run all available npm scripts
+  - Check for console errors in browser DevTools
+  - Use Lighthouse for performance and accessibility scores
+
+##### 4. Documentation Phase
+
+Document findings using the standard format (see below).
+
+#### Issue Categorization & Prioritization
+
+Classify every issue using these categories:
+
+| Priority | Category | Severity | Examples | Action Required |
+|----------|----------|----------|----------|-----------------|
+| **P0** | **Critical** | Blocks deployment | Security vulnerabilities, build failures, broken core functionality | Fix immediately |
+| **P1** | **High** | Impacts users | Missing validation, no rate limiting, console errors in production, API bugs | Fix before launch |
+| **P2** | **Medium** | Quality/UX issues | Missing error handling, poor accessibility, type errors, linting violations | Fix soon |
+| **P3** | **Low** | Nice-to-have | Performance optimizations, code duplication, minor UI polish | Fix when time allows |
+| **P4** | **Future** | Enhancement | New features, major refactors, content creation | Backlog |
+
+#### Audit Documentation Format
+
+**Always** use the following structure for audit findings documents. Reference `docs/AUDIT_FINDINGS.md` as the canonical example.
+
+##### Document Structure
+
+```markdown
+# [Project Name] - Active Audit Items
+
+**Last Updated:** [Date]
+**Project Status:** [Status]
+**Critical Issues:** [Status]
+**High-Priority Issues:** [Status]
+
+---
+
+## Quick Status
+
+[Brief 2-3 sentence summary of overall project health]
+
+---
+
+## Table of Contents
+
+1. [Critical Items](#1-critical-items)
+2. [High-Priority Items](#2-high-priority-items)
+3. [Medium-Priority Items](#3-medium-priority-items)
+4. [Low-Priority Items](#4-low-priority-items)
+5. [Future Enhancements](#5-future-enhancements)
+
+---
+
+## 1. Critical Items
+
+### 1.1 [Issue Name] [Emoji]
+
+**Status:** [Required for Production | Blocks Deployment]
+**Priority:** Critical (P0)
+**Estimated Time:** [X hours]
+
+**Current State:**
+- ✅ [What's working]
+- ❌ [What's broken]
+
+**What Needs to Be Done:**
+
+[Detailed description with code examples if needed]
+
+**Option A: [Recommended Approach]**
+[Step-by-step implementation guide]
+
+**Option B: [Alternative]**
+[Alternative approach with pros/cons]
+
+**Acceptance Criteria:**
+- [ ] [Specific, testable criterion 1]
+- [ ] [Specific, testable criterion 2]
+
+**Files Affected:**
+- `path/to/file.ts:line_number`
+
+---
+
+[Repeat for each issue category]
+```
+
+##### Issue Documentation Template
+
+For each issue, include:
+
+1. **Clear Title:** Descriptive name with relevant emoji
+2. **Status Tag:** Current state (Required | Recommended | Optional)
+3. **Priority Level:** P0-P4 classification
+4. **Time Estimate:** Realistic estimate in hours
+5. **Current State:** What works vs. what doesn't (with checkboxes)
+6. **Detailed Description:** What's wrong and why it matters
+7. **Solution Options:** At least one concrete approach with code examples
+8. **Acceptance Criteria:** Specific, testable requirements
+9. **Files Affected:** Exact file paths and line numbers
+10. **Cross-References:** Links to related issues or docs
+
+#### Audit Best Practices
+
+##### DO:
+
+-   ✅ **Read all documentation** before starting the audit
+-   ✅ **Run the project locally** to verify issues firsthand
+-   ✅ **Prioritize correctly** - Security issues are always critical
+-   ✅ **Provide code examples** for recommended fixes
+-   ✅ **Include time estimates** for each fix
+-   ✅ **Reference specific files and line numbers** for all issues
+-   ✅ **Group related issues** under the same category
+-   ✅ **Verify issues still exist** before documenting (check COMPLETED_FIXES.md)
+-   ✅ **Provide multiple solution options** when applicable
+-   ✅ **Include acceptance criteria** for each issue
+-   ✅ **Use consistent formatting** following the standard template
+-   ✅ **Create separate historical document** (COMPLETED_FIXES.md) for fixed issues
+-   ✅ **Keep AUDIT_FINDINGS.md focused** on TODO items only
+-   ✅ **Test your findings** - Don't report hypothetical issues
+-   ✅ **Consider the deployment environment** (GitHub Pages, Netlify)
+-   ✅ **Check for false positives** from automated tools
+
+##### DON'T:
+
+-   ❌ **Don't skip reading existing documentation** - You'll duplicate work
+-   ❌ **Don't mix completed and pending items** in the same document
+-   ❌ **Don't report issues without verification** - Always test first
+-   ❌ **Don't over-prioritize** - Not everything is critical
+-   ❌ **Don't under-prioritize security** - Security is always high priority
+-   ❌ **Don't provide vague descriptions** like "improve performance"
+-   ❌ **Don't forget time estimates** - Planning requires estimates
+-   ❌ **Don't skip acceptance criteria** - How else to verify fixes?
+-   ❌ **Don't ignore existing patterns** - Follow the project's conventions
+-   ❌ **Don't recommend major rewrites** without strong justification
+-   ❌ **Don't flag personal preferences** as issues
+-   ❌ **Don't create new documentation files** without asking first
+-   ❌ **Don't use audit reports as TODO lists** - They're for unresolved issues only
+-   ❌ **Don't forget to update audit docs** when issues are fixed
+
+#### Special Considerations for This Project
+
+-   **Astro-Specific Issues:**
+  - Check for improper use of client directives (`client:load`, etc.)
+  - Verify `getStaticPaths()` is used correctly for dynamic routes
+  - Check for hydration mismatches
+
+-   **GitHub Pages Deployment:**
+  - Verify all asset paths use `import.meta.env.BASE_URL`
+  - Check for hardcoded URLs that won't work with base path
+  - Ensure API endpoints work in serverless environment
+
+-   **TypeScript Strict Mode:**
+  - This project uses strict TypeScript
+  - Flag any `@ts-ignore` or excessive `any` usage
+
+-   **Tailwind CSS:**
+  - Check for inline styles that should use Tailwind classes
+  - Verify custom colors are in the Tailwind config
+  - Look for arbitrary values that could be design tokens
+
+#### Example Audit Workflow
+
+Here's a complete audit workflow example:
+
+```markdown
+1. Read TECHNICAL_DOCUMENTATION.md (this file)
+2. Read existing AUDIT_FINDINGS.md
+3. Read COMPLETED_FIXES.md to see what's already fixed
+4. Run: npm install
+5. Run: npm run dev (check for console errors)
+6. Run: npm run build (check for build errors)
+7. Run: npm run check (TypeScript errors)
+8. Run: npm run lint (ESLint violations)
+9. Run: npm audit (security vulnerabilities)
+10. Review all files in src/pages/api/ for security
+11. Review all <script> tags for error handling
+12. Check public/_headers for security headers
+13. Test all forms and interactive elements
+14. Review src/data/ for placeholder content
+15. Check for broken links and missing images
+16. Test responsive design
+17. Run Lighthouse audit
+18. Document findings in AUDIT_FINDINGS.md format
+19. Create plan with priorities and time estimates
+20. Update TECHNICAL_DOCUMENTATION.md if needed
+```
+
+#### Creating the Audit Report
+
+After completing the audit, create or update three documents:
+
+1. **`AUDIT_FINDINGS.md`** - Active TODO items only
+   - Remove any items that have been fixed
+   - Focus on remaining work
+   - Use the standard template above
+
+2. **`COMPLETED_FIXES.md`** - Historical record
+   - Document what was fixed and when
+   - Include commit hashes
+   - List files created/modified
+
+3. **`AUDIT_SUMMARY.md`** - Executive overview
+   - One-page summary for stakeholders
+   - High-level status
+   - Production readiness assessment
+
+#### Post-Audit Actions
+
+After documenting findings:
+
+1. **Prioritize fixes** based on P0-P4 classification
+2. **Create implementation plan** with time estimates
+3. **Get user approval** before making changes
+4. **Fix issues systematically** starting with P0
+5. **Test thoroughly** after each fix
+6. **Update documentation** as you go
+7. **Mark items complete** in AUDIT_FINDINGS.md
+8. **Move completed items** to COMPLETED_FIXES.md
+9. **Commit changes** with clear commit messages
+10. **Update this documentation** if new patterns emerge
+
 ---
 
 ## PART 2: THE BIG PICTURE: ARCHITECTURE & DESIGN
@@ -461,9 +842,12 @@ const base = import.meta.env.BASE_URL;
 ---
 
 **Last Updated:** 2025-11-01
-**Document Version:** 2.2
+**Document Version:** 2.3
 **Project Status:** Active Development - Production Ready
 **Recent Updates:**
+- Added comprehensive audit guidelines for AI agents (Section 2.5)
+- Documented audit methodology, best practices, and documentation format
+- Created standard templates for audit reports
 - Fixed all critical and high-priority security issues from audit
 - Implemented Zod validation and rate limiting for API endpoints
 - Added comprehensive security headers

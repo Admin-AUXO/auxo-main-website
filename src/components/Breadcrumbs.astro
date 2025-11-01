@@ -11,7 +11,6 @@ interface Props {
 }
 
 const { items } = Astro.props;
-const base = import.meta.env.BASE_URL;
 const siteURL = Astro.site || 'https://auxodata.com';
 
 // Build structured data for breadcrumbs
@@ -53,4 +52,4 @@ const breadcrumbSchema = {
 </nav>
 
 <!-- BreadcrumbList Structured Data -->
-<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />

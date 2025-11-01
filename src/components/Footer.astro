@@ -179,11 +179,11 @@ const currentYear = new Date().getFullYear();
   const handleNewsletterSubmit = async (e: Event) => {
     e.preventDefault();
 
-    if (!newsletterEmail || !newsletterMessage) return;
+    if (!newsletterEmail || !newsletterMessage || !newsletterForm) return;
 
     const email = newsletterEmail.value.trim();
-    const consentCheckbox = document.getElementById('newsletter-consent') as HTMLInputElement;
-    const submitBtn = newsletterForm.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const consentCheckbox = document.getElementById('newsletter-consent') as HTMLInputElement | null;
+    const submitBtn = newsletterForm.querySelector('button[type="submit"]') as HTMLButtonElement | null;
 
     // Validate consent
     if (!consentCheckbox?.checked) {

@@ -58,7 +58,7 @@ if (!post) {
 }
 
 // Render the post content using the render function from astro:content
-const { Content, headings } = await render(post);
+const { Content } = await render(post);
 
 // Helper to format date
 function formatDate(date: Date) {
@@ -70,7 +70,8 @@ function formatDate(date: Date) {
 }
 
 // Helper to calculate read time
-function calculateReadTime(content: string) {
+function calculateReadTime(content: string | undefined) {
+  if (!content) return 0;
   const wordsPerMinute = 200;
   const wordCount = content.trim().split(/\s+/).length;
   return Math.ceil(wordCount / wordsPerMinute);

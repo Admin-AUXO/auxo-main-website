@@ -66,8 +66,9 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // TODO: Replace this with actual email service integration
-    // Log only in development mode
+    // Log only in development mode (intentional dev-only logging)
     if (import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
       console.log('Contact form submission:', {
         name,
         email,

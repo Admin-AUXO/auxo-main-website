@@ -152,7 +152,10 @@ const calculatorFAQs = [
           </div>
 
           <!-- Question -->
-          <h2 id="question-text" class="text-2xl font-bold mb-8"></h2>
+          <h2 class="text-2xl font-bold mb-8" aria-live="polite" aria-atomic="true">
+            <span class="sr-only">Question: </span>
+            <span id="question-text"></span>
+          </h2>
 
           <!-- Answer Options -->
           <div id="answer-options" class="space-y-3 mb-8">
@@ -452,7 +455,7 @@ const calculatorFAQs = [
           <span class="text-sm text-gray-500">${option.score}/5</span>
         </div>
       `;
-      button.addEventListener('click', () => selectAnswer(option.score));
+      button.addEventListener('click', (e) => selectAnswer(option.score, e));
 
       // Restore previous answer
       if (answers[index] === option.score) {
@@ -470,14 +473,14 @@ const calculatorFAQs = [
     if (nextBtn) nextBtn.disabled = !answers[index];
   }
 
-  function selectAnswer(score: number): void {
+  function selectAnswer(score: number, e: Event): void {
     answers[currentQuestion] = score;
 
     // Visual feedback
     document.querySelectorAll('.answer-option').forEach(btn => {
       btn.classList.remove('border-lime-400', 'bg-lime-400/10');
     });
-    (event?.target as HTMLElement).closest('.answer-option')?.classList.add('border-lime-400', 'bg-lime-400/10');
+    (e.target as HTMLElement).closest('.answer-option')?.classList.add('border-lime-400', 'bg-lime-400/10');
 
     // Enable next button
     const nextBtn = getElementSafe<HTMLButtonElement>('q-next-btn');

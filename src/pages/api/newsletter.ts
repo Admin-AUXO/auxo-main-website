@@ -53,8 +53,9 @@ export const POST: APIRoute = async ({ request }) => {
     const { email, consent } = validated;
 
     // TODO: Replace this with actual email marketing platform integration
-    // Log only in development mode
+    // Log only in development mode (intentional dev-only logging)
     if (import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
       console.log('Newsletter subscription:', {
         email,
         consent,

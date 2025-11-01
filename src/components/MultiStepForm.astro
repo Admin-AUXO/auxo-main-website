@@ -116,45 +116,45 @@ const base = import.meta.env.BASE_URL;
 
       <div class="space-y-4">
         <div>
-          <label class="block text-sm font-medium mb-3">Services You're Interested In *</label>
+          <div class="block text-sm font-medium mb-3">Services You're Interested In *</div>
           <div class="space-y-2">
-            <label class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors">
-              <input type="checkbox" name="services[]" value="business-intelligence" class="mt-1 mr-3">
+            <label for="service-bi" class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors">
+              <input type="checkbox" id="service-bi" name="services[]" value="business-intelligence" class="mt-1 mr-3">
               <div>
                 <div class="font-medium">Business Intelligence & Reporting</div>
                 <div class="text-xs text-gray-400">Dashboards, KPIs, and data visualization</div>
               </div>
             </label>
-            <label class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors">
-              <input type="checkbox" name="services[]" value="data-analytics" class="mt-1 mr-3">
+            <label for="service-analytics" class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors">
+              <input type="checkbox" id="service-analytics" name="services[]" value="data-analytics" class="mt-1 mr-3">
               <div>
                 <div class="font-medium">Advanced Data Analytics</div>
                 <div class="text-xs text-gray-400">Predictive analytics and data science</div>
               </div>
             </label>
-            <label class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors">
-              <input type="checkbox" name="services[]" value="data-strategy" class="mt-1 mr-3">
+            <label for="service-strategy" class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors">
+              <input type="checkbox" id="service-strategy" name="services[]" value="data-strategy" class="mt-1 mr-3">
               <div>
                 <div class="font-medium">Data Strategy & Roadmap</div>
                 <div class="text-xs text-gray-400">Strategic planning and consulting</div>
               </div>
             </label>
-            <label class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors">
-              <input type="checkbox" name="services[]" value="data-engineering" class="mt-1 mr-3">
+            <label for="service-engineering" class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors">
+              <input type="checkbox" id="service-engineering" name="services[]" value="data-engineering" class="mt-1 mr-3">
               <div>
                 <div class="font-medium">Data Engineering & Integration</div>
                 <div class="text-xs text-gray-400">Data pipelines and infrastructure</div>
               </div>
             </label>
-            <label class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors">
-              <input type="checkbox" name="services[]" value="ml-ai" class="mt-1 mr-3">
+            <label for="service-ml" class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors">
+              <input type="checkbox" id="service-ml" name="services[]" value="ml-ai" class="mt-1 mr-3">
               <div>
                 <div class="font-medium">Machine Learning & AI</div>
                 <div class="text-xs text-gray-400">AI/ML models and automation</div>
               </div>
             </label>
-            <label class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors">
-              <input type="checkbox" name="services[]" value="data-governance" class="mt-1 mr-3">
+            <label for="service-governance" class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors">
+              <input type="checkbox" id="service-governance" name="services[]" value="data-governance" class="mt-1 mr-3">
               <div>
                 <div class="font-medium">Data Governance & Compliance</div>
                 <div class="text-xs text-gray-400">Security, privacy, and compliance</div>
@@ -219,7 +219,7 @@ const base = import.meta.env.BASE_URL;
         </div>
 
         <div class="p-4 bg-zinc-900 border border-zinc-700 rounded-lg">
-          <label class="flex items-start cursor-pointer">
+          <label for="newsletter" class="flex items-start cursor-pointer">
             <input type="checkbox" id="newsletter" name="newsletter" class="mt-1 mr-3">
             <div>
               <div class="font-medium text-sm">Subscribe to our newsletter</div>
@@ -229,7 +229,7 @@ const base = import.meta.env.BASE_URL;
         </div>
 
         <div class="p-4 bg-lime-400/10 border border-lime-400/20 rounded-lg">
-          <label class="flex items-start cursor-pointer">
+          <label for="privacy" class="flex items-start cursor-pointer">
             <input type="checkbox" id="privacy" name="privacy" required class="mt-1 mr-3">
             <div class="text-sm text-gray-300">
               I agree to the <a href={`${base}privacy-policy`} class="text-lime-400 hover:underline">Privacy Policy</a> and consent to AUXO Data Labs contacting me about my inquiry. *
@@ -298,12 +298,12 @@ const base = import.meta.env.BASE_URL;
   let isSubmitting = false;
 
   // Elements
-  const prevBtn = document.getElementById('prev-btn');
-  const nextBtn = document.getElementById('next-btn');
-  const submitBtn = document.getElementById('submit-btn');
-  const progressBar = document.getElementById('progress-bar');
-  const currentStepNum = document.getElementById('current-step-num');
-  const progressPercent = document.getElementById('progress-percent');
+  const prevBtn = document.getElementById('prev-btn') as HTMLButtonElement | null;
+  const nextBtn = document.getElementById('next-btn') as HTMLButtonElement | null;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+  const progressBar = document.getElementById('progress-bar') as HTMLElement | null;
+  const currentStepNum = document.getElementById('current-step-num') as HTMLElement | null;
+  const progressPercent = document.getElementById('progress-percent') as HTMLElement | null;
 
   // Utility: Show toast notification
   function showNotification(message: string, type: 'success' | 'error' | 'warning' = 'error'): void {
@@ -339,7 +339,7 @@ const base = import.meta.env.BASE_URL;
     }
   };
 
-  document.querySelectorAll('.size-option').forEach(btn => {
+  document.querySelectorAll<HTMLElement>('.size-option').forEach(btn => {
     sizeOptionHandlers.set(btn, handleSizeClick.bind(btn));
     btn.addEventListener('click', sizeOptionHandlers.get(btn)!);
   });

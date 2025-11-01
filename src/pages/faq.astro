@@ -131,7 +131,8 @@ const base = import.meta.env.BASE_URL;
 
       // Close all expanded FAQs when switching categories
       document.querySelectorAll('.faq-answer').forEach((answer) => {
-        answer.style.maxHeight = '0';
+        const answerEl = answer as HTMLElement;
+        answerEl.style.maxHeight = '0';
       });
       document.querySelectorAll('.faq-chevron').forEach((chevron) => {
         chevron.classList.remove('rotate-180');
@@ -145,8 +146,13 @@ const base = import.meta.env.BASE_URL;
   faqQuestions.forEach((question) => {
     question.addEventListener('click', () => {
       const faqItem = question.parentElement;
-      const answer = faqItem.querySelector('.faq-answer');
-      const chevron = question.querySelector('.faq-chevron');
+      if (!faqItem) return;
+
+      const answer = faqItem.querySelector('.faq-answer') as HTMLElement | null;
+      const chevron = question.querySelector('.faq-chevron') as HTMLElement | null;
+
+      if (!answer || !chevron) return;
+
       const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
 
       if (isOpen) {

@@ -2,13 +2,13 @@ import type { APIRoute } from 'astro';
 import { contactFormSchema } from '../../utils/validation';
 import { checkRateLimit, getClientIP, RateLimitPresets } from '../../utils/rateLimit';
 import { ZodError } from 'zod';
-import sgMail from '@sendgrid/mail';
+import * as brevo from '@getbrevo/brevo';
 
 /**
  * Contact Form API Endpoint
  *
  * Integrations:
- * - ✅ SendGrid for email delivery
+ * - ✅ Brevo (Sendinblue) for email delivery
  * - ✅ Zod validation
  * - ✅ Rate limiting
  * - ✅ Honeypot spam protection
@@ -17,13 +17,17 @@ import sgMail from '@sendgrid/mail';
  * TODO: Store submissions in database/CRM
  */
 
-// Initialize SendGrid
-const SENDGRID_API_KEY = import.meta.env.SENDGRID_API_KEY;
-const FROM_EMAIL = import.meta.env.SENDGRID_FROM_EMAIL || 'noreply@auxodata.ae';
+// Initialize Brevo
+const BREVO_API_KEY = import.meta.env.BREVO_API_KEY;
+const FROM_EMAIL = import.meta.env.BREVO_FROM_EMAIL || 'noreply@auxodata.ae';
+const FROM_NAME = import.meta.env.BREVO_FROM_NAME || 'AUXO Data Labs';
 const CONTACT_EMAIL = import.meta.env.CONTACT_EMAIL || 'hello@auxodata.ae';
 
-if (SENDGRID_API_KEY) {
-  sgMail.setApiKey(SENDGRID_API_KEY);
+let apiInstance: brevo.TransactionalEmailsApi | null = null;
+
+if (BREVO_API_KEY) {
+  apiInstance = new brevo.TransactionalEmailsApi();
+  apiInstance.setApiKey(brevo.TransactionalEmailsApiApiKeys.apiKey, BREVO_API_KEY);
 }
 
 export const POST: APIRoute = async ({ request }) => {
@@ -88,9 +92,9 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    // Send email notification using SendGrid
-    if (!SENDGRID_API_KEY) {
-      console.error('SendGrid API key not configured');
+    // Send email notification using Brevo
+    if (!BREVO_API_KEY || !apiInstance) {
+      console.error('Brevo API key not configured');
       // Still return success to user, log error for admin
       return new Response(
         JSON.stringify({
@@ -106,12 +110,12 @@ export const POST: APIRoute = async ({ request }) => {
 
     try {
       // Email to business (notification)
-      await sgMail.send({
-        to: CONTACT_EMAIL,
-        from: FROM_EMAIL,
-        replyTo: email,
-        subject: `🔔 New Contact Form Submission from ${name}`,
-        text: `You have received a new contact form submission from the AUXO Data Labs website.
+      const notificationEmail = new brevo.SendSmtpEmail();
+      notificationEmail.to = [{ email: CONTACT_EMAIL }];
+      notificationEmail.sender = { email: FROM_EMAIL, name: FROM_NAME };
+      notificationEmail.replyTo = { email: email, name: name };
+      notificationEmail.subject = `🔔 New Contact Form Submission from ${name}`;
+      notificationEmail.textContent = `You have received a new contact form submission from the AUXO Data Labs website.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -128,8 +132,8 @@ ${message}
 Submitted: ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Dubai' })} (Dubai time)
 IP Address: ${getClientIP(request)}
 
-Reply to this email to respond directly to ${name}.`,
-        html: `
+Reply to this email to respond directly to ${name}.`;
+      notificationEmail.htmlContent = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -181,12 +185,16 @@ Reply to this email to respond directly to ${name}.`,
 </html>`
       });
 
+
+      // Send notification email to business
+      await apiInstance.sendTransacEmail(notificationEmail);
+
       // Confirmation email to user
-      await sgMail.send({
-        to: email,
-        from: FROM_EMAIL,
-        subject: 'Thank you for contacting AUXO Data Labs',
-        text: `Dear ${name},
+      const confirmationEmail = new brevo.SendSmtpEmail();
+      confirmationEmail.to = [{ email: email, name: name }];
+      confirmationEmail.sender = { email: FROM_EMAIL, name: FROM_NAME };
+      confirmationEmail.subject = 'Thank you for contacting AUXO Data Labs';
+      confirmationEmail.textContent = `Dear ${name},
 
 Thank you for reaching out to AUXO Data Labs. We have received your message and will get back to you within 24-48 hours.
 
@@ -202,8 +210,8 @@ The AUXO Data Labs Team
 AUXO Data Labs
 Leading Analytics Consultancy in Dubai, UAE
 Website: https://auxodata.ae
-Email: hello@auxodata.ae`,
-        html: `
+Email: hello@auxodata.ae`;
+      confirmationEmail.htmlContent = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -247,8 +255,10 @@ Email: hello@auxodata.ae`,
     </div>
   </div>
 </body>
-</html>`
-      });
+</html>`;
+
+      // Send confirmation email to user
+      await apiInstance.sendTransacEmail(confirmationEmail);
 
     } catch (emailError) {
       console.error('Failed to send email:', emailError);

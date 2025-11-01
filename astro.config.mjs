@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import { EnumChangefreq } from 'sitemap';
 import partytown from '@astrojs/partytown';
 import tailwind from '@astrojs/tailwind';
 import compress from 'astro-compress';
@@ -27,29 +28,29 @@ export default defineConfig({
         if (item.url.endsWith('/') || item.url.endsWith('/index.html')) {
           // Homepage - highest priority
           item.priority = 1.0;
-          item.changefreq = 'daily';
+          item.changefreq = EnumChangefreq.DAILY;
         } else if (item.url.includes('/services/')) {
           // Service pages - high priority
           item.priority = 0.9;
-          item.changefreq = 'weekly';
+          item.changefreq = EnumChangefreq.WEEKLY;
         } else if (item.url.includes('/contact') || item.url.includes('/maturity-calculator')) {
           // Important pages
           item.priority = 0.8;
-          item.changefreq = 'monthly';
+          item.changefreq = EnumChangefreq.MONTHLY;
         } else if (item.url.includes('/blog/')) {
           // Blog posts
           item.priority = 0.7;
-          item.changefreq = 'monthly';
+          item.changefreq = EnumChangefreq.MONTHLY;
         } else if (item.url.includes('/privacy-policy') || item.url.includes('/terms') || item.url.includes('/cookie-policy') || item.url.includes('/dpa')) {
           // Legal pages - lower priority
           item.priority = 0.3;
-          item.changefreq = 'yearly';
+          item.changefreq = EnumChangefreq.YEARLY;
         } else {
           // Default for other pages
           item.priority = 0.6;
-          item.changefreq = 'monthly';
+          item.changefreq = EnumChangefreq.MONTHLY;
         }
-        item.lastmod = new Date();
+        item.lastmod = new Date().toISOString();
         return item;
       },
     }),
@@ -104,11 +105,7 @@ export default defineConfig({
     }),
     compress({
       CSS: true,
-      HTML: {
-        removeAttributeQuotes: false, // Prevents breaking attribute values
-        minifyCSS: true,
-        minifyJS: true,
-      },
+      HTML: true,
       Image: process.env.NODE_ENV === 'production', // Only compress images in production
       JavaScript: true,
       SVG: true,

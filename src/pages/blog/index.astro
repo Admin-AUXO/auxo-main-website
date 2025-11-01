@@ -247,8 +247,9 @@ function calculateReadTime(content: string) {
       } else {
         throw new Error('Subscription failed');
       }
-    } catch (error) {
+    } catch (err) {
       // Demo mode - show success message
+      const error = err instanceof Error ? err : new Error(String(err));
       if (import.meta.env.DEV || error.message.includes('fetch')) {
         message.textContent = 'Subscribed (demo mode) - API integration pending';
         message.className = 'mt-4 text-sm text-yellow-400';

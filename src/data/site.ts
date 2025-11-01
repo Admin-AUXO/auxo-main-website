@@ -4,7 +4,7 @@ export const siteData = {
   description: 'Leading analytics consultancy in Dubai, UAE, specializing in data-driven insights and business intelligence solutions.',
   url: 'https://auxodata.com',
   email: 'hello@auxodata.com',
-  phone: '+971 4 XXX XXXX',
+  phone: null, // TODO: Add actual phone number when available
   address: {
     street: 'Dubai Internet City',
     city: 'Dubai',

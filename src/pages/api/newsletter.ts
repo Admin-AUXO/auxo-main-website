@@ -1,4 +1,7 @@
 import type { APIRoute } from 'astro';
+import { newsletterSchema } from '../../utils/validation';
+import { checkRateLimit, getClientIP, RateLimitPresets } from '../../utils/rateLimit';
+import { ZodError } from 'zod';
 
 /**
  * Newsletter Subscription API Endpoint
@@ -10,66 +13,55 @@ import type { APIRoute } from 'astro';
  * - Brevo (formerly Sendinblue): https://www.brevo.com/
  *
  * TODO: Implement double opt-in for GDPR/UAE PDPL compliance
- * TODO: Add rate limiting
  * TODO: Add spam protection
  */
 
 export const POST: APIRoute = async ({ request }) => {
   try {
+    // Rate limiting check
+    const clientIP = getClientIP(request);
+    const rateLimit = checkRateLimit(
+      clientIP,
+      RateLimitPresets.NEWSLETTER.maxRequests,
+      RateLimitPresets.NEWSLETTER.windowMs
+    );
+
+    if (!rateLimit.allowed) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: 'Too many subscription attempts. Please try again later.',
+          retryAfter: rateLimit.retryAfter
+        }),
+        {
+          status: 429,
+          headers: {
+            'Content-Type': 'application/json',
+            'Retry-After': String(rateLimit.retryAfter || 60),
+            'X-RateLimit-Limit': String(RateLimitPresets.NEWSLETTER.maxRequests),
+            'X-RateLimit-Remaining': String(rateLimit.remaining),
+            'X-RateLimit-Reset': String(Math.floor(rateLimit.resetTime / 1000)),
+          }
+        }
+      );
+    }
+
     const data = await request.json();
 
-    const { email, consent } = data;
-
-    // Validation
-    if (!email) {
-      return new Response(
-        JSON.stringify({
-          success: false,
-          error: 'Email address is required'
-        }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
-    }
-
-    // Email validation
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailRegex.test(email)) {
-      return new Response(
-        JSON.stringify({
-          success: false,
-          error: 'Invalid email address'
-        }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
-    }
-
-    // Check consent
-    if (!consent) {
-      return new Response(
-        JSON.stringify({
-          success: false,
-          error: 'Consent is required'
-        }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
-    }
+    // Validate with Zod
+    const validated = newsletterSchema.parse(data);
+    const { email, consent } = validated;
 
     // TODO: Replace this with actual email marketing platform integration
-    console.log('Newsletter subscription:', {
-      email,
-      consent,
-      timestamp: new Date().toISOString(),
-      source: 'website'
-    });
+    // Log only in development mode
+    if (import.meta.env.DEV) {
+      console.log('Newsletter subscription:', {
+        email,
+        consent,
+        timestamp: new Date().toISOString(),
+        source: 'website'
+      });
+    }
 
     // TODO: Add to email marketing platform
     // Example with Mailchimp:
@@ -96,6 +88,25 @@ export const POST: APIRoute = async ({ request }) => {
     );
 
   } catch (error) {
+    // Handle Zod validation errors
+    if (error instanceof ZodError) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: 'Validation failed',
+          errors: error.errors.map(e => ({
+            field: e.path.join('.'),
+            message: e.message
+          }))
+        }),
+        {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
+    }
+
+    // Log server errors
     console.error('Newsletter subscription error:', error);
 
     return new Response(

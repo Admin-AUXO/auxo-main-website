@@ -1,4 +1,7 @@
 import type { APIRoute } from 'astro';
+import { contactFormSchema } from '../../utils/validation';
+import { checkRateLimit, getClientIP, RateLimitPresets } from '../../utils/rateLimit';
+import { ZodError } from 'zod';
 
 /**
  * Contact Form API Endpoint
@@ -8,39 +11,52 @@ import type { APIRoute } from 'astro';
  * - AWS SES: https://aws.amazon.com/ses/
  * - Postmark: https://postmarkapp.com/
  *
- * TODO: Add validation library (e.g., zod)
- * TODO: Add rate limiting
  * TODO: Add spam protection (reCAPTCHA, etc.)
  * TODO: Store submissions in database/CRM
  */
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const data = await request.json();
+    // Rate limiting check
+    const clientIP = getClientIP(request);
+    const rateLimit = checkRateLimit(
+      clientIP,
+      RateLimitPresets.CONTACT.maxRequests,
+      RateLimitPresets.CONTACT.windowMs
+    );
 
-    // Basic validation
-    const { name, email, company, message } = data;
-
-    if (!name || !email || !message) {
+    if (!rateLimit.allowed) {
       return new Response(
         JSON.stringify({
           success: false,
-          error: 'Missing required fields'
+          error: 'Too many requests. Please try again later.',
+          retryAfter: rateLimit.retryAfter
         }),
         {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' }
+          status: 429,
+          headers: {
+            'Content-Type': 'application/json',
+            'Retry-After': String(rateLimit.retryAfter || 60),
+            'X-RateLimit-Limit': String(RateLimitPresets.CONTACT.maxRequests),
+            'X-RateLimit-Remaining': String(rateLimit.remaining),
+            'X-RateLimit-Reset': String(Math.floor(rateLimit.resetTime / 1000)),
+          }
         }
       );
     }
 
-    // Email validation
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailRegex.test(email)) {
+    const data = await request.json();
+
+    // Validate with Zod
+    const validated = contactFormSchema.parse(data);
+    const { name, email, company, message, website } = validated;
+
+    // Honeypot check - reject if website field is filled (spam bot detection)
+    if (website) {
       return new Response(
         JSON.stringify({
           success: false,
-          error: 'Invalid email address'
+          error: 'Invalid submission'
         }),
         {
           status: 400,
@@ -50,13 +66,16 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // TODO: Replace this with actual email service integration
-    console.log('Contact form submission:', {
-      name,
-      email,
-      company,
-      message,
-      timestamp: new Date().toISOString()
-    });
+    // Log only in development mode
+    if (import.meta.env.DEV) {
+      console.log('Contact form submission:', {
+        name,
+        email,
+        company: company || 'N/A',
+        messageLength: message.length,
+        timestamp: new Date().toISOString()
+      });
+    }
 
     // TODO: Send email using service of choice
     // Example with SendGrid:
@@ -82,6 +101,25 @@ export const POST: APIRoute = async ({ request }) => {
     );
 
   } catch (error) {
+    // Handle Zod validation errors
+    if (error instanceof ZodError) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: 'Validation failed',
+          errors: error.errors.map(e => ({
+            field: e.path.join('.'),
+            message: e.message
+          }))
+        }),
+        {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
+    }
+
+    // Log server errors
     console.error('Contact form error:', error);
 
     return new Response(

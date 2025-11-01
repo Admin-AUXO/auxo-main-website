@@ -1,0 +1,60 @@
+# Security headers for Netlify deployment
+# These headers protect against common web vulnerabilities
+# Reference: https://docs.netlify.com/routing/headers/
+
+/*
+  # Prevent clickjacking attacks
+  X-Frame-Options: DENY
+
+  # Prevent MIME type sniffing
+  X-Content-Type-Options: nosniff
+
+  # Enable browser XSS protection
+  X-XSS-Protection: 1; mode=block
+
+  # Control referrer information
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # Control which features and APIs can be used
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=()
+
+  # Content Security Policy
+  # Note: Adjust this based on your actual CDN and external resources
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https: blob:; connect-src 'self' https://www.google-analytics.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+
+  # Strict Transport Security (HSTS)
+  # Force HTTPS for 1 year, including subdomains
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+# API endpoints - additional security
+/api/*
+  # Don't cache API responses
+  Cache-Control: no-store, no-cache, must-revalidate
+
+  # CORS headers - adjust origins as needed
+  Access-Control-Allow-Origin: https://admin-auxo.github.io
+  Access-Control-Allow-Methods: POST
+  Access-Control-Allow-Headers: Content-Type
+  Access-Control-Max-Age: 86400
+
+# Static assets - aggressive caching
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable

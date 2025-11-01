@@ -27,10 +27,12 @@ const currentYear = new Date().getFullYear();
             <Icon name="mdi:email" class="w-5 h-5 text-lime-400 flex-shrink-0" />
             <a href={`mailto:${siteData.email}`} class="text-gray-400 hover:text-lime-400 transition-colors">{siteData.email}</a>
           </div>
-          <div class="flex items-center gap-3 text-sm">
-            <Icon name="mdi:phone" class="w-5 h-5 text-lime-400 flex-shrink-0" />
-            <a href={`tel:${siteData.phone}`} class="text-gray-400 hover:text-lime-400 transition-colors">{siteData.phone}</a>
-          </div>
+          {siteData.phone && (
+            <div class="flex items-center gap-3 text-sm">
+              <Icon name="mdi:phone" class="w-5 h-5 text-lime-400 flex-shrink-0" />
+              <a href={`tel:${siteData.phone}`} class="text-gray-400 hover:text-lime-400 transition-colors">{siteData.phone}</a>
+            </div>
+          )}
           <div class="flex items-center gap-3 text-sm">
             <Icon name="mdi:map-marker" class="w-5 h-5 text-lime-400 flex-shrink-0" />
             <span class="text-gray-400">{siteData.address.city}, {siteData.address.country}</span>
@@ -208,7 +210,7 @@ const currentYear = new Date().getFullYear();
 
     try {
       // TODO: Replace with actual newsletter API endpoint
-      const response = await fetch('/api/newsletter', {
+      const response = await fetch(`${import.meta.env.BASE_URL}api/newsletter`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, timestamp: new Date().toISOString() }),

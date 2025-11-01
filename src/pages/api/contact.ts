@@ -182,9 +182,7 @@ Reply to this email to respond directly to ${name}.`;
     </div>
   </div>
 </body>
-</html>`
-      });
-
+</html>`;
 
       // Send notification email to business
       await apiInstance.sendTransacEmail(notificationEmail);

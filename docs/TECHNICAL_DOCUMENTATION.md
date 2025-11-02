@@ -1,25 +1,25 @@
-# AUXO Data Labs Website: Comprehensive Technical Guide for AI Agents
+# AUXO Data Labs Website: Technical Guide for AI Agents
 
 ---
 
 ## PART 1: AGENT ONBOARDING & RULES OF ENGAGEMENT
 
-This part contains the most critical information for you, the AI Coding Agent. **You must read and adhere to these guidelines before making any changes to the codebase.**
+This part contains critical information for AI Coding Agents. **You must read and adhere to these guidelines before making any changes to the codebase.**
 
 ### 1. Introduction for AI Coding Agents
 
-Welcome, Agent. Your primary directive is to assist in the development and maintenance of the AUXO Data Labs corporate website. This document is your comprehensive guide to the project. It contains the architecture, components, workflows, and the rules you must follow.
+Welcome, Agent. Your primary directive is to assist in the development and maintenance of the AUXO Data Labs corporate website. This document is your guide to the project's architecture, components, and conventions.
 
-This project is a modern, high-performance static site built with Astro. Your goal is to understand its structure and conventions to make safe, efficient, and consistent changes. Adherence to the guidelines in this document is mandatory for all tasks.
+This project is a modern, high-performance static site built with Astro. Your goal is to understand its structure and conventions to make safe, efficient, and consistent changes.
 
 ### 2. Guidelines for AI Coding Agents
 
 #### Getting Acquainted
 
-Before making any changes, it is mandatory to familiarize yourself with the project by reading the following documents in order:
+Before making any changes, familiarize yourself with the project:
 
-1.  **`TECHNICAL_DOCUMENTATION.md`** (this file): Your primary source of truth. Provides a deep dive into the project's architecture, components, and workflows.
-2.  **`README.md`**: Offers a high-level overview of the project.
+1.  **`TECHNICAL_DOCUMENTATION.md`** (this file): Your primary source of truth.
+2.  **`README.md`**: High-level project overview.
 
 #### Core Principles
 
@@ -32,31 +32,19 @@ Before making any changes, it is mandatory to familiarize yourself with the proj
 
 #### Development Workflow
 
-1.  **Analyze the Request:** Thoroughly understand the user's request and the context of the required changes.
-2.  **Formulate a Plan:** Before writing code, formulate a clear plan. Use the information in this documentation to inform your plan.
-3.  **Implement Changes:** Implement the changes, following the project's core principles and coding conventions.
-4.  **Run Local Checks:** Before proposing changes, ensure the following commands run successfully:
+1.  **Analyze the Request:** Understand the user's request and context.
+2.  **Formulate a Plan:** Create a clear plan using this documentation.
+3.  **Implement Changes:** Follow the project's core principles and coding conventions.
+4.  **Run Local Checks:** Ensure these commands run successfully:
     -   `npm run lint`: Checks for linting errors.
-    -   `npm run check`: Performs TypeScript type checking.
-    -   `npm run build`: Ensures the site builds successfully.
-5.  **Update Documentation:** If your changes affect the project's architecture, add a new component, or modify an existing one, you must update this `TECHNICAL_DOCUMENTATION.md` file accordingly.
+    -   `npm run check`: TypeScript type checking.
+    -   `npm run build`: Verifies the site builds successfully.
 
 #### Ground Rules
 
-1.  **Propose All Changes for Review:** All code modifications, no matter how small, must be proposed for review. Do not attempt to commit directly.
-2.  **Update This Documentation:** It is mandatory to update this `TECHNICAL_DOCUMENTATION.md` file whenever you make changes that alter the project's structure, add new features, or modify existing ones. This ensures that the documentation remains a reliable source of truth for the project.
-3.  **Adhere to Existing Conventions:** Mimic the style, structure, and patterns of the existing code. Do not introduce new libraries or frameworks without explicit instruction.
-
-#### Commit Message Guidelines
-
-When proposing changes, use the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification for the commit message. The format is:
-
-```
-<type>[optional scope]: <description>
-```
-
--   **`type`**: Must be one of `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`.
--   **`description`**: A concise summary of the change in the imperative mood.
+1.  **Adhere to Existing Conventions:** Mimic the style, structure, and patterns of the existing code.
+2.  **No New Dependencies:** Do not introduce new libraries or frameworks without explicit instruction.
+3.  **Update Documentation:** Update this `TECHNICAL_DOCUMENTATION.md` file when your changes alter the project's structure, add components, or modify existing features.
 
 #### Code Style & Conventions
 
@@ -77,7 +65,6 @@ When proposing changes, use the [Conventional Commits](https://www.conventionalc
   - Use `touch-manipulation` CSS for better mobile performance
   - Add `active:` states alongside `hover:` for touch feedback
   - Use responsive spacing (`px-4 sm:px-6`, `py-3 sm:py-2`)
-  - Test on mobile devices or responsive mode in browser DevTools
 
 #### Dos and Don’ts (Best Practices)
 
@@ -96,387 +83,45 @@ When proposing changes, use the [Conventional Commits](https://www.conventionalc
 -   **API Endpoints:** The API endpoints in `src/pages/api/` are fully integrated with Brevo for email delivery. They have comprehensive Zod validation and rate limiting implemented. **IMPORTANT:** Brevo requires verified sender emails before any emails can be sent. Ensure `BREVO_FROM_EMAIL` is verified in your Brevo dashboard.
 -   **Base URL:** The project is configured with a `base` URL in `astro.config.mjs`. All internal links and asset paths must be prefixed with the `base` variable to work correctly in both development and production. **Critical:** API calls in client-side scripts must also use the base URL (e.g., `fetch(\`${import.meta.env.BASE_URL}api/contact\`)`).
 -   **Image Optimization:** While Astro's image optimization is powerful, be mindful of the image formats and sizes you use. Large, unoptimized images can still slow down the site.
--   **ESLint Configuration:** The project uses ESLint v9 with flat config format (`eslint.config.js`). The accessibility rule `jsx-a11y/label-has-associated-control` is configured to properly recognize `for` attribute associations in Astro components. All linting commands work correctly. Do not revert to the old `.eslintrc.cjs` format.
+-   **ESLint Configuration:** The project uses ESLint v9 with flat config format (`eslint.config.js`). The accessibility rule `jsx-a11y/label-has-associated-control` is configured to properly recognize `for` attribute associations in Astro components. Do not revert to the old `.eslintrc.cjs` format.
 
-### 2.5 Conducting Code Audits (Agent Guide)
+### 2.5 MCP Server Usage Guidelines
 
-This section provides comprehensive guidelines for AI agents conducting code audits of the AUXO website. Following these standards ensures consistent, actionable audit reports.
+The project uses Model Context Protocol (MCP) servers for enhanced capabilities. **Important rules:**
 
-#### Audit Overview
+#### MCP Server Configuration
 
-A code audit is a systematic review of the entire codebase to identify issues related to security, functionality, performance, code quality, and best practices. The goal is to produce actionable findings that can be prioritized and addressed systematically.
+-   **Location:** `.cursor/mcp.json` (local configuration file)
+-   **Git Status:** This file is in `.gitignore` and must **NEVER** be committed to the repository
+-   **Reason:** Contains sensitive tokens (GitHub Personal Access Tokens, API keys)
 
-#### When to Conduct an Audit
+#### Available MCP Servers
 
--   **Initial onboarding:** When first encountering the codebase
--   **Before major releases:** To ensure production readiness
--   **After significant changes:** To verify no regressions were introduced
--   **Periodic reviews:** Quarterly or bi-annually to maintain code quality
--   **User request:** When explicitly asked to audit the codebase
+1.  **filesystem:** File system operations within the project directory
+2.  **sqlite:** Database operations (if needed)
+3.  **github:** GitHub API operations (repository management, issues, PRs)
+4.  **playwright:** Browser automation and testing
+5.  **astro-docs:** Access to Astro framework documentation
 
-#### Audit Methodology
+#### Usage Rules
 
-Follow this systematic approach for comprehensive audits:
+-   **NEVER commit `.cursor/mcp.json`:** This file contains secrets and is excluded from git
+-   **NEVER commit `.cursor/` directory:** All MCP configuration is local-only
+-   **Use MCP servers for:**
+  - Reading/writing files efficiently
+  - GitHub repository operations (creating PRs, reading issues)
+  - Searching Astro documentation
+  - Browser automation when testing
+-   **Do NOT expose tokens:** Never include MCP tokens in code, commits, or documentation
+-   **File operations:** Prefer MCP filesystem tools for large-scale file operations
+-   **GitHub operations:** Use MCP GitHub server for repository management instead of direct git commands when appropriate
 
-##### 1. Preparation Phase
+#### Security Best Practices
 
-1. **Read Documentation First:**
-   - Read this entire `TECHNICAL_DOCUMENTATION.md` file
-   - Review `README.md` for project overview
-   - Check git history to understand previous changes and avoid flagging already-resolved issues
-
-2. **Understand the Stack:**
-   - Identify all frameworks, libraries, and tools in use
-   - Note the Node.js version and package versions
-   - Review `package.json` for dependencies
-   - Check for deprecated or outdated packages
-
-3. **Set Up Local Environment:**
-   - Run `npm install` to install dependencies
-   - Run `npm run dev` to verify local development works
-   - Run `npm run build` to check for build errors
-   - Run `npm run check` for TypeScript errors
-   - Run `npm run lint` for linting issues
-
-##### 2. Systematic Review Phase
-
-Audit the codebase in this order for comprehensive coverage:
-
-**A. Critical Security Issues (Priority 1)**
-
--   **Input Validation:**
-  - Check all API endpoints in `src/pages/api/` for input validation
-  - Verify Zod schemas exist for all user inputs
-  - Look for SQL injection, XSS, and command injection vulnerabilities
-  - Check for proper sanitization of user-provided data
-
--   **Authentication & Authorization:**
-  - Review any auth mechanisms
-  - Check for exposed credentials or API keys in code
-  - Verify `.env` files are in `.gitignore`
-
--   **Security Headers:**
-  - Check `public/_headers` for CSP, X-Frame-Options, HSTS
-  - Verify CORS configuration is not overly permissive
-
--   **Rate Limiting:**
-  - Verify API endpoints have rate limiting
-  - Check rate limit configurations are appropriate
-
--   **Dependencies:**
-  - Run `npm audit` to check for vulnerable packages
-  - Identify outdated packages that need updates
-
-**B. Functional Issues (Priority 2)**
-
--   **Build Process:**
-  - Check for build errors or warnings
-  - Verify all imports resolve correctly
-  - Test production build: `npm run build && npm run preview`
-
--   **Configuration Files:**
-  - Verify `astro.config.mjs`, `tailwind.config.js`, `tsconfig.json`, `eslint.config.js`
-  - Check for deprecated configuration formats
-  - Ensure all paths and aliases resolve correctly
-
--   **API Endpoints:**
-  - Test all endpoints in `src/pages/api/`
-  - Verify error handling is comprehensive
-  - Check for proper HTTP status codes
-  - Ensure responses don't expose sensitive information
-
--   **Client-Side Scripts:**
-  - Review all `<script>` tags in `.astro` files
-  - Check for DOM query errors (missing null checks)
-  - Verify event handlers have error handling
-  - Look for memory leaks (unremoved event listeners)
-
-**C. Code Quality Issues (Priority 3)**
-
--   **TypeScript:**
-  - Run `npm run check` and document all type errors
-  - Check for excessive use of `any` type
-  - Verify interfaces are properly defined
-
--   **ESLint:**
-  - Run `npm run lint` and document violations
-  - Check for disabled rules that should be enabled
-  - Verify accessibility rules are enforced
-
--   **Code Duplication:**
-  - Identify duplicated logic that should be abstracted
-  - Check for copy-pasted components that should be unified
-
--   **Unused Code:**
-  - Look for unused imports, variables, functions
-  - Identify dead code paths
-  - Check for commented-out code blocks
-
-**D. Performance Issues (Priority 4)**
-
--   **Bundle Size:**
-  - Check for large dependencies that could be tree-shaken
-  - Identify opportunities for code splitting
-  - Review client-side JavaScript size
-
--   **Image Optimization:**
-  - Check if images use Astro's `<Image />` component
-  - Verify images are in modern formats (WebP, AVIF)
-  - Look for unoptimized large images
-
--   **Caching:**
-  - Review cache headers in `public/_headers`
-  - Check for appropriate cache strategies
-
-**E. Content & Accessibility (Priority 5)**
-
--   **Accessibility:**
-  - Verify semantic HTML usage
-  - Check for ARIA attributes where needed
-  - Ensure color contrast meets WCAG standards
-  - Verify keyboard navigation works
-
--   **SEO:**
-  - Check meta tags are present and correct
-  - Verify structured data (JSON-LD) is valid
-  - Check for proper heading hierarchy
-  - Verify `robots.txt` and sitemap exist
-
--   **Content Completeness:**
-  - Check for placeholder text or Lorem ipsum
-  - Verify all data files are populated
-  - Look for broken internal links
-  - Check for missing images or assets
-
-##### 3. Testing Phase
-
--   **Manual Testing:**
-  - Navigate through all pages in the browser
-  - Test all forms and interactive elements
-  - Verify responsive design on different screen sizes
-  - Test in multiple browsers (Chrome, Firefox, Safari)
-
--   **Automated Testing:**
-  - Run all available npm scripts
-  - Check for console errors in browser DevTools
-  - Use Lighthouse for performance and accessibility scores
-
-##### 4. Documentation Phase
-
-Document findings using the standard format (see below).
-
-#### Issue Categorization & Prioritization
-
-Classify every issue using these categories:
-
-| Priority | Category | Severity | Examples | Action Required |
-|----------|----------|----------|----------|-----------------|
-| **P0** | **Critical** | Blocks deployment | Security vulnerabilities, build failures, broken core functionality | Fix immediately |
-| **P1** | **High** | Impacts users | Missing validation, no rate limiting, console errors in production, API bugs | Fix before launch |
-| **P2** | **Medium** | Quality/UX issues | Missing error handling, poor accessibility, type errors, linting violations | Fix soon |
-| **P3** | **Low** | Nice-to-have | Performance optimizations, code duplication, minor UI polish | Fix when time allows |
-| **P4** | **Future** | Enhancement | New features, major refactors, content creation | Backlog |
-
-#### Audit Documentation Format
-
-**Always** use the following structure for audit findings documents.
-
-##### Document Structure
-
-```markdown
-# [Project Name] - Active Audit Items
-
-**Last Updated:** [Date]
-**Project Status:** [Status]
-**Critical Issues:** [Status]
-**High-Priority Issues:** [Status]
-
----
-
-## Quick Status
-
-[Brief 2-3 sentence summary of overall project health]
-
----
-
-## Table of Contents
-
-1. [Critical Items](#1-critical-items)
-2. [High-Priority Items](#2-high-priority-items)
-3. [Medium-Priority Items](#3-medium-priority-items)
-4. [Low-Priority Items](#4-low-priority-items)
-5. [Future Enhancements](#5-future-enhancements)
-
----
-
-## 1. Critical Items
-
-### 1.1 [Issue Name] [Emoji]
-
-**Status:** [Required for Production | Blocks Deployment]
-**Priority:** Critical (P0)
-**Estimated Time:** [X hours]
-
-**Current State:**
-- ✅ [What's working]
-- ❌ [What's broken]
-
-**What Needs to Be Done:**
-
-[Detailed description with code examples if needed]
-
-**Option A: [Recommended Approach]**
-[Step-by-step implementation guide]
-
-**Option B: [Alternative]**
-[Alternative approach with pros/cons]
-
-**Acceptance Criteria:**
-- [ ] [Specific, testable criterion 1]
-- [ ] [Specific, testable criterion 2]
-
-**Files Affected:**
-- `path/to/file.ts:line_number`
-
----
-
-[Repeat for each issue category]
-```
-
-##### Issue Documentation Template
-
-For each issue, include:
-
-1. **Clear Title:** Descriptive name with relevant emoji
-2. **Status Tag:** Current state (Required | Recommended | Optional)
-3. **Priority Level:** P0-P4 classification
-4. **Time Estimate:** Realistic estimate in hours
-5. **Current State:** What works vs. what doesn't (with checkboxes)
-6. **Detailed Description:** What's wrong and why it matters
-7. **Solution Options:** At least one concrete approach with code examples
-8. **Acceptance Criteria:** Specific, testable requirements
-9. **Files Affected:** Exact file paths and line numbers
-10. **Cross-References:** Links to related issues or docs
-
-#### Audit Best Practices
-
-##### DO:
-
--   ✅ **Read all documentation** before starting the audit
--   ✅ **Run the project locally** to verify issues firsthand
--   ✅ **Prioritize correctly** - Security issues are always critical
--   ✅ **Provide code examples** for recommended fixes
--   ✅ **Include time estimates** for each fix
--   ✅ **Reference specific files and line numbers** for all issues
--   ✅ **Group related issues** under the same category
--   ✅ **Verify issues still exist** before documenting (check git history)
--   ✅ **Provide multiple solution options** when applicable
--   ✅ **Include acceptance criteria** for each issue
--   ✅ **Use consistent formatting** following the standard template
--   ✅ **Create separate historical document** for completed fixes
--   ✅ **Keep audit findings focused** on TODO items only
--   ✅ **Test your findings** - Don't report hypothetical issues
--   ✅ **Consider the deployment environment** (GitHub Pages, Netlify)
--   ✅ **Check for false positives** from automated tools
-
-##### DON'T:
-
--   ❌ **Don't skip reading existing documentation** - You'll duplicate work
--   ❌ **Don't mix completed and pending items** in the same document
--   ❌ **Don't report issues without verification** - Always test first
--   ❌ **Don't over-prioritize** - Not everything is critical
--   ❌ **Don't under-prioritize security** - Security is always high priority
--   ❌ **Don't provide vague descriptions** like "improve performance"
--   ❌ **Don't forget time estimates** - Planning requires estimates
--   ❌ **Don't skip acceptance criteria** - How else to verify fixes?
--   ❌ **Don't ignore existing patterns** - Follow the project's conventions
--   ❌ **Don't recommend major rewrites** without strong justification
--   ❌ **Don't flag personal preferences** as issues
--   ❌ **Don't create new documentation files** without asking first
--   ❌ **Don't use audit reports as TODO lists** - They're for unresolved issues only
--   ❌ **Don't forget to update audit docs** when issues are fixed
-
-#### Special Considerations for This Project
-
--   **Astro-Specific Issues:**
-  - Check for improper use of client directives (`client:load`, etc.)
-  - Verify `getStaticPaths()` is used correctly for dynamic routes
-  - Check for hydration mismatches
-
--   **GitHub Pages Deployment:**
-  - Verify all asset paths use `import.meta.env.BASE_URL`
-  - Check for hardcoded URLs that won't work with base path
-  - Ensure API endpoints work in serverless environment
-
--   **TypeScript Strict Mode:**
-  - This project uses strict TypeScript
-  - Flag any `@ts-ignore` or excessive `any` usage
-
--   **Tailwind CSS:**
-  - Check for inline styles that should use Tailwind classes
-  - Verify custom colors are in the Tailwind config
-  - Look for arbitrary values that could be design tokens
-
-#### Example Audit Workflow
-
-Here's a complete audit workflow example:
-
-```markdown
-1. Read TECHNICAL_DOCUMENTATION.md (this file)
-2. Review README.md for project overview
-3. Check git history for recent changes
-4. Run: npm install
-5. Run: npm run dev (check for console errors)
-6. Run: npm run build (check for build errors)
-7. Run: npm run check (TypeScript errors)
-8. Run: npm run lint (ESLint violations)
-9. Run: npm audit (security vulnerabilities)
-10. Review all files in src/pages/api/ for security
-11. Review all <script> tags for error handling
-12. Check public/_headers for security headers
-13. Test all forms and interactive elements
-14. Review src/data/ for placeholder content
-15. Check for broken links and missing images
-16. Test responsive design
-17. Run Lighthouse audit
-18. Document findings using standard format
-19. Create plan with priorities and time estimates
-20. Update TECHNICAL_DOCUMENTATION.md if needed
-```
-
-#### Creating the Audit Report
-
-After completing the audit, create or update documentation in the `docs/` directory:
-
-1. **Active Audit Findings** - TODO items only
-   - Remove any items that have been fixed
-   - Focus on remaining work
-   - Use the standard template above
-
-2. **Completed Fixes** - Historical record
-   - Document what was fixed and when
-   - Include commit hashes
-   - List files created/modified
-
-3. **Audit Summary** - Executive overview
-   - One-page summary for stakeholders
-   - High-level status
-   - Production readiness assessment
-
-#### Post-Audit Actions
-
-After documenting findings:
-
-1. **Prioritize fixes** based on P0-P4 classification
-2. **Create implementation plan** with time estimates
-3. **Get user approval** before making changes
-4. **Fix issues systematically** starting with P0
-5. **Test thoroughly** after each fix
-6. **Update documentation** as you go
-7. **Mark items complete** in audit findings
-8. **Move completed items** to historical fixes document
-9. **Commit changes** with clear commit messages
-10. **Update this documentation** if new patterns emerge
+-   Treat MCP configuration files as sensitive data
+-   If you see `.cursor/mcp.json` in git status, it should be removed from tracking
+-   All MCP-related files are already in `.gitignore`
+-   When using GitHub MCP server, be mindful of rate limits and token permissions
 
 ---
 
@@ -574,57 +219,21 @@ This part is a detailed reference for the project's reusable components and data
 
 -   **Location:** `src/components/Navigation.astro`
 -   **Purpose:** Main site navigation with responsive mobile menu and desktop dropdowns.
--   **Mobile Optimizations:**
-  - **Touch Targets:** All interactive elements use minimum 44px × 44px touch targets (48px for menu items, 52px for CTA button)
-  - **Mobile Menu Button:** Enhanced with `min-w-[44px] min-h-[44px]`, `active:scale-95` for tactile feedback, and `will-change-transform` for performance
-  - **Body Scroll Lock:** Prevents background scrolling when mobile menu is open for better UX
-  - **Performance Optimizations:**
-    - `will-change-transform` on animated elements for GPU acceleration
-    - `touch-action: pan-y` on mobile menu for optimized scrolling
-    - Throttled scroll handler on mobile (50ms vs 10ms on desktop) to reduce CPU usage
-    - Scroll effects disabled when mobile menu is open
-  - **Smooth Animations:** Enhanced mobile menu animations with `active:scale-[0.98]` for visual feedback
-  - **Responsive Design:**
-    - Responsive logo sizing (smaller on mobile: h-10 w-10 vs h-12 w-12 on desktop)
-    - Mobile menu height optimized for viewport (`max-h-[calc(100vh-4rem)]`)
-    - Proper spacing and padding for mobile (px-4 sm:px-5, space-y-2.5)
-    - Overscroll containment to prevent scroll chaining
-  - **Accessibility:** Enhanced focus states, ARIA attributes, and keyboard navigation support
--   **Desktop Features:**
-  - Dropdown menus for Services and Resources
-  - Hover-based navigation with smooth transitions
+-   **Key Features:**
+  - Mobile menu with touch-optimized targets (44px × 44px minimum)
+  - Desktop dropdown menus for Services and Resources
   - Active link highlighting based on current path
-  - Scroll-based shadow effects with debounced performance optimization
+  - Body scroll lock when mobile menu is open
 
 #### `Footer.astro`
 
 -   **Location:** `src/components/Footer.astro`
 -   **Purpose:** Site footer with contact info, navigation links, newsletter signup, and legal links.
--   **Mobile Optimizations:**
-  - **Touch Targets:** All links and buttons use minimum 48px height on mobile (52px for newsletter button) with proper padding
-  - **Social Media Icons:** Enhanced with `min-w-[44px] min-h-[44px]` on mobile, `active:scale-95` for tactile feedback, and `will-change-transform` for smooth animations
-  - **Performance:**
-    - `will-change-transform` on all interactive elements for GPU acceleration
-    - `transition-all duration-200` for smooth, consistent animations
-    - `active:scale-[0.98]` provides visual feedback on touch
-  - **Spacing:** Optimized grid gaps (gap-6 on mobile vs gap-8 on desktop) and margins for better mobile layout
-  - **Responsive Grid:** 1 column on mobile → 2 on tablet → 5 on desktop
-  - **Newsletter Form:**
-    - Stacks vertically on mobile (`flex-col sm:flex-row`)
-    - Larger inputs on mobile (`py-3` vs `py-2` on desktop)
-    - Enhanced button with `min-h-[52px]` and `active:scale-[0.97]` for better touch feedback
-  - **Link Styling:** All footer links have consistent mobile optimizations:
-    - `min-h-[48px]` on mobile, `sm:min-h-0` on desktop
-    - `py-1.5 sm:py-0` for proper vertical spacing
-    - Enhanced active states with scale animations
-  - **Typography:** Responsive text sizing for mobile readability
-  - **Contact Info:** Uses `break-all` for long email addresses to prevent horizontal overflow
-  - **Bottom Bar:** Stacks vertically on mobile for better layout
--   **Features:**
+-   **Key Features:**
   - Newsletter subscription with Brevo integration
+  - Responsive grid layout (1 column mobile → 5 columns desktop)
   - Social media links (LinkedIn, Twitter)
-  - Quick links, services, resources, and legal sections
-  - Responsive typography and spacing
+  - Touch-optimized interactive elements
 
 #### `SEO.astro`
 
@@ -656,25 +265,19 @@ This part is a detailed reference for the project's reusable components and data
     }
     ```
 
-### 6. Code Walkthrough: Maturity Calculator
+### 6. Interactive Components
+
+#### Maturity Calculator
 
 -   **Location:** `src/pages/maturity-calculator.astro`
+-   **Purpose:** Interactive assessment tool for data maturity.
+-   **Implementation:** Client-side script manages state (`currentQuestion`, `answers` array) and renders questions/results dynamically.
 
-This section provides a detailed walkthrough of the calculator's client-side script.
+#### Multi-Step Contact Form
 
-#### State Management
-
-The calculator's state is managed by two simple variables:
-
--   `currentQuestion`: A number that tracks the index of the current question being displayed.
--   `answers`: An array of numbers that stores the user's selected score for each question.
-
-#### Core Logic
-
-1.  **Initialization:** The script waits for the user to click the "Start Assessment" button, then calls `showQuestion(0)`.
-2.  **`showQuestion(index)`:** This function renders the question, category, and answer options. It attaches a click listener to each answer button that calls `selectAnswer(score)`.
-3.  **`selectAnswer(score)`:** This function stores the selected score in the `answers` array and enables the "Next" button.
-4.  **`showResults()`:** After the last question, this function calculates and displays the overall score, dimension scores, and personalized recommendations based on the `answers` array.
+-   **Location:** `src/components/MultiStepForm.astro`
+-   **Purpose:** Multi-step contact form with comprehensive data collection.
+-   **Backend:** Submits to `/api/contact` endpoint with full validation.
 
 ### 7. Content Schemas & Data Structures
 
@@ -734,100 +337,31 @@ The project includes two secured API endpoints in `src/pages/api/` with comprehe
 #### `/api/contact`
 
 -   **Purpose:** Handles submissions from the multi-step contact form and sends emails via Brevo.
--   **Email Service:** Brevo (Sendinblue) transactional email API
 -   **Security:**
-    - Comprehensive Zod validation for all 14 form fields
+    - Zod validation for all form fields
     - Honeypot field for spam detection
     - Rate limiting: 3 requests per 30 minutes per IP
-    - Environment-gated logging (dev only)
--   **Validation Rules:**
-    - **Required Fields:**
-      - Name: 2-100 characters, letters/spaces/hyphens only
-      - Email: RFC-compliant format, max 255 characters
-      - Message: 10-5000 characters
-    - **Optional Fields:**
-      - Company: 2-200 characters
-      - Phone: max 50 characters
-      - Industry: max 100 characters
-      - Company Size: max 50 characters
-      - Role: max 100 characters
-      - Services: array of strings
-      - Timeline: max 50 characters
-      - Budget: max 50 characters
-      - Hear About (lead source): max 100 characters
-      - Newsletter: boolean (opt-in)
-      - Timestamp: string
--   **Email Flow:**
-    - Sends detailed notification email to business (`CONTACT_EMAIL`) with all collected data:
-      - Contact details (name, email, company, phone, role)
-      - Company information (industry, size)
-      - Project details (services, timeline, budget)
-      - Lead source tracking
-      - Newsletter preference
-    - Sends confirmation email to user with professional HTML template
--   **Response Codes:**
-    - 200: Success (email sent)
-    - 400: Validation error (with field-specific messages)
-    - 429: Rate limit exceeded (with Retry-After header)
-    - 500: Server error or email service failure
--   **Data Flow:** `MultiStepForm.astro` -> `POST /api/contact` -> `contact.ts` -> Validation -> Rate Limit Check -> Brevo API -> Email Delivery
--   **Status:** ✅ Fully functional and production-ready
+-   **Flow:** Validates input → Rate limit check → Sends emails to business and user via Brevo
+-   **Response Codes:** 200 (success), 400 (validation error), 429 (rate limited), 500 (server error)
 
 #### `/api/newsletter`
 
--   **Purpose:** Handles newsletter subscriptions and manages contacts in Brevo with duplicate subscription prevention.
--   **Email Service:** Brevo (Sendinblue) contacts and transactional email API
--   **Features:**
-    - **Duplicate Check:** Verifies if email is already subscribed before sending confirmation
-    - **Double Opt-in:** Sends confirmation email only to new subscribers
-    - **Smart Handling:** Returns "already subscribed" message for existing contacts
+-   **Purpose:** Handles newsletter subscriptions with duplicate prevention.
 -   **Security:**
     - Zod validation for email and consent
     - Rate limiting: 2 requests per hour per IP
-    - Environment-gated logging (dev only)
--   **Validation Rules:**
-    - Email: RFC-compliant format, max 255 characters
-    - Consent: Must be true (boolean)
-    - Timestamp: string (optional)
--   **Email Flow:**
-    - Adds subscriber to Brevo contact list (list ID: 2)
-    - Sends double opt-in confirmation email with professional HTML template
-    - Handles duplicate subscriptions gracefully
--   **Response Codes:**
-    - 200: Success (contact added, confirmation email sent) OR already subscribed
-    - 400: Validation error
-    - 429: Rate limit exceeded
-    - 500: Server error or Brevo API failure
--   **Data Flow:** `Footer.astro` -> `POST /api/newsletter` -> `newsletter.ts` -> Validation -> Rate Limit Check -> **Duplicate Check** -> Brevo Contacts API -> Brevo Email API -> Email Delivery
--   **Implementation Details:**
-    - First checks if contact exists using `getContactInfo(email)`
-    - If contact already subscribed to newsletter list, returns early with appropriate message
-    - If new contact or not in newsletter list, proceeds with `createContact` and confirmation email
-    - Prevents duplicate confirmation emails to existing subscribers
--   **Status:** ✅ Fully functional and production-ready
+-   **Features:**
+    - Duplicate subscription check
+    - Double opt-in confirmation emails
+    - Adds contacts to Brevo list (ID: 2)
+-   **Response Codes:** 200 (success/already subscribed), 400 (validation error), 429 (rate limited), 500 (server error)
 
-#### Rate Limiting Implementation
+### 10. Deployment
 
-Located in `src/utils/rateLimit.ts`:
-- In-memory rate limiter for serverless compatibility
-- Configurable presets for different endpoints
-- Automatic cleanup of expired entries
-- Returns proper HTTP 429 responses with Retry-After headers
-- Extracts client IP from various proxy headers (Cloudflare, Nginx, etc.)
+The project uses GitHub Actions for CI/CD (`.github/workflows/`):
 
-**Presets:**
-- `CONTACT`: 3 requests per 30 minutes
-- `NEWSLETTER`: 2 requests per hour
-- `STRICT`: 3 requests per 15 minutes
-- `STANDARD`: 5 requests per 15 minutes
-- `RELAXED`: 10 requests per 15 minutes
-
-### 10. Deployment Workflow
-
-The project uses GitHub Actions for CI/CD, located in `.github/workflows/`.
-
--   **Production (`deploy.yml`):** Pushing to the `master` branch deploys to **GitHub Pages**.
--   **Staging (`deploy-staging.yml`):** Pushing to `develop` or `staging` branches deploys to **Netlify**.
+-   **Production:** `master` branch → GitHub Pages
+-   **Staging:** `develop` or `staging` branches → Netlify
 
 ### 11. SEO & Structured Data
 
@@ -841,71 +375,6 @@ The project uses GitHub Actions for CI/CD, located in `.github/workflows/`.
 -   **TypeScript:** Full type checking enabled via `@astrojs/check` and `typescript`. ViewTransitions deprecation warning is documented and suppressed with `@ts-ignore` - functionality remains intact.
 -   **Validation:** Zod schemas in `src/utils/validation.ts` ensure type-safe form data validation.
 -   **`DevBar.astro`:** A development-only toolbar with tools for debugging, accessibility testing, and cache clearing. Note: A build warning about empty script chunks is expected and harmless - it occurs because the component is conditionally rendered based on `import.meta.env.DEV`.
-<<<<<<< HEAD
-
-### 12.6 Mobile Optimization Guidelines
-
-The project follows mobile-first design principles with comprehensive mobile optimizations:
-
-#### Navigation Mobile Features
-
--   **Responsive Header:** Reduced height on mobile (h-16 vs h-20 on desktop)
--   **Touch-Optimized Menu:**
-  - Mobile menu button: `min-w-[44px] min-h-[44px]` with `active:scale-95` feedback
-  - Menu items: Minimum 48px height (52px for CTA button) with enhanced touch targets
-  - All interactive elements use `touch-manipulation` for optimized mobile performance
--   **Body Scroll Lock:** Prevents background scrolling when mobile menu is open
--   **Performance Optimizations:**
-  - `will-change-transform` on animated elements for GPU acceleration
-  - Throttled scroll handler on mobile (50ms) vs desktop (10ms)
-  - Scroll effects disabled when mobile menu is open
-  - `touch-action: pan-y` on mobile menu for optimized scrolling
--   **Smooth Animations:**
-  - Mobile dropdown menus use CSS animations (`animate-dropdown`) for smooth transitions
-  - Enhanced active states with `active:scale-[0.98]` for visual feedback
--   **Viewport Optimization:** Mobile menu uses `max-h-[calc(100vh-4rem)]` with `overscroll-contain` to prevent scroll chaining
-
-#### Footer Mobile Features
-
--   **Responsive Grid:** Footer columns adapt from 1 (mobile) → 2 (tablet) → 5 (desktop)
--   **Always Visible:** All footer sections are now visible on mobile (previously some were hidden)
--   **Touch-Friendly Links:**
-  - All footer links have minimum 48px height on mobile (`min-h-[48px] sm:min-h-0`)
-  - Enhanced with `py-1.5 sm:py-0` for proper vertical spacing
-  - `active:scale-[0.98]` provides visual feedback on touch
--   **Social Media Icons:** Minimum 44px × 44px on mobile with enhanced touch feedback
--   **Performance:** `will-change-transform` on all interactive elements for smooth animations
--   **Stacked Newsletter Form:** Newsletter form stacks vertically on mobile for better usability
--   **Newsletter Button:** Enhanced with `min-h-[52px]` and `active:scale-[0.97]` for better touch feedback
--   **Responsive Typography:** Font sizes adapt from mobile (`text-xs`) to desktop (`text-sm`)
--   **Contact Info Optimization:** Email addresses use `break-all` to prevent horizontal overflow on small screens
--   **Optimized Spacing:** Reduced gaps on mobile (`gap-6`) for better use of limited screen space
-
-#### Global Mobile Optimizations
-
--   **Touch Manipulation:** All interactive elements use `touch-manipulation` CSS for better performance
--   **Touch Targets:** All interactive elements meet or exceed 44px × 44px minimum (48px for important actions)
--   **Active States:** Enhanced `active:` pseudo-classes with scale animations (`active:scale-[0.95]` to `active:scale-[0.98]`) for visual feedback
--   **Performance Optimizations:**
-  - `will-change-transform` on animated elements for GPU acceleration
-  - Optimized scroll handlers with mobile-specific throttling
-  - Body scroll lock on mobile menus to prevent unwanted scrolling
-  - `touch-action: pan-y` for optimized vertical scrolling where appropriate
--   **Responsive Spacing:** Consistent use of responsive spacing utilities (`px-4 sm:px-6`, `gap-3 sm:gap-4`, `py-1.5 sm:py-0`)
--   **Animation Performance:** Mobile animations use `will-change` properties and optimized transition durations (200ms standard)
--   **Viewport Handling:** Proper use of viewport units and safe areas for mobile devices
-
-#### Testing Mobile
-
-When testing mobile optimizations:
-1. Use browser DevTools responsive mode (Chrome DevTools device toolbar)
-2. Test on actual mobile devices if possible
-3. Verify touch targets are at least 44px × 44px
-4. Check that all interactive elements have active states
-5. Ensure text is readable without zooming (minimum 16px font size recommended)
-6. Test landscape and portrait orientations
-=======
->>>>>>> 2919ae0e8b8c09a40a8fe0c3d5623e55face0c83
 
 ### 12.5 Security Features
 
@@ -927,13 +396,8 @@ The project implements multiple layers of security for forms and API endpoints:
 #### Rate Limiting
 
 -   **Location:** `src/utils/rateLimit.ts`
--   **Implementation:** In-memory sliding window rate limiter
--   **Features:**
-    - Configurable limits per endpoint
-    - IP-based tracking
-    - Automatic cleanup of expired entries
-    - Proper HTTP 429 responses with Retry-After headers
-    - Support for various proxy headers (Cloudflare, Nginx)
+-   **Implementation:** In-memory sliding window rate limiter with configurable presets
+-   **Features:** IP-based tracking, automatic cleanup, HTTP 429 responses with Retry-After headers
 
 #### Security Headers
 
@@ -952,8 +416,7 @@ The project implements multiple layers of security for forms and API endpoints:
 #### Environment-Based Logging
 
 -   Console.log statements only execute in development mode
--   Production logs use console.error for actual errors only
--   Sensitive data (passwords, full messages) never logged
+-   Sensitive data never logged
 
 ### 13. Environment Variables
 
@@ -1012,11 +475,3 @@ const base = import.meta.env.BASE_URL;
 ```
 
 ---
-
-**Last Updated:** 2025-01-27
-
-**Recent Updates:**
-- 2025-01-27: Enhanced mobile optimizations for Navigation and Footer components:
-  - **Navigation:** Improved touch targets (48px+), body scroll lock, performance optimizations with `will-change-transform`, throttled scroll handlers, enhanced active states with scale animations
-  - **Footer:** Enhanced touch targets (48px+), improved social media icon sizing, optimized spacing, enhanced newsletter button with better touch feedback, consistent active states across all links
-  - Both components now feature GPU-accelerated animations, optimized scroll handling, and improved tactile feedback for better mobile UX

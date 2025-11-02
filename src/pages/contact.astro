@@ -142,7 +142,8 @@ const base = import.meta.env.BASE_URL;
 
   scheduleBtn?.addEventListener('click', () => {
     // TODO: Replace with actual Calendly link or booking system
-    const calendlyURL = 'https://calendly.com/auxodata'; // Placeholder
+    const calendlyURL = 'https://calendly.com/auxodata'; // Placeholder - unused for now
+    void calendlyURL; // Suppress unused variable warning
 
     // For now, show alert to configure
     const proceed = confirm('Scheduling system not configured.\n\nWould you like to contact us via email instead?');

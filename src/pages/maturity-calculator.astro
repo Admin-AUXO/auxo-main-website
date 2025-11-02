@@ -406,12 +406,7 @@ const calculatorFAQs = [
     return element as T | null;
   }
 
-  function assertElement<T extends HTMLElement>(element: T | null, name: string): T {
-    if (!element) {
-      throw new Error(`Required element "${name}" not found`);
-    }
-    return element;
-  }
+  // Removed unused assertElement function - using getElementSafe instead
 
   // Start assessment
   startBtn?.addEventListener('click', () => {
@@ -446,7 +441,7 @@ const calculatorFAQs = [
     if (!optionsContainer) return;
     optionsContainer.innerHTML = '';
 
-    q.options.forEach((option, i) => {
+    q.options.forEach((option) => {
       const button = document.createElement('button');
       button.className = 'answer-option w-full p-4 bg-zinc-800 border-2 border-zinc-700 rounded-lg text-left hover:border-lime-400 transition-all';
       button.innerHTML = `

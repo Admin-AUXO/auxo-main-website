@@ -11,24 +11,24 @@ const base = import.meta.env.BASE_URL;
   title="About Us - Data Analytics Experts | AUXO Data Labs"
   description="Learn about AUXO Data Labs, your trusted partner for data analytics and business intelligence solutions in the UAE and beyond."
 >
-  <div class="pt-24 pb-16">
+  <div class="pt-24 pb-12 md:pb-16">
     <div class="container mx-auto px-4">
       <!-- Hero Section -->
-      <div class="max-w-4xl mx-auto text-center mb-20">
-        <div class="inline-block px-4 py-2 bg-lime-400/10 border border-lime-400/20 rounded-full mb-4">
-          <span class="text-lime-400 text-sm font-semibold tracking-wide">About AUXO Data Labs</span>
+      <div class="max-w-4xl mx-auto text-center mb-12 md:mb-20">
+        <div class="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-lime-400/10 border border-lime-400/20 rounded-full mb-3 md:mb-4">
+          <span class="text-lime-400 text-xs md:text-sm font-semibold tracking-wide">About AUXO Data Labs</span>
         </div>
-        <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+        <h1 class="text-3xl md:text-5xl font-bold mb-4 md:mb-6 leading-tight">
           Turning Information Into
           <span class="text-lime-400"> Competitive Advantage</span>
         </h1>
-        <p class="text-lg md:text-xl text-gray-400 leading-relaxed">
-          We're a fresh team of <span class="font-semibold text-gray-300">data scientists, engineers, and strategists</span> on a mission to make enterprise-grade analytics accessible to UAE businesses ready to embrace their growth journey.
+        <p class="text-sm md:text-xl text-gray-400 leading-relaxed">
+          We're a fresh team of <span class="font-semibold text-gray-300">data scientists, engineers, and strategists</span> on a mission to make enterprise-grade analytics accessible to UAE businesses.
         </p>
       </div>
 
       <!-- Mission & Vision -->
-      <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+      <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-20">
         <div class="bg-gradient-to-br from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8">
           <div class="w-14 h-14 bg-lime-400 rounded-lg flex items-center justify-center mb-4">
             <Icon name="mdi:target" class="w-8 h-8 text-black" />
@@ -51,13 +51,13 @@ const base = import.meta.env.BASE_URL;
       </div>
 
       <!-- Our Values -->
-      <div class="max-w-6xl mx-auto mb-20">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold mb-4">Our Core Values</h2>
-          <p class="text-gray-400 leading-relaxed"><em>The principles that guide everything we do</em></p>
+      <div class="max-w-6xl mx-auto mb-12 md:mb-20">
+        <div class="text-center mb-8 md:mb-12">
+          <h2 class="text-2xl md:text-3xl font-bold mb-3 md:mb-4">Our Core Values</h2>
+          <p class="text-sm md:text-base text-gray-400 leading-relaxed hidden md:block"><em>The principles that guide everything we do</em></p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center hover:border-lime-400 transition-colors">
             <Icon name="mdi:lightbulb" class="w-12 h-12 text-lime-400 mx-auto mb-4" />
             <h3 class="font-bold mb-2 text-lg">Innovation</h3>
@@ -85,7 +85,7 @@ const base = import.meta.env.BASE_URL;
       </div>
 
       <!-- Why Choose Us -->
-      <div class="max-w-5xl mx-auto mb-20">
+      <div class="max-w-5xl mx-auto mb-12 md:mb-20 hidden md:block">
         <div class="text-center mb-12">
           <h2 class="text-3xl font-bold mb-4">Why Choose AUXO?</h2>
           <p class="text-gray-400">What sets us apart in the data analytics landscape</p>
@@ -113,13 +113,13 @@ const base = import.meta.env.BASE_URL;
       </div>
 
       <!-- Team Section -->
-      <div class="max-w-5xl mx-auto mb-20">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold mb-4">Meet Our Team</h2>
-          <p class="text-gray-400">Data experts passionate about your success</p>
+      <div class="max-w-5xl mx-auto mb-12 md:mb-20">
+        <div class="text-center mb-8 md:mb-12">
+          <h2 class="text-2xl md:text-3xl font-bold mb-3 md:mb-4">Meet Our Team</h2>
+          <p class="text-xs md:text-base text-gray-400 hidden md:block">Data experts passionate about your success</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {team.map((member) => (
             <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center hover:border-lime-400 transition-all group">
               <div class="w-24 h-24 bg-gradient-to-br from-lime-400 to-green-500 rounded-full mx-auto mb-4 flex items-center justify-center text-black text-3xl font-bold">
@@ -153,7 +153,6 @@ const base = import.meta.env.BASE_URL;
         </div>
       </div>
 
-
       <div class="max-w-4xl mx-auto">
         <div class="bg-gradient-to-r from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8 md:p-12 text-center">
           <h2 class="text-3xl font-bold mb-4">Let's Work Together</h2>

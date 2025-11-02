@@ -26,10 +26,10 @@ function formatDate(date: Date) {
   }).format(new Date(date));
 }
 
-// Helper to calculate read time
-function calculateReadTime(content: string) {
+// Helper to calculate read time - kept for potential future use
+function calculateReadTime(_content: string) {
   const wordsPerMinute = 200;
-  const wordCount = content.trim().split(/\s+/).length;
+  const wordCount = _content.trim().split(/\s+/).length;
   return Math.ceil(wordCount / wordsPerMinute);
 }
 ---
@@ -161,8 +161,8 @@ function calculateReadTime(content: string) {
           )}
         </>
       ) : (
-        <!-- Empty State -->
         <div class="max-w-2xl mx-auto text-center py-16">
+          <!-- Empty State -->
           <div class="w-24 h-24 bg-zinc-900 rounded-full flex items-center justify-center mx-auto mb-6">
             <Icon name="mdi:book-open" class="w-12 h-12 text-gray-600" />
           </div>

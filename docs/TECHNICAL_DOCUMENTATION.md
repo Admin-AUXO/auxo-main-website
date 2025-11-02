@@ -552,10 +552,8 @@ This section outlines the visual identity of the AUXO Data Labs website.
 
 #### Iconography
 
--   **Primary Library:** The project uses [Material Design Icons](https://materialdesignicons.com/) via the `astro-icon` integration for most UI icons.
--   **Technology Icons:** The homepage technology section uses [Simple Icons Font](https://github.com/simple-icons/simple-icons-font) loaded via CDN for brand/technology logos.
+-   **Primary Library:** The project uses [Material Design Icons](https://materialdesignicons.com/) via the `astro-icon` integration for UI icons throughout the site.
 -   **Configuration:** The list of included MDI icons is managed in `astro.config.mjs` to optimize bundle size.
--   **Important:** Simple Icons CDN stylesheet must be included in pages that use technology icons (currently: `index.astro`).
 
 ---
 
@@ -887,9 +885,14 @@ const base = import.meta.env.BASE_URL;
 ---
 
 **Last Updated:** 2025-11-02
-**Document Version:** 2.6
+**Document Version:** 2.7
 **Project Status:** Active Development - Production Ready
 **Recent Updates:**
+- ✅ **Removed technology showcase sections** (2025-11-02)
+  - Removed "Technology Stack" section from homepage (index.astro)
+  - Removed "Our Expertise" technology section from about page (about.astro)
+  - Removed Simple Icons CDN references from SEO.astro and BaseLayout.astro
+  - Updated iconography documentation to reflect Material Design Icons as sole icon library
 - ✅ **Brevo API implementation audit completed** (2025-11-02)
   - Verified all Brevo SDK usage follows official documentation patterns
   - Implementation confirmed correct for TransactionalEmailsApi and ContactsApi

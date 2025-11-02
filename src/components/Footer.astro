@@ -1,50 +1,99 @@
 ---
-import { siteData } from '../data/site';
-import { services } from '../data/services';
-import { Icon } from 'astro-icon/components';
+import { siteData } from "../data/site";
+import { services } from "../data/services";
+import { Icon } from "astro-icon/components";
 
 const base = import.meta.env.BASE_URL;
 const currentYear = new Date().getFullYear();
 ---
 
 <footer class="bg-zinc-950 border-t border-gray-800">
-  <div class="container mx-auto px-4 py-16">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+  <div class="container mx-auto px-4 sm:px-6 py-8 md:py-16">
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-6 md:gap-8 mb-6 sm:mb-8 md:mb-12"
+    >
       <!-- Brand Column -->
-      <div class="lg:col-span-2">
+      <div class="sm:col-span-2 lg:col-span-2">
         <div class="flex items-center space-x-3 mb-4">
-          <img src={`${base}logo.svg`} alt="AUXO Data Labs Logo" class="h-12 w-12" />
-          <span class="text-white text-xl font-semibold tracking-tight">Data Labs</span>
+          <img
+            src={`${base}logo.svg`}
+            alt="AUXO Data Labs Logo"
+            class="h-10 w-10 sm:h-12 sm:w-12"
+          />
+          <span
+            class="text-white text-lg sm:text-xl font-semibold tracking-tight"
+            >Data Labs</span
+          >
         </div>
-        <p class="text-gray-400 text-sm mb-4 max-w-sm italic leading-relaxed">{siteData.tagline}</p>
-        <p class="text-gray-400 text-sm mb-6 leading-relaxed">
-          Transforming data into <span class="font-medium text-gray-300">actionable insights</span> for businesses across the UAE.
+        <p
+          class="text-gray-400 text-sm mb-3 md:mb-4 max-w-sm italic leading-relaxed"
+        >
+          {siteData.tagline}
+        </p>
+        <p class="text-gray-400 text-sm mb-4 md:mb-6 leading-relaxed">
+          Transforming data into <span class="font-medium text-gray-300"
+            >actionable insights</span
+          > for businesses across the UAE.
         </p>
 
         <!-- Contact Info -->
-        <div class="space-y-3 mb-6">
-          <div class="flex items-center gap-3 text-sm">
-            <Icon name="mdi:email" class="w-5 h-5 text-lime-400 flex-shrink-0" />
-            <a href={`mailto:${siteData.email}`} class="text-gray-400 hover:text-lime-400 transition-colors">{siteData.email}</a>
+        <div class="space-y-2.5 sm:space-y-3 mb-5 sm:mb-6">
+          <div class="flex items-center gap-3 text-sm sm:text-base">
+            <Icon
+              name="mdi:email"
+              class="w-5 h-5 text-lime-400 flex-shrink-0"
+            />
+            <a
+              href={`mailto:${siteData.email}`}
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors break-all touch-manipulation"
+              >{siteData.email}</a
+            >
           </div>
-          {siteData.phone && (
-            <div class="flex items-center gap-3 text-sm">
-              <Icon name="mdi:phone" class="w-5 h-5 text-lime-400 flex-shrink-0" />
-              <a href={`tel:${siteData.phone}`} class="text-gray-400 hover:text-lime-400 transition-colors">{siteData.phone}</a>
-            </div>
-          )}
-          <div class="flex items-center gap-3 text-sm">
-            <Icon name="mdi:map-marker" class="w-5 h-5 text-lime-400 flex-shrink-0" />
-            <span class="text-gray-400">{siteData.address.city}, {siteData.address.country}</span>
+          {
+            siteData.phone && (
+              <div class="flex items-center gap-3 text-sm sm:text-base">
+                <Icon
+                  name="mdi:phone"
+                  class="w-5 h-5 text-lime-400 flex-shrink-0"
+                />
+                <a
+                  href={`tel:${siteData.phone}`}
+                  class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors touch-manipulation"
+                >
+                  {siteData.phone}
+                </a>
+              </div>
+            )
+          }
+          <div class="flex items-center gap-3 text-sm sm:text-base">
+            <Icon
+              name="mdi:map-marker"
+              class="w-5 h-5 text-lime-400 flex-shrink-0"
+            />
+            <span class="text-gray-400"
+              >{siteData.address.city}, {siteData.address.country}</span
+            >
           </div>
         </div>
 
         <!-- Social Links -->
         <div class="flex gap-3">
-          <a href={siteData.social.linkedin} class="w-10 h-10 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black transition-all focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-zinc-950" aria-label="Follow AUXO Data Labs on LinkedIn" target="_blank" rel="noopener noreferrer">
+          <a
+            href={siteData.social.linkedin}
+            class="w-11 h-11 sm:w-10 sm:h-10 min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black active:bg-lime-500 active:text-black active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-zinc-950 touch-manipulation will-change-transform"
+            aria-label="Follow AUXO Data Labs on LinkedIn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Icon name="mdi:linkedin" class="w-5 h-5" aria-hidden="true" />
           </a>
-          <a href={siteData.social.twitter} class="w-10 h-10 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black transition-all focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-zinc-950" aria-label="Follow AUXO Data Labs on Twitter" target="_blank" rel="noopener noreferrer">
+          <a
+            href={siteData.social.twitter}
+            class="w-11 h-11 sm:w-10 sm:h-10 min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black active:bg-lime-500 active:text-black active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-zinc-950 touch-manipulation will-change-transform"
+            aria-label="Follow AUXO Data Labs on Twitter"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Icon name="mdi:twitter" class="w-5 h-5" aria-hidden="true" />
           </a>
         </div>
@@ -52,117 +101,244 @@ const currentYear = new Date().getFullYear();
 
       <!-- Quick Links Column -->
       <div>
-        <h4 class="font-bold text-white mb-4 text-sm uppercase tracking-wider">Quick Links</h4>
-        <ul class="space-y-3 text-sm font-medium">
-          <li><a href={base} class="text-gray-400 hover:text-lime-400 transition-colors flex items-center gap-2">
-            <Icon name="mdi:home" class="w-4 h-4" />Home
-          </a></li>
-          <li><a href={`${base}about`} class="text-gray-400 hover:text-lime-400 transition-colors flex items-center gap-2">
-            <Icon name="mdi:information" class="w-4 h-4" />About Us
-          </a></li>
-          <li><a href={`${base}services`} class="text-gray-400 hover:text-lime-400 transition-colors flex items-center gap-2">
-            <Icon name="mdi:briefcase" class="w-4 h-4" />Services
-          </a></li>
-          <li><a href={`${base}case-studies`} class="text-gray-400 hover:text-lime-400 transition-colors flex items-center gap-2">
-            <Icon name="mdi:chart-line" class="w-4 h-4" />Case Studies
-          </a></li>
-          <li><a href={`${base}blog`} class="text-gray-400 hover:text-lime-400 transition-colors flex items-center gap-2">
-            <Icon name="mdi:post" class="w-4 h-4" />Blog
-          </a></li>
-          <li><a href={`${base}faq`} class="text-gray-400 hover:text-lime-400 transition-colors flex items-center gap-2">
-            <Icon name="mdi:help-circle" class="w-4 h-4" />FAQ
-          </a></li>
-          <li><a href={`${base}contact`} class="text-gray-400 hover:text-lime-400 transition-colors flex items-center gap-2">
-            <Icon name="mdi:email-outline" class="w-4 h-4" />Contact
-          </a></li>
+        <h4
+          class="font-bold text-white mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider"
+        >
+          Quick Links
+        </h4>
+        <ul class="space-y-2.5 sm:space-y-3 text-sm font-medium">
+          <li>
+            <a
+              href={base}
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 flex items-center gap-2 touch-manipulation min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 will-change-transform"
+            >
+              <Icon name="mdi:home" class="w-4 h-4 flex-shrink-0" />Home
+            </a>
+          </li>
+          <li>
+            <a
+              href={`${base}about`}
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 flex items-center gap-2 touch-manipulation min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 will-change-transform"
+            >
+              <Icon name="mdi:information" class="w-4 h-4 flex-shrink-0" />About
+              Us
+            </a>
+          </li>
+          <li>
+            <a
+              href={`${base}services`}
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 flex items-center gap-2 touch-manipulation min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 will-change-transform"
+            >
+              <Icon
+                name="mdi:briefcase"
+                class="w-4 h-4 flex-shrink-0"
+              />Services
+            </a>
+          </li>
+          <li>
+            <a
+              href={`${base}case-studies`}
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 flex items-center gap-2 touch-manipulation min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 will-change-transform"
+            >
+              <Icon name="mdi:chart-line" class="w-4 h-4 flex-shrink-0" />Case
+              Studies
+            </a>
+          </li>
+          <li>
+            <a
+              href={`${base}blog`}
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 flex items-center gap-2 touch-manipulation min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 will-change-transform"
+            >
+              <Icon name="mdi:post" class="w-4 h-4 flex-shrink-0" />Blog
+            </a>
+          </li>
+          <li>
+            <a
+              href={`${base}faq`}
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 flex items-center gap-2 touch-manipulation min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 will-change-transform"
+            >
+              <Icon name="mdi:help-circle" class="w-4 h-4 flex-shrink-0" />FAQ
+            </a>
+          </li>
+          <li>
+            <a
+              href={`${base}contact`}
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 flex items-center gap-2 touch-manipulation min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 will-change-transform"
+            >
+              <Icon
+                name="mdi:email-outline"
+                class="w-4 h-4 flex-shrink-0"
+              />Contact
+            </a>
+          </li>
         </ul>
       </div>
 
       <!-- Services Column -->
       <div>
-        <h4 class="font-bold text-white mb-4 text-sm uppercase tracking-wider">Services</h4>
-        <ul class="space-y-3 text-sm font-medium">
-          {services.map(service => (
-            <li>
-              <a href={`${base}services/${service.id}`} class="text-gray-400 hover:text-lime-400 transition-colors">
-                {service.title}
-              </a>
-            </li>
-          ))}
+        <h4
+          class="font-bold text-white mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider"
+        >
+          Services
+        </h4>
+        <ul class="space-y-2.5 sm:space-y-3 text-sm font-medium">
+          {
+            services.map((service) => (
+              <li>
+                <a
+                  href={`${base}services/${service.id}`}
+                  class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 touch-manipulation block min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 flex items-center will-change-transform"
+                >
+                  {service.title}
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </div>
 
       <!-- Resources Column -->
       <div>
-        <h4 class="font-bold text-white mb-4 text-sm uppercase tracking-wider">Resources</h4>
-        <ul class="space-y-3 text-sm font-medium">
-          <li><a href={`${base}maturity-calculator`} class="text-gray-400 hover:text-lime-400 transition-colors flex items-center gap-2">
-            <Icon name="mdi:calculator" class="w-4 h-4" />Maturity Assessment
-          </a></li>
-          <li><a href={`${base}contact`} class="text-gray-400 hover:text-lime-400 transition-colors flex items-center gap-2">
-            <Icon name="mdi:calendar" class="w-4 h-4" />Book Consultation
-          </a></li>
+        <h4
+          class="font-bold text-white mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider"
+        >
+          Resources
+        </h4>
+        <ul class="space-y-2.5 sm:space-y-3 text-sm font-medium">
+          <li>
+            <a
+              href={`${base}maturity-calculator`}
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 flex items-center gap-2 touch-manipulation min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 will-change-transform"
+            >
+              <Icon
+                name="mdi:calculator"
+                class="w-4 h-4 flex-shrink-0"
+              />Maturity Assessment
+            </a>
+          </li>
+          <li>
+            <a
+              href={`${base}contact`}
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 flex items-center gap-2 touch-manipulation min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 will-change-transform"
+            >
+              <Icon name="mdi:calendar" class="w-4 h-4 flex-shrink-0" />Book
+              Consultation
+            </a>
+          </li>
         </ul>
 
-        <h4 class="font-bold text-white mb-4 mt-8 text-sm uppercase tracking-wider">Legal</h4>
-        <ul class="space-y-3 text-sm font-medium">
-          <li><a href={`${base}privacy-policy`} class="text-gray-400 hover:text-lime-400 transition-colors">Privacy Policy</a></li>
-          <li><a href={`${base}terms`} class="text-gray-400 hover:text-lime-400 transition-colors">Terms & Conditions</a></li>
-          <li><a href={`${base}cookie-policy`} class="text-gray-400 hover:text-lime-400 transition-colors">Cookie Policy</a></li>
-          <li><a href={`${base}dpa`} class="text-gray-400 hover:text-lime-400 transition-colors">DPA</a></li>
+        <h4
+          class="font-bold text-white mb-3 sm:mb-4 mt-6 sm:mt-8 text-xs sm:text-sm uppercase tracking-wider"
+        >
+          Legal
+        </h4>
+        <ul class="space-y-2.5 sm:space-y-3 text-sm font-medium">
+          <li>
+            <a
+              href={`${base}privacy-policy`}
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 touch-manipulation block min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 flex items-center will-change-transform"
+              >Privacy Policy</a>
+          </li>
+          <li>
+            <a
+              href={`${base}terms`}
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 touch-manipulation block min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 flex items-center will-change-transform"
+              >Terms</a>
+          </li>
+          <li>
+            <a
+              href={`${base}cookie-policy`}
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 touch-manipulation block min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 flex items-center will-change-transform"
+              >Cookie Policy</a>
+          </li>
+          <li>
+            <a
+              href={`${base}dpa`}
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 touch-manipulation block min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 flex items-center will-change-transform"
+              >DPA</a>
+          </li>
         </ul>
       </div>
     </div>
 
     <!-- Newsletter Section -->
-    <div class="border-t border-gray-800 pt-8 mb-8">
+    <div class="border-t border-gray-800 pt-6 sm:pt-8 mb-6 sm:mb-8">
       <div class="max-w-md">
-        <h4 class="font-bold text-white mb-2 text-sm uppercase tracking-wider">Stay Updated</h4>
-        <p class="text-gray-400 text-sm mb-4 leading-relaxed">Subscribe to our newsletter for <em>insights and updates</em>.</p>
+        <h4
+          class="font-bold text-white mb-2 text-xs sm:text-sm uppercase tracking-wider"
+        >
+          Stay Updated
+        </h4>
+        <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+          Subscribe to our newsletter for <em>insights and updates</em>.
+        </p>
         <form id="newsletter-form" class="space-y-3">
-          <div class="flex gap-2">
+          <div class="flex flex-col sm:flex-row gap-2">
             <input
               id="newsletter-email"
               type="email"
               placeholder="Enter your email"
-              class="flex-1 px-4 py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-sm focus:outline-none focus:border-lime-400 transition-colors font-medium"
+              class="flex-1 px-4 py-3 sm:py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-sm sm:text-base focus:outline-none focus:border-lime-400 transition-colors font-medium touch-manipulation"
               required
               aria-label="Email address for newsletter"
             />
             <button
               type="submit"
-              class="px-6 py-2 bg-lime-400 text-black font-bold rounded-lg hover:bg-lime-500 transition-colors text-sm whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+              class="px-6 py-3 sm:py-2 min-h-[52px] sm:min-h-0 bg-lime-400 text-black font-bold rounded-lg hover:bg-lime-500 active:bg-lime-600 active:scale-[0.97] transition-all duration-200 text-sm sm:text-base whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation will-change-transform"
             >
               Subscribe
             </button>
           </div>
-          <label class="flex items-start gap-2 cursor-pointer group">
+          <label
+            class="flex items-start gap-2 cursor-pointer group touch-manipulation"
+          >
             <input
               type="checkbox"
               id="newsletter-consent"
               required
-              class="mt-0.5 w-4 h-4 text-lime-400 bg-zinc-900 border-zinc-700 rounded focus:ring-lime-400 focus:ring-2"
+              class="mt-1 sm:mt-0.5 w-5 h-5 sm:w-4 sm:h-5 text-lime-400 bg-zinc-900 border-zinc-700 rounded focus:ring-lime-400 focus:ring-2 touch-manipulation flex-shrink-0"
             />
-            <span class="text-xs text-gray-400 leading-tight group-hover:text-gray-300 transition-colors">
-              I consent to receive marketing emails and understand I can unsubscribe at any time.
-              <a href={`${base}privacy-policy`} class="text-lime-400 hover:underline">Privacy Policy</a>
+            <span
+              class="text-xs sm:text-sm text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors"
+            >
+              I consent to receive marketing emails and understand I can
+              unsubscribe at any time.
+              <a
+                href={`${base}privacy-policy`}
+                class="text-lime-400 hover:underline active:text-lime-300"
+                >Privacy Policy</a
+              >
             </span>
           </label>
-          <p id="newsletter-message" class="text-xs hidden"></p>
+          <p id="newsletter-message" class="text-xs sm:text-sm hidden"></p>
         </form>
       </div>
     </div>
 
     <!-- Bottom Bar -->
-    <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-      <p class="text-gray-500 text-sm font-medium">© {currentYear} AUXO Data Labs. All rights reserved.</p>
-      <div class="flex items-center gap-6 text-sm text-gray-500 font-medium">
+    <div
+      class="border-t border-gray-800 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-4"
+    >
+      <p
+        class="text-gray-500 text-xs sm:text-sm font-medium text-center sm:text-left"
+      >
+        © {currentYear} AUXO Data Labs. All rights reserved.
+      </p>
+      <div
+        class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 sm:gap-6 text-xs sm:text-sm text-gray-500 font-medium"
+      >
         <span class="flex items-center gap-2">
-          <Icon name="mdi:map-marker" class="w-4 h-4 text-lime-400" />
+          <Icon
+            name="mdi:map-marker"
+            class="w-4 h-4 text-lime-400 flex-shrink-0"
+          />
           Dubai, UAE
         </span>
         <span class="flex items-center gap-2">
-          <Icon name="mdi:shield-check" class="w-4 h-4 text-lime-400" />
+          <Icon
+            name="mdi:shield-check"
+            class="w-4 h-4 text-lime-400 flex-shrink-0"
+          />
           UAE PDPL Compliant
         </span>
       </div>
@@ -172,9 +348,11 @@ const currentYear = new Date().getFullYear();
 
 <script>
   // Newsletter form handler
-  const newsletterForm = document.getElementById('newsletter-form');
-  const newsletterEmail = document.getElementById('newsletter-email') as HTMLInputElement | null;
-  const newsletterMessage = document.getElementById('newsletter-message');
+  const newsletterForm = document.getElementById("newsletter-form");
+  const newsletterEmail = document.getElementById(
+    "newsletter-email",
+  ) as HTMLInputElement | null;
+  const newsletterMessage = document.getElementById("newsletter-message");
 
   const handleNewsletterSubmit = async (e: Event) => {
     e.preventDefault();
@@ -182,86 +360,97 @@ const currentYear = new Date().getFullYear();
     if (!newsletterEmail || !newsletterMessage || !newsletterForm) return;
 
     const email = newsletterEmail.value.trim();
-    const consentCheckbox = document.getElementById('newsletter-consent') as HTMLInputElement | null;
-    const submitBtn = newsletterForm.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+    const consentCheckbox = document.getElementById(
+      "newsletter-consent",
+    ) as HTMLInputElement | null;
+    const submitBtn = newsletterForm.querySelector(
+      'button[type="submit"]',
+    ) as HTMLButtonElement | null;
 
     // Validate consent
     if (!consentCheckbox?.checked) {
-      newsletterMessage.textContent = 'Please consent to receive marketing emails';
-      newsletterMessage.className = 'text-xs text-red-400';
-      newsletterMessage.classList.remove('hidden');
+      newsletterMessage.textContent =
+        "Please consent to receive marketing emails";
+      newsletterMessage.className = "text-xs text-red-400";
+      newsletterMessage.classList.remove("hidden");
       return;
     }
 
     // Validate email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      newsletterMessage.textContent = 'Please enter a valid email address';
-      newsletterMessage.className = 'text-xs text-red-400';
-      newsletterMessage.classList.remove('hidden');
+      newsletterMessage.textContent = "Please enter a valid email address";
+      newsletterMessage.className = "text-xs text-red-400";
+      newsletterMessage.classList.remove("hidden");
       return;
     }
 
     // Disable submit button
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Subscribing...';
+      submitBtn.textContent = "Subscribing...";
     }
 
     try {
       const consent = consentCheckbox.checked;
 
-      const response = await fetch(`${import.meta.env.BASE_URL}api/newsletter/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          consent,
-          timestamp: new Date().toISOString()
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.BASE_URL}api/newsletter/`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email,
+            consent,
+            timestamp: new Date().toISOString(),
+          }),
+        },
+      );
 
       const data = await response.json();
 
       if (!response.ok) {
         // Handle specific error messages from the API
-        const errorMessage = data.error || 'Subscription failed. Please try again.';
+        const errorMessage =
+          data.error || "Subscription failed. Please try again.";
         newsletterMessage.textContent = errorMessage;
-        newsletterMessage.className = 'text-xs mt-2 text-red-400';
-        newsletterMessage.classList.remove('hidden');
+        newsletterMessage.className = "text-xs mt-2 text-red-400";
+        newsletterMessage.classList.remove("hidden");
         return;
       }
 
       // Success
-      newsletterMessage.textContent = data.message || 'Thank you! Please check your email to confirm your subscription.';
-      newsletterMessage.className = 'text-xs mt-2 text-lime-400';
-      newsletterMessage.classList.remove('hidden');
-      newsletterEmail.value = '';
+      newsletterMessage.textContent =
+        data.message ||
+        "Thank you! Please check your email to confirm your subscription.";
+      newsletterMessage.className = "text-xs mt-2 text-lime-400";
+      newsletterMessage.classList.remove("hidden");
+      newsletterEmail.value = "";
       if (consentCheckbox) consentCheckbox.checked = false;
 
       // Hide message after 8 seconds
       setTimeout(() => {
-        newsletterMessage.classList.add('hidden');
+        newsletterMessage.classList.add("hidden");
       }, 8000);
-
     } catch (error) {
-      console.error('Newsletter subscription error:', error);
-      newsletterMessage.textContent = 'An error occurred. Please try again later.';
-      newsletterMessage.className = 'text-xs mt-2 text-red-400';
-      newsletterMessage.classList.remove('hidden');
+      console.error("Newsletter subscription error:", error);
+      newsletterMessage.textContent =
+        "An error occurred. Please try again later.";
+      newsletterMessage.className = "text-xs mt-2 text-red-400";
+      newsletterMessage.classList.remove("hidden");
     } finally {
       // Re-enable submit button
       if (submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Subscribe';
+        submitBtn.textContent = "Subscribe";
       }
     }
   };
 
-  newsletterForm?.addEventListener('submit', handleNewsletterSubmit);
+  newsletterForm?.addEventListener("submit", handleNewsletterSubmit);
 
   // Cleanup function for Astro view transitions
-  document.addEventListener('astro:before-swap', () => {
-    newsletterForm?.removeEventListener('submit', handleNewsletterSubmit);
+  document.addEventListener("astro:before-swap", () => {
+    newsletterForm?.removeEventListener("submit", handleNewsletterSubmit);
   });
 </script>

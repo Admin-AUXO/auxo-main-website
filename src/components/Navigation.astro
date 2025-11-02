@@ -40,12 +40,12 @@ const navItems: NavItem[] = [
 ---
 
 <nav class="fixed top-0 w-full z-50 bg-black/98 backdrop-blur-xl border-b border-gray-800/60 transition-all duration-300">
-  <div class="container mx-auto px-6">
-    <div class="flex items-center justify-between h-20">
+  <div class="container mx-auto px-4 sm:px-6">
+    <div class="flex items-center justify-between h-16 sm:h-20">
       <!-- Logo -->
-      <a href={`${base}`} class="flex items-center space-x-3 group" aria-label="AUXO Data Labs Home">
-        <img src={`${base}logo.svg`} alt="AUXO Data Labs Logo" class="h-12 w-12 transition-transform group-hover:scale-110 group-hover:rotate-3" />
-        <span class="text-white text-xl font-bold tracking-tight">Data Labs</span>
+      <a href={`${base}`} class="flex items-center space-x-2 sm:space-x-3 group" aria-label="AUXO Data Labs Home">
+        <img src={`${base}logo.svg`} alt="AUXO Data Labs Logo" class="h-10 w-10 sm:h-12 sm:w-12 transition-transform group-hover:scale-110 group-hover:rotate-3" />
+        <span class="text-white text-lg sm:text-xl font-bold tracking-tight">Data Labs</span>
       </a>
 
       <!-- Desktop Navigation -->
@@ -114,7 +114,7 @@ const navItems: NavItem[] = [
       </div>
 
       <!-- Mobile Menu Button -->
-      <button id="mobile-menu-button" class="md:hidden text-white p-2.5 rounded-lg hover:bg-zinc-800 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-lime-400/50" aria-label="Toggle mobile menu" aria-expanded="false">
+      <button id="mobile-menu-button" class="md:hidden text-white p-3.5 min-w-[44px] min-h-[44px] rounded-lg hover:bg-zinc-800 active:bg-zinc-700 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-lime-400/50 touch-manipulation will-change-transform" aria-label="Toggle mobile menu" aria-expanded="false">
         <svg class="w-6 h-6 menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path class="menu-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
           <path class="menu-close hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -124,33 +124,33 @@ const navItems: NavItem[] = [
   </div>
 
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden md:hidden bg-zinc-900/95 backdrop-blur-xl border-t border-gray-800/60 max-h-[calc(100vh-5rem)] overflow-y-auto">
-    <div class="px-5 py-5 space-y-1">
+  <div id="mobile-menu" class="hidden md:hidden bg-zinc-900/98 backdrop-blur-xl border-t border-gray-800/60 max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain will-change-transform" style="touch-action: pan-y;">
+    <div class="px-4 sm:px-5 py-4 sm:py-5 space-y-2.5">
       {navItems.map(item => (
         item.dropdown ? (
           <div class="mobile-dropdown">
-            <button class="mobile-dropdown-btn w-full flex items-center justify-between px-4 py-3.5 text-gray-300 hover:text-white hover:bg-zinc-800/80 rounded-lg transition-all duration-200 font-medium">
-              <span>{item.name}</span>
-              <svg class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button class="mobile-dropdown-btn w-full flex items-center justify-between px-4 sm:px-5 py-3.5 min-h-[48px] text-gray-300 hover:text-white active:text-white active:bg-zinc-800 active:scale-[0.98] rounded-lg transition-all duration-200 font-medium touch-manipulation will-change-transform">
+              <span class="text-base sm:text-lg">{item.name}</span>
+              <svg class="w-5 h-5 transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
             </button>
-            <div class="mobile-dropdown-content hidden pl-3 mt-1 space-y-0.5">
+            <div class="mobile-dropdown-content hidden pl-4 sm:pl-5 mt-2 space-y-1.5 animate-dropdown">
               {item.dropdown.map((sub: DropdownItem) => (
-                <a href={sub.href} class="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-400 hover:text-lime-400 hover:bg-zinc-800/60 rounded-lg transition-all duration-200">
-                  <div class="w-1.5 h-1.5 rounded-full bg-lime-400/50"></div>
-                  {sub.name}
+                <a href={sub.href} class="flex items-center gap-3 px-4 sm:px-5 py-3 min-h-[48px] text-sm sm:text-base text-gray-400 hover:text-lime-400 active:text-lime-400 active:bg-zinc-800/80 active:scale-[0.98] rounded-lg transition-all duration-200 touch-manipulation will-change-transform">
+                  <div class="w-2 h-2 rounded-full bg-lime-400/60 flex-shrink-0"></div>
+                  <span class="flex-1">{sub.name}</span>
                 </a>
               ))}
             </div>
           </div>
         ) : (
-          <a href={item.href} class="block px-4 py-3.5 text-gray-300 hover:text-white hover:bg-zinc-800/80 rounded-lg transition-all duration-200 font-medium">
+          <a href={item.href} class="block px-4 sm:px-5 py-3.5 min-h-[48px] text-base sm:text-lg text-gray-300 hover:text-white active:text-white active:bg-zinc-800/80 active:scale-[0.98] rounded-lg transition-all duration-200 font-medium touch-manipulation flex items-center will-change-transform">
             {item.name}
           </a>
         )
       ))}
-      <a href={`${base}contact`} class="block mt-4 px-5 py-3.5 bg-gradient-to-r from-lime-400 to-lime-500 text-black font-semibold rounded-lg hover:from-lime-500 hover:to-lime-600 transition-all duration-200 text-center shadow-lg shadow-lime-400/20">
+      <a href={`${base}contact`} class="block mt-6 px-5 py-3.5 min-h-[52px] bg-gradient-to-r from-lime-400 to-lime-500 text-black font-semibold rounded-lg active:from-lime-500 active:to-lime-600 active:scale-[0.97] transition-all duration-200 text-center shadow-lg shadow-lime-400/20 touch-manipulation flex items-center justify-center text-base sm:text-lg will-change-transform">
         Get Started
       </a>
     </div>
@@ -182,6 +182,13 @@ const navItems: NavItem[] = [
     menuOpen?.classList.toggle('hidden');
     menuClose?.classList.toggle('hidden');
     btn?.setAttribute('aria-expanded', String(!isExpanded));
+    
+    // Prevent body scroll when menu is open
+    if (menu && !menu.classList.contains('hidden')) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
   };
 
   btn?.addEventListener('click', toggleMenu);
@@ -192,6 +199,7 @@ const navItems: NavItem[] = [
     menuOpen?.classList.remove('hidden');
     menuClose?.classList.add('hidden');
     btn?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
   };
 
   // Add click listeners to all mobile menu links
@@ -222,6 +230,7 @@ const navItems: NavItem[] = [
       menuOpen?.classList.remove('hidden');
       menuClose?.classList.add('hidden');
       btn?.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
     }
   };
 
@@ -232,19 +241,22 @@ const navItems: NavItem[] = [
   const SCROLL_THRESHOLD = 20;
 
   const handleScroll = () => {
-    const currentScroll = window.pageYOffset;
+    // Only update on mobile if menu is closed to avoid performance issues
+    if (window.innerWidth >= 768 || menu?.classList.contains('hidden')) {
+      const currentScroll = window.pageYOffset;
 
-    if (currentScroll > SCROLL_THRESHOLD) {
-      nav?.classList.add('shadow-2xl', 'shadow-black/60', 'bg-black');
-      nav?.classList.remove('bg-black/98');
-    } else {
-      nav?.classList.remove('shadow-2xl', 'shadow-black/60', 'bg-black');
-      nav?.classList.add('bg-black/98');
+      if (currentScroll > SCROLL_THRESHOLD) {
+        nav?.classList.add('shadow-2xl', 'shadow-black/60', 'bg-black');
+        nav?.classList.remove('bg-black/98');
+      } else {
+        nav?.classList.remove('shadow-2xl', 'shadow-black/60', 'bg-black');
+        nav?.classList.add('bg-black/98');
+      }
     }
   };
 
-  // Debounced scroll handler to improve performance
-  const debouncedScroll = debounce(handleScroll, 10);
+  // Debounced scroll handler to improve performance (throttled for mobile)
+  const debouncedScroll = debounce(handleScroll, window.innerWidth < 768 ? 50 : 10);
   window.addEventListener('scroll', debouncedScroll, { passive: true });
 
   // Active link highlighting

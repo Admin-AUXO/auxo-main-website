@@ -12,6 +12,12 @@ import * as brevo from '@getbrevo/brevo';
  * - ✅ Zod validation
  * - ✅ Rate limiting
  * - ✅ Double opt-in for GDPR/UAE PDPL compliance
+ * - ✅ Duplicate subscription prevention
+ *
+ * Features:
+ * - Checks if email is already subscribed before sending confirmation
+ * - Prevents duplicate confirmation emails to existing subscribers
+ * - Provides appropriate feedback for already-subscribed users
  *
  * TODO: Add reCAPTCHA for additional spam protection
  */
@@ -85,6 +91,38 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     try {
+      // Check if contact already exists and is subscribed
+      let isAlreadySubscribed = false;
+      try {
+        const existingContact = await contactsApi.getContactInfo(email);
+        const newsletterListId = 2; // Newsletter list ID in Brevo
+
+        // Check if contact is already in the newsletter list
+        if (existingContact.body.listIds?.includes(newsletterListId)) {
+          isAlreadySubscribed = true;
+        }
+      } catch (error) {
+        // Contact doesn't exist (404), which is fine - proceed with creation
+        if (!(error instanceof Error && error.message.includes('404'))) {
+          console.error('Error checking contact:', error);
+        }
+      }
+
+      // If already subscribed, return early without sending confirmation email
+      if (isAlreadySubscribed) {
+        return new Response(
+          JSON.stringify({
+            success: true,
+            message: 'You are already subscribed to our newsletter!',
+            status: 'already_subscribed'
+          }),
+          {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' }
+          }
+        );
+      }
+
       // Add or update contact in Brevo
       const contact = new brevo.CreateContact();
       contact.email = email;
@@ -184,20 +222,6 @@ Email: ${FROM_EMAIL}`;
 
     } catch (brevoError) {
       console.error('Brevo API error:', brevoError);
-
-      // If contact already exists, that's okay
-      if (brevoError instanceof Error && brevoError.message.includes('already exists')) {
-        return new Response(
-          JSON.stringify({
-            success: true,
-            message: 'You are already subscribed to our newsletter!'
-          }),
-          {
-            status: 200,
-            headers: { 'Content-Type': 'application/json' }
-          }
-        );
-      }
 
       // Log but don't expose internal errors to user
       throw new Error('Failed to process subscription');

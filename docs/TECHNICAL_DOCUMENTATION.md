@@ -714,8 +714,12 @@ The project includes two secured API endpoints in `src/pages/api/` with comprehe
 
 #### `/api/newsletter`
 
--   **Purpose:** Handles newsletter subscriptions and manages contacts in Brevo.
+-   **Purpose:** Handles newsletter subscriptions and manages contacts in Brevo with duplicate subscription prevention.
 -   **Email Service:** Brevo (Sendinblue) contacts and transactional email API
+-   **Features:**
+    - **Duplicate Check:** Verifies if email is already subscribed before sending confirmation
+    - **Double Opt-in:** Sends confirmation email only to new subscribers
+    - **Smart Handling:** Returns "already subscribed" message for existing contacts
 -   **Security:**
     - Zod validation for email and consent
     - Rate limiting: 2 requests per hour per IP
@@ -729,11 +733,16 @@ The project includes two secured API endpoints in `src/pages/api/` with comprehe
     - Sends double opt-in confirmation email with professional HTML template
     - Handles duplicate subscriptions gracefully
 -   **Response Codes:**
-    - 200: Success (contact added, confirmation email sent)
+    - 200: Success (contact added, confirmation email sent) OR already subscribed
     - 400: Validation error
     - 429: Rate limit exceeded
     - 500: Server error or Brevo API failure
--   **Data Flow:** `Footer.astro` -> `POST /api/newsletter` -> `newsletter.ts` -> Validation -> Rate Limit Check -> Brevo Contacts API -> Brevo Email API -> Email Delivery
+-   **Data Flow:** `Footer.astro` -> `POST /api/newsletter` -> `newsletter.ts` -> Validation -> Rate Limit Check -> **Duplicate Check** -> Brevo Contacts API -> Brevo Email API -> Email Delivery
+-   **Implementation Details:**
+    - First checks if contact exists using `getContactInfo(email)`
+    - If contact already subscribed to newsletter list, returns early with appropriate message
+    - If new contact or not in newsletter list, proceeds with `createContact` and confirmation email
+    - Prevents duplicate confirmation emails to existing subscribers
 -   **Status:** ✅ Fully functional and production-ready
 
 #### Rate Limiting Implementation
@@ -878,9 +887,17 @@ const base = import.meta.env.BASE_URL;
 ---
 
 **Last Updated:** 2025-11-02
-**Document Version:** 2.5
+**Document Version:** 2.6
 **Project Status:** Active Development - Production Ready
 **Recent Updates:**
+- ✅ **Brevo API implementation audit completed** (2025-11-02)
+  - Verified all Brevo SDK usage follows official documentation patterns
+  - Implementation confirmed correct for TransactionalEmailsApi and ContactsApi
+  - Added duplicate subscription prevention to newsletter endpoint
+- ✅ **Fixed duplicate confirmation email issue** (2025-11-02)
+  - Newsletter API now checks if contact is already subscribed before sending confirmation
+  - Prevents confusion from duplicate confirmation emails to existing subscribers
+  - Returns appropriate "already subscribed" message for existing contacts
 - ✅ **Fixed newsletter form frontend-backend integration** (2025-11-02)
   - Added missing `consent` field to newsletter API request
   - Removed demo mode fallback that masked validation errors

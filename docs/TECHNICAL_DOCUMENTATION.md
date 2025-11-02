@@ -841,6 +841,7 @@ The project uses GitHub Actions for CI/CD, located in `.github/workflows/`.
 -   **TypeScript:** Full type checking enabled via `@astrojs/check` and `typescript`. ViewTransitions deprecation warning is documented and suppressed with `@ts-ignore` - functionality remains intact.
 -   **Validation:** Zod schemas in `src/utils/validation.ts` ensure type-safe form data validation.
 -   **`DevBar.astro`:** A development-only toolbar with tools for debugging, accessibility testing, and cache clearing. Note: A build warning about empty script chunks is expected and harmless - it occurs because the component is conditionally rendered based on `import.meta.env.DEV`.
+<<<<<<< HEAD
 
 ### 12.6 Mobile Optimization Guidelines
 
@@ -903,6 +904,8 @@ When testing mobile optimizations:
 4. Check that all interactive elements have active states
 5. Ensure text is readable without zooming (minimum 16px font size recommended)
 6. Test landscape and portrait orientations
+=======
+>>>>>>> 2919ae0e8b8c09a40a8fe0c3d5623e55face0c83
 
 ### 12.5 Security Features
 

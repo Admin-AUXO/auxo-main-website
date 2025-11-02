@@ -1,5 +1,6 @@
 ---
 // Cookie Consent Banner Component for GDPR/UAE PDPL Compliance
+const base = import.meta.env.BASE_URL;
 ---
 
 <div id="cookie-consent" class="hidden fixed bottom-0 left-0 right-0 z-[100] bg-zinc-950/98 border-t border-zinc-800 backdrop-blur-lg">
@@ -15,7 +16,7 @@
             <p class="text-sm text-gray-400 leading-relaxed max-w-3xl">
               We use essential cookies to ensure our website functions properly. We respect your privacy and comply with UAE PDPL regulations.
               By clicking "Accept All", you consent to our use of cookies for analytics and improving your experience.
-              <a href="/privacy-policy" class="text-lime-400 hover:underline ml-1">Learn more about our privacy practices</a>
+              <a href={`${base}privacy-policy`} class="text-lime-400 hover:underline ml-1">Learn more about our privacy practices</a>
             </p>
           </div>
         </div>

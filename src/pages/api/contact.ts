@@ -64,7 +64,22 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Validate with Zod
     const validated = contactFormSchema.parse(data);
-    const { name, email, company, message, website } = validated;
+    const {
+      name,
+      email,
+      company,
+      phone,
+      industry,
+      companySize,
+      role,
+      services,
+      timeline,
+      budget,
+      message,
+      hearAbout,
+      newsletter,
+      website
+    } = validated;
 
     // Honeypot check - reject if website field is filled (spam bot detection)
     if (website) {
@@ -123,9 +138,24 @@ Contact Details:
 • Name: ${name}
 • Email: ${email}
 • Company: ${company || 'Not provided'}
+• Phone: ${phone || 'Not provided'}
+• Role: ${role || 'Not provided'}
+
+Company Information:
+• Industry: ${industry || 'Not provided'}
+• Company Size: ${companySize || 'Not provided'}
+
+Project Details:
+• Services Interested In: ${services && services.length > 0 ? services.join(', ') : 'Not specified'}
+• Timeline: ${timeline || 'Not specified'}
+• Budget Range: ${budget || 'Not specified'}
 
 Message:
 ${message}
+
+Additional Information:
+• Lead Source: ${hearAbout || 'Not specified'}
+• Newsletter Subscription: ${newsletter ? 'Yes' : 'No'}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -160,6 +190,7 @@ Reply to this email to respond directly to ${name}.`;
       <p>You have received a new inquiry from the AUXO Data Labs website.</p>
 
       <div class="info-box">
+        <h3 style="margin-top: 0; color: #000;">Contact Details</h3>
         <div class="label">Name</div>
         <div class="value">${name}</div>
 
@@ -168,10 +199,45 @@ Reply to this email to respond directly to ${name}.`;
 
         <div class="label">Company</div>
         <div class="value">${company || '<em>Not provided</em>'}</div>
+
+        <div class="label">Phone</div>
+        <div class="value">${phone || '<em>Not provided</em>'}</div>
+
+        <div class="label">Role</div>
+        <div class="value">${role || '<em>Not provided</em>'}</div>
+      </div>
+
+      <div class="info-box">
+        <h3 style="margin-top: 0; color: #000;">Company Information</h3>
+        <div class="label">Industry</div>
+        <div class="value">${industry || '<em>Not provided</em>'}</div>
+
+        <div class="label">Company Size</div>
+        <div class="value">${companySize || '<em>Not provided</em>'}</div>
+      </div>
+
+      <div class="info-box">
+        <h3 style="margin-top: 0; color: #000;">Project Details</h3>
+        <div class="label">Services Interested In</div>
+        <div class="value">${services && services.length > 0 ? services.join(', ') : '<em>Not specified</em>'}</div>
+
+        <div class="label">Timeline</div>
+        <div class="value">${timeline || '<em>Not specified</em>'}</div>
+
+        <div class="label">Budget Range</div>
+        <div class="value">${budget || '<em>Not specified</em>'}</div>
       </div>
 
       <div class="label">Message:</div>
       <div class="message-box">${message.replace(/\n/g, '<br>')}</div>
+
+      <div class="info-box" style="border-left-color: #666;">
+        <div class="label">Lead Source</div>
+        <div class="value">${hearAbout || '<em>Not specified</em>'}</div>
+
+        <div class="label">Newsletter Subscription</div>
+        <div class="value">${newsletter ? '✓ Yes' : '✗ No'}</div>
+      </div>
 
       <a href="mailto:${email}?subject=Re: Your inquiry to AUXO Data Labs" class="button">Reply to ${name}</a>
 

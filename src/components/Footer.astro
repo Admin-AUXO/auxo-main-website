@@ -209,42 +209,46 @@ const currentYear = new Date().getFullYear();
     }
 
     try {
-      // TODO: Replace with actual newsletter API endpoint
+      const consent = consentCheckbox.checked;
+
       const response = await fetch(`${import.meta.env.BASE_URL}api/newsletter`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, timestamp: new Date().toISOString() }),
+        body: JSON.stringify({
+          email,
+          consent,
+          timestamp: new Date().toISOString()
+        }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error('Subscription failed');
+        // Handle specific error messages from the API
+        const errorMessage = data.error || 'Subscription failed. Please try again.';
+        newsletterMessage.textContent = errorMessage;
+        newsletterMessage.className = 'text-xs mt-2 text-red-400';
+        newsletterMessage.classList.remove('hidden');
+        return;
       }
 
       // Success
-      newsletterMessage.textContent = 'Thank you for subscribing!';
+      newsletterMessage.textContent = data.message || 'Thank you! Please check your email to confirm your subscription.';
       newsletterMessage.className = 'text-xs mt-2 text-lime-400';
       newsletterMessage.classList.remove('hidden');
       newsletterEmail.value = '';
+      if (consentCheckbox) consentCheckbox.checked = false;
 
-      // Hide message after 5 seconds
+      // Hide message after 8 seconds
       setTimeout(() => {
         newsletterMessage.classList.add('hidden');
-      }, 5000);
+      }, 8000);
 
     } catch (error) {
-      // For demo: Show success anyway (remove when backend is ready)
-      if (error instanceof Error && error.message.includes('Failed to fetch')) {
-        newsletterMessage.textContent = 'Subscribed successfully! (Demo mode)';
-        newsletterMessage.className = 'text-xs mt-2 text-lime-400';
-        newsletterMessage.classList.remove('hidden');
-        newsletterEmail.value = '';
-
-        setTimeout(() => newsletterMessage.classList.add('hidden'), 5000);
-      } else {
-        newsletterMessage.textContent = 'Subscription failed. Please try again.';
-        newsletterMessage.className = 'text-xs mt-2 text-red-400';
-        newsletterMessage.classList.remove('hidden');
-      }
+      console.error('Newsletter subscription error:', error);
+      newsletterMessage.textContent = 'An error occurred. Please try again later.';
+      newsletterMessage.className = 'text-xs mt-2 text-red-400';
+      newsletterMessage.classList.remove('hidden');
     } finally {
       // Re-enable submit button
       if (submitBtn) {

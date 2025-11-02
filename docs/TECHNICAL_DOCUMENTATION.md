@@ -675,17 +675,34 @@ The project includes two secured API endpoints in `src/pages/api/` with comprehe
 -   **Purpose:** Handles submissions from the multi-step contact form and sends emails via Brevo.
 -   **Email Service:** Brevo (Sendinblue) transactional email API
 -   **Security:**
-    - Zod validation for all inputs (name, email, company, message)
+    - Comprehensive Zod validation for all 14 form fields
     - Honeypot field for spam detection
     - Rate limiting: 3 requests per 30 minutes per IP
     - Environment-gated logging (dev only)
 -   **Validation Rules:**
-    - Name: 2-100 characters, letters/spaces/hyphens only
-    - Email: RFC-compliant format, max 255 characters
-    - Company: 2-200 characters (optional)
-    - Message: 10-5000 characters
+    - **Required Fields:**
+      - Name: 2-100 characters, letters/spaces/hyphens only
+      - Email: RFC-compliant format, max 255 characters
+      - Message: 10-5000 characters
+    - **Optional Fields:**
+      - Company: 2-200 characters
+      - Phone: max 50 characters
+      - Industry: max 100 characters
+      - Company Size: max 50 characters
+      - Role: max 100 characters
+      - Services: array of strings
+      - Timeline: max 50 characters
+      - Budget: max 50 characters
+      - Hear About (lead source): max 100 characters
+      - Newsletter: boolean (opt-in)
+      - Timestamp: string
 -   **Email Flow:**
-    - Sends notification email to business (`CONTACT_EMAIL`)
+    - Sends detailed notification email to business (`CONTACT_EMAIL`) with all collected data:
+      - Contact details (name, email, company, phone, role)
+      - Company information (industry, size)
+      - Project details (services, timeline, budget)
+      - Lead source tracking
+      - Newsletter preference
     - Sends confirmation email to user with professional HTML template
 -   **Response Codes:**
     - 200: Success (email sent)
@@ -693,6 +710,7 @@ The project includes two secured API endpoints in `src/pages/api/` with comprehe
     - 429: Rate limit exceeded (with Retry-After header)
     - 500: Server error or email service failure
 -   **Data Flow:** `MultiStepForm.astro` -> `POST /api/contact` -> `contact.ts` -> Validation -> Rate Limit Check -> Brevo API -> Email Delivery
+-   **Status:** ✅ Fully functional and production-ready
 
 #### `/api/newsletter`
 
@@ -704,10 +722,11 @@ The project includes two secured API endpoints in `src/pages/api/` with comprehe
     - Environment-gated logging (dev only)
 -   **Validation Rules:**
     - Email: RFC-compliant format, max 255 characters
-    - Consent: Must be true
+    - Consent: Must be true (boolean)
+    - Timestamp: string (optional)
 -   **Email Flow:**
     - Adds subscriber to Brevo contact list (list ID: 2)
-    - Sends double opt-in confirmation email
+    - Sends double opt-in confirmation email with professional HTML template
     - Handles duplicate subscriptions gracefully
 -   **Response Codes:**
     - 200: Success (contact added, confirmation email sent)
@@ -715,6 +734,7 @@ The project includes two secured API endpoints in `src/pages/api/` with comprehe
     - 429: Rate limit exceeded
     - 500: Server error or Brevo API failure
 -   **Data Flow:** `Footer.astro` -> `POST /api/newsletter` -> `newsletter.ts` -> Validation -> Rate Limit Check -> Brevo Contacts API -> Brevo Email API -> Email Delivery
+-   **Status:** ✅ Fully functional and production-ready
 
 #### Rate Limiting Implementation
 
@@ -857,10 +877,20 @@ const base = import.meta.env.BASE_URL;
 
 ---
 
-**Last Updated:** 2025-11-01
-**Document Version:** 2.4
+**Last Updated:** 2025-11-02
+**Document Version:** 2.5
 **Project Status:** Active Development - Production Ready
 **Recent Updates:**
+- ✅ **Fixed newsletter form frontend-backend integration** (2025-11-02)
+  - Added missing `consent` field to newsletter API request
+  - Removed demo mode fallback that masked validation errors
+  - Improved error handling with actual API response messages
+- ✅ **Fixed contact form validation and data flow** (2025-11-02)
+  - Expanded validation schema to include all 14 form fields (phone, industry, company size, role, services, timeline, budget, lead source, newsletter opt-in)
+  - Updated contact API to process and email all collected business intelligence data
+  - Enhanced email templates with comprehensive lead information
+  - Removed demo mode fallback for proper error reporting
+- ✅ **Both forms now fully functional and production-ready** (2025-11-02)
 - ✅ Integrated Brevo (Sendinblue) email service for all forms
 - ✅ Implemented transactional emails for contact form (notification + confirmation)
 - ✅ Implemented newsletter subscription with double opt-in

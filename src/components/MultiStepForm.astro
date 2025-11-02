@@ -456,7 +456,6 @@ const base = import.meta.env.BASE_URL;
       }
 
       // Backend submission with timeout
-      // TODO: Replace with actual API endpoint
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT);
 
@@ -470,11 +469,13 @@ const base = import.meta.env.BASE_URL;
 
         clearTimeout(timeoutId);
 
-        if (!response.ok) {
-          throw new Error(`Server error: ${response.status}`);
-        }
-
         const result = await response.json();
+
+        if (!response.ok) {
+          // Handle specific error messages from the API
+          const errorMessage = result.error || `Server error: ${response.status}`;
+          throw new Error(errorMessage);
+        }
 
         // Show success message
         document.querySelector('.form-step.active')?.classList.remove('active');
@@ -492,19 +493,9 @@ const base = import.meta.env.BASE_URL;
       }
 
     } catch (error) {
+      console.error('Contact form submission error:', error);
       const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
-
-      // For demo: Show success anyway (remove this when backend is ready)
-      if (errorMessage.includes('Failed to fetch') || errorMessage.includes('/api/contact')) {
-        document.querySelector('.form-step.active')?.classList.remove('active');
-        document.getElementById('success-message')?.classList.remove('hidden');
-        document.querySelector('.flex.justify-between')?.classList.add('hidden');
-        document.querySelector('.mb-8')?.classList.add('hidden');
-        showNotification('Form submitted (demo mode)', 'success');
-      } else {
-        showNotification(`Submission failed: ${errorMessage}`, 'error');
-      }
-
+      showNotification(`Submission failed: ${errorMessage}`, 'error');
     } finally {
       isSubmitting = false;
       if (submitBtn) {

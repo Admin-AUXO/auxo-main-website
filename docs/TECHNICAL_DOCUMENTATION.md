@@ -89,7 +89,7 @@ When proposing changes, use the [Conventional Commits](https://www.conventionalc
 -   **API Endpoints:** The API endpoints in `src/pages/api/` are fully integrated with Brevo for email delivery. They have comprehensive Zod validation and rate limiting implemented. **IMPORTANT:** Brevo requires verified sender emails before any emails can be sent. Ensure `BREVO_FROM_EMAIL` is verified in your Brevo dashboard.
 -   **Base URL:** The project is configured with a `base` URL in `astro.config.mjs`. All internal links and asset paths must be prefixed with the `base` variable to work correctly in both development and production. **Critical:** API calls in client-side scripts must also use the base URL (e.g., `fetch(\`${import.meta.env.BASE_URL}api/contact\`)`).
 -   **Image Optimization:** While Astro's image optimization is powerful, be mindful of the image formats and sizes you use. Large, unoptimized images can still slow down the site.
--   **ESLint Configuration:** The project uses ESLint v9 with flat config format (`eslint.config.js`). All linting commands work correctly. Do not revert to the old `.eslintrc.cjs` format.
+-   **ESLint Configuration:** The project uses ESLint v9 with flat config format (`eslint.config.js`). The accessibility rule `jsx-a11y/label-has-associated-control` is configured to properly recognize `for` attribute associations in Astro components. All linting commands work correctly. Do not revert to the old `.eslintrc.cjs` format.
 
 ### 2.5 Conducting Code Audits (Agent Guide)
 
@@ -774,10 +774,10 @@ The project uses GitHub Actions for CI/CD, located in `.github/workflows/`.
 
 ### 12. Development & Tooling
 
--   **ESLint:** The configuration in `eslint.config.js` uses ESLint v9 flat config format and enforces Astro best practices and accessibility standards via `eslint-plugin-astro` and `eslint-plugin-jsx-a11y`.
--   **TypeScript:** Full type checking enabled via `@astrojs/check` and `typescript`.
+-   **ESLint:** The configuration in `eslint.config.js` uses ESLint v9 flat config format and enforces Astro best practices and accessibility standards via `eslint-plugin-astro` and `eslint-plugin-jsx-a11y`. The `jsx-a11y/label-has-associated-control` rule is configured to properly recognize `for` attribute associations in Astro components (configured with `assert: 'either'` and `depth: 25`).
+-   **TypeScript:** Full type checking enabled via `@astrojs/check` and `typescript`. ViewTransitions deprecation warning is documented and suppressed with `@ts-ignore` - functionality remains intact.
 -   **Validation:** Zod schemas in `src/utils/validation.ts` ensure type-safe form data validation.
--   **`DevBar.astro`:** A development-only toolbar with tools for debugging, accessibility testing, and cache clearing.
+-   **`DevBar.astro`:** A development-only toolbar with tools for debugging, accessibility testing, and cache clearing. Note: A build warning about empty script chunks is expected and harmless - it occurs because the component is conditionally rendered based on `import.meta.env.DEV`.
 
 ### 12.5 Security Features
 
@@ -813,6 +813,7 @@ The project implements multiple layers of security for forms and API endpoints:
 -   **Deployment:** Netlify (automatic), GitHub Pages (requires manual configuration)
 -   **Headers Configured:**
     - **Content-Security-Policy (CSP):** Restricts resource loading to trusted sources
+      -   **Note:** Currently uses `'unsafe-inline'` for scripts and styles due to Astro's ViewTransitions and client-side interactive components. This is documented in `_headers` with a future enhancement path for nonce-based CSP implementation.
     - **X-Frame-Options:** Prevents clickjacking (DENY)
     - **X-Content-Type-Options:** Prevents MIME-type sniffing (nosniff)
     - **X-XSS-Protection:** Enables browser XSS protection
@@ -884,44 +885,4 @@ const base = import.meta.env.BASE_URL;
 
 ---
 
-**Last Updated:** 2025-11-02
-**Document Version:** 2.7
-**Project Status:** Active Development - Production Ready
-**Recent Updates:**
-- ✅ **Removed technology showcase sections** (2025-11-02)
-  - Removed "Technology Stack" section from homepage (index.astro)
-  - Removed "Our Expertise" technology section from about page (about.astro)
-  - Removed Simple Icons CDN references from SEO.astro and BaseLayout.astro
-  - Updated iconography documentation to reflect Material Design Icons as sole icon library
-- ✅ **Brevo API implementation audit completed** (2025-11-02)
-  - Verified all Brevo SDK usage follows official documentation patterns
-  - Implementation confirmed correct for TransactionalEmailsApi and ContactsApi
-  - Added duplicate subscription prevention to newsletter endpoint
-- ✅ **Fixed duplicate confirmation email issue** (2025-11-02)
-  - Newsletter API now checks if contact is already subscribed before sending confirmation
-  - Prevents confusion from duplicate confirmation emails to existing subscribers
-  - Returns appropriate "already subscribed" message for existing contacts
-- ✅ **Fixed newsletter form frontend-backend integration** (2025-11-02)
-  - Added missing `consent` field to newsletter API request
-  - Removed demo mode fallback that masked validation errors
-  - Improved error handling with actual API response messages
-- ✅ **Fixed contact form validation and data flow** (2025-11-02)
-  - Expanded validation schema to include all 14 form fields (phone, industry, company size, role, services, timeline, budget, lead source, newsletter opt-in)
-  - Updated contact API to process and email all collected business intelligence data
-  - Enhanced email templates with comprehensive lead information
-  - Removed demo mode fallback for proper error reporting
-- ✅ **Both forms now fully functional and production-ready** (2025-11-02)
-- ✅ Integrated Brevo (Sendinblue) email service for all forms
-- ✅ Implemented transactional emails for contact form (notification + confirmation)
-- ✅ Implemented newsletter subscription with double opt-in
-- ✅ Added professional HTML email templates with AUXO branding
-- ✅ Updated environment variables for Brevo configuration
-- Added comprehensive audit guidelines for AI agents (Section 2.5)
-- Documented audit methodology, best practices, and documentation format
-- Created standard templates for audit reports
-- Fixed all critical and high-priority security issues from audit
-- Implemented Zod validation and rate limiting for API endpoints
-- Added comprehensive security headers
-- Migrated to ESLint v9 flat config
-- All dependencies installed and functional
-- Build process verified and stable
+**Last Updated:** 2025-01-27

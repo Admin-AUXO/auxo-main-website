@@ -25,10 +25,10 @@ export interface WhyChooseItem {
 
 export const homepageContent = {
   hero: {
-    badge: 'Fresh Perspective. Proven Expertise.',
-    title: 'Turn Information Into',
-    titleHighlight: 'Competitive Advantage',
-    subtitle: 'A new analytics consultancy built for UAE businesses. Enterprise-grade solutions, startup agility.',
+    badge: 'Rethink Data. Rethink Decisions.',
+    title: 'Every Organization has data. Few understand it',
+    titleHighlight: '',
+    subtitle: 'Empowering confident, data-driven decisions at speed and scale.',
     primaryCta: {
       text: 'Schedule Free Consultation',
       href: 'contact',
@@ -38,9 +38,9 @@ export const homepageContent = {
       href: '#services',
     },
     features: [
-      'Fast & Agile',
-      'Personal Attention',
-      'UAE Focused',
+      'Precision Analytics',
+      'Build Competitive Edge',
+      'Navigate Uncertainty',
     ],
     scrollIndicator: 'Scroll to explore',
   },

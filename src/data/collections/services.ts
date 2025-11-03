@@ -2,7 +2,7 @@ export const services = [
   {
     id: 'business-intelligence',
     title: 'Business Intelligence & Reporting',
-    description: 'Empower decision-makers with real-time insights through interactive dashboards and automated reporting systems tailored to your KPIs.',
+    description: 'Turn complex data into real-time insights through intuitive, decision-ready dashboards.',
     icon: 'mdi:chart-line',
     features: [
       'Power BI & Tableau dashboard development',
@@ -21,7 +21,7 @@ export const services = [
   {
     id: 'data-analytics',
     title: 'Advanced Data Analytics',
-    description: 'Unlock the power of your data with sophisticated statistical analysis, predictive modeling, and actionable business insights.',
+    description: 'Transform raw information into predictive, actionable intelligence for smarter decisions.',
     icon: 'mdi:chart-scatter-plot',
     features: [
       'Descriptive & diagnostic analytics',
@@ -40,7 +40,7 @@ export const services = [
   {
     id: 'data-strategy',
     title: 'Data Strategy & Roadmap',
-    description: 'Transform your organization with a data-driven strategy aligned to business goals, from assessment to implementation roadmap.',
+    description: 'Align your data initiatives with business goals through a clear, execution-ready strategy.',
     icon: 'mdi:strategy',
     features: [
       'Data maturity assessment',
@@ -59,7 +59,7 @@ export const services = [
   {
     id: 'data-engineering',
     title: 'Data Engineering & Integration',
-    description: 'Build scalable data infrastructure with robust pipelines, cloud data warehouses, and seamless multi-source integration.',
+    description: 'Build scalable, secure data pipelines that unify systems and power analytics.',
     icon: 'mdi:database-cog',
     features: [
       'ETL/ELT pipeline development',
@@ -78,7 +78,7 @@ export const services = [
   {
     id: 'ml-ai',
     title: 'Machine Learning & AI Solutions',
-    description: 'Deploy cutting-edge AI solutions to automate processes, predict outcomes, and gain competitive advantage through intelligent systems.',
+    description: 'Deploy cutting edge AI to automate, predict, and optimize business outcomes intelligently.',
     icon: 'mdi:robot',
     features: [
       'Custom ML model development & tuning',
@@ -97,7 +97,7 @@ export const services = [
   {
     id: 'data-governance',
     title: 'Data Governance & Compliance',
-    description: 'Establish enterprise-grade data governance ensuring quality, security, and compliance with UAE PDPL, GDPR, and industry regulations.',
+    description: 'Ensure trusted, compliant, and secure data across your entire enterprise.',
     icon: 'mdi:shield-check',
     features: [
       'UAE PDPL & GDPR compliance frameworks',

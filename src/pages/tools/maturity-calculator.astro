@@ -166,8 +166,7 @@ const calculatorFAQs = [
                 >{maturityCalculatorContent.questionScreen.questionLabel}
                 <span id="q-num">1</span>
                 {maturityCalculatorContent.questionScreen.ofLabel}
-                <span id="total-questions">20</span
-                ></span
+                <span id="total-questions">20</span></span
               >
               <span class="text-sm text-gray-400"
                 ><span id="q-progress">5</span>% {
@@ -332,14 +331,17 @@ const calculatorFAQs = [
    * Determine pathway based on classification answers
    */
   function determinePathway() {
-    const totalScore = classificationAnswers.reduce((sum, score) => sum + score, 0);
-    
+    const totalScore = classificationAnswers.reduce(
+      (sum, score) => sum + score,
+      0,
+    );
+
     // Determine pathway based on score ranges
-    if (totalScore <= 6) return 'early';
-    if (totalScore <= 10) return 'growing';
-    if (totalScore <= 13) return 'medium';
-    if (totalScore <= 15) return 'advanced';
-    return 'enterprise';
+    if (totalScore <= 6) return "early";
+    if (totalScore <= 10) return "growing";
+    if (totalScore <= 13) return "medium";
+    if (totalScore <= 15) return "advanced";
+    return "enterprise";
   }
 
   /**
@@ -347,25 +349,29 @@ const calculatorFAQs = [
    */
   function buildPersonalizedQuestions(pathway) {
     const questions = [];
-    
+
     // Always include core questions
     questions.push(...questionSets.core);
-    
+
     // Add pathway-specific questions
-    if (pathway === 'early') {
+    if (pathway === "early") {
       questions.push(...questionSets.early);
-    } else if (pathway === 'growing' || pathway === 'medium') {
-      questions.push(...questionSets.early.filter(q => !q.skipFor?.includes(pathway)));
+    } else if (pathway === "growing" || pathway === "medium") {
+      questions.push(
+        ...questionSets.early.filter((q) => !q.skipFor?.includes(pathway)),
+      );
       questions.push(...questionSets.growing);
-    } else if (pathway === 'advanced' || pathway === 'enterprise') {
+    } else if (pathway === "advanced" || pathway === "enterprise") {
       questions.push(...questionSets.growing);
-      questions.push(...questionSets.advanced.filter(q => {
-        if (q.skipFor && q.skipFor.includes(pathway)) return false;
-        if (q.requiredFor && !q.requiredFor.includes(pathway)) return false;
-        return true;
-      }));
+      questions.push(
+        ...questionSets.advanced.filter((q) => {
+          if (q.skipFor && q.skipFor.includes(pathway)) return false;
+          if (q.requiredFor && !q.requiredFor.includes(pathway)) return false;
+          return true;
+        }),
+      );
     }
-    
+
     return questions;
   }
 
@@ -413,7 +419,7 @@ const calculatorFAQs = [
   function showQuestion(index) {
     const q = getCurrentQuestion(index);
     if (!q) return;
-    
+
     currentQuestion = index;
     const currentAnswers = getCurrentAnswers();
 
@@ -531,7 +537,7 @@ const calculatorFAQs = [
     }
 
     // Enable next button
-    const nextBtn = getElementSafe<HTMLButtonElement>("q-next-btn");
+    const nextBtn = getElementSafe("q-next-btn");
     if (nextBtn) nextBtn.disabled = false;
   }
 
@@ -543,26 +549,29 @@ const calculatorFAQs = [
 
   document.getElementById("q-next-btn")?.addEventListener("click", () => {
     const currentAnswers = getCurrentAnswers();
-    
+
     // Check if we're transitioning from classification to assessment
-    if (isClassificationPhase && currentQuestion === classificationQuestions.length - 1) {
+    if (
+      isClassificationPhase &&
+      currentQuestion === classificationQuestions.length - 1
+    ) {
       // Determine pathway and build personalized questions
       currentPathway = determinePathway();
       personalizedQuestions = buildPersonalizedQuestions(currentPathway);
-      
+
       // Switch to assessment phase
       isClassificationPhase = false;
       currentQuestion = 0;
       TOTAL_QUESTIONS = personalizedQuestions.length;
-      
+
       // Update total questions display
       if (totalQuestionsEl) {
         totalQuestionsEl.textContent = String(TOTAL_QUESTIONS);
       }
-      
+
       // Reset assessment answers
       assessmentAnswers = new Array(personalizedQuestions.length).fill(0);
-      
+
       // Show first assessment question
       showQuestion(0);
     } else if (currentQuestion < TOTAL_QUESTIONS - 1) {

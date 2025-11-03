@@ -4,6 +4,7 @@ import { Icon } from 'astro-icon/components';
 import { getCollection } from 'astro:content';
 import { commonText } from '../../data/shared/common';
 import { blogPageContent } from '../../data/content/blog';
+import { formatDateLong } from '../../utils/date';
 
 const base = import.meta.env.BASE_URL;
 
@@ -18,17 +19,6 @@ const sortedPosts = posts.sort((a, b) =>
 // Featured post (most recent)
 const featuredPost = sortedPosts[0];
 const recentPosts = sortedPosts.slice(1);
-
-// Helper to format date
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  }).format(new Date(date));
-}
-
-// Helper to calculate read time - removed unused function to optimize bundle
 ---
 
 <BaseLayout
@@ -87,7 +77,7 @@ function formatDate(date: Date) {
                     </p>
 
                     <div class="flex items-center text-sm text-tertiary transition-colors">
-                      <span>{formatDate(featuredPost.data.publishDate)}</span>
+                      <span>{formatDateLong(featuredPost.data.publishDate)}</span>
                       <span class="mx-2">•</span>
                       <span>{featuredPost.data.author}</span>
                       {featuredPost.data.tags && featuredPost.data.tags.length > 0 && (
@@ -146,7 +136,7 @@ function formatDate(date: Date) {
                       </p>
 
                       <div class="flex items-center text-xs text-tertiary transition-colors">
-                        <span>{formatDate(post.data.publishDate)}</span>
+                        <span>{formatDateLong(post.data.publishDate)}</span>
                         <span class="mx-2">•</span>
                         <span>{post.data.author}</span>
                       </div>

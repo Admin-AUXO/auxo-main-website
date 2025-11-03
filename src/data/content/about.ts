@@ -25,7 +25,7 @@ export const aboutContent = {
   vision: {
     icon: 'mdi:eye',
     title: 'Our Vision',
-    description: "To become the most trusted analytics partner in the UAE by combining deep technical expertise with genuine understanding of local business needs. We're building something different: a consultancy that moves fast, thinks differently, and puts client success above everything else.",
+    description: 'To make intelligence effortless — a world where every decision is clear, confident, and precise',
   },
   values: {
     title: 'Our Core Values',

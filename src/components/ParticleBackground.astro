@@ -337,9 +337,9 @@
   #particle-background {
     position: fixed;
     inset: 0;
-    z-index: 1;
+    z-index: 0;
     pointer-events: none;
-    background: transparent;
+    background: #000000;
   }
 
   /* Ensure navigation and interactive elements are above particles */
@@ -348,17 +348,22 @@
     z-index: 50;
   }
 
+  main {
+    position: relative;
+    z-index: 1;
+  }
+
+  footer {
+    position: relative;
+    z-index: 1;
+  }
+
   #particle-background canvas {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-  }
-
-  /* Ensure particles stay behind all content */
-  #particle-background ~ * {
-    position: relative;
     z-index: 0;
   }
 </style>

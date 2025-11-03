@@ -126,7 +126,7 @@ const currentYear = new Date().getFullYear();
           </li>
           <li>
             <a
-              href={`${base}services`}
+              href={`${base}services/`}
               class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 flex items-center gap-2 touch-manipulation min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 will-change-transform"
             >
               <Icon
@@ -186,7 +186,7 @@ const currentYear = new Date().getFullYear();
             services.map((service) => (
               <li>
                 <a
-                  href={`${base}services/${service.id}`}
+                  href={`${base}services/${service.id}/`}
                   class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 touch-manipulation block min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 flex items-center will-change-transform"
                 >
                   {service.title}

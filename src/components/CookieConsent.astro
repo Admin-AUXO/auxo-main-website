@@ -1,22 +1,44 @@
 ---
 // Cookie Consent Banner Component for GDPR/UAE PDPL Compliance
+import { cookieConsentContent } from "../data/content/cookies";
+
 const base = import.meta.env.BASE_URL;
 ---
 
-<div id="cookie-consent" class="hidden fixed bottom-0 left-0 right-0 z-[100] bg-zinc-950/98 border-t border-zinc-800 backdrop-blur-lg">
+<div
+  id="cookie-consent"
+  class="hidden fixed bottom-0 left-0 right-0 z-[100] bg-zinc-950/98 border-t border-zinc-800 backdrop-blur-lg"
+>
   <div class="container mx-auto px-4 py-6">
-    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+    <div
+      class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
+    >
       <div class="flex-1">
         <div class="flex items-start gap-3">
-          <svg class="w-6 h-6 text-lime-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <svg
+            class="w-6 h-6 text-lime-400 flex-shrink-0 mt-0.5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            ></path>
           </svg>
           <div>
-            <h3 class="font-bold text-white mb-1">Cookie & Privacy Notice</h3>
+            <h3 class="font-bold text-white mb-1">
+              {cookieConsentContent.banner.title}
+            </h3>
             <p class="text-sm text-gray-400 leading-relaxed max-w-3xl">
-              We use essential cookies to ensure our website functions properly. We respect your privacy and comply with UAE PDPL regulations.
-              By clicking "Accept All", you consent to our use of cookies for analytics and improving your experience.
-              <a href={`${base}privacy-policy`} class="text-lime-400 hover:underline ml-1">Learn more about our privacy practices</a>
+              {cookieConsentContent.banner.description}
+              <a
+                href={`${base}${cookieConsentContent.banner.privacyPolicyHref}`}
+                class="text-lime-400 hover:underline ml-1"
+                >{cookieConsentContent.banner.learnMore}</a
+              >
             </p>
           </div>
         </div>
@@ -27,19 +49,19 @@ const base = import.meta.env.BASE_URL;
           id="cookie-settings-btn"
           class="px-4 py-2 text-sm font-medium text-white bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-colors focus:outline-none focus:ring-2 focus:ring-lime-400"
         >
-          Customize
+          {cookieConsentContent.banner.customize}
         </button>
         <button
           id="cookie-reject-btn"
           class="px-4 py-2 text-sm font-medium text-white bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-colors focus:outline-none focus:ring-2 focus:ring-lime-400"
         >
-          Reject Optional
+          {cookieConsentContent.banner.rejectOptional}
         </button>
         <button
           id="cookie-accept-btn"
           class="px-6 py-2 text-sm font-bold text-black bg-lime-400 rounded-lg hover:bg-lime-500 transition-colors focus:outline-none focus:ring-2 focus:ring-lime-400"
         >
-          Accept All
+          {cookieConsentContent.banner.acceptAll}
         </button>
       </div>
     </div>
@@ -47,15 +69,35 @@ const base = import.meta.env.BASE_URL;
 </div>
 
 <!-- Cookie Settings Modal -->
-<div id="cookie-settings-modal" class="hidden fixed inset-0 z-[110] bg-black/80 backdrop-blur-sm">
+<div
+  id="cookie-settings-modal"
+  class="hidden fixed inset-0 z-[110] bg-black/80 backdrop-blur-sm"
+>
   <div class="flex items-center justify-center min-h-screen p-4">
-    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+    <div
+      class="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+    >
       <div class="p-6 border-b border-zinc-800">
         <div class="flex items-center justify-between">
-          <h2 class="text-2xl font-bold text-white">Cookie Preferences</h2>
-          <button id="cookie-modal-close" class="text-gray-400 hover:text-white transition-colors" aria-label="Close modal">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          <h2 class="text-2xl font-bold text-white">
+            {cookieConsentContent.modal.title}
+          </h2>
+          <button
+            id="cookie-modal-close"
+            class="text-gray-400 hover:text-white transition-colors"
+            aria-label="Close modal"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"></path>
             </svg>
           </button>
         </div>
@@ -66,15 +108,21 @@ const base = import.meta.env.BASE_URL;
         <div class="space-y-3">
           <div class="flex items-center justify-between">
             <div>
-              <h3 class="font-bold text-white">Essential Cookies</h3>
-              <p class="text-sm text-gray-400">Required for the website to function properly</p>
+              <h3 class="font-bold text-white">
+                {cookieConsentContent.modal.essential.title}
+              </h3>
+              <p class="text-sm text-gray-400">
+                {cookieConsentContent.modal.essential.description}
+              </p>
             </div>
             <div class="px-3 py-1 bg-zinc-800 rounded-full">
-              <span class="text-xs font-medium text-gray-400">Always Active</span>
+              <span class="text-xs font-medium text-gray-400"
+                >{cookieConsentContent.modal.essential.alwaysActive}</span
+              >
             </div>
           </div>
           <p class="text-sm text-gray-400">
-            These cookies are necessary for core functionality like navigation, authentication, and security.
+            {cookieConsentContent.modal.essential.details}
           </p>
         </div>
 
@@ -82,16 +130,31 @@ const base = import.meta.env.BASE_URL;
         <div class="space-y-3">
           <div class="flex items-center justify-between">
             <div>
-              <h3 class="font-bold text-white">Analytics Cookies</h3>
-              <p class="text-sm text-gray-400">Help us understand how visitors use our website</p>
+              <h3 class="font-bold text-white">
+                {cookieConsentContent.modal.analytics.title}
+              </h3>
+              <p class="text-sm text-gray-400">
+                {cookieConsentContent.modal.analytics.description}
+              </p>
             </div>
-            <label for="cookie-analytics" class="relative inline-flex items-center cursor-pointer" aria-label="Toggle analytics cookies">
-              <input type="checkbox" id="cookie-analytics" class="sr-only peer" />
-              <div class="w-11 h-6 bg-zinc-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-lime-400 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-lime-400"></div>
+            <label
+              for="cookie-analytics"
+              class="relative inline-flex items-center cursor-pointer"
+              aria-label="Toggle analytics cookies"
+            >
+              <input
+                type="checkbox"
+                id="cookie-analytics"
+                class="sr-only peer"
+              />
+              <div
+                class="w-11 h-6 bg-zinc-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-lime-400 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-lime-400"
+              >
+              </div>
             </label>
           </div>
           <p class="text-sm text-gray-400">
-            We use Google Analytics to understand visitor behavior and improve our website performance.
+            {cookieConsentContent.modal.analytics.details}
           </p>
         </div>
 
@@ -99,16 +162,31 @@ const base = import.meta.env.BASE_URL;
         <div class="space-y-3">
           <div class="flex items-center justify-between">
             <div>
-              <h3 class="font-bold text-white">Marketing Cookies</h3>
-              <p class="text-sm text-gray-400">Used for personalized marketing content</p>
+              <h3 class="font-bold text-white">
+                {cookieConsentContent.modal.marketing.title}
+              </h3>
+              <p class="text-sm text-gray-400">
+                {cookieConsentContent.modal.marketing.description}
+              </p>
             </div>
-            <label for="cookie-marketing" class="relative inline-flex items-center cursor-pointer" aria-label="Toggle marketing cookies">
-              <input type="checkbox" id="cookie-marketing" class="sr-only peer" />
-              <div class="w-11 h-6 bg-zinc-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-lime-400 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-lime-400"></div>
+            <label
+              for="cookie-marketing"
+              class="relative inline-flex items-center cursor-pointer"
+              aria-label="Toggle marketing cookies"
+            >
+              <input
+                type="checkbox"
+                id="cookie-marketing"
+                class="sr-only peer"
+              />
+              <div
+                class="w-11 h-6 bg-zinc-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-lime-400 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-lime-400"
+              >
+              </div>
             </label>
           </div>
           <p class="text-sm text-gray-400">
-            These cookies help us deliver relevant content and measure marketing campaign effectiveness.
+            {cookieConsentContent.modal.marketing.details}
           </p>
         </div>
       </div>
@@ -118,13 +196,13 @@ const base = import.meta.env.BASE_URL;
           id="cookie-save-settings"
           class="flex-1 px-6 py-3 text-sm font-bold text-black bg-lime-400 rounded-lg hover:bg-lime-500 transition-colors focus:outline-none focus:ring-2 focus:ring-lime-400"
         >
-          Save Preferences
+          {cookieConsentContent.modal.savePreferences}
         </button>
         <button
           id="cookie-accept-all-modal"
           class="flex-1 px-6 py-3 text-sm font-medium text-white bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-colors focus:outline-none focus:ring-2 focus:ring-lime-400"
         >
-          Accept All
+          {cookieConsentContent.modal.acceptAll}
         </button>
       </div>
     </div>
@@ -133,7 +211,7 @@ const base = import.meta.env.BASE_URL;
 
 <script>
   // Cookie Consent Management
-  const COOKIE_CONSENT_KEY = 'auxo-cookie-consent';
+  const COOKIE_CONSENT_KEY = "auxo-cookie-consent";
   const COOKIE_EXPIRY_DAYS = 365;
 
   interface CookieConsent {
@@ -186,11 +264,11 @@ const base = import.meta.env.BASE_URL;
   }
 
   // Show/hide banner
-  const banner = document.getElementById('cookie-consent');
-  const modal = document.getElementById('cookie-settings-modal');
+  const banner = document.getElementById("cookie-consent");
+  const modal = document.getElementById("cookie-settings-modal");
 
   if (!hasConsent() && banner) {
-    banner.classList.remove('hidden');
+    banner.classList.remove("hidden");
   } else {
     // Apply saved consent
     const consent = getConsent();
@@ -205,11 +283,11 @@ const base = import.meta.env.BASE_URL;
       essential: true,
       analytics: true,
       marketing: true,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
     saveConsent(consent);
-    banner?.classList.add('hidden');
-    modal?.classList.add('hidden');
+    banner?.classList.add("hidden");
+    modal?.classList.add("hidden");
   }
 
   // Reject optional cookies
@@ -218,10 +296,10 @@ const base = import.meta.env.BASE_URL;
       essential: true,
       analytics: false,
       marketing: false,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
     saveConsent(consent);
-    banner?.classList.add('hidden');
+    banner?.classList.add("hidden");
   }
 
   // Show settings modal
@@ -229,66 +307,74 @@ const base = import.meta.env.BASE_URL;
     const consent = getConsent();
     if (consent) {
       // Restore previous settings
-      const analyticsCheckbox = document.getElementById('cookie-analytics') as HTMLInputElement;
-      const marketingCheckbox = document.getElementById('cookie-marketing') as HTMLInputElement;
+      const analyticsCheckbox = document.getElementById(
+        "cookie-analytics",
+      ) as HTMLInputElement;
+      const marketingCheckbox = document.getElementById(
+        "cookie-marketing",
+      ) as HTMLInputElement;
 
       if (analyticsCheckbox) analyticsCheckbox.checked = consent.analytics;
       if (marketingCheckbox) marketingCheckbox.checked = consent.marketing;
     }
 
-    modal?.classList.remove('hidden');
+    modal?.classList.remove("hidden");
   }
 
   // Save custom settings
   function saveSettings(): void {
-    const analyticsCheckbox = document.getElementById('cookie-analytics') as HTMLInputElement;
-    const marketingCheckbox = document.getElementById('cookie-marketing') as HTMLInputElement;
+    const analyticsCheckbox = document.getElementById(
+      "cookie-analytics",
+    ) as HTMLInputElement;
+    const marketingCheckbox = document.getElementById(
+      "cookie-marketing",
+    ) as HTMLInputElement;
 
     const consent: CookieConsent = {
       essential: true,
       analytics: analyticsCheckbox?.checked || false,
       marketing: marketingCheckbox?.checked || false,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
 
     saveConsent(consent);
-    banner?.classList.add('hidden');
-    modal?.classList.add('hidden');
+    banner?.classList.add("hidden");
+    modal?.classList.add("hidden");
   }
 
   // Event handlers with cleanup
-  const closeModal = () => modal?.classList.add('hidden');
+  const closeModal = () => modal?.classList.add("hidden");
   const handleEscape = (e: KeyboardEvent) => {
-    if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
-      modal.classList.add('hidden');
+    if (e.key === "Escape" && modal && !modal.classList.contains("hidden")) {
+      modal.classList.add("hidden");
     }
   };
 
   // Event listeners
-  const acceptBtn = document.getElementById('cookie-accept-btn');
-  const rejectBtn = document.getElementById('cookie-reject-btn');
-  const settingsBtn = document.getElementById('cookie-settings-btn');
-  const modalClose = document.getElementById('cookie-modal-close');
-  const saveSettingsBtn = document.getElementById('cookie-save-settings');
-  const acceptAllModalBtn = document.getElementById('cookie-accept-all-modal');
+  const acceptBtn = document.getElementById("cookie-accept-btn");
+  const rejectBtn = document.getElementById("cookie-reject-btn");
+  const settingsBtn = document.getElementById("cookie-settings-btn");
+  const modalClose = document.getElementById("cookie-modal-close");
+  const saveSettingsBtn = document.getElementById("cookie-save-settings");
+  const acceptAllModalBtn = document.getElementById("cookie-accept-all-modal");
 
-  acceptBtn?.addEventListener('click', acceptAll);
-  rejectBtn?.addEventListener('click', rejectOptional);
-  settingsBtn?.addEventListener('click', showSettings);
-  modalClose?.addEventListener('click', closeModal);
-  saveSettingsBtn?.addEventListener('click', saveSettings);
-  acceptAllModalBtn?.addEventListener('click', acceptAll);
-  document.addEventListener('keydown', handleEscape);
+  acceptBtn?.addEventListener("click", acceptAll);
+  rejectBtn?.addEventListener("click", rejectOptional);
+  settingsBtn?.addEventListener("click", showSettings);
+  modalClose?.addEventListener("click", closeModal);
+  saveSettingsBtn?.addEventListener("click", saveSettings);
+  acceptAllModalBtn?.addEventListener("click", acceptAll);
+  document.addEventListener("keydown", handleEscape);
 
   // Cleanup function for Astro view transitions
-  document.addEventListener('astro:before-swap', () => {
-    acceptBtn?.removeEventListener('click', acceptAll);
-    rejectBtn?.removeEventListener('click', rejectOptional);
-    settingsBtn?.removeEventListener('click', showSettings);
-    modalClose?.removeEventListener('click', closeModal);
-    saveSettingsBtn?.removeEventListener('click', saveSettings);
-    acceptAllModalBtn?.removeEventListener('click', acceptAll);
-    document.removeEventListener('keydown', handleEscape);
+  document.addEventListener("astro:before-swap", () => {
+    acceptBtn?.removeEventListener("click", acceptAll);
+    rejectBtn?.removeEventListener("click", rejectOptional);
+    settingsBtn?.removeEventListener("click", showSettings);
+    modalClose?.removeEventListener("click", closeModal);
+    saveSettingsBtn?.removeEventListener("click", saveSettings);
+    acceptAllModalBtn?.removeEventListener("click", acceptAll);
+    document.removeEventListener("keydown", handleEscape);
   });
 </script>
 

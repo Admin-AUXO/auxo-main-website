@@ -2,8 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
 import { Icon } from 'astro-icon/components';
-import { services } from '../data/services';
-import { siteData } from '../data/site';
+import { services } from '../data/collections/services';
+import { siteData } from '../data/config/site';
+import { homepageContent } from '../data/content/homepage';
+import { commonText } from '../data/shared/common';
 import { getCollection } from 'astro:content';
 
 const base = import.meta.env.BASE_URL;
@@ -62,41 +64,35 @@ const latestPosts = allPosts
         <!-- Hero Content -->
         <div class="hero-content">
           <div class="inline-block mb-4 px-4 py-1.5 bg-lime-400/10 border border-lime-400/30 rounded-full">
-            <span class="text-lime-400 text-xs md:text-sm font-semibold tracking-wide">Unlock Insights. Drive Decisions.</span>
+            <span class="text-lime-400 text-xs md:text-sm font-semibold tracking-wide">{homepageContent.hero.badge}</span>
           </div>
 
           <h2 class="text-xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 leading-tight">
-            Turn Information Into<br/>
-            <span class="text-gradient-green">Actionable Intelligence</span>
+            {homepageContent.hero.title}<br/>
+            <span class="text-gradient-green">{homepageContent.hero.titleHighlight}</span>
           </h2>
 
           <p class="text-xs md:text-base text-gray-400 mb-4 md:mb-6 max-w-2xl mx-auto leading-relaxed">
-            Empowering UAE businesses with advanced analytics and AI solutions
+            {homepageContent.hero.subtitle}
           </p>
 
           <div class="flex flex-col sm:flex-row gap-3 justify-center mb-6">
-            <a href={`${base}contact`} class="group bg-lime-400 text-black px-6 py-2.5 rounded-lg font-semibold hover:bg-lime-500 transition-all shadow-lg shadow-lime-400/20 hover:shadow-lime-400/40 hover:scale-105 text-sm">
-              Schedule Free Consultation
+            <a href={`${base}${homepageContent.hero.primaryCta.href}`} class="group bg-lime-400 text-black px-6 py-2.5 rounded-lg font-semibold hover:bg-lime-500 transition-all shadow-lg shadow-lime-400/20 hover:shadow-lime-400/40 hover:scale-105 text-sm">
+              {homepageContent.hero.primaryCta.text}
               <Icon name="mdi:arrow-right" class="inline w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </a>
-            <a href="#services" class="border-2 border-lime-400 text-lime-400 px-6 py-2.5 rounded-lg font-semibold hover:bg-lime-400 hover:text-black transition-all hover:scale-105 text-sm">
-              Explore Services
+            <a href={`${base}${homepageContent.hero.secondaryCta.href}`} class="border-2 border-lime-400 text-lime-400 px-6 py-2.5 rounded-lg font-semibold hover:bg-lime-400 hover:text-black transition-all hover:scale-105 text-sm">
+              {homepageContent.hero.secondaryCta.text}
             </a>
           </div>
 
           <div class="flex flex-wrap justify-center gap-4 md:gap-6 text-xs md:text-sm text-gray-500">
-            <div class="flex items-center gap-1.5">
-              <Icon name="mdi:check-circle" class="w-4 h-4 text-lime-400" />
-              <span class="font-medium">Precision Analytics</span>
-            </div>
-            <div class="flex items-center gap-1.5">
-              <Icon name="mdi:check-circle" class="w-4 h-4 text-lime-400" />
-              <span class="font-medium">Globally Compliant</span>
-            </div>
-            <div class="flex items-center gap-1.5">
-              <Icon name="mdi:check-circle" class="w-4 h-4 text-lime-400" />
-              <span class="font-medium">Measurable Impact</span>
-            </div>
+            {homepageContent.hero.features.map((feature) => (
+              <div class="flex items-center gap-1.5">
+                <Icon name="mdi:check-circle" class="w-4 h-4 text-lime-400" />
+                <span class="font-medium">{feature}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -105,7 +101,7 @@ const latestPosts = allPosts
     <!-- Scroll Indicator -->
     <div class="relative z-10 pb-6 mt-8 animate-bounce">
       <a href="#services" class="flex flex-col items-center text-gray-500 hover:text-lime-400 transition-colors">
-        <span class="text-xs mb-1">Scroll to explore</span>
+        <span class="text-xs mb-1">{homepageContent.hero.scrollIndicator}</span>
         <Icon name="mdi:chevron-down" class="w-5 h-5" />
       </a>
     </div>
@@ -118,78 +114,30 @@ const latestPosts = allPosts
         <div class="container mx-auto px-4">
           <div class="max-w-4xl mx-auto text-center mb-8 md:mb-16">
             <h2 class="text-2xl md:text-4xl font-bold mb-4 md:mb-6">
-              Are You Struggling with <span class="text-lime-400">Analytics Challenges?</span>
+              {homepageContent.problems.title} <span class="text-lime-400">{homepageContent.problems.titleHighlight}</span>
             </h2>
             <p class="text-sm md:text-lg text-gray-400 leading-relaxed hidden md:block">
-              Many UAE businesses face similar obstacles when trying to leverage their data effectively
+              {homepageContent.problems.subtitle}
             </p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            <div class="bg-zinc-900 border border-red-500/20 rounded-xl p-4 md:p-6 hover:border-red-500/40 transition-all">
-              <div class="w-10 h-10 md:w-12 md:h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-3 md:mb-4">
-                <Icon name="mdi:alert-circle" class="w-5 h-5 md:w-6 md:h-6 text-red-400" />
+            {homepageContent.problems.challenges.map((challenge, index) => (
+              <div class={`bg-zinc-900 border border-red-500/20 rounded-xl p-4 md:p-6 hover:border-red-500/40 transition-all ${index >= 2 ? 'hidden md:block' : ''}`}>
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-3 md:mb-4">
+                  <Icon name={challenge.icon} class="w-5 h-5 md:w-6 md:h-6 text-red-400" />
+                </div>
+                <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3">{challenge.title}</h3>
+                <p class="text-sm md:text-base text-gray-400 leading-relaxed hidden md:block">
+                  {challenge.description}
+                </p>
               </div>
-              <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3">Siloed Data</h3>
-              <p class="text-sm md:text-base text-gray-400 leading-relaxed hidden md:block">
-                Information scattered across spreadsheets, databases, and systems with no unified view
-              </p>
-            </div>
-
-            <div class="bg-zinc-900 border border-red-500/20 rounded-xl p-4 md:p-6 hover:border-red-500/40 transition-all">
-              <div class="w-10 h-10 md:w-12 md:h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-3 md:mb-4">
-                <Icon name="mdi:chart-line" class="w-5 h-5 md:w-6 md:h-6 text-red-400" />
-              </div>
-              <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3">Slow Insights</h3>
-              <p class="text-sm md:text-base text-gray-400 leading-relaxed hidden md:block">
-                Weeks or months to get answers to critical business questions when you need them now
-              </p>
-            </div>
-
-            <div class="bg-zinc-900 border border-red-500/20 rounded-xl p-4 md:p-6 hover:border-red-500/40 transition-all hidden md:block">
-              <div class="w-10 h-10 md:w-12 md:h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-3 md:mb-4">
-                <Icon name="mdi:account-group" class="w-5 h-5 md:w-6 md:h-6 text-red-400" />
-              </div>
-              <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3">Skills Gap</h3>
-              <p class="text-sm md:text-base text-gray-400 leading-relaxed hidden md:block">
-                Lack of in-house analytics expertise to turn raw information into strategic decisions
-              </p>
-            </div>
-
-            <div class="bg-zinc-900 border border-red-500/20 rounded-xl p-4 md:p-6 hover:border-red-500/40 transition-all hidden md:block">
-              <div class="w-10 h-10 md:w-12 md:h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-3 md:mb-4">
-                <Icon name="mdi:chart-bar" class="w-5 h-5 md:w-6 md:h-6 text-red-400" />
-              </div>
-              <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3">Unclear ROI</h3>
-              <p class="text-sm md:text-base text-gray-400 leading-relaxed hidden md:block">
-                Investing in tools and platforms without seeing measurable business impact or value
-              </p>
-            </div>
-
-            <div class="bg-zinc-900 border border-red-500/20 rounded-xl p-4 md:p-6 hover:border-red-500/40 transition-all hidden md:block">
-              <div class="w-10 h-10 md:w-12 md:h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-3 md:mb-4">
-                <Icon name="mdi:shield-check" class="w-5 h-5 md:w-6 md:h-6 text-red-400" />
-              </div>
-              <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3">Compliance Concerns</h3>
-              <p class="text-sm md:text-base text-gray-400 leading-relaxed hidden md:block">
-                Uncertainty about UAE PDPL, GDPR compliance and data governance requirements
-              </p>
-            </div>
-
-            <div class="bg-zinc-900 border border-red-500/20 rounded-xl p-4 md:p-6 hover:border-red-500/40 transition-all hidden md:block">
-              <div class="w-10 h-10 md:w-12 md:h-12 bg-red-500/10 rounded-lg flex items-center justify-center mb-3 md:mb-4">
-                <Icon name="mdi:chart-line" class="w-5 h-5 md:w-6 md:h-6 text-red-400" />
-              </div>
-              <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-3">Limited Scalability</h3>
-              <p class="text-sm md:text-base text-gray-400 leading-relaxed hidden md:block">
-                Current analytics setup can't keep pace with your business growth and evolving needs
-              </p>
-            </div>
+            ))}
           </div>
 
           <div class="text-center mt-8 md:mt-12">
             <p class="text-sm md:text-lg text-lime-400 font-semibold">
-              We help you overcome these challenges with proven methodologies and cutting-edge solutions
+              {homepageContent.problems.closing}
             </p>
           </div>
         </div>
@@ -218,97 +166,44 @@ const latestPosts = allPosts
         <div class="container mx-auto px-4">
           <div class="text-center mb-16">
             <h2 class="text-3xl md:text-4xl font-bold mb-6">
-              Our <span class="text-lime-400">Proven Methodology</span>
+              {homepageContent.methodology.title} <span class="text-lime-400">{homepageContent.methodology.titleHighlight}</span>
             </h2>
             <p class="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
-              A structured approach to turn your analytics vision into reality
+              {homepageContent.methodology.subtitle}
             </p>
           </div>
 
           <div class="max-w-5xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <!-- Step 1 -->
-              <div class="relative flex">
-                <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-lime-400/30 rounded-xl p-6 hover:border-lime-400/50 transition-all flex flex-col h-full w-full">
-                  <div class="absolute -top-4 -left-4 w-12 h-12 bg-lime-400 rounded-full flex items-center justify-center font-bold text-black text-xl shadow-lg shadow-lime-400/50">
-                    1
+              {homepageContent.methodology.steps.map((step, index) => (
+                <div class="relative flex">
+                  <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-lime-400/30 rounded-xl p-6 hover:border-lime-400/50 transition-all flex flex-col h-full w-full">
+                    <div class="absolute -top-4 -left-4 w-12 h-12 bg-lime-400 rounded-full flex items-center justify-center font-bold text-black text-xl shadow-lg shadow-lime-400/50">
+                      {step.number}
+                    </div>
+                    <div class="w-14 h-14 bg-lime-400/10 rounded-lg flex items-center justify-center mb-4 mt-2">
+                      <Icon name={step.icon} class="w-7 h-7 text-lime-400" />
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">{step.title}</h3>
+                    <p class="text-gray-400 leading-relaxed text-sm">
+                      {step.description}
+                    </p>
                   </div>
-                  <div class="w-14 h-14 bg-lime-400/10 rounded-lg flex items-center justify-center mb-4 mt-2">
-                    <Icon name="mdi:eye" class="w-7 h-7 text-lime-400" />
-                  </div>
-                  <h3 class="text-xl font-bold mb-3">Discover</h3>
-                  <p class="text-gray-400 leading-relaxed text-sm">
-                    We assess your current state, understand your business goals, and identify key opportunities for impact
-                  </p>
+                  {index < homepageContent.methodology.steps.length - 1 && (
+                    <div class="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-lime-400 to-transparent"></div>
+                  )}
                 </div>
-                <div class="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-lime-400 to-transparent"></div>
-              </div>
-
-              <!-- Step 2 -->
-              <div class="relative flex">
-                <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-lime-400/30 rounded-xl p-6 hover:border-lime-400/50 transition-all flex flex-col h-full w-full">
-                  <div class="absolute -top-4 -left-4 w-12 h-12 bg-lime-400 rounded-full flex items-center justify-center font-bold text-black text-xl shadow-lg shadow-lime-400/50">
-                    2
-                  </div>
-                  <div class="w-14 h-14 bg-lime-400/10 rounded-lg flex items-center justify-center mb-4 mt-2">
-                    <Icon name="mdi:lightbulb" class="w-7 h-7 text-lime-400" />
-                  </div>
-                  <h3 class="text-xl font-bold mb-3">Design</h3>
-                  <p class="text-gray-400 leading-relaxed text-sm">
-                    We create a tailored analytics roadmap with clear milestones, technology choices, and success metrics
-                  </p>
-                </div>
-                <div class="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-lime-400 to-transparent"></div>
-              </div>
-
-              <!-- Step 3 -->
-              <div class="relative flex">
-                <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-lime-400/30 rounded-xl p-6 hover:border-lime-400/50 transition-all flex flex-col h-full w-full">
-                  <div class="absolute -top-4 -left-4 w-12 h-12 bg-lime-400 rounded-full flex items-center justify-center font-bold text-black text-xl shadow-lg shadow-lime-400/50">
-                    3
-                  </div>
-                  <div class="w-14 h-14 bg-lime-400/10 rounded-lg flex items-center justify-center mb-4 mt-2">
-                    <Icon name="mdi:check-circle" class="w-7 h-7 text-lime-400" />
-                  </div>
-                  <h3 class="text-xl font-bold mb-3">Deploy</h3>
-                  <p class="text-gray-400 leading-relaxed text-sm">
-                    We implement solutions using agile sprints, ensuring rapid delivery and continuous feedback loops
-                  </p>
-                </div>
-                <div class="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-lime-400 to-transparent"></div>
-              </div>
-
-              <!-- Step 4 -->
-              <div class="relative flex">
-                <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-lime-400/30 rounded-xl p-6 hover:border-lime-400/50 transition-all flex flex-col h-full w-full">
-                  <div class="absolute -top-4 -left-4 w-12 h-12 bg-lime-400 rounded-full flex items-center justify-center font-bold text-black text-xl shadow-lg shadow-lime-400/50">
-                    4
-                  </div>
-                  <div class="w-14 h-14 bg-lime-400/10 rounded-lg flex items-center justify-center mb-4 mt-2">
-                    <Icon name="mdi:chart-line" class="w-7 h-7 text-lime-400" />
-                  </div>
-                  <h3 class="text-xl font-bold mb-3">Optimize</h3>
-                  <p class="text-gray-400 leading-relaxed text-sm">
-                    We monitor performance, refine models, and continuously improve to maximize your ROI and business value
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
 
             <!-- Additional Value Props -->
             <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div class="text-center p-6 bg-zinc-900/50 rounded-xl border border-zinc-800">
-                <div class="text-3xl font-bold text-lime-400 mb-2">2-4 Weeks</div>
-                <p class="text-gray-400 text-sm">Time to First Insights</p>
-              </div>
-              <div class="text-center p-6 bg-zinc-900/50 rounded-xl border border-zinc-800">
-                <div class="text-3xl font-bold text-lime-400 mb-2">Agile</div>
-                <p class="text-gray-400 text-sm">Iterative Approach</p>
-              </div>
-              <div class="text-center p-6 bg-zinc-900/50 rounded-xl border border-zinc-800">
-                <div class="text-3xl font-bold text-lime-400 mb-2">100%</div>
-                <p class="text-gray-400 text-sm">Transparent Process</p>
-              </div>
+              {homepageContent.methodology.valueProps.map((prop) => (
+                <div class="text-center p-6 bg-zinc-900/50 rounded-xl border border-zinc-800">
+                  <div class="text-3xl font-bold text-lime-400 mb-2">{prop.label}</div>
+                  <p class="text-gray-400 text-sm">{prop.description}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -317,31 +212,19 @@ const latestPosts = allPosts
       <section class="py-16 md:py-28 bg-zinc-950 border-t border-gray-800 hidden md:block">
         <div class="container mx-auto px-4">
           <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">Why Choose <span class="text-lime-400">AUXO?</span></h2>
-            <p class="text-gray-400 max-w-2xl mx-auto leading-relaxed"><em>Your trusted analytics partner</em> in the UAE</p>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">{homepageContent.whyChoose.title} <span class="text-lime-400">{homepageContent.whyChoose.titleHighlight}</span></h2>
+            <p class="text-gray-400 max-w-2xl mx-auto leading-relaxed"><em>{homepageContent.whyChoose.subtitle}</em></p>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            <div class="text-center">
-              <div class="inline-flex items-center justify-center w-16 h-16 bg-lime-400/10 rounded-full mb-4">
-                <Icon name="mdi:map-marker" class="w-8 h-8 text-lime-400" />
+            {homepageContent.whyChoose.items.map((item) => (
+              <div class="text-center">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-lime-400/10 rounded-full mb-4">
+                  <Icon name={item.icon} class="w-8 h-8 text-lime-400" />
+                </div>
+                <h3 class="text-xl font-bold mb-3">{item.title}</h3>
+                <p class="text-gray-400 leading-relaxed">{item.description}</p>
               </div>
-              <h3 class="text-xl font-bold mb-3">Dubai-Based Expertise</h3>
-              <p class="text-gray-400 leading-relaxed">Local team with deep understanding of UAE market dynamics and regulatory requirements</p>
-            </div>
-            <div class="text-center">
-              <div class="inline-flex items-center justify-center w-16 h-16 bg-lime-400/10 rounded-full mb-4">
-                <Icon name="mdi:certificate" class="w-8 h-8 text-lime-400" />
-              </div>
-              <h3 class="text-xl font-bold mb-3">Proven Track Record</h3>
-              <p class="text-gray-400 leading-relaxed">Delivering <span class="font-semibold text-gray-300">measurable results</span> through strategic insights and cutting-edge analytics</p>
-            </div>
-            <div class="text-center">
-              <div class="inline-flex items-center justify-center w-16 h-16 bg-lime-400/10 rounded-full mb-4">
-                <Icon name="mdi:security" class="w-8 h-8 text-lime-400" />
-              </div>
-              <h3 class="text-xl font-bold mb-3">Security & Compliance</h3>
-              <p class="text-gray-400 leading-relaxed">Full compliance with UAE PDPL, GDPR, and enterprise-grade security standards</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -354,42 +237,30 @@ const latestPosts = allPosts
               <!-- Left: Content -->
               <div>
                 <div class="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-lime-400/10 border border-lime-400/20 rounded-full mb-3 md:mb-4">
-                  <span class="text-lime-400 text-xs md:text-sm font-semibold">Free Assessment Tool</span>
+                  <span class="text-lime-400 text-xs md:text-sm font-semibold">{homepageContent.maturityCalculator.badge}</span>
                 </div>
                 <h2 class="text-2xl md:text-4xl font-bold mb-3 md:mb-4">
-                  Discover Your Analytics<br class="hidden md:block"/>
-                  <span class="text-lime-400">Maturity Level</span>
+                  {homepageContent.maturityCalculator.title}<br class="hidden md:block"/>
+                  <span class="text-lime-400">{homepageContent.maturityCalculator.titleHighlight}</span>
                 </h2>
                 <p class="text-sm md:text-lg text-gray-400 mb-4 md:mb-6 leading-relaxed">
-                  Take our 5-minute assessment to understand where your organization stands and get personalized recommendations.
+                  {homepageContent.maturityCalculator.subtitle}
                 </p>
 
                 <div class="space-y-2 md:space-y-3 mb-6 md:mb-8 hidden md:block">
-                  <div class="flex items-start gap-3">
-                    <Icon name="mdi:check-circle" class="w-6 h-6 text-lime-400 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p class="font-semibold text-white">Evaluate 5 Key Dimensions</p>
-                      <p class="text-sm text-gray-400">Infrastructure, Analytics, People, Culture, and Governance</p>
+                  {homepageContent.maturityCalculator.benefits.map((benefit) => (
+                    <div class="flex items-start gap-3">
+                      <Icon name="mdi:check-circle" class="w-6 h-6 text-lime-400 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <p class="font-semibold text-white">{benefit.title}</p>
+                        <p class="text-sm text-gray-400">{benefit.description}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div class="flex items-start gap-3">
-                    <Icon name="mdi:check-circle" class="w-6 h-6 text-lime-400 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p class="font-semibold text-white">Get Instant Results</p>
-                      <p class="text-sm text-gray-400">Receive your maturity score and actionable recommendations</p>
-                    </div>
-                  </div>
-                  <div class="flex items-start gap-3">
-                    <Icon name="mdi:check-circle" class="w-6 h-6 text-lime-400 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p class="font-semibold text-white">100% Free & Anonymous</p>
-                      <p class="text-sm text-gray-400">No registration required, completely confidential</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
 
-                <a href={`${base}maturity-calculator`} class="inline-flex items-center gap-2 bg-lime-400 text-black px-6 py-3 md:px-8 md:py-3.5 rounded-lg font-bold hover:bg-lime-500 transition-all shadow-lg shadow-lime-400/20 hover:shadow-lime-400/40 hover:scale-105 text-sm md:text-base">
-                  Start Free Assessment
+                <a href={`${base}${homepageContent.maturityCalculator.cta.href}`} class="inline-flex items-center gap-2 bg-lime-400 text-black px-6 py-3 md:px-8 md:py-3.5 rounded-lg font-bold hover:bg-lime-500 transition-all shadow-lg shadow-lime-400/20 hover:shadow-lime-400/40 hover:scale-105 text-sm md:text-base">
+                  {homepageContent.maturityCalculator.cta.text}
                   <Icon name="mdi:arrow-right" class="w-5 h-5" />
                 </a>
               </div>
@@ -399,54 +270,26 @@ const latestPosts = allPosts
                 <div class="bg-gradient-to-br from-zinc-800 to-zinc-900 border border-lime-400/20 rounded-2xl p-8 shadow-2xl">
                   <h3 class="text-xl font-bold mb-6 text-center">Assessment Dimensions</h3>
                   <div class="space-y-4">
-                    <div class="bg-zinc-800/50 rounded-lg p-4">
-                      <div class="flex items-center justify-between mb-2">
-                        <div class="flex items-center gap-3">
-                          <div class="w-10 h-10 bg-lime-400/20 rounded-lg flex items-center justify-center">
-                            <Icon name="mdi:database" class="w-5 h-5 text-lime-400" />
+                    {homepageContent.maturityCalculator.dimensions.map((dimension) => (
+                      <div class="bg-zinc-800/50 rounded-lg p-4">
+                        <div class="flex items-center justify-between mb-2">
+                          <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-lime-400/20 rounded-lg flex items-center justify-center">
+                              <Icon name={dimension.name === 'Infrastructure' ? 'mdi:database' : dimension.name === 'Analytics' ? 'mdi:chart-bar' : 'mdi:account-group'} class="w-5 h-5 text-lime-400" />
+                            </div>
+                            <span class="font-medium">{dimension.name}</span>
                           </div>
-                          <span class="font-medium">Infrastructure</span>
+                          <span class="text-lime-400 font-bold">{dimension.score}</span>
                         </div>
-                        <span class="text-lime-400 font-bold">4.2/5</span>
-                      </div>
-                      <div class="h-2 bg-zinc-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-lime-400 to-green-500" style="width: 84%"></div>
-                      </div>
-                    </div>
-
-                    <div class="bg-zinc-800/50 rounded-lg p-4">
-                      <div class="flex items-center justify-between mb-2">
-                        <div class="flex items-center gap-3">
-                          <div class="w-10 h-10 bg-lime-400/20 rounded-lg flex items-center justify-center">
-                            <Icon name="mdi:chart-bar" class="w-5 h-5 text-lime-400" />
-                          </div>
-                          <span class="font-medium">Analytics</span>
+                        <div class="h-2 bg-zinc-700 rounded-full overflow-hidden">
+                          <div class="h-full bg-gradient-to-r from-lime-400 to-green-500" style={`width: ${dimension.percentage}%`}></div>
                         </div>
-                        <span class="text-lime-400 font-bold">3.8/5</span>
                       </div>
-                      <div class="h-2 bg-zinc-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-lime-400 to-green-500" style="width: 76%"></div>
-                      </div>
-                    </div>
-
-                    <div class="bg-zinc-800/50 rounded-lg p-4">
-                      <div class="flex items-center justify-between mb-2">
-                        <div class="flex items-center gap-3">
-                          <div class="w-10 h-10 bg-lime-400/20 rounded-lg flex items-center justify-center">
-                            <Icon name="mdi:account-group" class="w-5 h-5 text-lime-400" />
-                          </div>
-                          <span class="font-medium">People & Skills</span>
-                        </div>
-                        <span class="text-lime-400 font-bold">3.5/5</span>
-                      </div>
-                      <div class="h-2 bg-zinc-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-lime-400 to-green-500" style="width: 70%"></div>
-                      </div>
-                    </div>
+                    ))}
 
                     <div class="text-center mt-6 pt-6 border-t border-zinc-700">
-                      <p class="text-2xl font-bold text-lime-400 mb-1">Managed Level</p>
-                      <p class="text-sm text-gray-400">Example Result Preview</p>
+                      <p class="text-2xl font-bold text-lime-400 mb-1">{homepageContent.maturityCalculator.resultLabel}</p>
+                      <p class="text-sm text-gray-400">{homepageContent.maturityCalculator.resultSubtext}</p>
                     </div>
                   </div>
                 </div>
@@ -465,10 +308,10 @@ const latestPosts = allPosts
         <div class="container mx-auto px-4">
           <div class="text-center mb-8 md:mb-16">
             <h2 class="text-2xl md:text-4xl font-bold mb-4 md:mb-6">
-              Latest <span class="text-lime-400">Insights</span>
+              {homepageContent.blog.title} <span class="text-lime-400">{homepageContent.blog.titleHighlight}</span>
             </h2>
             <p class="text-sm md:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed hidden md:block">
-              Expert perspectives on analytics, AI, and digital transformation in the UAE
+              {homepageContent.blog.subtitle}
             </p>
           </div>
 
@@ -506,7 +349,7 @@ const latestPosts = allPosts
                     href={`${base}blog/${post.id}`}
                     class="inline-flex items-center gap-2 text-lime-400 hover:text-lime-300 font-semibold text-xs md:text-sm group-hover:gap-3 transition-all"
                   >
-                    Read Article
+                    {commonText.buttons.viewArticle}
                     <Icon name="mdi:arrow-right" class="w-4 h-4" />
                   </a>
                 </div>
@@ -519,7 +362,7 @@ const latestPosts = allPosts
               href={`${base}blog`}
               class="inline-flex items-center gap-2 px-8 py-3 bg-zinc-800 border border-zinc-700 text-white rounded-lg hover:border-lime-400/50 hover:bg-zinc-700 transition-all font-semibold"
             >
-              View All Articles
+              {homepageContent.blog.viewAllText}
               <Icon name="mdi:arrow-right" class="w-5 h-5" />
             </a>
           </div>
@@ -541,85 +384,51 @@ const latestPosts = allPosts
               <div class="flex justify-center mb-6">
                 <div class="inline-flex items-center gap-2 px-4 py-2 bg-lime-400 text-black rounded-full font-bold text-sm">
                   <Icon name="mdi:check-circle" class="w-5 h-5" />
-                  <span>Founding Client Offer</span>
+                  <span>{homepageContent.launchOffer.badge}</span>
                   <Icon name="mdi:check-circle" class="w-5 h-5" />
                 </div>
               </div>
 
               <h2 class="text-3xl md:text-4xl font-bold mb-4 text-center">
-                Be Among Our <span class="text-lime-400">First 10 Partners</span>
+                {homepageContent.launchOffer.title} <span class="text-lime-400">{homepageContent.launchOffer.titleHighlight}</span>
               </h2>
 
               <p class="text-lg text-gray-300 mb-8 text-center max-w-2xl mx-auto leading-relaxed">
-                As a new consultancy, we're offering exclusive benefits to our founding clients who trust us to transform their analytics capabilities
+                {homepageContent.launchOffer.subtitle}
               </p>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div class="bg-zinc-800/50 border border-lime-400/20 rounded-xl p-6">
-                  <div class="flex items-start gap-3 mb-3">
-                    <div class="w-10 h-10 bg-lime-400/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Icon name="mdi:chart-bar" class="w-6 h-6 text-lime-400" />
-                    </div>
-                    <div>
-                      <h3 class="font-bold text-xl mb-1">30% Discount</h3>
-                      <p class="text-gray-400 text-sm">On your first 3-month engagement</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="bg-zinc-800/50 border border-lime-400/20 rounded-xl p-6">
-                  <div class="flex items-start gap-3 mb-3">
-                    <div class="w-10 h-10 bg-lime-400/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Icon name="mdi:check-circle" class="w-6 h-6 text-lime-400" />
-                    </div>
-                    <div>
-                      <h3 class="font-bold text-xl mb-1">Priority Support</h3>
-                      <p class="text-gray-400 text-sm">Direct access to our senior team</p>
+                {homepageContent.launchOffer.benefits.map((benefit) => (
+                  <div class="bg-zinc-800/50 border border-lime-400/20 rounded-xl p-6">
+                    <div class="flex items-start gap-3 mb-3">
+                      <div class="w-10 h-10 bg-lime-400/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Icon name={benefit.icon} class="w-6 h-6 text-lime-400" />
+                      </div>
+                      <div>
+                        <h3 class="font-bold text-xl mb-1">{benefit.title}</h3>
+                        <p class="text-gray-400 text-sm">{benefit.description}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-
-                <div class="bg-zinc-800/50 border border-lime-400/20 rounded-xl p-6">
-                  <div class="flex items-start gap-3 mb-3">
-                    <div class="w-10 h-10 bg-lime-400/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Icon name="mdi:certificate" class="w-6 h-6 text-lime-400" />
-                    </div>
-                    <div>
-                      <h3 class="font-bold text-xl mb-1">Free Assessment</h3>
-                      <p class="text-gray-400 text-sm">Comprehensive maturity evaluation (AED 5,000 value)</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="bg-zinc-800/50 border border-lime-400/20 rounded-xl p-6">
-                  <div class="flex items-start gap-3 mb-3">
-                    <div class="w-10 h-10 bg-lime-400/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Icon name="mdi:shield-check" class="w-6 h-6 text-lime-400" />
-                    </div>
-                    <div>
-                      <h3 class="font-bold text-xl mb-1">Partner Status</h3>
-                      <p class="text-gray-400 text-sm">Preferred pricing for 12 months</p>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
 
               <div class="bg-gradient-to-r from-lime-400/10 to-green-500/10 border border-lime-400/30 rounded-xl p-6 mb-8">
                 <div class="flex items-center justify-center gap-3 mb-2">
                   <Icon name="mdi:alert-circle" class="w-6 h-6 text-lime-400" />
-                  <span class="font-bold text-lg">Limited Time Offer</span>
+                  <span class="font-bold text-lg">{homepageContent.launchOffer.limitedTime.title}</span>
                 </div>
                 <p class="text-center text-gray-300">
-                  Only <span class="text-lime-400 font-bold">7 spots remaining</span> for founding clients
+                  {homepageContent.launchOffer.limitedTime.message} <span class="text-lime-400 font-bold">{homepageContent.launchOffer.limitedTime.count}</span> {homepageContent.launchOffer.limitedTime.highlight}
                 </p>
               </div>
 
               <div class="text-center">
-                <a href={`${base}contact`} class="inline-flex items-center gap-2 bg-lime-400 text-black px-10 py-4 rounded-lg font-bold hover:bg-lime-500 transition-all shadow-lg shadow-lime-400/30 hover:shadow-lime-400/50 hover:scale-105 text-lg">
-                  Claim Your Spot Now
+                <a href={`${base}${homepageContent.launchOffer.cta.href}`} class="inline-flex items-center gap-2 bg-lime-400 text-black px-10 py-4 rounded-lg font-bold hover:bg-lime-500 transition-all shadow-lg shadow-lime-400/30 hover:shadow-lime-400/50 hover:scale-105 text-lg">
+                  {homepageContent.launchOffer.cta.text}
                   <Icon name="mdi:arrow-right" class="w-5 h-5" />
                 </a>
-                <p class="text-sm text-gray-500 mt-4">No long-term contracts required • Cancel anytime</p>
+                <p class="text-sm text-gray-500 mt-4">{homepageContent.launchOffer.disclaimer}</p>
               </div>
             </div>
           </div>
@@ -629,12 +438,12 @@ const latestPosts = allPosts
       <!-- CTA Section -->
       <section class="py-12 md:py-28 bg-gradient-to-b from-zinc-950 to-zinc-900 border-t border-gray-800">
         <div class="container mx-auto px-4 text-center">
-          <h2 class="text-2xl md:text-4xl font-bold mb-4 md:mb-6">Ready to Transform Your Business?</h2>
+          <h2 class="text-2xl md:text-4xl font-bold mb-4 md:mb-6">{homepageContent.finalCta.title}</h2>
           <p class="text-sm md:text-lg text-gray-400 mb-6 md:mb-10 max-w-2xl mx-auto leading-relaxed">
-            Schedule a <span class="font-semibold text-gray-300">free consultation</span> to discuss your analytics needs
+            {homepageContent.finalCta.subtitle}
           </p>
-          <a href={`${base}contact`} class="inline-block bg-lime-400 text-black px-8 py-3 md:px-12 md:py-4 rounded-lg font-bold hover:bg-lime-500 transition text-sm md:text-base shadow-lg shadow-lime-400/20 hover:shadow-lime-400/40 hover:scale-105">
-            Get Started Today
+          <a href={`${base}${homepageContent.finalCta.ctaHref}`} class="inline-block bg-lime-400 text-black px-8 py-3 md:px-12 md:py-4 rounded-lg font-bold hover:bg-lime-500 transition text-sm md:text-base shadow-lg shadow-lime-400/20 hover:shadow-lime-400/40 hover:scale-105">
+            {homepageContent.finalCta.ctaText}
           </a>
         </div>
       </section>

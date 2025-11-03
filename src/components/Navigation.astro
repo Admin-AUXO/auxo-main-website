@@ -1,5 +1,5 @@
 ---
-import { services } from '../data/services';
+import { services } from '../data/collections/services';
 import { Icon } from 'astro-icon/components';
 
 const base = import.meta.env.BASE_URL;
@@ -31,9 +31,9 @@ const navItems: NavItem[] = [
     name: 'Resources',
     href: `${base}blog`,
     dropdown: [
-      { name: 'Case Studies', href: `${base}case-studies`, icon: 'case-studies' },
-      { name: 'Blog', href: `${base}blog`, icon: 'blog' },
-      { name: 'FAQ', href: `${base}faq`, icon: 'faq' }
+      { name: 'Case Studies', href: `${base}case-studies/`, icon: 'case-studies' },
+      { name: 'Blog', href: `${base}blog/`, icon: 'blog' },
+      { name: 'FAQ', href: `${base}faq/`, icon: 'faq' }
     ]
   },
 ];

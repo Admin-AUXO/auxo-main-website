@@ -1,6 +1,6 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import LegalLayout from '../components/LegalLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalLayout from '../../components/LegalLayout.astro';
 
 const base = import.meta.env.BASE_URL;
 ---
@@ -21,7 +21,7 @@ const base = import.meta.env.BASE_URL;
         <div class="mb-8 p-6 bg-lime-400/5 border border-lime-400/20 rounded-lg">
           <h2 class="!mt-0">Agreement to Terms</h2>
           <p>
-            By accessing the AUXO Data Labs website (the "Website") or engaging our data analytics consultancy services (the "Services"), you ("Client," "you," or "your") accept and agree to be bound by these Terms and Conditions ("Terms") and our <a href={`${base}privacy-policy`}>Privacy Policy</a>.
+            By accessing the AUXO Data Labs website (the "Website") or engaging our data analytics consultancy services (the "Services"), you ("Client," "you," or "your") accept and agree to be bound by these Terms and Conditions ("Terms") and our <a href={`${base}legal/privacy-policy`}>Privacy Policy</a>.
           </p>
           <p>
             If you do not agree to these Terms, please do not use our Website or Services.
@@ -238,7 +238,7 @@ const base = import.meta.env.BASE_URL;
           <li>EU General Data Protection Regulation (GDPR) where applicable</li>
           <li>Industry-specific regulations (e.g., healthcare, financial services)</li>
         </ul>
-        <p>Data processing activities are governed by our <a href={`${base}dpa`}>Data Processing Agreement (DPA)</a> and <a href={`${base}privacy-policy`}>Privacy Policy</a>.</p>
+        <p>Data processing activities are governed by our <a href={`${base}legal/dpa`}>Data Processing Agreement (DPA)</a> and <a href={`${base}legal/privacy-policy`}>Privacy Policy</a>.</p>
 
         <h2>9. Warranties and Disclaimers</h2>
 

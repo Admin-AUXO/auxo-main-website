@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { services } from '../../data/services';
+import { services } from '../../data/collections/services';
+import { getUseCases } from '../../data/collections/servicesUseCases';
 import { Icon } from 'astro-icon/components';
 
 const base = import.meta.env.BASE_URL;
@@ -14,50 +15,6 @@ export async function getStaticPaths() {
 }
 
 const { service } = Astro.props;
-
-// Use cases data
-function getUseCases(serviceId: string) {
-  const useCases: Record<string, Array<{title: string, description: string}>> = {
-    'business-intelligence': [
-      { title: 'Executive Dashboards', description: 'Real-time KPI monitoring for C-suite decision-making' },
-      { title: 'Sales Performance Tracking', description: 'Monitor sales metrics, forecasts, and team performance' },
-      { title: 'Financial Reporting', description: 'Automated monthly/quarterly financial reports and variance analysis' },
-      { title: 'Operational Metrics', description: 'Track efficiency, productivity, and operational excellence' }
-    ],
-    'data-analytics': [
-      { title: 'Customer Churn Prediction', description: 'Identify at-risk customers before they leave' },
-      { title: 'Market Basket Analysis', description: 'Discover product associations and cross-sell opportunities' },
-      { title: 'Demand Forecasting', description: 'Predict future demand for inventory optimization' },
-      { title: 'Pricing Optimization', description: 'Data-driven pricing strategies to maximize revenue' }
-    ],
-    'data-strategy': [
-      { title: 'Digital Transformation', description: 'Develop data strategy for organization-wide transformation' },
-      { title: 'Data Modernization', description: 'Migrate from legacy systems to modern cloud infrastructure' },
-      { title: 'Analytics ROI Planning', description: 'Build business case for analytics investments' },
-      { title: 'Organizational Alignment', description: 'Align data initiatives with business objectives' }
-    ],
-    'data-engineering': [
-      { title: 'Data Warehouse Migration', description: 'Move from on-premise to cloud data warehouse' },
-      { title: 'Real-time Data Pipelines', description: 'Stream processing for real-time analytics' },
-      { title: 'Data Lake Implementation', description: 'Centralize all your data sources in a scalable data lake' },
-      { title: 'API Integration', description: 'Connect disparate systems for unified data view' }
-    ],
-    'ml-ai': [
-      { title: 'Document Processing', description: 'Automate document classification and data extraction' },
-      { title: 'Fraud Detection', description: 'Identify anomalous patterns and fraudulent transactions' },
-      { title: 'Personalization Engines', description: 'Deliver personalized content and recommendations' },
-      { title: 'Predictive Maintenance', description: 'Forecast equipment failures before they occur' }
-    ],
-    'data-governance': [
-      { title: 'GDPR Compliance', description: 'Implement frameworks for EU data protection compliance' },
-      { title: 'UAE PDPL Readiness', description: 'Ensure compliance with UAE Personal Data Protection Law' },
-      { title: 'Data Quality Management', description: 'Establish data quality standards and monitoring' },
-      { title: 'Master Data Management', description: 'Create single source of truth for critical data' }
-    ]
-  };
-  return useCases[serviceId] || [];
-}
-
 const useCases = getUseCases(service.id);
 ---
 
@@ -204,7 +161,7 @@ const useCases = getUseCases(service.id);
                 Take our free assessment to discover your data analytics maturity level
               </p>
               <a
-                href={`${base}maturity-calculator`}
+                href={`${base}tools/maturity-calculator`}
                 class="block w-full py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors text-center text-sm"
               >
                 Take Assessment

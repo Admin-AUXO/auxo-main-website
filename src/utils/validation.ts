@@ -106,6 +106,8 @@ export const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
  * Email validation function
  * @deprecated Use Zod schema instead
  */
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function isValidEmail(email: string): boolean {
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   return EMAIL_REGEX.test(email);
 }

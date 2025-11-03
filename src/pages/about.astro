@@ -1,8 +1,8 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { siteData } from '../data/site';
-import { team } from '../data/team';
-import { Icon } from 'astro-icon/components';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { team } from "../data/collections/team";
+import { aboutContent } from "../data/content/about";
+import { Icon } from "astro-icon/components";
 
 const base = import.meta.env.BASE_URL;
 ---
@@ -15,37 +15,52 @@ const base = import.meta.env.BASE_URL;
     <div class="container mx-auto px-4">
       <!-- Hero Section -->
       <div class="max-w-4xl mx-auto text-center mb-12 md:mb-20">
-        <div class="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-lime-400/10 border border-lime-400/20 rounded-full mb-3 md:mb-4">
-          <span class="text-lime-400 text-xs md:text-sm font-semibold tracking-wide">About AUXO Data Labs</span>
+        <div
+          class="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-lime-400/10 border border-lime-400/20 rounded-full mb-3 md:mb-4"
+        >
+          <span
+            class="text-lime-400 text-xs md:text-sm font-semibold tracking-wide"
+            >{aboutContent.hero.badge}</span
+          >
         </div>
         <h1 class="text-3xl md:text-5xl font-bold mb-4 md:mb-6 leading-tight">
-          Turning Information Into
-          <span class="text-lime-400"> Competitive Advantage</span>
+          {aboutContent.hero.title}
+          <span class="text-lime-400"> {aboutContent.hero.titleHighlight}</span>
         </h1>
         <p class="text-sm md:text-xl text-gray-400 leading-relaxed">
-          We're a fresh team of <span class="font-semibold text-gray-300">data scientists, engineers, and strategists</span> on a mission to make enterprise-grade analytics accessible to UAE businesses.
+          {aboutContent.hero.subtitle}
         </p>
       </div>
 
       <!-- Mission & Vision -->
-      <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-20">
-        <div class="bg-gradient-to-br from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8">
-          <div class="w-14 h-14 bg-lime-400 rounded-lg flex items-center justify-center mb-4">
-            <Icon name="mdi:target" class="w-8 h-8 text-black" />
+      <div
+        class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-20"
+      >
+        <div
+          class="bg-gradient-to-br from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8"
+        >
+          <div
+            class="w-14 h-14 bg-lime-400 rounded-lg flex items-center justify-center mb-4"
+          >
+            <Icon name={aboutContent.mission.icon} class="w-8 h-8 text-black" />
           </div>
-          <h2 class="text-2xl font-bold mb-4">Our Mission</h2>
+          <h2 class="text-2xl font-bold mb-4">{aboutContent.mission.title}</h2>
           <p class="text-gray-300 leading-relaxed">
-            To <em>democratize data analytics</em> by making enterprise-grade solutions accessible to organizations of all sizes, empowering them to make data-driven decisions that drive growth and innovation.
+            {aboutContent.mission.description}
           </p>
         </div>
 
-        <div class="bg-gradient-to-br from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8">
-          <div class="w-14 h-14 bg-lime-400 rounded-lg flex items-center justify-center mb-4">
-            <Icon name="mdi:eye" class="w-8 h-8 text-black" />
+        <div
+          class="bg-gradient-to-br from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8"
+        >
+          <div
+            class="w-14 h-14 bg-lime-400 rounded-lg flex items-center justify-center mb-4"
+          >
+            <Icon name={aboutContent.vision.icon} class="w-8 h-8 text-black" />
           </div>
-          <h2 class="text-2xl font-bold mb-4">Our Vision</h2>
+          <h2 class="text-2xl font-bold mb-4">{aboutContent.vision.title}</h2>
           <p class="text-gray-300 leading-relaxed">
-            To be the <span class="font-semibold">Middle East's leading data analytics partner</span>, recognized for delivering transformative insights that enable organizations to thrive in an increasingly data-driven world.
+            {aboutContent.vision.description}
           </p>
         </div>
       </div>
@@ -53,125 +68,133 @@ const base = import.meta.env.BASE_URL;
       <!-- Our Values -->
       <div class="max-w-6xl mx-auto mb-12 md:mb-20">
         <div class="text-center mb-8 md:mb-12">
-          <h2 class="text-2xl md:text-3xl font-bold mb-3 md:mb-4">Our Core Values</h2>
-          <p class="text-sm md:text-base text-gray-400 leading-relaxed hidden md:block"><em>The principles that guide everything we do</em></p>
+          <h2 class="text-2xl md:text-3xl font-bold mb-3 md:mb-4">
+            {aboutContent.values.title}
+          </h2>
+          <p
+            class="text-sm md:text-base text-gray-400 leading-relaxed hidden md:block"
+          >
+            <em>{aboutContent.values.subtitle}</em>
+          </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center hover:border-lime-400 transition-colors">
-            <Icon name="mdi:lightbulb" class="w-12 h-12 text-lime-400 mx-auto mb-4" />
-            <h3 class="font-bold mb-2 text-lg">Innovation</h3>
-            <p class="text-sm text-gray-400 leading-relaxed">We embrace <span class="font-medium text-gray-300">cutting-edge technologies</span> and continuously evolve our solutions</p>
-          </div>
-
-          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center hover:border-lime-400 transition-colors">
-            <Icon name="mdi:handshake" class="w-12 h-12 text-lime-400 mx-auto mb-4" />
-            <h3 class="font-bold mb-2 text-lg">Partnership</h3>
-            <p class="text-sm text-gray-400 leading-relaxed">Your success is our success. We work as an extension of your team</p>
-          </div>
-
-          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center hover:border-lime-400 transition-colors">
-            <Icon name="mdi:shield-check" class="w-12 h-12 text-lime-400 mx-auto mb-4" />
-            <h3 class="font-bold mb-2 text-lg">Integrity</h3>
-            <p class="text-sm text-gray-400 leading-relaxed">We maintain the highest standards of <em>data security</em> and ethical practices</p>
-          </div>
-
-          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center hover:border-lime-400 transition-colors">
-            <Icon name="mdi:trophy" class="w-12 h-12 text-lime-400 mx-auto mb-4" />
-            <h3 class="font-bold mb-2 text-lg">Excellence</h3>
-            <p class="text-sm text-gray-400 leading-relaxed">We deliver <span class="font-medium text-gray-300">exceptional quality</span> in every project, no matter the size</p>
-          </div>
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
+        >
+          {
+            aboutContent.values.items.map((value) => (
+              <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center hover:border-lime-400 transition-colors">
+                <Icon
+                  name={value.icon}
+                  class="w-12 h-12 text-lime-400 mx-auto mb-4"
+                />
+                <h3 class="font-bold mb-2 text-lg">{value.title}</h3>
+                <p class="text-sm text-gray-400 leading-relaxed">
+                  {value.description}
+                </p>
+              </div>
+            ))
+          }
         </div>
       </div>
 
       <!-- Why Choose Us -->
       <div class="max-w-5xl mx-auto mb-12 md:mb-20 hidden md:block">
         <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold mb-4">Why Choose AUXO?</h2>
-          <p class="text-gray-400">What sets us apart in the data analytics landscape</p>
+          <h2 class="text-3xl font-bold mb-4">
+            {aboutContent.whyChoose.title}
+          </h2>
+          <p class="text-gray-400">{aboutContent.whyChoose.subtitle}</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
-            <div class="text-4xl font-black text-lime-400 mb-2">15+</div>
-            <h3 class="font-bold mb-2">Technologies Mastered</h3>
-            <p class="text-sm text-gray-400">From cloud platforms to ML frameworks</p>
-          </div>
-
-          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
-            <div class="text-4xl font-black text-lime-400 mb-2">20+</div>
-            <h3 class="font-bold mb-2">Years Combined Experience</h3>
-            <p class="text-sm text-gray-400">Deep expertise across data analytics domains</p>
-          </div>
-
-          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
-            <div class="text-4xl font-black text-lime-400 mb-2">100%</div>
-            <h3 class="font-bold mb-2">UAE Compliant</h3>
-            <p class="text-sm text-gray-400">PDPL, GDPR, and data sovereignty standards</p>
-          </div>
+          {
+            aboutContent.whyChoose.stats.map((stat) => (
+              <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+                <div class="text-4xl font-black text-lime-400 mb-2">
+                  {stat.value}
+                </div>
+                <h3 class="font-bold mb-2">{stat.title}</h3>
+                <p class="text-sm text-gray-400">{stat.description}</p>
+              </div>
+            ))
+          }
         </div>
       </div>
 
       <!-- Team Section -->
       <div class="max-w-5xl mx-auto mb-12 md:mb-20">
         <div class="text-center mb-8 md:mb-12">
-          <h2 class="text-2xl md:text-3xl font-bold mb-3 md:mb-4">Meet Our Team</h2>
-          <p class="text-xs md:text-base text-gray-400 hidden md:block">Data experts passionate about your success</p>
+          <h2 class="text-2xl md:text-3xl font-bold mb-3 md:mb-4">
+            {aboutContent.team.title}
+          </h2>
+          <p class="text-xs md:text-base text-gray-400 hidden md:block">
+            {aboutContent.team.subtitle}
+          </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {team.map((member) => (
-            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center hover:border-lime-400 transition-all group">
-              <div class="w-24 h-24 bg-gradient-to-br from-lime-400 to-green-500 rounded-full mx-auto mb-4 flex items-center justify-center text-black text-3xl font-bold">
-                {member.name.split(' ').map(n => n[0]).join('')}
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+        >
+          {
+            team.map((member) => (
+              <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center hover:border-lime-400 transition-all group">
+                <div class="w-24 h-24 bg-gradient-to-br from-lime-400 to-green-500 rounded-full mx-auto mb-4 flex items-center justify-center text-black text-3xl font-bold">
+                  {member.name
+                    .split(" ")
+                    .map((n) => n[0])
+                    .join("")}
+                </div>
+                <h3 class="font-bold text-lg mb-1">{member.name}</h3>
+                <p class="text-lime-400 text-sm mb-3">{member.role}</p>
+                <p class="text-sm text-gray-400 mb-4">{member.bio}</p>
+                {member.linkedin && (
+                  <a
+                    href={member.linkedin}
+                    class="inline-flex items-center text-sm text-gray-400 hover:text-lime-400 transition-colors"
+                  >
+                    <Icon name="mdi:linkedin" class="w-4 h-4 mr-1" />
+                    Connect
+                  </a>
+                )}
               </div>
-              <h3 class="font-bold text-lg mb-1">{member.name}</h3>
-              <p class="text-lime-400 text-sm mb-3">{member.role}</p>
-              <p class="text-sm text-gray-400 mb-4">{member.bio}</p>
-              {member.linkedin && (
-                <a
-                  href={member.linkedin}
-                  class="inline-flex items-center text-sm text-gray-400 hover:text-lime-400 transition-colors"
-                >
-                  <Icon name="mdi:linkedin" class="w-4 h-4 mr-1" />
-                  Connect
-                </a>
-              )}
-            </div>
-          ))}
+            ))
+          }
         </div>
 
         <div class="mt-8 text-center">
-          <p class="text-gray-400 mb-4">Interested in joining our team?</p>
+          <p class="text-gray-400 mb-4">{aboutContent.team.hiring.text}</p>
           <a
-            href={`${base}contact`}
+            href={`${base}${aboutContent.team.hiring.ctaHref}`}
             class="inline-flex items-center px-6 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors"
           >
-            We're Hiring
+            {aboutContent.team.hiring.ctaText}
             <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
           </a>
         </div>
       </div>
 
       <div class="max-w-4xl mx-auto">
-        <div class="bg-gradient-to-r from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8 md:p-12 text-center">
-          <h2 class="text-3xl font-bold mb-4">Let's Work Together</h2>
+        <div
+          class="bg-gradient-to-r from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8 md:p-12 text-center"
+        >
+          <h2 class="text-3xl font-bold mb-4">{aboutContent.finalCta.title}</h2>
           <p class="text-gray-400 mb-8 max-w-2xl mx-auto">
-            Ready to transform your data into insights? We'd love to hear about your challenges and explore how we can help.
+            {aboutContent.finalCta.subtitle}
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href={`${base}contact`}
+              href={`${base}${aboutContent.finalCta.primaryCta.href}`}
               class="px-8 py-4 bg-lime-400 text-black font-bold rounded-lg hover:bg-lime-500 transition-colors inline-flex items-center justify-center"
             >
-              Get in Touch
+              {aboutContent.finalCta.primaryCta.text}
               <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
             </a>
             <a
-              href={`${base}services`}
+              href={`${base}${aboutContent.finalCta.secondaryCta.href}`}
               class="px-8 py-4 bg-zinc-800 text-white font-bold rounded-lg hover:bg-zinc-700 transition-colors inline-flex items-center justify-center"
             >
-              View Our Services
+              {aboutContent.finalCta.secondaryCta.text}
             </a>
           </div>
         </div>

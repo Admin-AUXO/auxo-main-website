@@ -1,5 +1,8 @@
 ---
 // Multi-step lead generation form with assisted answer fields
+import { multiStepFormContent } from "../data/content/forms";
+import { commonText } from "../data/shared/common";
+
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -8,60 +11,106 @@ const base = import.meta.env.BASE_URL;
     <!-- Progress Bar -->
     <div class="mb-8">
       <div class="flex justify-between items-center mb-2">
-        <span class="text-sm text-gray-400">Step <span id="current-step-num">1</span> of 4</span>
-        <span class="text-sm text-gray-400"><span id="progress-percent">25</span>% Complete</span>
+        <span class="text-sm text-gray-400"
+          >Step <span id="current-step-num">1</span> of 4</span
+        >
+        <span class="text-sm text-gray-400"
+          ><span id="progress-percent">25</span>% Complete</span
+        >
       </div>
       <div class="h-2 bg-zinc-800 rounded-full overflow-hidden">
-        <div id="progress-bar" class="h-full bg-gradient-to-r from-lime-400 to-green-500 transition-all duration-500" style="width: 25%"></div>
+        <div
+          id="progress-bar"
+          class="h-full bg-gradient-to-r from-lime-400 to-green-500 transition-all duration-500"
+          style="width: 25%"
+        >
+        </div>
       </div>
     </div>
 
     <!-- Step 1: Basic Information -->
     <div class="form-step active" data-step="1">
-      <h3 class="text-2xl font-bold mb-2">Let's get to know you</h3>
-      <p class="text-gray-400 mb-6">Tell us about yourself and your company</p>
+      <h3 class="text-2xl font-bold mb-2">
+        {multiStepFormContent.step1.title}
+      </h3>
+      <p class="text-gray-400 mb-6">{multiStepFormContent.step1.subtitle}</p>
 
       <div class="space-y-4">
         <div>
-          <label for="name" class="block text-sm font-medium mb-2">Full Name *</label>
-          <input type="text" id="name" name="name" required
+          <label for="name" class="block text-sm font-medium mb-2"
+            >Full Name *</label
+          >
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
             class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors"
-            placeholder="John Smith">
+            placeholder="John Smith"
+          />
         </div>
 
         <div>
-          <label for="email" class="block text-sm font-medium mb-2">Work Email *</label>
-          <input type="email" id="email" name="email" required
+          <label for="email" class="block text-sm font-medium mb-2"
+            >Work Email *</label
+          >
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
             class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors"
-            placeholder="john@company.com">
+            placeholder="john@company.com"
+          />
         </div>
 
         <div>
-          <label for="company" class="block text-sm font-medium mb-2">Company Name *</label>
-          <input type="text" id="company" name="company" required
+          <label for="company" class="block text-sm font-medium mb-2"
+            >Company Name *</label
+          >
+          <input
+            type="text"
+            id="company"
+            name="company"
+            required
             class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors"
-            placeholder="Acme Corporation">
+            placeholder="Acme Corporation"
+          />
         </div>
 
         <div>
-          <label for="phone" class="block text-sm font-medium mb-2">Phone Number (Optional)</label>
-          <input type="tel" id="phone" name="phone"
+          <label for="phone" class="block text-sm font-medium mb-2"
+            >Phone Number (Optional)</label
+          >
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
             class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors"
-            placeholder="+971 50 123 4567">
+            placeholder="+971 50 123 4567"
+          />
         </div>
       </div>
     </div>
 
     <!-- Step 2: Company Details -->
     <div class="form-step" data-step="2">
-      <h3 class="text-2xl font-bold mb-2">About your organization</h3>
-      <p class="text-gray-400 mb-6">Help us understand your company better</p>
+      <h3 class="text-2xl font-bold mb-2">
+        {multiStepFormContent.step2.title}
+      </h3>
+      <p class="text-gray-400 mb-6">{multiStepFormContent.step2.subtitle}</p>
 
       <div class="space-y-4">
         <div>
-          <label for="industry" class="block text-sm font-medium mb-2">Industry *</label>
-          <select id="industry" name="industry" required
-            class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors">
+          <label for="industry" class="block text-sm font-medium mb-2"
+            >Industry *</label
+          >
+          <select
+            id="industry"
+            name="industry"
+            required
+            class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors"
+          >
             <option value="">Select your industry...</option>
             <option value="finance">Financial Services & Banking</option>
             <option value="healthcare">Healthcare & Life Sciences</option>
@@ -77,96 +126,199 @@ const base = import.meta.env.BASE_URL;
         </div>
 
         <div>
-          <label for="company-size" class="block text-sm font-medium mb-2">Company Size *</label>
+          <label for="company-size" class="block text-sm font-medium mb-2"
+            >Company Size *</label
+          >
           <div class="grid grid-cols-2 gap-3">
-            <button type="button" class="size-option px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg hover:border-lime-400 transition-colors text-left" data-value="1-50">
+            <button
+              type="button"
+              class="size-option px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg hover:border-lime-400 transition-colors text-left"
+              data-value="1-50"
+            >
               <div class="font-medium">1-50</div>
               <div class="text-xs text-gray-400">Small Team</div>
             </button>
-            <button type="button" class="size-option px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg hover:border-lime-400 transition-colors text-left" data-value="51-200">
+            <button
+              type="button"
+              class="size-option px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg hover:border-lime-400 transition-colors text-left"
+              data-value="51-200"
+            >
               <div class="font-medium">51-200</div>
               <div class="text-xs text-gray-400">Growing Business</div>
             </button>
-            <button type="button" class="size-option px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg hover:border-lime-400 transition-colors text-left" data-value="201-1000">
+            <button
+              type="button"
+              class="size-option px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg hover:border-lime-400 transition-colors text-left"
+              data-value="201-1000"
+            >
               <div class="font-medium">201-1000</div>
               <div class="text-xs text-gray-400">Mid-Market</div>
             </button>
-            <button type="button" class="size-option px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg hover:border-lime-400 transition-colors text-left" data-value="1000+">
+            <button
+              type="button"
+              class="size-option px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg hover:border-lime-400 transition-colors text-left"
+              data-value="1000+"
+            >
               <div class="font-medium">1000+</div>
               <div class="text-xs text-gray-400">Enterprise</div>
             </button>
           </div>
-          <input type="hidden" id="company-size" name="company-size" required>
+          <input type="hidden" id="company-size" name="company-size" required />
         </div>
 
         <div>
-          <label for="role" class="block text-sm font-medium mb-2">Your Role *</label>
-          <input type="text" id="role" name="role" required
+          <label for="role" class="block text-sm font-medium mb-2"
+            >Your Role *</label
+          >
+          <input
+            type="text"
+            id="role"
+            name="role"
+            required
             class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors"
-            placeholder="e.g., Data Manager, CTO, Business Analyst">
-          <p class="mt-1 text-xs text-gray-500">This helps us understand your perspective</p>
+            placeholder="e.g., Data Manager, CTO, Business Analyst"
+          />
+          <p class="mt-1 text-xs text-gray-500">
+            This helps us understand your perspective
+          </p>
         </div>
       </div>
     </div>
 
     <!-- Step 3: Project Details -->
     <div class="form-step" data-step="3">
-      <h3 class="text-2xl font-bold mb-2">What brings you here?</h3>
-      <p class="text-gray-400 mb-6">Tell us about your data analytics needs</p>
+      <h3 class="text-2xl font-bold mb-2">
+        {multiStepFormContent.step3.title}
+      </h3>
+      <p class="text-gray-400 mb-6">{multiStepFormContent.step3.subtitle}</p>
 
       <div class="space-y-4">
         <div>
-          <div class="block text-sm font-medium mb-3">Services You're Interested In *</div>
+          <div class="block text-sm font-medium mb-3">
+            Services You're Interested In *
+          </div>
           <div class="space-y-2">
-            <label for="service-bi" class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors">
-              <input type="checkbox" id="service-bi" name="services[]" value="business-intelligence" class="mt-1 mr-3">
+            <label
+              for="service-bi"
+              class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors"
+            >
+              <input
+                type="checkbox"
+                id="service-bi"
+                name="services[]"
+                value="business-intelligence"
+                class="mt-1 mr-3"
+              />
               <div>
                 <div class="font-medium">Business Intelligence & Reporting</div>
-                <div class="text-xs text-gray-400">Dashboards, KPIs, and data visualization</div>
+                <div class="text-xs text-gray-400">
+                  Dashboards, KPIs, and data visualization
+                </div>
               </div>
             </label>
-            <label for="service-analytics" class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors">
-              <input type="checkbox" id="service-analytics" name="services[]" value="data-analytics" class="mt-1 mr-3">
+            <label
+              for="service-analytics"
+              class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors"
+            >
+              <input
+                type="checkbox"
+                id="service-analytics"
+                name="services[]"
+                value="data-analytics"
+                class="mt-1 mr-3"
+              />
               <div>
                 <div class="font-medium">Advanced Data Analytics</div>
-                <div class="text-xs text-gray-400">Predictive analytics and data science</div>
+                <div class="text-xs text-gray-400">
+                  Predictive analytics and data science
+                </div>
               </div>
             </label>
-            <label for="service-strategy" class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors">
-              <input type="checkbox" id="service-strategy" name="services[]" value="data-strategy" class="mt-1 mr-3">
+            <label
+              for="service-strategy"
+              class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors"
+            >
+              <input
+                type="checkbox"
+                id="service-strategy"
+                name="services[]"
+                value="data-strategy"
+                class="mt-1 mr-3"
+              />
               <div>
                 <div class="font-medium">Data Strategy & Roadmap</div>
-                <div class="text-xs text-gray-400">Strategic planning and consulting</div>
+                <div class="text-xs text-gray-400">
+                  Strategic planning and consulting
+                </div>
               </div>
             </label>
-            <label for="service-engineering" class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors">
-              <input type="checkbox" id="service-engineering" name="services[]" value="data-engineering" class="mt-1 mr-3">
+            <label
+              for="service-engineering"
+              class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors"
+            >
+              <input
+                type="checkbox"
+                id="service-engineering"
+                name="services[]"
+                value="data-engineering"
+                class="mt-1 mr-3"
+              />
               <div>
                 <div class="font-medium">Data Engineering & Integration</div>
-                <div class="text-xs text-gray-400">Data pipelines and infrastructure</div>
+                <div class="text-xs text-gray-400">
+                  Data pipelines and infrastructure
+                </div>
               </div>
             </label>
-            <label for="service-ml" class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors">
-              <input type="checkbox" id="service-ml" name="services[]" value="ml-ai" class="mt-1 mr-3">
+            <label
+              for="service-ml"
+              class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors"
+            >
+              <input
+                type="checkbox"
+                id="service-ml"
+                name="services[]"
+                value="ml-ai"
+                class="mt-1 mr-3"
+              />
               <div>
                 <div class="font-medium">Machine Learning & AI</div>
-                <div class="text-xs text-gray-400">AI/ML models and automation</div>
+                <div class="text-xs text-gray-400">
+                  AI/ML models and automation
+                </div>
               </div>
             </label>
-            <label for="service-governance" class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors">
-              <input type="checkbox" id="service-governance" name="services[]" value="data-governance" class="mt-1 mr-3">
+            <label
+              for="service-governance"
+              class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors"
+            >
+              <input
+                type="checkbox"
+                id="service-governance"
+                name="services[]"
+                value="data-governance"
+                class="mt-1 mr-3"
+              />
               <div>
                 <div class="font-medium">Data Governance & Compliance</div>
-                <div class="text-xs text-gray-400">Security, privacy, and compliance</div>
+                <div class="text-xs text-gray-400">
+                  Security, privacy, and compliance
+                </div>
               </div>
             </label>
           </div>
         </div>
 
         <div>
-          <label for="timeline" class="block text-sm font-medium mb-2">Project Timeline *</label>
-          <select id="timeline" name="timeline" required
-            class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors">
+          <label for="timeline" class="block text-sm font-medium mb-2"
+            >Project Timeline *</label
+          >
+          <select
+            id="timeline"
+            name="timeline"
+            required
+            class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors"
+          >
             <option value="">When do you need this?</option>
             <option value="urgent">Urgent (Within 1 month)</option>
             <option value="soon">Soon (1-3 months)</option>
@@ -176,9 +328,14 @@ const base = import.meta.env.BASE_URL;
         </div>
 
         <div>
-          <label for="budget" class="block text-sm font-medium mb-2">Estimated Budget Range (Optional)</label>
-          <select id="budget" name="budget"
-            class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors">
+          <label for="budget" class="block text-sm font-medium mb-2"
+            >Estimated Budget Range (Optional)</label
+          >
+          <select
+            id="budget"
+            name="budget"
+            class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors"
+          >
             <option value="">Select a range...</option>
             <option value="small">$10k - $50k</option>
             <option value="medium">$50k - $150k</option>
@@ -192,22 +349,39 @@ const base = import.meta.env.BASE_URL;
 
     <!-- Step 4: Additional Details -->
     <div class="form-step" data-step="4">
-      <h3 class="text-2xl font-bold mb-2">Tell us more</h3>
-      <p class="text-gray-400 mb-6">Any additional details that will help us serve you better</p>
+      <h3 class="text-2xl font-bold mb-2">
+        {multiStepFormContent.step4.title}
+      </h3>
+      <p class="text-gray-400 mb-6">{multiStepFormContent.step4.subtitle}</p>
 
       <div class="space-y-4">
         <div>
-          <label for="message" class="block text-sm font-medium mb-2">Project Description *</label>
-          <textarea id="message" name="message" rows="6" required
+          <label for="message" class="block text-sm font-medium mb-2"
+            >Project Description *</label
+          >
+          <textarea
+            id="message"
+            name="message"
+            rows="6"
+            required
             class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors resize-none"
-            placeholder="Describe your data analytics challenges, goals, or questions..."></textarea>
-          <p class="mt-1 text-xs text-gray-500">Be as detailed as you'd like - this helps us prepare for our conversation</p>
+            placeholder="Describe your data analytics challenges, goals, or questions..."
+          ></textarea>
+          <p class="mt-1 text-xs text-gray-500">
+            Be as detailed as you'd like - this helps us prepare for our
+            conversation
+          </p>
         </div>
 
         <div>
-          <label for="hear-about" class="block text-sm font-medium mb-2">How did you hear about us?</label>
-          <select id="hear-about" name="hear-about"
-            class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors">
+          <label for="hear-about" class="block text-sm font-medium mb-2"
+            >How did you hear about us?</label
+          >
+          <select
+            id="hear-about"
+            name="hear-about"
+            class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors"
+          >
             <option value="">Select an option...</option>
             <option value="search">Google / Search Engine</option>
             <option value="linkedin">LinkedIn</option>
@@ -220,19 +394,36 @@ const base = import.meta.env.BASE_URL;
 
         <div class="p-4 bg-zinc-900 border border-zinc-700 rounded-lg">
           <label for="newsletter" class="flex items-start cursor-pointer">
-            <input type="checkbox" id="newsletter" name="newsletter" class="mt-1 mr-3">
+            <input
+              type="checkbox"
+              id="newsletter"
+              name="newsletter"
+              class="mt-1 mr-3"
+            />
             <div>
               <div class="font-medium text-sm">Subscribe to our newsletter</div>
-              <div class="text-xs text-gray-400 mt-1">Get insights on data analytics trends and best practices (you can unsubscribe anytime)</div>
+              <div class="text-xs text-gray-400 mt-1">
+                Get insights on data analytics trends and best practices (you
+                can unsubscribe anytime)
+              </div>
             </div>
           </label>
         </div>
 
         <div class="p-4 bg-lime-400/10 border border-lime-400/20 rounded-lg">
           <label for="privacy" class="flex items-start cursor-pointer">
-            <input type="checkbox" id="privacy" name="privacy" required class="mt-1 mr-3">
+            <input
+              type="checkbox"
+              id="privacy"
+              name="privacy"
+              required
+              class="mt-1 mr-3"
+            />
             <div class="text-sm text-gray-300">
-              I agree to the <a href={`${base}privacy-policy`} class="text-lime-400 hover:underline">Privacy Policy</a> and consent to AUXO Data Labs contacting me about my inquiry. *
+              I agree to the <a
+                href={`${base}legal/privacy-policy`}
+                class="text-lime-400 hover:underline">Privacy Policy</a
+              > and consent to AUXO Data Labs contacting me about my inquiry. *
             </div>
           </label>
         </div>
@@ -241,29 +432,59 @@ const base = import.meta.env.BASE_URL;
 
     <!-- Navigation Buttons -->
     <div class="flex justify-between mt-8">
-      <button type="button" id="prev-btn" class="px-6 py-3 bg-zinc-800 text-white rounded-lg hover:bg-zinc-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-        Previous
+      <button
+        type="button"
+        id="prev-btn"
+        class="px-6 py-3 bg-zinc-800 text-white rounded-lg hover:bg-zinc-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        disabled
+      >
+        {multiStepFormContent.navigation.back}
       </button>
-      <button type="button" id="next-btn" class="px-6 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors">
-        Next Step
+      <button
+        type="button"
+        id="next-btn"
+        class="px-6 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors"
+      >
+        {multiStepFormContent.navigation.next}
       </button>
-      <button type="submit" id="submit-btn" class="hidden px-6 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors">
-        Submit Inquiry
+      <button
+        type="submit"
+        id="submit-btn"
+        class="hidden px-6 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors"
+      >
+        {multiStepFormContent.navigation.submit}
       </button>
     </div>
 
     <!-- Success Message -->
     <div id="success-message" class="hidden">
       <div class="text-center py-12">
-        <div class="w-16 h-16 bg-lime-400 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg class="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+        <div
+          class="w-16 h-16 bg-lime-400 rounded-full flex items-center justify-center mx-auto mb-4"
+        >
+          <svg
+            class="w-8 h-8 text-black"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="3"
+              d="M5 13l4 4L19 7"></path>
           </svg>
         </div>
         <h3 class="text-2xl font-bold mb-2">Thank you for your inquiry!</h3>
-        <p class="text-gray-400 mb-6">We've received your information and will get back to you within 24 hours.</p>
-        <a href={base} class="inline-block px-6 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors">
-          Return to Homepage
+        <p class="text-gray-400 mb-6">
+          We've received your information and will get back to you within 24
+          hours.
+        </p>
+        <a
+          href={base}
+          class="inline-block px-6 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors"
+        >
+          {commonText.buttons.returnHome}
         </a>
       </div>
     </div>
@@ -279,16 +500,22 @@ const base = import.meta.env.BASE_URL;
     animation: fadeIn 0.3s ease-in;
   }
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   .size-option.selected {
     background-color: rgba(163, 230, 53, 0.1);
-    border-color: #A3E635;
+    border-color: #a3e635;
   }
 </style>
 
-<script>
+<script is:inline define:vars={{ formText: multiStepFormContent, commonText: commonText }}>
   // Constants
   const TOTAL_STEPS = 4;
   const API_TIMEOUT = 10000; // 10 seconds
@@ -298,20 +525,25 @@ const base = import.meta.env.BASE_URL;
   let isSubmitting = false;
 
   // Elements
-  const prevBtn = document.getElementById('prev-btn') as HTMLButtonElement | null;
-  const nextBtn = document.getElementById('next-btn') as HTMLButtonElement | null;
-  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
-  const progressBar = document.getElementById('progress-bar') as HTMLElement | null;
-  const currentStepNum = document.getElementById('current-step-num') as HTMLElement | null;
-  const progressPercent = document.getElementById('progress-percent') as HTMLElement | null;
+  const prevBtn = document.getElementById("prev-btn");
+  const nextBtn = document.getElementById("next-btn");
+  const submitBtn = document.getElementById("submit-btn");
+  const progressBar = document.getElementById("progress-bar");
+  const currentStepNum = document.getElementById("current-step-num");
+  const progressPercent = document.getElementById("progress-percent");
 
   // Utility: Show toast notification
-  function showNotification(message: string, type: 'success' | 'error' | 'warning' = 'error'): void {
-    const toast = document.createElement('div');
+  function showNotification(
+    message,
+    type = "error",
+  ) {
+    const toast = document.createElement("div");
     toast.className = `fixed top-24 right-4 z-50 px-6 py-4 rounded-lg shadow-lg transform transition-all duration-300 translate-x-0 ${
-      type === 'success' ? 'bg-lime-400 text-black' :
-      type === 'error' ? 'bg-red-500 text-white' :
-      'bg-yellow-500 text-black'
+      type === "success"
+        ? "bg-lime-400 text-black"
+        : type === "error"
+          ? "bg-red-500 text-white"
+          : "bg-yellow-500 text-black"
     }`;
     toast.innerHTML = `
       <div class="flex items-center gap-3">
@@ -323,73 +555,83 @@ const base = import.meta.env.BASE_URL;
 
     // Auto-remove after 5 seconds
     setTimeout(() => {
-      toast.style.transform = 'translateX(400px)';
+      toast.style.transform = "translateX(400px)";
       setTimeout(() => toast.remove(), 300);
     }, 5000);
   }
 
   // Company size selection handlers
-  const sizeOptionHandlers = new Map<Element, EventListener>();
-  const handleSizeClick = function(this: HTMLElement) {
-    document.querySelectorAll('.size-option').forEach(b => b.classList.remove('selected'));
-    this.classList.add('selected');
-    const sizeInput = document.getElementById('company-size') as HTMLInputElement;
+  const sizeOptionHandlers = new Map();
+  const handleSizeClick = function () {
+    document
+      .querySelectorAll(".size-option")
+      .forEach((b) => b.classList.remove("selected"));
+    this.classList.add("selected");
+    const sizeInput = document.getElementById("company-size");
     if (sizeInput && this.dataset.value) {
       sizeInput.value = this.dataset.value;
     }
   };
 
-  document.querySelectorAll<HTMLElement>('.size-option').forEach(btn => {
+  document.querySelectorAll(".size-option").forEach((btn) => {
     sizeOptionHandlers.set(btn, handleSizeClick.bind(btn));
-    btn.addEventListener('click', sizeOptionHandlers.get(btn)!);
+    const handler = sizeOptionHandlers.get(btn);
+    if (handler) {
+      btn.addEventListener("click", handler);
+    }
   });
 
-  function updateProgress(): void {
+  function updateProgress() {
     const percent = (currentStep / TOTAL_STEPS) * 100;
     if (progressBar) progressBar.style.width = `${percent}%`;
     if (currentStepNum) currentStepNum.textContent = String(currentStep);
-    if (progressPercent) progressPercent.textContent = String(Math.round(percent));
+    if (progressPercent)
+      progressPercent.textContent = String(Math.round(percent));
   }
 
-  function showStep(step: number): void {
-    document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+  function showStep(step) {
+    document
+      .querySelectorAll(".form-step")
+      .forEach((s) => s.classList.remove("active"));
     const stepEl = document.querySelector(`[data-step="${step}"]`);
-    stepEl?.classList.add('active');
+    stepEl?.classList.add("active");
 
     if (prevBtn) prevBtn.disabled = step === 1;
 
     if (step === TOTAL_STEPS) {
-      nextBtn?.classList.add('hidden');
-      submitBtn?.classList.remove('hidden');
+      nextBtn?.classList.add("hidden");
+      submitBtn?.classList.remove("hidden");
     } else {
-      nextBtn?.classList.remove('hidden');
-      submitBtn?.classList.add('hidden');
+      nextBtn?.classList.remove("hidden");
+      submitBtn?.classList.add("hidden");
     }
 
     updateProgress();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function validateStep(step: number): boolean {
+  function validateStep(step) {
     const currentStepEl = document.querySelector(`[data-step="${step}"]`);
-    const requiredFields = currentStepEl?.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[required]');
+    const requiredFields = currentStepEl?.querySelectorAll("[required]");
 
     if (!requiredFields) return false;
 
     for (let field of requiredFields) {
-      if (field.type === 'checkbox') {
+      if (field.type === "checkbox") {
         // For step 3, at least one service must be selected
         if (step === 3) {
-          const serviceChecks = document.querySelectorAll<HTMLInputElement>('input[name="services[]"]');
-          const anyChecked = Array.from(serviceChecks).some(cb => cb.checked);
+          const serviceChecks = document.querySelectorAll(
+            'input[name="services[]"]',
+          );
+          const anyChecked = Array.from(serviceChecks).some((cb) => cb.checked);
           if (!anyChecked) {
-            showNotification('Please select at least one service', 'warning');
+            showNotification(formText.validation.required, "warning");
             return false;
           }
         }
       } else if (!field.value.trim()) {
         field.focus();
-        showNotification('Please fill in all required fields', 'warning');
+        showNotification(formText.validation.required, "warning");
         return false;
       }
     }
@@ -413,45 +655,50 @@ const base = import.meta.env.BASE_URL;
     if (isSubmitting) return; // Prevent double submission
 
     isSubmitting = true;
-    const originalText = submitBtn?.textContent || '';
-    if (submitBtn) submitBtn.textContent = 'Submitting...';
+    const originalText = submitBtn?.textContent || "";
+    if (submitBtn) submitBtn.textContent = formText.navigation.submitting;
     if (submitBtn) submitBtn.disabled = true;
 
     try {
       // XSS Prevention: Sanitize user input
-      const sanitizeInput = (input: string): string => {
-        const div = document.createElement('div');
+      const sanitizeInput = (input) => {
+        const div = document.createElement("div");
         div.textContent = input;
         return div.innerHTML.trim();
       };
 
       // Collect form data with type safety and XSS prevention
-      const getInputValue = (id: string): string => {
-        const el = document.getElementById(id) as HTMLInputElement | null;
-        return sanitizeInput(el?.value || '');
+      const getInputValue = (id) => {
+        const el = document.getElementById(id);
+        return sanitizeInput(el?.value || "");
       };
 
       const formData = {
-        name: getInputValue('name'),
-        email: getInputValue('email'),
-        company: getInputValue('company'),
-        phone: getInputValue('phone'),
-        industry: getInputValue('industry'),
-        companySize: getInputValue('company-size'),
-        role: getInputValue('role'),
-        services: Array.from(document.querySelectorAll<HTMLInputElement>('input[name="services[]"]:checked')).map(cb => sanitizeInput(cb.value)),
-        timeline: getInputValue('timeline'),
-        budget: getInputValue('budget'),
-        message: getInputValue('message'),
-        hearAbout: getInputValue('hear-about'),
-        newsletter: (document.getElementById('newsletter') as HTMLInputElement)?.checked || false,
+        name: getInputValue("name"),
+        email: getInputValue("email"),
+        company: getInputValue("company"),
+        phone: getInputValue("phone"),
+        industry: getInputValue("industry"),
+        companySize: getInputValue("company-size"),
+        role: getInputValue("role"),
+        services: Array.from(
+          document.querySelectorAll(
+            'input[name="services[]"]:checked',
+          ),
+        ).map((cb) => sanitizeInput(cb.value)),
+        timeline: getInputValue("timeline"),
+        budget: getInputValue("budget"),
+        message: getInputValue("message"),
+        hearAbout: getInputValue("hear-about"),
+        newsletter:
+          document.getElementById("newsletter")?.checked || false,
         timestamp: new Date().toISOString(),
       };
 
       // Validate email format
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(formData.email)) {
-        showNotification('Please enter a valid email address', 'warning');
+        showNotification(formText.validation.invalidEmail, "warning");
         return;
       }
 
@@ -460,12 +707,15 @@ const base = import.meta.env.BASE_URL;
       const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT);
 
       try {
-        const response = await fetch(`${import.meta.env.BASE_URL}api/contact/`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-          signal: controller.signal
-        });
+        const response = await fetch(
+          `${import.meta.env.BASE_URL}api/contact/`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+            signal: controller.signal,
+          },
+        );
 
         clearTimeout(timeoutId);
 
@@ -473,29 +723,31 @@ const base = import.meta.env.BASE_URL;
 
         if (!response.ok) {
           // Handle specific error messages from the API
-          const errorMessage = result.error || `Server error: ${response.status}`;
+          const errorMessage =
+            result.error || `Server error: ${response.status}`;
           throw new Error(errorMessage);
         }
 
         // Show success message
-        document.querySelector('.form-step.active')?.classList.remove('active');
-        document.getElementById('success-message')?.classList.remove('hidden');
-        document.querySelector('.flex.justify-between')?.classList.add('hidden');
-        document.querySelector('.mb-8')?.classList.add('hidden');
+        document.querySelector(".form-step.active")?.classList.remove("active");
+        document.getElementById("success-message")?.classList.remove("hidden");
+        document
+          .querySelector(".flex.justify-between")
+          ?.classList.add("hidden");
+        document.querySelector(".mb-8")?.classList.add("hidden");
 
-        showNotification('Thank you! We\'ll be in touch soon.', 'success');
-
+        showNotification("Thank you! We'll be in touch soon.", "success");
       } catch (fetchError) {
-        if ((fetchError as Error).name === 'AbortError') {
-          throw new Error('Request timeout - please try again');
+        if (fetchError instanceof Error && fetchError.name === "AbortError") {
+          throw new Error("Request timeout - please try again");
         }
         throw fetchError;
       }
-
     } catch (error) {
-      console.error('Contact form submission error:', error);
-      const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
-      showNotification(`Submission failed: ${errorMessage}`, 'error');
+      console.error("Contact form submission error:", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "An unexpected error occurred";
+      showNotification(`Submission failed: ${errorMessage}`, "error");
     } finally {
       isSubmitting = false;
       if (submitBtn) {
@@ -505,22 +757,22 @@ const base = import.meta.env.BASE_URL;
     }
   };
 
-  nextBtn?.addEventListener('click', handleNext);
-  prevBtn?.addEventListener('click', handlePrev);
-  submitBtn?.addEventListener('click', handleSubmit);
+  nextBtn?.addEventListener("click", handleNext);
+  prevBtn?.addEventListener("click", handlePrev);
+  submitBtn?.addEventListener("click", handleSubmit);
 
   // Initialize
   showStep(1);
 
   // Cleanup function for Astro view transitions
-  document.addEventListener('astro:before-swap', () => {
-    nextBtn?.removeEventListener('click', handleNext);
-    prevBtn?.removeEventListener('click', handlePrev);
-    submitBtn?.removeEventListener('click', handleSubmit);
+  document.addEventListener("astro:before-swap", () => {
+    nextBtn?.removeEventListener("click", handleNext);
+    prevBtn?.removeEventListener("click", handlePrev);
+    submitBtn?.removeEventListener("click", handleSubmit);
 
     // Clean up size option handlers
     sizeOptionHandlers.forEach((handler, btn) => {
-      btn.removeEventListener('click', handler);
+      btn.removeEventListener("click", handler);
     });
     sizeOptionHandlers.clear();
   });

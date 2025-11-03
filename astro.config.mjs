@@ -33,7 +33,7 @@ export default defineConfig({
           // Service pages - high priority
           item.priority = 0.9;
           item.changefreq = EnumChangefreq.WEEKLY;
-        } else if (item.url.includes('/contact') || item.url.includes('/maturity-calculator')) {
+        } else if (item.url.includes('/contact') || item.url.includes('/tools/maturity-calculator')) {
           // Important pages
           item.priority = 0.8;
           item.changefreq = EnumChangefreq.MONTHLY;
@@ -41,7 +41,7 @@ export default defineConfig({
           // Blog posts
           item.priority = 0.7;
           item.changefreq = EnumChangefreq.MONTHLY;
-        } else if (item.url.includes('/privacy-policy') || item.url.includes('/terms') || item.url.includes('/cookie-policy') || item.url.includes('/dpa')) {
+        } else if (item.url.includes('/legal/')) {
           // Legal pages - lower priority
           item.priority = 0.3;
           item.changefreq = EnumChangefreq.YEARLY;

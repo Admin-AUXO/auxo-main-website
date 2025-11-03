@@ -1,6 +1,6 @@
 ---
-import { siteData } from "../data/site";
-import { services } from "../data/services";
+import { siteData } from "../data/config/site";
+import { services } from "../data/collections/services";
 import { Icon } from "astro-icon/components";
 
 const base = import.meta.env.BASE_URL;
@@ -207,7 +207,7 @@ const currentYear = new Date().getFullYear();
         <ul class="space-y-2.5 sm:space-y-3 text-sm font-medium">
           <li>
             <a
-              href={`${base}maturity-calculator`}
+              href={`${base}tools/maturity-calculator`}
               class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 flex items-center gap-2 touch-manipulation min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 will-change-transform"
             >
               <Icon
@@ -235,28 +235,28 @@ const currentYear = new Date().getFullYear();
         <ul class="space-y-2.5 sm:space-y-3 text-sm font-medium">
           <li>
             <a
-              href={`${base}privacy-policy`}
+              href={`${base}legal/privacy-policy`}
               class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 touch-manipulation block min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 flex items-center will-change-transform"
               >Privacy Policy</a
             >
           </li>
           <li>
             <a
-              href={`${base}terms`}
+              href={`${base}legal/terms`}
               class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 touch-manipulation block min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 flex items-center will-change-transform"
               >Terms</a
             >
           </li>
           <li>
             <a
-              href={`${base}cookie-policy`}
+              href={`${base}legal/cookie-policy`}
               class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 touch-manipulation block min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 flex items-center will-change-transform"
               >Cookie Policy</a
             >
           </li>
           <li>
             <a
-              href={`${base}dpa`}
+              href={`${base}legal/dpa`}
               class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 touch-manipulation block min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 flex items-center will-change-transform"
               >DPA</a
             >
@@ -308,7 +308,7 @@ const currentYear = new Date().getFullYear();
               I consent to receive marketing emails and understand I can
               unsubscribe at any time.
               <a
-                href={`${base}privacy-policy`}
+                href={`${base}legal/privacy-policy`}
                 class="text-lime-400 hover:underline active:text-lime-300"
                 >Privacy Policy</a
               >

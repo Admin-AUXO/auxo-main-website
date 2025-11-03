@@ -1,5 +1,6 @@
 ---
-import { Icon } from 'astro-icon/components';
+import { Icon } from "astro-icon/components";
+import { legalContent } from "../data/content/legal";
 
 interface Props {
   title: string;
@@ -12,12 +13,10 @@ const { title, lastUpdated, effectiveDate, summary } = Astro.props;
 const base = import.meta.env.BASE_URL;
 
 // Generate table of contents from slot content
-const legalPages = [
-  { name: 'Privacy Policy', href: `${base}privacy-policy` },
-  { name: 'Terms & Conditions', href: `${base}terms` },
-  { name: 'Cookie Policy', href: `${base}cookie-policy` },
-  { name: 'Data Processing Agreement', href: `${base}dpa` },
-];
+const legalPages = legalContent.navigation.pages.map((page) => ({
+  name: page.name,
+  href: `${base}${page.href}`,
+}));
 ---
 
 <div class="max-w-7xl mx-auto">
@@ -29,21 +28,23 @@ const legalPages = [
         <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
           <h3 class="font-bold text-white mb-4 flex items-center gap-2">
             <Icon name="mdi:file-document" class="w-5 h-5 text-lime-400" />
-            Legal Documents
+            {legalContent.navigation.title}
           </h3>
           <nav class="space-y-2">
-            {legalPages.map(page => (
-              <a
-                href={page.href}
-                class={`block px-3 py-2 rounded-lg text-sm transition-colors ${
-                  page.name === title
-                    ? 'bg-lime-400/10 text-lime-400 font-semibold'
-                    : 'text-gray-400 hover:text-lime-400 hover:bg-zinc-800'
-                }`}
-              >
-                {page.name}
-              </a>
-            ))}
+            {
+              legalPages.map((page) => (
+                <a
+                  href={page.href}
+                  class={`block px-3 py-2 rounded-lg text-sm transition-colors ${
+                    page.name === title
+                      ? "bg-lime-400/10 text-lime-400 font-semibold"
+                      : "text-gray-400 hover:text-lime-400 hover:bg-zinc-800"
+                  }`}
+                >
+                  {page.name}
+                </a>
+              ))
+            }
           </nav>
         </div>
 
@@ -51,16 +52,22 @@ const legalPages = [
         <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
           <h3 class="font-bold text-white mb-4 flex items-center gap-2">
             <Icon name="mdi:help-circle" class="w-5 h-5 text-lime-400" />
-            Need Help?
+            {legalContent.sidebar.needHelp.title}
           </h3>
           <div class="space-y-3 text-sm">
-            <a href={`${base}contact`} class="flex items-center gap-2 text-gray-400 hover:text-lime-400 transition-colors">
+            <a
+              href={`${base}contact`}
+              class="flex items-center gap-2 text-gray-400 hover:text-lime-400 transition-colors"
+            >
               <Icon name="mdi:email-outline" class="w-4 h-4" />
-              Contact Us
+              {legalContent.sidebar.needHelp.contactUs}
             </a>
-            <a href="mailto:privacy@auxodata.com" class="flex items-center gap-2 text-gray-400 hover:text-lime-400 transition-colors">
+            <a
+              href={`mailto:${legalContent.sidebar.needHelp.privacyEmail}`}
+              class="flex items-center gap-2 text-gray-400 hover:text-lime-400 transition-colors"
+            >
               <Icon name="mdi:shield-check" class="w-4 h-4" />
-              Privacy Team
+              {legalContent.sidebar.needHelp.privacyTeam}
             </a>
           </div>
         </div>
@@ -71,7 +78,7 @@ const legalPages = [
           class="w-full bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-3 rounded-lg text-sm font-semibold transition-colors flex items-center justify-center gap-2"
         >
           <Icon name="mdi:download" class="w-4 h-4" />
-          Print / Save PDF
+          {legalContent.sidebar.printSave}
         </button>
       </div>
     </aside>
@@ -80,8 +87,13 @@ const legalPages = [
     <main class="lg:col-span-3">
       <!-- Header -->
       <div class="mb-8">
-        <div class="inline-block px-3 py-1 bg-lime-400/10 border border-lime-400/20 rounded-full mb-4">
-          <span class="text-lime-400 text-xs font-semibold uppercase tracking-wide">Legal Document</span>
+        <div
+          class="inline-block px-3 py-1 bg-lime-400/10 border border-lime-400/20 rounded-full mb-4"
+        >
+          <span
+            class="text-lime-400 text-xs font-semibold uppercase tracking-wide"
+            >Legal Document</span
+          >
         </div>
         <h1 class="text-4xl md:text-5xl font-bold mb-4">{title}</h1>
         <div class="flex flex-wrap items-center gap-4 text-sm text-gray-400">
@@ -89,19 +101,25 @@ const legalPages = [
             <Icon name="mdi:calendar-clock" class="w-4 h-4 text-lime-400" />
             Last Updated: <strong class="text-white">{lastUpdated}</strong>
           </span>
-          {effectiveDate && (
-            <span class="flex items-center gap-2">
-              <Icon name="mdi:calendar-check" class="w-4 h-4 text-lime-400" />
-              Effective: <strong class="text-white">{effectiveDate}</strong>
-            </span>
-          )}
+          {
+            effectiveDate && (
+              <span class="flex items-center gap-2">
+                <Icon name="mdi:calendar-check" class="w-4 h-4 text-lime-400" />
+                Effective: <strong class="text-white">{effectiveDate}</strong>
+              </span>
+            )
+          }
         </div>
 
-        {summary && (
-          <div class="mt-6 p-4 bg-lime-400/5 border-l-4 border-lime-400 rounded-r-lg">
-            <p class="text-gray-300 leading-relaxed"><strong class="text-white">Summary:</strong> {summary}</p>
-          </div>
-        )}
+        {
+          summary && (
+            <div class="mt-6 p-4 bg-lime-400/5 border-l-4 border-lime-400 rounded-r-lg">
+              <p class="text-gray-300 leading-relaxed">
+                <strong class="text-white">Summary:</strong> {summary}
+              </p>
+            </div>
+          )
+        }
       </div>
 
       <!-- Content -->
@@ -115,24 +133,34 @@ const legalPages = [
       <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="p-6 bg-lime-400/10 border border-lime-400/20 rounded-xl">
           <Icon name="mdi:email-outline" class="w-8 h-8 text-lime-400 mb-3" />
-          <h3 class="font-bold text-white mb-2">Questions About This Policy?</h3>
+          <h3 class="font-bold text-white mb-2">
+            {legalContent.footer.questions.title}
+          </h3>
           <p class="text-sm text-gray-400 mb-4">
-            Our team is here to help clarify any concerns.
+            {legalContent.footer.questions.description}
           </p>
-          <a href={`${base}contact`} class="inline-flex items-center text-lime-400 hover:text-lime-300 font-semibold text-sm">
-            Contact Us
+          <a
+            href={`${base}contact`}
+            class="inline-flex items-center text-lime-400 hover:text-lime-300 font-semibold text-sm"
+          >
+            {legalContent.footer.questions.cta}
             <Icon name="mdi:arrow-right" class="w-4 h-4 ml-1" />
           </a>
         </div>
 
         <div class="p-6 bg-zinc-800 border border-zinc-700 rounded-xl">
           <Icon name="mdi:shield-check" class="w-8 h-8 text-lime-400 mb-3" />
-          <h3 class="font-bold text-white mb-2">Data Protection Inquiries</h3>
+          <h3 class="font-bold text-white mb-2">
+            {legalContent.footer.dataProtection.title}
+          </h3>
           <p class="text-sm text-gray-400 mb-4">
-            For privacy-specific questions or data requests.
+            {legalContent.footer.dataProtection.description}
           </p>
-          <a href="mailto:privacy@auxodata.com" class="inline-flex items-center text-lime-400 hover:text-lime-300 font-semibold text-sm">
-            privacy@auxodata.com
+          <a
+            href={`mailto:${legalContent.footer.dataProtection.email}`}
+            class="inline-flex items-center text-lime-400 hover:text-lime-300 font-semibold text-sm"
+          >
+            {legalContent.footer.dataProtection.email}
             <Icon name="mdi:arrow-right" class="w-4 h-4 ml-1" />
           </a>
         </div>
@@ -149,7 +177,7 @@ const legalPages = [
 
   /* H2 Headings - Main sections */
   .prose h2 {
-    color: #A3E635;
+    color: #a3e635;
     font-size: 1.875rem;
     font-weight: 700;
     margin-top: 3rem;
@@ -204,7 +232,7 @@ const legalPages = [
   }
 
   .prose li::marker {
-    color: #A3E635;
+    color: #a3e635;
   }
 
   /* Strong text */
@@ -215,7 +243,7 @@ const legalPages = [
 
   /* Links */
   .prose a {
-    color: #A3E635;
+    color: #a3e635;
     text-decoration: underline;
     text-underline-offset: 2px;
   }

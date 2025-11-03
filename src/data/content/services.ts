@@ -1,0 +1,53 @@
+export interface ProcessStep {
+  number: number;
+  title: string;
+  description: string;
+}
+
+export const servicesPageContent = {
+  hero: {
+    badge: 'What We Do',
+    title: 'Comprehensive Data',
+    titleHighlight: 'Analytics Services',
+    subtitle: 'From strategy to implementation, we provide end-to-end data analytics solutions tailored to your business needs',
+  },
+  process: {
+    title: 'Our Proven Process',
+    subtitle: 'A systematic approach to delivering data analytics excellence',
+    steps: [
+      {
+        number: 1,
+        title: 'Discovery',
+        description: 'Understand your business challenges and data landscape',
+      },
+      {
+        number: 2,
+        title: 'Strategy',
+        description: 'Design tailored solutions aligned with your goals',
+      },
+      {
+        number: 3,
+        title: 'Implementation',
+        description: 'Build and deploy robust analytics solutions',
+      },
+      {
+        number: 4,
+        title: 'Support',
+        description: 'Ongoing optimization and knowledge transfer',
+      },
+    ] as ProcessStep[],
+  },
+  cta: {
+    title: 'Ready to Get Started?',
+    subtitle: "Let's discuss how we can help transform your data into actionable insights and competitive advantage",
+    primaryCta: {
+      text: 'Schedule Consultation',
+      href: 'contact',
+    },
+    secondaryCta: {
+      text: 'Assess Your Maturity',
+      href: 'tools/maturity-calculator',
+    },
+  },
+};
+

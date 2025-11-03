@@ -1,8 +1,10 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import MultiStepForm from '../components/MultiStepForm.astro';
-import { siteData } from '../data/site';
-import { Icon } from 'astro-icon/components';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import MultiStepForm from "../components/MultiStepForm.astro";
+import { siteData } from "../data/config/site";
+import { contactContent } from "../data/content/contact";
+import { commonText } from "../data/shared/common";
+import { Icon } from "astro-icon/components";
 
 const base = import.meta.env.BASE_URL;
 ---
@@ -16,11 +18,13 @@ const base = import.meta.env.BASE_URL;
       <!-- Header -->
       <div class="max-w-3xl mx-auto text-center mb-16">
         <h1 class="text-4xl md:text-5xl font-bold mb-4">
-          Let's Start Your Analytics
-          <span class="text-lime-400"> Journey Together</span>
+          {contactContent.hero.title}
+          <span class="text-lime-400">
+            {contactContent.hero.titleHighlight}</span
+          >
         </h1>
         <p class="text-xl text-gray-400">
-          Share your analytics challenges and goals. We'll respond within 24 hours with a tailored approach for your business.
+          {contactContent.hero.subtitle}
         </p>
       </div>
 
@@ -29,44 +33,64 @@ const base = import.meta.env.BASE_URL;
         <!-- Contact Information Column -->
         <div class="lg:col-span-1">
           <div class="sticky top-24">
-            <h2 class="text-2xl font-bold mb-6">Get in Touch</h2>
+            <h2 class="text-2xl font-bold mb-6">
+              {contactContent.sidebar.title}
+            </h2>
 
             <div class="space-y-6">
               <!-- Email -->
               <div class="flex items-start space-x-4">
-                <div class="w-10 h-10 bg-lime-400/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div
+                  class="w-10 h-10 bg-lime-400/10 rounded-lg flex items-center justify-center flex-shrink-0"
+                >
                   <Icon name="mdi:email" class="w-5 h-5 text-lime-400" />
                 </div>
                 <div>
-                  <h3 class="font-semibold mb-1">Email</h3>
-                  <a href={`mailto:${siteData.email}`} class="text-gray-400 hover:text-lime-400 transition-colors">
+                  <h3 class="font-semibold mb-1">{commonText.labels.email}</h3>
+                  <a
+                    href={`mailto:${siteData.email}`}
+                    class="text-gray-400 hover:text-lime-400 transition-colors"
+                  >
                     {siteData.email}
                   </a>
                 </div>
               </div>
 
               <!-- Phone -->
-              <div class="flex items-start space-x-4">
-                <div class="w-10 h-10 bg-lime-400/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Icon name="mdi:phone" class="w-5 h-5 text-lime-400" />
-                </div>
-                <div>
-                  <h3 class="font-semibold mb-1">Phone</h3>
-                  <a href={`tel:${siteData.phone}`} class="text-gray-400 hover:text-lime-400 transition-colors">
-                    {siteData.phone}
-                  </a>
-                </div>
-              </div>
+              {
+                siteData.phone && (
+                  <div class="flex items-start space-x-4">
+                    <div class="w-10 h-10 bg-lime-400/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Icon name="mdi:phone" class="w-5 h-5 text-lime-400" />
+                    </div>
+                    <div>
+                      <h3 class="font-semibold mb-1">
+                        {commonText.labels.phone}
+                      </h3>
+                      <a
+                        href={`tel:${siteData.phone}`}
+                        class="text-gray-400 hover:text-lime-400 transition-colors"
+                      >
+                        {siteData.phone}
+                      </a>
+                    </div>
+                  </div>
+                )
+              }
 
               <!-- Location -->
               <div class="flex items-start space-x-4">
-                <div class="w-10 h-10 bg-lime-400/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div
+                  class="w-10 h-10 bg-lime-400/10 rounded-lg flex items-center justify-center flex-shrink-0"
+                >
                   <Icon name="mdi:map-marker" class="w-5 h-5 text-lime-400" />
                 </div>
                 <div>
-                  <h3 class="font-semibold mb-1">Location</h3>
+                  <h3 class="font-semibold mb-1">
+                    {commonText.labels.location}
+                  </h3>
                   <p class="text-gray-400">
-                    {siteData.address.city}<br>
+                    {siteData.address.city}<br />
                     {siteData.address.country}
                   </p>
                 </div>
@@ -74,16 +98,29 @@ const base = import.meta.env.BASE_URL;
 
               <!-- Social -->
               <div class="flex items-start space-x-4">
-                <div class="w-10 h-10 bg-lime-400/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Icon name="mdi:share-variant" class="w-5 h-5 text-lime-400" />
+                <div
+                  class="w-10 h-10 bg-lime-400/10 rounded-lg flex items-center justify-center flex-shrink-0"
+                >
+                  <Icon
+                    name="mdi:share-variant"
+                    class="w-5 h-5 text-lime-400"
+                  />
                 </div>
                 <div>
-                  <h3 class="font-semibold mb-2">Follow Us</h3>
+                  <h3 class="font-semibold mb-2">
+                    {commonText.labels.followUs}
+                  </h3>
                   <div class="flex gap-3">
-                    <a href={siteData.social.linkedin} class="w-8 h-8 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black transition-colors">
+                    <a
+                      href={siteData.social.linkedin}
+                      class="w-8 h-8 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black transition-colors"
+                    >
                       <Icon name="mdi:linkedin" class="w-4 h-4" />
                     </a>
-                    <a href={siteData.social.twitter} class="w-8 h-8 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black transition-colors">
+                    <a
+                      href={siteData.social.twitter}
+                      class="w-8 h-8 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black transition-colors"
+                    >
                       <Icon name="mdi:twitter" class="w-4 h-4" />
                     </a>
                   </div>
@@ -92,9 +129,15 @@ const base = import.meta.env.BASE_URL;
             </div>
 
             <!-- Quick Info Box -->
-            <div class="mt-8 p-6 bg-gradient-to-br from-lime-400/10 to-green-500/10 border border-lime-400/20 rounded-lg">
-              <h3 class="font-bold mb-2">Fast Response Time</h3>
-              <p class="text-sm text-gray-400">We typically respond to all inquiries within 24 hours during business days.</p>
+            <div
+              class="mt-8 p-6 bg-gradient-to-br from-lime-400/10 to-green-500/10 border border-lime-400/20 rounded-lg"
+            >
+              <h3 class="font-bold mb-2">
+                {contactContent.sidebar.info.fastResponse.title}
+              </h3>
+              <p class="text-sm text-gray-400">
+                {contactContent.sidebar.info.fastResponse.description}
+              </p>
             </div>
           </div>
         </div>
@@ -110,26 +153,33 @@ const base = import.meta.env.BASE_URL;
       <!-- Additional Contact Options -->
       <div class="max-w-4xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="text-center p-6 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-lime-400 transition-colors">
-            <Icon name="mdi:calendar-clock" class="w-12 h-12 text-lime-400 mx-auto mb-4" />
-            <h3 class="font-bold mb-2">Schedule a Call</h3>
-            <p class="text-sm text-gray-400 mb-4">Book a free 30-minute consultation</p>
-            <button id="schedule-btn" class="text-lime-400 hover:underline text-sm focus:outline-none focus:ring-2 focus:ring-lime-400 rounded px-2">Book Now →</button>
-          </div>
-
-          <div class="text-center p-6 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-lime-400 transition-colors">
-            <Icon name="mdi:file-document" class="w-12 h-12 text-lime-400 mx-auto mb-4" />
-            <h3 class="font-bold mb-2">Download Brochure</h3>
-            <p class="text-sm text-gray-400 mb-4">Learn more about our services</p>
-            <a href={`${base}brochure.pdf`} class="text-lime-400 hover:underline text-sm">Download PDF →</a>
-          </div>
-
-          <div class="text-center p-6 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-lime-400 transition-colors">
-            <Icon name="mdi:calculator" class="w-12 h-12 text-lime-400 mx-auto mb-4" />
-            <h3 class="font-bold mb-2">Maturity Assessment</h3>
-            <p class="text-sm text-gray-400 mb-4">Assess your data analytics maturity</p>
-            <a href={`${base}maturity-calculator`} class="text-lime-400 hover:underline text-sm">Take Assessment →</a>
-          </div>
+          {
+            contactContent.additionalOptions.map((option) => (
+              <div class="text-center p-6 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-lime-400 transition-colors">
+                <Icon
+                  name={option.icon}
+                  class="w-12 h-12 text-lime-400 mx-auto mb-4"
+                />
+                <h3 class="font-bold mb-2">{option.title}</h3>
+                <p class="text-sm text-gray-400 mb-4">{option.description}</p>
+                {option.action.type === "button" ? (
+                  <button
+                    id={option.action.id}
+                    class="text-lime-400 hover:underline text-sm focus:outline-none focus:ring-2 focus:ring-lime-400 rounded px-2"
+                  >
+                    {option.action.text}
+                  </button>
+                ) : (
+                  <a
+                    href={`${base}${option.action.href}`}
+                    class="text-lime-400 hover:underline text-sm"
+                  >
+                    {option.action.text}
+                  </a>
+                )}
+              </div>
+            ))
+          }
         </div>
       </div>
     </div>
@@ -138,17 +188,20 @@ const base = import.meta.env.BASE_URL;
 
 <script>
   // Schedule call button handler
-  const scheduleBtn = document.getElementById('schedule-btn');
+  const scheduleBtn = document.getElementById("schedule-btn");
 
-  scheduleBtn?.addEventListener('click', () => {
+  scheduleBtn?.addEventListener("click", () => {
     // TODO: Replace with actual Calendly link or booking system
-    const calendlyURL = 'https://calendly.com/auxodata'; // Placeholder - unused for now
+    const calendlyURL = "https://calendly.com/auxodata"; // Placeholder - unused for now
     void calendlyURL; // Suppress unused variable warning
 
     // For now, show alert to configure
-    const proceed = confirm('Scheduling system not configured.\n\nWould you like to contact us via email instead?');
+    const proceed = confirm(
+      "Scheduling system not configured.\n\nWould you like to contact us via email instead?",
+    );
     if (proceed) {
-      window.location.href = 'mailto:hello@auxodata.com?subject=Schedule a Consultation';
+      window.location.href =
+        "mailto:hello@auxodata.com?subject=Schedule a Consultation";
     }
   });
 </script>

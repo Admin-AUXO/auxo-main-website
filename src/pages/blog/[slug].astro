@@ -105,7 +105,7 @@ function calculateReadTime(content: string | undefined) {
         {post.data.tags && post.data.tags.length > 0 && (
           <div class="flex flex-wrap gap-2 mb-4 sm:mb-6">
             {post.data.tags.map((tag: string) => (
-              <span class="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-lime-400/10 text-lime-400 text-xs sm:text-sm rounded-full border border-lime-400/20 font-medium">
+              <span class="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-accent-green/10 text-accent-green transition-colors text-xs sm:text-sm rounded-full border border-accent-green/20 font-medium">
                 #{tag}
               </span>
             ))}
@@ -118,25 +118,25 @@ function calculateReadTime(content: string | undefined) {
         </h1>
 
         <!-- Meta Information -->
-        <div class="flex flex-wrap items-center gap-3 sm:gap-4 text-gray-400 text-xs sm:text-sm border-l-4 border-lime-400 pl-3 sm:pl-4 py-2 sm:py-2 bg-lime-400/5 rounded-r-lg">
+        <div class="flex flex-wrap items-center gap-3 sm:gap-4 text-secondary transition-colors text-xs sm:text-sm border-l-4 border-accent-green pl-3 sm:pl-4 py-2 sm:py-2 bg-accent-green/5 rounded-r-lg">
           <div class="flex items-center gap-2">
-            <Icon name="mdi:calendar" class="w-5 h-5 text-lime-400" />
+            <Icon name="mdi:calendar" class="w-5 h-5 text-accent-green transition-colors" />
             <span>{formatDate(post.data.publishDate)}</span>
           </div>
-          <span class="text-gray-600">•</span>
+          <span class="text-tertiary transition-colors">•</span>
           <div class="flex items-center gap-2">
-            <Icon name="mdi:account" class="w-5 h-5 text-lime-400" />
+            <Icon name="mdi:account" class="w-5 h-5 text-accent-green transition-colors" />
             <span>{post.data.author}</span>
           </div>
-          <span class="text-gray-600">•</span>
+          <span class="text-tertiary transition-colors">•</span>
           <div class="flex items-center gap-2">
-            <Icon name="mdi:clock" class="w-5 h-5 text-lime-400" />
+            <Icon name="mdi:clock" class="w-5 h-5 text-accent-green transition-colors" />
             <span>{calculateReadTime(post.body)} min read</span>
           </div>
         </div>
 
         <!-- Description -->
-        <p class="text-lg sm:text-xl text-gray-400 mt-4 sm:mt-6 leading-relaxed">
+        <p class="text-lg sm:text-xl text-secondary transition-colors mt-4 sm:mt-6 leading-relaxed">
           {post.data.description}
         </p>
       </ContentWrapper>
@@ -148,7 +148,7 @@ function calculateReadTime(content: string | undefined) {
             <img
               src={post.data.image}
               alt={post.data.title}
-              class="w-full rounded-xl border border-gray-800 shadow-2xl object-cover"
+              class="w-full rounded-xl border border-theme shadow-2xl object-cover"
               loading="eager"
               decoding="async"
             />
@@ -159,39 +159,39 @@ function calculateReadTime(content: string | undefined) {
       <!-- Article Content -->
       <ContentWrapper maxWidth="4xl">
         <div class="prose prose-invert prose-sm sm:prose-base md:prose-lg max-w-none
-          prose-headings:text-white prose-headings:font-bold
+          prose-headings:text-primary prose-headings:font-bold
           prose-h1:text-3xl sm:prose-h1:text-4xl md:prose-h1:text-5xl prose-h1:mb-6 prose-h1:mt-0
-          prose-h2:text-2xl sm:prose-h2:text-3xl md:prose-h2:text-4xl prose-h2:mt-10 sm:prose-h2:mt-12 prose-h2:mb-5 sm:prose-h2:mb-6 prose-h2:text-lime-400 prose-h2:font-bold prose-h2:leading-tight
-          prose-h3:text-xl sm:prose-h3:text-2xl md:prose-h3:text-3xl prose-h3:mt-8 sm:prose-h3:mt-10 prose-h3:mb-3 sm:prose-h3:mb-4 prose-h3:text-white prose-h3:font-semibold
-          prose-h4:text-lg sm:prose-h4:text-xl prose-h4:mt-6 sm:prose-h4:mt-8 prose-h4:mb-3 prose-h4:text-gray-200
-          prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-5 sm:prose-p:mb-6 prose-p:text-sm sm:prose-p:text-base prose-p:font-normal
-          prose-a:text-lime-400 prose-a:no-underline hover:prose-a:underline prose-a:font-medium prose-a:transition-colors
-          prose-strong:text-white prose-strong:font-semibold
-          prose-ul:text-gray-300 prose-ul:my-5 sm:prose-ul:my-6 prose-ul:space-y-2
-          prose-ol:text-gray-300 prose-ol:my-5 sm:prose-ol:my-6 prose-ol:space-y-2
+          prose-h2:text-2xl sm:prose-h2:text-3xl md:prose-h2:text-4xl prose-h2:mt-10 sm:prose-h2:mt-12 prose-h2:mb-5 sm:prose-h2:mb-6 prose-h2:text-accent-green prose-h2:font-bold prose-h2:leading-tight
+          prose-h3:text-xl sm:prose-h3:text-2xl md:prose-h3:text-3xl prose-h3:mt-8 sm:prose-h3:mt-10 prose-h3:mb-3 sm:prose-h3:mb-4 prose-h3:text-primary prose-h3:font-semibold
+          prose-h4:text-lg sm:prose-h4:text-xl prose-h4:mt-6 sm:prose-h4:mt-8 prose-h4:mb-3 prose-h4:text-secondary
+          prose-p:text-secondary prose-p:leading-relaxed prose-p:mb-5 sm:prose-p:mb-6 prose-p:text-sm sm:prose-p:text-base prose-p:font-normal
+          prose-a:text-accent-green prose-a:no-underline hover:prose-a:underline prose-a:font-medium prose-a:transition-colors
+          prose-strong:text-primary prose-strong:font-semibold
+          prose-ul:text-secondary prose-ul:my-5 sm:prose-ul:my-6 prose-ul:space-y-2
+          prose-ol:text-secondary prose-ol:my-5 sm:prose-ol:my-6 prose-ol:space-y-2
           prose-li:my-2 prose-li:text-sm sm:prose-li:text-base prose-li:leading-relaxed
-          prose-li::marker:text-lime-400
-          prose-code:text-lime-400 prose-code:bg-zinc-900/80 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-xs sm:prose-code:text-sm prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
-          prose-pre:bg-zinc-900 prose-pre:border prose-pre:border-gray-800 prose-pre:rounded-xl prose-pre:shadow-lg prose-pre:text-xs sm:prose-pre:text-sm prose-pre:overflow-x-auto
-          prose-pre code:text-gray-100 prose-pre code:bg-transparent prose-pre code:p-0
-          prose-blockquote:border-l-4 prose-blockquote:border-lime-400 prose-blockquote:bg-lime-400/5 prose-blockquote:pl-4 sm:prose-blockquote:pl-6 prose-blockquote:pr-4 sm:prose-blockquote:pr-6 prose-blockquote:py-4 prose-blockquote:my-6 sm:prose-blockquote:my-8 prose-blockquote:rounded-r-lg prose-blockquote:not-italic
-          prose-blockquote p:text-gray-200 prose-blockquote p:mb-0
-          prose-img:rounded-xl prose-img:border prose-img:border-gray-800 prose-img:my-6 sm:prose-img:my-8 prose-img:shadow-xl prose-img:w-full prose-img:h-auto
-          prose-hr:border-gray-800 prose-hr:my-8 sm:prose-hr:my-12
+          prose-li::marker:text-accent-green
+          prose-code:text-accent-green prose-code:bg-card/80 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-xs sm:prose-code:text-sm prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
+          prose-pre:bg-card prose-pre:border prose-pre:border-theme prose-pre:rounded-xl prose-pre:shadow-lg prose-pre:text-xs sm:prose-pre:text-sm prose-pre:overflow-x-auto
+          prose-pre code:text-secondary prose-pre code:bg-transparent prose-pre code:p-0
+          prose-blockquote:border-l-4 prose-blockquote:border-accent-green prose-blockquote:bg-accent-green/5 prose-blockquote:pl-4 sm:prose-blockquote:pl-6 prose-blockquote:pr-4 sm:prose-blockquote:pr-6 prose-blockquote:py-4 prose-blockquote:my-6 sm:prose-blockquote:my-8 prose-blockquote:rounded-r-lg prose-blockquote:not-italic
+          prose-blockquote p:text-secondary prose-blockquote p:mb-0
+          prose-img:rounded-xl prose-img:border prose-img:border-theme prose-img:my-6 sm:prose-img:my-8 prose-img:shadow-xl prose-img:w-full prose-img:h-auto
+          prose-hr:border-theme prose-hr:my-8 sm:prose-hr:my-12
           prose-table:w-full prose-table:my-6 sm:prose-table:my-8
-          prose-thead:border-b prose-thead:border-gray-700
-          prose-th:bg-zinc-900 prose-th:text-white prose-th:font-semibold prose-th:p-3 sm:prose-th:p-4 prose-th:text-left prose-th:text-sm sm:prose-th:text-base
-          prose-td:border-b prose-td:border-gray-800 prose-td:p-3 sm:prose-td:p-4 prose-td:text-gray-300 prose-td:text-sm sm:prose-td:text-base
-          prose-tr:hover:bg-zinc-900/50 prose-tr:transition-colors
+          prose-thead:border-b prose-thead:border-theme
+          prose-th:bg-card prose-th:text-primary prose-th:font-semibold prose-th:p-3 sm:prose-th:p-4 prose-th:text-left prose-th:text-sm sm:prose-th:text-base
+          prose-td:border-b prose-td:border-theme prose-td:p-3 sm:prose-td:p-4 prose-td:text-secondary prose-td:text-sm sm:prose-td:text-base
+          prose-tr:hover:bg-card/50 prose-tr:transition-colors
         ">
           <Content />
         </div>
         
         <!-- Social Share Buttons -->
-        <div class="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-800">
+        <div class="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-theme">
           <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div class="w-full sm:w-auto">
-              <p class="text-xs sm:text-sm font-semibold text-gray-300 mb-3 sm:mb-2">Share this article:</p>
+              <p class="text-xs sm:text-sm font-semibold text-primary transition-colors mb-3 sm:mb-2">Share this article:</p>
               <SocialShare
                 description={post.data.description}
                 title={post.data.title}
@@ -205,22 +205,22 @@ function calculateReadTime(content: string | undefined) {
 
       <!-- Call to Action -->
       <ContentWrapper maxWidth="4xl" class="mt-12 sm:mt-16">
-          <div class="bg-gradient-to-r from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-6 sm:p-8 md:p-12 text-center">
+          <div class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-6 sm:p-8 md:p-12 text-center">
           <h2 class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Ready to Transform Your Data?</h2>
-          <p class="text-sm sm:text-base text-gray-400 mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed">
+          <p class="text-sm sm:text-base text-secondary transition-colors mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed">
             Let's discuss how AUXO Data Labs can help your business leverage data analytics and business intelligence.
           </p>
           <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <a
               href={`${base}contact/`}
-              class="px-6 sm:px-8 py-3 sm:py-4 bg-lime-400 text-black font-bold rounded-lg hover:bg-lime-500 active:bg-lime-600 transition-all transform hover:scale-105 active:scale-95 inline-flex items-center justify-center gap-2 text-sm sm:text-base min-h-[44px] touch-manipulation"
+              class="px-6 sm:px-8 py-3 sm:py-4 bg-accent-green text-black dark:text-white font-bold rounded-lg hover:bg-accent-green/90 active:bg-accent-green/80 transition-all transform hover:scale-105 active:scale-95 inline-flex items-center justify-center gap-2 text-sm sm:text-base min-h-[44px] touch-manipulation"
             >
               <Icon name="mdi:email" class="w-4 h-4 sm:w-5 sm:h-5" />
               Get In Touch
             </a>
             <a
               href={`${base}services/`}
-              class="px-6 sm:px-8 py-3 sm:py-4 bg-zinc-800 text-white font-bold rounded-lg hover:bg-zinc-700 active:bg-zinc-600 transition-all transform hover:scale-105 active:scale-95 inline-flex items-center justify-center gap-2 text-sm sm:text-base min-h-[44px] touch-manipulation"
+              class="px-6 sm:px-8 py-3 sm:py-4 bg-surface text-primary font-bold rounded-lg hover:bg-surface/80 active:bg-surface/70 transition-all transform hover:scale-105 active:scale-95 inline-flex items-center justify-center gap-2 text-sm sm:text-base min-h-[44px] touch-manipulation"
             >
               <Icon name="mdi:briefcase" class="w-4 h-4 sm:w-5 sm:h-5" />
               View Our Services
@@ -233,7 +233,7 @@ function calculateReadTime(content: string | undefined) {
       <ContentWrapper maxWidth="4xl" class="mt-10 sm:mt-12 text-center">
         <a
           href={`${base}blog/`}
-          class="inline-flex items-center gap-2 text-lime-400 hover:text-lime-300 active:text-lime-500 transition-colors font-semibold text-sm sm:text-base py-2 touch-manipulation min-h-[44px] justify-center"
+          class="inline-flex items-center gap-2 text-accent-green transition-colors hover:text-accent-green/80 active:text-accent-green/70 transition-colors font-semibold text-sm sm:text-base py-2 touch-manipulation min-h-[44px] justify-center"
         >
           <Icon name="mdi:arrow-left" class="w-4 h-4 sm:w-5 sm:h-5" />
           Back to All Posts

@@ -14,20 +14,20 @@ const base = import.meta.env.BASE_URL;
     <div class="max-w-2xl w-full text-center">
       <!-- 404 Graphic -->
       <div class="mb-8 relative">
-        <div class="text-9xl font-bold text-lime-400/10 select-none">404</div>
+        <div class="text-9xl font-bold text-accent-green transition-colors/10 select-none">404</div>
         <div class="absolute inset-0 flex items-center justify-center">
           <Icon
             name="mdi:alert-circle"
-            class="w-32 h-32 text-lime-400 animate-pulse"
+            class="w-32 h-32 text-accent-green transition-colors animate-pulse"
           />
         </div>
       </div>
 
       <!-- Error Message -->
-      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+      <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4">
         {commonText.errors.pageNotFound}
       </h1>
-      <p class="text-xl text-gray-400 mb-8 leading-relaxed">
+      <p class="text-xl text-secondary transition-colors mb-8 leading-relaxed">
         {commonText.errors.pageNotFoundDescription}
       </p>
 
@@ -35,14 +35,14 @@ const base = import.meta.env.BASE_URL;
       <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
         <a
           href={base}
-          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-lime-400 text-black font-bold rounded-lg hover:bg-lime-500 transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-black"
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent-green text-black dark:text-white font-bold rounded-lg hover:bg-accent-green/90 transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent-green/50 focus:ring-offset-2 focus:ring-offset-black"
         >
           <Icon name="mdi:home" class="w-5 h-5" />
           {commonText.buttons.returnHome}
         </a>
         <a
           href={`${base}contact/`}
-          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-zinc-800 text-white font-bold rounded-lg hover:bg-zinc-700 transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-black"
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-surface text-primary font-bold rounded-lg hover:bg-surface/70 transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent-green/50 focus:ring-offset-2 focus:ring-offset-black"
         >
           <Icon name="mdi:email-outline" class="w-5 h-5" />
           {commonText.cta.contactUs}
@@ -51,55 +51,55 @@ const base = import.meta.env.BASE_URL;
 
       <!-- Helpful Links -->
       <div class="pt-8">
-        <h2 class="text-lg font-semibold text-white mb-4">
+        <h2 class="text-lg font-semibold text-primary mb-4">
           Explore AUXO Data Labs
         </h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
           <a
             href={`${base}services/`}
-            class="flex flex-col items-center gap-2 p-4 bg-zinc-900 rounded-lg hover:bg-zinc-800 transition-colors group"
+            class="flex flex-col items-center gap-2 p-4 bg-card rounded-lg hover:bg-surface transition-colors group"
           >
             <Icon
               name="mdi:briefcase"
-              class="w-6 h-6 text-lime-400 group-hover:scale-110 transition-transform"
+              class="w-6 h-6 text-accent-green transition-colors group-hover:scale-110 transition-transform"
             />
-            <span class="text-gray-400 group-hover:text-white transition-colors"
+            <span class="text-secondary transition-colors group-hover:text-primary transition-colors"
               >Services</span
             >
           </a>
           <a
             href={`${base}about/`}
-            class="flex flex-col items-center gap-2 p-4 bg-zinc-900 rounded-lg hover:bg-zinc-800 transition-colors group"
+            class="flex flex-col items-center gap-2 p-4 bg-card rounded-lg hover:bg-surface transition-colors group"
           >
             <Icon
               name="mdi:information"
-              class="w-6 h-6 text-lime-400 group-hover:scale-110 transition-transform"
+              class="w-6 h-6 text-accent-green transition-colors group-hover:scale-110 transition-transform"
             />
-            <span class="text-gray-400 group-hover:text-white transition-colors"
+            <span class="text-secondary transition-colors group-hover:text-primary transition-colors"
               >About Us</span
             >
           </a>
           <a
             href={`${base}blog/`}
-            class="flex flex-col items-center gap-2 p-4 bg-zinc-900 rounded-lg hover:bg-zinc-800 transition-colors group"
+            class="flex flex-col items-center gap-2 p-4 bg-card rounded-lg hover:bg-surface transition-colors group"
           >
             <Icon
               name="mdi:post"
-              class="w-6 h-6 text-lime-400 group-hover:scale-110 transition-transform"
+              class="w-6 h-6 text-accent-green transition-colors group-hover:scale-110 transition-transform"
             />
-            <span class="text-gray-400 group-hover:text-white transition-colors"
+            <span class="text-secondary transition-colors group-hover:text-primary transition-colors"
               >Blog</span
             >
           </a>
           <a
             href={`${base}tools/maturity-calculator/`}
-            class="flex flex-col items-center gap-2 p-4 bg-zinc-900 rounded-lg hover:bg-zinc-800 transition-colors group"
+            class="flex flex-col items-center gap-2 p-4 bg-card rounded-lg hover:bg-surface transition-colors group"
           >
             <Icon
               name="mdi:calculator"
-              class="w-6 h-6 text-lime-400 group-hover:scale-110 transition-transform"
+              class="w-6 h-6 text-accent-green transition-colors group-hover:scale-110 transition-transform"
             />
-            <span class="text-gray-400 group-hover:text-white transition-colors"
+            <span class="text-secondary transition-colors group-hover:text-primary transition-colors"
               >Assessment</span
             >
           </a>
@@ -107,12 +107,12 @@ const base = import.meta.env.BASE_URL;
       </div>
 
       <!-- Search Suggestion -->
-      <div class="mt-8 text-sm text-gray-500">
+      <div class="mt-8 text-sm text-tertiary transition-colors">
         <p>
           Lost? Try starting from our <a
             href={base}
-            class="text-lime-400 hover:underline">homepage</a
-          > or <a href={`${base}contact/`} class="text-lime-400 hover:underline"
+            class="text-accent-green transition-colors hover:underline">homepage</a
+          > or <a href={`${base}contact/`} class="text-accent-green transition-colors hover:underline"
             >contact us</a
           > for assistance.
         </p>

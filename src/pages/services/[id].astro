@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { Breadcrumbs } from 'astro-breadcrumbs';
+import PageContainer from '../../components/layouts/PageContainer.astro';
+import ContentWrapper from '../../components/layouts/ContentWrapper.astro';
 import { services } from "../../data/collections/services";
 import { getUseCases } from "../../data/collections/servicesUseCases";
 import { Icon } from "astro-icon/components";
@@ -22,21 +24,17 @@ const useCases = getUseCases(service.id);
   title={`${service.title} | AUXO Data Labs`}
   description={service.description}
 >
-  <div class="pt-24 pb-16">
-    <div class="container mx-auto px-4">
-      <!-- Breadcrumb with Structured Data -->
-      <div class="max-w-5xl mx-auto">
-        <Breadcrumbs
-          items={[
-            { label: "Home", href: base },
-            { label: "Services", href: `${base}services/` },
-            { label: service.title },
-          ]}
-        />
-      </div>
+<PageContainer maxWidth="5xl" paddingTop="pt-24" paddingBottom="pb-16">
+  <!-- Breadcrumb with Structured Data -->
+  <ContentWrapper maxWidth="5xl" class="mb-8">
+    <Breadcrumbs 
+      class="text-sm"
+      separator="chevron"
+    />
+  </ContentWrapper>
 
-      <!-- Header -->
-      <div class="max-w-5xl mx-auto mb-16">
+  <!-- Header -->
+  <ContentWrapper maxWidth="5xl" class="mb-12 sm:mb-16">
         <div class="flex items-center space-x-4 mb-6">
           <div
             class="w-16 h-16 bg-lime-400/10 rounded-xl flex items-center justify-center"
@@ -48,27 +46,27 @@ const useCases = getUseCases(service.id);
             <h1 class="text-4xl md:text-5xl font-bold">{service.title}</h1>
           </div>
         </div>
-        <p class="text-xl text-gray-400">{service.description}</p>
-      </div>
+        <p class="text-lg sm:text-xl text-gray-400 leading-relaxed">{service.description}</p>
+  </ContentWrapper>
 
-      <!-- Two Column Layout -->
-      <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
+  <!-- Two Column Layout -->
+  <ContentWrapper maxWidth="5xl" class="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12">
         <!-- Main Content -->
         <div class="lg:col-span-2 space-y-12">
           <!-- Features -->
-          <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-8">
-            <h2 class="text-2xl font-bold mb-6 flex items-center">
-              <Icon name="mdi:star" class="w-6 h-6 text-lime-400 mr-3" />
+          <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 sm:p-8">
+            <h2 class="text-xl sm:text-2xl font-bold mb-5 sm:mb-6 flex items-center">
+              <Icon name="mdi:star" class="w-5 h-5 sm:w-6 sm:h-6 text-lime-400 mr-2 sm:mr-3 flex-shrink-0" />
               Key Features
             </h2>
-            <ul class="space-y-4">
+            <ul class="space-y-3 sm:space-y-4">
               {
                 service.features.map((feature) => (
-                  <li class="flex items-start">
-                    <div class="w-6 h-6 bg-lime-400/20 rounded-full flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
-                      <Icon name="mdi:check" class="w-4 h-4 text-lime-400" />
+                  <li class="flex items-start gap-3">
+                    <div class="w-5 h-5 sm:w-6 sm:h-6 bg-lime-400/20 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
+                      <Icon name="mdi:check" class="w-3 h-3 sm:w-4 sm:h-4 text-lime-400" />
                     </div>
-                    <span class="text-gray-300">{feature}</span>
+                    <span class="text-sm sm:text-base text-gray-300 leading-relaxed">{feature}</span>
                   </li>
                 ))
               }
@@ -76,23 +74,23 @@ const useCases = getUseCases(service.id);
           </div>
 
           <!-- Deliverables -->
-          <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-8">
-            <h2 class="text-2xl font-bold mb-6 flex items-center">
+          <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 sm:p-8">
+            <h2 class="text-xl sm:text-2xl font-bold mb-5 sm:mb-6 flex items-center">
               <Icon
                 name="mdi:package-variant"
-                class="w-6 h-6 text-lime-400 mr-3"
+                class="w-5 h-5 sm:w-6 sm:h-6 text-lime-400 mr-2 sm:mr-3 flex-shrink-0"
               />
               What You'll Get
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {
                 service.deliverables.map((deliverable) => (
-                  <div class="flex items-start p-4 bg-zinc-800 rounded-lg">
+                  <div class="flex items-start gap-3 p-3 sm:p-4 bg-zinc-800 rounded-lg">
                     <Icon
                       name="mdi:file-document"
-                      class="w-5 h-5 text-lime-400 mr-3 flex-shrink-0 mt-0.5"
+                      class="w-4 h-4 sm:w-5 sm:h-5 text-lime-400 flex-shrink-0 mt-0.5"
                     />
-                    <span class="text-sm text-gray-300">{deliverable}</span>
+                    <span class="text-xs sm:text-sm text-gray-300 leading-relaxed">{deliverable}</span>
                   </div>
                 ))
               }
@@ -101,20 +99,20 @@ const useCases = getUseCases(service.id);
 
           <!-- Use Cases -->
           <div
-            class="bg-gradient-to-br from-lime-400/10 to-green-500/10 border border-lime-400/20 rounded-2xl p-8"
+            class="bg-gradient-to-br from-lime-400/10 to-green-500/10 border border-lime-400/20 rounded-2xl p-6 sm:p-8"
           >
-            <h2 class="text-2xl font-bold mb-6 flex items-center">
-              <Icon name="mdi:lightbulb" class="w-6 h-6 text-lime-400 mr-3" />
+            <h2 class="text-xl sm:text-2xl font-bold mb-5 sm:mb-6 flex items-center">
+              <Icon name="mdi:lightbulb" class="w-5 h-5 sm:w-6 sm:h-6 text-lime-400 mr-2 sm:mr-3 flex-shrink-0" />
               Common Use Cases
             </h2>
-            <div class="space-y-4">
+            <div class="space-y-3 sm:space-y-4">
               {
                 useCases.map((useCase) => (
-                  <div class="flex items-start">
-                    <div class="w-2 h-2 bg-lime-400 rounded-full mt-2 mr-3 flex-shrink-0" />
+                  <div class="flex items-start gap-3">
+                    <div class="w-2 h-2 bg-lime-400 rounded-full mt-2 flex-shrink-0" />
                     <div>
-                      <h3 class="font-semibold mb-1">{useCase.title}</h3>
-                      <p class="text-sm text-gray-400">{useCase.description}</p>
+                      <h3 class="font-semibold mb-1 text-sm sm:text-base">{useCase.title}</h3>
+                      <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">{useCase.description}</p>
                     </div>
                   </div>
                 ))
@@ -125,25 +123,25 @@ const useCases = getUseCases(service.id);
 
         <!-- Sidebar -->
         <div class="lg:col-span-1">
-          <div class="sticky top-24 space-y-6">
+          <div class="sticky top-24 space-y-5 sm:space-y-6">
             <!-- CTA Card -->
-            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
-              <h3 class="font-bold mb-4">Ready to Get Started?</h3>
-              <p class="text-sm text-gray-400 mb-6">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 sm:p-6">
+              <h3 class="font-bold mb-3 sm:mb-4 text-base sm:text-lg">Ready to Get Started?</h3>
+              <p class="text-xs sm:text-sm text-gray-400 mb-5 sm:mb-6 leading-relaxed">
                 Schedule a free consultation to discuss your needs
               </p>
               <a
                 href={`${base}contact/`}
-                class="block w-full py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors text-center"
+                class="block w-full py-3 sm:py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 active:bg-lime-600 transition-colors text-center text-sm sm:text-base min-h-[44px] flex items-center justify-center touch-manipulation"
               >
                 Contact Us
               </a>
             </div>
 
             <!-- Related Services -->
-            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
-              <h3 class="font-bold mb-4">Related Services</h3>
-              <div class="space-y-3">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 sm:p-6">
+              <h3 class="font-bold mb-3 sm:mb-4 text-base sm:text-lg">Related Services</h3>
+              <div class="space-y-2 sm:space-y-3">
                 {
                   services
                     .filter((s) => s.id !== service.id)
@@ -151,24 +149,22 @@ const useCases = getUseCases(service.id);
                     .map((s) => (
                       <a
                         href={`${base}services/${s.id}/`}
-                        class="block p-3 bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-colors group"
+                        class="block p-3 sm:p-3 bg-zinc-800 rounded-lg hover:bg-zinc-700 active:bg-zinc-600 transition-colors group touch-manipulation min-h-[44px] flex items-center"
                       >
-                        <div class="flex items-center">
-                          <Icon
-                            name={s.icon}
-                            class="w-5 h-5 text-lime-400 mr-3"
-                          />
-                          <span class="text-sm font-medium group-hover:text-lime-400 transition-colors">
-                            {s.title}
-                          </span>
-                        </div>
+                        <Icon
+                          name={s.icon}
+                          class="w-4 h-4 sm:w-5 sm:h-5 text-lime-400 mr-2 sm:mr-3 flex-shrink-0"
+                        />
+                        <span class="text-xs sm:text-sm font-medium group-hover:text-lime-400 transition-colors">
+                          {s.title}
+                        </span>
                       </a>
                     ))
                 }
               </div>
               <a
                 href={`${base}services/`}
-                class="block mt-4 text-sm text-lime-400 hover:underline"
+                class="block mt-4 text-xs sm:text-sm text-lime-400 hover:underline py-1 touch-manipulation"
               >
                 View All Services →
               </a>
@@ -176,27 +172,26 @@ const useCases = getUseCases(service.id);
 
             <!-- Assessment CTA -->
             <div
-              class="bg-gradient-to-br from-lime-400/10 to-green-500/10 border border-lime-400/20 rounded-2xl p-6"
+              class="bg-gradient-to-br from-lime-400/10 to-green-500/10 border border-lime-400/20 rounded-2xl p-5 sm:p-6"
             >
               <Icon
                 name="mdi:calculator"
-                class="w-10 h-10 text-lime-400 mb-3"
+                class="w-8 h-8 sm:w-10 sm:h-10 text-lime-400 mb-3 flex-shrink-0"
               />
-              <h3 class="font-bold mb-2">Assess Your Maturity</h3>
-              <p class="text-sm text-gray-400 mb-4">
+              <h3 class="font-bold mb-2 text-base sm:text-lg">Assess Your Maturity</h3>
+              <p class="text-xs sm:text-sm text-gray-400 mb-4 leading-relaxed">
                 Take our free assessment to discover your data analytics
                 maturity level
               </p>
               <a
                 href={`${base}tools/maturity-calculator/`}
-                class="block w-full py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors text-center text-sm"
+                class="block w-full py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 active:bg-lime-600 transition-colors text-center text-sm sm:text-base min-h-[44px] flex items-center justify-center touch-manipulation"
               >
                 Take Assessment
               </a>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
+  </ContentWrapper>
+</PageContainer>
 </BaseLayout>

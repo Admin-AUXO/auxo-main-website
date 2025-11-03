@@ -24,12 +24,13 @@
     "@getbrevo/brevo": "^3.0.1",
     "@iconify-json/mdi": "^1.2.3",
     "astro": "^5.14.6",
+    "astro-breadcrumbs": "^3.3.1",
     "astro-compress": "^2.3.8",
     "astro-icon": "^1.1.5",
+    "astro-maintenance": "^2.0.0",
+    "astro-social-share": "^2.2.0",
     "sharp": "^0.34.4",
-    "tailwindcss": "^3.4.18",
-    "tsparticles": "^2.12.0",
-    "tsparticles-slim": "^2.12.0"
+    "tailwindcss": "^3.4.18"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.5",

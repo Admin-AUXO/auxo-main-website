@@ -138,10 +138,14 @@ All content is managed through TypeScript data files organized in a structured h
 ### Integrations
 
 - **MDX** - Markdown-based blog content with component support
-- **Astro Icon** - Material Design Icons integration
+- **Astro Icon** - Material Design Icons integration (optimized with only used icons)
 - **Sharp** - High-performance image optimization
 - **Brevo API** - Email services for contact forms and newsletters
 - **Astro Compress** - Asset compression for optimal performance
+- **tsParticles** - Conditional particle animations (CDN, only on homepage for performance)
+- **astro-social-share** - Social sharing buttons for blog posts
+- **astro-maintenance** - Maintenance mode (environment-based activation)
+- **astro-breadcrumbs** - Auto-generated breadcrumb navigation
 
 ---
 
@@ -228,11 +232,15 @@ Comprehensive documentation available:
 
 ### Build Metrics
 
-- ⚡ Build time: ~2-3 seconds
-- 📄 20+ static pages generated
+- ⚡ Build time: ~9-10 seconds (optimized with integrations)
+- 📄 25 static pages generated
 - 🗜️ Compressed assets (HTML, CSS, JS, SVG)
 - 🗺️ Auto-generated sitemap and RSS feed
 - 🖼️ Optimized images with modern formats
+- 📦 Reduced bundle size through icon optimization and conditional loading
+- 🚀 Optimized JavaScript with requestAnimationFrame for scroll handlers
+- 📱 Enhanced mobile responsiveness across all components
+- ♿ Improved accessibility with better touch targets (44px+ minimum)
 
 ### Best Practices
 

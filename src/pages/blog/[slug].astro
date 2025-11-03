@@ -1,7 +1,10 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { Breadcrumbs } from 'astro-breadcrumbs';
+import { SocialShare } from 'astro-social-share';
+import PageContainer from '../../components/layouts/PageContainer.astro';
+import ContentWrapper from '../../components/layouts/ContentWrapper.astro';
 import { Icon } from 'astro-icon/components';
 
 const base = import.meta.env.BASE_URL;
@@ -81,27 +84,28 @@ function calculateReadTime(content: string | undefined) {
 <BaseLayout
   title={`${post.data.title} | AUXO Data Labs Blog`}
   description={post.data.description}
+  article={true}
+  publishedTime={post.data.publishDate.toISOString()}
+  author="AUXO Data Labs"
+  tags={post.data.tags}
 >
-  <article class="pt-24 pb-16">
-    <div class="container mx-auto px-4">
-      <!-- Breadcrumb with Structured Data -->
-      <div class="max-w-4xl mx-auto">
-        <Breadcrumbs
-          items={[
-            { label: 'Home', href: base },
-            { label: 'Blog', href: `${base}blog/` },
-            { label: post.data.title }
-          ]}
-        />
-      </div>
+<PageContainer maxWidth="4xl" paddingTop="pt-24" paddingBottom="pb-16">
+  <article>
+    <!-- Breadcrumb with Structured Data -->
+    <ContentWrapper maxWidth="4xl" class="mb-8">
+      <Breadcrumbs 
+        class="text-sm"
+        separator="chevron"
+      />
+    </ContentWrapper>
 
-      <!-- Article Header -->
-      <header class="max-w-4xl mx-auto mb-12">
+    <!-- Article Header -->
+    <ContentWrapper maxWidth="4xl" class="mb-10 sm:mb-12">
         <!-- Tags -->
         {post.data.tags && post.data.tags.length > 0 && (
-          <div class="flex flex-wrap gap-2 mb-6">
+          <div class="flex flex-wrap gap-2 mb-4 sm:mb-6">
             {post.data.tags.map((tag: string) => (
-              <span class="px-3 py-1 bg-lime-400/10 text-lime-400 text-sm rounded-full border border-lime-400/20">
+              <span class="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-lime-400/10 text-lime-400 text-xs sm:text-sm rounded-full border border-lime-400/20 font-medium">
                 #{tag}
               </span>
             ))}
@@ -109,12 +113,12 @@ function calculateReadTime(content: string | undefined) {
         )}
 
         <!-- Title -->
-        <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 leading-tight">
           {post.data.title}
         </h1>
 
         <!-- Meta Information -->
-        <div class="flex flex-wrap items-center gap-4 text-gray-400 text-sm border-l-4 border-lime-400 pl-4 py-2 bg-lime-400/5">
+        <div class="flex flex-wrap items-center gap-3 sm:gap-4 text-gray-400 text-xs sm:text-sm border-l-4 border-lime-400 pl-3 sm:pl-4 py-2 sm:py-2 bg-lime-400/5 rounded-r-lg">
           <div class="flex items-center gap-2">
             <Icon name="mdi:calendar" class="w-5 h-5 text-lime-400" />
             <span>{formatDate(post.data.publishDate)}</span>
@@ -132,79 +136,95 @@ function calculateReadTime(content: string | undefined) {
         </div>
 
         <!-- Description -->
-        <p class="text-xl text-gray-400 mt-6 leading-relaxed">
+        <p class="text-lg sm:text-xl text-gray-400 mt-4 sm:mt-6 leading-relaxed">
           {post.data.description}
         </p>
-      </header>
+      </ContentWrapper>
 
       <!-- Featured Image (if available) -->
       {post.data.image && (
-        <div class="max-w-4xl mx-auto mb-12">
+        <ContentWrapper maxWidth="4xl" class="mb-10 sm:mb-12">
           <img
             src={post.data.image}
             alt={post.data.title}
             class="w-full rounded-xl border border-gray-800 shadow-2xl"
+            loading="eager"
           />
-        </div>
+        </ContentWrapper>
       )}
 
       <!-- Article Content -->
-      <div class="max-w-4xl mx-auto">
-        <div class="prose prose-invert prose-lg max-w-none
+      <ContentWrapper maxWidth="4xl">
+        <div class="prose prose-invert prose-sm sm:prose-base md:prose-lg max-w-none
           prose-headings:text-white prose-headings:font-bold
-          prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:text-lime-400
-          prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
-          prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6
+          prose-h2:text-2xl sm:prose-h2:text-3xl prose-h2:mt-10 sm:prose-h2:mt-12 prose-h2:mb-5 sm:prose-h2:mb-6 prose-h2:text-lime-400
+          prose-h3:text-xl sm:prose-h3:text-2xl prose-h3:mt-6 sm:prose-h3:mt-8 prose-h3:mb-3 sm:prose-h3:mb-4
+          prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-5 sm:prose-p:mb-6 prose-p:text-sm sm:prose-p:text-base
           prose-a:text-lime-400 prose-a:no-underline hover:prose-a:underline
           prose-strong:text-white prose-strong:font-semibold
-          prose-ul:text-gray-300 prose-ul:my-6
-          prose-ol:text-gray-300 prose-ol:my-6
-          prose-li:my-2
-          prose-code:text-lime-400 prose-code:bg-zinc-900 prose-code:px-2 prose-code:py-1 prose-code:rounded
-          prose-pre:bg-zinc-900 prose-pre:border prose-pre:border-gray-800 prose-pre:rounded-lg
-          prose-blockquote:border-l-4 prose-blockquote:border-lime-400 prose-blockquote:bg-lime-400/5 prose-blockquote:pl-6 prose-blockquote:py-2 prose-blockquote:my-8
-          prose-img:rounded-lg prose-img:border prose-img:border-gray-800
+          prose-ul:text-gray-300 prose-ul:my-5 sm:prose-ul:my-6
+          prose-ol:text-gray-300 prose-ol:my-5 sm:prose-ol:my-6
+          prose-li:my-2 prose-li:text-sm sm:prose-li:text-base
+          prose-code:text-lime-400 prose-code:bg-zinc-900 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-xs sm:prose-code:text-sm
+          prose-pre:bg-zinc-900 prose-pre:border prose-pre:border-gray-800 prose-pre:rounded-lg prose-pre:text-xs sm:prose-pre:text-sm
+          prose-blockquote:border-l-4 prose-blockquote:border-lime-400 prose-blockquote:bg-lime-400/5 prose-blockquote:pl-4 sm:prose-blockquote:pl-6 prose-blockquote:py-2 prose-blockquote:my-6 sm:prose-blockquote:my-8
+          prose-img:rounded-lg prose-img:border prose-img:border-gray-800 prose-img:my-6 sm:prose-img:my-8
         ">
           <Content />
         </div>
-      </div>
+        
+        <!-- Social Share Buttons -->
+        <div class="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-800">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="w-full sm:w-auto">
+              <p class="text-xs sm:text-sm font-semibold text-gray-300 mb-3 sm:mb-2">Share this article:</p>
+              <SocialShare
+                description={post.data.description}
+                title={post.data.title}
+                url={`${Astro.site || 'https://auxodata.com'}${base}blog/${post.id}`}
+                platforms={['twitter', 'linkedin', 'facebook', 'reddit']}
+              />
+            </div>
+          </div>
+        </div>
+      </ContentWrapper>
 
       <!-- Call to Action -->
-      <div class="max-w-4xl mx-auto mt-16">
-        <div class="bg-gradient-to-r from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8 md:p-12 text-center">
-          <h2 class="text-3xl font-bold mb-4">Ready to Transform Your Data?</h2>
-          <p class="text-gray-400 mb-8 max-w-2xl mx-auto">
+      <ContentWrapper maxWidth="4xl" class="mt-12 sm:mt-16">
+          <div class="bg-gradient-to-r from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-6 sm:p-8 md:p-12 text-center">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Ready to Transform Your Data?</h2>
+          <p class="text-sm sm:text-base text-gray-400 mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed">
             Let's discuss how AUXO Data Labs can help your business leverage data analytics and business intelligence.
           </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <a
               href={`${base}contact/`}
-              class="px-8 py-4 bg-lime-400 text-black font-bold rounded-lg hover:bg-lime-500 transition-all transform hover:scale-105 inline-flex items-center justify-center gap-2"
+              class="px-6 sm:px-8 py-3 sm:py-4 bg-lime-400 text-black font-bold rounded-lg hover:bg-lime-500 active:bg-lime-600 transition-all transform hover:scale-105 active:scale-95 inline-flex items-center justify-center gap-2 text-sm sm:text-base min-h-[44px] touch-manipulation"
             >
-              <Icon name="mdi:email" class="w-5 h-5" />
+              <Icon name="mdi:email" class="w-4 h-4 sm:w-5 sm:h-5" />
               Get In Touch
             </a>
             <a
               href={`${base}services/`}
-              class="px-8 py-4 bg-zinc-800 text-white font-bold rounded-lg hover:bg-zinc-700 transition-all transform hover:scale-105 inline-flex items-center justify-center gap-2"
+              class="px-6 sm:px-8 py-3 sm:py-4 bg-zinc-800 text-white font-bold rounded-lg hover:bg-zinc-700 active:bg-zinc-600 transition-all transform hover:scale-105 active:scale-95 inline-flex items-center justify-center gap-2 text-sm sm:text-base min-h-[44px] touch-manipulation"
             >
-              <Icon name="mdi:briefcase" class="w-5 h-5" />
+              <Icon name="mdi:briefcase" class="w-4 h-4 sm:w-5 sm:h-5" />
               View Our Services
             </a>
           </div>
         </div>
-      </div>
+      </ContentWrapper>
 
       <!-- Back to Blog -->
-      <div class="max-w-4xl mx-auto mt-12 text-center">
+      <ContentWrapper maxWidth="4xl" class="mt-10 sm:mt-12 text-center">
         <a
           href={`${base}blog/`}
-          class="inline-flex items-center gap-2 text-lime-400 hover:text-lime-300 transition-colors font-semibold"
+          class="inline-flex items-center gap-2 text-lime-400 hover:text-lime-300 active:text-lime-500 transition-colors font-semibold text-sm sm:text-base py-2 touch-manipulation min-h-[44px] justify-center"
         >
-          <Icon name="mdi:arrow-left" class="w-5 h-5" />
+          <Icon name="mdi:arrow-left" class="w-4 h-4 sm:w-5 sm:h-5" />
           Back to All Posts
         </a>
-      </div>
-    </div>
+      </ContentWrapper>
   </article>
+</PageContainer>
 </BaseLayout>

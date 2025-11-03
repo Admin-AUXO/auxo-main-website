@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { Breadcrumbs } from 'astro-breadcrumbs';
 import FAQSchema from "../../components/FAQSchema.astro";
 import { maturityCalculatorContent } from "../../data/content/maturityCalculator";
 import { Icon } from "astro-icon/components";
@@ -46,12 +46,10 @@ const calculatorFAQs = [
   <div class="pt-24 pb-16">
     <div class="container mx-auto px-4">
       <!-- Breadcrumb with Structured Data -->
-      <div class="max-w-4xl mx-auto">
-        <Breadcrumbs
-          items={[
-            { label: "Home", href: base },
-            { label: "Maturity Assessment Calculator" },
-          ]}
+      <div class="max-w-4xl mx-auto mb-8">
+        <Breadcrumbs 
+          class="text-sm"
+          separator="chevron"
         />
       </div>
 

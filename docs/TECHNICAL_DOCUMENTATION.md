@@ -12,11 +12,6 @@ Welcome, Agent. Your primary directive is to assist in the development and maint
 
 This project is a modern, high-performance static site built with Astro. Your goal is to understand its structure and conventions to make safe, efficient, and consistent changes.
 
-**Recent Major Updates (December 2025):**
-- ✅ **Data Refactoring**: Comprehensive refactoring of content management - 80% of pages/components now use centralized data files organized in `src/data/` with clear separation: `config/`, `collections/`, `content/`, and `shared/`
-- ✅ **Type Safety**: All data structures now use TypeScript interfaces for full type safety
-- ✅ **Content Organization**: Page-specific content separated from shared text and configuration
-
 ### 2. Guidelines for AI Coding Agents
 
 #### Getting Acquainted
@@ -259,7 +254,31 @@ This section outlines the visual identity of the AUXO Data Labs website.
 #### Iconography
 
 -   **Primary Library:** The project uses [Material Design Icons](https://materialdesignicons.com/) via the `astro-icon` integration for UI icons throughout the site.
--   **Configuration:** The list of included MDI icons is managed in `astro.config.mjs` to optimize bundle size.
+-   **Configuration:** The list of included MDI icons is managed in `astro.config.mjs` to optimize bundle size. Only icons actually used in the codebase are included (audited and optimized January 2025).
+-   **Optimization:** Icons are alphabetically sorted for easier maintenance, and unused icons have been removed to reduce bundle size.
+
+#### Social Sharing
+
+-   **Integration:** `astro-social-share` - Used on blog posts for social media sharing
+-   **Location:** Imported in `src/pages/blog/[slug].astro`
+-   **Platforms:** Twitter, LinkedIn, Facebook, Reddit
+-   **Usage:**
+    ```astro
+    import { SocialShare } from 'astro-social-share';
+    
+    <SocialShare
+      description={post.data.description}
+      title={post.data.title}
+      url={fullUrl}
+      platforms={['twitter', 'linkedin', 'facebook', 'reddit']}
+    />
+    ```
+
+#### Maintenance Mode
+
+-   **Integration:** `astro-maintenance` - Environment-based maintenance page
+-   **Configuration:** Enabled via `MAINTENANCE_MODE=true` environment variable
+-   **Usage:** Set `MAINTENANCE_MODE=true` during deployments to show maintenance page
 
 ---
 
@@ -301,24 +320,24 @@ This part is a detailed reference for the project's reusable components and data
 | `title`        | `string`     | `AUXO Data Labs | Dubai Analytics Consultancy`                                                         |
 | `description`  | `string`     | `Leading analytics consultancy in Dubai, UAE...`                                                    |
 
-#### `Breadcrumbs.astro`
+#### Breadcrumbs (astro-breadcrumbs Integration)
 
--   **Location:** `src/components/Breadcrumbs.astro`
--   **Purpose:** Renders breadcrumb navigation and the corresponding `BreadcrumbList` structured data.
--   **Props:**
-
-| Prop    | Type                          | Default     |
-|---------|-------------------------------|-------------|
-| `items` | `BreadcrumbItem[]`            | `[]`        |
-
--   **`BreadcrumbItem` Interface:**
-
-    ```typescript
-    export interface BreadcrumbItem {
-      label: string;
-      href?: string;
-    }
+-   **Location:** Imported from `astro-breadcrumbs` package
+-   **Purpose:** Auto-generated breadcrumb navigation with structured data support
+-   **Usage:**
+    ```astro
+    import { Breadcrumbs } from 'astro-breadcrumbs';
+    
+    <Breadcrumbs 
+      class="text-sm"
+      separator="chevron"
+    />
     ```
+-   **Features:**
+  - Automatic breadcrumb generation from route structure
+  - Built-in Schema.org JSON-LD structured data
+  - Customizable styling and separators
+  - Zero configuration mode
 
 ### 6. Interactive Components
 

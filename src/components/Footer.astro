@@ -30,10 +30,10 @@ const featuredServices = services.slice(0, 6);
 
 <footer class="bg-zinc-950 border-t border-gray-800 relative z-10">
   <div
-    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10 sm:space-y-12"
+    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-16 space-y-10 sm:space-y-12 lg:space-y-16"
   >
     <div
-      class="grid gap-10 lg:gap-12 xl:gap-16 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"
+      class="grid gap-8 sm:gap-10 lg:gap-12 xl:gap-16 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"
     >
       <section class="space-y-6 text-center lg:text-left">
         <div class="flex items-center justify-center lg:justify-start gap-3">
@@ -128,19 +128,19 @@ const featuredServices = services.slice(0, 6);
       </section>
 
       <section
-        class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 text-center sm:text-left"
+        class="grid gap-8 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3 text-center sm:text-left"
       >
-        <div class="space-y-4">
-          <h4 class="text-xs font-bold tracking-[0.2em] text-gray-100 uppercase">
+        <div class="space-y-4 sm:space-y-5">
+          <h4 class="text-xs sm:text-xs font-bold tracking-[0.2em] text-gray-100 uppercase">
             Quick Links
           </h4>
           <nav>
-            <ul class="space-y-1.5 text-xs sm:text-sm font-medium text-gray-400">
+            <ul class="space-y-2 sm:space-y-2 text-sm sm:text-sm font-medium text-gray-400">
               {quickLinks.map((link) => (
                 <li>
                   <a
                     href={link.href}
-                    class="block py-0.5 hover:text-lime-400 transition-colors"
+                    class="block py-1.5 sm:py-1 hover:text-lime-400 active:text-lime-400 transition-colors touch-manipulation min-h-[32px] sm:min-h-0 flex items-center justify-center sm:justify-start"
                   >
                     {link.label}
                   </a>
@@ -150,19 +150,19 @@ const featuredServices = services.slice(0, 6);
           </nav>
         </div>
 
-        <div class="space-y-6">
+        <div class="space-y-6 sm:space-y-6">
           <div class="space-y-4">
             <h4
               class="text-xs font-bold tracking-[0.2em] text-gray-100 uppercase"
             >
               Resources
             </h4>
-            <ul class="space-y-1.5 text-xs sm:text-sm font-medium text-gray-400">
+            <ul class="space-y-2 sm:space-y-2 text-sm font-medium text-gray-400">
               {resourceLinks.map((link) => (
                 <li>
                   <a
                     href={link.href}
-                    class="block py-0.5 hover:text-lime-400 transition-colors"
+                    class="block py-1.5 sm:py-1 hover:text-lime-400 active:text-lime-400 transition-colors touch-manipulation min-h-[32px] sm:min-h-0 flex items-center justify-center sm:justify-start"
                   >
                     {link.label}
                   </a>
@@ -171,18 +171,18 @@ const featuredServices = services.slice(0, 6);
             </ul>
           </div>
 
-          <div class="space-y-4">
+          <div class="space-y-4 sm:space-y-5">
             <h4
-              class="text-xs font-bold tracking-[0.2em] text-gray-100 uppercase"
+              class="text-xs sm:text-xs font-bold tracking-[0.2em] text-gray-100 uppercase"
             >
               Legal
             </h4>
-            <ul class="space-y-1.5 text-xs sm:text-sm font-medium text-gray-400">
+            <ul class="space-y-2 sm:space-y-2 text-sm font-medium text-gray-400">
               {legalLinks.map((link) => (
                 <li>
                   <a
                     href={link.href}
-                    class="block py-0.5 hover:text-lime-400 transition-colors"
+                    class="block py-1.5 sm:py-1 hover:text-lime-400 active:text-lime-400 transition-colors touch-manipulation min-h-[32px] sm:min-h-0 flex items-center justify-center sm:justify-start"
                   >
                     {link.label}
                   </a>
@@ -192,16 +192,16 @@ const featuredServices = services.slice(0, 6);
           </div>
         </div>
 
-        <div class="space-y-4 sm:col-span-2 lg:col-span-1">
-          <h4 class="text-xs font-bold tracking-[0.2em] text-gray-100 uppercase">
+        <div class="space-y-4 sm:space-y-5 sm:col-span-2 lg:col-span-1">
+          <h4 class="text-xs sm:text-xs font-bold tracking-[0.2em] text-gray-100 uppercase">
             Services
           </h4>
-          <ul class="space-y-1.5 text-xs sm:text-sm font-medium text-gray-400">
+          <ul class="space-y-2 sm:space-y-2 text-sm font-medium text-gray-400">
             {featuredServices.map((service) => (
               <li>
                 <a
                   href={`${base}services/${service.id}/`}
-                  class="block py-0.5 hover:text-lime-400 transition-colors"
+                  class="block py-1.5 sm:py-1 hover:text-lime-400 active:text-lime-400 transition-colors touch-manipulation min-h-[32px] sm:min-h-0 flex items-center justify-center sm:justify-start"
                 >
                   {service.title}
                 </a>
@@ -213,27 +213,27 @@ const featuredServices = services.slice(0, 6);
     </div>
 
     <section
-      class="border-t border-gray-800 pt-6 sm:pt-8 hidden md:block max-w-lg"
+      class="border-t border-gray-800 pt-8 sm:pt-10 lg:pt-12 max-w-lg"
     >
-      <h4 class="text-xs font-bold tracking-[0.2em] text-gray-100 uppercase">
+      <h4 class="text-xs sm:text-xs font-bold tracking-[0.2em] text-gray-100 uppercase mb-3 sm:mb-4">
         Stay Updated
       </h4>
-      <p class="mt-3 text-sm text-gray-400 leading-relaxed">
+      <p class="mt-3 sm:mt-3 text-sm sm:text-sm text-gray-400 leading-relaxed">
         Subscribe to our newsletter for <em>insights and updates</em>.
       </p>
-      <form id="newsletter-form" class="mt-4 space-y-3">
-        <div class="flex flex-col sm:flex-row gap-2">
+      <form id="newsletter-form" class="mt-4 sm:mt-5 space-y-3 sm:space-y-3">
+        <div class="flex flex-col sm:flex-row gap-2.5 sm:gap-2">
           <input
             id="newsletter-email"
             type="email"
             placeholder="Enter your email"
-            class="flex-1 px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-sm text-gray-100 placeholder:text-gray-500 focus:outline-none focus:border-lime-400 focus:ring-1 focus:ring-lime-400"
+            class="flex-1 px-4 sm:px-3 py-3 sm:py-2.5 bg-zinc-900 border border-zinc-700 rounded-lg text-sm sm:text-sm text-gray-100 placeholder:text-gray-500 focus:outline-none focus:border-lime-400 focus:ring-2 focus:ring-lime-400/30 transition-all min-h-[44px] sm:min-h-[38px]"
             required
             aria-label="Email address for newsletter"
           />
           <button
             type="submit"
-            class="px-5 py-2 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 active:bg-lime-600 transition-colors text-sm whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed"
+            class="px-6 sm:px-5 py-3 sm:py-2.5 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 active:bg-lime-600 transition-all text-sm sm:text-sm whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed min-h-[44px] sm:min-h-[38px] touch-manipulation"
           >
             Subscribe
           </button>
@@ -285,19 +285,15 @@ const featuredServices = services.slice(0, 6);
 </footer>
 
 <script>
-  // Newsletter form handler
-  const newsletterForm = document.getElementById("newsletter-form");
-  const newsletterEmail = document.getElementById(
-    "newsletter-email",
-  ) as HTMLInputElement | null;
-  const newsletterMessage = document.getElementById("newsletter-message");
+  // Optimized newsletter form handler with better error handling
+  (function initNewsletterForm() {
+    const newsletterForm = document.getElementById("newsletter-form");
+    if (!newsletterForm) return;
 
-  const handleNewsletterSubmit = async (e: Event) => {
-    e.preventDefault();
-
-    if (!newsletterEmail || !newsletterMessage || !newsletterForm) return;
-
-    const email = newsletterEmail.value.trim();
+    const newsletterEmail = document.getElementById(
+      "newsletter-email",
+    ) as HTMLInputElement | null;
+    const newsletterMessage = document.getElementById("newsletter-message");
     const consentCheckbox = document.getElementById(
       "newsletter-consent",
     ) as HTMLInputElement | null;
@@ -305,85 +301,90 @@ const featuredServices = services.slice(0, 6);
       'button[type="submit"]',
     ) as HTMLButtonElement | null;
 
-    // Validate consent
-    if (!consentCheckbox?.checked) {
-      newsletterMessage.textContent =
-        "Please consent to receive marketing emails";
-      newsletterMessage.className = "text-xs text-red-400";
+    const showMessage = (text: string, isError = false) => {
+      if (!newsletterMessage) return;
+      newsletterMessage.textContent = text;
+      newsletterMessage.className = `text-xs mt-2 ${isError ? "text-red-400" : "text-lime-400"}`;
       newsletterMessage.classList.remove("hidden");
-      return;
-    }
+      if (!isError) {
+        setTimeout(() => {
+          newsletterMessage?.classList.add("hidden");
+        }, 8000);
+      }
+    };
 
-    // Validate email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      newsletterMessage.textContent = "Please enter a valid email address";
-      newsletterMessage.className = "text-xs text-red-400";
-      newsletterMessage.classList.remove("hidden");
-      return;
-    }
+    const handleNewsletterSubmit = async (e: Event) => {
+      e.preventDefault();
 
-    // Disable submit button
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Subscribing...";
-    }
+      if (!newsletterEmail || !newsletterMessage || !consentCheckbox) return;
 
-    try {
-      const consent = consentCheckbox.checked;
+      const email = newsletterEmail.value.trim();
 
-      const response = await fetch(
-        `${import.meta.env.BASE_URL}api/newsletter`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email,
-            consent,
-            timestamp: new Date().toISOString(),
-          }),
-        },
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        const errorMessage =
-          data.error || "Subscription failed. Please try again.";
-        newsletterMessage.textContent = errorMessage;
-        newsletterMessage.className = "text-xs mt-2 text-red-400";
-        newsletterMessage.classList.remove("hidden");
+      // Validate consent
+      if (!consentCheckbox.checked) {
+        showMessage("Please consent to receive marketing emails", true);
         return;
       }
 
-      newsletterMessage.textContent =
-        data.message ||
-        "Thank you! Please check your email to confirm your subscription.";
-      newsletterMessage.className = "text-xs mt-2 text-lime-400";
-      newsletterMessage.classList.remove("hidden");
-      newsletterEmail.value = "";
-      if (consentCheckbox) consentCheckbox.checked = false;
-
-      setTimeout(() => {
-        newsletterMessage.classList.add("hidden");
-      }, 8000);
-    } catch (error) {
-      console.error("Newsletter subscription error:", error);
-      newsletterMessage.textContent =
-        "An error occurred. Please try again later.";
-      newsletterMessage.className = "text-xs mt-2 text-red-400";
-      newsletterMessage.classList.remove("hidden");
-    } finally {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Subscribe";
+      // Validate email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        showMessage("Please enter a valid email address", true);
+        return;
       }
-    }
-  };
 
-  newsletterForm?.addEventListener("submit", handleNewsletterSubmit);
+      // Disable submit button
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Subscribing...";
+      }
 
-  document.addEventListener("astro:before-swap", () => {
-    newsletterForm?.removeEventListener("submit", handleNewsletterSubmit);
-  });
+      try {
+        const response = await fetch(
+          `${import.meta.env.BASE_URL}api/newsletter`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email,
+              consent: consentCheckbox.checked,
+              timestamp: new Date().toISOString(),
+            }),
+          },
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          showMessage(data.error || "Subscription failed. Please try again.", true);
+          return;
+        }
+
+        showMessage(
+          data.message ||
+            "Thank you! Please check your email to confirm your subscription.",
+          false,
+        );
+        newsletterEmail.value = "";
+        consentCheckbox.checked = false;
+      } catch (error) {
+        if (import.meta.env.DEV) {
+          console.error("Newsletter subscription error:", error);
+        }
+        showMessage("An error occurred. Please try again later.", true);
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Subscribe";
+        }
+      }
+    };
+
+    newsletterForm.addEventListener("submit", handleNewsletterSubmit);
+
+    // Cleanup on Astro view transitions
+    document.addEventListener("astro:before-swap", () => {
+      newsletterForm.removeEventListener("submit", handleNewsletterSubmit);
+    });
+  })();
 </script>

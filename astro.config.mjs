@@ -7,6 +7,7 @@ import partytown from '@astrojs/partytown';
 import tailwind from '@astrojs/tailwind';
 import compress from 'astro-compress';
 import icon from 'astro-icon';
+import maintenance from 'astro-maintenance';
 
 // https://astro.build/config
 export default defineConfig({
@@ -67,25 +68,18 @@ export default defineConfig({
     }),
     icon({
       include: {
-        // Only include icons actually used in the project to reduce bundle size
-        // Run `npm run build` and check warnings for unused icons
+        // Optimized: Only icons actually used in the project (audited from codebase)
         mdi: [
-          // UI & Navigation Icons
-          'account', 'account-group', 'alert-circle', 'arrow-left', 'arrow-right', 'book-open',
-          'briefcase', 'calculator', 'calendar', 'calendar-check', 'calendar-clock', 'clock',
-          'certificate', 'chart-bar', 'chart-line', 'check', 'check-circle',
-          'chevron-down', 'currency-usd', 'database', 'download', 'email', 'email-newsletter',
-          'email-outline', 'eye', 'file-document', 'handshake', 'help-circle', 'home',
-          'information', 'lightbulb', 'linkedin', 'lock', 'map-marker',
-          'package-variant', 'phone', 'post', 'rocket', 'security', 'share-variant',
-          'shield-check', 'star', 'target', 'tools', 'trophy', 'twitter',
-          // Technology Icons (About page)
-          'language-python', 'aws', 'microsoft-azure', 'snowflake',
-          'lightning-bolt', 'brain', 'docker', 'air-filter', 'graph',
-          // Industry Icons (Case Studies page)
-          'store', 'hospital', 'truck-fast', 'factory', 'office-building',
-          // Service Icons (Services data)
-          'chart-scatter-plot', 'strategy', 'database-cog', 'robot'
+          // Alphabetically sorted for easier maintenance
+          'account', 'account-group', 'alert-circle', 'arrow-left', 'arrow-right',
+          'book-open', 'briefcase', 'calculator', 'calendar', 'calendar-check', 'calendar-clock', 'certificate', 'clock',
+          'chart-bar', 'chart-line', 'chart-scatter-plot', 'check', 'check-circle', 'chevron-down',
+          'currency-usd', 'database', 'database-cog', 'download', 'email', 'email-newsletter',
+          'email-outline', 'eye', 'factory', 'file-document', 'handshake', 'help-circle', 'home',
+          'hospital', 'information', 'lightbulb', 'linkedin', 'lock', 'map-marker',
+          'office-building', 'package-variant', 'phone', 'post', 'robot', 'rocket',
+          'security', 'share-variant', 'shield-check', 'star', 'store', 'strategy',
+          'target', 'tools', 'trophy', 'truck-fast', 'twitter'
         ],
       },
       svgoOptions: {
@@ -110,6 +104,11 @@ export default defineConfig({
       JavaScript: true,
       SVG: true,
       Logger: process.env.NODE_ENV === 'development' ? 1 : 0, // Verbose in dev, silent in prod
+    }),
+    // Maintenance mode - enabled via MAINTENANCE_MODE environment variable
+    maintenance({
+      enabled: import.meta.env.MAINTENANCE_MODE === 'true',
+      message: 'We are currently performing scheduled maintenance. We will be back shortly.',
     }),
   ],
   // Experimental features removed:

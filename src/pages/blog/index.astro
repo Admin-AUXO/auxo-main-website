@@ -28,13 +28,7 @@ function formatDate(date: Date) {
   }).format(new Date(date));
 }
 
-// Helper to calculate read time - kept for potential future use
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function calculateReadTime(_content: string) {
-  const wordsPerMinute = 200;
-  const wordCount = _content.trim().split(/\s+/).length;
-  return Math.ceil(wordCount / wordsPerMinute);
-}
+// Helper to calculate read time - removed unused function to optimize bundle
 ---
 
 <BaseLayout

@@ -169,6 +169,15 @@ const base = import.meta.env.BASE_URL;
                   >
                     {option.action.text}
                   </button>
+                ) : option.action.href === 'brochure.pdf' ? (
+                  <a
+                    href={`${base}${option.action.href}`}
+                    class="text-lime-400 hover:underline text-sm"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {option.action.text}
+                  </a>
                 ) : (
                   <a
                     href={`${base}${option.action.href}`}

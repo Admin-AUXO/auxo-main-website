@@ -215,7 +215,7 @@
 
   /* Box-based content layouts with CSS containment */
   .content-box {
-    @apply bg-zinc-900 border border-zinc-800 rounded-2xl p-8;
+    @apply bg-zinc-900 border border-zinc-800 rounded-2xl p-4 sm:p-6 md:p-8;
     transition: all var(--duration-fast) var(--timing-smooth);
     contain: layout style paint;
   }
@@ -225,7 +225,25 @@
   }
 
   .content-box-highlight {
-    @apply bg-gradient-to-br from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8;
+    @apply bg-gradient-to-br from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-4 sm:p-6 md:p-8;
     contain: layout style paint;
+  }
+
+  /* Mobile-first improvements */
+  @media (max-width: 640px) {
+    .container {
+      @apply px-4;
+    }
+    
+    /* Better touch targets */
+    a, button {
+      min-height: 44px;
+      min-width: 44px;
+    }
+    
+    /* Improved text readability */
+    p {
+      line-height: 1.6;
+    }
   }
 }

@@ -42,8 +42,8 @@ const navItems: NavItem[] = [
 ---
 
 <nav id="main-navigation" class="fixed top-0 left-0 right-0 z-50 bg-black backdrop-blur-md border-b border-zinc-900/80 transition-all duration-500 ease-out shadow-xl shadow-black/30">
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-    <div class="flex items-center justify-between h-18 sm:h-20 lg:h-22">
+  <div class="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative">
+    <div class="flex items-center justify-between h-16 sm:h-18 lg:h-20">
       <!-- Enhanced Logo Section -->
       <a 
         href={`${base}`} 
@@ -55,15 +55,15 @@ const navItems: NavItem[] = [
           <img 
             src={`${base}logo.svg`} 
             alt="AUXO Data Labs Logo" 
-            class="relative h-11 w-11 sm:h-13 sm:w-13 lg:h-14 lg:w-14 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3" 
+            class="relative h-9 w-9 sm:h-11 sm:w-11 lg:h-12 lg:w-12 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3" 
           />
         </div>
         <!-- Brand Text with Enhanced Typography -->
-        <div class="flex flex-col">
-          <span class="text-white text-lg sm:text-xl lg:text-2xl font-bold tracking-tight leading-tight group-hover:text-lime-400 transition-colors duration-300">
+        <div class="flex flex-col hidden sm:flex">
+          <span class="text-white text-base sm:text-lg lg:text-xl font-bold tracking-tight leading-tight group-hover:text-lime-400 transition-colors duration-300">
             AUXO
           </span>
-          <span class="text-xs sm:text-sm text-gray-400 font-medium tracking-wider uppercase leading-tight">
+          <span class="text-xs text-gray-400 font-medium tracking-wider uppercase leading-tight">
             Data Labs
           </span>
         </div>
@@ -203,7 +203,7 @@ const navItems: NavItem[] = [
       <!-- Mobile Menu Button -->
       <button 
         id="mobile-menu-button" 
-        class="lg:hidden relative text-white p-3 min-w-[44px] min-h-[44px] rounded-xl hover:bg-zinc-800/80 active:bg-zinc-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-lime-400/50 touch-manipulation" 
+        class="lg:hidden relative text-white p-2.5 min-w-[44px] min-h-[44px] rounded-lg hover:bg-zinc-800/80 active:bg-zinc-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-lime-400/50 touch-manipulation" 
         aria-label="Toggle mobile menu" 
         aria-expanded="false"
       >
@@ -237,17 +237,17 @@ const navItems: NavItem[] = [
   <!-- Enhanced Mobile Menu -->
   <div 
     id="mobile-menu" 
-    class="lg:hidden fixed inset-x-0 top-18 sm:top-20 bg-zinc-950 border-t border-zinc-800/60 max-h-[calc(100vh-4.5rem)] overflow-y-auto overscroll-contain transform -translate-y-full opacity-0 transition-all duration-300 ease-out shadow-2xl shadow-black/40"
+    class="lg:hidden fixed inset-x-0 top-16 sm:top-18 bg-zinc-950 border-t border-zinc-800/60 max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain transform -translate-y-full opacity-0 transition-all duration-300 ease-out shadow-2xl shadow-black/40"
     style="touch-action: pan-y;"
   >
-    <div class="px-4 sm:px-6 py-6 space-y-2">
+    <div class="px-3 sm:px-4 py-4 space-y-1.5">
       {navItems.map((item, index) => (
         item.dropdown ? (
           <div class="mobile-dropdown" data-nav-item={index}>
             <button 
-              class="mobile-dropdown-btn w-full flex items-center justify-between px-5 py-4 min-h-[52px] text-gray-300 hover:text-white active:text-white active:bg-zinc-800 rounded-xl transition-all duration-300 font-semibold touch-manipulation bg-zinc-900/50 border border-zinc-800/50 hover:border-lime-400/30"
+              class="mobile-dropdown-btn w-full flex items-center justify-between px-4 py-3 min-h-[48px] text-gray-300 hover:text-white active:text-white active:bg-zinc-800 rounded-lg transition-all duration-300 font-medium touch-manipulation bg-zinc-900/50 border border-zinc-800/50 hover:border-lime-400/30 text-sm sm:text-base"
             >
-              <span class="text-base">{item.name}</span>
+              <span>{item.name}</span>
               <svg 
                 class="w-5 h-5 transition-transform duration-300 flex-shrink-0 text-lime-400" 
                 fill="none" 
@@ -261,7 +261,7 @@ const navItems: NavItem[] = [
               {item.dropdown.map((sub: DropdownItem) => (
                 <a 
                   href={sub.href} 
-                  class="flex items-center gap-3 px-5 py-3.5 min-h-[48px] text-sm text-gray-400 hover:text-lime-400 active:text-lime-400 active:bg-zinc-800/80 rounded-lg transition-all duration-300 touch-manipulation group/item"
+                  class="flex items-center gap-2.5 px-4 py-2.5 min-h-[44px] text-sm text-gray-400 hover:text-lime-400 active:text-lime-400 active:bg-zinc-800/80 rounded-lg transition-all duration-300 touch-manipulation group/item"
                 >
                   <div class="w-2 h-2 rounded-full bg-lime-400/60 group-hover/item:bg-lime-400 transition-colors duration-300 flex-shrink-0"></div>
                   <span class="flex-1 font-medium">{sub.name}</span>
@@ -275,7 +275,7 @@ const navItems: NavItem[] = [
         ) : (
           <a 
             href={item.href} 
-            class="block px-5 py-4 min-h-[52px] text-base text-gray-300 hover:text-white active:text-white active:bg-zinc-800/80 rounded-xl transition-all duration-300 font-semibold touch-manipulation flex items-center bg-zinc-900/50 border border-zinc-800/50 hover:border-lime-400/30"
+            class="block px-4 py-3 min-h-[48px] text-sm sm:text-base text-gray-300 hover:text-white active:text-white active:bg-zinc-800/80 rounded-lg transition-all duration-300 font-medium touch-manipulation flex items-center bg-zinc-900/50 border border-zinc-800/50 hover:border-lime-400/30"
           >
             {item.name}
           </a>
@@ -285,7 +285,7 @@ const navItems: NavItem[] = [
       <!-- Mobile CTA Button -->
       <a 
         href={`${base}contact/`} 
-        class="block mt-6 px-6 py-4 min-h-[56px] bg-gradient-to-r from-lime-400 to-lime-500 text-black font-bold rounded-xl active:from-lime-500 active:to-lime-600 active:scale-[0.97] transition-all duration-300 text-center shadow-xl shadow-lime-400/30 touch-manipulation flex items-center justify-center text-base relative overflow-hidden group"
+        class="block mt-4 px-5 py-3 min-h-[48px] bg-gradient-to-r from-lime-400 to-lime-500 text-black font-semibold rounded-lg active:from-lime-500 active:to-lime-600 active:scale-[0.97] transition-all duration-300 text-center shadow-xl shadow-lime-400/30 touch-manipulation flex items-center justify-center text-sm sm:text-base relative overflow-hidden group"
       >
         <span class="relative z-10 flex items-center gap-2">
           Get Started
@@ -300,24 +300,24 @@ const navItems: NavItem[] = [
 </nav>
 
 <!-- Spacer to prevent content from going under fixed nav -->
-<div class="h-18 sm:h-20 lg:h-22"></div>
+<div class="h-16 sm:h-18 lg:h-20"></div>
 
 <style>
   /* Custom height utilities for navigation */
+  .h-16 {
+    height: 4rem;
+  }
   .h-18 {
     height: 4.5rem;
   }
   .h-20 {
     height: 5rem;
   }
-  .h-22 {
-    height: 5.5rem;
+  .top-16 {
+    top: 4rem;
   }
-  .h-13 {
-    height: 3.25rem;
-  }
-  .h-14 {
-    height: 3.5rem;
+  .top-18 {
+    top: 4.5rem;
   }
   
   /* Mobile menu open state */

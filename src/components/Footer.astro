@@ -8,36 +8,36 @@ const currentYear = new Date().getFullYear();
 ---
 
 <footer class="bg-zinc-950 border-t border-gray-800 relative z-10">
-  <div class="container mx-auto px-4 sm:px-6 py-8 md:py-16">
+  <div class="container mx-auto px-4 sm:px-6 py-6 md:py-12">
     <div
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-6 md:gap-8 mb-6 sm:mb-8 md:mb-12"
+      class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 mb-4 sm:mb-6 md:mb-8"
     >
       <!-- Brand Column -->
-      <div class="sm:col-span-2 lg:col-span-2">
-        <div class="flex items-center space-x-3 mb-4">
+      <div class="col-span-2 sm:col-span-2 lg:col-span-2 mb-4 sm:mb-0">
+        <div class="flex items-center space-x-2 sm:space-x-3 mb-3">
           <img
             src={`${base}logo.svg`}
             alt="AUXO Data Labs Logo"
-            class="h-10 w-10 sm:h-12 sm:w-12"
+            class="h-8 w-8 sm:h-10 sm:w-10"
           />
           <span
-            class="text-white text-lg sm:text-xl font-semibold tracking-tight"
+            class="text-white text-base sm:text-lg font-semibold tracking-tight"
             >Data Labs</span
           >
         </div>
         <p
-          class="text-gray-300 text-sm mb-3 md:mb-4 max-w-sm italic leading-relaxed"
+          class="text-gray-300 text-xs sm:text-sm mb-2 sm:mb-3 max-w-sm italic leading-relaxed hidden sm:block"
         >
           {siteData.tagline}
         </p>
-        <p class="text-gray-300 text-sm mb-4 md:mb-6 leading-relaxed">
+        <p class="text-gray-300 text-xs sm:text-sm mb-3 sm:mb-4 leading-relaxed hidden md:block">
           Transforming data into <span class="font-medium text-white"
             >actionable insights</span
           > for businesses across the UAE.
         </p>
 
-        <!-- Contact Info -->
-        <div class="space-y-2.5 sm:space-y-3 mb-5 sm:mb-6">
+        <!-- Contact Info - Mobile: Compact -->
+        <div class="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4 hidden md:block">
           <div class="flex items-center gap-3 text-sm sm:text-base">
             <Icon
               name="mdi:email"
@@ -77,119 +77,103 @@ const currentYear = new Date().getFullYear();
         </div>
 
         <!-- Social Links -->
-        <div class="flex gap-3">
+        <div class="flex gap-2 sm:gap-3">
           <a
             href={siteData.social.linkedin}
-            class="w-11 h-11 sm:w-10 sm:h-10 min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black active:bg-lime-500 active:text-black active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-zinc-950 touch-manipulation will-change-transform"
+            class="w-9 h-9 sm:w-10 sm:h-10 min-w-[36px] min-h-[36px] sm:min-w-[44px] sm:min-h-[44px] bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black active:bg-lime-500 active:text-black active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-zinc-950 touch-manipulation will-change-transform"
             aria-label="Follow AUXO Data Labs on LinkedIn"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Icon name="mdi:linkedin" class="w-5 h-5" aria-hidden="true" />
+            <Icon name="mdi:linkedin" class="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
           </a>
           <a
             href={siteData.social.twitter}
-            class="w-11 h-11 sm:w-10 sm:h-10 min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black active:bg-lime-500 active:text-black active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-zinc-950 touch-manipulation will-change-transform"
+            class="w-9 h-9 sm:w-10 sm:h-10 min-w-[36px] min-h-[36px] sm:min-w-[44px] sm:min-h-[44px] bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black active:bg-lime-500 active:text-black active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-zinc-950 touch-manipulation will-change-transform"
             aria-label="Follow AUXO Data Labs on Twitter"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Icon name="mdi:twitter" class="w-5 h-5" aria-hidden="true" />
+            <Icon name="mdi:twitter" class="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
           </a>
         </div>
       </div>
 
       <!-- Quick Links Column -->
-      <div>
+      <div class="col-span-1">
         <h4
-          class="font-bold text-white mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider"
+          class="font-bold text-white mb-2 sm:mb-3 text-xs uppercase tracking-wider"
         >
           Quick Links
         </h4>
-        <ul class="space-y-2.5 sm:space-y-3 text-sm font-medium">
+        <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm font-medium">
           <li>
             <a
               href={base}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 flex items-center gap-2 touch-manipulation min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 will-change-transform"
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
             >
-              <Icon name="mdi:home" class="w-4 h-4 flex-shrink-0" />Home
+              Home
             </a>
           </li>
           <li>
             <a
               href={`${base}about/`}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 flex items-center gap-2 touch-manipulation min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 will-change-transform"
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
             >
-              <Icon name="mdi:information" class="w-4 h-4 flex-shrink-0" />About
-              Us
+              About
             </a>
           </li>
           <li>
             <a
               href={`${base}services/`}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 flex items-center gap-2 touch-manipulation min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 will-change-transform"
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
             >
-              <Icon
-                name="mdi:briefcase"
-                class="w-4 h-4 flex-shrink-0"
-              />Services
+              Services
             </a>
           </li>
           <li>
             <a
               href={`${base}case-studies/`}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 flex items-center gap-2 touch-manipulation min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 will-change-transform"
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
             >
-              <Icon name="mdi:chart-line" class="w-4 h-4 flex-shrink-0" />Case
-              Studies
+              Cases
             </a>
           </li>
           <li>
             <a
               href={`${base}blog/`}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 flex items-center gap-2 touch-manipulation min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 will-change-transform"
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
             >
-              <Icon name="mdi:post" class="w-4 h-4 flex-shrink-0" />Blog
-            </a>
-          </li>
-          <li>
-            <a
-              href={`${base}faq/`}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 flex items-center gap-2 touch-manipulation min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 will-change-transform"
-            >
-              <Icon name="mdi:help-circle" class="w-4 h-4 flex-shrink-0" />FAQ
+              Blog
             </a>
           </li>
           <li>
             <a
               href={`${base}contact/`}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 flex items-center gap-2 touch-manipulation min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 will-change-transform"
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
             >
-              <Icon
-                name="mdi:email-outline"
-                class="w-4 h-4 flex-shrink-0"
-              />Contact
+              Contact
             </a>
           </li>
         </ul>
       </div>
 
-      <!-- Services Column -->
-      <div>
+      <!-- Services Column - Hidden on mobile -->
+      <div class="hidden sm:block">
         <h4
-          class="font-bold text-white mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider"
+          class="font-bold text-white mb-2 sm:mb-3 text-xs uppercase tracking-wider"
         >
           Services
         </h4>
-        <ul class="space-y-2.5 sm:space-y-3 text-sm font-medium">
+        <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm font-medium">
           {
-            services.map((service) => (
+            services.slice(0, 4).map((service) => (
               <li>
                 <a
                   href={`${base}services/${service.id}/`}
-                  class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 touch-manipulation block min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 flex items-center will-change-transform"
+                  class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
                 >
-                  {service.title}
+                  {service.title.length > 20 ? service.title.substring(0, 20) + '...' : service.title}
                 </a>
               </li>
             ))
@@ -197,98 +181,79 @@ const currentYear = new Date().getFullYear();
         </ul>
       </div>
 
-      <!-- Resources Column -->
-      <div>
+      <!-- Resources & Legal Column - Compact on mobile -->
+      <div class="col-span-2 sm:col-span-1">
         <h4
-          class="font-bold text-white mb-3 sm:mb-4 text-xs sm:text-sm uppercase tracking-wider"
+          class="font-bold text-white mb-2 sm:mb-3 text-xs uppercase tracking-wider"
         >
           Resources
         </h4>
-        <ul class="space-y-2.5 sm:space-y-3 text-sm font-medium">
+        <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm font-medium mb-4 sm:mb-6">
           <li>
             <a
               href={`${base}tools/maturity-calculator/`}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 flex items-center gap-2 touch-manipulation min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 will-change-transform"
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
             >
-              <Icon
-                name="mdi:calculator"
-                class="w-4 h-4 flex-shrink-0"
-              />Maturity Assessment
-            </a>
-          </li>
-          <li>
-            <a
-              href={`${base}contact/`}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 flex items-center gap-2 touch-manipulation min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 will-change-transform"
-            >
-              <Icon name="mdi:calendar" class="w-4 h-4 flex-shrink-0" />Book
-              Consultation
+              Calculator
             </a>
           </li>
         </ul>
 
         <h4
-          class="font-bold text-white mb-3 sm:mb-4 mt-6 sm:mt-8 text-xs sm:text-sm uppercase tracking-wider"
+          class="font-bold text-white mb-2 sm:mb-3 text-xs uppercase tracking-wider"
         >
           Legal
         </h4>
-        <ul class="space-y-2.5 sm:space-y-3 text-sm font-medium">
+        <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm font-medium">
           <li>
             <a
               href={`${base}legal/privacy-policy/`}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 touch-manipulation block min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 flex items-center will-change-transform"
-              >Privacy Policy</a
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
+              >Privacy</a
             >
           </li>
           <li>
             <a
               href={`${base}legal/terms/`}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 touch-manipulation block min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 flex items-center will-change-transform"
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
               >Terms</a
             >
           </li>
           <li>
             <a
               href={`${base}legal/cookie-policy/`}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 touch-manipulation block min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 flex items-center will-change-transform"
-              >Cookie Policy</a
-            >
-          </li>
-          <li>
-            <a
-              href={`${base}legal/dpa/`}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 active:scale-[0.98] transition-all duration-200 touch-manipulation block min-h-[48px] sm:min-h-0 py-1.5 sm:py-0 flex items-center will-change-transform"
-              >DPA</a
+              class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
+              >Cookies</a
             >
           </li>
         </ul>
       </div>
     </div>
 
-    <!-- Newsletter Section -->
-    <div class="border-t border-gray-800 pt-6 sm:pt-8 mb-6 sm:mb-8">
+    <!-- Newsletter Section - Hidden on mobile -->
+    <div class="border-t border-gray-800 pt-4 sm:pt-6 mb-4 sm:mb-6 hidden md:block">
       <div class="max-w-md">
         <h4
           class="font-bold text-white mb-2 text-xs sm:text-sm uppercase tracking-wider"
         >
           Stay Updated
         </h4>
-        <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+        <p class="text-gray-400 text-xs sm:text-sm mb-3 leading-relaxed">
           Subscribe to our newsletter for <em>insights and updates</em>.
         </p>
-        <form id="newsletter-form" class="space-y-3">
+        <form id="newsletter-form" class="space-y-2">
           <div class="flex flex-col sm:flex-row gap-2">
             <input
               id="newsletter-email"
               type="email"
               placeholder="Enter your email"
-              class="flex-1 px-4 py-3 sm:py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-sm sm:text-base focus:outline-none focus:border-lime-400 transition-colors font-medium touch-manipulation"
+              class="flex-1 px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-sm focus:outline-none focus:border-lime-400 transition-colors font-medium touch-manipulation"
               required
               aria-label="Email address for newsletter"
             />
             <button
               type="submit"
-              class="px-6 py-3 sm:py-2 min-h-[52px] sm:min-h-0 bg-lime-400 text-black font-bold rounded-lg hover:bg-lime-500 active:bg-lime-600 active:scale-[0.97] transition-all duration-200 text-sm sm:text-base whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation will-change-transform"
+              class="px-5 py-2 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 active:bg-lime-600 active:scale-[0.97] transition-all duration-200 text-sm whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation will-change-transform"
             >
               Subscribe
             </button>
@@ -300,50 +265,49 @@ const currentYear = new Date().getFullYear();
               type="checkbox"
               id="newsletter-consent"
               required
-              class="mt-1 sm:mt-0.5 w-5 h-5 sm:w-4 sm:h-5 text-lime-400 bg-zinc-900 border-zinc-700 rounded focus:ring-lime-400 focus:ring-2 touch-manipulation flex-shrink-0"
+              class="mt-0.5 w-4 h-4 text-lime-400 bg-zinc-900 border-zinc-700 rounded focus:ring-lime-400 focus:ring-2 touch-manipulation flex-shrink-0"
             />
             <span
-              class="text-xs sm:text-sm text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors"
+              class="text-xs text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors"
             >
-              I consent to receive marketing emails and understand I can
-              unsubscribe at any time.
+              I consent to receive marketing emails.
               <a
                 href={`${base}legal/privacy-policy/`}
                 class="text-lime-400 hover:underline active:text-lime-300"
-                >Privacy Policy</a
+                >Privacy</a
               >
             </span>
           </label>
-          <p id="newsletter-message" class="text-xs sm:text-sm hidden"></p>
+          <p id="newsletter-message" class="text-xs hidden"></p>
         </form>
       </div>
     </div>
 
     <!-- Bottom Bar -->
     <div
-      class="border-t border-gray-800 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-4"
+      class="border-t border-gray-800 pt-4 sm:pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4"
     >
       <p
-        class="text-gray-500 text-xs sm:text-sm font-medium text-center sm:text-left"
+        class="text-gray-500 text-xs font-medium text-center sm:text-left"
       >
         © {currentYear} AUXO Data Labs. All rights reserved.
       </p>
       <div
-        class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 sm:gap-6 text-xs sm:text-sm text-gray-500 font-medium"
+        class="flex flex-wrap justify-center sm:justify-end items-center gap-2 sm:gap-4 text-xs text-gray-500 font-medium"
       >
-        <span class="flex items-center gap-2">
+        <span class="flex items-center gap-1.5">
           <Icon
             name="mdi:map-marker"
-            class="w-4 h-4 text-lime-400 flex-shrink-0"
+            class="w-3.5 h-3.5 text-lime-400 flex-shrink-0"
           />
           Dubai, UAE
         </span>
-        <span class="flex items-center gap-2">
+        <span class="flex items-center gap-1.5 hidden sm:flex">
           <Icon
             name="mdi:shield-check"
-            class="w-4 h-4 text-lime-400 flex-shrink-0"
+            class="w-3.5 h-3.5 text-lime-400 flex-shrink-0"
           />
-          UAE PDPL Compliant
+          PDPL Compliant
         </span>
       </div>
     </div>

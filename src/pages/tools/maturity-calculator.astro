@@ -165,7 +165,9 @@ const calculatorFAQs = [
               <span class="text-sm text-gray-400"
                 >{maturityCalculatorContent.questionScreen.questionLabel}
                 <span id="q-num">1</span>
-                {maturityCalculatorContent.questionScreen.ofLabel} <span id="total-questions">{maturityCalculatorContent.questions.length}</span></span
+                {maturityCalculatorContent.questionScreen.ofLabel}
+                <span id="total-questions">20</span
+                ></span
               >
               <span class="text-sm text-gray-400"
                 ><span id="q-progress">5</span>% {
@@ -300,15 +302,19 @@ const calculatorFAQs = [
 
 <script define:vars={{ content: maturityCalculatorContent }}>
   // Assessment Data - imported from content file
-  const questions = content.questions;
+  const classificationQuestions = content.classificationQuestions;
+  const questionSets = content.questions;
+  const pathways = content.pathways;
   const maturityLevels = content.maturityLevels;
-
-  // Constants
-  const TOTAL_QUESTIONS = questions.length;
 
   // State
   let currentQuestion = 0;
-  let answers: number[] = [];
+  let classificationAnswers = [];
+  let assessmentAnswers = [];
+  let currentPathway = null;
+  let personalizedQuestions = [];
+  let isClassificationPhase = true;
+  let TOTAL_QUESTIONS = classificationQuestions.length;
 
   // Elements
   const introScreen = document.getElementById("intro-screen");
@@ -317,33 +323,105 @@ const calculatorFAQs = [
   const startBtn = document.getElementById("start-btn");
   const totalQuestionsEl = document.getElementById("total-questions");
 
-  // Initialize total questions display
-  if (totalQuestionsEl) {
-    totalQuestionsEl.textContent = String(TOTAL_QUESTIONS);
+  // Type guards
+  function getElementSafe(id) {
+    return document.getElementById(id);
   }
 
-  // Type guards
-  function getElementSafe<T extends HTMLElement>(id: string): T | null {
-    const element = document.getElementById(id);
-    return element as T | null;
+  /**
+   * Determine pathway based on classification answers
+   */
+  function determinePathway() {
+    const totalScore = classificationAnswers.reduce((sum, score) => sum + score, 0);
+    
+    // Determine pathway based on score ranges
+    if (totalScore <= 6) return 'early';
+    if (totalScore <= 10) return 'growing';
+    if (totalScore <= 13) return 'medium';
+    if (totalScore <= 15) return 'advanced';
+    return 'enterprise';
+  }
+
+  /**
+   * Build personalized question set based on pathway
+   */
+  function buildPersonalizedQuestions(pathway) {
+    const questions = [];
+    
+    // Always include core questions
+    questions.push(...questionSets.core);
+    
+    // Add pathway-specific questions
+    if (pathway === 'early') {
+      questions.push(...questionSets.early);
+    } else if (pathway === 'growing' || pathway === 'medium') {
+      questions.push(...questionSets.early.filter(q => !q.skipFor?.includes(pathway)));
+      questions.push(...questionSets.growing);
+    } else if (pathway === 'advanced' || pathway === 'enterprise') {
+      questions.push(...questionSets.growing);
+      questions.push(...questionSets.advanced.filter(q => {
+        if (q.skipFor && q.skipFor.includes(pathway)) return false;
+        if (q.requiredFor && !q.requiredFor.includes(pathway)) return false;
+        return true;
+      }));
+    }
+    
+    return questions;
+  }
+
+  /**
+   * Get current question based on phase
+   */
+  function getCurrentQuestion(index) {
+    if (isClassificationPhase) {
+      return classificationQuestions[index];
+    } else {
+      return personalizedQuestions[index];
+    }
+  }
+
+  /**
+   * Get current answers array
+   */
+  function getCurrentAnswers() {
+    return isClassificationPhase ? classificationAnswers : assessmentAnswers;
+  }
+
+  /**
+   * Set answer in current phase
+   */
+  function setCurrentAnswer(index, score) {
+    if (isClassificationPhase) {
+      classificationAnswers[index] = score;
+    } else {
+      assessmentAnswers[index] = score;
+    }
   }
 
   // Start assessment
   startBtn?.addEventListener("click", () => {
     introScreen?.classList.add("hidden");
     questionScreen?.classList.remove("hidden");
+    isClassificationPhase = true;
+    TOTAL_QUESTIONS = classificationQuestions.length;
+    if (totalQuestionsEl) {
+      totalQuestionsEl.textContent = String(TOTAL_QUESTIONS);
+    }
     showQuestion(0);
   });
 
-  function showQuestion(index: number): void {
-    const q = questions[index];
+  function showQuestion(index) {
+    const q = getCurrentQuestion(index);
+    if (!q) return;
+    
     currentQuestion = index;
+    const currentAnswers = getCurrentAnswers();
 
     // Update progress
     const progress = ((index + 1) / TOTAL_QUESTIONS) * 100;
     const qNum = getElementSafe("q-num");
     const qProgress = getElementSafe("q-progress");
-    const qBar = getElementSafe<HTMLElement>("q-bar");
+    const qBar = getElementSafe("q-bar");
 
     if (qNum) qNum.textContent = String(index + 1);
     if (qProgress) qProgress.textContent = String(Math.round(progress));
@@ -363,43 +441,46 @@ const calculatorFAQs = [
 
     q.options.forEach((option, optIndex) => {
       const button = document.createElement("button");
-      const isSelected = answers[index] === option.score;
-      
+      const isSelected = currentAnswers[index] === option.score;
+
       // Enhanced styling with better highlighting
       button.className = isSelected
         ? "answer-option w-full p-4 bg-lime-400/15 border-2 border-lime-400 rounded-lg text-left transition-all shadow-lg shadow-lime-400/20 hover:border-lime-300 hover:bg-lime-400/20"
         : "answer-option w-full p-4 bg-zinc-800 border-2 border-zinc-700 rounded-lg text-left hover:border-lime-400 hover:bg-zinc-700/50 transition-all";
-      
+
       button.innerHTML = `
         <div class="flex items-center justify-between">
-          <span class="${isSelected ? 'text-white font-medium' : ''}">${option.text}</span>
-          <span class="text-sm ${isSelected ? 'text-lime-400 font-semibold' : 'text-gray-500'}">${option.score}/5</span>
+          <span class="${isSelected ? "text-white font-medium" : ""}">${option.text}</span>
+          <span class="text-sm ${isSelected ? "text-lime-400 font-semibold" : "text-gray-500"}">${option.score}/5</span>
         </div>
       `;
-      
+
       button.setAttribute("data-score", String(option.score));
-      button.addEventListener("click", (e) => selectAnswer(option.score, optIndex, e));
+      button.addEventListener("click", (e) =>
+        selectAnswer(option.score, optIndex, e),
+      );
 
       optionsContainer.appendChild(button);
     });
 
     // Update navigation
-    const backBtn = getElementSafe<HTMLButtonElement>("q-back-btn");
-    const nextBtn = getElementSafe<HTMLButtonElement>("q-next-btn");
+    const backBtn = getElementSafe("q-back-btn");
+    const nextBtn = getElementSafe("q-next-btn");
 
     if (backBtn) backBtn.disabled = index === 0;
-    if (nextBtn) nextBtn.disabled = !answers[index];
+    if (nextBtn) nextBtn.disabled = !currentAnswers[index];
   }
 
-  function selectAnswer(score: number, optIndex: number, e: Event): void {
-    answers[currentQuestion] = score;
+  function selectAnswer(score, optIndex, e) {
+    setCurrentAnswer(currentQuestion, score);
+    const currentAnswers = getCurrentAnswers();
 
     // Get all option buttons for current question
     const optionsContainer = getElementSafe("answer-options");
     if (!optionsContainer) return;
-    
+
     const allButtons = optionsContainer.querySelectorAll(".answer-option");
-    
+
     // Remove selected styling from all options
     allButtons.forEach((btn) => {
       btn.classList.remove(
@@ -408,10 +489,10 @@ const calculatorFAQs = [
         "shadow-lg",
         "shadow-lime-400/20",
         "hover:border-lime-300",
-        "hover:bg-lime-400/20"
+        "hover:bg-lime-400/20",
       );
       btn.classList.add("border-zinc-700", "bg-zinc-800");
-      
+
       // Reset text styling
       const textSpan = btn.querySelector("span:first-child");
       const scoreSpan = btn.querySelector("span:last-child");
@@ -425,7 +506,7 @@ const calculatorFAQs = [
     });
 
     // Add selected styling to clicked option
-    const clickedButton = (e.target as HTMLElement).closest(".answer-option") as HTMLElement;
+    const clickedButton = e.target.closest(".answer-option");
     if (clickedButton) {
       clickedButton.classList.remove("border-zinc-700", "bg-zinc-800");
       clickedButton.classList.add(
@@ -434,9 +515,9 @@ const calculatorFAQs = [
         "shadow-lg",
         "shadow-lime-400/20",
         "hover:border-lime-300",
-        "hover:bg-lime-400/20"
+        "hover:bg-lime-400/20",
       );
-      
+
       // Update text styling for selected option
       const textSpan = clickedButton.querySelector("span:first-child");
       const scoreSpan = clickedButton.querySelector("span:last-child");
@@ -461,20 +542,46 @@ const calculatorFAQs = [
   });
 
   document.getElementById("q-next-btn")?.addEventListener("click", () => {
-    if (currentQuestion < TOTAL_QUESTIONS - 1) {
+    const currentAnswers = getCurrentAnswers();
+    
+    // Check if we're transitioning from classification to assessment
+    if (isClassificationPhase && currentQuestion === classificationQuestions.length - 1) {
+      // Determine pathway and build personalized questions
+      currentPathway = determinePathway();
+      personalizedQuestions = buildPersonalizedQuestions(currentPathway);
+      
+      // Switch to assessment phase
+      isClassificationPhase = false;
+      currentQuestion = 0;
+      TOTAL_QUESTIONS = personalizedQuestions.length;
+      
+      // Update total questions display
+      if (totalQuestionsEl) {
+        totalQuestionsEl.textContent = String(TOTAL_QUESTIONS);
+      }
+      
+      // Reset assessment answers
+      assessmentAnswers = new Array(personalizedQuestions.length).fill(0);
+      
+      // Show first assessment question
+      showQuestion(0);
+    } else if (currentQuestion < TOTAL_QUESTIONS - 1) {
       showQuestion(currentQuestion + 1);
     } else {
       showResults();
     }
   });
 
-  function showResults(): void {
+  function showResults() {
     questionScreen?.classList.add("hidden");
     resultsScreen?.classList.remove("hidden");
 
+    // Use assessment answers for scoring
+    const answers = assessmentAnswers;
+    const questions = personalizedQuestions;
+
     // Calculate scores by dimension
-    const dimensionScores: { [key: string]: { total: number; count: number } } =
-      {};
+    const dimensionScores = {};
 
     questions.forEach((q, i) => {
       if (!dimensionScores[q.category]) {
@@ -485,7 +592,7 @@ const calculatorFAQs = [
     });
 
     // Calculate average scores
-    const avgScores: { [key: string]: number } = {};
+    const avgScores = {};
     Object.keys(dimensionScores).forEach((dim) => {
       avgScores[dim] = dimensionScores[dim].total / dimensionScores[dim].count;
     });
@@ -496,14 +603,14 @@ const calculatorFAQs = [
       Object.keys(avgScores).length;
     const maturityLevel = Math.round(overallScore);
 
-    // Display overall score with type guards
-    const level = maturityLevels[maturityLevel as keyof typeof maturityLevels];
+    // Display overall score
+    const level = maturityLevels[maturityLevel];
     const levelEl = getElementSafe("maturity-level");
     const descEl = getElementSafe("maturity-description");
 
     if (levelEl) {
       levelEl.textContent = level.name;
-      (levelEl as HTMLElement).style.color = level.color;
+      levelEl.style.color = level.color;
     }
     if (descEl) descEl.textContent = level.description;
 
@@ -528,7 +635,8 @@ const calculatorFAQs = [
     });
 
     // Generate recommendations
-    const recommendations = document.getElementById("recommendations")!;
+    const recommendations = document.getElementById("recommendations");
+    if (!recommendations) return;
     const recs = generateRecommendations(avgScores, maturityLevel);
     recommendations.innerHTML = recs.map((rec) => `<p>✓ ${rec}</p>`).join("");
 
@@ -536,11 +644,8 @@ const calculatorFAQs = [
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function generateRecommendations(
-    scores: { [key: string]: number },
-    overall: number,
-  ): string[] {
-    const recs: string[] = [];
+  function generateRecommendations(scores, overall) {
+    const recs = [];
 
     // Find lowest scoring dimension
     const lowest = Object.entries(scores).sort((a, b) => a[1] - b[1])[0];

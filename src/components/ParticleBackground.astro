@@ -11,11 +11,8 @@
 </div>
 
 <script>
-  // Dynamic imports for client-side execution
-  let tsParticles: any;
-  let loadSlim: any;
-
   // Store cleanup functions
+  let engine: any = null;
   let scrollHandler: (() => void) | null = null;
   let mouseMoveHandler: ((e: MouseEvent) => void) | null = null;
   let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -24,13 +21,14 @@
   function cleanup() {
     // Cleanup particles
     try {
-      if (tsParticles && typeof tsParticles.dom === "function") {
-        const instances = tsParticles.dom();
-        if (instances && instances.length > 0) {
-          instances.forEach((instance: any) => {
+      if (engine) {
+        // Get all containers and destroy them
+        const containers = engine.dom();
+        if (containers && containers.length > 0) {
+          containers.forEach((container: any) => {
             try {
-              if (instance && typeof instance.destroy === "function") {
-                instance.destroy();
+              if (container && typeof container.destroy === "function") {
+                container.destroy();
               }
             } catch (e) {
               // Ignore cleanup errors
@@ -44,7 +42,7 @@
         container.innerHTML = ""; // Clear canvas
       }
     } catch (e) {
-      // Ignore errors if tsParticles not initialized
+      // Ignore errors if engine not initialized
     }
 
     // Remove event listeners
@@ -86,39 +84,38 @@
       return; // Skip particles if user prefers reduced motion
     }
 
-    // Load tsParticles v2 - need to load the bundle first to get window.tsParticles
+    // Load tsParticles v2 with correct API
     try {
-      // Import tsparticles-slim which loads plugins and sets up window.tsParticles
-      await import("tsparticles-slim");
+      // Import tsparticles-engine and tsparticles-slim
+      await import("tsparticles-engine");
+      const { loadSlim } = await import("tsparticles-slim");
 
-      // Wait for window.tsParticles to be available (set by tsparticles-slim)
+      // Use window.tsParticles (set by tsparticles-engine) or the exported instance
+      // Wait a bit for window.tsParticles to be available
       let attempts = 0;
-      const maxAttempts = 30; // Wait up to 3 seconds
-
-      while (
-        typeof window.tsParticles === "undefined" &&
-        attempts < maxAttempts
-      ) {
-        await new Promise((resolve) => setTimeout(resolve, 100));
+      const maxAttempts = 10;
+      while (!window.tsParticles && attempts < maxAttempts) {
+        await new Promise((resolve) => setTimeout(resolve, 50));
         attempts++;
       }
 
-      if (typeof window.tsParticles === "undefined") {
-        console.error(
-          "window.tsParticles not available after loading tsparticles-slim",
-        );
+      if (window.tsParticles) {
+        engine = window.tsParticles;
+      } else {
+        // Fallback to imported instance
+        const tsparticlesModule = await import("tsparticles-engine");
+        engine = tsparticlesModule.tsParticles;
+      }
+
+      if (!engine) {
+        console.error("tsParticles engine not available");
         return;
       }
 
-      // Use window.tsParticles directly (this is how tsparticles v2 works)
-      if (typeof window.tsParticles.load !== "function") {
-        console.error("window.tsParticles.load is not a function");
-        return;
-      }
-
-      tsParticles = window.tsParticles;
+      // Load slim plugins
+      await loadSlim(engine);
     } catch (error) {
-      console.error("Failed to load tsparticles-slim:", error);
+      console.error("Failed to load tsparticles:", error);
       return;
     }
 
@@ -258,23 +255,14 @@
     };
 
     try {
-      // Use tsparticles v2 API: load(id, config) or load(element, config)
-      if (typeof tsParticles.load === "function") {
-        // Try with string ID first (original code pattern)
-        await tsParticles.load("particle-background", config);
+      // Use tsparticles v2 API: engine.load(container, config)
+      if (engine && typeof engine.load === "function") {
+        await engine.load(container, config);
       } else {
-        console.error("tsParticles.load is not a function");
+        console.error("engine.load is not a function");
       }
     } catch (error) {
-      console.error("Failed to load particles with string ID:", error);
-      // Fallback: try with element directly
-      try {
-        if (typeof tsParticles.load === "function") {
-          await tsParticles.load(container, config);
-        }
-      } catch (fallbackError) {
-        console.error("All load methods failed:", fallbackError);
-      }
+      console.error("Failed to load particles:", error);
     }
 
     // Add scroll-based effects

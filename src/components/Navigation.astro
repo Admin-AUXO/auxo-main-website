@@ -42,9 +42,6 @@ const navItems: NavItem[] = [
 ---
 
 <nav id="main-navigation" class="fixed top-0 left-0 right-0 z-50 bg-black backdrop-blur-md border-b border-zinc-900/80 transition-all duration-500 ease-out shadow-xl shadow-black/30">
-  <!-- Gradient overlay for depth -->
-  <div class="absolute inset-0 bg-gradient-to-b from-lime-400/5 via-transparent to-transparent pointer-events-none"></div>
-  
   <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative">
     <div class="flex items-center justify-between h-18 sm:h-20 lg:h-22">
       <!-- Enhanced Logo Section -->
@@ -77,18 +74,19 @@ const navItems: NavItem[] = [
       <div class="hidden lg:flex items-center space-x-1">
         {navItems.map((item, index) => (
           item.dropdown ? (
-            <div class="relative group" data-nav-item={index}>
+            <div class="relative dropdown-container" data-nav-item={index}>
               <button 
-                class="nav-link relative px-5 py-3 text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 rounded-lg hover:bg-zinc-800/60 flex items-center gap-2 group/button"
+                class="nav-link dropdown-toggle relative px-5 py-3 text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 rounded-lg hover:bg-zinc-800/60 flex items-center gap-2"
                 aria-expanded="false"
                 aria-haspopup="true"
+                data-dropdown-toggle={index}
               >
                 <span class="relative z-10">{item.name}</span>
                 <!-- Active Indicator -->
-                <span class="nav-indicator absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-lime-400 to-lime-500 rounded-full transition-all duration-300 group-hover/button:w-4/5"></span>
+                <span class="nav-indicator absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-lime-400 to-lime-500 rounded-full transition-all duration-300"></span>
                 <!-- Dropdown Arrow -->
                 <svg 
-                  class="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" 
+                  class="w-4 h-4 transition-transform duration-300 dropdown-arrow" 
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
@@ -100,9 +98,10 @@ const navItems: NavItem[] = [
               <!-- Enhanced Dropdown Menu -->
               <div 
                 class:list={[
-                  "absolute left-1/2 -translate-x-1/2 top-full mt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-4 pointer-events-none group-hover:pointer-events-auto",
+                  "absolute left-1/2 -translate-x-1/2 top-full mt-3 opacity-0 invisible transition-all duration-300 transform translate-y-4 pointer-events-none dropdown-menu",
                   item.name === 'Services' ? 'w-[560px]' : 'w-[280px]'
                 ]}
+                data-dropdown-menu={index}
               >
                 <div class="relative">
                   <!-- Arrow Pointer -->
@@ -327,6 +326,22 @@ const navItems: NavItem[] = [
     transform: translateY(0);
     opacity: 1;
   }
+  
+  /* Dropdown open state */
+  .dropdown-menu.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  
+  .dropdown-arrow.open {
+    transform: rotate(180deg);
+  }
+  
+  .dropdown-toggle.active .nav-indicator {
+    width: 80%;
+  }
 </style>
 
 <script>
@@ -474,6 +489,96 @@ const navItems: NavItem[] = [
   const debouncedScroll = debounce(handleScroll, 10);
   window.addEventListener('scroll', debouncedScroll, { passive: true });
 
+  // Desktop dropdown click handlers
+  let openDropdown: HTMLElement | null = null;
+  let dropdownLeaveTimer: ReturnType<typeof setTimeout> | null = null;
+
+  const closeDropdown = (dropdown: HTMLElement) => {
+    const menu = dropdown.querySelector('.dropdown-menu') as HTMLElement;
+    const button = dropdown.querySelector('.dropdown-toggle') as HTMLElement;
+    const arrow = dropdown.querySelector('.dropdown-arrow') as HTMLElement;
+    
+    if (menu && button && arrow) {
+      menu.classList.remove('open');
+      button.classList.remove('active');
+      button.setAttribute('aria-expanded', 'false');
+      arrow.classList.remove('open');
+      openDropdown = null;
+    }
+  };
+
+  const openDropdownMenu = (dropdown: HTMLElement) => {
+    // Close any previously open dropdown
+    if (openDropdown && openDropdown !== dropdown) {
+      closeDropdown(openDropdown);
+    }
+    
+    const menu = dropdown.querySelector('.dropdown-menu') as HTMLElement;
+    const button = dropdown.querySelector('.dropdown-toggle') as HTMLElement;
+    const arrow = dropdown.querySelector('.dropdown-arrow') as HTMLElement;
+    
+    if (menu && button && arrow) {
+      menu.classList.add('open');
+      button.classList.add('active');
+      button.setAttribute('aria-expanded', 'true');
+      arrow.classList.add('open');
+      openDropdown = dropdown;
+    }
+  };
+
+  // Handle dropdown toggle on click
+  document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const dropdown = toggle.closest('.dropdown-container') as HTMLElement;
+      if (!dropdown) return;
+      
+      const menu = dropdown.querySelector('.dropdown-menu') as HTMLElement;
+      const isOpen = menu?.classList.contains('open');
+      
+      if (isOpen) {
+        closeDropdown(dropdown);
+      } else {
+        openDropdownMenu(dropdown);
+      }
+    });
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (openDropdown && !openDropdown.contains(target)) {
+      closeDropdown(openDropdown);
+    }
+  });
+
+  // Close dropdown when mouse leaves the dropdown area (with delay)
+  document.querySelectorAll('.dropdown-container').forEach(container => {
+    const containerEl = container as HTMLElement;
+    containerEl.addEventListener('mouseleave', () => {
+      if (openDropdown === containerEl) {
+        // Small delay to allow moving cursor between button and menu
+        dropdownLeaveTimer = setTimeout(() => {
+          closeDropdown(containerEl);
+        }, 300);
+      }
+    });
+
+    containerEl.addEventListener('mouseenter', () => {
+      if (dropdownLeaveTimer) {
+        clearTimeout(dropdownLeaveTimer);
+        dropdownLeaveTimer = null;
+      }
+    });
+  });
+
+  // Close dropdown on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && openDropdown) {
+      closeDropdown(openDropdown);
+    }
+  });
+
   // Active link highlighting with path matching
   const updateActiveLinks = () => {
     const currentPath = window.location.pathname;
@@ -520,6 +625,12 @@ const navItems: NavItem[] = [
     btn?.removeEventListener('click', toggleMenu);
     document.removeEventListener('click', handleOutsideClick);
     window.removeEventListener('scroll', debouncedScroll);
+    
+    // Clean up desktop dropdown handlers
+    if (dropdownLeaveTimer) {
+      clearTimeout(dropdownLeaveTimer);
+      dropdownLeaveTimer = null;
+    }
     
     // Clean up mobile menu link handlers
     mobileLinks.forEach(link => {

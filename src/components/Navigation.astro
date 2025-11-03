@@ -389,7 +389,7 @@ const navItems: NavItem[] = [
       // Check if already has listener to avoid duplicates
       if ((button as any).__dropdownHandlerAttached) return;
       
-      const handler = (e: MouseEvent | TouchEvent) => {
+      const handler = (e: Event) => {
         e.preventDefault();
         e.stopPropagation();
         
@@ -429,7 +429,7 @@ const navItems: NavItem[] = [
       };
 
       button.addEventListener('click', handler, { capture: true });
-      button.addEventListener('touchend', handler, { capture: true, passive: false });
+      button.addEventListener('touchend', handler as EventListener, { capture: true, passive: false });
       
       (button as any).__dropdownHandlerAttached = true;
     });
@@ -459,8 +459,9 @@ const navItems: NavItem[] = [
     document.querySelectorAll('#mobile-menu .mobile-dropdown-content').forEach(content => {
       const button = (content as HTMLElement).previousElementSibling;
       if (button && button.classList.contains('mobile-dropdown-btn')) {
-        content.classList.add('hidden');
-        content.style.maxHeight = '';
+        const contentEl = content as HTMLElement;
+        contentEl.classList.add('hidden');
+        contentEl.style.maxHeight = '';
         button.setAttribute('aria-expanded', 'false');
         const icon = button.querySelector('.dropdown-arrow-mobile');
         icon?.classList.remove('open');

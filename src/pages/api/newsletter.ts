@@ -52,6 +52,22 @@ if (BREVO_API_KEY) {
   emailApi.setApiKey(brevo.TransactionalEmailsApiApiKeys.apiKey, BREVO_API_KEY);
 }
 
+export const GET: APIRoute = async () => {
+  return new Response(
+    JSON.stringify({
+      error: 'Method Not Allowed',
+      message: 'This endpoint only accepts POST requests.'
+    }),
+    {
+      status: 405,
+      headers: {
+        'Content-Type': 'application/json',
+        'Allow': 'POST'
+      }
+    }
+  );
+};
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     // Rate limiting check

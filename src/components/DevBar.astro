@@ -72,8 +72,8 @@ const quickLinks = [
   </div>
 )}
 
-<script>
-  if (import.meta.env.DEV) {
+{isDev && (
+  <script is:inline>
     // Grid Toggle
     const gridToggle = document.getElementById('dev-grid-toggle');
     const grid = document.getElementById('dev-grid');
@@ -163,5 +163,5 @@ const quickLinks = [
       devBar?.removeEventListener('mouseenter', handleMouseEnter);
       devBar?.removeEventListener('mouseleave', handleMouseLeave);
     });
-  }
-</script>
+  </script>
+)}

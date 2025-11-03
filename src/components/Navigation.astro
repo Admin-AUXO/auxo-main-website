@@ -41,7 +41,7 @@ const navItems: NavItem[] = [
 ];
 ---
 
-<nav id="main-navigation" class="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-md border-b border-zinc-900/80 transition-all duration-500 ease-out shadow-xl shadow-black/30">
+<nav id="main-navigation" class="fixed top-0 left-0 right-0 z-50 bg-black backdrop-blur-md border-b border-zinc-900/80 transition-all duration-500 ease-out shadow-xl shadow-black/30">
   <!-- Gradient overlay for depth -->
   <div class="absolute inset-0 bg-gradient-to-b from-lime-400/5 via-transparent to-transparent pointer-events-none"></div>
   
@@ -101,57 +101,55 @@ const navItems: NavItem[] = [
               <div 
                 class:list={[
                   "absolute left-1/2 -translate-x-1/2 top-full mt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-4 pointer-events-none group-hover:pointer-events-auto",
-                  item.name === 'Services' ? 'w-[680px]' : 'w-[320px]'
+                  item.name === 'Services' ? 'w-[560px]' : 'w-[280px]'
                 ]}
               >
                 <div class="relative">
                   <!-- Arrow Pointer -->
-                  <div class="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-zinc-900 border-l border-t border-lime-400/20 rotate-45"></div>
+                  <div class="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-zinc-900 border-l border-t border-lime-400/20 rotate-45 z-10"></div>
                   
                   <!-- Dropdown Content -->
-                  <div class="relative bg-zinc-900/98 backdrop-blur-xl border border-lime-400/20 rounded-2xl shadow-2xl shadow-black/60 p-6 overflow-hidden">
+                  <div class="relative bg-zinc-900 border border-lime-400/20 rounded-2xl shadow-2xl shadow-black/60 p-6 overflow-hidden">
                     <!-- Gradient Background Effect -->
                     <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-lime-400/50 via-green-500/50 to-lime-400/50"></div>
                     
                     <div class:list={[
-                      item.name === 'Services' ? 'grid grid-cols-2 gap-4' : 'space-y-2'
+                      item.name === 'Services' ? 'grid grid-cols-2 gap-3' : 'space-y-2'
                     ]}>
                       {item.dropdown.map((sub: DropdownItem, subIndex) => (
                         <a
                           href={sub.href}
-                          class="group/item relative flex items-start gap-4 px-5 py-4 rounded-xl hover:bg-gradient-to-br hover:from-zinc-800/80 hover:to-zinc-900/80 transition-all duration-300 border border-transparent hover:border-lime-400/30 hover:shadow-lg hover:shadow-lime-400/10 overflow-hidden"
+                          class={item.name === 'Services' 
+                            ? "group/item relative flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-zinc-800 transition-all duration-300 border border-transparent hover:border-lime-400/30 hover:shadow-lg hover:shadow-lime-400/10 overflow-hidden"
+                            : "group/item relative flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-zinc-800 transition-all duration-300 border border-transparent hover:border-lime-400/30 hover:shadow-lg hover:shadow-lime-400/10 overflow-hidden"
+                          }
                           style={`animation-delay: ${subIndex * 50}ms`}
                         >
                           <!-- Hover Glow Effect -->
                           <div class="absolute inset-0 bg-gradient-to-br from-lime-400/0 to-lime-400/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
                           
                           <!-- Icon Container -->
-                          <div class="relative z-10 w-12 h-12 bg-gradient-to-br from-lime-400/20 via-lime-400/10 to-transparent rounded-xl flex items-center justify-center flex-shrink-0 group-hover/item:from-lime-400/30 group-hover/item:to-lime-500/20 transition-all duration-300 group-hover/item:scale-110 group-hover/item:rotate-3">
+                          <div class="relative z-10 w-10 h-10 bg-gradient-to-br from-lime-400/20 via-lime-400/10 to-transparent rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:from-lime-400/30 group-hover/item:to-lime-500/20 transition-all duration-300 group-hover/item:scale-110">
                             {item.name === 'Services' ? (
-                              <Icon name={sub.icon} class="w-6 h-6 text-lime-400" />
+                              <Icon name={sub.icon} class="w-5 h-5 text-lime-400" />
                             ) : (
                               <Icon
                                 name={sub.icon === 'case-studies' ? 'mdi:briefcase' : sub.icon === 'blog' ? 'mdi:post' : 'mdi:help-circle'}
-                                class="w-6 h-6 text-lime-400"
+                                class="w-5 h-5 text-lime-400"
                               />
                             )}
                           </div>
                           
                           <!-- Content -->
                           <div class="relative z-10 flex-1 min-w-0">
-                            <div class="font-semibold text-white text-base mb-1 group-hover/item:text-lime-400 transition-colors duration-300">
+                            <div class="font-semibold text-white text-sm group-hover/item:text-lime-400 transition-colors duration-300">
                               {sub.name}
                             </div>
-                            {sub.description && (
-                              <p class="text-xs text-gray-400 line-clamp-2 leading-relaxed">
-                                {sub.description}
-                              </p>
-                            )}
                           </div>
                           
                           <!-- Arrow Indicator -->
                           <div class="relative z-10 flex items-center opacity-0 group-hover/item:opacity-100 transform translate-x-2 group-hover/item:translate-x-0 transition-all duration-300">
-                            <svg class="w-5 h-5 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                             </svg>
                           </div>
@@ -241,7 +239,7 @@ const navItems: NavItem[] = [
   <!-- Enhanced Mobile Menu -->
   <div 
     id="mobile-menu" 
-    class="lg:hidden fixed inset-x-0 top-18 sm:top-20 bg-zinc-950/98 backdrop-blur-xl border-t border-zinc-800/60 max-h-[calc(100vh-4.5rem)] overflow-y-auto overscroll-contain transform -translate-y-full opacity-0 transition-all duration-300 ease-out shadow-2xl shadow-black/40"
+    class="lg:hidden fixed inset-x-0 top-18 sm:top-20 bg-zinc-950 border-t border-zinc-800/60 max-h-[calc(100vh-4.5rem)] overflow-y-auto overscroll-contain transform -translate-y-full opacity-0 transition-all duration-300 ease-out shadow-2xl shadow-black/40"
     style="touch-action: pan-y;"
   >
     <div class="px-4 sm:px-6 py-6 space-y-2">
@@ -463,12 +461,10 @@ const navItems: NavItem[] = [
       const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
       if (currentScroll > SCROLL_THRESHOLD) {
-        nav.classList.add('shadow-2xl', 'bg-black/98');
-        nav.classList.remove('bg-black/95');
+        nav.classList.add('shadow-2xl');
         nav.style.backdropFilter = 'blur(12px)';
       } else {
         nav.classList.remove('shadow-2xl');
-        nav.classList.add('bg-black/95');
         nav.style.backdropFilter = 'blur(8px)';
       }
     }

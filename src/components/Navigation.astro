@@ -97,7 +97,7 @@ const navItems: NavItem[] = [
               <!-- Enhanced Dropdown Menu -->
               <div 
                 class:list={[
-                  "absolute left-0 top-full mt-2 opacity-0 invisible transition-all duration-300 transform scale-95 translate-y-2 pointer-events-none dropdown-menu",
+                  "absolute left-0 top-full mt-2 opacity-0 invisible transition-all duration-300 transform scale-95 translate-y-2 pointer-events-none dropdown-menu z-[60]",
                   item.name === 'Services' ? 'w-[560px]' : 'w-[280px]'
                 ]}
                 data-dropdown-menu={index}
@@ -573,23 +573,56 @@ const navItems: NavItem[] = [
     }
   };
 
-  // Handle dropdown toggle on click
-  document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
-    toggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const dropdown = toggle.closest('.dropdown-container') as HTMLElement;
-      if (!dropdown) return;
+  // Initialize dropdowns
+  function initializeDropdowns() {
+    // Handle dropdown toggle on click
+    document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+      // Remove existing listener if any
+      const newToggle = toggle.cloneNode(true);
+      toggle.parentNode?.replaceChild(newToggle, toggle);
       
-      const menu = dropdown.querySelector('.dropdown-menu') as HTMLElement;
-      const isOpen = menu?.classList.contains('open');
-      
-      if (isOpen) {
-        closeDropdown(dropdown);
-      } else {
-        openDropdownMenu(dropdown);
-      }
+      newToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const dropdown = (newToggle as HTMLElement).closest('.dropdown-container') as HTMLElement;
+        if (!dropdown) return;
+        
+        const menu = dropdown.querySelector('.dropdown-menu') as HTMLElement;
+        const isOpen = menu?.classList.contains('open');
+        
+        if (isOpen) {
+          closeDropdown(dropdown);
+        } else {
+          openDropdownMenu(dropdown);
+        }
+      });
     });
-  });
+
+    // Reinitialize dropdown containers for mouse events
+    document.querySelectorAll('.dropdown-container').forEach(container => {
+      const containerEl = container as HTMLElement;
+      containerEl.addEventListener('mouseleave', () => {
+        if (openDropdown === containerEl) {
+          dropdownLeaveTimer = setTimeout(() => {
+            closeDropdown(containerEl);
+          }, 300);
+        }
+      });
+
+      containerEl.addEventListener('mouseenter', () => {
+        if (dropdownLeaveTimer) {
+          clearTimeout(dropdownLeaveTimer);
+          dropdownLeaveTimer = null;
+        }
+      });
+    });
+  }
+
+  // Initialize dropdowns when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeDropdowns);
+  } else {
+    initializeDropdowns();
+  }
 
   // Close dropdown when clicking outside
   document.addEventListener('click', (e) => {
@@ -599,25 +632,7 @@ const navItems: NavItem[] = [
     }
   });
 
-  // Close dropdown when mouse leaves the dropdown area (with delay)
-  document.querySelectorAll('.dropdown-container').forEach(container => {
-    const containerEl = container as HTMLElement;
-    containerEl.addEventListener('mouseleave', () => {
-      if (openDropdown === containerEl) {
-        // Small delay to allow moving cursor between button and menu
-        dropdownLeaveTimer = setTimeout(() => {
-          closeDropdown(containerEl);
-        }, 300);
-      }
-    });
-
-    containerEl.addEventListener('mouseenter', () => {
-      if (dropdownLeaveTimer) {
-        clearTimeout(dropdownLeaveTimer);
-        dropdownLeaveTimer = null;
-      }
-    });
-  });
+  // Mouse leave handlers are now in initializeDropdowns function
 
   // Close dropdown on Escape key
   document.addEventListener('keydown', (e) => {
@@ -689,7 +704,13 @@ const navItems: NavItem[] = [
       button.removeEventListener('click', handler);
     });
     mobileDropdownHandlers.clear();
+    
+    // Reset dropdown state
+    openDropdown = null;
   });
+
+  // Reinitialize dropdowns on page load (for Astro view transitions)
+  document.addEventListener('astro:page-load', initializeDropdowns);
 
   // Initialize on load
   handleScroll();

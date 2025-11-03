@@ -1,0 +1,112 @@
+# AUXO Data Labs Website - Cursor AI Guidelines
+
+You are an AI coding assistant working on the AUXO Data Labs corporate website. Follow these guidelines for all code changes.
+
+## Documentation First
+
+**CRITICAL:** Before making any changes, read the documentation:
+- `docs/AGENT_RULES.md` - Core rules and workflow (MANDATORY)
+- `docs/README.md` - Documentation index and navigation
+- `docs/ARCHITECTURE.md` - File structure and organization
+- `docs/BRAND_GUIDELINES.md` - Design and styling guidelines
+- `docs/CONTENT_GUIDELINES.md` - Content patterns and SEO
+
+## Core Principles
+
+1. **Static First:** This is an Astro static site. Prioritize static generation, minimize client-side JavaScript.
+2. **Component-Based:** Reuse components from `src/components/` before creating new ones.
+3. **Data-Driven:** Use TypeScript data files in `src/data/` for content (80% rule - check existing files first).
+4. **TypeScript Everywhere:** All code must be strongly typed with TypeScript interfaces.
+5. **Mobile-First:** Use responsive design with 44px × 44px minimum touch targets.
+
+## Development Workflow
+
+1. Read relevant documentation before starting
+2. Understand the user's request fully
+3. Formulate a plan using documentation
+4. Implement following conventions
+5. Run checks: `npm run lint`, `npm run check`, `npm run build`
+6. **Always ask:** "Are there any additional changes you'd like me to make?"
+7. **For small changes:** Confirm before pushing to GitHub
+
+## Code Conventions
+
+- **Components:** PascalCase (`MyComponent.astro`)
+- **Variables/Functions:** camelCase (`myVariable`, `myFunction`)
+- **Interfaces:** PascalCase (`MyInterface`)
+- **Imports Order:** Astro → Third-party → Internal → Data → Types
+- **Comments:** Only explain *why*, not *what*
+- **Tailwind:** Use utility classes, follow existing patterns
+
+## Content Management
+
+- **DO:** Use `src/data/` files for content (config/, collections/, content/, shared/)
+- **DO:** Check `src/data/shared/common.ts` before adding common text
+- **DO:** Maintain TypeScript interfaces for all data
+- **DON'T:** Hard-code strings in components/pages
+- **DON'T:** Mix content types (page content vs. shared text)
+
+## Navigation & URLs
+
+- **Always use:** `import.meta.env.BASE_URL` for all internal links and API calls
+- **Pattern:** `<a href={`${base}about`}>About</a>`
+- **API Calls:** `fetch(`${import.meta.env.BASE_URL}api/contact`)`
+- **DON'T:** Use `<a>` tags without base URL prefix
+
+## Security & Configuration
+
+- **DON'T:** Commit `.cursor/mcp.json` or any MCP config files (contains secrets)
+- **DON'T:** Expose API keys, tokens, or sensitive data
+- **DON'T:** Commit `.env` files
+- **DO:** Verify Brevo sender email is verified before deployment
+- **DO:** Test API endpoints with validation and rate limiting
+
+## Mobile Optimization Requirements
+
+- Touch targets: minimum 44px × 44px (`min-h-[44px]`, `min-w-[44px]`)
+- Use `active:` states alongside `hover:` for touch feedback
+- Responsive spacing: `px-4 sm:px-6 lg:px-8`
+- Test on mobile viewports
+
+## File Locations Quick Reference
+
+- Homepage: `src/pages/index.astro`
+- Components: `src/components/`
+- Data: `src/data/` (config/, collections/, content/, shared/)
+- Global Styles: `src/styles/global.css`
+- API Endpoints: `src/pages/api/`
+
+## Common Commands
+
+- `npm run dev` - Development server
+- `npm run build` - Production build
+- `npm run lint` - Lint check
+- `npm run check` - TypeScript check
+
+## Communication Protocol
+
+After completing work:
+1. Ask: "Are there any additional changes you'd like me to make?"
+2. For small changes: Confirm before pushing to GitHub
+3. Be helpful and proactive in suggesting improvements
+
+## Documentation Updates
+
+When changes affect:
+- Project structure → Update `docs/ARCHITECTURE.md`
+- Components → Update `docs/COMPONENTS.md`
+- APIs → Update `docs/API_ENDPOINTS.md`
+- Security → Update `docs/SECURITY.md`
+- All changes → Update `docs/CHANGELOG.md`
+
+## Important Gotchas
+
+- Astro components are server-only by default - use `<script>` tag for client-side interactivity
+- Base URL must be used for all internal links and API calls
+- Brevo sender email MUST be verified in dashboard before emails can be sent
+- ESLint uses v9 flat config format - don't revert to old format
+
+---
+
+**Remember:** Read the documentation, follow conventions, test your changes, and communicate with the user. When in doubt, ask before proceeding.
+

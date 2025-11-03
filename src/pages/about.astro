@@ -16,18 +16,18 @@ const base = import.meta.env.BASE_URL;
       <!-- Hero Section -->
       <div class="max-w-4xl mx-auto text-center mb-8 sm:mb-12 md:mb-20">
         <div
-          class="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-lime-400/10 border border-lime-400/20 rounded-full mb-3 md:mb-4"
+          class="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-accent-green/10 border border-accent-green/20 rounded-full mb-3 md:mb-4"
         >
           <span
-            class="text-lime-400 text-xs md:text-sm font-semibold tracking-wide"
+            class="text-accent-green text-xs md:text-sm font-semibold tracking-wide transition-colors"
             >{aboutContent.hero.badge}</span
           >
         </div>
         <h1 class="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4 md:mb-6 leading-tight">
           {aboutContent.hero.title}
-          <span class="text-lime-400"> {aboutContent.hero.titleHighlight}</span>
+          <span class="text-accent-green transition-colors"> {aboutContent.hero.titleHighlight}</span>
         </h1>
-        <p class="text-xs sm:text-sm md:text-xl text-gray-400 leading-relaxed">
+        <p class="text-xs sm:text-sm md:text-xl text-secondary leading-relaxed transition-colors">
           {aboutContent.hero.subtitle}
         </p>
       </div>
@@ -37,29 +37,29 @@ const base = import.meta.env.BASE_URL;
         class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-12 md:mb-20"
       >
         <div
-          class="bg-gradient-to-br from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-5 sm:p-6 md:p-8"
+          class="bg-gradient-to-br from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-5 sm:p-6 md:p-8 transition-colors"
         >
           <div
-            class="w-12 h-12 sm:w-14 sm:h-14 bg-lime-400 rounded-lg flex items-center justify-center mb-3 sm:mb-4"
+            class="w-12 h-12 sm:w-14 sm:h-14 bg-accent-green rounded-lg flex items-center justify-center mb-3 sm:mb-4 transition-colors"
           >
-            <Icon name={aboutContent.mission.icon} class="w-6 h-6 sm:w-8 sm:h-8 text-black" />
+            <Icon name={aboutContent.mission.icon} class="w-6 h-6 sm:w-8 sm:h-8 text-black dark:text-white transition-colors" />
           </div>
-          <h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">{aboutContent.mission.title}</h2>
-          <p class="text-sm sm:text-base text-gray-300 leading-relaxed">
+          <h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-primary transition-colors">{aboutContent.mission.title}</h2>
+          <p class="text-sm sm:text-base text-secondary leading-relaxed transition-colors">
             {aboutContent.mission.description}
           </p>
         </div>
 
         <div
-          class="bg-gradient-to-br from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-5 sm:p-6 md:p-8"
+          class="bg-gradient-to-br from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-5 sm:p-6 md:p-8 transition-colors"
         >
           <div
-            class="w-12 h-12 sm:w-14 sm:h-14 bg-lime-400 rounded-lg flex items-center justify-center mb-3 sm:mb-4"
+            class="w-12 h-12 sm:w-14 sm:h-14 bg-accent-green rounded-lg flex items-center justify-center mb-3 sm:mb-4 transition-colors"
           >
-            <Icon name={aboutContent.vision.icon} class="w-6 h-6 sm:w-8 sm:h-8 text-black" />
+            <Icon name={aboutContent.vision.icon} class="w-6 h-6 sm:w-8 sm:h-8 text-black dark:text-white transition-colors" />
           </div>
-          <h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">{aboutContent.vision.title}</h2>
-          <p class="text-sm sm:text-base text-gray-300 leading-relaxed">
+          <h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-primary transition-colors">{aboutContent.vision.title}</h2>
+          <p class="text-sm sm:text-base text-secondary leading-relaxed transition-colors">
             {aboutContent.vision.description}
           </p>
         </div>
@@ -72,7 +72,7 @@ const base = import.meta.env.BASE_URL;
             {aboutContent.values.title}
           </h2>
           <p
-            class="text-xs sm:text-sm md:text-base text-gray-400 leading-relaxed hidden md:block"
+            class="text-xs sm:text-sm md:text-base text-secondary leading-relaxed hidden md:block transition-colors"
           >
             <em>{aboutContent.values.subtitle}</em>
           </p>
@@ -83,13 +83,13 @@ const base = import.meta.env.BASE_URL;
         >
           {
             aboutContent.values.items.map((value) => (
-              <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4 sm:p-6 text-center hover:border-lime-400 transition-colors">
+              <div class="bg-card border border-theme rounded-xl p-4 sm:p-6 text-center hover:border-accent-green transition-colors">
                 <Icon
                   name={value.icon}
-                  class="w-10 h-10 sm:w-12 sm:h-12 text-lime-400 mx-auto mb-3 sm:mb-4"
+                  class="w-10 h-10 sm:w-12 sm:h-12 text-accent-green mx-auto mb-3 sm:mb-4 transition-colors"
                 />
-                <h3 class="font-bold mb-1.5 sm:mb-2 text-sm sm:text-lg">{value.title}</h3>
-                <p class="text-xs sm:text-sm text-gray-400 leading-relaxed hidden sm:block">
+                <h3 class="font-bold mb-1.5 sm:mb-2 text-sm sm:text-lg text-primary transition-colors">{value.title}</h3>
+                <p class="text-xs sm:text-sm text-secondary leading-relaxed hidden sm:block transition-colors">
                   {value.description}
                 </p>
               </div>
@@ -104,18 +104,18 @@ const base = import.meta.env.BASE_URL;
           <h2 class="text-3xl font-bold mb-4">
             {aboutContent.whyChoose.title}
           </h2>
-          <p class="text-gray-400">{aboutContent.whyChoose.subtitle}</p>
+          <p class="text-secondary transition-colors">{aboutContent.whyChoose.subtitle}</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           {
             aboutContent.whyChoose.stats.map((stat) => (
-              <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
-                <div class="text-4xl font-black text-lime-400 mb-2">
+              <div class="bg-card border border-theme rounded-xl p-6 transition-colors">
+                <div class="text-4xl font-black text-accent-green mb-2 transition-colors">
                   {stat.value}
                 </div>
-                <h3 class="font-bold mb-2">{stat.title}</h3>
-                <p class="text-sm text-gray-400">{stat.description}</p>
+                <h3 class="font-bold mb-2 text-primary transition-colors">{stat.title}</h3>
+                <p class="text-sm text-secondary transition-colors">{stat.description}</p>
               </div>
             ))
           }
@@ -128,7 +128,7 @@ const base = import.meta.env.BASE_URL;
           <h2 class="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4">
             {aboutContent.team.title}
           </h2>
-          <p class="text-xs md:text-base text-gray-400 hidden md:block">
+          <p class="text-xs md:text-base text-secondary hidden md:block transition-colors">
             {aboutContent.team.subtitle}
           </p>
         </div>
@@ -138,20 +138,20 @@ const base = import.meta.env.BASE_URL;
         >
           {
             team.map((member) => (
-              <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 sm:p-6 text-center hover:border-lime-400 transition-all group">
-                <div class="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-lime-400 to-green-500 rounded-full mx-auto mb-3 sm:mb-4 flex items-center justify-center text-black text-2xl sm:text-3xl font-bold">
+              <div class="bg-card border border-theme rounded-xl p-5 sm:p-6 text-center hover:border-accent-green transition-all group">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-accent-green to-accent-green/80 rounded-full mx-auto mb-3 sm:mb-4 flex items-center justify-center text-black dark:text-white text-2xl sm:text-3xl font-bold transition-colors">
                   {member.name
                     .split(" ")
                     .map((n) => n[0])
                     .join("")}
                 </div>
-                <h3 class="font-bold text-base sm:text-lg mb-1">{member.name}</h3>
-                <p class="text-lime-400 text-xs sm:text-sm mb-2 sm:mb-3">{member.role}</p>
-                <p class="text-xs sm:text-sm text-gray-400 mb-3 sm:mb-4">{member.bio}</p>
+                <h3 class="font-bold text-base sm:text-lg mb-1 text-primary transition-colors">{member.name}</h3>
+                <p class="text-accent-green text-xs sm:text-sm mb-2 sm:mb-3 transition-colors">{member.role}</p>
+                <p class="text-xs sm:text-sm text-secondary mb-3 sm:mb-4 transition-colors">{member.bio}</p>
                 {member.linkedin && (
                   <a
                     href={member.linkedin}
-                    class="inline-flex items-center text-sm text-gray-400 hover:text-lime-400 transition-colors"
+                    class="inline-flex items-center text-sm text-secondary hover:text-accent-green transition-colors"
                   >
                     <Icon name="mdi:linkedin" class="w-4 h-4 mr-1" />
                     Connect
@@ -163,10 +163,10 @@ const base = import.meta.env.BASE_URL;
         </div>
 
         <div class="mt-8 text-center">
-          <p class="text-gray-400 mb-4">{aboutContent.team.hiring.text}</p>
+          <p class="text-secondary mb-4 transition-colors">{aboutContent.team.hiring.text}</p>
           <a
             href={`${base}${aboutContent.team.hiring.ctaHref}`}
-            class="inline-flex items-center px-6 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors"
+            class="inline-flex items-center px-6 py-3 bg-accent-green text-black dark:text-white font-semibold rounded-lg hover:bg-accent-green/90 transition-colors min-h-[44px] min-w-[44px]"
           >
             {aboutContent.team.hiring.ctaText}
             <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
@@ -176,23 +176,23 @@ const base = import.meta.env.BASE_URL;
 
       <div class="max-w-4xl mx-auto">
         <div
-          class="bg-gradient-to-r from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8 md:p-12 text-center"
+          class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-8 md:p-12 text-center transition-colors"
         >
-          <h2 class="text-3xl font-bold mb-4">{aboutContent.finalCta.title}</h2>
-          <p class="text-gray-400 mb-8 max-w-2xl mx-auto">
+          <h2 class="text-3xl font-bold mb-4 text-primary transition-colors">{aboutContent.finalCta.title}</h2>
+          <p class="text-secondary mb-8 max-w-2xl mx-auto transition-colors">
             {aboutContent.finalCta.subtitle}
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href={`${base}${aboutContent.finalCta.primaryCta.href}`}
-              class="px-8 py-4 bg-lime-400 text-black font-bold rounded-lg hover:bg-lime-500 transition-colors inline-flex items-center justify-center"
+              class="px-8 py-4 bg-accent-green text-black dark:text-white font-bold rounded-lg hover:bg-accent-green/90 transition-colors inline-flex items-center justify-center min-h-[44px] min-w-[44px]"
             >
               {aboutContent.finalCta.primaryCta.text}
               <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
             </a>
             <a
               href={`${base}${aboutContent.finalCta.secondaryCta.href}`}
-              class="px-8 py-4 bg-zinc-800 text-white font-bold rounded-lg hover:bg-zinc-700 transition-colors inline-flex items-center justify-center"
+              class="px-8 py-4 bg-surface text-primary font-bold rounded-lg hover:bg-surface/80 transition-colors inline-flex items-center justify-center min-h-[44px] min-w-[44px] border border-theme"
             >
               {aboutContent.finalCta.secondaryCta.text}
             </a>

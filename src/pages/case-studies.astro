@@ -15,14 +15,14 @@ const base = import.meta.env.BASE_URL;
     <div class="container mx-auto px-4">
       <!-- Header -->
       <div class="max-w-3xl mx-auto text-center mb-16">
-        <div class="inline-block px-4 py-2 bg-lime-400/10 border border-lime-400/20 rounded-full mb-4">
-          <span class="text-lime-400 text-sm font-semibold">{caseStudiesContent.hero.badge}</span>
+        <div class="inline-block px-4 py-2 bg-accent-green/10 border border-accent-green/20 rounded-full mb-4">
+          <span class="text-accent-green transition-colors text-sm font-semibold">{caseStudiesContent.hero.badge}</span>
         </div>
         <h1 class="text-4xl md:text-5xl font-bold mb-4">
           {caseStudiesContent.hero.title}
-          <span class="text-lime-400"> {caseStudiesContent.hero.titleHighlight}</span>
+          <span class="text-accent-green transition-colors"> {caseStudiesContent.hero.titleHighlight}</span>
         </h1>
-        <p class="text-xl text-gray-400">
+        <p class="text-xl text-secondary transition-colors">
           {caseStudiesContent.hero.subtitle}
         </p>
       </div>
@@ -30,21 +30,21 @@ const base = import.meta.env.BASE_URL;
       <!-- Stats Bar -->
       <div class="max-w-5xl mx-auto mb-16">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center">
-            <div class="text-3xl font-black text-lime-400 mb-2">{siteData.stats.projectsDelivered}</div>
-            <p class="text-sm text-gray-400">Projects Delivered</p>
+          <div class="bg-card border border-theme rounded-xl p-6 text-center">
+            <div class="text-3xl font-black text-accent-green transition-colors mb-2">{siteData.stats.foundingClients}</div>
+            <p class="text-sm text-secondary transition-colors">Projects Delivered</p>
           </div>
-          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center">
-            <div class="text-3xl font-black text-lime-400 mb-2">{siteData.stats.industriesServed}</div>
-            <p class="text-sm text-gray-400">Industries Served</p>
+          <div class="bg-card border border-theme rounded-xl p-6 text-center">
+            <div class="text-3xl font-black text-accent-green transition-colors mb-2">{siteData.stats.industriesServed}</div>
+            <p class="text-sm text-secondary transition-colors">Industries Served</p>
           </div>
-          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center">
-            <div class="text-3xl font-black text-lime-400 mb-2">{siteData.stats.valueGenerated}</div>
-            <p class="text-sm text-gray-400">Value Generated</p>
+          <div class="bg-card border border-theme rounded-xl p-6 text-center">
+            <div class="text-3xl font-black text-accent-green transition-colors mb-2">{siteData.stats.yearsExperience}</div>
+            <p class="text-sm text-secondary transition-colors">Years Experience</p>
           </div>
-          <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 text-center">
-            <div class="text-3xl font-black text-lime-400 mb-2">{siteData.stats.clientSatisfaction}</div>
-            <p class="text-sm text-gray-400">Client Satisfaction</p>
+          <div class="bg-card border border-theme rounded-xl p-6 text-center">
+            <div class="text-3xl font-black text-accent-green transition-colors mb-2">{siteData.stats.technologiesMastered}</div>
+            <p class="text-sm text-secondary transition-colors">Technologies Mastered</p>
           </div>
         </div>
       </div>
@@ -52,15 +52,15 @@ const base = import.meta.env.BASE_URL;
       <!-- Case Studies Grid -->
       <div class="max-w-6xl mx-auto space-y-12">
         {caseStudies.map((study) => (
-          <div class={`bg-zinc-900 border-2 ${study.borderColor} rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300`}>
+          <div class={`bg-card border-2 ${study.borderColor} rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300`}>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-0">
               <!-- Left: Icon & Basic Info -->
               <div class={`bg-gradient-to-br ${study.color} p-8 flex flex-col justify-center items-center lg:items-start text-center lg:text-left`}>
                 <div class="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4">
-                  <Icon name={study.icon} class="w-12 h-12 text-white" />
+                  <Icon name={study.icon} class="w-12 h-12 text-primary" />
                 </div>
                 <h3 class="text-2xl font-bold mb-2">{study.title}</h3>
-                <p class="text-sm text-gray-300 mb-4">{study.client}</p>
+                <p class="text-sm text-primary transition-colors mb-4">{study.client}</p>
                 <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-semibold">
                   {study.industry}
                 </div>
@@ -71,33 +71,33 @@ const base = import.meta.env.BASE_URL;
                 <div class="space-y-6">
                   <!-- Challenge -->
                   <div>
-                    <h4 class="text-sm font-bold text-lime-400 mb-2 flex items-center">
+                    <h4 class="text-sm font-bold text-accent-green transition-colors mb-2 flex items-center">
                       <Icon name="mdi:alert-circle" class="w-4 h-4 mr-2" />
                       CHALLENGE
                     </h4>
-                    <p class="text-gray-300">{study.challenge}</p>
+                    <p class="text-primary transition-colors">{study.challenge}</p>
                   </div>
 
                   <!-- Solution -->
                   <div>
-                    <h4 class="text-sm font-bold text-lime-400 mb-2 flex items-center">
+                    <h4 class="text-sm font-bold text-accent-green transition-colors mb-2 flex items-center">
                       <Icon name="mdi:lightbulb" class="w-4 h-4 mr-2" />
                       SOLUTION
                     </h4>
-                    <p class="text-gray-300">{study.solution}</p>
+                    <p class="text-primary transition-colors">{study.solution}</p>
                   </div>
 
                   <!-- Results -->
                   <div>
-                    <h4 class="text-sm font-bold text-lime-400 mb-3 flex items-center">
+                    <h4 class="text-sm font-bold text-accent-green transition-colors mb-3 flex items-center">
                       <Icon name="mdi:chart-line" class="w-4 h-4 mr-2" />
                       RESULTS
                     </h4>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {study.results.map((result) => (
                         <div class="flex items-start">
-                          <Icon name="mdi:check-circle" class="w-5 h-5 text-lime-400 mr-2 flex-shrink-0 mt-0.5" />
-                          <span class="text-sm text-gray-300">{result}</span>
+                          <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green transition-colors mr-2 flex-shrink-0 mt-0.5" />
+                          <span class="text-sm text-primary transition-colors">{result}</span>
                         </div>
                       ))}
                     </div>
@@ -105,10 +105,10 @@ const base = import.meta.env.BASE_URL;
 
                   <!-- Technologies -->
                   <div>
-                    <h4 class="text-sm font-bold text-gray-500 mb-2">Technologies Used</h4>
+                    <h4 class="text-sm font-bold text-tertiary transition-colors mb-2">Technologies Used</h4>
                     <div class="flex flex-wrap gap-2">
                       {study.technologies.map((tech) => (
-                        <span class="px-3 py-1 bg-zinc-800 border border-zinc-700 rounded text-xs text-gray-400">
+                        <span class="px-3 py-1 bg-surface border border-theme rounded text-xs text-secondary transition-colors">
                           {tech}
                         </span>
                       ))}
@@ -123,22 +123,22 @@ const base = import.meta.env.BASE_URL;
 
       <!-- CTA Section -->
       <div class="max-w-4xl mx-auto mt-20">
-        <div class="bg-gradient-to-r from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8 md:p-12 text-center">
+        <div class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-8 md:p-12 text-center">
           <h2 class="text-3xl font-bold mb-4">{caseStudiesContent.finalCta.title}</h2>
-          <p class="text-gray-400 mb-8 max-w-2xl mx-auto">
+          <p class="text-secondary transition-colors mb-8 max-w-2xl mx-auto">
             {caseStudiesContent.finalCta.subtitle}
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href={`${base}${caseStudiesContent.finalCta.primaryCta.href}`}
-              class="px-8 py-4 bg-lime-400 text-black font-bold rounded-lg hover:bg-lime-500 transition-colors inline-flex items-center justify-center"
+              class="px-8 py-4 bg-accent-green text-black dark:text-primary font-bold rounded-lg hover:bg-accent-green/90 transition-colors inline-flex items-center justify-center"
             >
               {caseStudiesContent.finalCta.primaryCta.text}
               <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
             </a>
             <a
               href={`${base}${caseStudiesContent.finalCta.secondaryCta.href}`}
-              class="px-8 py-4 bg-zinc-800 text-white font-bold rounded-lg hover:bg-zinc-700 transition-colors inline-flex items-center justify-center"
+              class="px-8 py-4 bg-surface text-primary font-bold rounded-lg hover:bg-surface/80 transition-colors inline-flex items-center justify-center"
             >
               {caseStudiesContent.finalCta.secondaryCta.text}
             </a>

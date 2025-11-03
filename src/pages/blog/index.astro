@@ -39,14 +39,14 @@ function formatDate(date: Date) {
     <div class="container mx-auto px-4">
       <!-- Header -->
       <div class="max-w-3xl mx-auto text-center mb-16">
-        <div class="inline-block px-4 py-2 bg-lime-400/10 border border-lime-400/20 rounded-full mb-4">
-          <span class="text-lime-400 text-sm font-semibold">{blogPageContent.hero.badge}</span>
+        <div class="inline-block px-4 py-2 bg-accent-green/10 border border-accent-green/20 rounded-full mb-4">
+          <span class="text-accent-green text-sm font-semibold transition-colors">{blogPageContent.hero.badge}</span>
         </div>
         <h1 class="text-4xl md:text-5xl font-bold mb-4">
           {blogPageContent.hero.title}
-          <span class="text-lime-400"> {blogPageContent.hero.titleHighlight}</span>
+          <span class="text-accent-green transition-colors"> {blogPageContent.hero.titleHighlight}</span>
         </h1>
-        <p class="text-xl text-gray-400">
+        <p class="text-xl text-secondary transition-colors">
           {blogPageContent.hero.subtitle}
         </p>
       </div>
@@ -58,10 +58,10 @@ function formatDate(date: Date) {
             <div class="max-w-6xl mx-auto mb-16">
               <a
                 href={`${base}blog/${featuredPost.id.replace(/\.mdx?$/, '')}`}
-                class="group block bg-gradient-to-br from-zinc-900 to-zinc-950 border-2 border-zinc-800 rounded-2xl overflow-hidden hover:border-lime-400 transition-all duration-300"
+                class="group block bg-gradient-to-br from-card to-card/80 border-2 border-theme rounded-2xl overflow-hidden hover:border-accent-green transition-all duration-300"
               >
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-0">
-                  <div class="aspect-video md:aspect-auto bg-gradient-to-br from-lime-400/20 to-green-500/20 flex items-center justify-center">
+                  <div class="aspect-video md:aspect-auto bg-gradient-to-br from-accent-green/20 to-accent-green/30 flex items-center justify-center">
                     {featuredPost.data.image ? (
                       <img
                         src={featuredPost.data.image}
@@ -69,31 +69,31 @@ function formatDate(date: Date) {
                         class="w-full h-full object-cover"
                       />
                     ) : (
-                      <Icon name="mdi:post" class="w-24 h-24 text-lime-400" />
+                      <Icon name="mdi:post" class="w-24 h-24 text-accent-green transition-colors" />
                     )}
                   </div>
 
                   <div class="p-8 md:p-12 flex flex-col justify-center">
-                    <div class="inline-block px-3 py-1 bg-lime-400 text-black text-xs font-bold rounded-full mb-4 w-fit">
+                    <div class="inline-block px-3 py-1 bg-accent-green text-black dark:text-white text-xs font-bold rounded-full mb-4 w-fit transition-colors">
                       {blogPageContent.featured.badge}
                     </div>
 
-                    <h2 class="text-3xl font-bold mb-4 group-hover:text-lime-400 transition-colors">
+                    <h2 class="text-3xl font-bold mb-4 group-hover:text-accent-green transition-colors text-primary">
                       {featuredPost.data.title}
                     </h2>
 
-                    <p class="text-gray-400 mb-6">
+                    <p class="text-secondary mb-6 transition-colors">
                       {featuredPost.data.description}
                     </p>
 
-                    <div class="flex items-center text-sm text-gray-500">
+                    <div class="flex items-center text-sm text-tertiary transition-colors">
                       <span>{formatDate(featuredPost.data.publishDate)}</span>
                       <span class="mx-2">•</span>
                       <span>{featuredPost.data.author}</span>
                       {featuredPost.data.tags && featuredPost.data.tags.length > 0 && (
                         <>
                           <span class="mx-2">•</span>
-                          <span class="text-lime-400">#{featuredPost.data.tags[0]}</span>
+                          <span class="text-accent-green transition-colors">#{featuredPost.data.tags[0]}</span>
                         </>
                       )}
                     </div>
@@ -112,9 +112,9 @@ function formatDate(date: Date) {
                 {recentPosts.map((post) => (
                   <a
                     href={`${base}blog/${post.id.replace(/\.mdx?$/, '')}`}
-                    class="group bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden hover:border-lime-400 transition-all duration-300 hover:-translate-y-1"
+                    class="group bg-card border border-theme rounded-xl overflow-hidden hover:border-accent-green transition-all duration-300 hover:-translate-y-1"
                   >
-                    <div class="aspect-video bg-gradient-to-br from-lime-400/20 to-green-500/20 flex items-center justify-center">
+                    <div class="aspect-video bg-gradient-to-br from-accent-green/20 to-accent-green/30 flex items-center justify-center">
                       {post.data.image ? (
                         <img
                           src={post.data.image}
@@ -122,7 +122,7 @@ function formatDate(date: Date) {
                           class="w-full h-full object-cover"
                         />
                       ) : (
-                        <Icon name="mdi:post" class="w-12 h-12 text-lime-400" />
+                        <Icon name="mdi:post" class="w-12 h-12 text-accent-green transition-colors" />
                       )}
                     </div>
 
@@ -130,22 +130,22 @@ function formatDate(date: Date) {
                       {post.data.tags && post.data.tags.length > 0 && (
                         <div class="flex flex-wrap gap-2 mb-3">
                           {post.data.tags.slice(0, 2).map((tag: string) => (
-                            <span class="px-2 py-1 bg-lime-400/10 text-lime-400 text-xs rounded">
+                            <span class="px-2 py-1 bg-accent-green/10 text-accent-green text-xs rounded transition-colors">
                               #{tag}
                             </span>
                           ))}
                         </div>
                       )}
 
-                      <h3 class="text-xl font-bold mb-3 group-hover:text-lime-400 transition-colors line-clamp-2">
+                      <h3 class="text-xl font-bold mb-3 group-hover:text-accent-green transition-colors line-clamp-2 text-primary">
                         {post.data.title}
                       </h3>
 
-                      <p class="text-sm text-gray-400 mb-4 line-clamp-2">
+                      <p class="text-sm text-secondary mb-4 line-clamp-2 transition-colors">
                         {post.data.description}
                       </p>
 
-                      <div class="flex items-center text-xs text-gray-500">
+                      <div class="flex items-center text-xs text-tertiary transition-colors">
                         <span>{formatDate(post.data.publishDate)}</span>
                         <span class="mx-2">•</span>
                         <span>{post.data.author}</span>
@@ -160,23 +160,23 @@ function formatDate(date: Date) {
       ) : (
         <div class="max-w-2xl mx-auto text-center py-16">
           <!-- Empty State -->
-          <div class="w-24 h-24 bg-zinc-900 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Icon name="mdi:book-open" class="w-12 h-12 text-gray-600" />
+          <div class="w-24 h-24 bg-card rounded-full flex items-center justify-center mx-auto mb-6">
+            <Icon name="mdi:book-open" class="w-12 h-12 text-tertiary transition-colors" />
           </div>
-          <h2 class="text-2xl font-bold mb-4">{blogPageContent.empty.title}</h2>
-          <p class="text-gray-400 mb-8">
+          <h2 class="text-2xl font-bold mb-4 text-primary transition-colors">{blogPageContent.empty.title}</h2>
+          <p class="text-secondary mb-8 transition-colors">
             {blogPageContent.empty.description}
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href={`${base}contact/`}
-              class="px-6 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors inline-flex items-center justify-center"
+              class="px-6 py-3 bg-accent-green text-black dark:text-white font-semibold rounded-lg hover:bg-accent-green/90 transition-colors inline-flex items-center justify-center min-h-[44px] min-w-[44px]"
             >
               {commonText.buttons.subscribe}
             </a>
             <a
               href={`${base}${blogPageContent.empty.ctaHref}`}
-              class="px-6 py-3 bg-zinc-800 text-white font-semibold rounded-lg hover:bg-zinc-700 transition-colors inline-flex items-center justify-center"
+              class="px-6 py-3 bg-surface text-primary font-semibold rounded-lg hover:bg-surface/80 transition-colors inline-flex items-center justify-center min-h-[44px] min-w-[44px] border border-theme"
             >
               {blogPageContent.empty.ctaText}
             </a>
@@ -186,10 +186,10 @@ function formatDate(date: Date) {
 
       <!-- Newsletter Signup -->
       <div class="max-w-4xl mx-auto mt-20">
-        <div class="bg-gradient-to-r from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8 md:p-12 text-center">
-          <Icon name="mdi:email-newsletter" class="w-16 h-16 text-lime-400 mx-auto mb-4" />
-          <h2 class="text-3xl font-bold mb-4">{commonText.newsletter.title}</h2>
-          <p class="text-gray-400 mb-8 max-w-2xl mx-auto">
+        <div class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-8 md:p-12 text-center transition-colors">
+          <Icon name="mdi:email-newsletter" class="w-16 h-16 text-accent-green mx-auto mb-4 transition-colors" />
+          <h2 class="text-3xl font-bold mb-4 text-primary transition-colors">{commonText.newsletter.title}</h2>
+          <p class="text-secondary mb-8 max-w-2xl mx-auto transition-colors">
             {commonText.newsletter.subtitle}
           </p>
           <form id="blog-newsletter-form" class="flex flex-col gap-4 max-w-md mx-auto">
@@ -198,13 +198,13 @@ function formatDate(date: Date) {
                 type="email"
                 id="blog-newsletter-email"
                 placeholder={commonText.newsletter.emailPlaceholder}
-                class="flex-1 px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400"
+                class="flex-1 px-4 py-3 bg-card border border-theme rounded-lg focus:outline-none focus:border-accent-green transition-colors text-primary"
                 required
               />
               <button
                 type="submit"
                 id="blog-newsletter-btn"
-                class="px-6 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors whitespace-nowrap"
+                class="px-6 py-3 bg-accent-green text-black dark:text-white font-semibold rounded-lg hover:bg-accent-green/90 transition-colors whitespace-nowrap min-h-[44px]"
               >
                 {commonText.newsletter.subscribe}
               </button>
@@ -214,11 +214,11 @@ function formatDate(date: Date) {
                 type="checkbox"
                 id="blog-newsletter-consent"
                 required
-                class="mt-0.5 w-4 h-4 text-lime-400 bg-zinc-900 border-zinc-700 rounded focus:ring-lime-400 focus:ring-2"
+                class="mt-0.5 w-4 h-4 text-accent-green bg-card border-theme rounded focus:ring-accent-green/50 focus:ring-2 transition-colors"
               />
-              <span class="text-xs text-gray-400 leading-tight group-hover:text-gray-300 transition-colors">
+              <span class="text-xs text-secondary leading-tight group-hover:text-primary transition-colors">
                 {commonText.newsletter.consent}
-                <a href={`${base}legal/privacy-policy/`} class="text-lime-400 hover:underline"> {commonText.newsletter.privacyLink}</a>
+                <a href={`${base}legal/privacy-policy/`} class="text-accent-green hover:underline transition-colors"> {commonText.newsletter.privacyLink}</a>
               </span>
             </label>
             <p id="blog-newsletter-message" class="text-sm"></p>
@@ -263,12 +263,12 @@ function formatDate(date: Date) {
       if (!response.ok) {
         const errorMessage = data.error || newsletterText.error;
         message.textContent = errorMessage;
-        message.className = 'text-sm text-red-400';
+        message.className = 'text-sm text-accent-red';
         return;
       }
 
       message.textContent = data.message || newsletterText.success;
-      message.className = 'text-sm text-lime-400';
+      message.className = 'text-sm text-accent-green';
       form.reset();
 
       // Hide message after 8 seconds
@@ -279,7 +279,7 @@ function formatDate(date: Date) {
     } catch (error) {
       console.error('Newsletter subscription error:', error);
       message.textContent = 'An error occurred. Please try again later.';
-      message.className = 'text-sm text-red-400';
+      message.className = 'text-sm text-accent-red';
     } finally {
       button.disabled = false;
       button.textContent = newsletterText.subscribe;

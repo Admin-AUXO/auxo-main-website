@@ -42,7 +42,7 @@ The site supports a comprehensive dark/light theme system with:
 #### Light Theme
 | Role                 | Variable Name        | Hex Code  | Usage                               |
 |----------------------|----------------------|-----------|-------------------------------------|
-| **Primary Accent**   | `--accent-green`     | `#16A34A` | Darker green for better contrast     |
+| **Primary Accent**   | `--accent-green`     | `#15803D` | Darker green for better contrast     |
 | **Background**       | `--bg-primary`       | `#FFFFFF` | Main page background                |
 | **Primary Text**     | `--text-primary`     | `#111827` | Main body text                      |
 | **Secondary Text**   | `--text-secondary`   | `#4B5563` | Subheadings, less important text    |

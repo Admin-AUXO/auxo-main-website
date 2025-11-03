@@ -15,17 +15,17 @@ const base = import.meta.env.BASE_URL;
       <!-- Hero Section -->
       <div class="max-w-4xl mx-auto text-center mb-16">
         <div
-          class="inline-block px-3 py-1 bg-lime-400/10 border border-lime-400/20 rounded-full mb-4"
+          class="inline-block px-3 py-1 bg-accent-green/10 border border-accent-green/20 rounded-full mb-4"
         >
           <span
-            class="text-lime-400 text-xs font-semibold uppercase tracking-wide"
+            class="text-accent-green transition-colors text-xs font-semibold uppercase tracking-wide"
             >FAQ</span
           >
         </div>
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
           Frequently Asked Questions
         </h1>
-        <p class="text-xl text-gray-400 leading-relaxed">
+        <p class="text-xl text-secondary transition-colors leading-relaxed">
           Find answers to common questions about our data analytics services,
           pricing, and how we can help transform your business.
         </p>
@@ -42,8 +42,8 @@ const base = import.meta.env.BASE_URL;
                   data-category={category.category}
                   class={`category-tab px-6 py-3 rounded-lg font-semibold transition-all flex items-center gap-2 ${
                     index === 0
-                      ? "bg-lime-400 text-black"
-                      : "bg-zinc-900 text-gray-400 hover:bg-zinc-800 hover:text-lime-400 border border-zinc-800"
+                      ? "bg-accent-green text-black dark:text-primary"
+                      : "bg-card text-secondary transition-colors hover:bg-surface hover:text-accent-green transition-colors border border-theme"
                   }`}
                 >
                   <Icon name={category.icon} class="w-5 h-5" />
@@ -63,18 +63,18 @@ const base = import.meta.env.BASE_URL;
             >
               <div class="grid grid-cols-1 gap-4">
                 {category.questions.map((item) => (
-                  <div class="faq-item bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
-                    <button class="faq-question w-full text-left px-6 py-5 flex items-center justify-between hover:bg-zinc-800 transition-colors">
-                      <span class="font-semibold text-lg text-white pr-4">
+                  <div class="faq-item bg-card border border-theme rounded-xl overflow-hidden">
+                    <button class="faq-question w-full text-left px-6 py-5 flex items-center justify-between hover:bg-surface transition-colors">
+                      <span class="font-semibold text-lg text-primary pr-4">
                         {item.q}
                       </span>
                       <Icon
                         name="mdi:chevron-down"
-                        class="faq-chevron w-6 h-6 text-lime-400 transition-transform flex-shrink-0"
+                        class="faq-chevron w-6 h-6 text-accent-green transition-colors transition-transform flex-shrink-0"
                       />
                     </button>
                     <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
-                      <div class="px-6 pb-5 text-gray-300 leading-relaxed">
+                      <div class="px-6 pb-5 text-primary transition-colors leading-relaxed">
                         {item.a}
                       </div>
                     </div>
@@ -89,24 +89,24 @@ const base = import.meta.env.BASE_URL;
       <!-- CTA Section -->
       <div class="max-w-4xl mx-auto mt-16">
         <div
-          class="bg-gradient-to-r from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8 text-center"
+          class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-8 text-center"
         >
           <h3 class="text-2xl font-bold mb-4">Still Have Questions?</h3>
-          <p class="text-gray-300 mb-6">
+          <p class="text-primary transition-colors mb-6">
             Our team is here to help. Get in touch and we'll answer any
             questions you have about our services.
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href={`${base}contact/`}
-              class="inline-flex items-center justify-center px-8 py-3 bg-lime-400 text-black font-bold rounded-lg hover:bg-lime-300 transition-colors"
+              class="inline-flex items-center justify-center px-8 py-3 bg-accent-green text-black dark:text-primary font-bold rounded-lg hover:bg-accent-green/90 transition-colors"
             >
               Contact Us
               <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
             </a>
             <a
               href={`${base}tools/maturity-calculator/`}
-              class="inline-flex items-center justify-center px-8 py-3 bg-zinc-800 text-white font-bold rounded-lg hover:bg-zinc-700 transition-colors border border-zinc-700"
+              class="inline-flex items-center justify-center px-8 py-3 bg-surface text-primary font-bold rounded-lg hover:bg-surface/80 transition-colors border border-theme"
             >
               <Icon name="mdi:calculator" class="w-5 h-5 mr-2" />
               Try Maturity Calculator
@@ -131,19 +131,19 @@ const base = import.meta.env.BASE_URL;
       categoryTabs.forEach((t) => {
         if (t.getAttribute("data-category") === category) {
           t.classList.remove(
-            "bg-zinc-900",
-            "text-gray-400",
+            "bg-card",
+            "text-secondary transition-colors",
             "border",
-            "border-zinc-800",
+            "border-theme",
           );
-          t.classList.add("bg-lime-400", "text-black");
+          t.classList.add("bg-accent-green", "text-black dark:text-white");
         } else {
-          t.classList.remove("bg-lime-400", "text-black");
+          t.classList.remove("bg-accent-green", "text-black dark:text-white");
           t.classList.add(
-            "bg-zinc-900",
-            "text-gray-400",
+            "bg-card",
+            "text-secondary transition-colors",
             "border",
-            "border-zinc-800",
+            "border-theme",
           );
         }
       });

@@ -50,21 +50,23 @@ const servicesFAQs = [
       <!-- Header -->
       <div class="max-w-3xl mx-auto text-center mb-8 sm:mb-10 md:mb-16">
         <div
-          class="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-lime-400/10 border border-lime-400/20 rounded-full mb-3 md:mb-4"
+          class="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-accent-green/10 border border-accent-green/20 rounded-full mb-3 md:mb-4"
         >
           <span
-            class="text-lime-400 text-xs md:text-sm font-semibold tracking-wide"
+            class="text-accent-green text-xs md:text-sm font-semibold tracking-wide transition-colors"
             >{servicesPageContent.hero.badge}</span
           >
         </div>
-        <h1 class="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 md:mb-4 leading-tight">
+        <h1
+          class="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 md:mb-4 leading-tight"
+        >
           {servicesPageContent.hero.title}
-          <span class="text-lime-400">
+          <span class="text-accent-green transition-colors">
             {servicesPageContent.hero.titleHighlight}</span
           >
         </h1>
         <p
-          class="text-xs sm:text-sm md:text-xl text-gray-400 leading-relaxed hidden md:block"
+          class="text-xs sm:text-sm md:text-xl text-secondary leading-relaxed hidden md:block transition-colors"
         >
           {servicesPageContent.hero.subtitle}
         </p>
@@ -78,24 +80,24 @@ const servicesFAQs = [
           services.map((service) => (
             <a
               href={`${base}services/${service.id}/`}
-              class="group bg-zinc-900 border-2 border-zinc-800 rounded-2xl p-4 sm:p-5 md:p-8 hover:border-lime-400 transition-all duration-300 hover:transform hover:-translate-y-1"
+              class="group bg-card border-2 border-theme rounded-2xl p-4 sm:p-5 md:p-8 hover:border-accent-green transition-all duration-300 hover:transform hover:-translate-y-1"
             >
-              <div class="w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-lime-400/10 rounded-lg flex items-center justify-center mb-3 md:mb-4 group-hover:bg-lime-400/20 transition-colors">
+              <div class="w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-accent-green/10 rounded-lg flex items-center justify-center mb-3 md:mb-4 group-hover:bg-accent-green/20 transition-colors">
                 <Icon
                   name={service.icon}
-                  class="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-lime-400"
+                  class="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-accent-green transition-colors"
                 />
               </div>
 
-              <h3 class="text-base sm:text-lg md:text-xl font-bold mb-2 md:mb-3 group-hover:text-lime-400 transition-colors tracking-tight">
+              <h3 class="text-base sm:text-lg md:text-xl font-bold mb-2 md:mb-3 group-hover:text-accent-green transition-colors tracking-tight text-primary">
                 {service.title}
               </h3>
 
-              <p class="text-gray-400 mb-3 sm:mb-4 md:mb-6 text-xs sm:text-sm leading-relaxed line-clamp-2 md:line-clamp-3 lg:line-clamp-none">
+              <p class="text-secondary mb-3 sm:mb-4 md:mb-6 text-xs sm:text-sm leading-relaxed line-clamp-2 md:line-clamp-3 lg:line-clamp-none transition-colors">
                 {service.description}
               </p>
 
-              <div class="flex items-center text-lime-400 font-bold text-sm">
+              <div class="flex items-center text-accent-green font-bold text-sm transition-colors">
                 {commonText.buttons.learnMore}
                 <svg
                   class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
@@ -131,11 +133,13 @@ const servicesFAQs = [
           {
             servicesPageContent.process.steps.map((step) => (
               <div class="text-center">
-                <div class="w-16 h-16 bg-gradient-to-br from-lime-400 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4 text-black font-bold text-xl">
+                <div class="w-16 h-16 bg-gradient-to-br from-accent-green to-accent-green/80 rounded-full flex items-center justify-center mx-auto mb-4 text-black dark:text-white font-bold text-xl transition-colors">
                   {step.number}
                 </div>
-                <h3 class="font-bold mb-2 text-lg">{step.title}</h3>
-                <p class="text-sm text-gray-400 leading-relaxed">
+                <h3 class="font-bold mb-2 text-lg text-primary transition-colors">
+                  {step.title}
+                </h3>
+                <p class="text-sm text-secondary leading-relaxed transition-colors">
                   {step.description}
                 </p>
               </div>
@@ -147,25 +151,27 @@ const servicesFAQs = [
       <!-- CTA Section -->
       <div class="max-w-4xl mx-auto">
         <div
-          class="bg-gradient-to-r from-lime-400/10 to-green-500/10 border-2 border-lime-400/20 rounded-2xl p-8 md:p-12 text-center"
+          class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-8 md:p-12 text-center transition-colors"
         >
-          <h2 class="text-3xl font-bold mb-4">
+          <h2 class="text-3xl font-bold mb-4 text-primary transition-colors">
             {servicesPageContent.cta.title}
           </h2>
-          <p class="text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
+          <p
+            class="text-secondary mb-8 max-w-2xl mx-auto leading-relaxed transition-colors"
+          >
             {servicesPageContent.cta.subtitle}
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href={`${base}${servicesPageContent.cta.primaryCta.href}`}
-              class="px-8 py-4 bg-lime-400 text-black font-bold rounded-lg hover:bg-lime-500 transition-colors inline-flex items-center justify-center hover:shadow-lg hover:shadow-lime-400/30"
+              class="px-8 py-4 bg-accent-green text-black dark:text-white font-bold rounded-lg hover:bg-accent-green/90 transition-colors inline-flex items-center justify-center hover:shadow-lg hover:shadow-accent-green/30 min-h-[44px] min-w-[44px]"
             >
               {servicesPageContent.cta.primaryCta.text}
               <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
             </a>
             <a
               href={`${base}${servicesPageContent.cta.secondaryCta.href}`}
-              class="px-8 py-4 bg-zinc-800 text-white font-bold rounded-lg hover:bg-zinc-700 transition-colors inline-flex items-center justify-center"
+              class="px-8 py-4 bg-surface text-primary font-bold rounded-lg hover:bg-surface/80 transition-colors inline-flex items-center justify-center min-h-[44px] min-w-[44px] border border-theme"
             >
               {servicesPageContent.cta.secondaryCta.text}
               <Icon name="mdi:calculator" class="w-5 h-5 ml-2" />

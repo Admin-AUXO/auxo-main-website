@@ -19,11 +19,11 @@ const base = import.meta.env.BASE_URL;
       <div class="max-w-3xl mx-auto text-center mb-8 sm:mb-12 md:mb-16">
         <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4">
           {contactContent.hero.title}
-          <span class="text-lime-400">
+          <span class="text-accent-green transition-colors">
             {contactContent.hero.titleHighlight}</span
           >
         </h1>
-        <p class="text-base sm:text-lg md:text-xl text-gray-400">
+        <p class="text-base sm:text-lg md:text-xl text-secondary transition-colors">
           {contactContent.hero.subtitle}
         </p>
       </div>
@@ -41,15 +41,15 @@ const base = import.meta.env.BASE_URL;
               <!-- Email -->
               <div class="flex items-start space-x-4">
                 <div
-                  class="w-10 h-10 bg-lime-400/10 rounded-lg flex items-center justify-center flex-shrink-0"
+                  class="w-10 h-10 bg-accent-green/10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors"
                 >
-                  <Icon name="mdi:email" class="w-5 h-5 text-lime-400" />
+                  <Icon name="mdi:email" class="w-5 h-5 text-accent-green transition-colors" />
                 </div>
                 <div>
-                  <h3 class="font-semibold mb-1">{commonText.labels.email}</h3>
+                  <h3 class="font-semibold mb-1 text-primary transition-colors">{commonText.labels.email}</h3>
                   <a
                     href={`mailto:${siteData.email}`}
-                    class="text-gray-400 hover:text-lime-400 transition-colors"
+                    class="text-secondary hover:text-accent-green transition-colors"
                   >
                     {siteData.email}
                   </a>
@@ -60,16 +60,16 @@ const base = import.meta.env.BASE_URL;
               {
                 siteData.phone && (
                   <div class="flex items-start space-x-4">
-                    <div class="w-10 h-10 bg-lime-400/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Icon name="mdi:phone" class="w-5 h-5 text-lime-400" />
+                    <div class="w-10 h-10 bg-accent-green/10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors">
+                      <Icon name="mdi:phone" class="w-5 h-5 text-accent-green transition-colors" />
                     </div>
                     <div>
-                      <h3 class="font-semibold mb-1">
+                      <h3 class="font-semibold mb-1 text-primary transition-colors">
                         {commonText.labels.phone}
                       </h3>
                       <a
                         href={`tel:${siteData.phone}`}
-                        class="text-gray-400 hover:text-lime-400 transition-colors"
+                        class="text-secondary hover:text-accent-green transition-colors"
                       >
                         {siteData.phone}
                       </a>
@@ -81,15 +81,15 @@ const base = import.meta.env.BASE_URL;
               <!-- Location -->
               <div class="flex items-start space-x-4">
                 <div
-                  class="w-10 h-10 bg-lime-400/10 rounded-lg flex items-center justify-center flex-shrink-0"
+                  class="w-10 h-10 bg-accent-green/10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors"
                 >
-                  <Icon name="mdi:map-marker" class="w-5 h-5 text-lime-400" />
+                  <Icon name="mdi:map-marker" class="w-5 h-5 text-accent-green transition-colors" />
                 </div>
                 <div>
-                  <h3 class="font-semibold mb-1">
+                  <h3 class="font-semibold mb-1 text-primary transition-colors">
                     {commonText.labels.location}
                   </h3>
-                  <p class="text-gray-400">
+                  <p class="text-secondary transition-colors">
                     {siteData.address.city}<br />
                     {siteData.address.country}
                   </p>
@@ -99,27 +99,27 @@ const base = import.meta.env.BASE_URL;
               <!-- Social -->
               <div class="flex items-start space-x-4">
                 <div
-                  class="w-10 h-10 bg-lime-400/10 rounded-lg flex items-center justify-center flex-shrink-0"
+                  class="w-10 h-10 bg-accent-green/10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors"
                 >
                   <Icon
                     name="mdi:share-variant"
-                    class="w-5 h-5 text-lime-400"
+                    class="w-5 h-5 text-accent-green transition-colors"
                   />
                 </div>
                 <div>
-                  <h3 class="font-semibold mb-2">
+                  <h3 class="font-semibold mb-2 text-primary transition-colors">
                     {commonText.labels.followUs}
                   </h3>
                   <div class="flex gap-3">
                     <a
                       href={siteData.social.linkedin}
-                      class="w-8 h-8 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black transition-colors"
+                      class="w-8 h-8 bg-surface rounded-lg flex items-center justify-center hover:bg-accent-green hover:text-black dark:hover:text-white transition-colors min-h-[44px] min-w-[44px]"
                     >
                       <Icon name="mdi:linkedin" class="w-4 h-4" />
                     </a>
                     <a
                       href={siteData.social.twitter}
-                      class="w-8 h-8 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black transition-colors"
+                      class="w-8 h-8 bg-surface rounded-lg flex items-center justify-center hover:bg-accent-green hover:text-black dark:hover:text-white transition-colors min-h-[44px] min-w-[44px]"
                     >
                       <Icon name="mdi:twitter" class="w-4 h-4" />
                     </a>
@@ -130,12 +130,12 @@ const base = import.meta.env.BASE_URL;
 
             <!-- Quick Info Box -->
             <div
-              class="mt-8 p-6 bg-gradient-to-br from-lime-400/10 to-green-500/10 border border-lime-400/20 rounded-lg"
+              class="mt-8 p-6 bg-gradient-to-br from-accent-green/10 to-accent-green/20 border border-accent-green/20 rounded-lg transition-colors"
             >
-              <h3 class="font-bold mb-2">
+              <h3 class="font-bold mb-2 text-primary transition-colors">
                 {contactContent.sidebar.info.fastResponse.title}
               </h3>
-              <p class="text-sm text-gray-400">
+              <p class="text-sm text-secondary transition-colors">
                 {contactContent.sidebar.info.fastResponse.description}
               </p>
             </div>
@@ -144,7 +144,7 @@ const base = import.meta.env.BASE_URL;
 
         <!-- Form Column -->
         <div class="lg:col-span-2">
-          <div class="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8">
+          <div class="bg-card/50 border border-theme rounded-2xl p-8 transition-colors">
             <MultiStepForm />
           </div>
         </div>
@@ -155,24 +155,24 @@ const base = import.meta.env.BASE_URL;
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           {
             contactContent.additionalOptions.map((option) => (
-              <div class="text-center p-6 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-lime-400 transition-colors">
+              <div class="text-center p-6 bg-card border border-theme rounded-lg hover:border-accent-green transition-colors">
                 <Icon
                   name={option.icon}
-                  class="w-12 h-12 text-lime-400 mx-auto mb-4"
+                  class="w-12 h-12 text-accent-green mx-auto mb-4 transition-colors"
                 />
-                <h3 class="font-bold mb-2">{option.title}</h3>
-                <p class="text-sm text-gray-400 mb-4">{option.description}</p>
+                <h3 class="font-bold mb-2 text-primary transition-colors">{option.title}</h3>
+                <p class="text-sm text-secondary mb-4 transition-colors">{option.description}</p>
                 {option.action.type === "button" ? (
                   <button
                     id={option.action.id}
-                    class="text-lime-400 hover:underline text-sm focus:outline-none focus:ring-2 focus:ring-lime-400 rounded px-2"
+                    class="text-accent-green hover:underline text-sm focus:outline-none focus:ring-2 focus:ring-accent-green/50 rounded px-2 transition-colors min-h-[44px]"
                   >
                     {option.action.text}
                   </button>
                 ) : option.action.href === 'brochure.pdf' ? (
                   <a
                     href={`${base}${option.action.href}`}
-                    class="text-lime-400 hover:underline text-sm"
+                    class="text-accent-green hover:underline text-sm transition-colors"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -181,7 +181,7 @@ const base = import.meta.env.BASE_URL;
                 ) : (
                   <a
                     href={`${base}${option.action.href}`}
-                    class="text-lime-400 hover:underline text-sm"
+                    class="text-accent-green hover:underline text-sm transition-colors"
                   >
                     {option.action.text}
                   </a>

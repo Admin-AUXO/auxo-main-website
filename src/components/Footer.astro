@@ -7,259 +7,289 @@ const base = import.meta.env.BASE_URL;
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="bg-zinc-950 border-t border-gray-800 relative z-10">
-  <div class="container mx-auto px-4 sm:px-6 py-6 md:py-12">
-    <div
-      class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 mb-4 sm:mb-6 md:mb-8"
-    >
-      <!-- Brand Column -->
-      <div class="col-span-2 sm:col-span-2 lg:col-span-2 mb-4 sm:mb-0">
-        <div class="flex items-center space-x-2 sm:space-x-3 mb-3">
-          <img
-            src={`${base}logo.svg`}
-            alt="AUXO Data Labs Logo"
-            class="h-8 w-8 sm:h-10 sm:w-10"
+<footer
+  class="bg-zinc-950 border-t border-gray-800 relative z-10 overflow-x-hidden"
+>
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-12 max-w-7xl">
+    <!-- Brand & Social Section - Full width -->
+    <div class="mb-4 sm:mb-6 lg:mb-8 text-center sm:text-left">
+      <div
+        class="flex items-center space-x-2 sm:space-x-3 mb-3 justify-center sm:justify-start"
+      >
+        <img
+          src={`${base}logo.svg`}
+          alt="AUXO Data Labs Logo"
+          class="h-8 w-8 sm:h-10 sm:w-10 flex-shrink-0"
+        />
+        <span
+          class="text-white text-base sm:text-lg font-semibold tracking-tight whitespace-nowrap"
+          >Data Labs</span
+        >
+      </div>
+      <p
+        class="text-gray-300 text-xs sm:text-sm mb-2 sm:mb-3 max-w-sm italic leading-relaxed break-words hidden sm:block"
+      >
+        {siteData.tagline}
+      </p>
+      <p
+        class="text-gray-300 text-xs sm:text-sm mb-3 sm:mb-4 leading-relaxed break-words hidden md:block"
+      >
+        Transforming data into <span class="font-medium text-white"
+          >actionable insights</span
+        > for businesses across the UAE.
+      </p>
+
+      <!-- Contact Info - Mobile: Compact -->
+      <div class="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4 hidden md:block">
+        <div class="flex items-start gap-3 text-sm sm:text-base min-w-0">
+          <Icon
+            name="mdi:email"
+            class="w-5 h-5 text-lime-400 flex-shrink-0 mt-0.5"
           />
-          <span
-            class="text-white text-base sm:text-lg font-semibold tracking-tight"
-            >Data Labs</span
-          >
-        </div>
-        <p
-          class="text-gray-300 text-xs sm:text-sm mb-2 sm:mb-3 max-w-sm italic leading-relaxed hidden sm:block"
-        >
-          {siteData.tagline}
-        </p>
-        <p class="text-gray-300 text-xs sm:text-sm mb-3 sm:mb-4 leading-relaxed hidden md:block">
-          Transforming data into <span class="font-medium text-white"
-            >actionable insights</span
-          > for businesses across the UAE.
-        </p>
-
-        <!-- Contact Info - Mobile: Compact -->
-        <div class="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4 hidden md:block">
-          <div class="flex items-center gap-3 text-sm sm:text-base">
-            <Icon
-              name="mdi:email"
-              class="w-5 h-5 text-lime-400 flex-shrink-0"
-            />
-            <a
-              href={`mailto:${siteData.email}`}
-              class="text-gray-300 hover:text-lime-400 active:text-lime-400 transition-colors break-all touch-manipulation"
-              >{siteData.email}</a
-            >
-          </div>
-          {
-            siteData.phone && (
-              <div class="flex items-center gap-3 text-sm sm:text-base">
-                <Icon
-                  name="mdi:phone"
-                  class="w-5 h-5 text-lime-400 flex-shrink-0"
-                />
-                <a
-                  href={`tel:${siteData.phone}`}
-                  class="text-gray-300 hover:text-lime-400 active:text-lime-400 transition-colors touch-manipulation"
-                >
-                  {siteData.phone}
-                </a>
-              </div>
-            )
-          }
-          <div class="flex items-center gap-3 text-sm sm:text-base">
-            <Icon
-              name="mdi:map-marker"
-              class="w-5 h-5 text-lime-400 flex-shrink-0"
-            />
-            <span class="text-gray-300"
-              >{siteData.address.city}, {siteData.address.country}</span
-            >
-          </div>
-        </div>
-
-        <!-- Social Links -->
-        <div class="flex gap-2 sm:gap-3">
           <a
-            href={siteData.social.linkedin}
-            class="w-9 h-9 sm:w-10 sm:h-10 min-w-[36px] min-h-[36px] sm:min-w-[44px] sm:min-h-[44px] bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black active:bg-lime-500 active:text-black active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-zinc-950 touch-manipulation will-change-transform"
-            aria-label="Follow AUXO Data Labs on LinkedIn"
-            target="_blank"
-            rel="noopener noreferrer"
+            href={`mailto:${siteData.email}`}
+            class="text-gray-300 hover:text-lime-400 active:text-lime-400 transition-colors break-all break-words touch-manipulation min-w-0"
+            >{siteData.email}</a
           >
-            <Icon name="mdi:linkedin" class="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
-          </a>
-          <a
-            href={siteData.social.twitter}
-            class="w-9 h-9 sm:w-10 sm:h-10 min-w-[36px] min-h-[36px] sm:min-w-[44px] sm:min-h-[44px] bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black active:bg-lime-500 active:text-black active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-zinc-950 touch-manipulation will-change-transform"
-            aria-label="Follow AUXO Data Labs on Twitter"
-            target="_blank"
-            rel="noopener noreferrer"
+        </div>
+        {
+          siteData.phone && (
+            <div class="flex items-center gap-3 text-sm sm:text-base min-w-0">
+              <Icon
+                name="mdi:phone"
+                class="w-5 h-5 text-lime-400 flex-shrink-0"
+              />
+              <a
+                href={`tel:${siteData.phone}`}
+                class="text-gray-300 hover:text-lime-400 active:text-lime-400 transition-colors touch-manipulation break-words min-w-0"
+              >
+                {siteData.phone}
+              </a>
+            </div>
+          )
+        }
+        <div class="flex items-start gap-3 text-sm sm:text-base min-w-0">
+          <Icon
+            name="mdi:map-marker"
+            class="w-5 h-5 text-lime-400 flex-shrink-0 mt-0.5"
+          />
+          <span class="text-gray-300 break-words min-w-0"
+            >{siteData.address.city}, {siteData.address.country}</span
           >
-            <Icon name="mdi:twitter" class="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
-          </a>
         </div>
       </div>
 
-      <!-- Quick Links Column -->
-      <div class="col-span-1">
-        <h4
-          class="font-bold text-white mb-2 sm:mb-3 text-xs uppercase tracking-wider"
+      <!-- Social Links -->
+      <div class="flex gap-2 sm:gap-3 justify-center sm:justify-start">
+        <a
+          href={siteData.social.linkedin}
+          class="w-9 h-9 sm:w-10 sm:h-10 min-w-[36px] min-h-[36px] sm:min-w-[44px] sm:min-h-[44px] bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black active:bg-lime-500 active:text-black active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-zinc-950 touch-manipulation will-change-transform"
+          aria-label="Follow AUXO Data Labs on LinkedIn"
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          Quick Links
-        </h4>
-        <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm font-medium">
-          <li>
-            <a
-              href={base}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
-            >
-              Home
-            </a>
-          </li>
-          <li>
-            <a
-              href={`${base}about/`}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
-            >
-              About
-            </a>
-          </li>
-          <li>
-            <a
-              href={`${base}services/`}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
-            >
-              Services
-            </a>
-          </li>
-          <li>
-            <a
-              href={`${base}case-studies/`}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
-            >
-              Cases
-            </a>
-          </li>
-          <li>
-            <a
-              href={`${base}blog/`}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
-            >
-              Blog
-            </a>
-          </li>
-          <li>
-            <a
-              href={`${base}contact/`}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
-            >
-              Contact
-            </a>
-          </li>
-        </ul>
+          <Icon
+            name="mdi:linkedin"
+            class="w-4 h-4 sm:w-5 sm:h-5"
+            aria-hidden="true"
+          />
+        </a>
+        <a
+          href={siteData.social.twitter}
+          class="w-9 h-9 sm:w-10 sm:h-10 min-w-[36px] min-h-[36px] sm:min-w-[44px] sm:min-h-[44px] bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black active:bg-lime-500 active:text-black active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-offset-2 focus:ring-offset-zinc-950 touch-manipulation will-change-transform"
+          aria-label="Follow AUXO Data Labs on Twitter"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icon
+            name="mdi:twitter"
+            class="w-4 h-4 sm:w-5 sm:h-5"
+            aria-hidden="true"
+          />
+        </a>
       </div>
+    </div>
 
-      <!-- Services Column - Hidden on mobile -->
-      <div class="hidden sm:block">
-        <h4
-          class="font-bold text-white mb-2 sm:mb-3 text-xs uppercase tracking-wider"
-        >
-          Services
-        </h4>
-        <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm font-medium">
-          {
-            services.slice(0, 4).map((service) => (
-              <li>
-                <a
-                  href={`${base}services/${service.id}/`}
-                  class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
-                >
-                  {service.title.length > 20 ? service.title.substring(0, 20) + '...' : service.title}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+    <!-- Two Column Layout: Quick Links | Resources & Legal -->
+    <div
+      class="flex justify-center lg:justify-start mb-4 sm:mb-6 md:mb-8 overflow-x-hidden"
+    >
+      <div
+        class="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-5 lg:w-full min-w-0 w-full"
+      >
+        <!-- Quick Links Column -->
+        <div class="col-span-1 text-center sm:text-left min-w-0">
+          <h4
+            class="font-bold text-white mb-1.5 sm:mb-2 lg:mb-3 text-xs uppercase tracking-wider break-words"
+          >
+            Quick Links
+          </h4>
+          <ul
+            class="space-y-0.5 sm:space-y-1 lg:space-y-2 text-xs sm:text-sm font-medium"
+          >
+            <li class="break-words">
+              <a
+                href={base}
+                class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5 break-words"
+              >
+                Home
+              </a>
+            </li>
+            <li class="break-words">
+              <a
+                href={`${base}about/`}
+                class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5 break-words"
+              >
+                About
+              </a>
+            </li>
+            <li class="break-words">
+              <a
+                href={`${base}services/`}
+                class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5 break-words"
+              >
+                Services
+              </a>
+            </li>
+            <li class="break-words">
+              <a
+                href={`${base}case-studies/`}
+                class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5 break-words"
+              >
+                Cases
+              </a>
+            </li>
+            <li class="break-words">
+              <a
+                href={`${base}blog/`}
+                class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5 break-words"
+              >
+                Blog
+              </a>
+            </li>
+            <li class="break-words">
+              <a
+                href={`${base}contact/`}
+                class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5 break-words"
+              >
+                Contact
+              </a>
+            </li>
+          </ul>
+        </div>
 
-      <!-- Resources & Legal Column - Compact on mobile -->
-      <div class="col-span-2 sm:col-span-1">
-        <h4
-          class="font-bold text-white mb-2 sm:mb-3 text-xs uppercase tracking-wider"
-        >
-          Resources
-        </h4>
-        <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm font-medium mb-4 sm:mb-6">
-          <li>
-            <a
-              href={`${base}tools/maturity-calculator/`}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
-            >
-              Calculator
-            </a>
-          </li>
-        </ul>
+        <!-- Resources & Legal Column -->
+        <div class="col-span-1 lg:col-span-2 text-center sm:text-left min-w-0">
+          <h4
+            class="font-bold text-white mb-1.5 sm:mb-2 lg:mb-3 text-xs uppercase tracking-wider break-words"
+          >
+            Resources
+          </h4>
+          <ul
+            class="space-y-0.5 sm:space-y-1 lg:space-y-2 text-xs sm:text-sm font-medium mb-3 lg:mb-6"
+          >
+            <li class="break-words">
+              <a
+                href={`${base}tools/maturity-calculator/`}
+                class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5 break-words"
+              >
+                Calculator
+              </a>
+            </li>
+          </ul>
 
-        <h4
-          class="font-bold text-white mb-2 sm:mb-3 text-xs uppercase tracking-wider"
-        >
-          Legal
-        </h4>
-        <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm font-medium">
-          <li>
-            <a
-              href={`${base}legal/privacy-policy/`}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
-              >Privacy</a
-            >
-          </li>
-          <li>
-            <a
-              href={`${base}legal/terms/`}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
-              >Terms</a
-            >
-          </li>
-          <li>
-            <a
-              href={`${base}legal/cookie-policy/`}
-              class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5"
-              >Cookies</a
-            >
-          </li>
-        </ul>
+          <h4
+            class="font-bold text-white mb-1.5 sm:mb-2 lg:mb-3 text-xs uppercase tracking-wider break-words"
+          >
+            Legal
+          </h4>
+          <ul
+            class="space-y-0.5 sm:space-y-1 lg:space-y-2 text-xs sm:text-sm font-medium"
+          >
+            <li class="break-words">
+              <a
+                href={`${base}legal/privacy-policy/`}
+                class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5 break-words"
+                >Privacy</a
+              >
+            </li>
+            <li class="break-words">
+              <a
+                href={`${base}legal/terms/`}
+                class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5 break-words"
+                >Terms</a
+              >
+            </li>
+            <li class="break-words">
+              <a
+                href={`${base}legal/cookie-policy/`}
+                class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5 break-words"
+                >Cookies</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- Services Column - Hidden on mobile -->
+        <div class="hidden lg:block lg:col-span-2 min-w-0">
+          <h4
+            class="font-bold text-white mb-2 sm:mb-3 text-xs uppercase tracking-wider break-words"
+          >
+            Services
+          </h4>
+          <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm font-medium">
+            {
+              services.slice(0, 4).map((service) => (
+                <li class="break-words min-w-0">
+                  <a
+                    href={`${base}services/${service.id}/`}
+                    class="text-gray-400 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 block touch-manipulation py-0.5 break-words"
+                    title={service.title}
+                  >
+                    {service.title}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
       </div>
     </div>
 
     <!-- Newsletter Section - Hidden on mobile -->
-    <div class="border-t border-gray-800 pt-4 sm:pt-6 mb-4 sm:mb-6 hidden md:block">
-      <div class="max-w-md">
+    <div
+      class="border-t border-gray-800 pt-4 sm:pt-6 mb-4 sm:mb-6 hidden md:block overflow-x-hidden"
+    >
+      <div class="max-w-md min-w-0">
         <h4
-          class="font-bold text-white mb-2 text-xs sm:text-sm uppercase tracking-wider"
+          class="font-bold text-white mb-2 text-xs sm:text-sm uppercase tracking-wider break-words"
         >
           Stay Updated
         </h4>
-        <p class="text-gray-400 text-xs sm:text-sm mb-3 leading-relaxed">
+        <p
+          class="text-gray-400 text-xs sm:text-sm mb-3 leading-relaxed break-words"
+        >
           Subscribe to our newsletter for <em>insights and updates</em>.
         </p>
-        <form id="newsletter-form" class="space-y-2">
-          <div class="flex flex-col sm:flex-row gap-2">
+        <form id="newsletter-form" class="space-y-2 min-w-0">
+          <div class="flex flex-col sm:flex-row gap-2 min-w-0">
             <input
               id="newsletter-email"
               type="email"
               placeholder="Enter your email"
-              class="flex-1 px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-sm focus:outline-none focus:border-lime-400 transition-colors font-medium touch-manipulation"
+              class="flex-1 min-w-0 px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-sm focus:outline-none focus:border-lime-400 transition-colors font-medium touch-manipulation"
               required
               aria-label="Email address for newsletter"
             />
             <button
               type="submit"
-              class="px-5 py-2 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 active:bg-lime-600 active:scale-[0.97] transition-all duration-200 text-sm whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation will-change-transform"
+              class="px-4 sm:px-5 py-2 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 active:bg-lime-600 active:scale-[0.97] transition-all duration-200 text-sm whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation will-change-transform flex-shrink-0"
             >
               Subscribe
             </button>
           </div>
           <label
-            class="flex items-start gap-2 cursor-pointer group touch-manipulation"
+            class="flex items-start gap-2 cursor-pointer group touch-manipulation min-w-0"
           >
             <input
               type="checkbox"
@@ -268,46 +298,48 @@ const currentYear = new Date().getFullYear();
               class="mt-0.5 w-4 h-4 text-lime-400 bg-zinc-900 border-zinc-700 rounded focus:ring-lime-400 focus:ring-2 touch-manipulation flex-shrink-0"
             />
             <span
-              class="text-xs text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors"
+              class="text-xs text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors break-words min-w-0"
             >
               I consent to receive marketing emails.
               <a
                 href={`${base}legal/privacy-policy/`}
-                class="text-lime-400 hover:underline active:text-lime-300"
+                class="text-lime-400 hover:underline active:text-lime-300 break-words"
                 >Privacy</a
               >
             </span>
           </label>
-          <p id="newsletter-message" class="text-xs hidden"></p>
+          <p id="newsletter-message" class="text-xs hidden break-words"></p>
         </form>
       </div>
     </div>
 
     <!-- Bottom Bar -->
     <div
-      class="border-t border-gray-800 pt-4 sm:pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4"
+      class="border-t border-gray-800 pt-4 sm:pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4 overflow-x-hidden"
     >
       <p
-        class="text-gray-500 text-xs font-medium text-center sm:text-left"
+        class="text-gray-500 text-xs font-medium text-center sm:text-left break-words min-w-0"
       >
         © {currentYear} AUXO Data Labs. All rights reserved.
       </p>
       <div
-        class="flex flex-wrap justify-center sm:justify-end items-center gap-2 sm:gap-4 text-xs text-gray-500 font-medium"
+        class="flex flex-wrap justify-center sm:justify-end items-center gap-2 sm:gap-4 text-xs text-gray-500 font-medium min-w-0"
       >
-        <span class="flex items-center gap-1.5">
+        <span class="flex items-center gap-1.5 whitespace-nowrap flex-shrink-0">
           <Icon
             name="mdi:map-marker"
             class="w-3.5 h-3.5 text-lime-400 flex-shrink-0"
           />
-          Dubai, UAE
+          <span class="break-words">Dubai, UAE</span>
         </span>
-        <span class="flex items-center gap-1.5 hidden sm:flex">
+        <span
+          class="flex items-center gap-1.5 hidden sm:flex whitespace-nowrap flex-shrink-0"
+        >
           <Icon
             name="mdi:shield-check"
             class="w-3.5 h-3.5 text-lime-400 flex-shrink-0"
           />
-          PDPL Compliant
+          <span class="break-words">PDPL Compliant</span>
         </span>
       </div>
     </div>

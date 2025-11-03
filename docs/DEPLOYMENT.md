@@ -80,11 +80,18 @@ Configure these in repository settings → Secrets:
 
 ### Local Build
 
-```bash
+**IMPORTANT:** Always run commands from the project root directory: `A:\AUXO\Main Website`
+
+**PowerShell Syntax Note:** PowerShell does NOT support `&&` operator. Use semicolon (`;`) or run commands separately.
+
+```powershell
+# Navigate to project root first
+cd "A:\AUXO\Main Website"
+
 # Install dependencies
 npm ci
 
-# Run checks
+# Run checks (run separately or use semicolon)
 npm run lint
 npm run check
 
@@ -94,6 +101,13 @@ npm run build
 # Preview
 npm run preview
 ```
+
+**Alternative (PowerShell with semicolon):**
+```powershell
+cd "A:\AUXO\Main Website"; npm ci; npm run lint; npm run check; npm run build
+```
+
+**DO NOT USE:** `cd "A:\AUXO\Main Website" && npm run build` (this will fail in PowerShell)
 
 ### Deploy to Production
 

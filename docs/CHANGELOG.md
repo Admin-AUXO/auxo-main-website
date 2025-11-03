@@ -17,6 +17,30 @@ Entries are organized by date (newest first) and include:
 
 ## [Unreleased]
 
+### Documentation | Developer Experience
+**Date:** 2025-11-03
+
+**Description:** Updated documentation with correct project root path and PowerShell-compatible command syntax guidelines.
+
+**Key Changes:**
+- Added explicit project root path: `A:\AUXO\Main Website` to all relevant documentation
+- Documented PowerShell syntax requirements (no `&&` operator support)
+- Updated `AGENT_RULES.md` with "Project Root & Command Syntax" section
+- Updated `DEPLOYMENT.md` with PowerShell-compatible command examples
+- Updated `QUICK_REFERENCE.md` with project root and PowerShell syntax notes
+- Removed obsolete `READABILITY_IMPROVEMENTS.md` file
+
+**Files Changed:**
+- `.cursorrules` - Added project root and PowerShell command syntax section
+- `docs/AGENT_RULES.md` - Added project root and PowerShell command syntax section
+- `docs/DEPLOYMENT.md` - Updated local build commands with PowerShell syntax
+- `docs/QUICK_REFERENCE.md` - Added project root and PowerShell syntax notes
+- `docs/READABILITY_IMPROVEMENTS.md` - Removed (obsolete)
+
+**Impact:** Prevents future AI agents from making directory navigation and command syntax mistakes when running builds or other npm commands.
+
+---
+
 ### Feature | UI/UX | Performance | Accessibility
 **Date:** 2025-11-03
 

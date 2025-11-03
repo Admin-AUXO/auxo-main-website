@@ -36,7 +36,14 @@ A quick lookup guide for common tasks, file locations, and commands.
 
 ## Common Commands
 
-```bash
+**IMPORTANT:** Always run commands from the project root: `A:\AUXO\Main Website`
+
+**PowerShell Syntax:** PowerShell does NOT support `&&`. Use semicolon (`;`) or run commands separately.
+
+```powershell
+# First, navigate to project root
+cd "A:\AUXO\Main Website"
+
 # Development
 npm run dev          # Start development server
 npm run build        # Build for production
@@ -53,6 +60,13 @@ npm ci               # Clean install (CI/CD)
 npm audit            # Check for vulnerabilities
 npm audit fix        # Fix vulnerabilities (if possible)
 ```
+
+**PowerShell Multi-Command Example:**
+```powershell
+cd "A:\AUXO\Main Website"; npm run lint; npm run check; npm run build
+```
+
+**DO NOT USE:** `cd "A:\AUXO\Main Website" && npm run build` (fails in PowerShell)
 
 ---
 

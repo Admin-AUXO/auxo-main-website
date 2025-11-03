@@ -19,15 +19,42 @@ You are an AI coding assistant working on the AUXO Data Labs corporate website. 
 4. **TypeScript Everywhere:** All code must be strongly typed with TypeScript interfaces.
 5. **Mobile-First:** Use responsive design with 44px × 44px minimum touch targets.
 
+## Project Root & Command Syntax
+
+**CRITICAL:** Before running any commands, ensure you're in the correct project directory.
+
+- **Project Root:** `A:\AUXO\Main Website`
+- **Always navigate to project root first:** `cd "A:\AUXO\Main Website"`
+- **PowerShell Syntax:** PowerShell does NOT support `&&` operator. Use one of these methods:
+  - **Separate commands:** Run each command individually
+  - **Semicolon separator:** `cd "A:\AUXO\Main Website"; npm run build` (PowerShell-specific)
+  - **Do NOT use:** `cd "A:\AUXO\Main Website" && npm run build` (this will fail in PowerShell)
+
+**Example Correct Usage:**
+```powershell
+# Method 1: Separate commands (recommended)
+cd "A:\AUXO\Main Website"
+npm run build
+
+# Method 2: Semicolon (PowerShell)
+cd "A:\AUXO\Main Website"; npm run build
+```
+
+**Common Mistake to Avoid:**
+- ❌ `cd "A:\AUXO\Main Website" && npm run build` (fails in PowerShell)
+- ✅ `cd "A:\AUXO\Main Website"; npm run build` (PowerShell syntax)
+- ✅ Separate commands (safest approach)
+
 ## Development Workflow
 
 1. Read relevant documentation before starting
 2. Understand the user's request fully
 3. Formulate a plan using documentation
-4. Implement following conventions
-5. Run checks: `npm run lint`, `npm run check`, `npm run build`
-6. **Always ask:** "Are there any additional changes you'd like me to make?"
-7. **For small changes:** Confirm before pushing to GitHub
+4. **Navigate to Project Root:** Always ensure you're in `A:\AUXO\Main Website` before running commands
+5. Implement following conventions
+6. Run checks: `npm run lint`, `npm run check`, `npm run build` (from project root)
+7. **Always ask:** "Are there any additional changes you'd like me to make?"
+8. **For small changes:** Confirm before pushing to GitHub
 
 ## Code Conventions
 
@@ -78,10 +105,27 @@ You are an AI coding assistant working on the AUXO Data Labs corporate website. 
 
 ## Common Commands
 
-- `npm run dev` - Development server
-- `npm run build` - Production build
-- `npm run lint` - Lint check
-- `npm run check` - TypeScript check
+**IMPORTANT:** Always run commands from the project root: `A:\AUXO\Main Website`
+
+**PowerShell Syntax:** PowerShell does NOT support `&&`. Use semicolon (`;`) or run commands separately.
+
+```powershell
+# First, navigate to project root
+cd "A:\AUXO\Main Website"
+
+# Then run commands
+npm run dev    # Development server
+npm run build  # Production build
+npm run lint   # Lint check
+npm run check  # TypeScript check
+```
+
+**PowerShell Multi-Command Example:**
+```powershell
+cd "A:\AUXO\Main Website"; npm run lint; npm run check; npm run build
+```
+
+**DO NOT USE:** `cd "A:\AUXO\Main Website" && npm run build` (fails in PowerShell)
 
 ## Communication Protocol
 

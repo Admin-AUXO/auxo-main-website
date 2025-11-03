@@ -39,20 +39,47 @@ Before making any changes:
 
 ---
 
+## Project Root & Command Syntax
+
+**CRITICAL:** Before running any commands, ensure you're in the correct project directory.
+
+- **Project Root:** `A:\AUXO\Main Website`
+- **Always navigate to project root first:** `cd "A:\AUXO\Main Website"`
+- **PowerShell Syntax:** PowerShell does NOT support `&&` operator. Use one of these methods:
+  - **Separate commands:** Run each command individually
+  - **Semicolon separator:** `cd "A:\AUXO\Main Website"; npm run build` (PowerShell-specific)
+  - **Do NOT use:** `cd "A:\AUXO\Main Website" && npm run build` (this will fail in PowerShell)
+
+**Example Correct Usage:**
+```powershell
+# Method 1: Separate commands
+cd "A:\AUXO\Main Website"
+npm run build
+
+# Method 2: Semicolon (PowerShell)
+cd "A:\AUXO\Main Website"; npm run build
+```
+
+**Common Mistake to Avoid:**
+- ❌ `cd "A:\AUXO\Main Website" && npm run build` (fails in PowerShell)
+- ✅ `cd "A:\AUXO\Main Website"; npm run build` (PowerShell syntax)
+- ✅ Separate commands (safest approach)
+
 ## Development Workflow
 
 1. **Analyze the Request:** Understand the user's request and context.
 2. **Read Documentation:** Review relevant docs to understand existing patterns.
 3. **Formulate a Plan:** Create a clear plan using this documentation.
-4. **Implement Changes:** Follow the project's core principles and coding conventions.
-5. **Run Local Checks:** Ensure these commands run successfully:
+4. **Navigate to Project Root:** Always ensure you're in `A:\AUXO\Main Website` before running commands.
+5. **Implement Changes:** Follow the project's core principles and coding conventions.
+6. **Run Local Checks:** Ensure these commands run successfully from the project root:
    - `npm run lint`: Checks for linting errors.
    - `npm run check`: TypeScript type checking.
    - `npm run build`: Verifies the site builds successfully.
-6. **Confirm with User:** 
+7. **Confirm with User:** 
    - For small changes: Confirm before pushing to GitHub
    - After completing work: Ask if there's anything else to be done
-7. **Update Documentation:** If your changes alter project structure, add components, or modify features, update the relevant documentation files.
+8. **Update Documentation:** If your changes alter project structure, add components, or modify features, update the relevant documentation files.
 
 ---
 

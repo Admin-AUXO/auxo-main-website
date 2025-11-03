@@ -201,7 +201,7 @@ Our UAE clients typically see:
 Ready to build your data strategy? Here's how to begin:
 
 ### Free Resources
-1. **Data Maturity Calculator**: [Assess your readiness](/maturity-calculator)
+1. **Data Maturity Calculator**: [Assess your readiness](/tools/maturity-calculator)
 2. **Strategy Template**: Contact us for our UAE-focused framework
 3. **ROI Calculator**: Estimate your potential returns
 

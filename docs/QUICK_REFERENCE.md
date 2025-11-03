@@ -11,6 +11,8 @@ A quick lookup guide for common tasks, file locations, and commands.
 | Homepage               | `src/pages/index.astro`                   |
 | Navigation             | `src/components/Navigation.astro`         |
 | Footer                 | `src/components/Footer.astro`             |
+| Theme Toggle           | `src/components/ThemeToggle.astro`        |
+| Particle Background    | `src/components/ParticleBackground.astro` |
 | SEO Component          | `src/components/SEO.astro`                |
 | Base Layout            | `src/layouts/BaseLayout.astro`            |
 | Site Configuration     | `src/data/config/site.ts`                 |
@@ -204,8 +206,15 @@ See `API_ENDPOINTS.md` for details.
 
 ---
 
-## Color Palette
+## Color Palette & Theme System
 
+### Theme-Aware Classes
+- **Backgrounds:** `bg-card`, `bg-surface`, `bg-primary`, `bg-secondary`
+- **Text:** `text-primary`, `text-secondary`, `text-tertiary`
+- **Borders:** `border-theme`, `border-theme-light`
+- **Transitions:** Always add `transition-colors` for smooth theme changes
+
+### Dark Theme (Default)
 | Variable Name      | Hex Code  | Usage                      |
 |--------------------|-----------|----------------------------|
 | `--accent-green`   | `#A3E635` | CTAs, links, highlights    |
@@ -213,15 +222,25 @@ See `API_ENDPOINTS.md` for details.
 | `--text-primary`   | `#FFFFFF` | Main text                  |
 | `--text-secondary` | `#A0A0A0` | Secondary text             |
 
-Use CSS variables: `var(--accent-green)`
+### Light Theme
+| Variable Name      | Hex Code  | Usage                      |
+|--------------------|-----------|----------------------------|
+| `--accent-green`   | `#16A34A` | Darker green for contrast  |
+| `--bg-primary`     | `#FFFFFF` | Main background            |
+| `--text-primary`   | `#111827` | Main text                  |
+| `--text-secondary` | `#4B5563` | Secondary text             |
+
+**Usage:** Always use CSS variables or theme-aware utility classes: `var(--accent-green)` or `bg-card`
 
 ---
 
 ## Typography
 
-- **Brand/Logo:** Montserrat (900)
-- **Headings:** Space Grotesk (600, 700, 800)
-- **Body:** Inter (400, 500, 600, 700)
+- **Brand/Logo:** Montserrat (900) - Fixed green color `#A3E635` for consistency
+- **Headings:** Plus Jakarta Sans (600, 700, 800)
+- **Body:** Plus Jakarta Sans (400, 500, 600, 700)
+
+**Note:** Plus Jakarta Sans provides excellent readability on both mobile and desktop devices.
 
 ---
 
@@ -266,6 +285,43 @@ Use CSS variables: `var(--accent-green)`
 
 ```astro
 <button class="min-h-[44px] min-w-[44px] active:opacity-75">
+```
+
+### Readable Text Over Particles
+
+```astro
+<p class="text-primary font-medium">Text with better contrast</p>
+<div class="bg-card/95 backdrop-blur-md border border-theme/50">Card with backdrop</div>
+```
+
+---
+
+## Theme-Aware Styling
+
+### Theme Toggle Usage
+
+```astro
+---
+import ThemeToggle from '@/components/ThemeToggle.astro';
+---
+
+<ThemeToggle />
+```
+
+### Theme-Aware Component
+
+```astro
+<div class="bg-card border border-theme text-primary transition-colors">
+  <p class="text-secondary">Theme-aware text</p>
+</div>
+```
+
+### Button with Backdrop (for particle background)
+
+```astro
+<a class="bg-card/95 backdrop-blur-md border-2 border-accent-green text-accent-green">
+  Button Text
+</a>
 ```
 
 ---

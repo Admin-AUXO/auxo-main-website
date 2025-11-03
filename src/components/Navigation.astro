@@ -1,6 +1,7 @@
 ---
 import { services } from '../data/collections/services';
 import { Icon } from 'astro-icon/components';
+import ThemeToggle from './ThemeToggle.astro';
 
 const base = import.meta.env.BASE_URL;
 
@@ -33,121 +34,109 @@ const navItems: NavItem[] = [
     name: 'Resources',
     href: `${base}blog/`,
     dropdown: [
-      { name: 'Case Studies', href: `${base}case-studies/`, icon: 'case-studies' },
-      { name: 'Blog', href: `${base}blog/`, icon: 'blog' },
-      { name: 'FAQ', href: `${base}faq/`, icon: 'faq' }
+      { name: 'Case Studies', href: `${base}case-studies/`, icon: 'mdi:briefcase' },
+      { name: 'Blog', href: `${base}blog/`, icon: 'mdi:post' },
+      { name: 'FAQ', href: `${base}faq/`, icon: 'mdi:help-circle' }
     ]
   },
 ];
 ---
 
-<nav id="main-navigation" class="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-sm border-b border-zinc-800 transition-all duration-200">
+<nav 
+  id="main-navigation" 
+  class="fixed top-0 left-0 right-0 z-50 bg-primary/98 backdrop-blur-md border-b border-theme transition-all duration-300 shadow-lg"
+>
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 sm:h-18 lg:h-20">
       <!-- Logo Section -->
       <a 
         href={`${base}`} 
-        class="flex items-center space-x-2.5 sm:space-x-3 group" 
+        class="flex items-center space-x-2.5 sm:space-x-3 group relative" 
         aria-label="AUXO Data Labs Home"
       >
-        <img 
-          src={`${base}logo.svg`} 
-          alt="AUXO Data Labs Logo" 
-          class="h-9 w-9 sm:h-11 sm:w-11 lg:h-12 lg:w-12 transition-transform duration-200 group-hover:scale-105" 
-        />
+        <div class="relative">
+          <img 
+            src={`${base}logo.svg`} 
+            alt="AUXO Data Labs Logo" 
+            class="h-9 w-9 sm:h-11 sm:w-11 lg:h-12 lg:w-12 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3" 
+          />
+          <div class="absolute inset-0 bg-accent-green/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        </div>
         <div class="flex flex-col hidden sm:flex">
-          <span class="text-white text-base sm:text-lg lg:text-xl font-bold tracking-tight leading-tight">
+          <span class="text-primary text-base sm:text-lg lg:text-xl font-bold tracking-tight leading-tight transition-colors">
             AUXO
           </span>
-          <span class="text-xs text-gray-400 font-medium tracking-wider uppercase leading-tight">
+          <span class="text-secondary text-xs font-medium tracking-wider uppercase leading-tight transition-colors">
             Data Labs
           </span>
         </div>
       </a>
 
       <!-- Desktop Navigation -->
-      <div class="hidden lg:flex items-center space-x-2">
+      <div class="hidden lg:flex items-center space-x-5">
         {navItems.map((item, index) => (
           item.dropdown ? (
-            <div class="relative dropdown-container" data-nav-item={index}>
+            <div class="relative dropdown-container group" data-nav-item={index}>
               <button 
-                class="nav-link dropdown-toggle relative px-4 py-2.5 text-sm font-medium text-gray-300 hover:text-white transition-colors duration-200 rounded-md hover:bg-zinc-900 flex items-center gap-1.5 min-h-[44px]"
+                class="nav-link dropdown-toggle relative px-4 py-2.5 text-sm font-medium text-secondary hover:text-primary transition-all duration-200 rounded-lg hover:bg-surface active:bg-surface flex items-center gap-1.5 min-h-[44px] group-hover:text-primary"
                 aria-expanded="false"
                 aria-haspopup="true"
                 data-dropdown-toggle={index}
               >
                 <span>{item.name}</span>
-                <svg 
+                <Icon 
+                  name="mdi:chevron-down" 
                   class="w-4 h-4 transition-transform duration-200 dropdown-arrow" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
+                />
                 <!-- Active Indicator -->
-                <span class="nav-indicator absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-lime-400 rounded-full transition-all duration-200"></span>
+                <span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-accent-green rounded-full transition-all duration-300 group-hover:w-3/4"></span>
               </button>
 
               <!-- Dropdown Menu -->
               <div 
                 class:list={[
-                  "absolute left-0 top-full mt-1 opacity-0 invisible transition-all duration-200 pointer-events-none dropdown-menu z-[60]",
-                  item.name === 'Services' ? 'w-[600px]' : 'w-[260px]'
+                  "absolute left-0 top-full mt-2 opacity-0 invisible transition-all duration-300 pointer-events-none dropdown-menu z-[60] transform translate-y-2",
+                  item.name === 'Services' ? 'w-[600px]' : 'w-[280px]'
                 ]}
                 data-dropdown-menu={index}
               >
                 <div class="relative">
                   <!-- Arrow Pointer -->
-                  <div class="absolute -top-1.5 left-6 w-3 h-3 bg-zinc-900 border-l border-t border-zinc-700 rotate-45"></div>
+                  <div class="absolute -top-2 left-6 w-4 h-4 bg-card border-l border-t border-theme rotate-45"></div>
                   
                   <!-- Dropdown Content -->
-                  <div class="relative bg-zinc-900 border border-zinc-800 rounded-lg p-4">
+                  <div class="relative bg-card border border-theme rounded-xl p-4 shadow-2xl backdrop-blur-xl">
                     <div class:list={[
-                      item.name === 'Services' ? 'grid grid-cols-2 gap-2' : 'space-y-1'
+                      item.name === 'Services' ? 'grid grid-cols-2 gap-3' : 'space-y-1'
                     ]}>
                       {item.dropdown.map((sub: DropdownItem) => (
                         <a
                           href={sub.href}
-                          class="group/item flex items-start gap-3 px-3 py-3 rounded-md hover:bg-zinc-800 transition-colors duration-200 border border-transparent hover:border-zinc-700"
+                          class="group/item flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-surface transition-all duration-200 border border-transparent hover:border-theme-light"
                         >
                           <!-- Icon Container -->
-                          <div class="w-9 h-9 bg-zinc-800 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5 group-hover/item:bg-zinc-700 transition-colors duration-200">
-                            {item.name === 'Services' ? (
-                              <Icon name={sub.icon} class="w-5 h-5 text-lime-400" />
-                            ) : (
-                              <Icon
-                                name={sub.icon === 'case-studies' ? 'mdi:briefcase' : sub.icon === 'blog' ? 'mdi:post' : 'mdi:help-circle'}
-                                class="w-5 h-5 text-lime-400"
-                              />
-                            )}
+                          <div class="w-10 h-10 bg-surface rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-accent-green/10 transition-colors duration-200">
+                            <Icon name={sub.icon} class="w-5 h-5 text-accent-green" />
                           </div>
                           
                           <!-- Content -->
                           <div class="flex-1 min-w-0">
-                            <div class="font-semibold text-white text-sm leading-snug mb-1 group-hover/item:text-lime-400 transition-colors duration-200">
+                            <div class="font-semibold text-primary text-sm leading-snug group-hover/item:text-accent-green transition-colors duration-200">
                               {sub.name}
                             </div>
-                            {item.name === 'Services' && sub.description && (
-                              <div class="text-xs text-gray-400 leading-relaxed line-clamp-2">
-                                {sub.description}
-                              </div>
-                            )}
                           </div>
                         </a>
                       ))}
                     </div>
                     
                     {item.name === 'Services' && (
-                      <div class="mt-4 pt-4 border-t border-zinc-800">
+                      <div class="mt-4 pt-4 border-t border-theme">
                         <a 
                           href={`${base}services/`} 
-                          class="flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium text-lime-400 hover:text-white bg-zinc-800 hover:bg-zinc-700 rounded-md transition-colors duration-200"
+                          class="flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium text-accent-green hover:text-primary bg-surface hover:bg-accent-green/10 rounded-lg transition-all duration-200"
                         >
                           <span>View All Services</span>
-                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                          </svg>
+                          <Icon name="mdi:arrow-right" class="w-4 h-4" />
                         </a>
                       </div>
                     )}
@@ -158,109 +147,101 @@ const navItems: NavItem[] = [
           ) : (
             <a 
               href={item.href} 
-              class="nav-link relative px-4 py-2.5 text-sm font-medium text-gray-300 hover:text-white transition-colors duration-200 rounded-md hover:bg-zinc-900 min-h-[44px] flex items-center"
+              class="nav-link relative px-4 py-2.5 text-sm font-medium text-secondary hover:text-primary transition-all duration-200 rounded-lg hover:bg-surface active:bg-surface min-h-[44px] flex items-center group"
             >
               <span>{item.name}</span>
               <!-- Active Indicator -->
-              <span class="nav-indicator absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-lime-400 rounded-full transition-all duration-200"></span>
+              <span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-accent-green rounded-full transition-all duration-300 group-hover:w-3/4"></span>
             </a>
           )
         ))}
         
+        <!-- Theme Toggle -->
+        <div class="ml-3">
+          <ThemeToggle />
+        </div>
+        
         <!-- CTA Button -->
         <a 
           href={`${base}contact/`} 
-          class="ml-2 px-5 py-2.5 text-sm font-semibold bg-lime-400 text-black rounded-md hover:bg-lime-500 transition-colors duration-200 min-h-[44px] flex items-center"
+          class="ml-3 px-5 py-2.5 text-sm font-semibold bg-accent-green text-black dark:text-white rounded-lg hover:bg-accent-green/90 active:bg-accent-green/80 transition-all duration-200 min-h-[44px] flex items-center hover:scale-105 active:scale-95"
         >
           Get Started
         </a>
       </div>
 
       <!-- Mobile Menu Button -->
-      <button 
-        type="button"
-        id="mobile-menu-button" 
-        class="lg:hidden relative z-50 text-white p-2 min-w-[44px] min-h-[44px] rounded-md hover:bg-zinc-900 active:bg-zinc-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-lime-400/50 touch-manipulation" 
-        aria-label="Toggle mobile menu" 
-        aria-expanded="false"
-      >
-        <div class="relative w-6 h-6">
-          <svg 
-            class="absolute inset-0 w-6 h-6 menu-icon transition-all duration-200" 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
-          >
-            <path 
-              class="menu-open transition-opacity duration-200" 
-              stroke-linecap="round" 
-              stroke-linejoin="round" 
-              stroke-width="2" 
-              d="M4 6h16M4 12h16M4 18h16"
-            ></path>
-            <path 
-              class="menu-close absolute inset-0 opacity-0 transition-opacity duration-200" 
-              stroke-linecap="round" 
-              stroke-linejoin="round" 
-              stroke-width="2" 
-              d="M6 18L18 6M6 6l12 12"
-            ></path>
-          </svg>
-        </div>
-      </button>
+      <div class="flex items-center gap-2 lg:hidden">
+        <ThemeToggle />
+        <button 
+          type="button"
+          id="mobile-menu-button" 
+          class="relative z-50 text-secondary hover:text-primary p-2 min-w-[44px] min-h-[44px] rounded-lg hover:bg-surface active:bg-surface transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-green/50 touch-manipulation" 
+          aria-label="Toggle mobile menu" 
+          aria-expanded="false"
+        >
+          <div class="relative w-6 h-6">
+            <svg 
+              class="absolute inset-0 w-6 h-6 menu-icon transition-all duration-300" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path 
+                class="menu-open transition-opacity duration-300" 
+                stroke-linecap="round" 
+                stroke-linejoin="round" 
+                stroke-width="2" 
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+              <path 
+                class="menu-close absolute inset-0 opacity-0 transition-opacity duration-300" 
+                stroke-linecap="round" 
+                stroke-linejoin="round" 
+                stroke-width="2" 
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </div>
+        </button>
+      </div>
     </div>
   </div>
 
   <!-- Mobile Menu -->
   <div 
     id="mobile-menu" 
-    class="lg:hidden fixed inset-x-0 top-16 sm:top-18 bg-black border-t border-zinc-800 max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain transform -translate-y-full opacity-0 transition-all duration-200 ease-out"
+    class="lg:hidden fixed inset-x-0 top-16 sm:top-18 bg-card border-t border-theme max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain transform -translate-y-full opacity-0 transition-all duration-300 ease-out shadow-2xl"
     style="touch-action: pan-y; -webkit-overflow-scrolling: touch;"
   >
-    <div class="px-4 sm:px-6 py-4 space-y-2">
+    <div class="px-4 sm:px-6 py-6 space-y-2">
       {navItems.map((item, index) => (
         item.dropdown ? (
           <div class="mobile-dropdown" data-nav-item={index}>
             <button 
               type="button"
-              class="mobile-dropdown-btn w-full flex items-center justify-between px-4 py-3.5 min-h-[52px] text-gray-300 hover:text-white active:text-white active:bg-zinc-900 rounded-md transition-colors duration-200 font-medium touch-manipulation bg-zinc-900 border border-zinc-800 hover:border-zinc-700 active:border-zinc-600 text-base"
+              class="mobile-dropdown-btn w-full flex items-center justify-between px-4 py-3.5 min-h-[52px] text-secondary hover:text-primary active:text-primary active:bg-surface rounded-lg transition-all duration-200 font-medium touch-manipulation bg-surface border border-theme hover:border-theme-light active:border-theme-light text-base"
               aria-expanded="false"
             >
               <span>{item.name}</span>
-              <svg 
-                class="w-5 h-5 transition-transform duration-200 flex-shrink-0 text-lime-400 dropdown-arrow-mobile" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
+              <Icon 
+                name="mdi:chevron-down" 
+                class="w-5 h-5 transition-transform duration-200 flex-shrink-0 text-accent-green dropdown-arrow-mobile" 
+              />
             </button>
             <div class="mobile-dropdown-content hidden pl-4 mt-2 space-y-1.5 overflow-hidden">
               {item.dropdown.map((sub: DropdownItem) => (
                 <a 
                   href={sub.href} 
-                  class="flex items-start gap-3 px-4 py-3 min-h-[48px] text-sm text-gray-400 hover:text-lime-400 active:text-lime-400 active:bg-zinc-900 rounded-md transition-colors duration-200 touch-manipulation group/item bg-zinc-900 border border-transparent hover:border-zinc-800 active:border-zinc-700"
+                  class="flex items-center gap-3 px-4 py-3 min-h-[48px] text-sm text-secondary hover:text-accent-green active:text-accent-green active:bg-surface rounded-lg transition-all duration-200 touch-manipulation group/item bg-surface border border-transparent hover:border-theme-light active:border-theme-light"
                 >
-                  <div class="w-8 h-8 bg-zinc-800 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5 group-hover/item:bg-zinc-700 transition-colors duration-200">
-                    {item.name === 'Services' ? (
-                      <Icon name={sub.icon} class="w-4 h-4 text-lime-400" />
-                    ) : (
-                      <Icon
-                        name={sub.icon === 'case-studies' ? 'mdi:briefcase' : sub.icon === 'blog' ? 'mdi:post' : 'mdi:help-circle'}
-                        class="w-4 h-4 text-lime-400"
-                      />
-                    )}
+                  <div class="w-8 h-8 bg-surface rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-accent-green/10 transition-colors duration-200">
+                    <Icon name={sub.icon} class="w-4 h-4 text-accent-green" />
                   </div>
                   <div class="flex-1 min-w-0">
-                    <div class="font-semibold text-white text-sm leading-snug mb-0.5 group-hover/item:text-lime-400 transition-colors duration-200">
+                    <div class="font-semibold text-primary text-sm leading-snug group-hover/item:text-accent-green transition-colors duration-200">
                       {sub.name}
                     </div>
-                    {item.name === 'Services' && sub.description && (
-                      <div class="text-xs text-gray-500 leading-relaxed line-clamp-2">
-                        {sub.description}
-                      </div>
-                    )}
                   </div>
                 </a>
               ))}
@@ -269,7 +250,7 @@ const navItems: NavItem[] = [
         ) : (
           <a 
             href={item.href} 
-            class="block px-4 py-3.5 min-h-[52px] text-base text-gray-300 hover:text-white active:text-white active:bg-zinc-900 rounded-md transition-colors duration-200 font-medium touch-manipulation flex items-center bg-zinc-900 border border-zinc-800 hover:border-zinc-700 active:border-zinc-600"
+            class="block px-4 py-3.5 min-h-[52px] text-base text-secondary hover:text-primary active:text-primary active:bg-surface rounded-lg transition-all duration-200 font-medium touch-manipulation flex items-center bg-surface border border-theme hover:border-theme-light active:border-theme-light"
           >
             {item.name}
           </a>
@@ -279,7 +260,7 @@ const navItems: NavItem[] = [
       <!-- Mobile CTA Button -->
       <a 
         href={`${base}contact/`} 
-        class="block mt-4 px-6 py-3.5 min-h-[56px] bg-lime-400 text-black font-semibold rounded-md active:bg-lime-500 transition-colors duration-200 text-center touch-manipulation flex items-center justify-center text-base"
+        class="block mt-4 px-6 py-3.5 min-h-[56px] bg-accent-green text-black font-semibold rounded-lg active:bg-accent-green/90 transition-all duration-200 text-center touch-manipulation flex items-center justify-center text-base shadow-lg shadow-accent-green/20"
       >
         Get Started
       </a>
@@ -292,21 +273,11 @@ const navItems: NavItem[] = [
 
 <style>
   /* Custom height utilities for navigation */
-  .h-16 {
-    height: 4rem;
-  }
-  .h-18 {
-    height: 4.5rem;
-  }
-  .h-20 {
-    height: 5rem;
-  }
-  .top-16 {
-    top: 4rem;
-  }
-  .top-18 {
-    top: 4.5rem;
-  }
+  .h-16 { height: 4rem; }
+  .h-18 { height: 4.5rem; }
+  .h-20 { height: 5rem; }
+  .top-16 { top: 4rem; }
+  .top-18 { top: 4.5rem; }
   
   /* Mobile menu open state */
   #mobile-menu.open {
@@ -322,12 +293,6 @@ const navItems: NavItem[] = [
     pointer-events: auto;
   }
   
-  /* Right-aligned dropdown */
-  .dropdown-menu.dropdown-right-aligned {
-    left: auto;
-    right: 0;
-  }
-  
   .dropdown-arrow.open {
     transform: rotate(180deg);
   }
@@ -336,12 +301,9 @@ const navItems: NavItem[] = [
     transform: rotate(180deg);
   }
   
-  .dropdown-toggle.active .nav-indicator {
-    width: 60%;
-  }
-
+  .dropdown-toggle.active .nav-indicator,
   .nav-link:hover .nav-indicator {
-    width: 60%;
+    width: 75%;
   }
 </style>
 
@@ -358,7 +320,6 @@ const navItems: NavItem[] = [
     const isOpen = menu.classList.contains('open');
     
     if (isOpen) {
-      // Close menu
       menu.classList.remove('open');
       menu.classList.add('-translate-y-full', 'opacity-0');
       menu.classList.remove('translate-y-0', 'opacity-100');
@@ -368,7 +329,6 @@ const navItems: NavItem[] = [
       menuClose.classList.remove('opacity-100');
       document.body.style.overflow = '';
     } else {
-      // Open menu
       menu.classList.add('open');
       menu.classList.remove('-translate-y-full', 'opacity-0');
       menu.classList.add('translate-y-0', 'opacity-100');
@@ -387,7 +347,6 @@ const navItems: NavItem[] = [
     const mobileDropdownButtons = document.querySelectorAll('#mobile-menu .mobile-dropdown-btn');
     
     mobileDropdownButtons.forEach(button => {
-      // Check if already has listener to avoid duplicates
       if ((button as any).__dropdownHandlerAttached) return;
       
       const handler = (e: Event) => {
@@ -396,32 +355,29 @@ const navItems: NavItem[] = [
         
         const content = (button as HTMLElement).nextElementSibling as HTMLElement;
         const icon = button.querySelector('.dropdown-arrow-mobile');
-        const isExpanded = button.getAttribute('aria-expanded') === 'true';
         
         if (content) {
           const isHidden = content.classList.contains('hidden');
           
           if (isHidden) {
-            // Opening
             content.classList.remove('hidden');
             content.style.maxHeight = '0';
             requestAnimationFrame(() => {
               content.style.maxHeight = content.scrollHeight + 'px';
               setTimeout(() => {
                 content.style.maxHeight = '';
-              }, 200);
+              }, 300);
             });
             icon?.classList.add('open');
             button.setAttribute('aria-expanded', 'true');
           } else {
-            // Closing
             content.style.maxHeight = content.scrollHeight + 'px';
             requestAnimationFrame(() => {
               content.style.maxHeight = '0';
               setTimeout(() => {
                 content.classList.add('hidden');
                 content.style.maxHeight = '';
-              }, 200);
+              }, 300);
             });
             icon?.classList.remove('open');
             button.setAttribute('aria-expanded', 'false');
@@ -439,7 +395,6 @@ const navItems: NavItem[] = [
   const handleMenuButtonClick = (e: Event) => {
     e.preventDefault();
     e.stopPropagation();
-    e.stopImmediatePropagation();
     toggleMenu();
     setTimeout(setupMobileDropdowns, 50);
     return false;
@@ -462,7 +417,6 @@ const navItems: NavItem[] = [
     btn?.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
     
-    // Close all dropdowns
     document.querySelectorAll('#mobile-menu .mobile-dropdown-content').forEach(content => {
       const button = (content as HTMLElement).previousElementSibling;
       if (button && button.classList.contains('mobile-dropdown-btn')) {
@@ -476,13 +430,11 @@ const navItems: NavItem[] = [
     });
   };
 
-  // Add click listeners to all mobile menu links (but NOT dropdown buttons)
   const mobileLinks = document.querySelectorAll('#mobile-menu a');
   mobileLinks.forEach(link => {
     link.addEventListener('click', closeMobileMenu);
   });
 
-  // Setup dropdowns on initial load
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', setupMobileDropdowns);
   } else {
@@ -520,7 +472,6 @@ const navItems: NavItem[] = [
   };
 
   const openDropdownMenu = (dropdown: HTMLElement) => {
-    // Close any previously open dropdown
     if (openDropdown && openDropdown !== dropdown) {
       closeDropdown(openDropdown);
     }
@@ -528,10 +479,8 @@ const navItems: NavItem[] = [
     const menu = dropdown.querySelector('.dropdown-menu') as HTMLElement;
     const button = dropdown.querySelector('.dropdown-toggle') as HTMLElement;
     const arrow = dropdown.querySelector('.dropdown-arrow') as HTMLElement;
-    const arrowPointer = menu?.querySelector('.dropdown-arrow-pointer') as HTMLElement;
     
     if (menu && button && arrow) {
-      // Measure menu dimensions
       menu.style.position = 'absolute';
       menu.style.visibility = 'hidden';
       menu.style.display = 'block';
@@ -542,7 +491,6 @@ const navItems: NavItem[] = [
       const viewportWidth = window.innerWidth;
       const padding = 16;
       
-      // Reset styles
       menu.style.visibility = '';
       menu.style.display = '';
       menu.style.opacity = '';
@@ -550,22 +498,10 @@ const navItems: NavItem[] = [
       menu.style.right = '';
       menu.classList.remove('dropdown-right-aligned');
       
-      // Check if menu would overflow right side of viewport
       if (buttonRect.left + menuWidth > viewportWidth - padding) {
         menu.classList.add('dropdown-right-aligned');
-        if (arrowPointer) {
-          const buttonCenter = buttonRect.left + buttonRect.width / 2;
-          const menuRight = viewportWidth - padding;
-          const arrowOffset = buttonCenter - (menuRight - menuWidth);
-          arrowPointer.style.left = `${Math.max(20, Math.min(arrowOffset, menuWidth - 20))}px`;
-        }
-      } else {
-        if (arrowPointer) {
-          arrowPointer.style.left = '24px';
-        }
       }
       
-      // Add open class for animation
       menu.classList.add('open');
       button.classList.add('active');
       button.setAttribute('aria-expanded', 'true');
@@ -574,7 +510,6 @@ const navItems: NavItem[] = [
     }
   };
 
-  // Initialize desktop dropdowns
   function initializeDropdowns() {
     document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
       const newToggle = toggle.cloneNode(true);
@@ -596,7 +531,6 @@ const navItems: NavItem[] = [
       });
     });
 
-    // Mouse leave handlers
     document.querySelectorAll('.dropdown-container').forEach(container => {
       const containerEl = container as HTMLElement;
       containerEl.addEventListener('mouseleave', () => {
@@ -616,14 +550,12 @@ const navItems: NavItem[] = [
     });
   }
 
-  // Initialize dropdowns when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initializeDropdowns);
   } else {
     initializeDropdowns();
   }
 
-  // Close dropdown when clicking outside
   document.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;
     if (openDropdown && !openDropdown.contains(target)) {
@@ -631,7 +563,6 @@ const navItems: NavItem[] = [
     }
   });
 
-  // Close dropdown on Escape key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       if (openDropdown) {
@@ -657,10 +588,10 @@ const navItems: NavItem[] = [
       if (normalizedCurrentPath === linkPath || 
           (normalizedCurrentPath.startsWith(linkPath) && linkPath !== '' && linkPath !== '/') ||
           currentPath === href) {
-        link.classList.add('text-lime-400');
+        link.classList.add('text-accent-green');
         const indicator = link.querySelector('.nav-indicator');
         if (indicator) {
-          (indicator as HTMLElement).style.width = '60%';
+          (indicator as HTMLElement).style.width = '75%';
         }
       }
     });
@@ -669,7 +600,6 @@ const navItems: NavItem[] = [
   updateActiveLinks();
   document.addEventListener('astro:page-load', updateActiveLinks);
 
-  // Cleanup function for Astro view transitions
   document.addEventListener('astro:before-swap', () => {
     btn?.removeEventListener('click', handleMenuButtonClick);
     btn?.removeEventListener('touchend', handleMenuButtonClick);

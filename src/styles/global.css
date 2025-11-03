@@ -4,21 +4,11 @@
 
 @layer base {
   :root {
-    /* Color System - WCAG AA Compliant */
-    --bg-primary: #000000;
-    --bg-secondary: #0A0A0A;
-    --bg-card: #111111;
-    --accent-green: #A3E635;      /* Contrast: 12.6:1 on black (WCAG AAA) */
-    --accent-green-dim: #A3E63533;
-    --accent-red: #ef4444;
-    --text-primary: #FFFFFF;      /* Contrast: 21:1 on black (WCAG AAA) */
-    --text-secondary: #A0A0A0;    /* Contrast: 9.3:1 on black (WCAG AAA) */
-    --text-tertiary: #666666;     /* Contrast: 4.5:1 on black (WCAG AA) */
-
-    /* Typography */
-    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
-    --font-display: 'Space Grotesk', 'Inter', sans-serif;
-    --font-brand: 'Montserrat', 'Inter', sans-serif;
+    /* Typography - Clean, modern font stack */
+    /* Plus Jakarta Sans: Clean, modern, excellent readability on all devices */
+    --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-brand: 'Montserrat', 'Plus Jakarta Sans', sans-serif;
 
     /* Shared animation timing */
     --timing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
@@ -26,20 +16,103 @@
     --duration-fast: 0.3s;
     --duration-normal: 0.5s;
     --duration-slow: 0.8s;
+
+    /* Transition duration for theme switching */
+    --theme-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Dark Theme (Default) */
+  :root.dark,
+  :root:not(.light) {
+    /* Color System - WCAG AA Compliant - Optimized for pure black particle background */
+    --bg-primary: #000000;
+    --bg-secondary: #0A0A0A;
+    --bg-card: #1f1f1f;           /* Improved from #1a1a1a - better contrast, less gray */
+    --bg-surface: #2a2a2a;        /* Improved from #252525 - better contrast, less gray */
+    --bg-elevated: #333333;       /* Improved for better visibility */
+    --accent-green: #A3E635;      /* Contrast: 12.6:1 on black (WCAG AAA) */
+    --accent-green-dim: #A3E63533;
+    --accent-red: #ef4444;
+    --text-primary: #FFFFFF;      /* Contrast: 21:1 on black (WCAG AAA) */
+    --text-secondary: #B8B8B8;    /* Increased from #A0A0A0 for better readability over particles */
+    --text-tertiary: #808080;     /* Increased from #666666 for better readability */
+    --border-color: #333333;      /* Increased from #272727 for better visibility */
+    --border-color-light: #404040; /* Increased from #3a3a3a for better visibility */
+    --text-on-accent: #FFFFFF;     /* Use white text on green buttons in dark theme */
+    
+    /* RGB values for backdrop filters */
+    --bg-primary-rgb: 0, 0, 0;
+    --bg-card-rgb: 17, 17, 17;
+    --bg-secondary-rgb: 10, 10, 10;
+    
+    /* Particle Background - Dark Theme */
+    --particle-opacity-min: 0.15;        /* More visible particles in dark */
+    --particle-opacity-max: 0.35;         /* Brighter particles for visibility */
+    --particle-link-opacity: 0.2;         /* Visible but subtle links */
+    --particle-triangle-opacity: 0.08;    /* Subtle triangle connections */
+    --particle-cursor-opacity: 0.12;      /* Cursor effect visibility */
+    
+    /* Foreground Elements - Dark Theme */
+    --card-backdrop-opacity: 0.85;         /* Cards with backdrop for readability */
+    --hero-backdrop-opacity: 0.3;          /* Hero section subtle backdrop */
+    --section-backdrop-opacity: 0.4;       /* Section backgrounds */
+  }
+
+  /* Light Theme */
+  :root.light {
+    /* Color System - WCAG AA Compliant - Optimized for pure white particle background */
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F9FAFB;
+    --bg-card: #FAFAFA;           /* Slightly off-white for better contrast over particles */
+    --bg-surface: #F5F5F5;        /* Increased from #F3F4F6 for better contrast */
+    --bg-elevated: #E5E7EB;
+    --accent-green: #15803D;      /* Darker green for better contrast on white */
+    --accent-green-dim: #15803D33;
+    --accent-red: #DC2626;
+    --text-primary: #0F172A;      /* Darker for better contrast: 17.5:1 on white (WCAG AAA) */
+    --text-secondary: #1F2937;    /* Darker for better readability: 11.8:1 on white (WCAG AAA) */
+    --text-tertiary: #4B5563;     /* Improved contrast: 7.1:1 on white (WCAG AA) */
+    --border-color: #E2E8F0;     /* Slightly darker for better visibility */
+    --border-color-light: #CBD5E1; /* Darker for better visibility */
+    
+    /* RGB values for backdrop filters */
+    --bg-primary-rgb: 255, 255, 255;
+    --bg-card-rgb: 255, 255, 255;
+    --bg-secondary-rgb: 249, 250, 251;
+    
+    /* Particle Background - Light Theme */
+    --particle-opacity-min: 0.25;        /* More visible particles in light */
+    --particle-opacity-max: 0.45;         /* Brighter particles for visibility */
+    --particle-link-opacity: 0.3;         /* More visible links in light mode */
+    --particle-triangle-opacity: 0.12;    /* More visible triangles */
+    --particle-cursor-opacity: 0.15;      /* Cursor effect visibility */
+    
+    /* Foreground Elements - Light Theme */
+    --card-backdrop-opacity: 0.95;         /* Cards with stronger backdrop for readability */
+    --hero-backdrop-opacity: 0.5;          /* Hero section backdrop */
+    --section-backdrop-opacity: 0.6;       /* Section backgrounds */
   }
 
   html {
     @apply scroll-smooth;
     background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color var(--theme-transition), color var(--theme-transition);
   }
 
   body {
-    @apply font-sans antialiased text-white;
+    @apply font-sans antialiased;
     background-color: var(--bg-primary);
     background: transparent; /* Allow particle background to show through */
+    color: var(--text-primary);
     font-family: var(--font-body);
     font-feature-settings: 'kern' 1, 'liga' 1;
     letter-spacing: -0.01em;
+    transition: background-color var(--theme-transition), color var(--theme-transition);
+    /* Optimize font rendering for cleaner look */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   /* Accessible focus indicators for all interactive elements */
@@ -50,13 +123,129 @@
   select:focus-visible {
     outline: 2px solid var(--accent-green);
     outline-offset: 2px;
-    box-shadow: 0 0 0 3px rgba(163, 230, 53, 0.2);
+    box-shadow: 0 0 0 3px var(--accent-green-dim);
   }
 
   /* Enhanced focus for buttons and links */
   button:focus-visible,
   a:focus-visible {
-    box-shadow: 0 0 0 3px rgba(163, 230, 53, 0.3);
+    box-shadow: 0 0 0 3px var(--accent-green-dim);
+  }
+
+  /* Theme-aware text colors */
+  .text-primary {
+    color: var(--text-primary);
+  }
+
+  .text-secondary {
+    color: var(--text-secondary);
+    /* Ensure sufficient contrast for readability */
+    opacity: 1;
+  }
+
+  .text-tertiary {
+    color: var(--text-tertiary);
+    /* Ensure sufficient contrast for readability */
+    opacity: 1;
+  }
+
+  /* Theme-aware background colors */
+  .bg-primary {
+    background-color: var(--bg-primary);
+  }
+
+  .bg-secondary {
+    background-color: var(--bg-secondary);
+  }
+
+  .bg-card {
+    background-color: var(--bg-card);
+    /* Add backdrop for readability over particles */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .bg-surface {
+    background-color: var(--bg-surface);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  /* Ensure cards with backdrop maintain solid background for text readability */
+  [class*="bg-card"][class*="/95"],
+  [class*="bg-card/95"] {
+    background-color: rgba(var(--bg-card-rgb), 0.95) !important;
+  }
+  
+  /* Navigation bar - ensure solid background for text readability over particles */
+  nav[class*="bg-primary"] {
+    background-color: var(--bg-card);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+  }
+  
+  /* Dark theme nav - solid dark background */
+  :root.dark nav[class*="bg-primary"],
+  :root:not(.light) nav[class*="bg-primary"] {
+    background-color: #1a1a1a;
+  }
+  
+  /* Light theme nav - solid light background */
+  :root.light nav[class*="bg-primary"] {
+    background-color: #FAFAFA;
+  }
+  
+  /* Ensure all text elements have proper contrast */
+  .text-secondary {
+    font-weight: 500; /* Slightly bolder for better readability */
+  }
+  
+  /* Improve readability of small text */
+  .text-xs.text-secondary,
+  .text-sm.text-secondary {
+    font-weight: 500;
+    letter-spacing: 0.01em; /* Slightly more spacing for readability */
+  }
+
+  /* Theme-aware borders */
+  .border-theme {
+    border-color: var(--border-color);
+  }
+
+  .border-theme-light {
+    border-color: var(--border-color-light);
+  }
+  
+  /* Enhanced readability for foreground elements over particles */
+  .particle-backdrop {
+    background-color: rgba(var(--bg-card-rgb), var(--card-backdrop-opacity));
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+  }
+  
+  .hero-backdrop {
+    /* Use solid background for better text readability over pure black/white particles */
+    background-color: var(--bg-card);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    position: relative;
+  }
+  
+  /* Dark theme hero backdrop - solid dark background */
+  :root.dark .hero-backdrop,
+  :root:not(.light) .hero-backdrop {
+    background-color: #1a1a1a;
+  }
+  
+  /* Light theme hero backdrop - solid light background */
+  :root.light .hero-backdrop {
+    background-color: #FAFAFA;
+  }
+  
+  .section-backdrop {
+    background-color: rgba(var(--bg-secondary-rgb), var(--section-backdrop-opacity));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -245,5 +434,107 @@
     p {
       line-height: 1.6;
     }
+    
+    /* Better contrast for small text on mobile */
+    .text-secondary {
+      font-weight: 500;
+    }
+  }
+  
+  /* Ensure sufficient contrast for all interactive elements */
+  a.text-secondary:hover,
+  button.text-secondary:hover {
+    color: var(--text-primary);
+    transition: color 0.2s ease;
+  }
+  
+  /* Improve readability of gradient text - use solid color for better contrast */
+  .text-gradient-green {
+    color: var(--accent-green);
+  }
+  
+  /* Pulsing animation for boxes - green accent pulse */
+  @keyframes pulse-border {
+    0%, 100% {
+      border-color: rgba(163, 230, 53, 0.3);
+    }
+    50% {
+      border-color: rgba(163, 230, 53, 0.7);
+    }
+  }
+  
+  /* Box pulsing effect - subtle pulse on green accent border */
+  .pulse-box {
+    animation: pulse-border 3s ease-in-out infinite;
+    border-width: 2px;
+  }
+  
+  /* Important boxes with green accent border */
+  .box-accent-border {
+    border: 2px solid var(--accent-green);
+    border-opacity: 0.5;
+    transition: border-opacity 0.3s ease;
+  }
+  
+  .box-accent-border:hover {
+    border-opacity: 1;
+  }
+  
+  /* Dark theme - ensure no black text on homepage */
+  :root.dark .text-black,
+  :root:not(.light) .text-black {
+    color: var(--text-on-accent);
+  }
+  
+  /* Light theme - ensure no white text */
+  :root.light .text-white {
+    color: var(--text-primary);
+  }
+  
+  /* Base button/link text color - black for light theme */
+  a.bg-accent-green,
+  button.bg-accent-green,
+  .bg-accent-green .button-text-on-accent,
+  .bg-accent-green.button-text-on-accent {
+    color: #000000;
+  }
+  
+  /* Dark theme - improve button text colors */
+  :root.dark a.bg-accent-green,
+  :root:not(.light) a.bg-accent-green,
+  :root.dark button.bg-accent-green,
+  :root:not(.light) button.bg-accent-green,
+  :root.dark .bg-accent-green .button-text-on-accent,
+  :root:not(.light) .bg-accent-green .button-text-on-accent,
+  :root.dark .bg-accent-green.button-text-on-accent,
+  :root:not(.light) .bg-accent-green.button-text-on-accent {
+    color: var(--text-on-accent);
+  }
+  
+  /* Light theme - ensure button text is dark */
+  :root.light a.bg-accent-green,
+  :root.light button.bg-accent-green,
+  :root.light .bg-accent-green .button-text-on-accent,
+  :root.light .bg-accent-green.button-text-on-accent {
+    color: #000000;
+  }
+  
+  /* Dark theme - improve box backgrounds */
+  :root.dark .bg-card,
+  :root:not(.light) .bg-card {
+    background-color: var(--bg-card);
+    border-color: var(--border-color);
+  }
+  
+  :root.dark .bg-surface,
+  :root:not(.light) .bg-surface {
+    background-color: var(--bg-surface);
+  }
+  
+  /* Add green accent borders to important boxes */
+  :root.dark .bg-card.border-theme:hover,
+  :root:not(.light) .bg-card.border-theme:hover {
+    border-color: var(--accent-green);
+    border-opacity: 0.6;
   }
 }

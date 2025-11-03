@@ -190,6 +190,60 @@ While Astro's image optimization is powerful, be mindful of the image formats an
 
 The project uses ESLint v9 with flat config format (`eslint.config.js`). The accessibility rule `jsx-a11y/label-has-associated-control` is configured to properly recognize `for` attribute associations in Astro components. Do not revert to the old `.eslintrc.cjs` format.
 
+### Theme System (Dark/Light Mode)
+
+The website supports both dark and light themes with a comprehensive theme toggle system. **Critical rules for AI agents:**
+
+- **Theme Toggle Button:**
+  - Located in the navigation bar (desktop and mobile)
+  - Component: `src/components/ThemeToggle.astro`
+  - Toggles between `dark` and `light` classes on the `<html>` element
+  - Theme preference is stored in `localStorage` and persists across sessions
+  - System preference detection on first visit
+
+- **Theme-Aware Colors:**
+  - **NEVER use hardcoded colors** like `text-white`, `text-black`, `bg-black`, `bg-white`
+  - **ALWAYS use theme-aware CSS variables:**
+    - Text: `text-primary`, `text-secondary`, `text-tertiary`
+    - Backgrounds: `bg-primary`, `bg-card`, `bg-surface`, `bg-secondary`
+    - Borders: `border-theme`, `border-theme-light`
+    - Accents: `accent-green` (theme-aware green)
+  
+- **Button Text Colors:**
+  - **Green buttons** (`bg-accent-green`): Use `text-black dark:text-white` for proper contrast
+  - Dark theme: White text on green buttons
+  - Light theme: Black text on green buttons
+  - **DO NOT** use `text-white` alone - always pair with `dark:text-white` or use theme-aware variables
+
+- **CSS Variables:**
+  - All colors defined in `src/styles/global.css` using CSS custom properties
+  - Dark theme: `:root.dark` or `:root:not(.light)`
+  - Light theme: `:root.light`
+  - Variables automatically adjust based on theme class
+
+- **Particle Background:**
+  - Particles use pure black/white based on theme
+  - Text must be optimized for readability over pure black/white backgrounds
+  - Use solid backgrounds (`bg-card`, `bg-surface`) for text containers
+  - Ensure sufficient contrast for all text elements
+
+- **Testing Themes:**
+  - Always test components in both dark and light themes
+  - Verify text contrast meets WCAG AA standards in both themes
+  - Check that buttons and interactive elements are readable in both themes
+  - Ensure no black text appears in dark theme (except on green buttons)
+  - Ensure no white text appears in light theme
+
+- **Logo Colors:**
+  - Logo uses fixed green color `#A3E635` in both themes
+  - Do not change logo colors based on theme
+
+- **Best Practices:**
+  - Use `transition-colors` class for smooth theme transitions
+  - Test all new components in both themes before submitting
+  - Avoid shadows/glow effects - use color changes instead for readability
+  - Ensure box backgrounds have sufficient opacity for text readability over particles
+
 ---
 
 ## MCP Server Usage Guidelines

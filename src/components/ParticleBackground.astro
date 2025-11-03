@@ -127,7 +127,38 @@
       "bottom-right",
       "bottom-left",
     ][Math.floor(Math.random() * 8)];
-    randomOpacity = Math.random() * 0.15 + 0.1; // 0.1-0.25
+
+    // Get theme-aware opacity values from CSS variables
+    const getComputedOpacity = (varName: string, fallback: number): number => {
+      const value = getComputedStyle(document.documentElement)
+        .getPropertyValue(varName)
+        .trim();
+      return value ? parseFloat(value) : fallback;
+    };
+
+    const particleOpacityMin = getComputedOpacity(
+      "--particle-opacity-min",
+      0.15,
+    );
+    const particleOpacityMax = getComputedOpacity(
+      "--particle-opacity-max",
+      0.35,
+    );
+    const particleLinkOpacity = getComputedOpacity(
+      "--particle-link-opacity",
+      0.2,
+    );
+    const particleTriangleOpacity = getComputedOpacity(
+      "--particle-triangle-opacity",
+      0.08,
+    );
+    const particleCursorOpacity = getComputedOpacity(
+      "--particle-cursor-opacity",
+      0.12,
+    );
+
+    // Use theme-aware opacity for links (override random)
+    randomOpacity = particleLinkOpacity;
     randomAnimSpeed = Math.random() * 2 + 0.5; // 0.5-2.5
     randomShapeType =
       Math.random() > 0.5
@@ -161,17 +192,23 @@
         },
         particles: {
           color: {
-            value: "#A3E635", // Your brand lime color
+            value:
+              getComputedStyle(document.documentElement)
+                .getPropertyValue("--accent-green")
+                .trim() || "#A3E635", // Theme-aware accent color
           },
           links: {
-            color: "#A3E635",
+            color:
+              getComputedStyle(document.documentElement)
+                .getPropertyValue("--accent-green")
+                .trim() || "#A3E635",
             distance: randomLinkDistance,
             enable: true,
-            opacity: randomOpacity,
+            opacity: particleLinkOpacity,
             width: 1,
             triangles: {
               enable: true,
-              opacity: randomOpacity * 0.3,
+              opacity: particleTriangleOpacity,
             },
           },
           move: {
@@ -192,11 +229,11 @@
             value: randomParticleCount,
           },
           opacity: {
-            value: { min: 0.1, max: 0.4 },
+            value: { min: particleOpacityMin, max: particleOpacityMax },
             animation: {
               enable: true,
               speed: randomAnimSpeed,
-              minimumValue: 0.1,
+              minimumValue: particleOpacityMin,
               sync: false,
             },
           },
@@ -214,7 +251,10 @@
           },
         },
         background: {
-          color: "#000000",
+          color:
+            getComputedStyle(document.documentElement)
+              .getPropertyValue("--bg-primary")
+              .trim() || "#000000", // Theme-aware background
         },
         detectRetina: true,
       });
@@ -273,12 +313,18 @@
         if (!cursorEffect) {
           cursorEffect = document.createElement("div");
           cursorEffect.className = "cursor-effect";
+          const accentColor =
+            getComputedStyle(document.documentElement)
+              .getPropertyValue("--accent-green")
+              .trim() || "#A3E635";
+          const rgb = hexToRgb(accentColor);
+          const cursorOpacity = particleCursorOpacity;
           cursorEffect.style.cssText = `
             position: fixed;
             width: 300px;
             height: 300px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(163, 230, 53, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${cursorOpacity}) 0%, transparent 70%);
             pointer-events: none;
             z-index: -9;
             transform: translate(-50%, -50%);
@@ -289,7 +335,10 @@
 
         cursorEffect.style.left = `${mouseX}px`;
         cursorEffect.style.top = `${mouseY}px`;
-        cursorEffect.style.opacity = String(Math.min(mouseVelocity / 50, 0.5));
+        const maxOpacity = particleCursorOpacity * 4;
+        cursorEffect.style.opacity = String(
+          Math.min(mouseVelocity / 50, maxOpacity),
+        );
       }
 
       lastMouseX = mouseX;
@@ -297,6 +346,18 @@
     };
 
     window.addEventListener("mousemove", mouseMoveHandler, { passive: true });
+  }
+
+  // Helper function to convert hex to RGB
+  function hexToRgb(hex: string): { r: number; g: number; b: number } {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result
+      ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16),
+        }
+      : { r: 163, g: 230, b: 53 }; // Default to brand color
   }
 
   // Initialize when DOM is ready and tsParticles is loaded
@@ -317,6 +378,36 @@
 
   // Start initialization
   waitForInit();
+
+  // Reinitialize particles when theme changes
+  const themeObserver = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (
+        mutation.type === "attributes" &&
+        mutation.attributeName === "class"
+      ) {
+        const html = document.documentElement;
+        if (
+          html.classList.contains("dark") ||
+          html.classList.contains("light")
+        ) {
+          // Theme changed, reinitialize particles with new opacity values
+          cleanup();
+          setTimeout(() => {
+            waitForInit();
+          }, 100);
+        }
+      }
+    });
+  });
+
+  // Observe theme changes on html element
+  if (typeof document !== "undefined") {
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+  }
 
   // Cleanup and reinitialize on Astro view transitions
   document.addEventListener("astro:before-swap", cleanup);
@@ -346,7 +437,7 @@
   footer {
     position: relative;
     z-index: 10; /* Above particle background - same as main content */
-    background-color: var(--bg-secondary); /* Ensure footer has background */
+    background-color: var(--bg-card); /* Theme-aware footer background */
   }
 
   /* Override tsParticles inline styles to ensure canvas is visible */

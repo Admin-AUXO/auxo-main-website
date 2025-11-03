@@ -1,0 +1,126 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<button
+  id="theme-toggle"
+  type="button"
+  class="theme-toggle relative w-10 h-10 rounded-lg bg-surface border border-theme text-secondary hover:text-accent-green transition-all duration-200 flex items-center justify-center min-w-[44px] min-h-[44px] hover:bg-accent-green/10 hover:border-accent-green/30 active:scale-95"
+  aria-label="Toggle theme"
+  title="Toggle dark/light mode"
+>
+  <Icon
+    name="mdi:moon-waning-crescent"
+    class="theme-icon-dark absolute w-5 h-5 transition-all duration-300 opacity-100 rotate-0 scale-100"
+  />
+  <Icon
+    name="mdi:white-balance-sunny"
+    class="theme-icon-light absolute w-5 h-5 transition-all duration-300 opacity-0 rotate-90 scale-0"
+  />
+</button>
+
+<script>
+  (function initThemeToggle() {
+    const themeToggle = document.getElementById('theme-toggle');
+    if (!themeToggle) return;
+
+    // Get theme from localStorage or default to 'dark'
+    const getTheme = (): 'light' | 'dark' => {
+      if (typeof window === 'undefined') return 'dark';
+      const stored = localStorage.getItem('theme') as 'light' | 'dark' | null;
+      if (stored) return stored;
+      
+      // Check system preference
+      if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+        return 'light';
+      }
+      return 'dark';
+    };
+
+    // Apply theme to document
+    const applyTheme = (theme: 'light' | 'dark') => {
+      const root = document.documentElement;
+      if (theme === 'light') {
+        root.classList.remove('dark');
+        root.classList.add('light');
+      } else {
+        root.classList.remove('light');
+        root.classList.add('dark');
+      }
+      localStorage.setItem('theme', theme);
+      updateIcon(theme);
+    };
+
+    // Update icon based on theme
+    const updateIcon = (theme: 'light' | 'dark') => {
+      const darkIcon = themeToggle.querySelector('.theme-icon-dark');
+      const lightIcon = themeToggle.querySelector('.theme-icon-light');
+      
+      if (darkIcon && lightIcon) {
+        if (theme === 'dark') {
+          darkIcon.classList.remove('opacity-0', 'rotate-90', 'scale-0');
+          darkIcon.classList.add('opacity-100', 'rotate-0', 'scale-100');
+          lightIcon.classList.remove('opacity-100', 'rotate-0', 'scale-100');
+          lightIcon.classList.add('opacity-0', 'rotate-90', 'scale-0');
+        } else {
+          darkIcon.classList.remove('opacity-100', 'rotate-0', 'scale-100');
+          darkIcon.classList.add('opacity-0', 'rotate-90', 'scale-0');
+          lightIcon.classList.remove('opacity-0', 'rotate-90', 'scale-0');
+          lightIcon.classList.add('opacity-100', 'rotate-0', 'scale-100');
+        }
+      }
+    };
+
+    // Toggle theme
+    const toggleTheme = () => {
+      const currentTheme = getTheme();
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      applyTheme(newTheme);
+    };
+
+    // Initialize theme on load
+    const initTheme = () => {
+      const theme = getTheme();
+      applyTheme(theme);
+    };
+
+    // Set up event listeners
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    // Initialize on page load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTheme);
+    } else {
+      initTheme();
+    }
+
+    // Listen for system theme changes
+    if (typeof window !== 'undefined') {
+      window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+        // Only auto-switch if user hasn't manually set a preference
+        if (!localStorage.getItem('theme')) {
+          applyTheme(e.matches ? 'light' : 'dark');
+        }
+      });
+    }
+
+    // Cleanup on Astro view transitions
+    document.addEventListener('astro:before-swap', () => {
+      themeToggle.removeEventListener('click', toggleTheme);
+    });
+  })();
+</script>
+
+<style>
+  .theme-toggle {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .theme-icon-dark,
+  .theme-icon-light {
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+</style>
+

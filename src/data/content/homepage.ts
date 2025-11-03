@@ -26,8 +26,8 @@ export interface WhyChooseItem {
 export const homepageContent = {
   hero: {
     badge: 'Rethink Data. Rethink Decisions.',
-    title: 'Every Organization has data. Few understand it',
-    titleHighlight: '',
+    title: 'Every Organization has data.',
+    titleHighlight: 'Few understand it',
     subtitle: 'Empowering confident, data-driven decisions at speed and scale.',
     primaryCta: {
       text: 'Schedule Free Consultation',
@@ -91,25 +91,25 @@ export const homepageContent = {
         number: 1,
         icon: 'mdi:eye',
         title: 'Discover',
-        description: 'We assess your current state, understand your business goals, and identify key opportunities for impact',
+        description: 'Assess your current analytics state and identify strategic opportunities for growth',
       },
       {
         number: 2,
         icon: 'mdi:lightbulb',
         title: 'Design',
-        description: 'We create a tailored analytics roadmap with clear milestones, technology choices, and success metrics',
+        description: 'Create a tailored analytics roadmap with clear milestones and success metrics',
       },
       {
         number: 3,
         icon: 'mdi:check-circle',
         title: 'Deploy',
-        description: 'We implement solutions using agile sprints, ensuring rapid delivery and continuous feedback loops',
+        description: 'Implement solutions using agile sprints with rapid delivery and continuous feedback',
       },
       {
         number: 4,
         icon: 'mdi:chart-line',
         title: 'Optimize',
-        description: 'We monitor performance, refine models, and continuously improve to maximize your ROI and business value',
+        description: 'Monitor performance, refine models, and continuously improve to maximize ROI',
       },
     ] as ProcessStep[],
     valueProps: [

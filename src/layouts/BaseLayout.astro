@@ -38,7 +38,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <SEO
       title={title}
@@ -52,6 +52,21 @@ const {
       canonicalURL={canonicalURL}
     />
     <ViewTransitions />
+    <!-- Initialize theme before page load to prevent flash -->
+    <script is:inline>
+      (function() {
+        const getTheme = () => {
+          if (typeof window === 'undefined') return 'dark';
+          const stored = localStorage.getItem('theme');
+          if (stored === 'light' || stored === 'dark') return stored;
+          if (window.matchMedia('(prefers-color-scheme: light)').matches) return 'light';
+          return 'dark';
+        };
+        const theme = getTheme();
+        document.documentElement.classList.remove('dark', 'light');
+        document.documentElement.classList.add(theme);
+      })();
+    </script>
     <!-- tsParticles Bundle (CDN) - Only load if particles are enabled for performance -->
     {
       showParticles && (
@@ -62,14 +77,14 @@ const {
       )
     }
   </head>
-  <body class="min-h-screen flex flex-col relative">
+  <body class="min-h-screen flex flex-col relative bg-primary transition-colors duration-300">
     <!-- Particle Background Animation - Only render if enabled -->
     {showParticles && <ParticleBackground />}
 
     <!-- Skip to main content link for keyboard accessibility -->
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-6 focus:py-3 focus:bg-lime-400 focus:text-black focus:font-bold focus:rounded-lg focus:shadow-lg"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-6 focus:py-3 focus:bg-accent-green focus:text-black focus:font-bold focus:rounded-lg focus:shadow-lg transition-colors"
     >
       Skip to main content
     </a>

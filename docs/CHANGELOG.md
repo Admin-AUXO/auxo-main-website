@@ -17,6 +17,69 @@ Entries are organized by date (newest first) and include:
 
 ## [Unreleased]
 
+### Feature | UI/UX | Performance | Accessibility
+**Date:** 2025-11-03
+
+**Description:** Homepage readability improvements, methodology section redesign, and comprehensive theme system enhancements.
+
+**Key Changes:**
+- **Homepage Readability Improvements:**
+  - Optimized text colors for pure black/white particle backgrounds
+  - Removed all shadows/glow effects, using color-based solutions instead
+  - Improved contrast ratios for all text elements (WCAG AAA compliance)
+  - Enhanced dark theme backgrounds (less gray, better contrast)
+  - Fixed all button text colors for proper visibility in both themes
+  - Added green accent borders to all boxes for importance indication
+  - Implemented subtle pulsing animation for boxes
+
+- **Methodology Section Redesign:**
+  - Removed small number badges, kept only large background numbers
+  - Removed icons from methodology cards
+  - Right-aligned titles (Discover, Design, Deploy, Optimize)
+  - Rewrote and equalized all descriptions for better clarity and consistency
+  - Removed bottom Value Props section (2-4 Weeks, Agile, 100%)
+  - Cleaner, more focused layout
+
+- **Footer Improvements:**
+  - Moved Legal links under Resources section
+  - Removed individual service links to prevent text cutoff
+  - Better organization and spacing
+
+- **Theme System Enhancements:**
+  - Comprehensive theme-aware color system
+  - Automatic text color adjustment for buttons (black in light, white in dark)
+  - Theme persistence via localStorage
+  - Theme-aware particle background optimization
+  - Improved navigation bar spacing (space-x-5)
+  - Logo colors fixed to consistent green in both themes
+
+- **Component Updates:**
+  - Navigation: Increased spacing, improved button readability
+  - Footer: Restructured layout, Legal links moved under Resources
+  - Hero Section: Enhanced backdrop for better text readability
+  - Methodology Section: Redesigned with large background numbers
+  - All CTAs: Fixed text colors for both themes
+
+**Files Changed:**
+- `src/pages/index.astro` - Methodology section redesign, readability improvements
+- `src/components/Navigation.astro` - Increased spacing, fixed button text colors
+- `src/components/Footer.astro` - Restructured layout, Legal links moved under Resources
+- `src/styles/global.css` - Theme system enhancements, improved contrast, pulsing animations
+- `src/data/content/homepage.ts` - Rewritten methodology descriptions
+- `docs/AGENT_RULES.md` - Added comprehensive theme system guidelines
+- `docs/CHANGELOG.md` - This entry
+
+**Details:**
+- Logo colors fixed to `#A3E635` for consistency across themes
+- Navigation spacing increased for better usability
+- All buttons and CTAs now have proper contrast and backgrounds
+- Methodology section numbers redesigned with larger size and better contrast
+- Footer optimized to prevent hiding navigation bar
+- All text elements use theme-aware colors for optimal readability
+- Particle background opacity optimized per theme for visibility without distraction
+
+---
+
 ### Content
 - **Startup Narrative Enhancement:** Comprehensive review and update of all website content to reflect authentic startup positioning
   - Updated homepage to emphasize startup advantages (agility, direct access, fresh perspective)

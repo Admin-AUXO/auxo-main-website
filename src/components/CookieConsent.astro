@@ -7,7 +7,7 @@ const base = import.meta.env.BASE_URL;
 
 <div
   id="cookie-consent"
-  class="hidden fixed bottom-0 left-0 right-0 z-[100] bg-zinc-950/98 border-t border-zinc-800 backdrop-blur-lg"
+  class="hidden fixed bottom-0 left-0 right-0 z-[100] bg-card/98 border-t border-theme backdrop-blur-lg transition-colors"
 >
   <div class="container mx-auto px-4 py-6">
     <div
@@ -15,12 +15,12 @@ const base = import.meta.env.BASE_URL;
     >
       <div class="flex-1">
         <div class="flex items-start gap-3">
-          <svg
-            class="w-6 h-6 text-lime-400 flex-shrink-0 mt-0.5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+            <svg
+              class="w-6 h-6 text-accent-green flex-shrink-0 mt-0.5 transition-colors"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -29,14 +29,14 @@ const base = import.meta.env.BASE_URL;
             ></path>
           </svg>
           <div>
-            <h3 class="font-bold text-white mb-1">
+            <h3 class="font-bold text-primary mb-1 transition-colors">
               {cookieConsentContent.banner.title}
             </h3>
-            <p class="text-sm text-gray-400 leading-relaxed max-w-3xl">
+            <p class="text-sm text-secondary leading-relaxed max-w-3xl transition-colors">
               {cookieConsentContent.banner.description}
               <a
                 href={`${base}${cookieConsentContent.banner.privacyPolicyHref}`}
-                class="text-lime-400 hover:underline ml-1"
+                class="text-accent-green hover:underline ml-1 transition-colors"
                 >{cookieConsentContent.banner.learnMore}</a
               >
             </p>
@@ -47,19 +47,19 @@ const base = import.meta.env.BASE_URL;
       <div class="flex flex-wrap gap-3">
         <button
           id="cookie-settings-btn"
-          class="px-4 py-2 text-sm font-medium text-white bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-colors focus:outline-none focus:ring-2 focus:ring-lime-400"
+          class="px-4 py-2 text-sm font-medium text-primary bg-surface border border-theme rounded-lg hover:bg-accent-green/10 hover:border-accent-green/30 transition-all focus:outline-none focus:ring-2 focus:ring-accent-green/50 min-h-[44px]"
         >
           {cookieConsentContent.banner.customize}
         </button>
         <button
           id="cookie-reject-btn"
-          class="px-4 py-2 text-sm font-medium text-white bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-colors focus:outline-none focus:ring-2 focus:ring-lime-400"
+          class="px-4 py-2 text-sm font-medium text-primary bg-surface border border-theme rounded-lg hover:bg-accent-green/10 hover:border-accent-green/30 transition-all focus:outline-none focus:ring-2 focus:ring-accent-green/50 min-h-[44px]"
         >
           {cookieConsentContent.banner.rejectOptional}
         </button>
         <button
           id="cookie-accept-btn"
-          class="px-6 py-2 text-sm font-bold text-black bg-lime-400 rounded-lg hover:bg-lime-500 transition-colors focus:outline-none focus:ring-2 focus:ring-lime-400"
+          class="px-6 py-2 text-sm font-bold text-black bg-accent-green rounded-lg hover:bg-accent-green/90 transition-all focus:outline-none focus:ring-2 focus:ring-accent-green/50 min-h-[44px]"
         >
           {cookieConsentContent.banner.acceptAll}
         </button>
@@ -75,16 +75,16 @@ const base = import.meta.env.BASE_URL;
 >
   <div class="flex items-center justify-center min-h-screen p-4">
     <div
-      class="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+      class="bg-card border border-theme rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl transition-colors"
     >
-      <div class="p-6 border-b border-zinc-800">
+      <div class="p-6 border-b border-theme">
         <div class="flex items-center justify-between">
-          <h2 class="text-2xl font-bold text-white">
+          <h2 class="text-2xl font-bold text-primary transition-colors">
             {cookieConsentContent.modal.title}
           </h2>
           <button
             id="cookie-modal-close"
-            class="text-gray-400 hover:text-white transition-colors"
+            class="text-secondary hover:text-primary transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
             aria-label="Close modal"
           >
             <svg
@@ -108,20 +108,20 @@ const base = import.meta.env.BASE_URL;
         <div class="space-y-3">
           <div class="flex items-center justify-between">
             <div>
-              <h3 class="font-bold text-white">
+              <h3 class="font-bold text-primary transition-colors">
                 {cookieConsentContent.modal.essential.title}
               </h3>
-              <p class="text-sm text-gray-400">
+              <p class="text-sm text-secondary transition-colors">
                 {cookieConsentContent.modal.essential.description}
               </p>
             </div>
-            <div class="px-3 py-1 bg-zinc-800 rounded-full">
-              <span class="text-xs font-medium text-gray-400"
+            <div class="px-3 py-1 bg-surface rounded-full">
+              <span class="text-xs font-medium text-secondary transition-colors"
                 >{cookieConsentContent.modal.essential.alwaysActive}</span
               >
             </div>
           </div>
-          <p class="text-sm text-gray-400">
+          <p class="text-sm text-secondary transition-colors">
             {cookieConsentContent.modal.essential.details}
           </p>
         </div>
@@ -130,10 +130,10 @@ const base = import.meta.env.BASE_URL;
         <div class="space-y-3">
           <div class="flex items-center justify-between">
             <div>
-              <h3 class="font-bold text-white">
+              <h3 class="font-bold text-primary transition-colors">
                 {cookieConsentContent.modal.analytics.title}
               </h3>
-              <p class="text-sm text-gray-400">
+              <p class="text-sm text-secondary transition-colors">
                 {cookieConsentContent.modal.analytics.description}
               </p>
             </div>
@@ -148,12 +148,12 @@ const base = import.meta.env.BASE_URL;
                 class="sr-only peer"
               />
               <div
-                class="w-11 h-6 bg-zinc-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-lime-400 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-lime-400"
+                class="w-11 h-6 bg-surface border border-theme peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-accent-green/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent-green"
               >
               </div>
             </label>
           </div>
-          <p class="text-sm text-gray-400">
+          <p class="text-sm text-secondary transition-colors">
             {cookieConsentContent.modal.analytics.details}
           </p>
         </div>
@@ -162,10 +162,10 @@ const base = import.meta.env.BASE_URL;
         <div class="space-y-3">
           <div class="flex items-center justify-between">
             <div>
-              <h3 class="font-bold text-white">
+              <h3 class="font-bold text-primary transition-colors">
                 {cookieConsentContent.modal.marketing.title}
               </h3>
-              <p class="text-sm text-gray-400">
+              <p class="text-sm text-secondary transition-colors">
                 {cookieConsentContent.modal.marketing.description}
               </p>
             </div>
@@ -180,27 +180,27 @@ const base = import.meta.env.BASE_URL;
                 class="sr-only peer"
               />
               <div
-                class="w-11 h-6 bg-zinc-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-lime-400 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-lime-400"
+                class="w-11 h-6 bg-surface border border-theme peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-accent-green/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent-green"
               >
               </div>
             </label>
           </div>
-          <p class="text-sm text-gray-400">
+          <p class="text-sm text-secondary transition-colors">
             {cookieConsentContent.modal.marketing.details}
           </p>
         </div>
       </div>
 
-      <div class="p-6 border-t border-zinc-800 flex flex-col sm:flex-row gap-3">
+      <div class="p-6 border-t border-theme flex flex-col sm:flex-row gap-3">
         <button
           id="cookie-save-settings"
-          class="flex-1 px-6 py-3 text-sm font-bold text-black bg-lime-400 rounded-lg hover:bg-lime-500 transition-colors focus:outline-none focus:ring-2 focus:ring-lime-400"
+          class="flex-1 px-6 py-3 text-sm font-bold text-black bg-accent-green rounded-lg hover:bg-accent-green/90 transition-all focus:outline-none focus:ring-2 focus:ring-accent-green/50 min-h-[44px]"
         >
           {cookieConsentContent.modal.savePreferences}
         </button>
         <button
           id="cookie-accept-all-modal"
-          class="flex-1 px-6 py-3 text-sm font-medium text-white bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-colors focus:outline-none focus:ring-2 focus:ring-lime-400"
+          class="flex-1 px-6 py-3 text-sm font-medium text-primary bg-surface border border-theme rounded-lg hover:bg-accent-green/10 hover:border-accent-green/30 transition-all focus:outline-none focus:ring-2 focus:ring-accent-green/50 min-h-[44px]"
         >
           {cookieConsentContent.modal.acceptAll}
         </button>

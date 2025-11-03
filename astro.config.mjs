@@ -82,10 +82,10 @@ export default defineConfig({
           'chart-bar', 'chart-line', 'chart-scatter-plot', 'check', 'check-circle', 'chevron-down',
           'currency-usd', 'database', 'database-cog', 'download', 'email', 'email-newsletter',
           'email-outline', 'eye', 'factory', 'file-document', 'handshake', 'help-circle', 'home',
-          'hospital', 'information', 'lightbulb', 'linkedin', 'lock', 'map-marker',
+          'hospital', 'information', 'lightbulb', 'linkedin', 'lock', 'map-marker', 'moon-waning-crescent',
           'office-building', 'package-variant', 'phone', 'post', 'robot', 'rocket',
           'security', 'share-variant', 'shield-check', 'star', 'store', 'strategy',
-          'target', 'tools', 'trophy', 'truck-fast', 'twitter'
+          'target', 'tools', 'trophy', 'truck-fast', 'twitter', 'white-balance-sunny'
         ],
       },
       svgoOptions: {

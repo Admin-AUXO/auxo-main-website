@@ -11,17 +11,17 @@ const base = import.meta.env.BASE_URL;
     <!-- Progress Bar -->
     <div class="mb-8">
       <div class="flex justify-between items-center mb-2">
-        <span class="text-sm text-gray-400"
+        <span class="text-sm text-secondary transition-colors"
           >Step <span id="current-step-num">1</span> of 4</span
         >
-        <span class="text-sm text-gray-400"
+        <span class="text-sm text-secondary transition-colors"
           ><span id="progress-percent">25</span>% Complete</span
         >
       </div>
-      <div class="h-2 bg-zinc-800 rounded-full overflow-hidden">
+      <div class="h-2 bg-surface rounded-full overflow-hidden">
         <div
           id="progress-bar"
-          class="h-full bg-gradient-to-r from-lime-400 to-green-500 transition-all duration-500"
+          class="h-full bg-gradient-to-r from-accent-green to-green-500 transition-all duration-500"
           style="width: 25%"
         >
         </div>
@@ -33,7 +33,7 @@ const base = import.meta.env.BASE_URL;
       <h3 class="text-2xl font-bold mb-2">
         {multiStepFormContent.step1.title}
       </h3>
-      <p class="text-gray-400 mb-6">{multiStepFormContent.step1.subtitle}</p>
+      <p class="text-secondary mb-6 transition-colors">{multiStepFormContent.step1.subtitle}</p>
 
       <div class="space-y-4">
         <div>
@@ -44,7 +44,7 @@ const base = import.meta.env.BASE_URL;
               id="name"
               name="name"
               required
-              class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors"
+              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
               placeholder="John Smith"
             />
           </label>
@@ -58,7 +58,7 @@ const base = import.meta.env.BASE_URL;
               id="email"
               name="email"
               required
-              class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors"
+              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
               placeholder="john@company.com"
             />
           </label>
@@ -72,7 +72,7 @@ const base = import.meta.env.BASE_URL;
               id="company"
               name="company"
               required
-              class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors"
+              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
               placeholder="Acme Corporation"
             />
           </label>
@@ -87,7 +87,7 @@ const base = import.meta.env.BASE_URL;
               type="tel"
               id="phone"
               name="phone"
-              class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors"
+              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
               placeholder="+971 50 123 4567"
             />
           </label>
@@ -110,7 +110,7 @@ const base = import.meta.env.BASE_URL;
               id="industry"
               name="industry"
               required
-              class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors"
+              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
             >
               <option value="">Select your industry...</option>
               <option value="finance">Financial Services & Banking</option>
@@ -138,16 +138,16 @@ const base = import.meta.env.BASE_URL;
           >
             <button
               type="button"
-              class="size-option px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg hover:border-lime-400 transition-colors text-left"
+              class="size-option px-4 py-3 bg-surface border border-theme rounded-lg hover:border-accent-green/50 hover:bg-accent-green/10 transition-all text-left text-primary"
               data-value="1-50"
               aria-label="Company Size: 1-50 employees, Small Team"
             >
               <div class="font-medium">1-50</div>
-              <div class="text-xs text-gray-400">Small Team</div>
+              <div class="text-xs text-secondary transition-colors">Small Team</div>
             </button>
             <button
               type="button"
-              class="size-option px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg hover:border-lime-400 transition-colors text-left"
+              class="size-option px-4 py-3 bg-surface border border-theme rounded-lg hover:border-accent-green/50 hover:bg-accent-green/10 transition-all text-left text-primary"
               data-value="51-200"
               aria-label="Company Size: 51-200 employees, Growing Business"
             >
@@ -156,7 +156,7 @@ const base = import.meta.env.BASE_URL;
             </button>
             <button
               type="button"
-              class="size-option px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg hover:border-lime-400 transition-colors text-left"
+              class="size-option px-4 py-3 bg-surface border border-theme rounded-lg hover:border-accent-green/50 hover:bg-accent-green/10 transition-all text-left text-primary"
               data-value="201-1000"
               aria-label="Company Size: 201-1000 employees, Mid-Market"
             >
@@ -165,7 +165,7 @@ const base = import.meta.env.BASE_URL;
             </button>
             <button
               type="button"
-              class="size-option px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg hover:border-lime-400 transition-colors text-left"
+              class="size-option px-4 py-3 bg-surface border border-theme rounded-lg hover:border-accent-green/50 hover:bg-accent-green/10 transition-all text-left text-primary"
               data-value="1000+"
               aria-label="Company Size: 1000+ employees, Enterprise"
             >
@@ -190,11 +190,11 @@ const base = import.meta.env.BASE_URL;
               id="role"
               name="role"
               required
-              class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors"
+              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
               placeholder="e.g., Data Manager, CTO, Business Analyst"
             />
           </label>
-          <p class="mt-1 text-xs text-gray-500">
+          <p class="mt-1 text-xs text-secondary transition-colors">
             This helps us understand your perspective
           </p>
         </div>
@@ -216,7 +216,7 @@ const base = import.meta.env.BASE_URL;
           <div class="space-y-2">
             <label
               for="service-bi"
-              class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors"
+              class="flex items-start p-3 bg-surface border border-theme rounded-lg cursor-pointer hover:border-accent-green/50 hover:bg-accent-green/10 transition-all"
             >
               <input
                 type="checkbox"
@@ -228,14 +228,14 @@ const base = import.meta.env.BASE_URL;
               />
               <div>
                 <div class="font-medium">Business Intelligence & Reporting</div>
-                <div class="text-xs text-gray-400">
+                <div class="text-xs text-secondary transition-colors">
                   Dashboards, KPIs, and data visualization
                 </div>
               </div>
             </label>
             <label
               for="service-analytics"
-              class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors"
+              class="flex items-start p-3 bg-surface border border-theme rounded-lg cursor-pointer hover:border-accent-green/50 hover:bg-accent-green/10 transition-all"
             >
               <input
                 type="checkbox"
@@ -247,14 +247,14 @@ const base = import.meta.env.BASE_URL;
               />
               <div>
                 <div class="font-medium">Advanced Data Analytics</div>
-                <div class="text-xs text-gray-400">
+                <div class="text-xs text-secondary transition-colors">
                   Predictive analytics and data science
                 </div>
               </div>
             </label>
             <label
               for="service-strategy"
-              class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors"
+              class="flex items-start p-3 bg-surface border border-theme rounded-lg cursor-pointer hover:border-accent-green/50 hover:bg-accent-green/10 transition-all"
             >
               <input
                 type="checkbox"
@@ -266,14 +266,14 @@ const base = import.meta.env.BASE_URL;
               />
               <div>
                 <div class="font-medium">Data Strategy & Roadmap</div>
-                <div class="text-xs text-gray-400">
+                <div class="text-xs text-secondary transition-colors">
                   Strategic planning and consulting
                 </div>
               </div>
             </label>
             <label
               for="service-engineering"
-              class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors"
+              class="flex items-start p-3 bg-surface border border-theme rounded-lg cursor-pointer hover:border-accent-green/50 hover:bg-accent-green/10 transition-all"
             >
               <input
                 type="checkbox"
@@ -285,14 +285,14 @@ const base = import.meta.env.BASE_URL;
               />
               <div>
                 <div class="font-medium">Data Engineering & Integration</div>
-                <div class="text-xs text-gray-400">
+                <div class="text-xs text-secondary transition-colors">
                   Data pipelines and infrastructure
                 </div>
               </div>
             </label>
             <label
               for="service-ml"
-              class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors"
+              class="flex items-start p-3 bg-surface border border-theme rounded-lg cursor-pointer hover:border-accent-green/50 hover:bg-accent-green/10 transition-all"
             >
               <input
                 type="checkbox"
@@ -304,14 +304,14 @@ const base = import.meta.env.BASE_URL;
               />
               <div>
                 <div class="font-medium">Machine Learning & AI</div>
-                <div class="text-xs text-gray-400">
+                <div class="text-xs text-secondary transition-colors">
                   AI/ML models and automation
                 </div>
               </div>
             </label>
             <label
               for="service-governance"
-              class="flex items-start p-3 bg-zinc-900 border border-zinc-700 rounded-lg cursor-pointer hover:border-lime-400 transition-colors"
+              class="flex items-start p-3 bg-surface border border-theme rounded-lg cursor-pointer hover:border-accent-green/50 hover:bg-accent-green/10 transition-all"
             >
               <input
                 type="checkbox"
@@ -323,7 +323,7 @@ const base = import.meta.env.BASE_URL;
               />
               <div>
                 <div class="font-medium">Data Governance & Compliance</div>
-                <div class="text-xs text-gray-400">
+                <div class="text-xs text-secondary transition-colors">
                   Security, privacy, and compliance
                 </div>
               </div>
@@ -340,7 +340,7 @@ const base = import.meta.env.BASE_URL;
               id="timeline"
               name="timeline"
               required
-              class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors"
+              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
             >
               <option value="">When do you need this?</option>
               <option value="urgent">Urgent (Within 1 month)</option>
@@ -359,7 +359,7 @@ const base = import.meta.env.BASE_URL;
             <select
               id="budget"
               name="budget"
-              class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors"
+              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
             >
               <option value="">Select a range...</option>
               <option value="small">$10k - $50k</option>
@@ -391,11 +391,11 @@ const base = import.meta.env.BASE_URL;
               name="message"
               rows="6"
               required
-              class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors resize-none"
+              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all resize-none text-primary placeholder:text-secondary"
               placeholder="Describe your data analytics challenges, goals, or questions..."
             ></textarea>
           </label>
-          <p class="mt-1 text-xs text-gray-500">
+          <p class="mt-1 text-xs text-secondary transition-colors">
             Be as detailed as you'd like - this helps us prepare for our
             conversation
           </p>
@@ -409,7 +409,7 @@ const base = import.meta.env.BASE_URL;
             <select
               id="hear-about"
               name="hear-about"
-              class="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg focus:outline-none focus:border-lime-400 transition-colors"
+              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
             >
               <option value="">Select an option...</option>
               <option value="search">Google / Search Engine</option>
@@ -422,7 +422,7 @@ const base = import.meta.env.BASE_URL;
           </label>
         </div>
 
-        <div class="p-4 bg-zinc-900 border border-zinc-700 rounded-lg">
+        <div class="p-4 bg-surface border border-theme rounded-lg transition-colors">
           <label for="newsletter" class="flex items-start cursor-pointer">
             <input
               type="checkbox"
@@ -432,8 +432,8 @@ const base = import.meta.env.BASE_URL;
               class="mt-1 mr-3"
             />
             <div>
-              <div class="font-medium text-sm">Subscribe to our newsletter</div>
-              <div class="text-xs text-gray-400 mt-1">
+              <div class="font-medium text-sm text-primary transition-colors">Subscribe to our newsletter</div>
+              <div class="text-xs text-secondary mt-1 transition-colors">
                 Get insights on data analytics trends and best practices (you
                 can unsubscribe anytime)
               </div>
@@ -441,7 +441,7 @@ const base = import.meta.env.BASE_URL;
           </label>
         </div>
 
-        <div class="p-4 bg-lime-400/10 border border-lime-400/20 rounded-lg">
+        <div class="p-4 bg-accent-green/10 border border-accent-green/20 rounded-lg transition-colors">
           <label for="privacy" class="flex items-start cursor-pointer">
             <input
               type="checkbox"
@@ -451,10 +451,10 @@ const base = import.meta.env.BASE_URL;
               aria-label="I agree to the Privacy Policy and consent to AUXO Data Labs contacting me about my inquiry"
               class="mt-1 mr-3"
             />
-            <div class="text-sm text-gray-300">
+            <div class="text-sm text-primary transition-colors">
               I agree to the <a
                 href={`${base}legal/privacy-policy/`}
-                class="text-lime-400 hover:underline">Privacy Policy</a
+                class="text-accent-green hover:underline transition-colors">Privacy Policy</a
               > and consent to AUXO Data Labs contacting me about my inquiry. *
             </div>
           </label>
@@ -478,7 +478,7 @@ const base = import.meta.env.BASE_URL;
       <button
         type="button"
         id="prev-btn"
-        class="px-6 py-3 bg-zinc-800 text-white rounded-lg hover:bg-zinc-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        class="px-6 py-3 bg-surface border border-theme text-primary rounded-lg hover:bg-accent-green/10 hover:border-accent-green/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
         disabled
       >
         {multiStepFormContent.navigation.back}
@@ -486,7 +486,7 @@ const base = import.meta.env.BASE_URL;
       <button
         type="button"
         id="next-btn"
-        class="px-6 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors"
+        class="px-6 py-3 bg-accent-green text-black font-semibold rounded-lg hover:bg-accent-green/90 transition-all min-h-[44px]"
       >
         {multiStepFormContent.navigation.next}
       </button>
@@ -503,7 +503,7 @@ const base = import.meta.env.BASE_URL;
     <div id="success-message" class="hidden">
       <div class="text-center py-12">
         <div
-          class="w-16 h-16 bg-lime-400 rounded-full flex items-center justify-center mx-auto mb-4"
+          class="w-16 h-16 bg-accent-green rounded-full flex items-center justify-center mx-auto mb-4"
         >
           <svg
             class="w-8 h-8 text-black"
@@ -519,7 +519,7 @@ const base = import.meta.env.BASE_URL;
           </svg>
         </div>
         <h3 class="text-2xl font-bold mb-2">Thank you for your inquiry!</h3>
-        <p class="text-gray-400 mb-6">
+        <p class="text-secondary mb-6 transition-colors">
           We've received your information and will get back to you within 24
           hours.
         </p>
@@ -553,8 +553,8 @@ const base = import.meta.env.BASE_URL;
     }
   }
   .size-option.selected {
-    background-color: rgba(163, 230, 53, 0.1);
-    border-color: #a3e635;
+    background-color: var(--accent-green-dim);
+    border-color: var(--accent-green);
   }
 </style>
 
@@ -583,7 +583,7 @@ const base = import.meta.env.BASE_URL;
     const toast = document.createElement("div");
     toast.className = `fixed top-24 right-4 z-50 px-6 py-4 rounded-lg shadow-lg transform transition-all duration-300 translate-x-0 ${
       type === "success"
-        ? "bg-lime-400 text-black"
+        ? "bg-accent-green text-black"
         : type === "error"
           ? "bg-red-500 text-white"
           : "bg-yellow-500 text-black"

@@ -7,15 +7,31 @@ This document outlines the visual identity of the AUXO Data Labs website, includ
 ## Logo
 
 - **Design:** The logo is a distinctive 2x2 grid featuring the letters A-U-X-O.
-- **Location:** `public/logo.svg`
+- **Location:** `public/logo.svg` (static logo) and animated tiles in `src/pages/index.astro`
 - **Usage:** Use the logo consistently across all pages and components.
+- **Colors:** 
+  - Logo tiles use a fixed green gradient (`#A3E635` to `#86D12F`) for consistency across dark and light themes
+  - Logo tiles have **no rounded edges** (border-radius: 0)
+  - The animated logo tiles in the hero section maintain consistent colors regardless of theme
+- **Animated Logo:** The homepage hero features an animated logo with tile reveal animation
 
 ---
 
 ## Color Palette
 
-The color scheme is defined as CSS variables in `src/styles/global.css`. The palette is designed for high contrast and readability (WCAG AA/AAA compliant).
+The color scheme is defined as CSS variables in `src/styles/global.css`. The palette is designed for high contrast and readability (WCAG AA/AAA compliant) and supports both dark and light themes.
 
+### Theme System
+
+The site supports a comprehensive dark/light theme system with:
+- **Automatic detection** of system preferences
+- **Manual toggle** via theme toggle button in navigation
+- **Persistent storage** of user preference in localStorage
+- **Smooth transitions** between themes (0.3s cubic-bezier)
+
+### Color Variables
+
+#### Dark Theme (Default)
 | Role                 | Variable Name        | Hex Code  | Usage                               |
 |----------------------|----------------------|-----------|-------------------------------------|
 | **Primary Accent**   | `--accent-green`     | `#A3E635` | CTAs, links, highlights, icons      |
@@ -23,11 +39,38 @@ The color scheme is defined as CSS variables in `src/styles/global.css`. The pal
 | **Primary Text**     | `--text-primary`     | `#FFFFFF` | Main body text                      |
 | **Secondary Text**   | `--text-secondary`   | `#A0A0A0` | Subheadings, less important text    |
 
+#### Light Theme
+| Role                 | Variable Name        | Hex Code  | Usage                               |
+|----------------------|----------------------|-----------|-------------------------------------|
+| **Primary Accent**   | `--accent-green`     | `#16A34A` | Darker green for better contrast     |
+| **Background**       | `--bg-primary`       | `#FFFFFF` | Main page background                |
+| **Primary Text**     | `--text-primary`     | `#111827` | Main body text                      |
+| **Secondary Text**   | `--text-secondary`   | `#4B5563` | Subheadings, less important text    |
+
+### Theme-Aware Classes
+
+Use these utility classes for theme-aware styling:
+
+- **Backgrounds:** `bg-card`, `bg-surface`, `bg-primary`, `bg-secondary`
+- **Text:** `text-primary`, `text-secondary`, `text-tertiary`
+- **Borders:** `border-theme`, `border-theme-light`
+- **Accent:** `accent-green` (automatically adjusts for theme)
+- **Transitions:** Always add `transition-colors` for smooth theme changes
+
+### Particle Background Colors
+
+The particle background uses theme-aware opacity values:
+- **Dark Theme:** Particles 0.15-0.35, Links 0.2, Triangles 0.08
+- **Light Theme:** Particles 0.25-0.45, Links 0.3, Triangles 0.12
+
 ### Usage Guidelines
 
 - Always use CSS variables (`var(--accent-green)`) instead of hex codes
+- Use theme-aware utility classes instead of hardcoded colors
 - Ensure sufficient contrast ratios for accessibility
-- Test color combinations for WCAG AA/AAA compliance
+- Test color combinations for WCAG AA/AAA compliance in both themes
+- Add `transition-colors` to elements that change color with themes
+- Use backdrop filters (`backdrop-blur-md`) for readability over particle backgrounds
 
 ---
 
@@ -40,8 +83,10 @@ Fonts are defined in `src/styles/global.css` and loaded from Google Fonts in `sr
 | Purpose          | Font Family      | Weights Available        |
 |------------------|------------------|--------------------------|
 | **Brand/Logo**   | Montserrat       | 900                      |
-| **Headings**     | Space Grotesk    | 600, 700, 800            |
-| **Body**         | Inter            | 400, 500, 600, 700       |
+| **Headings**     | Plus Jakarta Sans| 600, 700, 800            |
+| **Body**         | Plus Jakarta Sans| 400, 500, 600, 700       |
+
+**Note:** Plus Jakarta Sans is used for both headings and body text for a cleaner, more cohesive look. This modern font provides excellent readability on both mobile and desktop devices.
 
 ### Typography Scale
 

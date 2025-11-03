@@ -134,7 +134,7 @@ export const homepageContent = {
         description: 'Work directly with founders and senior team members, not junior consultants or account managers',
       },
       {
-        icon: 'mdi:lightbulb-on',
+        icon: 'mdi:lightbulb',
         title: 'Fresh Perspective',
         description: 'Latest methodologies and cutting-edge tools, unburdened by legacy processes or outdated approaches',
       },

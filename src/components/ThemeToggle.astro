@@ -53,8 +53,12 @@ import { Icon } from "astro-icon/components";
 
     // Update icon based on theme
     const updateIcon = (theme: "light" | "dark") => {
-      const darkIcon = themeToggle.querySelector(".theme-icon-dark");
-      const lightIcon = themeToggle.querySelector(".theme-icon-light");
+      // Get fresh reference to theme toggle (important after view transitions)
+      const currentToggle = document.getElementById("theme-toggle");
+      if (!currentToggle) return;
+
+      const darkIcon = currentToggle.querySelector(".theme-icon-dark");
+      const lightIcon = currentToggle.querySelector(".theme-icon-light");
 
       if (darkIcon && lightIcon) {
         if (theme === "dark") {
@@ -108,13 +112,20 @@ import { Icon } from "astro-icon/components";
 
     // Re-initialize on Astro view transitions
     document.addEventListener("astro:page-load", () => {
-      // Re-apply theme to ensure consistency across page transitions
-      initTheme();
+      // Get fresh reference to theme toggle (might be new DOM element after swap)
+      const currentToggle = document.getElementById("theme-toggle");
+      if (currentToggle) {
+        // Re-apply theme to ensure consistency across page transitions
+        initTheme();
+        // Re-attach event listener to the new button element
+        currentToggle.addEventListener("click", toggleTheme);
+      }
     });
 
-    // Cleanup on Astro view transitions
+    // Cleanup on Astro view transitions (optional - not strictly needed with replaceWith approach)
     document.addEventListener("astro:before-swap", () => {
-      themeToggle.removeEventListener("click", toggleTheme);
+      // Event listeners will be automatically removed when DOM is swapped
+      // No manual cleanup needed
     });
   })();
 </script>

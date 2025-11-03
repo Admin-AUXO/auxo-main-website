@@ -8,6 +8,7 @@ interface DropdownItem {
   name: string;
   href: string;
   icon: string;
+  description?: string;
 }
 
 interface NavItem {
@@ -23,7 +24,8 @@ const navItems: NavItem[] = [
     dropdown: services.map(s => ({
       name: s.title,
       href: `${base}services/${s.id}`,
-      icon: s.icon
+      icon: s.icon,
+      description: s.description
     }))
   },
   { name: 'About', href: `${base}about` },
@@ -39,123 +41,295 @@ const navItems: NavItem[] = [
 ];
 ---
 
-<nav class="fixed top-0 w-full z-50 bg-black/98 backdrop-blur-xl border-b border-gray-800/60 transition-all duration-300">
-  <div class="container mx-auto px-4 sm:px-6">
-    <div class="flex items-center justify-between h-16 sm:h-20">
-      <!-- Logo -->
-      <a href={`${base}`} class="flex items-center space-x-2 sm:space-x-3 group" aria-label="AUXO Data Labs Home">
-        <img src={`${base}logo.svg`} alt="AUXO Data Labs Logo" class="h-10 w-10 sm:h-12 sm:w-12 transition-transform group-hover:scale-110 group-hover:rotate-3" />
-        <span class="text-white text-lg sm:text-xl font-bold tracking-tight">Data Labs</span>
+<nav id="main-navigation" class="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-md border-b border-zinc-900/80 transition-all duration-500 ease-out shadow-xl shadow-black/30">
+  <!-- Gradient overlay for depth -->
+  <div class="absolute inset-0 bg-gradient-to-b from-lime-400/5 via-transparent to-transparent pointer-events-none"></div>
+  
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <div class="flex items-center justify-between h-18 sm:h-20 lg:h-22">
+      <!-- Enhanced Logo Section -->
+      <a 
+        href={`${base}`} 
+        class="flex items-center space-x-2.5 sm:space-x-3 group relative z-10" 
+        aria-label="AUXO Data Labs Home"
+      >
+        <!-- Logo Container with Glow Effect -->
+        <div class="relative">
+          <div class="absolute inset-0 bg-lime-400/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <img 
+            src={`${base}logo.svg`} 
+            alt="AUXO Data Labs Logo" 
+            class="relative h-11 w-11 sm:h-13 sm:w-13 lg:h-14 lg:w-14 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 group-hover:drop-shadow-[0_0_12px_rgba(163,230,53,0.6)]" 
+          />
+        </div>
+        <!-- Brand Text with Enhanced Typography -->
+        <div class="flex flex-col">
+          <span class="text-white text-lg sm:text-xl lg:text-2xl font-bold tracking-tight leading-tight group-hover:text-lime-400 transition-colors duration-300">
+            AUXO
+          </span>
+          <span class="text-xs sm:text-sm text-gray-400 font-medium tracking-wider uppercase leading-tight">
+            Data Labs
+          </span>
+        </div>
       </a>
 
       <!-- Desktop Navigation -->
-      <div class="hidden md:flex items-center space-x-2">
-        {navItems.map(item => (
+      <div class="hidden lg:flex items-center space-x-1">
+        {navItems.map((item, index) => (
           item.dropdown ? (
-            <div class="relative group">
-              <button class="nav-link px-5 py-2.5 text-gray-300 hover:text-white transition-all duration-200 font-medium rounded-lg hover:bg-zinc-800/80 flex items-center gap-1.5">
-                {item.name}
-                <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="relative group" data-nav-item={index}>
+              <button 
+                class="nav-link relative px-5 py-3 text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 rounded-lg hover:bg-zinc-800/60 flex items-center gap-2 group/button"
+                aria-expanded="false"
+                aria-haspopup="true"
+              >
+                <span class="relative z-10">{item.name}</span>
+                <!-- Active Indicator -->
+                <span class="nav-indicator absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-lime-400 to-lime-500 rounded-full transition-all duration-300 group-hover/button:w-4/5"></span>
+                <!-- Dropdown Arrow -->
+                <svg 
+                  class="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
               </button>
 
-              <!-- Dropdown -->
-              <div class:list={["absolute left-0 mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 -translate-y-2 pointer-events-none group-hover:pointer-events-auto", item.name === 'Services' ? 'w-[600px]' : 'w-[280px]']}>
-                <div class="bg-zinc-900/95 backdrop-blur-lg border border-lime-400/20 rounded-xl shadow-2xl shadow-black/50 p-4">
-                  <div class:list={[item.name === 'Services' ? 'grid grid-cols-2 gap-3' : 'space-y-1']}>
-                    {item.dropdown.map((sub: DropdownItem) => (
-                      <a
-                        href={sub.href}
-                        class="group/item flex items-start gap-3 px-4 py-3.5 rounded-lg hover:bg-zinc-800 transition-all duration-200 border border-transparent hover:border-lime-400/30"
-                      >
-                        <div class="w-10 h-10 bg-gradient-to-br from-lime-400/20 to-lime-500/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:from-lime-400/30 group-hover/item:to-lime-500/20 transition-all mt-0.5">
-                          {item.name === 'Services' ? (
-                            <svg class="w-5 h-5 text-lime-400" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M12 2L2 7L12 12L22 7L12 2Z"></path>
-                              <path d="M2 17L12 22L22 17"></path>
-                              <path d="M2 12L12 17L22 12"></path>
+              <!-- Enhanced Dropdown Menu -->
+              <div 
+                class:list={[
+                  "absolute left-1/2 -translate-x-1/2 top-full mt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-4 pointer-events-none group-hover:pointer-events-auto",
+                  item.name === 'Services' ? 'w-[680px]' : 'w-[320px]'
+                ]}
+              >
+                <div class="relative">
+                  <!-- Arrow Pointer -->
+                  <div class="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-zinc-900 border-l border-t border-lime-400/20 rotate-45"></div>
+                  
+                  <!-- Dropdown Content -->
+                  <div class="relative bg-zinc-900/98 backdrop-blur-xl border border-lime-400/20 rounded-2xl shadow-2xl shadow-black/60 p-6 overflow-hidden">
+                    <!-- Gradient Background Effect -->
+                    <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-lime-400/50 via-green-500/50 to-lime-400/50"></div>
+                    
+                    <div class:list={[
+                      item.name === 'Services' ? 'grid grid-cols-2 gap-4' : 'space-y-2'
+                    ]}>
+                      {item.dropdown.map((sub: DropdownItem, subIndex) => (
+                        <a
+                          href={sub.href}
+                          class="group/item relative flex items-start gap-4 px-5 py-4 rounded-xl hover:bg-gradient-to-br hover:from-zinc-800/80 hover:to-zinc-900/80 transition-all duration-300 border border-transparent hover:border-lime-400/30 hover:shadow-lg hover:shadow-lime-400/10 overflow-hidden"
+                          style={`animation-delay: ${subIndex * 50}ms`}
+                        >
+                          <!-- Hover Glow Effect -->
+                          <div class="absolute inset-0 bg-gradient-to-br from-lime-400/0 to-lime-400/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
+                          
+                          <!-- Icon Container -->
+                          <div class="relative z-10 w-12 h-12 bg-gradient-to-br from-lime-400/20 via-lime-400/10 to-transparent rounded-xl flex items-center justify-center flex-shrink-0 group-hover/item:from-lime-400/30 group-hover/item:to-lime-500/20 transition-all duration-300 group-hover/item:scale-110 group-hover/item:rotate-3">
+                            {item.name === 'Services' ? (
+                              <Icon name={sub.icon} class="w-6 h-6 text-lime-400" />
+                            ) : (
+                              <Icon
+                                name={sub.icon === 'case-studies' ? 'mdi:briefcase' : sub.icon === 'blog' ? 'mdi:post' : 'mdi:help-circle'}
+                                class="w-6 h-6 text-lime-400"
+                              />
+                            )}
+                          </div>
+                          
+                          <!-- Content -->
+                          <div class="relative z-10 flex-1 min-w-0">
+                            <div class="font-semibold text-white text-base mb-1 group-hover/item:text-lime-400 transition-colors duration-300">
+                              {sub.name}
+                            </div>
+                            {sub.description && (
+                              <p class="text-xs text-gray-400 line-clamp-2 leading-relaxed">
+                                {sub.description}
+                              </p>
+                            )}
+                          </div>
+                          
+                          <!-- Arrow Indicator -->
+                          <div class="relative z-10 flex items-center opacity-0 group-hover/item:opacity-100 transform translate-x-2 group-hover/item:translate-x-0 transition-all duration-300">
+                            <svg class="w-5 h-5 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                             </svg>
-                          ) : (
-                            <Icon
-                              name={sub.icon === 'case-studies' ? 'mdi:briefcase' : sub.icon === 'blog' ? 'mdi:post' : 'mdi:help-circle'}
-                              class="w-5 h-5 text-lime-400"
-                            />
-                          )}
-                        </div>
-                        <span class="font-medium text-gray-300 text-sm group-hover/item:text-lime-400 transition-colors leading-relaxed">
-                          {sub.name}
-                        </span>
-                      </a>
-                    ))}
-                  </div>
-                  {item.name === 'Services' && (
-                    <div class="mt-2 pt-2 border-t border-gray-800/50">
-                      <a href={`${base}services`} class="text-sm text-lime-400 hover:text-lime-300 font-medium flex items-center justify-center gap-2 px-4 py-2 rounded-lg hover:bg-lime-400/10 transition-all">
-                        View All Services
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                        </svg>
-                      </a>
+                          </div>
+                        </a>
+                      ))}
                     </div>
-                  )}
+                    
+                    {item.name === 'Services' && (
+                      <div class="mt-6 pt-4 border-t border-zinc-800/50">
+                        <a 
+                          href={`${base}services`} 
+                          class="group/viewall flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold text-lime-400 hover:text-white bg-lime-400/10 hover:bg-lime-400/20 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-lime-400/20"
+                        >
+                          <span>View All Services</span>
+                          <svg class="w-4 h-4 transform group-hover/viewall:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                          </svg>
+                        </a>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
           ) : (
-            <a href={item.href} class="nav-link px-5 py-2.5 text-gray-300 hover:text-white transition-all duration-200 font-medium rounded-lg hover:bg-zinc-800/80">
-              {item.name}
+            <a 
+              href={item.href} 
+              class="nav-link relative px-5 py-3 text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 rounded-lg hover:bg-zinc-800/60 group"
+            >
+              <span class="relative z-10">{item.name}</span>
+              <!-- Active Indicator -->
+              <span class="nav-indicator absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-lime-400 to-lime-500 rounded-full transition-all duration-300 group-hover:w-4/5"></span>
             </a>
           )
         ))}
-        <a href={`${base}contact`} class="ml-4 px-6 py-2.5 bg-gradient-to-r from-lime-400 to-lime-500 text-black font-semibold rounded-lg hover:from-lime-500 hover:to-lime-600 transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-lime-400/30">
-          Get Started
+        
+        <!-- Enhanced CTA Button -->
+        <a 
+          href={`${base}contact`} 
+          class="ml-4 px-6 py-3 text-sm font-semibold bg-gradient-to-r from-lime-400 via-lime-400 to-green-500 text-black rounded-lg hover:from-lime-500 hover:via-lime-500 hover:to-green-600 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-lime-400/40 relative overflow-hidden group"
+        >
+          <span class="relative z-10 flex items-center gap-2">
+            Get Started
+            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </span>
+          <!-- Shimmer Effect -->
+          <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
         </a>
       </div>
 
       <!-- Mobile Menu Button -->
-      <button id="mobile-menu-button" class="md:hidden text-white p-3.5 min-w-[44px] min-h-[44px] rounded-lg hover:bg-zinc-800 active:bg-zinc-700 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-lime-400/50 touch-manipulation will-change-transform" aria-label="Toggle mobile menu" aria-expanded="false">
-        <svg class="w-6 h-6 menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path class="menu-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          <path class="menu-close hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
+      <button 
+        id="mobile-menu-button" 
+        class="lg:hidden relative text-white p-3 min-w-[44px] min-h-[44px] rounded-xl hover:bg-zinc-800/80 active:bg-zinc-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-lime-400/50 touch-manipulation" 
+        aria-label="Toggle mobile menu" 
+        aria-expanded="false"
+      >
+        <div class="relative w-6 h-6">
+          <svg 
+            class="absolute inset-0 w-6 h-6 menu-icon transition-all duration-300" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path 
+              class="menu-open transition-opacity duration-300" 
+              stroke-linecap="round" 
+              stroke-linejoin="round" 
+              stroke-width="2.5" 
+              d="M4 6h16M4 12h16M4 18h16"
+            ></path>
+            <path 
+              class="menu-close absolute inset-0 opacity-0 transition-opacity duration-300" 
+              stroke-linecap="round" 
+              stroke-linejoin="round" 
+              stroke-width="2.5" 
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
+        </div>
       </button>
     </div>
   </div>
 
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden md:hidden bg-zinc-900/98 backdrop-blur-xl border-t border-gray-800/60 max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain will-change-transform" style="touch-action: pan-y;">
-    <div class="px-4 sm:px-5 py-4 sm:py-5 space-y-2.5">
-      {navItems.map(item => (
+  <!-- Enhanced Mobile Menu -->
+  <div 
+    id="mobile-menu" 
+    class="lg:hidden fixed inset-x-0 top-18 sm:top-20 bg-zinc-950/98 backdrop-blur-xl border-t border-zinc-800/60 max-h-[calc(100vh-4.5rem)] overflow-y-auto overscroll-contain transform -translate-y-full opacity-0 transition-all duration-300 ease-out shadow-2xl shadow-black/40"
+    style="touch-action: pan-y;"
+  >
+    <div class="px-4 sm:px-6 py-6 space-y-2">
+      {navItems.map((item, index) => (
         item.dropdown ? (
-          <div class="mobile-dropdown">
-            <button class="mobile-dropdown-btn w-full flex items-center justify-between px-4 sm:px-5 py-3.5 min-h-[48px] text-gray-300 hover:text-white active:text-white active:bg-zinc-800 active:scale-[0.98] rounded-lg transition-all duration-200 font-medium touch-manipulation will-change-transform">
-              <span class="text-base sm:text-lg">{item.name}</span>
-              <svg class="w-5 h-5 transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="mobile-dropdown" data-nav-item={index}>
+            <button 
+              class="mobile-dropdown-btn w-full flex items-center justify-between px-5 py-4 min-h-[52px] text-gray-300 hover:text-white active:text-white active:bg-zinc-800 rounded-xl transition-all duration-300 font-semibold touch-manipulation bg-zinc-900/50 border border-zinc-800/50 hover:border-lime-400/30"
+            >
+              <span class="text-base">{item.name}</span>
+              <svg 
+                class="w-5 h-5 transition-transform duration-300 flex-shrink-0 text-lime-400" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
             </button>
-            <div class="mobile-dropdown-content hidden pl-4 sm:pl-5 mt-2 space-y-1.5 animate-dropdown">
+            <div class="mobile-dropdown-content hidden pl-4 mt-2 space-y-1.5 overflow-hidden">
               {item.dropdown.map((sub: DropdownItem) => (
-                <a href={sub.href} class="flex items-center gap-3 px-4 sm:px-5 py-3 min-h-[48px] text-sm sm:text-base text-gray-400 hover:text-lime-400 active:text-lime-400 active:bg-zinc-800/80 active:scale-[0.98] rounded-lg transition-all duration-200 touch-manipulation will-change-transform">
-                  <div class="w-2 h-2 rounded-full bg-lime-400/60 flex-shrink-0"></div>
-                  <span class="flex-1">{sub.name}</span>
+                <a 
+                  href={sub.href} 
+                  class="flex items-center gap-3 px-5 py-3.5 min-h-[48px] text-sm text-gray-400 hover:text-lime-400 active:text-lime-400 active:bg-zinc-800/80 rounded-lg transition-all duration-300 touch-manipulation group/item"
+                >
+                  <div class="w-2 h-2 rounded-full bg-lime-400/60 group-hover/item:bg-lime-400 transition-colors duration-300 flex-shrink-0"></div>
+                  <span class="flex-1 font-medium">{sub.name}</span>
+                  <svg class="w-4 h-4 opacity-0 group-hover/item:opacity-100 transform -translate-x-2 group-hover/item:translate-x-0 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
                 </a>
               ))}
             </div>
           </div>
         ) : (
-          <a href={item.href} class="block px-4 sm:px-5 py-3.5 min-h-[48px] text-base sm:text-lg text-gray-300 hover:text-white active:text-white active:bg-zinc-800/80 active:scale-[0.98] rounded-lg transition-all duration-200 font-medium touch-manipulation flex items-center will-change-transform">
+          <a 
+            href={item.href} 
+            class="block px-5 py-4 min-h-[52px] text-base text-gray-300 hover:text-white active:text-white active:bg-zinc-800/80 rounded-xl transition-all duration-300 font-semibold touch-manipulation flex items-center bg-zinc-900/50 border border-zinc-800/50 hover:border-lime-400/30"
+          >
             {item.name}
           </a>
         )
       ))}
-      <a href={`${base}contact`} class="block mt-6 px-5 py-3.5 min-h-[52px] bg-gradient-to-r from-lime-400 to-lime-500 text-black font-semibold rounded-lg active:from-lime-500 active:to-lime-600 active:scale-[0.97] transition-all duration-200 text-center shadow-lg shadow-lime-400/20 touch-manipulation flex items-center justify-center text-base sm:text-lg will-change-transform">
-        Get Started
+      
+      <!-- Mobile CTA Button -->
+      <a 
+        href={`${base}contact`} 
+        class="block mt-6 px-6 py-4 min-h-[56px] bg-gradient-to-r from-lime-400 to-lime-500 text-black font-bold rounded-xl active:from-lime-500 active:to-lime-600 active:scale-[0.97] transition-all duration-300 text-center shadow-xl shadow-lime-400/30 touch-manipulation flex items-center justify-center text-base relative overflow-hidden group"
+      >
+        <span class="relative z-10 flex items-center gap-2">
+          Get Started
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </span>
+        <div class="absolute inset-0 -translate-x-full group-active:translate-x-full transition-transform duration-500 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
       </a>
     </div>
   </div>
 </nav>
+
+<!-- Spacer to prevent content from going under fixed nav -->
+<div class="h-18 sm:h-20 lg:h-22"></div>
+
+<style>
+  /* Custom height utilities for navigation */
+  .h-18 {
+    height: 4.5rem;
+  }
+  .h-20 {
+    height: 5rem;
+  }
+  .h-22 {
+    height: 5.5rem;
+  }
+  .h-13 {
+    height: 3.25rem;
+  }
+  .h-14 {
+    height: 3.5rem;
+  }
+  
+  /* Mobile menu open state */
+  #mobile-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+  }
+</style>
 
 <script>
   // Utility: Debounce function for performance optimization
@@ -170,52 +344,95 @@ const navItems: NavItem[] = [
     };
   }
 
-  // Mobile menu toggle
+  // Mobile menu toggle with enhanced animations
   const btn = document.getElementById('mobile-menu-button');
   const menu = document.getElementById('mobile-menu');
   const menuOpen = document.querySelector('.menu-open');
   const menuClose = document.querySelector('.menu-close');
 
   const toggleMenu = () => {
-    const isExpanded = menu?.classList.contains('hidden') === false;
-    menu?.classList.toggle('hidden');
-    menuOpen?.classList.toggle('hidden');
-    menuClose?.classList.toggle('hidden');
-    btn?.setAttribute('aria-expanded', String(!isExpanded));
+    if (!menu || !menuOpen || !menuClose) return;
     
-    // Prevent body scroll when menu is open
-    if (menu && !menu.classList.contains('hidden')) {
-      document.body.style.overflow = 'hidden';
-    } else {
+    const isOpen = menu.classList.contains('open');
+    
+    if (isOpen) {
+      // Close menu
+      menu.classList.remove('open');
+      menu.classList.add('-translate-y-full', 'opacity-0');
+      menu.classList.remove('translate-y-0', 'opacity-100');
+      menuOpen.classList.remove('opacity-0');
+      menuOpen.classList.add('opacity-100');
+      menuClose.classList.add('opacity-0');
+      menuClose.classList.remove('opacity-100');
       document.body.style.overflow = '';
+    } else {
+      // Open menu
+      menu.classList.add('open');
+      menu.classList.remove('-translate-y-full', 'opacity-0');
+      menu.classList.add('translate-y-0', 'opacity-100');
+      menuOpen.classList.add('opacity-0');
+      menuOpen.classList.remove('opacity-100');
+      menuClose.classList.remove('opacity-0');
+      menuClose.classList.add('opacity-100');
+      document.body.style.overflow = 'hidden';
     }
+    
+    btn?.setAttribute('aria-expanded', String(!isOpen));
   };
 
-  btn?.addEventListener('click', toggleMenu);
+  btn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMenu();
+  });
 
   // Close mobile menu when clicking on any link
   const closeMobileMenu = () => {
-    menu?.classList.add('hidden');
-    menuOpen?.classList.remove('hidden');
-    menuClose?.classList.add('hidden');
+    if (!menu || !menuOpen || !menuClose) return;
+    
+    menu.classList.remove('open');
+    menu.classList.add('-translate-y-full', 'opacity-0');
+    menu.classList.remove('translate-y-0', 'opacity-100');
+    menuOpen.classList.remove('opacity-0');
+    menuOpen.classList.add('opacity-100');
+    menuClose.classList.add('opacity-0');
+    menuClose.classList.remove('opacity-100');
     btn?.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   };
 
   // Add click listeners to all mobile menu links
-  document.querySelectorAll('#mobile-menu a').forEach(link => {
+  const mobileLinks = document.querySelectorAll('#mobile-menu a');
+  mobileLinks.forEach(link => {
     link.addEventListener('click', closeMobileMenu);
   });
 
-  // Mobile dropdown toggles
+  // Mobile dropdown toggles with smooth animations
   const mobileDropdownHandlers = new Map<Element, EventListener>();
 
   document.querySelectorAll('.mobile-dropdown-btn').forEach(button => {
-    const handler = () => {
-      const content = button.nextElementSibling;
+    const handler = (e: Event) => {
+      e.stopPropagation();
+      const content = button.nextElementSibling as HTMLElement;
       const icon = button.querySelector('svg');
-      content?.classList.toggle('hidden');
-      icon?.classList.toggle('rotate-180');
+      
+      if (content) {
+        const isHidden = content.classList.contains('hidden');
+        content.classList.toggle('hidden');
+        icon?.classList.toggle('rotate-180');
+        
+        // Smooth height transition
+        if (!isHidden) {
+          content.style.maxHeight = '0';
+          setTimeout(() => {
+            content.style.maxHeight = '';
+          }, 300);
+        } else {
+          content.style.maxHeight = content.scrollHeight + 'px';
+          setTimeout(() => {
+            content.style.maxHeight = '';
+          }, 300);
+        }
+      }
     };
 
     mobileDropdownHandlers.set(button, handler);
@@ -225,58 +442,91 @@ const navItems: NavItem[] = [
   // Close mobile menu when clicking outside
   const handleOutsideClick = (e: Event) => {
     const target = e.target as HTMLElement;
-    if (!target.closest('nav') && !menu?.classList.contains('hidden')) {
-      menu?.classList.add('hidden');
-      menuOpen?.classList.remove('hidden');
-      menuClose?.classList.add('hidden');
-      btn?.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
+    const nav = document.getElementById('main-navigation');
+    
+    if (nav && !nav.contains(target) && menu?.classList.contains('open')) {
+      closeMobileMenu();
     }
   };
 
   document.addEventListener('click', handleOutsideClick);
 
-  // Scroll behavior - add shadow and adjust styling on scroll (debounced for performance)
-  const nav = document.querySelector('nav');
-  const SCROLL_THRESHOLD = 20;
+  // Enhanced scroll behavior with smooth transitions
+  const nav = document.getElementById('main-navigation');
+  const SCROLL_THRESHOLD = 10;
 
   const handleScroll = () => {
-    // Only update on mobile if menu is closed to avoid performance issues
-    if (window.innerWidth >= 768 || menu?.classList.contains('hidden')) {
-      const currentScroll = window.pageYOffset;
+    if (!nav) return;
+    
+    // Only update on desktop or if mobile menu is closed
+    if (window.innerWidth >= 1024 || !menu?.classList.contains('open')) {
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
       if (currentScroll > SCROLL_THRESHOLD) {
-        nav?.classList.add('shadow-2xl', 'shadow-black/60', 'bg-black');
-        nav?.classList.remove('bg-black/98');
+        nav.classList.add('shadow-2xl', 'bg-black/98');
+        nav.classList.remove('bg-black/95');
+        nav.style.backdropFilter = 'blur(12px)';
       } else {
-        nav?.classList.remove('shadow-2xl', 'shadow-black/60', 'bg-black');
-        nav?.classList.add('bg-black/98');
+        nav.classList.remove('shadow-2xl');
+        nav.classList.add('bg-black/95');
+        nav.style.backdropFilter = 'blur(8px)';
       }
     }
   };
 
-  // Debounced scroll handler to improve performance (throttled for mobile)
-  const debouncedScroll = debounce(handleScroll, window.innerWidth < 768 ? 50 : 10);
+  // Debounced scroll handler
+  const debouncedScroll = debounce(handleScroll, 10);
   window.addEventListener('scroll', debouncedScroll, { passive: true });
 
-  // Active link highlighting
-  const currentPath = window.location.pathname;
-  document.querySelectorAll('.nav-link').forEach(link => {
-    const href = link.getAttribute('href') || '';
-    if (currentPath === href || (currentPath.startsWith(href) && href !== '/')) {
-      link.classList.add('text-lime-400', 'bg-lime-400/10');
+  // Active link highlighting with path matching
+  const updateActiveLinks = () => {
+    const currentPath = window.location.pathname;
+    const basePath = currentPath.replace(/\/$/, '') || '/';
+    
+    document.querySelectorAll('.nav-link').forEach(link => {
+      const href = link.getAttribute('href');
+      if (!href) return;
+      
+      // Normalize paths for comparison
+      const linkPath = href.replace(/\/$/, '');
+      const normalizedCurrentPath = currentPath.replace(/\/$/, '');
+      
+      // Check if current path matches
+      if (normalizedCurrentPath === linkPath || 
+          (normalizedCurrentPath.startsWith(linkPath) && linkPath !== '' && linkPath !== '/') ||
+          currentPath === href) {
+        link.classList.add('text-lime-400');
+        const indicator = link.querySelector('.nav-indicator');
+        if (indicator) {
+          (indicator as HTMLElement).style.width = '80%';
+        }
+      }
+    });
+  };
+
+  // Update active links on load and navigation
+  updateActiveLinks();
+  
+  // Listen for Astro view transitions
+  document.addEventListener('astro:page-load', updateActiveLinks);
+
+  // Enhanced keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    // Close mobile menu on Escape
+    if (e.key === 'Escape' && menu?.classList.contains('open')) {
+      closeMobileMenu();
     }
   });
 
   // Cleanup function for Astro view transitions
   document.addEventListener('astro:before-swap', () => {
-    // Remove event listeners before page swap to prevent memory leaks
+    // Remove event listeners before page swap
     btn?.removeEventListener('click', toggleMenu);
     document.removeEventListener('click', handleOutsideClick);
     window.removeEventListener('scroll', debouncedScroll);
-
+    
     // Clean up mobile menu link handlers
-    document.querySelectorAll('#mobile-menu a').forEach(link => {
+    mobileLinks.forEach(link => {
       link.removeEventListener('click', closeMobileMenu);
     });
 
@@ -286,4 +536,7 @@ const navItems: NavItem[] = [
     });
     mobileDropdownHandlers.clear();
   });
+
+  // Initialize on load
+  handleScroll();
 </script>

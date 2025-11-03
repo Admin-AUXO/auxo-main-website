@@ -1,11 +1,11 @@
 ---
-import { getCollection, render } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { Breadcrumbs } from 'astro-breadcrumbs';
-import { SocialShare } from 'astro-social-share';
-import PageContainer from '../../components/layouts/PageContainer.astro';
-import ContentWrapper from '../../components/layouts/ContentWrapper.astro';
-import { Icon } from 'astro-icon/components';
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { Breadcrumbs } from "astro-breadcrumbs";
+import { SocialShare } from "astro-social-share";
+import PageContainer from "../../components/layouts/PageContainer.astro";
+import ContentWrapper from "../../components/layouts/ContentWrapper.astro";
+import { Icon } from "astro-icon/components";
 
 const base = import.meta.env.BASE_URL;
 
@@ -13,14 +13,14 @@ const base = import.meta.env.BASE_URL;
 export async function getStaticPaths() {
   try {
     // Get all blog posts that are not drafts
-    const posts = await getCollection('blog', ({ data }) => {
+    const posts = await getCollection("blog", ({ data }) => {
       return data.draft !== true;
     });
 
     // If no posts exist, return empty array
     if (!posts || posts.length === 0) {
       if (import.meta.env.DEV) {
-        console.warn('No blog posts found');
+        console.warn("No blog posts found");
       }
       return [];
     }
@@ -29,25 +29,27 @@ export async function getStaticPaths() {
       console.log(`Generating ${posts.length} blog post pages`);
     }
 
-    return posts.map(post => {
-      if (!post.id) {
-        if (import.meta.env.DEV) {
-          console.error('Post missing id:', post);
+    return posts
+      .map((post) => {
+        if (!post.id) {
+          if (import.meta.env.DEV) {
+            console.error("Post missing id:", post);
+          }
+          return null;
         }
-        return null;
-      }
 
-      // Use id instead of slug for better compatibility
-      const slug = post.id.replace(/\.mdx?$/, '');
+        // Use id instead of slug for better compatibility
+        const slug = post.id.replace(/\.mdx?$/, "");
 
-      return {
-        params: { slug },
-        props: { post },
-      };
-    }).filter(Boolean);
+        return {
+          params: { slug },
+          props: { post },
+        };
+      })
+      .filter(Boolean);
   } catch (error) {
     if (import.meta.env.DEV) {
-      console.error('Error fetching blog posts:', error);
+      console.error("Error fetching blog posts:", error);
     }
     return [];
   }
@@ -57,7 +59,7 @@ const { post } = Astro.props;
 
 // If post doesn't exist, this will be handled by Astro's 404 page
 if (!post) {
-  return Astro.redirect('/404');
+  return Astro.redirect("/404");
 }
 
 // Render the post content using the render function from astro:content
@@ -65,10 +67,10 @@ const { Content } = await render(post);
 
 // Helper to format date
 function formatDate(date: Date) {
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   }).format(new Date(date));
 }
 
@@ -89,76 +91,93 @@ function calculateReadTime(content: string | undefined) {
   author="AUXO Data Labs"
   tags={post.data.tags}
 >
-<PageContainer maxWidth="4xl" paddingTop="pt-24" paddingBottom="pb-16">
-  <article>
-    <!-- Breadcrumb with Structured Data -->
-    <ContentWrapper maxWidth="4xl" class="mb-8">
-      <Breadcrumbs 
-        class="text-sm"
-        separator="chevron"
-      />
-    </ContentWrapper>
+  <PageContainer maxWidth="4xl" paddingTop="pt-24" paddingBottom="pb-16">
+    <article>
+      <!-- Breadcrumb with Structured Data -->
+      <ContentWrapper maxWidth="4xl" class="mb-8">
+        <Breadcrumbs class="text-sm breadcrumb-theme" separator="chevron" />
+      </ContentWrapper>
 
-    <!-- Article Header -->
-    <ContentWrapper maxWidth="4xl" class="mb-10 sm:mb-12">
+      <!-- Article Header -->
+      <ContentWrapper maxWidth="4xl" class="mb-10 sm:mb-12">
         <!-- Tags -->
-        {post.data.tags && post.data.tags.length > 0 && (
-          <div class="flex flex-wrap gap-2 mb-4 sm:mb-6">
-            {post.data.tags.map((tag: string) => (
-              <span class="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-accent-green/10 text-accent-green transition-colors text-xs sm:text-sm rounded-full border border-accent-green/20 font-medium">
-                #{tag}
-              </span>
-            ))}
-          </div>
-        )}
+        {
+          post.data.tags && post.data.tags.length > 0 && (
+            <div class="flex flex-wrap gap-2 mb-4 sm:mb-6">
+              {post.data.tags.map((tag: string) => (
+                <span class="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-accent-green/10 text-accent-green transition-colors text-xs sm:text-sm rounded-full border border-accent-green/20 font-medium">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          )
+        }
 
         <!-- Title -->
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 leading-tight">
+        <h1
+          class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 leading-tight"
+        >
           {post.data.title}
         </h1>
 
         <!-- Meta Information -->
-        <div class="flex flex-wrap items-center gap-3 sm:gap-4 text-secondary transition-colors text-xs sm:text-sm border-l-4 border-accent-green pl-3 sm:pl-4 py-2 sm:py-2 bg-accent-green/5 rounded-r-lg">
+        <div
+          class="flex flex-wrap items-center gap-3 sm:gap-4 text-secondary transition-colors text-xs sm:text-sm border-l-4 border-accent-green pl-3 sm:pl-4 py-2 sm:py-2 bg-accent-green/5 rounded-r-lg"
+        >
           <div class="flex items-center gap-2">
-            <Icon name="mdi:calendar" class="w-5 h-5 text-accent-green transition-colors" />
+            <Icon
+              name="mdi:calendar"
+              class="w-5 h-5 text-accent-green transition-colors"
+            />
             <span>{formatDate(post.data.publishDate)}</span>
           </div>
           <span class="text-tertiary transition-colors">•</span>
           <div class="flex items-center gap-2">
-            <Icon name="mdi:account" class="w-5 h-5 text-accent-green transition-colors" />
+            <Icon
+              name="mdi:account"
+              class="w-5 h-5 text-accent-green transition-colors"
+            />
             <span>{post.data.author}</span>
           </div>
           <span class="text-tertiary transition-colors">•</span>
           <div class="flex items-center gap-2">
-            <Icon name="mdi:clock" class="w-5 h-5 text-accent-green transition-colors" />
+            <Icon
+              name="mdi:clock"
+              class="w-5 h-5 text-accent-green transition-colors"
+            />
             <span>{calculateReadTime(post.body)} min read</span>
           </div>
         </div>
 
         <!-- Description -->
-        <p class="text-lg sm:text-xl text-secondary transition-colors mt-4 sm:mt-6 leading-relaxed">
+        <p
+          class="text-lg sm:text-xl text-secondary transition-colors mt-4 sm:mt-6 leading-relaxed"
+        >
           {post.data.description}
         </p>
       </ContentWrapper>
 
       <!-- Featured Image (if available) -->
-      {post.data.image && (
-        <ContentWrapper maxWidth="4xl" class="mb-10 sm:mb-12">
-          <figure class="my-0">
-            <img
-              src={post.data.image}
-              alt={post.data.title}
-              class="w-full rounded-xl border border-theme shadow-2xl object-cover"
-              loading="eager"
-              decoding="async"
-            />
-          </figure>
-        </ContentWrapper>
-      )}
+      {
+        post.data.image && (
+          <ContentWrapper maxWidth="4xl" class="mb-10 sm:mb-12">
+            <figure class="my-0">
+              <img
+                src={post.data.image}
+                alt={post.data.title}
+                class="w-full rounded-xl border border-theme shadow-2xl object-cover"
+                loading="eager"
+                decoding="async"
+              />
+            </figure>
+          </ContentWrapper>
+        )
+      }
 
       <!-- Article Content -->
       <ContentWrapper maxWidth="4xl">
-        <div class="prose prose-invert prose-sm sm:prose-base md:prose-lg max-w-none
+        <div
+          class="prose prose-invert prose-sm sm:prose-base md:prose-lg max-w-none
           prose-headings:text-primary prose-headings:font-bold
           prose-h1:text-3xl sm:prose-h1:text-4xl md:prose-h1:text-5xl prose-h1:mb-6 prose-h1:mt-0
           prose-h2:text-2xl sm:prose-h2:text-3xl md:prose-h2:text-4xl prose-h2:mt-10 sm:prose-h2:mt-12 prose-h2:mb-5 sm:prose-h2:mb-6 prose-h2:text-accent-green prose-h2:font-bold prose-h2:leading-tight
@@ -182,21 +201,27 @@ function calculateReadTime(content: string | undefined) {
           prose-thead:border-b prose-thead:border-theme
           prose-th:bg-card prose-th:text-primary prose-th:font-semibold prose-th:p-3 sm:prose-th:p-4 prose-th:text-left prose-th:text-sm sm:prose-th:text-base
           prose-td:border-b prose-td:border-theme prose-td:p-3 sm:prose-td:p-4 prose-td:text-secondary prose-td:text-sm sm:prose-td:text-base
-          prose-tr:hover:bg-card/50 prose-tr:transition-colors
-        ">
+          prose-tr:hover:bg-card/50 prose-tr:transition-colors"
+        >
           <Content />
         </div>
-        
+
         <!-- Social Share Buttons -->
         <div class="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-theme">
-          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div
+            class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+          >
             <div class="w-full sm:w-auto">
-              <p class="text-xs sm:text-sm font-semibold text-primary transition-colors mb-3 sm:mb-2">Share this article:</p>
+              <p
+                class="text-xs sm:text-sm font-semibold text-primary transition-colors mb-3 sm:mb-2"
+              >
+                Share this article:
+              </p>
               <SocialShare
                 description={post.data.description}
                 title={post.data.title}
-                url={`${Astro.site || 'https://auxodata.com'}${base}blog/${post.id}`}
-                platforms={['twitter', 'linkedin', 'facebook', 'reddit']}
+                url={`${Astro.site || "https://auxodata.com"}${base}blog/${post.id}`}
+                platforms={["twitter", "linkedin", "facebook", "reddit"]}
               />
             </div>
           </div>
@@ -205,10 +230,17 @@ function calculateReadTime(content: string | undefined) {
 
       <!-- Call to Action -->
       <ContentWrapper maxWidth="4xl" class="mt-12 sm:mt-16">
-          <div class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-6 sm:p-8 md:p-12 text-center">
-          <h2 class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Ready to Transform Your Data?</h2>
-          <p class="text-sm sm:text-base text-secondary transition-colors mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed">
-            Let's discuss how AUXO Data Labs can help your business leverage data analytics and business intelligence.
+        <div
+          class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-6 sm:p-8 md:p-12 text-center"
+        >
+          <h2 class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">
+            Ready to Transform Your Data?
+          </h2>
+          <p
+            class="text-sm sm:text-base text-secondary transition-colors mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed"
+          >
+            Let's discuss how AUXO Data Labs can help your business leverage
+            data analytics and business intelligence.
           </p>
           <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <a
@@ -239,8 +271,8 @@ function calculateReadTime(content: string | undefined) {
           Back to All Posts
         </a>
       </ContentWrapper>
-  </article>
-</PageContainer>
+    </article>
+  </PageContainer>
 </BaseLayout>
 
 <style>
@@ -276,13 +308,14 @@ function calculateReadTime(content: string | undefined) {
 
   /* Code block wrapper for copy functionality */
   .prose pre::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0.75rem;
     right: 0.75rem;
     width: 1rem;
     height: 1rem;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23a3e635'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z' /%3E%3C/svg%3E") no-repeat center;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23a3e635'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z' /%3E%3C/svg%3E")
+      no-repeat center;
     opacity: 0.5;
     cursor: pointer;
   }
@@ -294,16 +327,16 @@ function calculateReadTime(content: string | undefined) {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
-    
+
     .prose table thead {
       display: none;
     }
-    
+
     .prose table tbody {
       display: block;
       width: 100%;
     }
-    
+
     .prose table tr {
       display: block;
       margin-bottom: 1rem;
@@ -312,7 +345,7 @@ function calculateReadTime(content: string | undefined) {
       padding: 0.75rem;
       background: #1a1a1a;
     }
-    
+
     .prose table td {
       display: block;
       text-align: right;
@@ -320,13 +353,13 @@ function calculateReadTime(content: string | undefined) {
       border: none;
       border-bottom: 1px solid #2a2a2a;
     }
-    
+
     .prose table td:last-child {
       border-bottom: none;
     }
-    
+
     .prose table td::before {
-      content: attr(data-label) ': ';
+      content: attr(data-label) ": ";
       float: left;
       font-weight: 600;
       color: #a3e635;

@@ -54,18 +54,60 @@ const {
     <ViewTransitions />
     <!-- Initialize theme before page load to prevent flash -->
     <script is:inline>
-      (function() {
+      (function () {
         const getTheme = () => {
-          if (typeof window === 'undefined') return 'dark';
-          const stored = localStorage.getItem('theme');
-          if (stored === 'light' || stored === 'dark') return stored;
-          if (window.matchMedia('(prefers-color-scheme: light)').matches) return 'light';
-          return 'dark';
+          if (typeof window === "undefined") return "dark";
+          const stored = localStorage.getItem("theme");
+          if (stored === "light" || stored === "dark") return stored;
+          if (window.matchMedia("(prefers-color-scheme: light)").matches)
+            return "light";
+          return "dark";
         };
         const theme = getTheme();
-        document.documentElement.classList.remove('dark', 'light');
+        document.documentElement.classList.remove("dark", "light");
         document.documentElement.classList.add(theme);
       })();
+    </script>
+    <!-- Ensure theme persists across View Transitions -->
+    <script>
+      // Re-apply theme after view transitions
+      document.addEventListener("astro:page-load", () => {
+        const getTheme = () => {
+          const stored = localStorage.getItem("theme");
+          if (stored === "light" || stored === "dark") return stored;
+          if (window.matchMedia("(prefers-color-scheme: light)").matches)
+            return "light";
+          return "dark";
+        };
+        const theme = getTheme();
+        document.documentElement.classList.remove("dark", "light");
+        document.documentElement.classList.add(theme);
+
+        // Update theme toggle icon if it exists
+        const themeToggle = document.getElementById("theme-toggle");
+        if (themeToggle) {
+          const darkIcon = themeToggle.querySelector(".theme-icon-dark");
+          const lightIcon = themeToggle.querySelector(".theme-icon-light");
+
+          if (darkIcon && lightIcon) {
+            if (theme === "dark") {
+              darkIcon.classList.remove("opacity-0", "rotate-90", "scale-0");
+              darkIcon.classList.add("opacity-100", "rotate-0", "scale-100");
+              lightIcon.classList.remove(
+                "opacity-100",
+                "rotate-0",
+                "scale-100",
+              );
+              lightIcon.classList.add("opacity-0", "rotate-90", "scale-0");
+            } else {
+              darkIcon.classList.remove("opacity-100", "rotate-0", "scale-100");
+              darkIcon.classList.add("opacity-0", "rotate-90", "scale-0");
+              lightIcon.classList.remove("opacity-0", "rotate-90", "scale-0");
+              lightIcon.classList.add("opacity-100", "rotate-0", "scale-100");
+            }
+          }
+        }
+      });
     </script>
     <!-- tsParticles Bundle (CDN) - Only load if particles are enabled for performance -->
     {
@@ -77,7 +119,9 @@ const {
       )
     }
   </head>
-  <body class="min-h-screen flex flex-col relative bg-primary transition-colors duration-300">
+  <body
+    class="min-h-screen flex flex-col relative bg-primary transition-colors duration-300"
+  >
     <!-- Particle Background Animation - Only render if enabled -->
     {showParticles && <ParticleBackground />}
 

@@ -1,5 +1,5 @@
 ---
-import { Icon } from 'astro-icon/components';
+import { Icon } from "astro-icon/components";
 ---
 
 <button
@@ -21,52 +21,52 @@ import { Icon } from 'astro-icon/components';
 
 <script>
   (function initThemeToggle() {
-    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggle = document.getElementById("theme-toggle");
     if (!themeToggle) return;
 
     // Get theme from localStorage or default to 'dark'
-    const getTheme = (): 'light' | 'dark' => {
-      if (typeof window === 'undefined') return 'dark';
-      const stored = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    const getTheme = (): "light" | "dark" => {
+      if (typeof window === "undefined") return "dark";
+      const stored = localStorage.getItem("theme") as "light" | "dark" | null;
       if (stored) return stored;
-      
+
       // Check system preference
-      if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-        return 'light';
+      if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+        return "light";
       }
-      return 'dark';
+      return "dark";
     };
 
     // Apply theme to document
-    const applyTheme = (theme: 'light' | 'dark') => {
+    const applyTheme = (theme: "light" | "dark") => {
       const root = document.documentElement;
-      if (theme === 'light') {
-        root.classList.remove('dark');
-        root.classList.add('light');
+      if (theme === "light") {
+        root.classList.remove("dark");
+        root.classList.add("light");
       } else {
-        root.classList.remove('light');
-        root.classList.add('dark');
+        root.classList.remove("light");
+        root.classList.add("dark");
       }
-      localStorage.setItem('theme', theme);
+      localStorage.setItem("theme", theme);
       updateIcon(theme);
     };
 
     // Update icon based on theme
-    const updateIcon = (theme: 'light' | 'dark') => {
-      const darkIcon = themeToggle.querySelector('.theme-icon-dark');
-      const lightIcon = themeToggle.querySelector('.theme-icon-light');
-      
+    const updateIcon = (theme: "light" | "dark") => {
+      const darkIcon = themeToggle.querySelector(".theme-icon-dark");
+      const lightIcon = themeToggle.querySelector(".theme-icon-light");
+
       if (darkIcon && lightIcon) {
-        if (theme === 'dark') {
-          darkIcon.classList.remove('opacity-0', 'rotate-90', 'scale-0');
-          darkIcon.classList.add('opacity-100', 'rotate-0', 'scale-100');
-          lightIcon.classList.remove('opacity-100', 'rotate-0', 'scale-100');
-          lightIcon.classList.add('opacity-0', 'rotate-90', 'scale-0');
+        if (theme === "dark") {
+          darkIcon.classList.remove("opacity-0", "rotate-90", "scale-0");
+          darkIcon.classList.add("opacity-100", "rotate-0", "scale-100");
+          lightIcon.classList.remove("opacity-100", "rotate-0", "scale-100");
+          lightIcon.classList.add("opacity-0", "rotate-90", "scale-0");
         } else {
-          darkIcon.classList.remove('opacity-100', 'rotate-0', 'scale-100');
-          darkIcon.classList.add('opacity-0', 'rotate-90', 'scale-0');
-          lightIcon.classList.remove('opacity-0', 'rotate-90', 'scale-0');
-          lightIcon.classList.add('opacity-100', 'rotate-0', 'scale-100');
+          darkIcon.classList.remove("opacity-100", "rotate-0", "scale-100");
+          darkIcon.classList.add("opacity-0", "rotate-90", "scale-0");
+          lightIcon.classList.remove("opacity-0", "rotate-90", "scale-0");
+          lightIcon.classList.add("opacity-100", "rotate-0", "scale-100");
         }
       }
     };
@@ -74,7 +74,7 @@ import { Icon } from 'astro-icon/components';
     // Toggle theme
     const toggleTheme = () => {
       const currentTheme = getTheme();
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      const newTheme = currentTheme === "dark" ? "light" : "dark";
       applyTheme(newTheme);
     };
 
@@ -85,28 +85,36 @@ import { Icon } from 'astro-icon/components';
     };
 
     // Set up event listeners
-    themeToggle.addEventListener('click', toggleTheme);
-    
+    themeToggle.addEventListener("click", toggleTheme);
+
     // Initialize on page load
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initTheme);
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initTheme);
     } else {
       initTheme();
     }
 
     // Listen for system theme changes
-    if (typeof window !== 'undefined') {
-      window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
-        // Only auto-switch if user hasn't manually set a preference
-        if (!localStorage.getItem('theme')) {
-          applyTheme(e.matches ? 'light' : 'dark');
-        }
-      });
+    if (typeof window !== "undefined") {
+      window
+        .matchMedia("(prefers-color-scheme: light)")
+        .addEventListener("change", (e) => {
+          // Only auto-switch if user hasn't manually set a preference
+          if (!localStorage.getItem("theme")) {
+            applyTheme(e.matches ? "light" : "dark");
+          }
+        });
     }
 
+    // Re-initialize on Astro view transitions
+    document.addEventListener("astro:page-load", () => {
+      // Re-apply theme to ensure consistency across page transitions
+      initTheme();
+    });
+
     // Cleanup on Astro view transitions
-    document.addEventListener('astro:before-swap', () => {
-      themeToggle.removeEventListener('click', toggleTheme);
+    document.addEventListener("astro:before-swap", () => {
+      themeToggle.removeEventListener("click", toggleTheme);
     });
   })();
 </script>
@@ -119,8 +127,8 @@ import { Icon } from 'astro-icon/components';
 
   .theme-icon-dark,
   .theme-icon-light {
-    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition:
+      opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 </style>
-

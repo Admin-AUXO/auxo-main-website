@@ -5,6 +5,19 @@ import { ZodError } from 'zod';
 import * as brevo from '@getbrevo/brevo';
 
 /**
+ * Escape HTML to prevent XSS in email templates
+ */
+function escapeHtml(text: string | undefined | null): string {
+  if (!text) return '';
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+/**
  * Newsletter Subscription API Endpoint
  *
  * Integrations:
@@ -93,9 +106,10 @@ export const POST: APIRoute = async ({ request }) => {
     try {
       // Check if contact already exists and is subscribed
       let isAlreadySubscribed = false;
+      const newsletterListId = 2; // Newsletter list ID in Brevo
+      
       try {
         const existingContact = await contactsApi.getContactInfo(email);
-        const newsletterListId = 2; // Newsletter list ID in Brevo
 
         // Check if contact is already in the newsletter list
         if (existingContact.body.listIds?.includes(newsletterListId)) {
@@ -103,8 +117,24 @@ export const POST: APIRoute = async ({ request }) => {
         }
       } catch (error) {
         // Contact doesn't exist (404), which is fine - proceed with creation
-        if (!(error instanceof Error && error.message.includes('404'))) {
-          console.error('Error checking contact:', error);
+        // Handle Brevo API errors more specifically
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        const errorStatus = (error as { statusCode?: number })?.statusCode;
+        
+        // Only log if it's not a 404 (contact not found) or 400 (invalid email format)
+        if (errorStatus !== 404 && errorStatus !== 400) {
+          console.error('Error checking contact:', {
+            error: errorMessage,
+            statusCode: errorStatus,
+            email,
+            timestamp: new Date().toISOString(),
+            ...(import.meta.env.DEV && { details: error })
+          });
+          
+          // For critical errors, fail the request
+          if (errorStatus && errorStatus >= 500) {
+            throw new Error('Service temporarily unavailable. Please try again later.');
+          }
         }
       }
 
@@ -124,28 +154,71 @@ export const POST: APIRoute = async ({ request }) => {
       }
 
       // Add or update contact in Brevo
+      // Note: Brevo will send a double opt-in confirmation email automatically
+      // if the list is configured for double opt-in in Brevo dashboard
       const contact = new brevo.CreateContact();
       contact.email = email;
-      contact.listIds = [2]; // Newsletter list ID in Brevo (you may need to adjust this)
+      contact.listIds = [newsletterListId]; // Newsletter list ID in Brevo
       contact.attributes = {
         SOURCE: 'Website',
         SUBSCRIBED_AT: new Date().toISOString(),
-        CONSENT: consent
+        CONSENT: String(consent)
       };
       contact.updateEnabled = true; // Update if contact already exists
 
-      await contactsApi.createContact(contact);
+      try {
+        await contactsApi.createContact(contact);
+      } catch (createError) {
+        // Handle specific Brevo errors for contact creation
+        const errorMessage = createError instanceof Error ? createError.message : 'Unknown error';
+        const errorStatus = (createError as { statusCode?: number })?.statusCode;
+        
+        // Handle duplicate contact (already exists) - this is okay
+        if (errorStatus === 400 && errorMessage.includes('duplicate')) {
+          // Contact already exists but wasn't in the list - update it
+          try {
+            await contactsApi.updateContact(email, {
+              listIds: [newsletterListId],
+              attributes: {
+                SOURCE: 'Website',
+                SUBSCRIBED_AT: new Date().toISOString(),
+                CONSENT: String(consent)
+              }
+            });
+          } catch (updateError) {
+            console.error('Error updating existing contact:', {
+              error: updateError instanceof Error ? updateError.message : 'Unknown error',
+              email,
+              timestamp: new Date().toISOString()
+            });
+            throw new Error('Failed to process subscription');
+          }
+        } else {
+          // For other errors, log and throw
+          console.error('Error creating contact:', {
+            error: errorMessage,
+            statusCode: errorStatus,
+            email,
+            timestamp: new Date().toISOString(),
+            ...(import.meta.env.DEV && { details: createError })
+          });
+          throw new Error('Failed to process subscription');
+        }
+      }
 
-      // Send double opt-in confirmation email
+      // Note: If double opt-in is enabled in Brevo dashboard for list ID 2,
+      // Brevo will automatically send its own confirmation email.
+      // This custom confirmation email is informational only.
+      // For proper double opt-in, configure it in Brevo dashboard or implement a confirmation endpoint.
+      
+      // Send informational confirmation email
       const confirmationEmail = new brevo.SendSmtpEmail();
       confirmationEmail.to = [{ email: email }];
       confirmationEmail.sender = { email: FROM_EMAIL, name: FROM_NAME };
-      confirmationEmail.subject = 'Confirm your AUXO Data Labs newsletter subscription';
+      confirmationEmail.subject = 'Welcome to AUXO Data Labs Newsletter';
       confirmationEmail.textContent = `Thank you for subscribing to the AUXO Data Labs newsletter!
 
-To complete your subscription and start receiving insights on data analytics trends and best practices, please confirm your email address by clicking the link below:
-
-${SITE_URL}
+Your subscription request has been received.${BREVO_API_KEY ? ' If double opt-in is enabled in Brevo, you will receive a confirmation email to complete your subscription.' : ' Welcome!'}
 
 Why subscribe?
 • Expert insights on data analytics and business intelligence
@@ -192,9 +265,7 @@ Email: ${FROM_EMAIL}`;
       <h2>Welcome to AUXO Data Labs!</h2>
       <p>Thank you for subscribing to our newsletter. You're one step away from receiving expert insights on data analytics and business intelligence.</p>
 
-      <div style="text-align: center;">
-        <a href="${SITE_URL}" class="button">Confirm Your Subscription</a>
-      </div>
+      ${BREVO_API_KEY ? '<p style="color: #666; font-size: 14px;">If you receive a confirmation email from Brevo, please click the link to complete your subscription.</p>' : ''}
 
       <div class="benefits">
         <h3 style="margin-top: 0;">What you'll receive:</h3>
@@ -218,12 +289,50 @@ Email: ${FROM_EMAIL}`;
 </body>
 </html>`;
 
-      await emailApi.sendTransacEmail(confirmationEmail);
+      try {
+        await emailApi.sendTransacEmail(confirmationEmail);
+      } catch (emailError) {
+        // Log email sending error but don't fail the subscription
+        // The contact is already added to Brevo, so subscription succeeded
+        const errorMessage = emailError instanceof Error ? emailError.message : 'Unknown error';
+        const errorStatus = (emailError as { statusCode?: number })?.statusCode;
+        
+        console.error('Error sending confirmation email:', {
+          error: errorMessage,
+          statusCode: errorStatus,
+          email,
+          timestamp: new Date().toISOString(),
+          ...(import.meta.env.DEV && { details: emailError })
+        });
+        
+        // If it's a critical Brevo service error, still return success
+        // since the subscription was processed
+        // User will receive Brevo's double opt-in email if configured
+      }
 
     } catch (brevoError) {
-      console.error('Brevo API error:', brevoError);
+      // Enhanced error logging for critical errors
+      const errorMessage = brevoError instanceof Error ? brevoError.message : 'Unknown error';
+      const errorStatus = (brevoError as { statusCode?: number })?.statusCode;
+      
+      console.error('Brevo API error:', {
+        error: errorMessage,
+        statusCode: errorStatus,
+        email,
+        timestamp: new Date().toISOString(),
+        ...(import.meta.env.DEV && { details: brevoError })
+      });
 
-      // Log but don't expose internal errors to user
+      // Provide more specific error messages based on status code
+      if (errorStatus === 401 || errorStatus === 403) {
+        throw new Error('Service configuration error. Please contact support.');
+      } else if (errorStatus === 429) {
+        throw new Error('Too many requests. Please try again later.');
+      } else if (errorStatus && errorStatus >= 500) {
+        throw new Error('Service temporarily unavailable. Please try again later.');
+      }
+      
+      // Generic error for other cases
       throw new Error('Failed to process subscription');
     }
 
@@ -257,13 +366,18 @@ Email: ${FROM_EMAIL}`;
       );
     }
 
-    // Log server errors
-    console.error('Newsletter subscription error:', error);
+    // Enhanced error logging
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('Newsletter subscription error:', {
+      error: errorMessage,
+      timestamp: new Date().toISOString(),
+      ...(import.meta.env.DEV && { details: error })
+    });
 
     return new Response(
       JSON.stringify({
         success: false,
-        error: 'An error occurred. Please try again later.'
+        error: import.meta.env.DEV ? `An error occurred: ${errorMessage}` : 'An error occurred. Please try again later.'
       }),
       {
         status: 500,

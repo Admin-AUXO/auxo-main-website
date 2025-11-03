@@ -399,7 +399,7 @@ const currentYear = new Date().getFullYear();
       const consent = consentCheckbox.checked;
 
       const response = await fetch(
-        `${import.meta.env.BASE_URL}api/newsletter/`,
+        `${import.meta.env.BASE_URL}api/newsletter`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

@@ -427,6 +427,17 @@ const base = import.meta.env.BASE_URL;
             </div>
           </label>
         </div>
+
+        <!-- Honeypot field (hidden from users, used for spam detection) -->
+        <input
+          type="text"
+          name="website"
+          id="website"
+          tabindex="-1"
+          autocomplete="off"
+          aria-hidden="true"
+          style="position: absolute; left: -9999px; opacity: 0; pointer-events: none;"
+        />
       </div>
     </div>
 
@@ -515,7 +526,10 @@ const base = import.meta.env.BASE_URL;
   }
 </style>
 
-<script is:inline define:vars={{ formText: multiStepFormContent, commonText: commonText }}>
+<script
+  is:inline
+  define:vars={{ formText: multiStepFormContent, commonText: commonText }}
+>
   // Constants
   const TOTAL_STEPS = 4;
   const API_TIMEOUT = 10000; // 10 seconds
@@ -533,10 +547,7 @@ const base = import.meta.env.BASE_URL;
   const progressPercent = document.getElementById("progress-percent");
 
   // Utility: Show toast notification
-  function showNotification(
-    message,
-    type = "error",
-  ) {
+  function showNotification(message, type = "error") {
     const toast = document.createElement("div");
     toast.className = `fixed top-24 right-4 z-50 px-6 py-4 rounded-lg shadow-lg transform transition-all duration-300 translate-x-0 ${
       type === "success"
@@ -682,16 +693,14 @@ const base = import.meta.env.BASE_URL;
         companySize: getInputValue("company-size"),
         role: getInputValue("role"),
         services: Array.from(
-          document.querySelectorAll(
-            'input[name="services[]"]:checked',
-          ),
+          document.querySelectorAll('input[name="services[]"]:checked'),
         ).map((cb) => sanitizeInput(cb.value)),
         timeline: getInputValue("timeline"),
         budget: getInputValue("budget"),
         message: getInputValue("message"),
         hearAbout: getInputValue("hear-about"),
-        newsletter:
-          document.getElementById("newsletter")?.checked || false,
+        newsletter: document.getElementById("newsletter")?.checked || false,
+        website: document.getElementById("website")?.value || "", // Honeypot field
         timestamp: new Date().toISOString(),
       };
 
@@ -707,15 +716,12 @@ const base = import.meta.env.BASE_URL;
       const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT);
 
       try {
-        const response = await fetch(
-          `${import.meta.env.BASE_URL}api/contact/`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
-            signal: controller.signal,
-          },
-        );
+        const response = await fetch(`${import.meta.env.BASE_URL}api/contact`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+          signal: controller.signal,
+        });
 
         clearTimeout(timeoutId);
 

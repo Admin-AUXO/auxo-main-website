@@ -5,6 +5,19 @@ import { ZodError } from 'zod';
 import * as brevo from '@getbrevo/brevo';
 
 /**
+ * Escape HTML to prevent XSS in email templates
+ */
+function escapeHtml(text: string | undefined | null): string {
+  if (!text) return '';
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+/**
  * Contact Form API Endpoint
  *
  * Integrations:
@@ -123,13 +136,15 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
+    let emailsSent = { notification: false, confirmation: false };
+    
     try {
       // Email to business (notification)
       const notificationEmail = new brevo.SendSmtpEmail();
       notificationEmail.to = [{ email: CONTACT_EMAIL }];
       notificationEmail.sender = { email: FROM_EMAIL, name: FROM_NAME };
       notificationEmail.replyTo = { email: email, name: name };
-      notificationEmail.subject = `🔔 New Contact Form Submission from ${name}`;
+      notificationEmail.subject = `🔔 New Contact Form Submission from ${escapeHtml(name)}`;
       notificationEmail.textContent = `You have received a new contact form submission from the AUXO Data Labs website.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -192,54 +207,54 @@ Reply to this email to respond directly to ${name}.`;
       <div class="info-box">
         <h3 style="margin-top: 0; color: #000;">Contact Details</h3>
         <div class="label">Name</div>
-        <div class="value">${name}</div>
+        <div class="value">${escapeHtml(name)}</div>
 
         <div class="label">Email</div>
-        <div class="value"><a href="mailto:${email}">${email}</a></div>
+        <div class="value"><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></div>
 
         <div class="label">Company</div>
-        <div class="value">${company || '<em>Not provided</em>'}</div>
+        <div class="value">${company ? escapeHtml(company) : '<em>Not provided</em>'}</div>
 
         <div class="label">Phone</div>
-        <div class="value">${phone || '<em>Not provided</em>'}</div>
+        <div class="value">${phone ? escapeHtml(phone) : '<em>Not provided</em>'}</div>
 
         <div class="label">Role</div>
-        <div class="value">${role || '<em>Not provided</em>'}</div>
+        <div class="value">${role ? escapeHtml(role) : '<em>Not provided</em>'}</div>
       </div>
 
       <div class="info-box">
         <h3 style="margin-top: 0; color: #000;">Company Information</h3>
         <div class="label">Industry</div>
-        <div class="value">${industry || '<em>Not provided</em>'}</div>
+        <div class="value">${industry ? escapeHtml(industry) : '<em>Not provided</em>'}</div>
 
         <div class="label">Company Size</div>
-        <div class="value">${companySize || '<em>Not provided</em>'}</div>
+        <div class="value">${companySize ? escapeHtml(companySize) : '<em>Not provided</em>'}</div>
       </div>
 
       <div class="info-box">
         <h3 style="margin-top: 0; color: #000;">Project Details</h3>
         <div class="label">Services Interested In</div>
-        <div class="value">${services && services.length > 0 ? services.join(', ') : '<em>Not specified</em>'}</div>
+        <div class="value">${services && services.length > 0 ? escapeHtml(services.join(', ')) : '<em>Not specified</em>'}</div>
 
         <div class="label">Timeline</div>
-        <div class="value">${timeline || '<em>Not specified</em>'}</div>
+        <div class="value">${timeline ? escapeHtml(timeline) : '<em>Not specified</em>'}</div>
 
         <div class="label">Budget Range</div>
-        <div class="value">${budget || '<em>Not specified</em>'}</div>
+        <div class="value">${budget ? escapeHtml(budget) : '<em>Not specified</em>'}</div>
       </div>
 
       <div class="label">Message:</div>
-      <div class="message-box">${message.replace(/\n/g, '<br>')}</div>
+      <div class="message-box">${escapeHtml(message).replace(/\n/g, '<br>')}</div>
 
       <div class="info-box" style="border-left-color: #666;">
         <div class="label">Lead Source</div>
-        <div class="value">${hearAbout || '<em>Not specified</em>'}</div>
+        <div class="value">${hearAbout ? escapeHtml(hearAbout) : '<em>Not specified</em>'}</div>
 
         <div class="label">Newsletter Subscription</div>
         <div class="value">${newsletter ? '✓ Yes' : '✗ No'}</div>
       </div>
 
-      <a href="mailto:${email}?subject=Re: Your inquiry to AUXO Data Labs" class="button">Reply to ${name}</a>
+      <a href="mailto:${escapeHtml(email)}?subject=Re: Your inquiry to AUXO Data Labs" class="button">Reply to ${escapeHtml(name)}</a>
 
       <div class="footer">
         Submitted: ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Dubai' })} (Dubai time)<br>
@@ -251,7 +266,22 @@ Reply to this email to respond directly to ${name}.`;
 </html>`;
 
       // Send notification email to business
-      await apiInstance.sendTransacEmail(notificationEmail);
+      try {
+        await apiInstance.sendTransacEmail(notificationEmail);
+        emailsSent.notification = true;
+      } catch (notificationError) {
+        const errorMessage = notificationError instanceof Error ? notificationError.message : 'Unknown error';
+        const errorStatus = (notificationError as { statusCode?: number })?.statusCode;
+        
+        console.error('Error sending notification email:', {
+          error: errorMessage,
+          statusCode: errorStatus,
+          email,
+          timestamp: new Date().toISOString(),
+          ...(import.meta.env.DEV && { details: notificationError })
+        });
+        // Continue processing - we still want to send confirmation and process newsletter
+      }
 
       // Confirmation email to user
       const confirmationEmail = new brevo.SendSmtpEmail();
@@ -298,13 +328,13 @@ Email: hello@auxodata.com`;
     </div>
     <div class="content">
       <h2>Thank You for Reaching Out!</h2>
-      <p>Dear ${name},</p>
+      <p>Dear ${escapeHtml(name)},</p>
       <p>We have received your message and appreciate you taking the time to contact AUXO Data Labs.</p>
       <p>Our team will review your inquiry and get back to you within <strong>24-48 hours</strong>.</p>
 
       <div class="message-box">
         <strong>Your Message:</strong><br><br>
-        ${message.replace(/\n/g, '<br>')}
+        ${escapeHtml(message).replace(/\n/g, '<br>')}
       </div>
 
       <p>In the meantime, feel free to explore our <a href="https://auxodata.com/services" style="color: #A3E635;">services</a> and <a href="https://auxodata.com/blog" style="color: #A3E635;">blog</a> for insights on data analytics.</p>
@@ -322,11 +352,72 @@ Email: hello@auxodata.com`;
 </html>`;
 
       // Send confirmation email to user
-      await apiInstance.sendTransacEmail(confirmationEmail);
+      try {
+        await apiInstance.sendTransacEmail(confirmationEmail);
+        emailsSent.confirmation = true;
+      } catch (confirmationError) {
+        const errorMessage = confirmationError instanceof Error ? confirmationError.message : 'Unknown error';
+        const errorStatus = (confirmationError as { statusCode?: number })?.statusCode;
+        
+        console.error('Error sending confirmation email:', {
+          error: errorMessage,
+          statusCode: errorStatus,
+          email,
+          timestamp: new Date().toISOString(),
+          ...(import.meta.env.DEV && { details: confirmationError })
+        });
+        // Continue processing - form submission was received
+      }
+
+      // If user opted in for newsletter, subscribe them
+      if (newsletter && email) {
+        try {
+          const contactsApi = new brevo.ContactsApi();
+          contactsApi.setApiKey(brevo.ContactsApiApiKeys.apiKey, BREVO_API_KEY!);
+
+          const contact = new brevo.CreateContact();
+          contact.email = email;
+          contact.listIds = [2]; // Newsletter list ID
+          contact.attributes = {
+            SOURCE: 'Contact Form',
+            SUBSCRIBED_AT: new Date().toISOString(),
+            NAME: name,
+            COMPANY: company || '',
+          };
+          contact.updateEnabled = true;
+
+          await contactsApi.createContact(contact);
+        } catch (newsletterError) {
+          // Log but don't fail - newsletter subscription is optional
+          const errorMessage = newsletterError instanceof Error ? newsletterError.message : 'Unknown error';
+          const errorStatus = (newsletterError as { statusCode?: number })?.statusCode;
+          
+          console.error('Failed to subscribe user to newsletter:', {
+            error: errorMessage,
+            statusCode: errorStatus,
+            email,
+            timestamp: new Date().toISOString(),
+            ...(import.meta.env.DEV && { details: newsletterError })
+          });
+        }
+      }
 
     } catch (emailError) {
-      console.error('Failed to send email:', emailError);
-      // Don't fail the request if email fails, log for debugging
+      // Enhanced error logging for unexpected errors
+      const errorMessage = emailError instanceof Error ? emailError.message : 'Unknown error';
+      const errorStatus = (emailError as { statusCode?: number })?.statusCode;
+      
+      console.error('Unexpected email error:', {
+        error: errorMessage,
+        statusCode: errorStatus,
+        email,
+        timestamp: new Date().toISOString(),
+        ...(import.meta.env.DEV && { details: emailError })
+      });
+      
+      // Log the error but don't fail the request - form submission was valid
+      // In production, you might want to store submissions in a database
+      // as a backup if email fails
     }
 
     return new Response(
@@ -359,13 +450,18 @@ Email: hello@auxodata.com`;
       );
     }
 
-    // Log server errors
-    console.error('Contact form error:', error);
+    // Enhanced error logging
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('Contact form error:', {
+      error: errorMessage,
+      timestamp: new Date().toISOString(),
+      ...(import.meta.env.DEV && { details: error })
+    });
 
     return new Response(
       JSON.stringify({
         success: false,
-        error: 'An error occurred. Please try again later.'
+        error: import.meta.env.DEV ? `An error occurred: ${errorMessage}` : 'An error occurred. Please try again later.'
       }),
       {
         status: 500,

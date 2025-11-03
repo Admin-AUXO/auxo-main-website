@@ -1,14 +1,14 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { services } from '../../data/collections/services';
-import { getUseCases } from '../../data/collections/servicesUseCases';
-import { Icon } from 'astro-icon/components';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { services } from "../../data/collections/services";
+import { getUseCases } from "../../data/collections/servicesUseCases";
+import { Icon } from "astro-icon/components";
 
 const base = import.meta.env.BASE_URL;
 
 export async function getStaticPaths() {
-  return services.map(service => ({
+  return services.map((service) => ({
     params: { id: service.id },
     props: { service },
   }));
@@ -28,9 +28,9 @@ const useCases = getUseCases(service.id);
       <div class="max-w-5xl mx-auto">
         <Breadcrumbs
           items={[
-            { label: 'Home', href: base },
-            { label: 'Services', href: `${base}services/` },
-            { label: service.title }
+            { label: "Home", href: base },
+            { label: "Services", href: `${base}services/` },
+            { label: service.title },
           ]}
         />
       </div>
@@ -38,7 +38,9 @@ const useCases = getUseCases(service.id);
       <!-- Header -->
       <div class="max-w-5xl mx-auto mb-16">
         <div class="flex items-center space-x-4 mb-6">
-          <div class="w-16 h-16 bg-lime-400/10 rounded-xl flex items-center justify-center">
+          <div
+            class="w-16 h-16 bg-lime-400/10 rounded-xl flex items-center justify-center"
+          >
             <Icon name={service.icon} class="w-8 h-8 text-lime-400" />
           </div>
           <div>
@@ -60,49 +62,63 @@ const useCases = getUseCases(service.id);
               Key Features
             </h2>
             <ul class="space-y-4">
-              {service.features.map((feature) => (
-                <li class="flex items-start">
-                  <div class="w-6 h-6 bg-lime-400/20 rounded-full flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
-                    <Icon name="mdi:check" class="w-4 h-4 text-lime-400" />
-                  </div>
-                  <span class="text-gray-300">{feature}</span>
-                </li>
-              ))}
+              {
+                service.features.map((feature) => (
+                  <li class="flex items-start">
+                    <div class="w-6 h-6 bg-lime-400/20 rounded-full flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
+                      <Icon name="mdi:check" class="w-4 h-4 text-lime-400" />
+                    </div>
+                    <span class="text-gray-300">{feature}</span>
+                  </li>
+                ))
+              }
             </ul>
           </div>
 
           <!-- Deliverables -->
           <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-8">
             <h2 class="text-2xl font-bold mb-6 flex items-center">
-              <Icon name="mdi:package-variant" class="w-6 h-6 text-lime-400 mr-3" />
+              <Icon
+                name="mdi:package-variant"
+                class="w-6 h-6 text-lime-400 mr-3"
+              />
               What You'll Get
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {service.deliverables.map((deliverable) => (
-                <div class="flex items-start p-4 bg-zinc-800 rounded-lg">
-                  <Icon name="mdi:file-document" class="w-5 h-5 text-lime-400 mr-3 flex-shrink-0 mt-0.5" />
-                  <span class="text-sm text-gray-300">{deliverable}</span>
-                </div>
-              ))}
+              {
+                service.deliverables.map((deliverable) => (
+                  <div class="flex items-start p-4 bg-zinc-800 rounded-lg">
+                    <Icon
+                      name="mdi:file-document"
+                      class="w-5 h-5 text-lime-400 mr-3 flex-shrink-0 mt-0.5"
+                    />
+                    <span class="text-sm text-gray-300">{deliverable}</span>
+                  </div>
+                ))
+              }
             </div>
           </div>
 
           <!-- Use Cases -->
-          <div class="bg-gradient-to-br from-lime-400/10 to-green-500/10 border border-lime-400/20 rounded-2xl p-8">
+          <div
+            class="bg-gradient-to-br from-lime-400/10 to-green-500/10 border border-lime-400/20 rounded-2xl p-8"
+          >
             <h2 class="text-2xl font-bold mb-6 flex items-center">
               <Icon name="mdi:lightbulb" class="w-6 h-6 text-lime-400 mr-3" />
               Common Use Cases
             </h2>
             <div class="space-y-4">
-              {useCases.map((useCase) => (
-                <div class="flex items-start">
-                  <div class="w-2 h-2 bg-lime-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                  <div>
-                    <h3 class="font-semibold mb-1">{useCase.title}</h3>
-                    <p class="text-sm text-gray-400">{useCase.description}</p>
+              {
+                useCases.map((useCase) => (
+                  <div class="flex items-start">
+                    <div class="w-2 h-2 bg-lime-400 rounded-full mt-2 mr-3 flex-shrink-0" />
+                    <div>
+                      <h3 class="font-semibold mb-1">{useCase.title}</h3>
+                      <p class="text-sm text-gray-400">{useCase.description}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              }
             </div>
           </div>
         </div>
@@ -128,22 +144,27 @@ const useCases = getUseCases(service.id);
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6">
               <h3 class="font-bold mb-4">Related Services</h3>
               <div class="space-y-3">
-                {services
-                  .filter((s) => s.id !== service.id)
-                  .slice(0, 3)
-                  .map((s) => (
-                    <a
-                      href={`${base}services/${s.id}`}
-                      class="block p-3 bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-colors group"
-                    >
-                      <div class="flex items-center">
-                        <Icon name={s.icon} class="w-5 h-5 text-lime-400 mr-3" />
-                        <span class="text-sm font-medium group-hover:text-lime-400 transition-colors">
-                          {s.title}
-                        </span>
-                      </div>
-                    </a>
-                  ))}
+                {
+                  services
+                    .filter((s) => s.id !== service.id)
+                    .slice(0, 3)
+                    .map((s) => (
+                      <a
+                        href={`${base}services/${s.id}`}
+                        class="block p-3 bg-zinc-800 rounded-lg hover:bg-zinc-700 transition-colors group"
+                      >
+                        <div class="flex items-center">
+                          <Icon
+                            name={s.icon}
+                            class="w-5 h-5 text-lime-400 mr-3"
+                          />
+                          <span class="text-sm font-medium group-hover:text-lime-400 transition-colors">
+                            {s.title}
+                          </span>
+                        </div>
+                      </a>
+                    ))
+                }
               </div>
               <a
                 href={`${base}services`}
@@ -154,11 +175,17 @@ const useCases = getUseCases(service.id);
             </div>
 
             <!-- Assessment CTA -->
-            <div class="bg-gradient-to-br from-lime-400/10 to-green-500/10 border border-lime-400/20 rounded-2xl p-6">
-              <Icon name="mdi:calculator" class="w-10 h-10 text-lime-400 mb-3" />
+            <div
+              class="bg-gradient-to-br from-lime-400/10 to-green-500/10 border border-lime-400/20 rounded-2xl p-6"
+            >
+              <Icon
+                name="mdi:calculator"
+                class="w-10 h-10 text-lime-400 mb-3"
+              />
               <h3 class="font-bold mb-2">Assess Your Maturity</h3>
               <p class="text-sm text-gray-400 mb-4">
-                Take our free assessment to discover your data analytics maturity level
+                Take our free assessment to discover your data analytics
+                maturity level
               </p>
               <a
                 href={`${base}tools/maturity-calculator`}

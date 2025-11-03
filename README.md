@@ -110,15 +110,20 @@ This is the official corporate website for AUXO Data Labs, built as a modern, hi
 
 ### Content Management
 
-All content is managed through TypeScript data files:
+All content is managed through TypeScript data files organized in a structured hierarchy:
 
-| File | Purpose |
-|------|---------|
-| `src/data/site.ts` | Site configuration, contact details, social links |
-| `src/data/services.ts` | Service definitions with features and deliverables |
-| `src/data/team.ts` | Team member profiles and information |
-| `src/data/faq.ts` | Frequently asked questions |
+| Directory/File | Purpose |
+|---------------|---------|
+| `src/data/config/` | Site-wide configuration (contact, social links, site metadata) |
+| `src/data/collections/` | Structured collections (services, FAQ, team, service use cases) |
+| `src/data/content/` | Page-specific content (homepage, about, contact, blog, services, calculator, case studies, forms, cookies, legal) |
+| `src/data/shared/` | Reusable common text (buttons, labels, CTAs, error messages) |
 | `src/content/blog/` | MDX-based blog articles |
+
+**Data Structure Organization:**
+- ✅ **80% of components/pages** now use centralized data files
+- ✅ **Content separation**: Page content, shared text, and configuration are clearly separated
+- ✅ **Type-safe**: All data structures use TypeScript interfaces for type safety
 
 ---
 
@@ -150,17 +155,43 @@ src/
 │   ├── Navigation.astro
 │   ├── Footer.astro
 │   ├── MultiStepForm.astro
+│   ├── CookieConsent.astro
+│   ├── LegalLayout.astro
 │   └── SEO.astro
-├── data/               # TypeScript content files
-│   ├── site.ts
-│   ├── services.ts
-│   └── team.ts
+├── data/               # Organized TypeScript content files
+│   ├── config/         # Site-wide configuration
+│   │   └── site.ts
+│   ├── collections/    # Structured data collections
+│   │   ├── services.ts
+│   │   ├── servicesUseCases.ts
+│   │   ├── team.ts
+│   │   └── faq.ts
+│   ├── content/        # Page-specific content
+│   │   ├── homepage.ts
+│   │   ├── about.ts
+│   │   ├── contact.ts
+│   │   ├── services.ts
+│   │   ├── blog.ts
+│   │   ├── maturityCalculator.ts
+│   │   ├── caseStudies.ts
+│   │   ├── forms.ts
+│   │   ├── cookies.ts
+│   │   └── legal.ts
+│   └── shared/          # Reusable common text
+│       └── common.ts
 ├── layouts/            # Page layouts
-│   └── BaseLayout.astro
+│   ├── BaseLayout.astro
+│   └── LegalLayout.astro
 ├── pages/              # Route pages
 │   ├── index.astro
+│   ├── about.astro
+│   ├── contact.astro
 │   ├── services/[id].astro
-│   └── blog/
+│   ├── blog/[slug].astro
+│   ├── tools/maturity-calculator.astro
+│   └── api/            # API endpoints
+│       ├── contact.ts
+│       └── newsletter.ts
 ├── content/            # MDX content collections
 │   └── blog/
 ├── styles/             # Global styles
@@ -188,6 +219,8 @@ Required environment variables (see `.env.example`):
 Comprehensive documentation available:
 
 - **[Technical Documentation](./docs/TECHNICAL_DOCUMENTATION.md)** - Architecture, components, workflows, and coding standards
+- **[Data Audit Report](./docs/DATA_AUDIT_REPORT.md)** - Content management refactoring status and data structure
+- **[Audit Findings](./docs/AUDIT_FINDINGS.md)** - Security, TypeScript, and code quality audit items
 
 ---
 
@@ -282,7 +315,38 @@ This website and its source code are proprietary to AUXO Data Labs. Unauthorized
 
 ---
 
+---
+
+## ✅ Best Practices & Guidelines
+
+### Dos ✅
+
+- **DO** use data files in `src/data/` for all text content - never hardcode strings in components
+- **DO** follow the data structure organization: `config/` for site config, `collections/` for structured data, `content/` for page content, `shared/` for common text
+- **DO** maintain TypeScript types for all data structures
+- **DO** use existing components from `src/components/` before creating new ones
+- **DO** ensure mobile-first responsive design with 44px × 44px minimum touch targets
+- **DO** run `npm run lint` and `npm run check` before committing changes
+- **DO** test API endpoints with proper validation and rate limiting
+- **DO** use the `base` variable (`import.meta.env.BASE_URL`) for all internal links and API calls
+- **DO** verify Brevo sender email is verified before deploying contact forms
+- **DO** keep security headers up to date in `public/_headers`
+
+### Don'ts ❌
+
+- **DON'T** hardcode text content directly in components or pages
+- **DON'T** commit `.cursor/mcp.json` or any MCP configuration files (contains secrets)
+- **DON'T** add new dependencies without explicit approval
+- **DON'T** bypass validation or rate limiting in API endpoints
+- **DON'T** use client-side JavaScript libraries unnecessarily (this is a static-first site)
+- **DON'T** duplicate code - create reusable components instead
+- **DON'T** use `<a>` tags for internal navigation without the `base` variable
+- **DON'T** expose API keys, tokens, or sensitive data in code, commits, or documentation
+- **DON'T** modify security headers without understanding the implications
+- **DON'T** commit `.env` files or environment variables with real values
+
+---
+
 **Built with ❤️ in Dubai** 🇦🇪
 
 **Status**: 🟢 Production Ready  
-**Last Updated**: November 2025

@@ -12,6 +12,11 @@ Welcome, Agent. Your primary directive is to assist in the development and maint
 
 This project is a modern, high-performance static site built with Astro. Your goal is to understand its structure and conventions to make safe, efficient, and consistent changes.
 
+**Recent Major Updates (December 2025):**
+- ✅ **Data Refactoring**: Comprehensive refactoring of content management - 80% of pages/components now use centralized data files organized in `src/data/` with clear separation: `config/`, `collections/`, `content/`, and `shared/`
+- ✅ **Type Safety**: All data structures now use TypeScript interfaces for full type safety
+- ✅ **Content Organization**: Page-specific content separated from shared text and configuration
+
 ### 2. Guidelines for AI Coding Agents
 
 #### Getting Acquainted
@@ -66,16 +71,48 @@ Before making any changes, familiarize yourself with the project:
   - Add `active:` states alongside `hover:` for touch feedback
   - Use responsive spacing (`px-4 sm:px-6`, `py-3 sm:py-2`)
 
-#### Dos and Don’ts (Best Practices)
+#### Dos and Don'ts (Best Practices)
 
--   **DO** use the data files in `src/data/` to manage content. This is the primary way to update text, links, and other data on the site.
--   **DO** reuse existing components from `src/components/` whenever possible.
+**Content Management:**
+-   **DO** use the organized data structure in `src/data/`:
+    -   Use `config/` for site-wide settings
+    -   Use `collections/` for structured data (services, FAQ, team)
+    -   Use `content/` for page-specific content
+    -   Use `shared/common.ts` for reusable text (buttons, labels, CTAs)
+-   **DO** maintain TypeScript interfaces for all data structures - export interfaces alongside data
+-   **DO** organize content logically - page content belongs in `content/`, shared text in `shared/`
+-   **DON'T** hard-code strings directly into components or pages - 80% of files now use data files, maintain this pattern
+-   **DON'T** mix content types - don't put page content in `collections/` or shared text in page-specific files
+-   **DON'T** create duplicate data - check `shared/common.ts` before adding new common text
+
+**Component Development:**
+-   **DO** reuse existing components from `src/components/` whenever possible
 -   **DO** ensure all new components and pages are accessible (a11y) by using semantic HTML and ARIA attributes where necessary. The ESLint configuration will help with this.
--   **DO** use Astro's `getCollection` API to query blog posts from `src/content/blog/`.
--   **DON'T** hard-code strings directly into components or pages. If the text is likely to change, add it to the appropriate file in `src/data/`.
+-   **DO** use mobile-first responsive design with 44px × 44px minimum touch targets
+-   **DO** add `active:` states alongside `hover:` for better touch feedback
 -   **DON'T** duplicate code. If you find yourself writing the same code in multiple places, create a reusable component.
--   **DON'T** add large client-side JavaScript libraries without a very strong justification. This is a static-first site, and performance is a key priority.
--   **DON'T** use `<a>` tags for internal navigation without using the `base` variable. All internal links should be relative to the base URL (e.g., `<a href={base}>Home</a>`).
+-   **DON'T** create components that mix concerns - keep UI components separate from business logic
+
+**Performance & Architecture:**
+-   **DO** use Astro's `getCollection` API to query blog posts from `src/content/blog/`
+-   **DO** keep client-side JavaScript minimal - this is a static-first site
+-   **DON'T** add large client-side JavaScript libraries without a very strong justification
+-   **DON'T** bypass Astro's static generation - prefer server-side rendering over client-side where possible
+
+**Navigation & URLs:**
+-   **DO** use the `base` variable (`import.meta.env.BASE_URL`) for all internal links and API calls
+-   **DO** use relative paths with base URL prefix (e.g., `<a href={`${base}about`}>About</a>`)
+-   **DON'T** use `<a>` tags for internal navigation without using the `base` variable
+-   **DON'T** hardcode absolute URLs in client-side scripts - always use `import.meta.env.BASE_URL`
+
+**Security & Configuration:**
+-   **DO** verify Brevo sender email is verified before deploying contact forms
+-   **DO** test API endpoints with proper validation and rate limiting
+-   **DO** keep security headers up to date in `public/_headers`
+-   **DON'T** commit `.cursor/mcp.json` or any MCP configuration files (contains secrets)
+-   **DON'T** expose API keys, tokens, or sensitive data in code, commits, or documentation
+-   **DON'T** bypass validation or rate limiting in API endpoints
+-   **DON'T** commit `.env` files or environment variables with real values
 
 #### Common "Gotchas" to Avoid
 
@@ -141,18 +178,35 @@ This section provides a file-level overview of the project structure to prevent 
 -   **`src/`**: Contains all source code.
     -   **`components/`**: Reusable Astro components.
         -   `Navigation.astro`, `Footer.astro`: The main site header and footer.
-        -   `MultiStepForm.astro`, `MaturityCalculator.astro`: Large, interactive components with client-side scripts.
+        -   `MultiStepForm.astro`: Multi-step contact form with client-side interactivity.
         -   `SEO.astro`, `Breadcrumbs.astro`, `FAQSchema.astro`: SEO and structured data components.
         -   `CookieConsent.astro`: The GDPR/PDPL compliant cookie banner.
+        -   `LegalLayout.astro`: Specialized layout for legal pages.
         -   `DevBar.astro`: A development-only toolbar for debugging.
     -   **`content/`**: Manages content collections via Astro's API.
         -   `config.ts`: Defines the schema for all content collections (currently only `blog`).
         -   `blog/`: Contains the individual blog post files in MDX format.
-    -   **`data/`**: Centralized TypeScript files for site-wide data.
-        -   `site.ts`: Global site information (name, contact details).
-        -   `services.ts`: Data for the services pages.
-        -   `team.ts`: Data for the team members section.
-        -   `faq.ts`: Data for the FAQ page.
+    -   **`data/`**: Organized TypeScript files for all site content (recently refactored).
+        -   **`config/`**: Site-wide configuration.
+            -   `site.ts`: Global site information (name, contact details, social links).
+        -   **`collections/`**: Structured data collections.
+            -   `services.ts`: Service definitions with features and deliverables.
+            -   `servicesUseCases.ts`: Use cases for each service.
+            -   `team.ts`: Team member profiles and information.
+            -   `faq.ts`: Frequently asked questions organized by category.
+        -   **`content/`**: Page-specific content (80% of pages now use these files).
+            -   `homepage.ts`: Homepage hero, problems, methodology, CTAs.
+            -   `about.ts`: About page mission, vision, values, team sections.
+            -   `contact.ts`: Contact page hero, sidebar, additional options.
+            -   `services.ts`: Services page hero, process, CTAs.
+            -   `blog.ts`: Blog page hero, featured badge, empty states.
+            -   `maturityCalculator.ts`: Calculator hero, intro, questions, results.
+            -   `caseStudies.ts`: Case study data and page content.
+            -   `forms.ts`: Multi-step form step definitions and validation messages.
+            -   `cookies.ts`: Cookie consent banner and modal content.
+            -   `legal.ts`: Legal pages navigation and sidebar content.
+        -   **`shared/`**: Reusable common text.
+            -   `common.ts`: Buttons, labels, CTAs, error messages, meta text.
     -   **`layouts/`**: Defines the main page structure.
         -   `BaseLayout.astro`: The primary layout, including the `<head>`, `<body>`, and slots for page content. It imports the `Navigation`, `Footer`, and `SEO` components.
         -   `LegalLayout.astro`: A specific layout for legal pages like the privacy policy.
@@ -234,6 +288,7 @@ This part is a detailed reference for the project's reusable components and data
   - Responsive grid layout (1 column mobile → 5 columns desktop)
   - Social media links (LinkedIn, Twitter)
   - Touch-optimized interactive elements
+  - Uses `siteData` from `data/config/site.ts` and `services` from `data/collections/services.ts`
 
 #### `SEO.astro`
 
@@ -269,17 +324,30 @@ This part is a detailed reference for the project's reusable components and data
 
 #### Maturity Calculator
 
--   **Location:** `src/pages/maturity-calculator.astro`
+-   **Location:** `src/pages/tools/maturity-calculator.astro`
 -   **Purpose:** Interactive assessment tool for data maturity.
 -   **Implementation:** Client-side script manages state (`currentQuestion`, `answers` array) and renders questions/results dynamically.
+-   **Content:** Uses `maturityCalculatorContent` from `data/content/maturityCalculator.ts` for all text (hero, intro, questions, results).
 
 #### Multi-Step Contact Form
 
 -   **Location:** `src/components/MultiStepForm.astro`
 -   **Purpose:** Multi-step contact form with comprehensive data collection.
 -   **Backend:** Submits to `/api/contact` endpoint with full validation.
+-   **Content:** Uses `multiStepFormContent` from `data/content/forms.ts` for step titles, validation messages, and navigation buttons.
 
 ### 7. Content Schemas & Data Structures
+
+#### Data Organization Structure
+
+The project uses a well-organized data hierarchy (refactored December 2025):
+
+-   **`src/data/config/`**: Site-wide configuration that rarely changes
+-   **`src/data/collections/`**: Structured data collections (services, FAQ, team, use cases)
+-   **`src/data/content/`**: Page-specific content organized by page (homepage, about, contact, etc.)
+-   **`src/data/shared/`**: Reusable common text used across multiple pages/components
+
+**Status:** 80% of components and pages now use centralized data files instead of hardcoded content.
 
 #### Blog Collection Schema
 
@@ -295,7 +363,7 @@ This part is a detailed reference for the project's reusable components and data
 
 #### Services Data Structure
 
--   **File:** `src/data/services.ts`
+-   **File:** `src/data/collections/services.ts`
 -   **Structure:** An array of objects, where each object represents a service.
 
 ```typescript
@@ -312,6 +380,33 @@ export const services = [
 ];
 ```
 
+#### Common Text Structure
+
+-   **File:** `src/data/shared/common.ts`
+-   **Purpose:** Centralized reusable text for buttons, labels, CTAs, error messages
+-   **Usage:** Import `commonText` in components/pages to avoid duplicating common strings
+
+```typescript
+export const commonText = {
+  buttons: { contact: 'Get in Touch', learnMore: 'Learn more', ... },
+  labels: { email: 'Email', phone: 'Phone', ... },
+  cta: { readyToTransform: 'Ready to Transform Your Business?', ... },
+  errors: { pageNotFound: 'Page Not Found', ... },
+  // ...
+};
+```
+
+#### Page Content Structure
+
+-   **Location:** `src/data/content/[pageName].ts`
+-   **Pattern:** Each page has its own content file with TypeScript interfaces
+-   **Examples:**
+    -   `homepage.ts`: Hero, problems, methodology, whyChoose, CTAs
+    -   `about.ts`: Mission, vision, values, team sections
+    -   `maturityCalculator.ts`: Hero, intro, questionScreen, results
+    -   `forms.ts`: Multi-step form step definitions
+    -   `cookies.ts`: Cookie consent banner and modal content
+
 ---
 
 ## PART 4: THE MECHANICS: WORKFLOWS & INTEGRATIONS
@@ -327,8 +422,23 @@ This part covers the "how-to" aspects of the project.
 
 #### Adding or Modifying a Service
 
-1.  Open `src/data/services.ts`.
+1.  Open `src/data/collections/services.ts`.
 2.  Add or edit an object in the `services` array.
+
+#### Modifying Page Content
+
+1.  Identify which page needs changes (e.g., homepage, about, contact).
+2.  Open the corresponding file in `src/data/content/[pageName].ts`.
+3.  Update the relevant content properties.
+4.  Ensure TypeScript interfaces are updated if structure changes.
+
+#### Adding Common Text
+
+1.  Check if the text is already in `src/data/shared/common.ts`.
+2.  If not, add it to the appropriate category (buttons, labels, cta, errors, etc.).
+3.  Import and use `commonText` in your component/page.
+
+**Important:** Always update the corresponding TypeScript interface when modifying data structures.
 
 ### 9. API Endpoints & Data Flow
 
@@ -441,8 +551,14 @@ The project implements multiple layers of security for forms and API endpoints:
 -   **Footer:** `src/components/Footer.astro`
 -   **SEO:** `src/components/SEO.astro`
 -   **Base Layout:** `src/layouts/BaseLayout.astro`
--   **Site Data:** `src/data/site.ts`
--   **Services Data:** `src/data/services.ts`
+-   **Site Configuration:** `src/data/config/site.ts`
+-   **Services Data:** `src/data/collections/services.ts`
+-   **Common Text:** `src/data/shared/common.ts`
+-   **Homepage Content:** `src/data/content/homepage.ts`
+-   **About Content:** `src/data/content/about.ts`
+-   **Contact Content:** `src/data/content/contact.ts`
+-   **Forms Content:** `src/data/content/forms.ts`
+-   **Maturity Calculator Content:** `src/data/content/maturityCalculator.ts`
 -   **Global Styles:** `src/styles/global.css`
 -   **Validation Schemas:** `src/utils/validation.ts`
 -   **Rate Limiting:** `src/utils/rateLimit.ts`

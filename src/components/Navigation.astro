@@ -245,6 +245,7 @@ const navItems: NavItem[] = [
         item.dropdown ? (
           <div class="mobile-dropdown" data-nav-item={index}>
             <button 
+              type="button"
               class="mobile-dropdown-btn w-full flex items-center justify-between px-4 py-3.5 min-h-[52px] text-gray-300 hover:text-white active:text-white active:bg-zinc-800 rounded-lg transition-all duration-200 font-medium touch-manipulation bg-zinc-900/50 border border-zinc-800/50 hover:border-lime-400/30 active:border-lime-400/50 text-base sm:text-base"
               aria-expanded="false"
             >
@@ -399,9 +400,64 @@ const navItems: NavItem[] = [
     btn?.setAttribute('aria-expanded', String(!isOpen));
   };
 
+  // Mobile dropdown toggles with optimized animations
+  // Ensure proper event handling with preventDefault and stopPropagation
+  function setupMobileDropdowns() {
+    const mobileDropdownButtons = document.querySelectorAll('#mobile-menu .mobile-dropdown-btn');
+    
+    mobileDropdownButtons.forEach(button => {
+      // Check if already has listener to avoid duplicates
+      if ((button as any).__dropdownHandlerAttached) return;
+      
+      const handler = (e: MouseEvent | TouchEvent) => {
+        // Prevent any default behavior and stop event bubbling
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        
+        const content = (button as HTMLElement).nextElementSibling as HTMLElement;
+        const icon = button.querySelector('svg');
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+        
+        if (content) {
+          const isHidden = content.classList.contains('hidden');
+          content.classList.toggle('hidden');
+          icon?.classList.toggle('rotate-180');
+          button.setAttribute('aria-expanded', String(!isExpanded));
+          
+          // Optimized height transition with better performance
+          if (!isHidden) {
+            content.style.maxHeight = '0';
+            setTimeout(() => {
+              content.style.maxHeight = '';
+            }, 200);
+          } else {
+            // Measure first, then animate
+            content.style.maxHeight = '0';
+            requestAnimationFrame(() => {
+              content.style.maxHeight = content.scrollHeight + 'px';
+              setTimeout(() => {
+                content.style.maxHeight = '';
+              }, 200);
+            });
+          }
+        }
+      };
+
+      // Attach with capture phase to ensure it runs first
+      button.addEventListener('click', handler, { capture: true, passive: false });
+      button.addEventListener('touchend', handler, { capture: true, passive: false });
+      
+      // Mark as attached to prevent duplicates
+      (button as any).__dropdownHandlerAttached = true;
+    });
+  }
+
   btn?.addEventListener('click', (e) => {
     e.stopPropagation();
     toggleMenu();
+    // Setup dropdowns after menu opens (small delay to ensure DOM is ready)
+    setTimeout(setupMobileDropdowns, 50);
   });
 
   // Close mobile menu when clicking on any link
@@ -419,50 +475,18 @@ const navItems: NavItem[] = [
     document.body.style.overflow = '';
   };
 
-  // Add click listeners to all mobile menu links
+  // Add click listeners to all mobile menu links (but NOT dropdown buttons)
   const mobileLinks = document.querySelectorAll('#mobile-menu a');
   mobileLinks.forEach(link => {
     link.addEventListener('click', closeMobileMenu);
   });
 
-  // Mobile dropdown toggles with optimized animations
-  const mobileDropdownHandlers = new Map<Element, EventListener>();
-
-  document.querySelectorAll('.mobile-dropdown-btn').forEach(button => {
-    const handler = (e: Event) => {
-      e.stopPropagation();
-      const content = button.nextElementSibling as HTMLElement;
-      const icon = button.querySelector('svg');
-      const isExpanded = button.getAttribute('aria-expanded') === 'true';
-      
-      if (content) {
-        const isHidden = content.classList.contains('hidden');
-        content.classList.toggle('hidden');
-        icon?.classList.toggle('rotate-180');
-        button.setAttribute('aria-expanded', String(!isExpanded));
-        
-        // Optimized height transition with better performance
-        if (!isHidden) {
-          content.style.maxHeight = '0';
-          setTimeout(() => {
-            content.style.maxHeight = '';
-          }, 200);
-        } else {
-          // Measure first, then animate
-          content.style.maxHeight = '0';
-          requestAnimationFrame(() => {
-            content.style.maxHeight = content.scrollHeight + 'px';
-            setTimeout(() => {
-              content.style.maxHeight = '';
-            }, 200);
-          });
-        }
-      }
-    };
-
-    mobileDropdownHandlers.set(button, handler);
-    button.addEventListener('click', handler);
-  });
+  // Setup dropdowns on initial load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupMobileDropdowns);
+  } else {
+    setupMobileDropdowns();
+  }
 
   // Close mobile menu when clicking outside
   const handleOutsideClick = (e: Event) => {

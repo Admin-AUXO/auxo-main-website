@@ -1,0 +1,330 @@
+---
+// ParticleBackground Component
+// Creates an interactive particle animation background that responds to mouse and scroll
+---
+
+<div id="particle-background" class="fixed inset-0 -z-10 pointer-events-none" aria-hidden="true"></div>
+
+<script>
+  import { tsParticles } from 'tsparticles';
+  import { loadSlim } from '@tsparticles/slim';
+
+  // Store cleanup functions
+  let scrollHandler: (() => void) | null = null;
+  let mouseMoveHandler: ((e: MouseEvent) => void) | null = null;
+  let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
+
+  // Cleanup function
+  function cleanup() {
+    // Cleanup particles
+    try {
+      const instances = tsParticles.dom();
+      if (instances && instances.length > 0) {
+        instances.forEach((instance) => {
+          try {
+            instance.destroy();
+          } catch (e) {
+            // Ignore cleanup errors
+          }
+        });
+      }
+    } catch (e) {
+      // Ignore errors if tsParticles not initialized
+    }
+
+    // Remove event listeners
+    if (scrollHandler) {
+      window.removeEventListener('scroll', scrollHandler);
+      scrollHandler = null;
+    }
+    if (mouseMoveHandler) {
+      window.removeEventListener('mousemove', mouseMoveHandler);
+      mouseMoveHandler = null;
+    }
+
+    // Clear timeout
+    if (scrollTimeout) {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = null;
+    }
+
+    // Remove cursor effect
+    const cursorEffect = document.querySelector('.cursor-effect');
+    if (cursorEffect) {
+      cursorEffect.remove();
+    }
+  }
+
+  // Initialize particles on page load
+  async function initParticles() {
+    // Wait for DOM to be ready
+    if (typeof window === 'undefined') return;
+
+    const container = document.getElementById('particle-background');
+    if (!container) return;
+
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      return; // Skip particles if user prefers reduced motion
+    }
+
+    // Load tsParticles slim bundle
+    await loadSlim(tsParticles);
+
+    // Detect device type for performance optimization
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const isTablet = window.matchMedia('(max-width: 1024px) and (min-width: 769px)').matches;
+
+    // Generate random configuration for unique experience on each load
+    let randomParticleCount: number;
+    let randomSpeed: number;
+    let randomLinkDistance: number;
+    let randomConnectDistance: number;
+    let randomOpacity: number;
+    let randomAnimSpeed: number;
+    let randomShapeType: string[];
+
+    if (isMobile) {
+      randomParticleCount = Math.floor(Math.random() * 15) + 20; // 20-35 particles
+      randomSpeed = (Math.random() * 0.3) + 0.2; // 0.2-0.5
+      randomLinkDistance = Math.floor(Math.random() * 50) + 80; // 80-130px
+      randomConnectDistance = Math.floor(Math.random() * 50) + 80; // 80-130px
+    } else if (isTablet) {
+      randomParticleCount = Math.floor(Math.random() * 25) + 35; // 35-60 particles
+      randomSpeed = (Math.random() * 0.4) + 0.25; // 0.25-0.65
+      randomLinkDistance = Math.floor(Math.random() * 70) + 90; // 90-160px
+      randomConnectDistance = Math.floor(Math.random() * 70) + 100; // 100-170px
+    } else {
+      randomParticleCount = Math.floor(Math.random() * 40) + 50; // 50-90 particles
+      randomSpeed = (Math.random() * 0.6) + 0.3; // 0.3-0.9
+      randomLinkDistance = Math.floor(Math.random() * 100) + 100; // 100-200px
+      randomConnectDistance = Math.floor(Math.random() * 100) + 120; // 120-220px
+    }
+
+    const randomDirection = ['right', 'left', 'top', 'bottom', 'top-right', 'top-left', 'bottom-right', 'bottom-left'][
+      Math.floor(Math.random() * 8)
+    ];
+    randomOpacity = (Math.random() * 0.15) + 0.1; // 0.1-0.25
+    randomAnimSpeed = (Math.random() * 2) + 0.5; // 0.5-2.5
+    randomShapeType = Math.random() > 0.5 
+      ? ['circle', 'square'] 
+      : Math.random() > 0.5 
+      ? ['circle', 'triangle'] 
+      : ['circle'];
+
+    // Initialize tsParticles with enhanced interactivity
+    await tsParticles.load('particle-background', {
+        fpsLimit: isMobile ? 30 : 60,
+        fullScreen: {
+          enable: false, // We're using a custom container
+        },
+        interactivity: {
+          events: {
+            onHover: {
+              enable: true,
+              mode: ['connect', 'grab', 'bubble'],
+            },
+            onClick: {
+              enable: true,
+              mode: 'push',
+            },
+            onDiv: {
+              selectors: '#particle-background',
+              enable: false,
+            },
+          },
+          modes: {
+            connect: {
+              distance: randomConnectDistance,
+              links: {
+                opacity: 0.5,
+              },
+              radius: randomConnectDistance + 80,
+            },
+            grab: {
+              distance: 150,
+              links: {
+                opacity: 0.8,
+              },
+            },
+            bubble: {
+              distance: 200,
+              size: 6,
+              duration: 2,
+              opacity: 0.8,
+            },
+            push: {
+              quantity: 4,
+            },
+          },
+        },
+        particles: {
+          color: {
+            value: '#A3E635', // Your brand lime color
+          },
+          links: {
+            color: '#A3E635',
+            distance: randomLinkDistance,
+            enable: true,
+            opacity: randomOpacity,
+            width: 1,
+            triangles: {
+              enable: true,
+              opacity: randomOpacity * 0.3,
+            },
+          },
+          move: {
+            direction: randomDirection,
+            enable: true,
+            outModes: {
+              default: 'out',
+            },
+            random: Math.random() > 0.5,
+            speed: randomSpeed,
+            straight: Math.random() > 0.3,
+          },
+          number: {
+            density: {
+              enable: true,
+              area: 1000,
+            },
+            value: randomParticleCount,
+          },
+          opacity: {
+            value: { min: 0.1, max: 0.4 },
+            animation: {
+              enable: true,
+              speed: randomAnimSpeed,
+              minimumValue: 0.1,
+              sync: false,
+            },
+          },
+          shape: {
+            type: randomShapeType,
+          },
+          size: {
+            value: { min: 1, max: 3 },
+            animation: {
+              enable: true,
+              speed: randomAnimSpeed,
+              minimumValue: 0.5,
+              sync: false,
+            },
+          },
+        },
+        background: {
+          color: '#000000',
+        },
+        detectRetina: true,
+      },
+    });
+
+    // Add scroll-based effects
+    let lastScrollY = window.scrollY;
+
+    scrollHandler = () => {
+      const currentScrollY = window.scrollY;
+      const scrollVelocity = Math.abs(currentScrollY - lastScrollY);
+      lastScrollY = currentScrollY;
+
+      if (container) {
+        // Visual effect: slightly fade particles when scrolling fast
+        container.style.opacity = String(1 - Math.min(scrollVelocity * 0.02, 0.3));
+      }
+
+      // Clear existing timeout
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+
+      // Reset opacity after scrolling stops
+      scrollTimeout = setTimeout(() => {
+        if (container) {
+          container.style.opacity = '1';
+        }
+      }, 50);
+    };
+
+    window.addEventListener('scroll', scrollHandler, { passive: true });
+
+    // Enhanced mouse movement tracking
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+
+    mouseMoveHandler = (e: MouseEvent) => {
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      const deltaX = mouseX - lastMouseX;
+      const deltaY = mouseY - lastMouseY;
+      const mouseVelocity = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+      // Update particle interaction based on mouse movement
+      // tsParticles handles the actual particle interaction, we add visual feedback
+      if (mouseVelocity > 5) {
+        let cursorEffect = document.querySelector('.cursor-effect') as HTMLElement;
+        if (!cursorEffect) {
+          cursorEffect = document.createElement('div');
+          cursorEffect.className = 'cursor-effect';
+          cursorEffect.style.cssText = `
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(163, 230, 53, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -9;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+          `;
+          document.body.appendChild(cursorEffect);
+        }
+        
+        cursorEffect.style.left = `${mouseX}px`;
+        cursorEffect.style.top = `${mouseY}px`;
+        cursorEffect.style.opacity = String(Math.min(mouseVelocity / 50, 0.5));
+      }
+
+      lastMouseX = mouseX;
+      lastMouseY = mouseY;
+    };
+
+    window.addEventListener('mousemove', mouseMoveHandler, { passive: true });
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initParticles);
+  } else {
+    initParticles();
+  }
+
+  // Cleanup and reinitialize on Astro view transitions
+  document.addEventListener('astro:before-swap', cleanup);
+  document.addEventListener('astro:page-load', initParticles);
+</script>
+
+<style>
+  #particle-background {
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+    pointer-events: none;
+    background: #000000;
+  }
+
+  #particle-background canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Ensure particles stay behind all content */
+  #particle-background ~ * {
+    position: relative;
+    z-index: 0;
+  }
+</style>

@@ -1,6 +1,7 @@
 ---
 // ParticleBackground Component
 // Creates an interactive particle animation background that responds to mouse and scroll
+// Uses tsParticles bundle from CDN (simpler API like auxo-landing-page)
 ---
 
 <div
@@ -12,7 +13,6 @@
 
 <script>
   // Store cleanup functions
-  let engine: any = null;
   let scrollHandler: (() => void) | null = null;
   let mouseMoveHandler: ((e: MouseEvent) => void) | null = null;
   let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -21,28 +21,13 @@
   function cleanup() {
     // Cleanup particles
     try {
-      if (engine) {
-        // Get all containers and destroy them
-        const containers = engine.dom();
-        if (containers && containers.length > 0) {
-          containers.forEach((container: any) => {
-            try {
-              if (container && typeof container.destroy === "function") {
-                container.destroy();
-              }
-            } catch (e) {
-              // Ignore cleanup errors
-            }
-          });
-        }
-      }
-      // Alternative cleanup: clear container
+      // Clear container
       const container = document.getElementById("particle-background");
       if (container) {
         container.innerHTML = ""; // Clear canvas
       }
     } catch (e) {
-      // Ignore errors if engine not initialized
+      // Ignore errors if particles not initialized
     }
 
     // Remove event listeners
@@ -84,38 +69,16 @@
       return; // Skip particles if user prefers reduced motion
     }
 
-    // Load tsParticles v2 with correct API
-    try {
-      // Import tsparticles-engine and tsparticles-slim
-      await import("tsparticles-engine");
-      const { loadSlim } = await import("tsparticles-slim");
+    // Wait for tsParticles to be loaded from CDN
+    let attempts = 0;
+    const maxAttempts = 50; // Wait up to 5 seconds for CDN to load
+    while (typeof window.tsParticles === "undefined" && attempts < maxAttempts) {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      attempts++;
+    }
 
-      // Use window.tsParticles (set by tsparticles-engine) or the exported instance
-      // Wait a bit for window.tsParticles to be available
-      let attempts = 0;
-      const maxAttempts = 10;
-      while (!window.tsParticles && attempts < maxAttempts) {
-        await new Promise((resolve) => setTimeout(resolve, 50));
-        attempts++;
-      }
-
-      if (window.tsParticles) {
-        engine = window.tsParticles;
-      } else {
-        // Fallback to imported instance
-        const tsparticlesModule = await import("tsparticles-engine");
-        engine = tsparticlesModule.tsParticles;
-      }
-
-      if (!engine) {
-        console.error("tsParticles engine not available");
-        return;
-      }
-
-      // Load slim plugins
-      await loadSlim(engine);
-    } catch (error) {
-      console.error("Failed to load tsparticles:", error);
+    if (typeof window.tsParticles === "undefined") {
+      console.error("tsParticles not loaded from CDN");
       return;
     }
 
@@ -170,97 +133,88 @@
           ? ["circle", "triangle"]
           : ["circle"];
 
-    // Initialize tsParticles with enhanced interactivity
-    const config = {
-      fpsLimit: isMobile ? 30 : 60,
-      fullScreen: {
-        enable: false, // We're using a custom container
-      },
-      interactivity: {
-        events: {
-          onHover: {
-            enable: !isMobile,
-            mode: "connect",
-          },
-          resize: true,
-        },
-        modes: {
-          connect: {
-            distance: randomConnectDistance,
-            links: {
-              opacity: 0.5,
-            },
-            radius: randomConnectDistance + 80,
-          },
-        },
-      },
-      particles: {
-        color: {
-          value: "#A3E635", // Your brand lime color
-        },
-        links: {
-          color: "#A3E635",
-          distance: randomLinkDistance,
-          enable: true,
-          opacity: randomOpacity,
-          width: 1,
-          triangles: {
-            enable: true,
-            opacity: randomOpacity * 0.3,
-          },
-        },
-        move: {
-          direction: randomDirection,
-          enable: true,
-          outModes: {
-            default: "bounce",
-          },
-          random: Math.random() > 0.5,
-          speed: randomSpeed,
-          straight: Math.random() > 0.3,
-        },
-        number: {
-          density: {
-            enable: true,
-            area: 1000,
-          },
-          value: randomParticleCount,
-        },
-        opacity: {
-          value: { min: 0.1, max: 0.4 },
-          animation: {
-            enable: true,
-            speed: randomAnimSpeed,
-            minimumValue: 0.1,
-            sync: false,
-          },
-        },
-        shape: {
-          type: randomShapeType,
-        },
-        size: {
-          value: { min: 1, max: 3 },
-          animation: {
-            enable: true,
-            speed: randomAnimSpeed,
-            minimumValue: 0.5,
-            sync: false,
-          },
-        },
-      },
-      background: {
-        color: "#000000",
-      },
-      detectRetina: true,
-    };
-
+    // Initialize tsParticles with enhanced interactivity (using bundle API)
     try {
-      // Use tsparticles v2 API: engine.load(container, config)
-      if (engine && typeof engine.load === "function") {
-        await engine.load(container, config);
-      } else {
-        console.error("engine.load is not a function");
-      }
+      // Use the simpler bundle API like auxo-landing-page
+      await window.tsParticles.load("particle-background", {
+        fpsLimit: isMobile ? 30 : 60,
+        interactivity: {
+          events: {
+            onHover: {
+              enable: !isMobile,
+              mode: "connect",
+            },
+            resize: true,
+          },
+          modes: {
+            connect: {
+              distance: randomConnectDistance,
+              links: {
+                opacity: 0.5,
+              },
+              radius: randomConnectDistance + 80,
+            },
+          },
+        },
+        particles: {
+          color: {
+            value: "#A3E635", // Your brand lime color
+          },
+          links: {
+            color: "#A3E635",
+            distance: randomLinkDistance,
+            enable: true,
+            opacity: randomOpacity,
+            width: 1,
+            triangles: {
+              enable: true,
+              opacity: randomOpacity * 0.3,
+            },
+          },
+          move: {
+            direction: randomDirection,
+            enable: true,
+            outModes: {
+              default: "bounce",
+            },
+            random: Math.random() > 0.5,
+            speed: randomSpeed,
+            straight: Math.random() > 0.3,
+          },
+          number: {
+            density: {
+              enable: true,
+              area: 1000,
+            },
+            value: randomParticleCount,
+          },
+          opacity: {
+            value: { min: 0.1, max: 0.4 },
+            animation: {
+              enable: true,
+              speed: randomAnimSpeed,
+              minimumValue: 0.1,
+              sync: false,
+            },
+          },
+          shape: {
+            type: randomShapeType,
+          },
+          size: {
+            value: { min: 1, max: 3 },
+            animation: {
+              enable: true,
+              speed: randomAnimSpeed,
+              minimumValue: 0.5,
+              sync: false,
+            },
+          },
+        },
+        background: {
+          color: "#000000",
+        },
+        detectRetina: true,
+      });
     } catch (error) {
       console.error("Failed to load particles:", error);
     }
@@ -342,16 +296,28 @@
     window.addEventListener("mousemove", mouseMoveHandler, { passive: true });
   }
 
-  // Initialize when DOM is ready
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initParticles);
-  } else {
-    initParticles();
+  // Initialize when DOM is ready and tsParticles is loaded
+  function waitForInit() {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", waitForInit);
+      return;
+    }
+
+    // Wait for tsParticles to be available
+    if (typeof window.tsParticles !== "undefined") {
+      initParticles();
+    } else {
+      // Retry after a short delay
+      setTimeout(waitForInit, 100);
+    }
   }
+
+  // Start initialization
+  waitForInit();
 
   // Cleanup and reinitialize on Astro view transitions
   document.addEventListener("astro:before-swap", cleanup);
-  document.addEventListener("astro:page-load", initParticles);
+  document.addEventListener("astro:page-load", waitForInit);
 </script>
 
 <style>

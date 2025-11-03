@@ -229,65 +229,99 @@ const calculatorFAQs = [
         <!-- Results Screen -->
         <div id="results-screen" class="hidden">
           <div
+            id="results-container"
             class="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 md:p-12 mb-6"
           >
-            <!-- Overall Score -->
-            <div class="text-center mb-12">
-              <h2 class="text-3xl font-bold mb-2">
+            <!-- Report Header -->
+            <div class="text-center mb-8 pb-8 border-b border-zinc-700">
+              <div class="inline-block px-4 py-2 bg-lime-400/10 border border-lime-400/20 rounded-full mb-4">
+                <span class="text-lime-400 text-sm font-semibold">
+                  {maturityCalculatorContent.results.reportGenerated}: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                </span>
+              </div>
+              <h2 class="text-3xl md:text-4xl font-bold mb-4">
                 {maturityCalculatorContent.results.title}
               </h2>
-              <div
-                id="maturity-level"
-                class="text-6xl font-black text-lime-400 my-6"
-              >
-              </div>
-              <p id="maturity-description" class="text-xl text-gray-400"></p>
             </div>
 
-            <!-- Dimension Scores -->
-            <div class="mb-12">
+            <!-- Organization Profile Section -->
+            <div class="mb-10">
+              <h3 class="text-xl font-bold mb-4 flex items-center text-lime-400">
+                <Icon name="mdi:office-building" class="w-6 h-6 mr-2" />
+                {maturityCalculatorContent.results.organizationProfile}
+              </h3>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div id="profile-size" class="bg-zinc-800 rounded-lg p-4">
+                  <div class="text-sm text-gray-400 mb-1">Company Size</div>
+                  <div class="font-semibold text-white">-</div>
+                </div>
+                <div id="profile-maturity" class="bg-zinc-800 rounded-lg p-4">
+                  <div class="text-sm text-gray-400 mb-1">Current Maturity</div>
+                  <div class="font-semibold text-white">-</div>
+                </div>
+                <div id="profile-goal" class="bg-zinc-800 rounded-lg p-4">
+                  <div class="text-sm text-gray-400 mb-1">Primary Goal</div>
+                  <div class="font-semibold text-white">-</div>
+                </div>
+              </div>
+              <div id="pathway-info" class="bg-gradient-to-r from-lime-400/10 to-green-500/10 border border-lime-400/20 rounded-lg p-4">
+                <div class="text-sm text-gray-400 mb-1">{maturityCalculatorContent.results.pathwayLabel}</div>
+                <div id="pathway-name" class="font-bold text-lime-400 text-lg">-</div>
+                <div id="pathway-description" class="text-sm text-gray-300 mt-1">-</div>
+              </div>
+            </div>
+
+            <!-- Overall Score Card -->
+            <div class="mb-10">
+              <div class="bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-2xl p-8 border border-zinc-700 text-center">
+                <div class="inline-flex items-center justify-center w-32 h-32 rounded-full bg-lime-400/10 border-4 mb-6" id="score-circle-container">
+                  <div class="text-center">
+                    <div id="maturity-level" class="text-4xl font-black text-lime-400"></div>
+                    <div class="text-sm text-gray-400 mt-1">Level</div>
+                  </div>
+                </div>
+                <div id="maturity-description" class="text-lg text-gray-300 max-w-2xl mx-auto"></div>
+                <div id="overall-score-display" class="mt-6 text-2xl font-bold text-white">
+                  Overall Score: <span id="overall-score-value" class="text-lime-400">-</span>/5
+                </div>
+              </div>
+            </div>
+
+            <!-- Dimension Scores - Creative Grid Layout -->
+            <div class="mb-10">
               <h3 class="text-2xl font-bold mb-6 text-center">
                 {maturityCalculatorContent.results.scoresTitle}
               </h3>
-              <div class="space-y-6">
-                <div id="dimension-results">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="dimension-results">
+                <!-- Will be populated by JavaScript -->
+              </div>
+            </div>
+
+            <!-- Next Steps Section -->
+            <div class="mb-8">
+              <div class="bg-gradient-to-r from-lime-400/10 to-green-500/10 border border-lime-400/20 rounded-lg p-6">
+                <h3 class="text-xl font-bold mb-6 flex items-center text-white">
+                  <Icon name="mdi:rocket-launch" class="w-6 h-6 text-lime-400 mr-2" />
+                  Your Personalized Action Plan
+                </h3>
+                <div id="recommendations" class="space-y-4">
                   <!-- Will be populated by JavaScript -->
                 </div>
               </div>
             </div>
 
-            <!-- Recommendations -->
-            <div
-              class="bg-gradient-to-r from-lime-400/10 to-green-500/10 border border-lime-400/20 rounded-lg p-6 mb-8"
-            >
-              <h3 class="text-xl font-bold mb-4 flex items-center">
-                <Icon name="mdi:lightbulb" class="w-6 h-6 text-lime-400 mr-2" />
-                Next Steps for Your Organization
-              </h3>
-              <div id="recommendations" class="space-y-3 text-gray-300">
-                <!-- Will be populated by JavaScript -->
-              </div>
-            </div>
-
             <!-- CTA Buttons -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <button
-                id="download-btn"
-                class="px-6 py-3 bg-zinc-800 text-white font-semibold rounded-lg hover:bg-zinc-700 transition-colors flex items-center justify-center"
+                id="print-btn"
+                class="px-6 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors flex items-center justify-center"
               >
-                <Icon name="mdi:download" class="w-5 h-5 mr-2" />
-                {maturityCalculatorContent.results.downloadReport}
-              </button>
-              <button
-                id="email-btn"
-                class="px-6 py-3 bg-zinc-800 text-white font-semibold rounded-lg hover:bg-zinc-700 transition-colors flex items-center justify-center"
-              >
-                <Icon name="mdi:email" class="w-5 h-5 mr-2" />
-                {maturityCalculatorContent.results.shareResults}
+                <Icon name="mdi:printer" class="w-5 h-5 mr-2" />
+                {maturityCalculatorContent.results.printResults}
               </button>
               <a
                 href={`${base}contact`}
-                class="px-6 py-3 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 transition-colors flex items-center justify-center"
+                class="px-6 py-3 bg-zinc-800 text-white font-semibold rounded-lg hover:bg-zinc-700 transition-colors flex items-center justify-center"
               >
                 {maturityCalculatorContent.results.contactUs} →
               </a>
@@ -612,114 +646,366 @@ const calculatorFAQs = [
       Object.keys(avgScores).length;
     const maturityLevel = Math.round(overallScore);
 
+    // Display organization profile from classification answers
+    displayOrganizationProfile();
+
+    // Display pathway information
+    displayPathwayInfo();
+
     // Display overall score
     const level = maturityLevels[maturityLevel];
     const levelEl = getElementSafe("maturity-level");
     const descEl = getElementSafe("maturity-description");
+    const overallScoreEl = getElementSafe("overall-score-value");
 
     if (levelEl) {
       levelEl.textContent = level.name;
-      levelEl.style.color = level.color;
     }
     if (descEl) descEl.textContent = level.description;
+    if (overallScoreEl) {
+      overallScoreEl.textContent = overallScore.toFixed(1);
+    }
 
-    // Display dimension scores
+    // Display dimension scores with creative cards
     const dimensionResults = getElementSafe("dimension-results");
     if (!dimensionResults) return;
     dimensionResults.innerHTML = "";
 
+    const dimensionIcons = {
+      "Data Infrastructure": "mdi:database",
+      "Analytics Capabilities": "mdi:chart-bar",
+      "People & Skills": "mdi:account-group",
+      "Data Culture": "mdi:lightbulb",
+      "Governance": "mdi:shield-check",
+    };
+
     Object.entries(avgScores).forEach(([dimension, score]) => {
       const percentage = (score / 5) * 100;
+      const icon = dimensionIcons[dimension] || "mdi:chart-line";
+      const scoreColor = score >= 4 ? "text-lime-400" : score >= 3 ? "text-yellow-400" : score >= 2 ? "text-orange-400" : "text-red-400";
+      const bgGradient = score >= 4 ? "from-lime-400/20 to-green-500/20" : score >= 3 ? "from-yellow-400/20 to-orange-400/20" : "from-orange-400/20 to-red-400/20";
+      
       const div = document.createElement("div");
+      div.className = "bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-xl p-6 border border-zinc-700 hover:border-lime-400/50 transition-all";
+      const iconEmojis = {
+        "Data Infrastructure": "🗄️",
+        "Analytics Capabilities": "📊",
+        "People & Skills": "👥",
+        "Data Culture": "💡",
+        "Governance": "🛡️",
+      };
+      const emoji = iconEmojis[dimension] || "📈";
+      
       div.innerHTML = `
-        <div class="flex justify-between items-center mb-2">
-          <span class="font-medium">${dimension}</span>
-          <span class="text-lime-400 font-bold">${score.toFixed(1)}/5</span>
+        <div class="flex items-start justify-between mb-4">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-lime-400/10 rounded-lg flex items-center justify-center text-2xl">
+              ${emoji}
+            </div>
+            <div>
+              <h4 class="font-bold text-white text-lg">${dimension}</h4>
+              <div class="text-sm text-gray-400">${getDimensionDescription(dimension)}</div>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="${scoreColor} font-black text-3xl mb-1">${score.toFixed(1)}</div>
+            <div class="text-xs text-gray-500">out of 5.0</div>
+          </div>
         </div>
-        <div class="h-3 bg-zinc-800 rounded-full overflow-hidden">
-          <div class="h-full bg-gradient-to-r from-lime-400 to-green-500 transition-all duration-1000" style="width: ${percentage}%"></div>
+        <div class="space-y-2">
+          <div class="flex justify-between text-xs text-gray-400">
+            <span>Progress</span>
+            <span>${Math.round(percentage)}%</span>
+          </div>
+          <div class="h-3 bg-zinc-800 rounded-full overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-lime-400 to-green-500 transition-all duration-1000" style="width: ${percentage}%"></div>
+          </div>
+          <div class="text-xs text-gray-500 mt-2">${getScoreLabel(score)}</div>
         </div>
       `;
       dimensionResults.appendChild(div);
     });
 
-    // Generate recommendations
+    // Generate recommendations with improved content
     const recommendations = document.getElementById("recommendations");
     if (!recommendations) return;
-    const recs = generateRecommendations(avgScores, maturityLevel);
-    recommendations.innerHTML = recs.map((rec) => `<p>✓ ${rec}</p>`).join("");
+    const recs = generateRecommendations(avgScores, maturityLevel, classificationAnswers, currentPathway);
+    recommendations.innerHTML = recs.map((rec, idx) => `
+      <div class="flex items-start gap-3 bg-zinc-900/50 rounded-lg p-4">
+        <div class="flex-shrink-0 w-8 h-8 bg-lime-400/20 rounded-full flex items-center justify-center text-lime-400 font-bold">
+          ${idx + 1}
+        </div>
+        <div class="flex-1">
+          <h4 class="font-semibold text-white mb-1">${rec.title}</h4>
+          <p class="text-sm text-gray-300">${rec.description}</p>
+        </div>
+      </div>
+    `).join("");
 
     // Scroll to top
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function generateRecommendations(scores, overall) {
-    const recs = [];
+  function displayOrganizationProfile() {
+    // Get classification answers
+    const sizeAnswer = classificationAnswers[0];
+    const maturityAnswer = classificationAnswers[1];
+    const goalAnswer = classificationAnswers[2];
 
-    // Find lowest scoring dimension
-    const lowest = Object.entries(scores).sort((a, b) => a[1] - b[1])[0];
+    const sizeOptions = [
+      "Startup (1-10 employees)",
+      "Small business (11-50 employees)",
+      "Medium business (51-250 employees)",
+      "Large company (251-1,000 employees)",
+      "Enterprise (1,000+ employees)"
+    ];
 
-    if (overall <= 2) {
-      recs.push(
-        "Start by establishing a centralized data infrastructure with basic quality controls",
-      );
-      recs.push("Invest in foundational data skills training for your team");
-      recs.push(
-        "Create a simple data governance framework to ensure security and compliance",
-      );
-    } else if (overall <= 3) {
-      recs.push(
-        "Focus on improving your " +
-          lowest[0] +
-          " - currently your biggest opportunity area",
-      );
-      recs.push(
-        "Implement self-service analytics tools to democratize data access",
-      );
-      recs.push(
-        "Develop a data strategy roadmap aligned with business objectives",
-      );
-    } else if (overall <= 4) {
-      recs.push(
-        "Consider advanced analytics and machine learning for predictive insights",
-      );
-      recs.push(
-        "Build a center of excellence to scale best practices across the organization",
-      );
-      recs.push("Implement real-time data pipelines and streaming analytics");
-    } else {
-      recs.push(
-        "Explore cutting-edge AI and automation to maintain your competitive advantage",
-      );
-      recs.push(
-        "Share your data-driven culture and learnings with the broader community",
-      );
-      recs.push(
-        "Continuously innovate with emerging technologies like generative AI",
-      );
+    const maturityOptions = [
+      "Just getting started - limited or no analytics",
+      "Some basic reporting and dashboards",
+      "Established analytics with regular reporting",
+      "Advanced analytics with predictive models",
+      "Data-driven organization with AI/ML"
+    ];
+
+    const goalOptions = [
+      "Basic reporting and understanding what happened",
+      "Improve operational efficiency and decision-making",
+      "Customer analytics and experience optimization",
+      "Advanced analytics, ML/AI, and competitive advantage",
+      "Enterprise-wide data transformation and innovation"
+    ];
+
+    const sizeEl = getElementSafe("profile-size");
+    const maturityEl = getElementSafe("profile-maturity");
+    const goalEl = getElementSafe("profile-goal");
+
+    if (sizeEl && sizeAnswer) {
+      const sizeDiv = sizeEl.querySelector("div:last-child");
+      if (sizeDiv) sizeDiv.textContent = sizeOptions[sizeAnswer - 1] || "-";
     }
 
-    recs.push(
-      "Partner with experts like AUXO Data Labs to accelerate your data analytics journey",
-    );
+    if (maturityEl && maturityAnswer) {
+      const maturityDiv = maturityEl.querySelector("div:last-child");
+      if (maturityDiv) maturityDiv.textContent = maturityOptions[maturityAnswer - 1] || "-";
+    }
+
+    if (goalEl && goalAnswer) {
+      const goalDiv = goalEl.querySelector("div:last-child");
+      if (goalDiv) goalDiv.textContent = goalOptions[goalAnswer - 1] || "-";
+    }
+  }
+
+  function displayPathwayInfo() {
+    if (!currentPathway || !pathways[currentPathway]) return;
+
+    const pathway = pathways[currentPathway];
+    const pathwayNameEl = getElementSafe("pathway-name");
+    const pathwayDescEl = getElementSafe("pathway-description");
+
+    if (pathwayNameEl) pathwayNameEl.textContent = pathway.name;
+    if (pathwayDescEl) pathwayDescEl.textContent = pathway.description;
+  }
+
+  function getDimensionDescription(dimension) {
+    const descriptions = {
+      "Data Infrastructure": "Storage, integration, and data quality",
+      "Analytics Capabilities": "Reporting, BI, and advanced analytics",
+      "People & Skills": "Team capabilities and data literacy",
+      "Data Culture": "Data-driven decision making culture",
+      "Governance": "Security, compliance, and data management"
+    };
+    return descriptions[dimension] || "Assessment dimension";
+  }
+
+  function getScoreLabel(score) {
+    if (score >= 4.5) return "Excellent - Industry leading";
+    if (score >= 4) return "Very Good - Strong capabilities";
+    if (score >= 3) return "Good - Room for improvement";
+    if (score >= 2) return "Developing - Significant gaps";
+    return "Initial - Foundation needed";
+  }
+
+  function generateRecommendations(scores, overall, classificationAnswers, pathway) {
+    const recs = [];
+
+    // Find lowest and highest scoring dimensions
+    const sortedDimensions = Object.entries(scores).sort((a, b) => a[1] - b[1]);
+    const lowest = sortedDimensions[0];
+    const highest = sortedDimensions[sortedDimensions.length - 1];
+
+    // Get pathway-specific context
+    const pathwayName = pathway && pathways[pathway] ? pathways[pathway].name : "your organization";
+    const companySize = classificationAnswers && classificationAnswers[0] ? classificationAnswers[0] : 3;
+
+    if (overall <= 2) {
+      recs.push({
+        title: "Establish Foundational Data Infrastructure",
+        description: "Start by centralizing your data sources and implementing basic data quality controls. Consider cloud-based solutions like AWS or Azure for scalability. This foundation will enable all future analytics initiatives."
+      });
+      recs.push({
+        title: "Build Core Data Skills",
+        description: "Invest in foundational training for your team on data literacy, basic SQL, and BI tools. Start with 2-3 key team members who can become data champions and train others."
+      });
+      recs.push({
+        title: "Create Basic Governance Framework",
+        description: "Define data ownership, establish basic security policies, and ensure UAE PDPL compliance. Start simple - document where critical data lives and who can access it."
+      });
+      recs.push({
+        title: "Identify Quick Wins",
+        description: "Look for 1-2 use cases where better data can drive immediate business value. Start with automated reporting on key metrics your team already tracks manually."
+      });
+    } else if (overall <= 3) {
+      recs.push({
+        title: `Strengthen Your ${lowest[0]}`,
+        description: `Your ${lowest[0]} dimension shows the greatest opportunity. ${getDimensionSpecificRecommendation(lowest[0])}. Focus here first for maximum impact.`
+      });
+      recs.push({
+        title: "Implement Self-Service Analytics",
+        description: "Deploy user-friendly BI tools (like Power BI, Tableau, or Looker) and create accessible dashboards. Train power users to create their own reports, reducing IT dependency."
+      });
+      recs.push({
+        title: "Develop a Data Strategy Roadmap",
+        description: "Create a 12-month roadmap aligned with business objectives. Identify 3-5 key initiatives that will drive measurable ROI and align with your primary data goal."
+      });
+      recs.push({
+        title: "Establish Data-Driven Decision Processes",
+        description: "Introduce regular data review meetings and make data a required input for key decisions. Start with one department as a pilot before scaling."
+      });
+    } else if (overall <= 4) {
+      recs.push({
+        title: "Advance to Predictive Analytics",
+        description: "Move beyond descriptive analytics to predictive models. Start with forecasting (demand, revenue) or customer churn prediction. Partner with data scientists or consider managed ML services."
+      });
+      recs.push({
+        title: "Build a Data Center of Excellence",
+        description: "Create a centralized team to standardize best practices, provide training, and support analytics initiatives across departments. This accelerates organization-wide maturity."
+      });
+      recs.push({
+        title: "Implement Real-Time Data Capabilities",
+        description: "Set up streaming data pipelines for time-sensitive use cases. Consider event-driven architectures for inventory, pricing, or customer experience optimization."
+      });
+      recs.push({
+        title: "Scale ML and AI Initiatives",
+        description: "Expand successful ML pilots into production. Focus on use cases with clear business impact and measurable ROI. Consider automation for repetitive analytical tasks."
+      });
+    } else {
+      recs.push({
+        title: "Explore Next-Generation AI Capabilities",
+        description: "Investigate generative AI, automated decision systems, and AI-powered insights. These technologies can maintain your competitive advantage and unlock new business models."
+      });
+      recs.push({
+        title: "Optimize and Innovate Continuously",
+        description: "Implement A/B testing frameworks for data initiatives. Continuously measure ROI and optimize based on results. Stay ahead by evaluating emerging technologies early."
+      });
+      recs.push({
+        title: "Build External Data Partnerships",
+        description: "Consider integrating external data sources (market data, industry benchmarks) to enhance insights. Share best practices with the broader analytics community."
+      });
+      recs.push({
+        title: "Lead Industry Innovation",
+        description: "Your mature analytics capabilities position you to be an industry leader. Consider publishing insights, speaking at conferences, or partnering with academic institutions."
+      });
+    }
+
+    // Add pathway-specific recommendation
+    if (pathway && pathways[pathway]) {
+      const pathwayRec = getPathwaySpecificRecommendation(pathway, companySize);
+      if (pathwayRec) {
+        recs.push(pathwayRec);
+      }
+    }
+
+    // Always add partnership option
+    recs.push({
+      title: "Partner with AUXO Data Labs",
+      description: "Work with our Dubai-based analytics experts to accelerate your journey. We offer strategy consulting, implementation support, and training tailored to organizations like yours in the UAE."
+    });
 
     return recs;
   }
 
-  // Download report (stub)
-  document.getElementById("download-btn")?.addEventListener("click", () => {
-    alert(
-      "PDF download functionality would be implemented here with your backend.",
-    );
-  });
+  function getDimensionSpecificRecommendation(dimension) {
+    const recommendations = {
+      "Data Infrastructure": "Focus on modernizing your data platform, improving integration between systems, and establishing automated data quality processes.",
+      "Analytics Capabilities": "Enhance your analytics tools, move beyond basic reporting to diagnostic and predictive analytics, and improve insight delivery speed.",
+      "People & Skills": "Invest in training programs, consider hiring data professionals or upskilling existing team members, and establish clear data roles and responsibilities.",
+      "Data Culture": "Foster a data-driven mindset through leadership support, regular data discussions, and celebrating data-informed decisions.",
+      "Governance": "Strengthen your governance framework with formal policies, data stewardship, better documentation, and compliance monitoring."
+    };
+    return recommendations[dimension] || "Focus on building capabilities in this area through training, tools, and processes.";
+  }
 
-  // Email results (stub)
-  document.getElementById("email-btn")?.addEventListener("click", () => {
-    const email = prompt("Enter your email to receive the results:");
-    if (email) {
-      alert(
-        `Results would be sent to ${email}. This requires backend integration.`,
-      );
+  function getPathwaySpecificRecommendation(pathway, companySize) {
+    if (pathway === "early" || pathway === "growing") {
+      if (companySize <= 2) {
+        return {
+          title: "Start with Cloud-Based Solutions",
+          description: "As a smaller organization, leverage cloud platforms (AWS, Azure, Google Cloud) to avoid large upfront infrastructure costs. Start with managed services and scale as you grow."
+        };
+      }
+      return {
+        title: "Invest in Scalable Foundations",
+        description: "Build your data infrastructure with growth in mind. Choose solutions that can scale with your organization without requiring complete rebuilds."
+      };
     }
+    return null;
+  }
+
+  // Print functionality
+  document.getElementById("print-btn")?.addEventListener("click", () => {
+    const resultsContainer = document.getElementById("results-container");
+    if (!resultsContainer) return;
+
+    // Create print styles
+    const printStyles = `
+      <style>
+        @media print {
+          body * {
+            visibility: hidden;
+          }
+          #results-container, #results-container * {
+            visibility: visible;
+          }
+          #results-container {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            background: white;
+            color: black;
+          }
+          .bg-zinc-900, .bg-zinc-800 {
+            background: white !important;
+            color: black !important;
+          }
+          .text-white {
+            color: black !important;
+          }
+          .text-gray-400, .text-gray-300 {
+            color: #666 !important;
+          }
+          button, a {
+            display: none !important;
+          }
+        }
+      </style>
+    `;
+
+    // Open print window
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Data Analytics Maturity Assessment Report</title>
+          ${printStyles}
+        </head>
+        <body>
+          ${resultsContainer.innerHTML}
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+    printWindow.print();
   });
 </script>

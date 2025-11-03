@@ -89,10 +89,12 @@ export const maturityCalculatorContent = {
   results: {
     title: 'Your Data Analytics Maturity Level',
     scoresTitle: 'Your Scores by Dimension',
-    downloadReport: 'Download PDF Report',
-    shareResults: 'Share Results',
+    printResults: 'Print Results',
     retakeAssessment: 'Retake Assessment',
     contactUs: 'Contact Us',
+    reportGenerated: 'Report Generated',
+    organizationProfile: 'Organization Profile',
+    pathwayLabel: 'Your Assessment Pathway',
   },
   // Classification questions (first 3 questions to determine pathway)
   classificationQuestions: [

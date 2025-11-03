@@ -1,0 +1,139 @@
+---
+import { Icon } from "astro-icon/components";
+import { homepageContent, type HomepageContent } from "../../data/content/homepage";
+
+const base = import.meta.env.BASE_URL;
+const content: HomepageContent["hero"] = homepageContent.hero;
+---
+
+<section
+  id="hero"
+  class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-4 sm:pt-8 pb-12 sm:pb-20"
+>
+  <!-- Hero Content Container -->
+  <div
+    class="container mx-auto px-4 sm:px-6 relative z-10 flex-1 flex flex-col items-center justify-center"
+  >
+    <div class="w-full max-w-5xl mx-auto text-center">
+      <!-- Logo Animation Container -->
+      <div class="logo-reveal-container mb-8 sm:mb-10">
+        <div class="logo-grid grid grid-cols-2 gap-3 w-32 md:w-40 mx-auto">
+          <div class="logo-tile aspect-square" data-char="A">
+            <span class="logo-char">A</span>
+          </div>
+          <div class="logo-tile aspect-square" data-char="U">
+            <span class="logo-char">U</span>
+          </div>
+          <div class="logo-tile aspect-square" data-char="X">
+            <span class="logo-char">X</span>
+          </div>
+          <div class="logo-tile aspect-square" data-char="O">
+            <span class="logo-char">O</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Brand Text -->
+      <div class="logo-caption mb-8">
+        <h1
+          class="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-primary tracking-tight transition-colors"
+        >
+          Data Labs
+        </h1>
+        <p
+          class="tagline text-sm md:text-base text-secondary font-light italic transition-colors"
+        >
+          Look Beyond Data
+        </p>
+      </div>
+
+      <!-- Hero Content -->
+      <div
+        class="hero-content hero-backdrop rounded-3xl p-6 sm:p-8 md:p-10 border border-theme/50 backdrop-blur-sm bg-card/80 dark:bg-card/90"
+      >
+        <div
+          class="inline-block mb-6 px-4 py-2 bg-accent-green/10 border border-accent-green/30 rounded-full backdrop-blur-sm"
+        >
+          <span
+            class="text-accent-green text-xs md:text-sm font-semibold tracking-wide transition-colors"
+            >{content.badge}</span
+          >
+        </div>
+
+        <h2
+          class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 md:mb-6 leading-tight text-primary transition-colors"
+        >
+          <span class="block">{content.title}</span>
+          <span class="text-gradient-green block"
+            >{content.titleHighlight}</span
+          >
+        </h2>
+
+        <p
+          class="text-sm sm:text-base md:text-lg text-primary mb-6 md:mb-8 max-w-3xl mx-auto leading-relaxed px-4 transition-colors font-medium"
+        >
+          {content.subtitle}
+        </p>
+
+        <div
+          class="flex flex-col sm:flex-row gap-4 justify-center mb-8 sm:mb-10 px-4"
+        >
+          <a
+            href={`${base}${content.primaryCta.href}`}
+            class="group bg-accent-green text-black dark:text-white px-8 py-4 rounded-lg font-semibold hover:bg-accent-green/90 active:bg-accent-green/80 transition-all hover:scale-105 active:scale-95 text-base min-h-[48px] flex items-center justify-center gap-2"
+            aria-label={content.primaryCta.text}
+          >
+            {content.primaryCta.text}
+            <Icon
+              name="mdi:arrow-right"
+              class="w-5 h-5 group-hover:translate-x-1 transition-transform"
+            />
+          </a>
+          <a
+            href={`${base}${content.secondaryCta.href}`}
+            class="bg-card border-2 border-accent-green text-accent-green px-8 py-4 rounded-lg font-semibold hover:bg-accent-green hover:text-black dark:hover:text-white active:bg-accent-green/90 active:text-black dark:active:text-white transition-all hover:scale-105 active:scale-95 text-base min-h-[48px] flex items-center justify-center"
+            aria-label={content.secondaryCta.text}
+          >
+            {content.secondaryCta.text}
+          </a>
+        </div>
+
+        <div
+          class="flex flex-wrap justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-secondary px-4 transition-colors"
+        >
+          {
+            content.features.map((feature, index) => (
+              <div
+                class="flex items-center gap-2 animate-fade-in animate-delay-100"
+                data-animation-delay={index}
+              >
+                <Icon
+                  name="mdi:check-circle"
+                  class="w-4 h-4 sm:w-5 sm:h-5 text-accent-green flex-shrink-0"
+                />
+                <span class="font-medium">{feature}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="relative z-10 pb-6 mt-8">
+    <a
+      href="#services"
+      class="flex flex-col items-center text-secondary hover:text-accent-green transition-colors group"
+      aria-label={content.scrollIndicator}
+    >
+      <span class="text-xs mb-2">{content.scrollIndicator}</span>
+      <div class="animate-bounce">
+        <Icon
+          name="mdi:chevron-down"
+          class="w-6 h-6 group-hover:scale-110 transition-transform"
+        />
+      </div>
+    </a>
+  </div>
+</section>

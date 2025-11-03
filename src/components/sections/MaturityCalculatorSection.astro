@@ -1,0 +1,145 @@
+---
+import { Icon } from "astro-icon/components";
+import { homepageContent, type HomepageContent } from "../../data/content/homepage";
+import SectionContainer from "../layouts/SectionContainer.astro";
+
+const base = import.meta.env.BASE_URL;
+const content: HomepageContent["maturityCalculator"] = homepageContent.maturityCalculator;
+---
+
+<SectionContainer padding="md" background="default">
+  <div class="container mx-auto px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <div
+        class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center"
+      >
+        <!-- Left: Content -->
+        <div class="animate-fade-in">
+          <div
+            class="inline-block px-4 py-2 bg-accent-green/10 border border-accent-green/20 rounded-full mb-4"
+          >
+            <span class="text-accent-green text-sm font-semibold"
+              >{content.badge}</span
+            >
+          </div>
+          <h2
+            class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-primary transition-colors"
+          >
+            {content.title}
+            <br class="hidden sm:block" />
+            <span class="text-gradient-green"
+              >{content.titleHighlight}</span
+            >
+          </h2>
+          <p
+            class="text-base sm:text-lg text-secondary mb-6 sm:mb-8 leading-relaxed transition-colors"
+          >
+            {content.subtitle}
+          </p>
+
+          <div class="space-y-4 mb-6 sm:mb-8">
+            {
+              content.benefits.map(
+                (benefit, index) => (
+                  <div
+                    class="flex items-start gap-4 animate-fade-in"
+                    data-animation-delay={index * 100}
+                    key={benefit.title}
+                  >
+                    <div class="w-10 h-10 bg-accent-green/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Icon
+                        name="mdi:check-circle"
+                        class="w-6 h-6 text-accent-green"
+                      />
+                    </div>
+                    <div>
+                      <p class="font-semibold text-primary mb-1 transition-colors">
+                        {benefit.title}
+                      </p>
+                      <p class="text-sm text-secondary transition-colors">
+                        {benefit.description}
+                      </p>
+                    </div>
+                  </div>
+                ),
+              )
+            }
+          </div>
+
+          <a
+            href={`${base}${content.cta.href}`}
+            class="inline-flex items-center gap-2 bg-accent-green text-black dark:text-white px-8 py-4 rounded-lg font-bold hover:bg-accent-green/90 active:bg-accent-green/80 transition-all hover:scale-105 active:scale-95 text-base min-h-[48px]"
+            aria-label={content.cta.text}
+            prefetch={true}
+          >
+            {content.cta.text}
+            <Icon name="mdi:arrow-right" class="w-5 h-5" />
+          </a>
+        </div>
+
+        <!-- Right: Visual -->
+        <div
+          class="relative hidden lg:block animate-fade-in"
+          data-animation-delay="200"
+        >
+          <div class="bg-card border border-theme rounded-2xl p-8 shadow-2xl">
+            <h3
+              class="text-xl font-bold mb-6 text-center text-primary transition-colors"
+            >
+              Assessment Dimensions
+            </h3>
+            <div class="space-y-4">
+              {
+                content.dimensions.map(
+                  (dimension) => (
+                    <div class="bg-surface rounded-lg p-4" key={dimension.name}>
+                      <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-3">
+                          <div class="w-10 h-10 bg-accent-green/10 rounded-lg flex items-center justify-center">
+                            <Icon
+                              name={
+                                dimension.name === "Infrastructure"
+                                  ? "mdi:database"
+                                  : dimension.name === "Analytics"
+                                    ? "mdi:chart-bar"
+                                    : "mdi:account-group"
+                              }
+                              class="w-5 h-5 text-accent-green"
+                            />
+                          </div>
+                          <span class="font-medium text-primary transition-colors">
+                            {dimension.name}
+                          </span>
+                        </div>
+                        <span class="text-accent-green font-bold transition-colors">
+                          {dimension.score}
+                        </span>
+                      </div>
+                      <div class="h-2 bg-surface rounded-full overflow-hidden">
+                        <div
+                          class="h-full bg-gradient-to-r from-accent-green to-green-500 transition-all duration-500"
+                          style={`width: ${dimension.percentage}%`}
+                        />
+                      </div>
+                    </div>
+                  ),
+                )
+              }
+
+              <div class="text-center mt-6 pt-6 border-t border-theme">
+                <p
+                  class="text-2xl font-bold text-accent-green mb-1 transition-colors"
+                >
+                  {content.resultLabel}
+                </p>
+                <p class="text-sm text-secondary transition-colors">
+                  {content.resultSubtext}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</SectionContainer>

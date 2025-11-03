@@ -6,6 +6,8 @@ import { SocialShare } from "astro-social-share";
 import PageContainer from "../../components/layouts/PageContainer.astro";
 import ContentWrapper from "../../components/layouts/ContentWrapper.astro";
 import { Icon } from "astro-icon/components";
+import { calculateReadTime } from "../../utils/content";
+import { formatDateLong } from "../../utils/date";
 
 const base = import.meta.env.BASE_URL;
 
@@ -64,23 +66,6 @@ if (!post) {
 
 // Render the post content using the render function from astro:content
 const { Content } = await render(post);
-
-// Helper to format date
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }).format(new Date(date));
-}
-
-// Helper to calculate read time
-function calculateReadTime(content: string | undefined) {
-  if (!content) return 0;
-  const wordsPerMinute = 200;
-  const wordCount = content.trim().split(/\s+/).length;
-  return Math.ceil(wordCount / wordsPerMinute);
-}
 ---
 
 <BaseLayout
@@ -129,7 +114,7 @@ function calculateReadTime(content: string | undefined) {
               name="mdi:calendar"
               class="w-5 h-5 text-accent-green transition-colors"
             />
-            <span>{formatDate(post.data.publishDate)}</span>
+            <span>{formatDateLong(post.data.publishDate)}</span>
           </div>
           <span class="text-tertiary transition-colors">•</span>
           <div class="flex items-center gap-2">

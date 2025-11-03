@@ -1,0 +1,171 @@
+/**
+ * Homepage-specific styles and animations
+ * Optimized for both light and dark theme modes
+ */
+
+/* Logo Animation Styles */
+.logo-tile {
+  background: linear-gradient(135deg, #a3e635 0%, #86d12f 100%);
+  display: grid;
+  place-items: center;
+  border-radius: 0;
+  transform-origin: center center;
+  opacity: 0;
+  transform: scale(0) rotate(-180deg);
+  animation: tileReveal 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  transition: all 0.3s ease;
+}
+
+/* Logo tiles - same green color in both themes for consistency */
+:root.dark .logo-tile,
+:root:not(.light) .logo-tile,
+:root.light .logo-tile {
+  background: linear-gradient(135deg, #a3e635 0%, #86d12f 100%);
+}
+
+.logo-tile:hover {
+  transform: scale(1.05) rotate(0deg);
+}
+
+.logo-tile:nth-child(1) {
+  animation-delay: 0s;
+}
+.logo-tile:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.logo-tile:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.logo-tile:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.logo-char {
+  font-family: var(--font-brand);
+  font-weight: 900;
+  font-size: clamp(2.5rem, 8vmin, 4rem);
+  color: #000000;
+  line-height: 1;
+}
+
+.logo-caption {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
+}
+
+.hero-content {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s forwards;
+}
+
+/* Keyframe Animations */
+@keyframes tileReveal {
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Intersection Observer animations */
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+/* Animation delay utilities - replacing inline styles */
+.animate-delay-0 {
+  animation-delay: 0ms;
+}
+
+.animate-delay-100 {
+  animation-delay: 100ms;
+}
+
+.animate-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animate-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animate-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animate-delay-500 {
+  animation-delay: 500ms;
+}
+
+.animate-delay-600 {
+  animation-delay: 600ms;
+}
+
+.animate-delay-700 {
+  animation-delay: 700ms;
+}
+
+.animate-delay-800 {
+  animation-delay: 800ms;
+}
+
+.animate-delay-900 {
+  animation-delay: 900ms;
+}
+
+/* Hero backdrop for better text readability in both themes */
+.hero-backdrop {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Theme-aware backdrop colors */
+:root.light .hero-backdrop {
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+:root.dark .hero-backdrop,
+:root:not(.light) .hero-backdrop {
+  background-color: rgba(24, 24, 27, 0.9);
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .logo-tile,
+  .logo-caption,
+  .hero-content,
+  .animate-fade-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}

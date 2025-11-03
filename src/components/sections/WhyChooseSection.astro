@@ -1,0 +1,56 @@
+---
+import { Icon } from "astro-icon/components";
+import { homepageContent, type HomepageContent } from "../../data/content/homepage";
+import SectionContainer from "../layouts/SectionContainer.astro";
+
+const content: HomepageContent["whyChoose"] = homepageContent.whyChoose;
+---
+
+<SectionContainer padding="md">
+  <div class="container mx-auto px-4 sm:px-6">
+    <div class="text-center mb-12 sm:mb-16">
+      <div
+        class="inline-block mb-4 px-4 py-2 bg-accent-green/10 border border-accent-green/20 rounded-full"
+      >
+        <span class="text-accent-green text-sm font-semibold">Why Us</span>
+      </div>
+      <h2
+        class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-primary transition-colors"
+      >
+        {content.title}
+        <span class="text-gradient-green"
+          >{content.titleHighlight}</span
+        >
+      </h2>
+      <p
+        class="text-base sm:text-lg text-secondary max-w-2xl mx-auto italic transition-colors"
+      >
+        {content.subtitle}
+      </p>
+    </div>
+
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-7xl mx-auto"
+    >
+      {
+        content.items.map((item, index) => (
+          <div
+            class="text-center p-6 bg-card border-2 border-accent-green/30 rounded-xl hover:border-accent-green pulse-box transition-all duration-300 hover:shadow-xl hover:-translate-y-2 animate-fade-in"
+            data-animation-delay={index * 100}
+            key={item.title}
+          >
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-accent-green/10 rounded-full mb-4 group-hover:bg-accent-green/20 transition-colors">
+              <Icon name={item.icon} class="w-8 h-8 text-accent-green" />
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-primary transition-colors">
+              {item.title}
+            </h3>
+            <p class="text-secondary leading-relaxed text-sm sm:text-base transition-colors">
+              {item.description}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</SectionContainer>

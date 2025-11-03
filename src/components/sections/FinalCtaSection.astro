@@ -1,0 +1,32 @@
+---
+import { homepageContent, type HomepageContent } from "../../data/content/homepage";
+
+const base = import.meta.env.BASE_URL;
+const content: HomepageContent["finalCta"] = homepageContent.finalCta;
+---
+
+<section class="py-16 sm:py-20 md:py-28 relative">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div
+      class="max-w-3xl mx-auto bg-card/95 backdrop-blur-md border border-theme/50 rounded-3xl p-8 sm:p-12 shadow-2xl"
+    >
+      <h2
+        class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-primary transition-colors"
+      >
+        {content.title}
+      </h2>
+      <p
+        class="text-base sm:text-lg md:text-xl text-primary mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed transition-colors font-medium"
+      >
+        {content.subtitle}
+      </p>
+      <a
+        href={`${base}${content.ctaHref}`}
+        class="inline-block bg-accent-green text-black dark:text-white px-10 sm:px-12 md:px-16 py-4 md:py-5 rounded-lg font-bold hover:bg-accent-green/90 active:bg-accent-green/80 transition-all text-base sm:text-lg md:text-xl hover:scale-105 active:scale-95 min-h-[56px] sm:min-h-[60px] flex items-center justify-center mx-auto max-w-xs sm:max-w-none touch-manipulation"
+        aria-label={content.ctaText}
+      >
+        {content.ctaText}
+      </a>
+    </div>
+  </div>
+</section>

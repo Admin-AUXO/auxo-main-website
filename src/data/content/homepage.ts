@@ -12,8 +12,7 @@ export interface ProcessStep {
 }
 
 export interface ValueProp {
-  icon: string;
-  title: string;
+  label: string;
   description: string;
 }
 
@@ -23,7 +22,101 @@ export interface WhyChooseItem {
   description: string;
 }
 
-export const homepageContent = {
+export interface HomepageContent {
+  hero: {
+    badge: string;
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+    primaryCta: {
+      text: string;
+      href: string;
+    };
+    secondaryCta: {
+      text: string;
+      href: string;
+    };
+    features: string[];
+    scrollIndicator: string;
+  };
+  problems: {
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+    challenges: ProblemCard[];
+    closing: string;
+  };
+  methodology: {
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+    steps: ProcessStep[];
+    valueProps: ValueProp[];
+  };
+  whyChoose: {
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+    items: WhyChooseItem[];
+  };
+  maturityCalculator: {
+    badge: string;
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+    benefits: Array<{
+      title: string;
+      description: string;
+    }>;
+    cta: {
+      text: string;
+      href: string;
+    };
+    dimensions: Array<{
+      name: string;
+      score: string;
+      percentage: number;
+    }>;
+    resultLabel: string;
+    resultSubtext: string;
+  };
+  blog: {
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+    viewAllText: string;
+  };
+  launchOffer: {
+    badge: string;
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+    benefits: Array<{
+      icon: string;
+      title: string;
+      description: string;
+    }>;
+    limitedTime: {
+      title: string;
+      message: string;
+      count: string;
+      highlight: string;
+    };
+    cta: {
+      text: string;
+      href: string;
+    };
+    disclaimer: string;
+  };
+  finalCta: {
+    title: string;
+    subtitle: string;
+    ctaText: string;
+    ctaHref: string;
+  };
+}
+
+export const homepageContent: HomepageContent = {
   hero: {
     badge: 'Rethink Data. Rethink Decisions.',
     title: 'Every Organization has data.',

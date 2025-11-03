@@ -41,26 +41,22 @@ const navItems: NavItem[] = [
 ];
 ---
 
-<nav id="main-navigation" class="fixed top-0 left-0 right-0 z-50 bg-black backdrop-blur-md border-b border-zinc-900/80 transition-all duration-500 ease-out shadow-xl shadow-black/30">
-  <div class="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative">
+<nav id="main-navigation" class="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-sm border-b border-zinc-800 transition-all duration-200">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 sm:h-18 lg:h-20">
-      <!-- Enhanced Logo Section -->
+      <!-- Logo Section -->
       <a 
         href={`${base}`} 
-        class="flex items-center space-x-2.5 sm:space-x-3 group relative z-10" 
+        class="flex items-center space-x-2.5 sm:space-x-3 group" 
         aria-label="AUXO Data Labs Home"
       >
-        <!-- Logo Container -->
-        <div class="relative">
-          <img 
-            src={`${base}logo.svg`} 
-            alt="AUXO Data Labs Logo" 
-            class="relative h-9 w-9 sm:h-11 sm:w-11 lg:h-12 lg:w-12 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3" 
-          />
-        </div>
-        <!-- Brand Text with Enhanced Typography -->
+        <img 
+          src={`${base}logo.svg`} 
+          alt="AUXO Data Labs Logo" 
+          class="h-9 w-9 sm:h-11 sm:w-11 lg:h-12 lg:w-12 transition-transform duration-200 group-hover:scale-105" 
+        />
         <div class="flex flex-col hidden sm:flex">
-          <span class="text-white text-base sm:text-lg lg:text-xl font-bold tracking-tight leading-tight group-hover:text-lime-400 transition-colors duration-300">
+          <span class="text-white text-base sm:text-lg lg:text-xl font-bold tracking-tight leading-tight">
             AUXO
           </span>
           <span class="text-xs text-gray-400 font-medium tracking-wider uppercase leading-tight">
@@ -70,64 +66,53 @@ const navItems: NavItem[] = [
       </a>
 
       <!-- Desktop Navigation -->
-      <div class="hidden lg:flex items-center space-x-1">
+      <div class="hidden lg:flex items-center space-x-2">
         {navItems.map((item, index) => (
           item.dropdown ? (
             <div class="relative dropdown-container" data-nav-item={index}>
               <button 
-                class="nav-link dropdown-toggle relative px-5 py-3 text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 rounded-lg hover:bg-zinc-800/60 flex items-center gap-2"
+                class="nav-link dropdown-toggle relative px-4 py-2.5 text-sm font-medium text-gray-300 hover:text-white transition-colors duration-200 rounded-md hover:bg-zinc-900 flex items-center gap-1.5 min-h-[44px]"
                 aria-expanded="false"
                 aria-haspopup="true"
                 data-dropdown-toggle={index}
               >
-                <span class="relative z-10">{item.name}</span>
-                <!-- Active Indicator -->
-                <span class="nav-indicator absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-lime-400 to-lime-500 rounded-full transition-all duration-300"></span>
-                <!-- Dropdown Arrow -->
+                <span>{item.name}</span>
                 <svg 
-                  class="w-4 h-4 transition-transform duration-300 dropdown-arrow" 
+                  class="w-4 h-4 transition-transform duration-200 dropdown-arrow" 
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
+                <!-- Active Indicator -->
+                <span class="nav-indicator absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-lime-400 rounded-full transition-all duration-200"></span>
               </button>
 
-              <!-- Enhanced Dropdown Menu -->
+              <!-- Dropdown Menu -->
               <div 
                 class:list={[
-                  "absolute left-0 top-full mt-2 opacity-0 invisible transition-all duration-300 transform scale-95 translate-y-2 pointer-events-none dropdown-menu z-[60]",
-                  item.name === 'Services' ? 'w-[560px]' : 'w-[280px]'
+                  "absolute left-0 top-full mt-1 opacity-0 invisible transition-all duration-200 pointer-events-none dropdown-menu z-[60]",
+                  item.name === 'Services' ? 'w-[600px]' : 'w-[260px]'
                 ]}
                 data-dropdown-menu={index}
               >
                 <div class="relative">
                   <!-- Arrow Pointer -->
-                  <div class="absolute -top-2 left-6 w-4 h-4 bg-zinc-900 border-l border-t border-lime-400/20 rotate-45 z-10 dropdown-arrow-pointer"></div>
+                  <div class="absolute -top-1.5 left-6 w-3 h-3 bg-zinc-900 border-l border-t border-zinc-700 rotate-45"></div>
                   
                   <!-- Dropdown Content -->
-                  <div class="relative bg-zinc-900 border border-lime-400/20 rounded-2xl shadow-2xl shadow-black/60 p-6 overflow-hidden">
-                    <!-- Gradient Background Effect -->
-                    <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-lime-400/50 via-green-500/50 to-lime-400/50"></div>
-                    
+                  <div class="relative bg-zinc-900 border border-zinc-800 rounded-lg p-4">
                     <div class:list={[
-                      item.name === 'Services' ? 'grid grid-cols-2 gap-3' : 'space-y-2'
+                      item.name === 'Services' ? 'grid grid-cols-2 gap-2' : 'space-y-1'
                     ]}>
-                      {item.dropdown.map((sub: DropdownItem, subIndex) => (
+                      {item.dropdown.map((sub: DropdownItem) => (
                         <a
                           href={sub.href}
-                          class={item.name === 'Services' 
-                            ? "group/item relative flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-zinc-800 transition-all duration-300 border border-transparent hover:border-lime-400/30 hover:shadow-lg hover:shadow-lime-400/10 overflow-hidden"
-                            : "group/item relative flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-zinc-800 transition-all duration-300 border border-transparent hover:border-lime-400/30 hover:shadow-lg hover:shadow-lime-400/10 overflow-hidden"
-                          }
-                          style={`animation-delay: ${subIndex * 50}ms`}
+                          class="group/item flex items-start gap-3 px-3 py-3 rounded-md hover:bg-zinc-800 transition-colors duration-200 border border-transparent hover:border-zinc-700"
                         >
-                          <!-- Hover Glow Effect -->
-                          <div class="absolute inset-0 bg-gradient-to-br from-lime-400/0 to-lime-400/5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
-                          
                           <!-- Icon Container -->
-                          <div class="relative z-10 w-10 h-10 bg-gradient-to-br from-lime-400/20 via-lime-400/10 to-transparent rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:from-lime-400/30 group-hover/item:to-lime-500/20 transition-all duration-300 group-hover/item:scale-110">
+                          <div class="w-9 h-9 bg-zinc-800 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5 group-hover/item:bg-zinc-700 transition-colors duration-200">
                             {item.name === 'Services' ? (
                               <Icon name={sub.icon} class="w-5 h-5 text-lime-400" />
                             ) : (
@@ -139,31 +124,29 @@ const navItems: NavItem[] = [
                           </div>
                           
                           <!-- Content -->
-                          <div class="relative z-10 flex-1 min-w-0">
-                            <div class="font-semibold text-white text-sm group-hover/item:text-lime-400 transition-colors duration-300">
+                          <div class="flex-1 min-w-0">
+                            <div class="font-semibold text-white text-sm leading-snug mb-1 group-hover/item:text-lime-400 transition-colors duration-200">
                               {sub.name}
                             </div>
-                          </div>
-                          
-                          <!-- Arrow Indicator -->
-                          <div class="relative z-10 flex items-center opacity-0 group-hover/item:opacity-100 transform translate-x-2 group-hover/item:translate-x-0 transition-all duration-300">
-                            <svg class="w-4 h-4 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
+                            {item.name === 'Services' && sub.description && (
+                              <div class="text-xs text-gray-400 leading-relaxed line-clamp-2">
+                                {sub.description}
+                              </div>
+                            )}
                           </div>
                         </a>
                       ))}
                     </div>
                     
                     {item.name === 'Services' && (
-                      <div class="mt-6 pt-4 border-t border-zinc-800/50">
+                      <div class="mt-4 pt-4 border-t border-zinc-800">
                         <a 
                           href={`${base}services/`} 
-                          class="group/viewall flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold text-lime-400 hover:text-white bg-lime-400/10 hover:bg-lime-400/20 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-lime-400/20"
+                          class="flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium text-lime-400 hover:text-white bg-zinc-800 hover:bg-zinc-700 rounded-md transition-colors duration-200"
                         >
                           <span>View All Services</span>
-                          <svg class="w-4 h-4 transform group-hover/viewall:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                           </svg>
                         </a>
                       </div>
@@ -175,57 +158,50 @@ const navItems: NavItem[] = [
           ) : (
             <a 
               href={item.href} 
-              class="nav-link relative px-5 py-3 text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 rounded-lg hover:bg-zinc-800/60 group"
+              class="nav-link relative px-4 py-2.5 text-sm font-medium text-gray-300 hover:text-white transition-colors duration-200 rounded-md hover:bg-zinc-900 min-h-[44px] flex items-center"
             >
-              <span class="relative z-10">{item.name}</span>
+              <span>{item.name}</span>
               <!-- Active Indicator -->
-              <span class="nav-indicator absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-lime-400 to-lime-500 rounded-full transition-all duration-300 group-hover:w-4/5"></span>
+              <span class="nav-indicator absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-lime-400 rounded-full transition-all duration-200"></span>
             </a>
           )
         ))}
         
-        <!-- Enhanced CTA Button -->
+        <!-- CTA Button -->
         <a 
           href={`${base}contact/`} 
-          class="ml-4 px-6 py-3 text-sm font-semibold bg-gradient-to-r from-lime-400 via-lime-400 to-green-500 text-black rounded-lg hover:from-lime-500 hover:via-lime-500 hover:to-green-600 transition-all duration-300 hover:scale-105 relative overflow-hidden group"
+          class="ml-2 px-5 py-2.5 text-sm font-semibold bg-lime-400 text-black rounded-md hover:bg-lime-500 transition-colors duration-200 min-h-[44px] flex items-center"
         >
-          <span class="relative z-10 flex items-center gap-2">
-            Get Started
-            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-            </svg>
-          </span>
-          <!-- Shimmer Effect -->
-          <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+          Get Started
         </a>
       </div>
 
       <!-- Mobile Menu Button -->
       <button 
         id="mobile-menu-button" 
-        class="lg:hidden relative text-white p-2.5 min-w-[44px] min-h-[44px] rounded-lg hover:bg-zinc-800/80 active:bg-zinc-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-lime-400/50 touch-manipulation" 
+        class="lg:hidden relative text-white p-2 min-w-[44px] min-h-[44px] rounded-md hover:bg-zinc-900 active:bg-zinc-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-lime-400/50 touch-manipulation" 
         aria-label="Toggle mobile menu" 
         aria-expanded="false"
       >
         <div class="relative w-6 h-6">
           <svg 
-            class="absolute inset-0 w-6 h-6 menu-icon transition-all duration-300" 
+            class="absolute inset-0 w-6 h-6 menu-icon transition-all duration-200" 
             fill="none" 
             stroke="currentColor" 
             viewBox="0 0 24 24"
           >
             <path 
-              class="menu-open transition-opacity duration-300" 
+              class="menu-open transition-opacity duration-200" 
               stroke-linecap="round" 
               stroke-linejoin="round" 
-              stroke-width="2.5" 
+              stroke-width="2" 
               d="M4 6h16M4 12h16M4 18h16"
             ></path>
             <path 
-              class="menu-close absolute inset-0 opacity-0 transition-opacity duration-300" 
+              class="menu-close absolute inset-0 opacity-0 transition-opacity duration-200" 
               stroke-linecap="round" 
               stroke-linejoin="round" 
-              stroke-width="2.5" 
+              stroke-width="2" 
               d="M6 18L18 6M6 6l12 12"
             ></path>
           </svg>
@@ -234,24 +210,24 @@ const navItems: NavItem[] = [
     </div>
   </div>
 
-  <!-- Enhanced Mobile Menu - Improved for better touch interaction -->
+  <!-- Mobile Menu -->
   <div 
     id="mobile-menu" 
-    class="lg:hidden fixed inset-x-0 top-16 sm:top-18 bg-zinc-950 border-t border-zinc-800/60 max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain transform -translate-y-full opacity-0 transition-all duration-250 ease-out shadow-2xl shadow-black/40"
+    class="lg:hidden fixed inset-x-0 top-16 sm:top-18 bg-black border-t border-zinc-800 max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain transform -translate-y-full opacity-0 transition-all duration-200 ease-out"
     style="touch-action: pan-y; -webkit-overflow-scrolling: touch;"
   >
-    <div class="px-4 sm:px-5 py-5 space-y-2">
+    <div class="px-4 sm:px-6 py-4 space-y-2">
       {navItems.map((item, index) => (
         item.dropdown ? (
           <div class="mobile-dropdown" data-nav-item={index}>
             <button 
               type="button"
-              class="mobile-dropdown-btn w-full flex items-center justify-between px-4 py-3.5 min-h-[52px] text-gray-300 hover:text-white active:text-white active:bg-zinc-800 rounded-lg transition-all duration-200 font-medium touch-manipulation bg-zinc-900/50 border border-zinc-800/50 hover:border-lime-400/30 active:border-lime-400/50 text-base sm:text-base"
+              class="mobile-dropdown-btn w-full flex items-center justify-between px-4 py-3.5 min-h-[52px] text-gray-300 hover:text-white active:text-white active:bg-zinc-900 rounded-md transition-colors duration-200 font-medium touch-manipulation bg-zinc-900 border border-zinc-800 hover:border-zinc-700 active:border-zinc-600 text-base"
               aria-expanded="false"
             >
               <span>{item.name}</span>
               <svg 
-                class="w-5 h-5 transition-transform duration-300 flex-shrink-0 text-lime-400" 
+                class="w-5 h-5 transition-transform duration-200 flex-shrink-0 text-lime-400 dropdown-arrow-mobile" 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
@@ -259,17 +235,32 @@ const navItems: NavItem[] = [
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
             </button>
-            <div class="mobile-dropdown-content hidden pl-5 mt-2 space-y-2 overflow-hidden">
+            <div class="mobile-dropdown-content hidden pl-4 mt-2 space-y-1.5 overflow-hidden">
               {item.dropdown.map((sub: DropdownItem) => (
                 <a 
                   href={sub.href} 
-                  class="flex items-center gap-3 px-4 py-3 min-h-[48px] text-sm sm:text-base text-gray-400 hover:text-lime-400 active:text-lime-400 active:bg-zinc-800/80 rounded-lg transition-all duration-200 touch-manipulation group/item"
+                  class="flex items-start gap-3 px-4 py-3 min-h-[48px] text-sm text-gray-400 hover:text-lime-400 active:text-lime-400 active:bg-zinc-900 rounded-md transition-colors duration-200 touch-manipulation group/item bg-zinc-900 border border-transparent hover:border-zinc-800 active:border-zinc-700"
                 >
-                  <div class="w-2 h-2 rounded-full bg-lime-400/60 group-hover/item:bg-lime-400 transition-colors duration-300 flex-shrink-0"></div>
-                  <span class="flex-1 font-medium">{sub.name}</span>
-                  <svg class="w-4 h-4 opacity-0 group-hover/item:opacity-100 transform -translate-x-2 group-hover/item:translate-x-0 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                  </svg>
+                  <div class="w-8 h-8 bg-zinc-800 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5 group-hover/item:bg-zinc-700 transition-colors duration-200">
+                    {item.name === 'Services' ? (
+                      <Icon name={sub.icon} class="w-4 h-4 text-lime-400" />
+                    ) : (
+                      <Icon
+                        name={sub.icon === 'case-studies' ? 'mdi:briefcase' : sub.icon === 'blog' ? 'mdi:post' : 'mdi:help-circle'}
+                        class="w-4 h-4 text-lime-400"
+                      />
+                    )}
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="font-semibold text-white text-sm leading-snug mb-0.5 group-hover/item:text-lime-400 transition-colors duration-200">
+                      {sub.name}
+                    </div>
+                    {item.name === 'Services' && sub.description && (
+                      <div class="text-xs text-gray-500 leading-relaxed line-clamp-2">
+                        {sub.description}
+                      </div>
+                    )}
+                  </div>
                 </a>
               ))}
             </div>
@@ -277,25 +268,19 @@ const navItems: NavItem[] = [
         ) : (
           <a 
             href={item.href} 
-            class="block px-4 py-3.5 min-h-[52px] text-base text-gray-300 hover:text-white active:text-white active:bg-zinc-800/80 rounded-lg transition-all duration-200 font-medium touch-manipulation flex items-center bg-zinc-900/50 border border-zinc-800/50 hover:border-lime-400/30 active:border-lime-400/50"
+            class="block px-4 py-3.5 min-h-[52px] text-base text-gray-300 hover:text-white active:text-white active:bg-zinc-900 rounded-md transition-colors duration-200 font-medium touch-manipulation flex items-center bg-zinc-900 border border-zinc-800 hover:border-zinc-700 active:border-zinc-600"
           >
             {item.name}
           </a>
         )
       ))}
       
-      <!-- Mobile CTA Button - Improved touch target -->
+      <!-- Mobile CTA Button -->
       <a 
         href={`${base}contact/`} 
-        class="block mt-5 px-6 py-4 min-h-[56px] bg-gradient-to-r from-lime-400 to-lime-500 text-black font-bold rounded-lg active:from-lime-500 active:to-lime-600 active:scale-[0.96] transition-all duration-200 text-center shadow-xl shadow-lime-400/30 touch-manipulation flex items-center justify-center text-base relative overflow-hidden group"
+        class="block mt-4 px-6 py-3.5 min-h-[56px] bg-lime-400 text-black font-semibold rounded-md active:bg-lime-500 transition-colors duration-200 text-center touch-manipulation flex items-center justify-center text-base"
       >
-        <span class="relative z-10 flex items-center gap-2">
-          Get Started
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-          </svg>
-        </span>
-        <div class="absolute inset-0 -translate-x-full group-active:translate-x-full transition-transform duration-500 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+        Get Started
       </a>
     </div>
   </div>
@@ -332,7 +317,7 @@ const navItems: NavItem[] = [
   .dropdown-menu.open {
     opacity: 1;
     visibility: visible;
-    transform: scale(1) translateY(0);
+    transform: translateY(0);
     pointer-events: auto;
   }
   
@@ -345,26 +330,22 @@ const navItems: NavItem[] = [
   .dropdown-arrow.open {
     transform: rotate(180deg);
   }
+
+  .dropdown-arrow-mobile.open {
+    transform: rotate(180deg);
+  }
   
   .dropdown-toggle.active .nav-indicator {
-    width: 80%;
+    width: 60%;
+  }
+
+  .nav-link:hover .nav-indicator {
+    width: 60%;
   }
 </style>
 
 <script>
-  // Utility: Debounce function for performance optimization
-  function debounce<T extends (...args: any[]) => void>(
-    func: T,
-    wait: number
-  ): (...args: Parameters<T>) => void {
-    let timeout: ReturnType<typeof setTimeout> | null = null;
-    return function(...args: Parameters<T>) {
-      if (timeout) clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), wait);
-    };
-  }
-
-  // Mobile menu toggle with enhanced animations
+  // Mobile menu toggle
   const btn = document.getElementById('mobile-menu-button');
   const menu = document.getElementById('mobile-menu');
   const menuOpen = document.querySelector('.menu-open');
@@ -400,8 +381,7 @@ const navItems: NavItem[] = [
     btn?.setAttribute('aria-expanded', String(!isOpen));
   };
 
-  // Mobile dropdown toggles with optimized animations
-  // Ensure proper event handling with preventDefault and stopPropagation
+  // Mobile dropdown toggles
   function setupMobileDropdowns() {
     const mobileDropdownButtons = document.querySelectorAll('#mobile-menu .mobile-dropdown-btn');
     
@@ -410,29 +390,19 @@ const navItems: NavItem[] = [
       if ((button as any).__dropdownHandlerAttached) return;
       
       const handler = (e: MouseEvent | TouchEvent) => {
-        // Prevent any default behavior and stop event bubbling
         e.preventDefault();
         e.stopPropagation();
-        e.stopImmediatePropagation();
         
         const content = (button as HTMLElement).nextElementSibling as HTMLElement;
-        const icon = button.querySelector('svg');
+        const icon = button.querySelector('.dropdown-arrow-mobile');
         const isExpanded = button.getAttribute('aria-expanded') === 'true';
         
         if (content) {
           const isHidden = content.classList.contains('hidden');
-          content.classList.toggle('hidden');
-          icon?.classList.toggle('rotate-180');
-          button.setAttribute('aria-expanded', String(!isExpanded));
           
-          // Optimized height transition with better performance
-          if (!isHidden) {
-            content.style.maxHeight = '0';
-            setTimeout(() => {
-              content.style.maxHeight = '';
-            }, 200);
-          } else {
-            // Measure first, then animate
+          if (isHidden) {
+            // Opening
+            content.classList.remove('hidden');
             content.style.maxHeight = '0';
             requestAnimationFrame(() => {
               content.style.maxHeight = content.scrollHeight + 'px';
@@ -440,15 +410,27 @@ const navItems: NavItem[] = [
                 content.style.maxHeight = '';
               }, 200);
             });
+            icon?.classList.add('open');
+            button.setAttribute('aria-expanded', 'true');
+          } else {
+            // Closing
+            content.style.maxHeight = content.scrollHeight + 'px';
+            requestAnimationFrame(() => {
+              content.style.maxHeight = '0';
+              setTimeout(() => {
+                content.classList.add('hidden');
+                content.style.maxHeight = '';
+              }, 200);
+            });
+            icon?.classList.remove('open');
+            button.setAttribute('aria-expanded', 'false');
           }
         }
       };
 
-      // Attach with capture phase to ensure it runs first
-      button.addEventListener('click', handler, { capture: true, passive: false });
+      button.addEventListener('click', handler, { capture: true });
       button.addEventListener('touchend', handler, { capture: true, passive: false });
       
-      // Mark as attached to prevent duplicates
       (button as any).__dropdownHandlerAttached = true;
     });
   }
@@ -456,7 +438,6 @@ const navItems: NavItem[] = [
   btn?.addEventListener('click', (e) => {
     e.stopPropagation();
     toggleMenu();
-    // Setup dropdowns after menu opens (small delay to ensure DOM is ready)
     setTimeout(setupMobileDropdowns, 50);
   });
 
@@ -473,6 +454,18 @@ const navItems: NavItem[] = [
     menuClose.classList.remove('opacity-100');
     btn?.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
+    
+    // Close all dropdowns
+    document.querySelectorAll('#mobile-menu .mobile-dropdown-content').forEach(content => {
+      const button = (content as HTMLElement).previousElementSibling;
+      if (button && button.classList.contains('mobile-dropdown-btn')) {
+        content.classList.add('hidden');
+        content.style.maxHeight = '';
+        button.setAttribute('aria-expanded', 'false');
+        const icon = button.querySelector('.dropdown-arrow-mobile');
+        icon?.classList.remove('open');
+      }
+    });
   };
 
   // Add click listeners to all mobile menu links (but NOT dropdown buttons)
@@ -500,39 +493,7 @@ const navItems: NavItem[] = [
 
   document.addEventListener('click', handleOutsideClick);
 
-  // Enhanced scroll behavior with smooth transitions
-  const nav = document.getElementById('main-navigation');
-  const SCROLL_THRESHOLD = 10;
-
-  const handleScroll = () => {
-    if (!nav) return;
-    
-    // Only update on desktop or if mobile menu is closed
-    if (window.innerWidth >= 1024 || !menu?.classList.contains('open')) {
-      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-
-      if (currentScroll > SCROLL_THRESHOLD) {
-        nav.classList.add('shadow-2xl');
-        nav.style.backdropFilter = 'blur(12px)';
-      } else {
-        nav.classList.remove('shadow-2xl');
-        nav.style.backdropFilter = 'blur(8px)';
-      }
-    }
-  };
-
-  // Optimized scroll handler - use requestAnimationFrame for better performance
-  let scrollRaf: number | null = null;
-  const optimizedScroll = () => {
-    if (scrollRaf) return;
-    scrollRaf = requestAnimationFrame(() => {
-      handleScroll();
-      scrollRaf = null;
-    });
-  };
-  window.addEventListener('scroll', optimizedScroll, { passive: true });
-
-  // Desktop dropdown click handlers
+  // Desktop dropdown handlers
   let openDropdown: HTMLElement | null = null;
   let dropdownLeaveTimer: ReturnType<typeof setTimeout> | null = null;
 
@@ -562,43 +523,37 @@ const navItems: NavItem[] = [
     const arrowPointer = menu?.querySelector('.dropdown-arrow-pointer') as HTMLElement;
     
     if (menu && button && arrow) {
-      // First, make menu visible but off-screen to measure
+      // Measure menu dimensions
       menu.style.position = 'absolute';
       menu.style.visibility = 'hidden';
       menu.style.display = 'block';
       menu.style.opacity = '1';
-      menu.style.transform = 'scale(1)';
       
-      // Get dimensions
       const buttonRect = button.getBoundingClientRect();
       const menuWidth = menu.offsetWidth;
       const viewportWidth = window.innerWidth;
-      const padding = 16; // Padding from viewport edge
+      const padding = 16;
       
       // Reset styles
       menu.style.visibility = '';
       menu.style.display = '';
       menu.style.opacity = '';
-      menu.style.transform = '';
       menu.style.left = '';
       menu.style.right = '';
       menu.classList.remove('dropdown-right-aligned');
       
       // Check if menu would overflow right side of viewport
       if (buttonRect.left + menuWidth > viewportWidth - padding) {
-        // Align to right edge
         menu.classList.add('dropdown-right-aligned');
         if (arrowPointer) {
-          // Adjust arrow position for right-aligned dropdown
           const buttonCenter = buttonRect.left + buttonRect.width / 2;
           const menuRight = viewportWidth - padding;
           const arrowOffset = buttonCenter - (menuRight - menuWidth);
           arrowPointer.style.left = `${Math.max(20, Math.min(arrowOffset, menuWidth - 20))}px`;
         }
       } else {
-        // Default left alignment
         if (arrowPointer) {
-          arrowPointer.style.left = '24px'; // Default position
+          arrowPointer.style.left = '24px';
         }
       }
       
@@ -611,11 +566,9 @@ const navItems: NavItem[] = [
     }
   };
 
-  // Initialize dropdowns
+  // Initialize desktop dropdowns
   function initializeDropdowns() {
-    // Handle dropdown toggle on click
     document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
-      // Remove existing listener if any
       const newToggle = toggle.cloneNode(true);
       toggle.parentNode?.replaceChild(newToggle, toggle);
       
@@ -635,14 +588,14 @@ const navItems: NavItem[] = [
       });
     });
 
-    // Reinitialize dropdown containers for mouse events
+    // Mouse leave handlers
     document.querySelectorAll('.dropdown-container').forEach(container => {
       const containerEl = container as HTMLElement;
       containerEl.addEventListener('mouseleave', () => {
         if (openDropdown === containerEl) {
           dropdownLeaveTimer = setTimeout(() => {
             closeDropdown(containerEl);
-          }, 300);
+          }, 200);
         }
       });
 
@@ -670,90 +623,59 @@ const navItems: NavItem[] = [
     }
   });
 
-  // Mouse leave handlers are now in initializeDropdowns function
-
   // Close dropdown on Escape key
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && openDropdown) {
-      closeDropdown(openDropdown);
+    if (e.key === 'Escape') {
+      if (openDropdown) {
+        closeDropdown(openDropdown);
+      }
+      if (menu?.classList.contains('open')) {
+        closeMobileMenu();
+      }
     }
   });
 
-  // Active link highlighting with path matching
+  // Active link highlighting
   const updateActiveLinks = () => {
     const currentPath = window.location.pathname;
-    const basePath = currentPath.replace(/\/$/, '') || '/';
     
     document.querySelectorAll('.nav-link').forEach(link => {
       const href = link.getAttribute('href');
       if (!href) return;
       
-      // Normalize paths for comparison
       const linkPath = href.replace(/\/$/, '');
       const normalizedCurrentPath = currentPath.replace(/\/$/, '');
       
-      // Check if current path matches
       if (normalizedCurrentPath === linkPath || 
           (normalizedCurrentPath.startsWith(linkPath) && linkPath !== '' && linkPath !== '/') ||
           currentPath === href) {
         link.classList.add('text-lime-400');
         const indicator = link.querySelector('.nav-indicator');
         if (indicator) {
-          (indicator as HTMLElement).style.width = '80%';
+          (indicator as HTMLElement).style.width = '60%';
         }
       }
     });
   };
 
-  // Update active links on load and navigation
   updateActiveLinks();
-  
-  // Listen for Astro view transitions
   document.addEventListener('astro:page-load', updateActiveLinks);
-
-  // Enhanced keyboard navigation
-  document.addEventListener('keydown', (e) => {
-    // Close mobile menu on Escape
-    if (e.key === 'Escape' && menu?.classList.contains('open')) {
-      closeMobileMenu();
-    }
-  });
 
   // Cleanup function for Astro view transitions
   document.addEventListener('astro:before-swap', () => {
-    // Remove event listeners before page swap
     btn?.removeEventListener('click', toggleMenu);
     document.removeEventListener('click', handleOutsideClick);
-    window.removeEventListener('scroll', optimizedScroll);
-    if (scrollRaf) {
-      cancelAnimationFrame(scrollRaf);
-      scrollRaf = null;
-    }
+    mobileLinks.forEach(link => {
+      link.removeEventListener('click', closeMobileMenu);
+    });
     
-    // Clean up desktop dropdown handlers
     if (dropdownLeaveTimer) {
       clearTimeout(dropdownLeaveTimer);
       dropdownLeaveTimer = null;
     }
     
-    // Clean up mobile menu link handlers
-    mobileLinks.forEach(link => {
-      link.removeEventListener('click', closeMobileMenu);
-    });
-
-    // Clean up mobile dropdown handlers
-    mobileDropdownHandlers.forEach((handler, button) => {
-      button.removeEventListener('click', handler);
-    });
-    mobileDropdownHandlers.clear();
-    
-    // Reset dropdown state
     openDropdown = null;
   });
 
-  // Reinitialize dropdowns on page load (for Astro view transitions)
   document.addEventListener('astro:page-load', initializeDropdowns);
-
-  // Initialize on load
-  handleScroll();
 </script>

@@ -28,64 +28,64 @@ const legalLinks = [
 const featuredServices = services.slice(0, 6);
 ---
 
-<footer class="bg-zinc-950 border-t border-gray-800 relative z-10">
+<footer class="bg-black border-t border-zinc-800 relative z-10">
   <div
-    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-16 space-y-10 sm:space-y-12 lg:space-y-16"
+    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14 lg:py-16 space-y-12 lg:space-y-16"
   >
     <div
-      class="grid gap-8 sm:gap-10 lg:gap-12 xl:gap-16 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"
+      class="grid gap-10 lg:gap-12 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"
     >
       <section class="space-y-6 text-center lg:text-left">
         <div class="flex items-center justify-center lg:justify-start gap-3">
           <img
             src={`${base}logo.svg`}
             alt="AUXO Data Labs Logo"
-            class="h-8 w-8 sm:h-10 sm:w-10 flex-shrink-0"
+            class="h-9 w-9 sm:h-10 sm:w-10 flex-shrink-0"
           />
-          <span class="text-white text-lg font-semibold tracking-tight"
-            >Data Labs</span
+          <span class="text-white text-lg sm:text-xl font-bold tracking-tight"
+            >AUXO Data Labs</span
           >
         </div>
 
-        <div class="space-y-3 text-gray-300">
+        <div class="space-y-3 text-gray-400">
           <p
-            class="text-xs sm:text-sm italic leading-relaxed max-w-md mx-auto lg:mx-0"
+            class="text-sm leading-relaxed max-w-md mx-auto lg:mx-0"
           >
             {siteData.tagline}
           </p>
-          <p class="hidden md:block text-sm leading-relaxed max-w-lg">
-            Transforming data into <span class="font-medium text-white"
+          <p class="hidden md:block text-sm leading-relaxed max-w-lg text-gray-500">
+            Transforming data into <span class="text-gray-300 font-medium"
               >actionable insights</span
             > for businesses across the UAE.
           </p>
         </div>
 
-        <div class="space-y-3 text-sm sm:text-base text-gray-300">
+        <div class="space-y-2.5 text-sm text-gray-400">
           <div
-            class="flex flex-wrap items-center justify-center lg:justify-start gap-3"
+            class="flex flex-wrap items-center justify-center lg:justify-start gap-2.5"
           >
             <Icon
               name="mdi:email"
-              class="w-5 h-5 text-lime-400 flex-shrink-0"
+              class="w-4 h-4 text-lime-400 flex-shrink-0"
             />
             <a
               href={`mailto:${siteData.email}`}
-              class="text-gray-200 hover:text-lime-400 transition-colors break-all"
+              class="text-gray-300 hover:text-lime-400 transition-colors duration-200 break-all"
               >{siteData.email}</a
             >
           </div>
           {
             siteData.phone && (
               <div
-                class="flex flex-wrap items-center justify-center lg:justify-start gap-3"
+                class="flex flex-wrap items-center justify-center lg:justify-start gap-2.5"
               >
                 <Icon
                   name="mdi:phone"
-                  class="w-5 h-5 text-lime-400 flex-shrink-0"
+                  class="w-4 h-4 text-lime-400 flex-shrink-0"
                 />
                 <a
                   href={`tel:${siteData.phone}`}
-                  class="text-gray-200 hover:text-lime-400 transition-colors break-words"
+                  class="text-gray-300 hover:text-lime-400 transition-colors duration-200 break-words"
                 >
                   {siteData.phone}
                 </a>
@@ -93,54 +93,54 @@ const featuredServices = services.slice(0, 6);
             )
           }
           <div
-            class="flex flex-wrap items-center justify-center lg:justify-start gap-3"
+            class="flex flex-wrap items-center justify-center lg:justify-start gap-2.5"
           >
             <Icon
               name="mdi:map-marker"
-              class="w-5 h-5 text-lime-400 flex-shrink-0"
+              class="w-4 h-4 text-lime-400 flex-shrink-0"
             />
-            <span class="text-gray-200 break-words">
+            <span class="text-gray-300 break-words">
               {siteData.address.city}, {siteData.address.country}
             </span>
           </div>
         </div>
 
-        <div class="flex justify-center lg:justify-start gap-2 sm:gap-3 flex-wrap">
+        <div class="flex justify-center lg:justify-start gap-2.5 flex-wrap">
           <a
             href={siteData.social.linkedin}
-            class="w-9 h-9 sm:w-10 sm:h-10 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+            class="w-10 h-10 bg-zinc-900 border border-zinc-800 rounded-md flex items-center justify-center hover:bg-zinc-800 hover:border-zinc-700 text-gray-400 hover:text-lime-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-lime-400/50 focus:ring-offset-2 focus:ring-offset-black min-w-[44px] min-h-[44px]"
             aria-label="Follow AUXO Data Labs on LinkedIn"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Icon name="mdi:linkedin" class="w-4 h-4 sm:w-5 sm:h-5" />
+            <Icon name="mdi:linkedin" class="w-5 h-5" />
           </a>
           <a
             href={siteData.social.twitter}
-            class="w-9 h-9 sm:w-10 sm:h-10 bg-zinc-800 rounded-lg flex items-center justify-center hover:bg-lime-400 hover:text-black transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+            class="w-10 h-10 bg-zinc-900 border border-zinc-800 rounded-md flex items-center justify-center hover:bg-zinc-800 hover:border-zinc-700 text-gray-400 hover:text-lime-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-lime-400/50 focus:ring-offset-2 focus:ring-offset-black min-w-[44px] min-h-[44px]"
             aria-label="Follow AUXO Data Labs on Twitter"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Icon name="mdi:twitter" class="w-4 h-4 sm:w-5 sm:h-5" />
+            <Icon name="mdi:twitter" class="w-5 h-5" />
           </a>
         </div>
       </section>
 
       <section
-        class="grid gap-8 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3 text-center sm:text-left"
+        class="grid gap-8 sm:gap-10 sm:grid-cols-2 lg:grid-cols-3 text-center sm:text-left"
       >
-        <div class="space-y-4 sm:space-y-5">
-          <h4 class="text-xs sm:text-xs font-bold tracking-[0.2em] text-gray-100 uppercase">
+        <div class="space-y-4">
+          <h4 class="text-xs font-semibold tracking-wide text-gray-200 uppercase">
             Quick Links
           </h4>
           <nav>
-            <ul class="space-y-2 sm:space-y-2 text-sm sm:text-sm font-medium text-gray-400">
+            <ul class="space-y-2 text-sm font-medium text-gray-400">
               {quickLinks.map((link, index) => (
                 <li class={index >= 3 ? 'hidden sm:block' : ''}>
                   <a
                     href={link.href}
-                    class="block py-1.5 sm:py-1 hover:text-lime-400 active:text-lime-400 transition-colors touch-manipulation min-h-[32px] sm:min-h-0 flex items-center justify-center sm:justify-start"
+                    class="block py-2 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 touch-manipulation min-h-[44px] sm:min-h-[36px] flex items-center justify-center sm:justify-start"
                   >
                     {link.label}
                   </a>
@@ -150,19 +150,19 @@ const featuredServices = services.slice(0, 6);
           </nav>
         </div>
 
-        <div class="space-y-6 sm:space-y-6">
+        <div class="space-y-8">
           <div class="space-y-4">
             <h4
-              class="text-xs font-bold tracking-[0.2em] text-gray-100 uppercase"
+              class="text-xs font-semibold tracking-wide text-gray-200 uppercase"
             >
               Resources
             </h4>
-            <ul class="space-y-2 sm:space-y-2 text-sm font-medium text-gray-400">
+            <ul class="space-y-2 text-sm font-medium text-gray-400">
               {resourceLinks.map((link) => (
                 <li>
                   <a
                     href={link.href}
-                    class="block py-1.5 sm:py-1 hover:text-lime-400 active:text-lime-400 transition-colors touch-manipulation min-h-[32px] sm:min-h-0 flex items-center justify-center sm:justify-start"
+                    class="block py-2 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 touch-manipulation min-h-[44px] sm:min-h-[36px] flex items-center justify-center sm:justify-start"
                   >
                     {link.label}
                   </a>
@@ -171,18 +171,18 @@ const featuredServices = services.slice(0, 6);
             </ul>
           </div>
 
-          <div class="space-y-4 sm:space-y-5">
+          <div class="space-y-4">
             <h4
-              class="text-xs sm:text-xs font-bold tracking-[0.2em] text-gray-100 uppercase"
+              class="text-xs font-semibold tracking-wide text-gray-200 uppercase"
             >
               Legal
             </h4>
-            <ul class="space-y-2 sm:space-y-2 text-sm font-medium text-gray-400">
+            <ul class="space-y-2 text-sm font-medium text-gray-400">
               {legalLinks.map((link) => (
                 <li>
                   <a
                     href={link.href}
-                    class="block py-1.5 sm:py-1 hover:text-lime-400 active:text-lime-400 transition-colors touch-manipulation min-h-[32px] sm:min-h-0 flex items-center justify-center sm:justify-start"
+                    class="block py-2 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 touch-manipulation min-h-[44px] sm:min-h-[36px] flex items-center justify-center sm:justify-start"
                   >
                     {link.label}
                   </a>
@@ -192,16 +192,16 @@ const featuredServices = services.slice(0, 6);
           </div>
         </div>
 
-        <div class="space-y-4 sm:space-y-5 sm:col-span-2 lg:col-span-1">
-          <h4 class="text-xs sm:text-xs font-bold tracking-[0.2em] text-gray-100 uppercase">
+        <div class="space-y-4 sm:col-span-2 lg:col-span-1">
+          <h4 class="text-xs font-semibold tracking-wide text-gray-200 uppercase">
             Services
           </h4>
-          <ul class="space-y-2 sm:space-y-2 text-sm font-medium text-gray-400">
+          <ul class="space-y-2 text-sm font-medium text-gray-400">
             {featuredServices.map((service, index) => (
               <li class={index >= 3 ? 'hidden md:block' : ''}>
                 <a
                   href={`${base}services/${service.id}/`}
-                  class="block py-1.5 sm:py-1 hover:text-lime-400 active:text-lime-400 transition-colors touch-manipulation min-h-[32px] sm:min-h-0 flex items-center justify-center sm:justify-start"
+                  class="block py-2 hover:text-lime-400 active:text-lime-400 transition-colors duration-200 touch-manipulation min-h-[44px] sm:min-h-[36px] flex items-center justify-center sm:justify-start"
                 >
                   {service.title}
                 </a>
@@ -213,27 +213,27 @@ const featuredServices = services.slice(0, 6);
     </div>
 
     <section
-      class="border-t border-gray-800 pt-8 sm:pt-10 lg:pt-12 max-w-lg"
+      class="border-t border-zinc-800 pt-8 lg:pt-10 max-w-lg"
     >
-      <h4 class="text-xs sm:text-xs font-bold tracking-[0.2em] text-gray-100 uppercase mb-3 sm:mb-4">
+      <h4 class="text-xs font-semibold tracking-wide text-gray-200 uppercase mb-4">
         Stay Updated
       </h4>
-      <p class="mt-3 sm:mt-3 text-sm sm:text-sm text-gray-400 leading-relaxed">
-        Subscribe to our newsletter for <em>insights and updates</em>.
+      <p class="mb-4 text-sm text-gray-400 leading-relaxed">
+        Subscribe to our newsletter for insights and updates.
       </p>
-      <form id="newsletter-form" class="mt-4 sm:mt-5 space-y-3 sm:space-y-3">
-        <div class="flex flex-col sm:flex-row gap-2.5 sm:gap-2">
+      <form id="newsletter-form" class="space-y-3">
+        <div class="flex flex-col sm:flex-row gap-2.5">
           <input
             id="newsletter-email"
             type="email"
             placeholder="Enter your email"
-            class="flex-1 px-4 sm:px-3 py-3 sm:py-2.5 bg-zinc-900 border border-zinc-700 rounded-lg text-sm sm:text-sm text-gray-100 placeholder:text-gray-500 focus:outline-none focus:border-lime-400 focus:ring-2 focus:ring-lime-400/30 transition-all min-h-[44px] sm:min-h-[38px]"
+            class="flex-1 px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-md text-sm text-gray-100 placeholder:text-gray-500 focus:outline-none focus:border-lime-400 focus:ring-2 focus:ring-lime-400/30 transition-colors duration-200 min-h-[44px]"
             required
             aria-label="Email address for newsletter"
           />
           <button
             type="submit"
-            class="px-6 sm:px-5 py-3 sm:py-2.5 bg-lime-400 text-black font-semibold rounded-lg hover:bg-lime-500 active:bg-lime-600 transition-all text-sm sm:text-sm whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed min-h-[44px] sm:min-h-[38px] touch-manipulation"
+            class="px-6 py-3 bg-lime-400 text-black font-semibold rounded-md hover:bg-lime-500 active:bg-lime-600 transition-colors duration-200 text-sm whitespace-nowrap disabled:opacity-60 disabled:cursor-not-allowed min-h-[44px] touch-manipulation"
           >
             Subscribe
           </button>
@@ -243,13 +243,13 @@ const featuredServices = services.slice(0, 6);
             type="checkbox"
             id="newsletter-consent"
             required
-            class="mt-0.5 w-4 h-4 text-lime-400 bg-zinc-900 border-zinc-700 rounded focus:ring-lime-400 focus:ring-2"
+            class="mt-0.5 w-4 h-4 text-lime-400 bg-zinc-900 border-zinc-800 rounded focus:ring-2 focus:ring-lime-400/50"
           />
           <span class="text-xs text-gray-400 leading-relaxed">
             I consent to receive marketing emails.
             <a
               href={`${base}legal/privacy-policy/`}
-              class="text-lime-400 hover:underline"
+              class="text-lime-400 hover:text-lime-500 transition-colors duration-200"
               >Privacy</a
             >
           </span>
@@ -259,12 +259,12 @@ const featuredServices = services.slice(0, 6);
     </section>
 
     <div
-      class="border-t border-gray-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-gray-500 text-xs font-medium"
+      class="border-t border-zinc-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-gray-500 text-xs font-medium"
     >
       <p class="text-center sm:text-left">
         © {currentYear} AUXO Data Labs. All rights reserved.
       </p>
-      <div class="flex flex-wrap items-center justify-center gap-3">
+      <div class="flex flex-wrap items-center justify-center gap-4">
         <span class="flex items-center gap-1.5">
           <Icon
             name="mdi:map-marker"

@@ -15,7 +15,13 @@ export default defineConfig({
   base: '/auxo-main-website',
   trailingSlash: 'always', // Enforce consistent URL structure with trailing slashes
   integrations: [
-    mdx(),
+    mdx({
+      syntaxHighlight: 'shiki',
+      shikiConfig: {
+        theme: 'github-dark',
+        wrap: true,
+      },
+    }),
     sitemap({
       filter: (page) => !page.includes('/api/'), // Exclude API routes from sitemap
       customPages: [

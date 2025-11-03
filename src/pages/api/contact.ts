@@ -318,7 +318,7 @@ The AUXO Data Labs Team
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 AUXO Data Labs
-Leading Analytics Consultancy in Dubai, UAE
+A New Data Analytics Consultancy in Dubai, UAE
 Website: https://auxodata.com
 Email: hello@auxodata.com`;
       confirmationEmail.htmlContent = `
@@ -359,7 +359,7 @@ Email: hello@auxodata.com`;
     </div>
     <div class="footer">
       <strong>AUXO Data Labs</strong><br>
-      Leading Analytics Consultancy in Dubai, UAE<br><br>
+      A New Data Analytics Consultancy in Dubai, UAE<br><br>
       <a href="https://auxodata.com">Website</a> |
       <a href="mailto:hello@auxodata.com">Email</a>
     </div>

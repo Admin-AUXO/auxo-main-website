@@ -178,8 +178,9 @@ const navItems: NavItem[] = [
 
       <!-- Mobile Menu Button -->
       <button 
+        type="button"
         id="mobile-menu-button" 
-        class="lg:hidden relative text-white p-2 min-w-[44px] min-h-[44px] rounded-md hover:bg-zinc-900 active:bg-zinc-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-lime-400/50 touch-manipulation" 
+        class="lg:hidden relative z-50 text-white p-2 min-w-[44px] min-h-[44px] rounded-md hover:bg-zinc-900 active:bg-zinc-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-lime-400/50 touch-manipulation" 
         aria-label="Toggle mobile menu" 
         aria-expanded="false"
       >
@@ -435,11 +436,17 @@ const navItems: NavItem[] = [
     });
   }
 
-  btn?.addEventListener('click', (e) => {
+  const handleMenuButtonClick = (e: Event) => {
+    e.preventDefault();
     e.stopPropagation();
+    e.stopImmediatePropagation();
     toggleMenu();
     setTimeout(setupMobileDropdowns, 50);
-  });
+    return false;
+  };
+
+  btn?.addEventListener('click', handleMenuButtonClick, { capture: true });
+  btn?.addEventListener('touchend', handleMenuButtonClick, { capture: true, passive: false });
 
   // Close mobile menu when clicking on any link
   const closeMobileMenu = () => {
@@ -664,7 +671,8 @@ const navItems: NavItem[] = [
 
   // Cleanup function for Astro view transitions
   document.addEventListener('astro:before-swap', () => {
-    btn?.removeEventListener('click', toggleMenu);
+    btn?.removeEventListener('click', handleMenuButtonClick);
+    btn?.removeEventListener('touchend', handleMenuButtonClick);
     document.removeEventListener('click', handleOutsideClick);
     mobileLinks.forEach(link => {
       link.removeEventListener('click', closeMobileMenu);

@@ -1,7 +1,7 @@
 export const siteData = {
   name: 'AUXO Data Labs',
   tagline: 'Look Beyond Data',
-  description: 'Leading analytics consultancy in Dubai, UAE, specializing in data-driven insights and business intelligence solutions.',
+  description: 'A new data analytics consultancy in Dubai, UAE. Enterprise-grade solutions delivered with startup agility and personal attention.',
   url: 'https://auxodata.com',
   email: 'hello@auxodata.com',
   phone: null, // TODO: Add actual phone number when available
@@ -20,12 +20,11 @@ export const siteData = {
   },
   founded: 2025,
   stats: {
-    projectsDelivered: '100+',
-    happyClients: '50+',
     yearsExperience: '15+',
-    valueGenerated: '$10M+',
-    clientSatisfaction: '98%',
-    industriesServed: '8',
+    technologiesMastered: '15+',
+    industriesServed: '8+',
+    foundingClients: '10',
+    responseTime: '<24hrs',
   },
   privacyEmail: 'privacy@auxodata.com',
 };

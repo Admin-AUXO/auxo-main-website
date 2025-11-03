@@ -125,10 +125,10 @@ export const caseStudies: CaseStudy[] = [
 
 export const caseStudiesContent = {
   hero: {
-    badge: 'Client Success Stories',
-    title: 'Real Results from',
-    titleHighlight: 'Real Clients',
-    subtitle: "Discover how we've helped organizations across industries unlock the power of their data",
+    badge: 'Success Stories',
+    title: 'Results We Deliver',
+    titleHighlight: 'For Our Clients',
+    subtitle: "As a new consultancy, we're building our portfolio with every project. These examples represent the types of results our founding team has delivered at previous organizations—and what we'll achieve together.",
   },
   finalCta: {
     title: 'Ready to Write Your Success Story?',

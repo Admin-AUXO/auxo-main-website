@@ -2,14 +2,14 @@ export const contactContent = {
   hero: {
     title: "Let's Start Your Analytics",
     titleHighlight: 'Journey Together',
-    subtitle: "Share your analytics challenges and goals. We'll respond within 24 hours with a tailored approach for your business.",
+    subtitle: "As a startup, we move fast. Share your challenges and we'll respond within 24 hours with a personalized approach—no automated replies, no sales funnels. Just real conversations.",
   },
   sidebar: {
     title: 'Get in Touch',
     info: {
       fastResponse: {
-        title: 'Fast Response Time',
-        description: 'We typically respond to all inquiries within 24 hours during business days.',
+        title: 'Startup Advantage',
+        description: 'Get direct access to founders and senior team. Quick decisions, no bureaucracy, responses within 24 hours.',
       },
     },
   },

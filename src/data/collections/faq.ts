@@ -13,11 +13,15 @@ export const faqData = [
       },
       {
         q: 'What makes AUXO different from other analytics consultancies?',
-        a: 'We combine deep technical expertise with UAE market knowledge, offering tailored solutions that understand local business challenges and regulatory requirements (UAE PDPL). Our focus is on practical, actionable insights rather than just technology implementation.',
+        a: 'As a new consultancy launched in 2025, we bring a fresh perspective with the agility of a startup and the expertise of experienced professionals. Unlike large consultancies, you\'ll work directly with founders and senior team members—no junior consultants or account managers. We move fast, stay flexible, and put your success above everything else.',
       },
       {
         q: 'Do you work with small businesses or only enterprises?',
-        a: 'We work with organizations of all sizes, from startups and SMEs to large enterprises. Our solutions are scalable and customized to match your business size, budget, and growth objectives.',
+        a: 'We work with organizations of all sizes, from startups and SMEs to large enterprises. As a startup ourselves, we understand the unique challenges smaller businesses face. Our solutions are scalable and customized to match your business size, budget, and growth objectives.',
+      },
+      {
+        q: 'You\'re a new consultancy—should I be concerned about working with a startup?',
+        a: 'We\'re transparent about being new, and we see it as an advantage. Our founding team brings 15+ years of combined experience from leading organizations. Being a startup means we\'re agile, responsive, and focused—you get enterprise expertise without the corporate overhead. We\'re also selective about taking on founding clients to ensure we can deliver exceptional results.',
       },
     ],
   },
@@ -69,7 +73,7 @@ export const faqData = [
       },
       {
         q: 'Do you require long-term contracts?',
-        a: 'No, we offer both project-based engagements and flexible month-to-month retainers. We believe in earning your continued business through results, not contractual obligations.',
+        a: 'No, we offer both project-based engagements and flexible month-to-month retainers. We believe in earning your continued business through results, not contractual obligations. As a startup, we\'re focused on building long-term relationships through trust and value, not contracts.',
       },
     ],
   },
@@ -139,7 +143,7 @@ export const faqData = [
       },
       {
         q: 'Can you provide references or case studies?',
-        a: 'Yes, we can share relevant case studies and, with client permission, connect you with references from similar industries or project types. Visit our Case Studies page to see examples of our work.',
+        a: 'As a new consultancy, we\'re building our portfolio. Our founding team brings proven track records from previous organizations. We can share examples of similar work our team has delivered, and we\'re happy to discuss how our methodology applies to your specific needs. Case studies will be added as we complete projects with founding clients.',
       },
       {
         q: 'What is the Data Maturity Assessment?',

@@ -25,10 +25,10 @@ export interface WhyChooseItem {
 
 export const homepageContent = {
   hero: {
-    badge: 'Unlock Insights. Drive Decisions.',
+    badge: 'Fresh Perspective. Proven Expertise.',
     title: 'Turn Information Into',
-    titleHighlight: 'Actionable Intelligence',
-    subtitle: 'Empowering UAE businesses with advanced analytics and AI solutions',
+    titleHighlight: 'Competitive Advantage',
+    subtitle: 'A new analytics consultancy built for UAE businesses. Enterprise-grade solutions, startup agility.',
     primaryCta: {
       text: 'Schedule Free Consultation',
       href: 'contact',
@@ -38,9 +38,9 @@ export const homepageContent = {
       href: '#services',
     },
     features: [
-      'Precision Analytics',
-      'Globally Compliant',
-      'Measurable Impact',
+      'Fast & Agile',
+      'Personal Attention',
+      'UAE Focused',
     ],
     scrollIndicator: 'Scroll to explore',
   },
@@ -121,22 +121,27 @@ export const homepageContent = {
   whyChoose: {
     title: 'Why Choose',
     titleHighlight: 'AUXO?',
-    subtitle: 'Your trusted analytics partner in the UAE',
+    subtitle: 'The startup advantage: agility, innovation, and personal attention',
     items: [
       {
+        icon: 'mdi:rocket',
+        title: 'Startup Agility',
+        description: 'Fast decision-making, flexible approaches, and rapid execution without corporate bureaucracy',
+      },
+      {
+        icon: 'mdi:account-group',
+        title: 'Direct Access',
+        description: 'Work directly with founders and senior team members, not junior consultants or account managers',
+      },
+      {
+        icon: 'mdi:lightbulb-on',
+        title: 'Fresh Perspective',
+        description: 'Latest methodologies and cutting-edge tools, unburdened by legacy processes or outdated approaches',
+      },
+      {
         icon: 'mdi:map-marker',
-        title: 'Dubai-Based Expertise',
-        description: 'Local team with deep understanding of UAE market dynamics and regulatory requirements',
-      },
-      {
-        icon: 'mdi:certificate',
-        title: 'Proven Track Record',
-        description: 'Delivering measurable results through strategic insights and cutting-edge analytics',
-      },
-      {
-        icon: 'mdi:security',
-        title: 'Security & Compliance',
-        description: 'Full compliance with UAE PDPL, GDPR, and enterprise-grade security standards',
+        title: 'UAE-First',
+        description: 'Built in Dubai, designed for UAE businesses with deep understanding of local market and regulations',
       },
     ] as WhyChooseItem[],
   },
@@ -181,7 +186,7 @@ export const homepageContent = {
     badge: 'Founding Client Offer',
     title: 'Be Among Our',
     titleHighlight: 'First 10 Partners',
-    subtitle: "As a new consultancy, we're offering exclusive benefits to our founding clients who trust us to transform their analytics capabilities",
+    subtitle: "We're a new consultancy with big ambitions. Join us as a founding partner and get enterprise-level expertise at startup-friendly terms.",
     benefits: [
       {
         icon: 'mdi:chart-bar',
@@ -205,10 +210,10 @@ export const homepageContent = {
       },
     ],
     limitedTime: {
-      title: 'Limited Time Offer',
+      title: 'Limited Availability',
       message: 'Only',
-      count: '7 spots remaining',
-      highlight: 'for founding clients',
+      count: '10 founding client spots',
+      highlight: 'available in 2025',
     },
     cta: {
       text: 'Claim Your Spot Now',

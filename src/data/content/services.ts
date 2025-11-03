@@ -7,9 +7,9 @@ export interface ProcessStep {
 export const servicesPageContent = {
   hero: {
     badge: 'What We Do',
-    title: 'Comprehensive Data',
+    title: 'End-to-End Data',
     titleHighlight: 'Analytics Services',
-    subtitle: 'From strategy to implementation, we provide end-to-end data analytics solutions tailored to your business needs',
+    subtitle: 'Enterprise-grade solutions delivered with startup speed and personal attention. Every project gets direct access to our senior team.',
   },
   process: {
     title: 'Our Proven Process',

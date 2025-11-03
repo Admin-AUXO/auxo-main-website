@@ -8,10 +8,12 @@ This document outlines the content tone, SEO guidelines, and content management 
 
 ### Brand Voice
 
+- **Authentic Startup Energy:** Honest about being new, while emphasizing advantages (agility, direct access, fresh perspective)
 - **Professional yet approachable:** Technical expertise without excessive jargon
 - **Clear and concise:** Direct communication that respects the reader's time
 - **Confident but not boastful:** Demonstrate expertise without overselling
 - **Solution-focused:** Emphasize solving problems and delivering value
+- **Transparent:** Acknowledge startup stage while highlighting founding team experience and advantages
 
 ### Writing Style
 
@@ -20,6 +22,9 @@ This document outlines the content tone, SEO guidelines, and content management 
 - Use bullet points for lists of features or benefits
 - Include concrete examples and use cases
 - Avoid marketing fluff and buzzwords
+- Emphasize startup advantages: agility, direct access, fresh perspective, personal attention
+- Be transparent about being new while highlighting founding team experience
+- Focus on client benefits of working with a startup (speed, flexibility, no bureaucracy)
 
 ---
 

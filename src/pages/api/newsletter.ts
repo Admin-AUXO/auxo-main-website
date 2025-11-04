@@ -71,7 +71,7 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(
         JSON.stringify({
           success: false,
-          error: 'Too many subscription attempts. Please try again later.',
+          error: 'Oops! Too many subscription attempts. Please wait a moment and try again.',
           retryAfter: rateLimit.retryAfter
         }),
         {
@@ -99,7 +99,7 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(
         JSON.stringify({
           success: false,
-          error: 'Newsletter service is not configured. Please contact support.'
+          error: 'We\'re experiencing a technical issue with our newsletter service. Please try again later or contact us at hello@auxodata.com.'
         }),
         {
           status: 500,
@@ -330,15 +330,15 @@ Email: ${FROM_EMAIL}`;
 
       // Provide more specific error messages based on status code
       if (errorStatus === 401 || errorStatus === 403) {
-        throw new Error('Service configuration error. Please contact support.');
+        throw new Error('We\'re having a technical issue. Please try again later or contact us at hello@auxodata.com.');
       } else if (errorStatus === 429) {
-        throw new Error('Too many requests. Please try again later.');
+        throw new Error('Too many requests. Please wait a moment and try again.');
       } else if (errorStatus && errorStatus >= 500) {
-        throw new Error('Service temporarily unavailable. Please try again later.');
+        throw new Error('Our subscription service is temporarily unavailable. Please try again in a few minutes.');
       }
       
       // Generic error for other cases
-      throw new Error('Failed to process subscription');
+      throw new Error('We couldn\'t complete your subscription. Please try again.');
     }
 
     return new Response(
@@ -355,10 +355,14 @@ Email: ${FROM_EMAIL}`;
   } catch (error) {
     // Handle Zod validation errors
     if (error instanceof ZodError) {
+      // Get the first validation error message (user-friendly)
+      const firstError = error.errors[0];
+      const friendlyMessage = firstError?.message || 'Please check your email address and try again.';
+      
       return new Response(
         JSON.stringify({
           success: false,
-          error: 'Validation failed',
+          error: friendlyMessage,
           errors: error.errors.map(e => ({
             field: e.path.join('.'),
             message: e.message
@@ -382,7 +386,7 @@ Email: ${FROM_EMAIL}`;
     return new Response(
       JSON.stringify({
         success: false,
-        error: import.meta.env.DEV ? `An error occurred: ${errorMessage}` : 'An error occurred. Please try again later.'
+        error: 'Oops! Something went wrong on our end. Please try again in a moment, or contact us at hello@auxodata.com.'
       }),
       {
         status: 500,

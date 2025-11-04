@@ -241,6 +241,124 @@ const legalLinks = [
         </div>
       </section>
 
+      <!-- Newsletter Signup Section -->
+      <section class="lg:col-span-12 mt-6 lg:mt-8">
+        <div
+          class="bg-card/50 border border-accent-green/20 rounded-xl p-6 sm:p-8"
+        >
+          <div class="max-w-2xl mx-auto text-center">
+            <h4
+              class="text-lg sm:text-xl font-bold text-primary mb-3 transition-colors"
+            >
+              Get monthly insights on data analytics, delivered to your inbox
+            </h4>
+            <p class="text-sm text-secondary mb-6 transition-colors">
+              Join executives who want to stay ahead of the curve. Get practical
+              insights, industry trends, and actionable strategies—no fluff.
+            </p>
+
+            <!-- Value Proposition Cards -->
+            <div
+              class="bg-card/50 border border-accent-green/20 rounded-lg p-6 mb-6 max-w-xl mx-auto text-left"
+            >
+              <p
+                class="text-sm font-semibold mb-3 text-primary transition-colors"
+              >
+                What you'll receive:
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="flex items-start gap-2">
+                  <Icon
+                    name="mdi:check"
+                    class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
+                  />
+                  <span class="text-sm text-secondary transition-colors"
+                    >Industry trends and insights</span
+                  >
+                </div>
+                <div class="flex items-start gap-2">
+                  <Icon
+                    name="mdi:check"
+                    class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
+                  />
+                  <span class="text-sm text-secondary transition-colors"
+                    >ROI frameworks and practical tips</span
+                  >
+                </div>
+                <div class="flex items-start gap-2">
+                  <Icon
+                    name="mdi:check"
+                    class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
+                  />
+                  <span class="text-sm text-secondary transition-colors"
+                    >Data analytics best practices</span
+                  >
+                </div>
+                <div class="flex items-start gap-2">
+                  <Icon
+                    name="mdi:check"
+                    class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
+                  />
+                  <span class="text-sm text-secondary transition-colors"
+                    >Exclusive content and resources</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Newsletter Form -->
+            <form id="newsletter-form" class="max-w-md mx-auto">
+              <div class="flex flex-col sm:flex-row gap-3 mb-3">
+                <input
+                  type="email"
+                  id="newsletter-email"
+                  placeholder="Enter your work email"
+                  required
+                  class="flex-1 px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-colors text-primary placeholder:text-secondary min-h-[44px]"
+                  aria-label="Email address for newsletter subscription"
+                />
+                <button
+                  type="submit"
+                  class="px-6 py-3 bg-accent-green text-on-accent font-semibold rounded-lg hover:bg-accent-green/90 active:bg-accent-green/80 transition-all duration-200 whitespace-nowrap min-h-[44px] min-w-[120px]"
+                  aria-label="Subscribe to newsletter"
+                >
+                  Subscribe
+                </button>
+              </div>
+              <label
+                class="flex items-start gap-2 cursor-pointer group text-left max-w-md mx-auto mb-2"
+              >
+                <input
+                  type="checkbox"
+                  id="newsletter-consent"
+                  required
+                  class="mt-0.5 w-4 h-4 text-accent-green bg-card border-theme rounded focus:ring-accent-green/50 focus:ring-2 transition-colors flex-shrink-0"
+                  aria-label="I consent to receive marketing emails"
+                />
+                <span
+                  class="text-xs text-secondary leading-tight group-hover:text-primary transition-colors"
+                >
+                  I consent to receive monthly insights from AUXO Data Labs.
+                  <a
+                    href={`${base}legal/privacy-policy/`}
+                    class="text-accent-green hover:underline transition-colors"
+                    >Privacy Policy</a
+                  >
+                </span>
+              </label>
+              <p class="text-xs text-secondary mt-2 transition-colors">
+                Monthly insights. No spam. Unsubscribe anytime.
+              </p>
+              <p
+                id="newsletter-message"
+                class="text-sm mt-2 hidden transition-colors"
+              >
+              </p>
+            </form>
+          </div>
+        </div>
+      </section>
+
       <!-- Startup Promise Section -->
       <section
         class="lg:col-span-12 mt-6 lg:mt-8 pt-6 lg:pt-8 border-t border-theme"
@@ -375,14 +493,17 @@ const legalLinks = [
 
       // Validate consent
       if (!consentCheckbox.checked) {
-        showMessage("Please consent to receive marketing emails", true);
+        showMessage("Please consent to receive our newsletter", true);
         return;
       }
 
       // Validate email
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
-        showMessage("Please enter a valid email address", true);
+        showMessage(
+          "Please enter a valid email address (e.g., name@company.com)",
+          true,
+        );
         return;
       }
 
@@ -410,7 +531,8 @@ const legalLinks = [
 
         if (!response.ok) {
           showMessage(
-            data.error || "Subscription failed. Please try again.",
+            data.error ||
+              "We couldn't complete your subscription. Please try again.",
             true,
           );
           return;
@@ -418,7 +540,7 @@ const legalLinks = [
 
         showMessage(
           data.message ||
-            "Thank you! Please check your email to confirm your subscription.",
+            "Thank you! Please check your email to confirm your subscription. We'll send you monthly insights on data analytics.",
           false,
         );
         newsletterEmail.value = "";
@@ -427,7 +549,10 @@ const legalLinks = [
         if (import.meta.env.DEV) {
           console.error("Newsletter subscription error:", error);
         }
-        showMessage("An error occurred. Please try again later.", true);
+        showMessage(
+          "Oops! Something went wrong. Please try again in a moment.",
+          true,
+        );
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;

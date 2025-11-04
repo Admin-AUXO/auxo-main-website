@@ -81,12 +81,14 @@ const navItems: NavItem[] = [
                 class="nav-link dropdown-toggle relative px-4 py-2.5 text-sm font-medium text-secondary hover:text-primary transition-all duration-200 rounded-lg hover:bg-surface active:bg-surface flex items-center gap-1.5 min-h-[44px] group-hover:text-primary"
                 aria-expanded="false"
                 aria-haspopup="true"
+                aria-label={`${item.name} menu`}
                 data-dropdown-toggle={index}
               >
                 <span>{item.name}</span>
                 <Icon 
                   name="mdi:chevron-down" 
-                  class="w-4 h-4 transition-transform duration-200 dropdown-arrow" 
+                  class="w-4 h-4 transition-transform duration-200 dropdown-arrow"
+                  aria-hidden="true"
                 />
                 <!-- Active Indicator -->
                 <span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-accent-green rounded-full transition-all duration-300 group-hover:w-3/4"></span>
@@ -134,9 +136,10 @@ const navItems: NavItem[] = [
                         <a 
                           href={`${base}services/`} 
                           class="flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium text-accent-green hover:text-primary bg-surface hover:bg-accent-green/10 rounded-lg transition-all duration-200"
+                          aria-label="View all services"
                         >
                           <span>View All Services</span>
-                          <Icon name="mdi:arrow-right" class="w-4 h-4" />
+                          <Icon name="mdi:arrow-right" class="w-4 h-4" aria-hidden="true" />
                         </a>
                       </div>
                     )}
@@ -165,6 +168,7 @@ const navItems: NavItem[] = [
         <a 
           href={`${base}contact/`} 
           class="ml-3 px-5 py-2.5 text-sm font-semibold bg-accent-green text-on-accent rounded-lg hover:bg-accent-green/90 active:bg-accent-green/80 transition-all duration-200 min-h-[44px] flex items-center hover:scale-105 active:scale-95"
+          aria-label="Let's Talk - Contact us"
         >
           Let's Talk
         </a>
@@ -222,11 +226,13 @@ const navItems: NavItem[] = [
               type="button"
               class="mobile-dropdown-btn w-full flex items-center justify-between px-4 py-3.5 min-h-[52px] text-secondary hover:text-primary active:text-primary active:bg-surface rounded-lg transition-all duration-200 font-medium touch-manipulation bg-surface border border-theme hover:border-theme-light active:border-theme-light text-base"
               aria-expanded="false"
+              aria-label={`${item.name} menu`}
             >
               <span>{item.name}</span>
               <Icon 
                 name="mdi:chevron-down" 
-                class="w-5 h-5 transition-transform duration-200 flex-shrink-0 text-accent-green dropdown-arrow-mobile" 
+                class="w-5 h-5 transition-transform duration-200 flex-shrink-0 text-accent-green dropdown-arrow-mobile"
+                aria-hidden="true"
               />
             </button>
             <div class="mobile-dropdown-content hidden pl-4 mt-2 space-y-1.5 overflow-hidden">
@@ -261,6 +267,7 @@ const navItems: NavItem[] = [
       <a 
         href={`${base}contact/`} 
         class="block mt-4 px-6 py-3.5 min-h-[56px] bg-accent-green text-on-accent font-semibold rounded-lg active:bg-accent-green/90 transition-all duration-200 text-center touch-manipulation flex items-center justify-center text-base shadow-lg shadow-accent-green/20"
+        aria-label="Let's Talk - Contact us"
       >
         Let's Talk
       </a>

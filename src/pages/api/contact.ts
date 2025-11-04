@@ -73,7 +73,7 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(
         JSON.stringify({
           success: false,
-          error: 'Too many requests. Please try again later.',
+          error: 'Oops! You\'ve submitted too many requests. Please wait a few minutes and try again.',
           retryAfter: rateLimit.retryAfter
         }),
         {
@@ -115,7 +115,7 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(
         JSON.stringify({
           success: false,
-          error: 'Invalid submission'
+          error: 'We couldn\'t process your submission. Please try again.'
         }),
         {
           status: 400,
@@ -439,7 +439,7 @@ Email: hello@auxodata.com`;
     return new Response(
       JSON.stringify({
         success: true,
-        message: 'Thank you for your message. We will get back to you soon!'
+        message: 'Thank you! We\'ve received your message and will get back to you within 24 hours.'
       }),
       {
         status: 200,
@@ -450,10 +450,14 @@ Email: hello@auxodata.com`;
   } catch (error) {
     // Handle Zod validation errors
     if (error instanceof ZodError) {
+      // Get the first validation error message (user-friendly)
+      const firstError = error.errors[0];
+      const friendlyMessage = firstError?.message || 'Please check your form and try again.';
+      
       return new Response(
         JSON.stringify({
           success: false,
-          error: 'Validation failed',
+          error: friendlyMessage,
           errors: error.errors.map(e => ({
             field: e.path.join('.'),
             message: e.message
@@ -477,7 +481,7 @@ Email: hello@auxodata.com`;
     return new Response(
       JSON.stringify({
         success: false,
-        error: import.meta.env.DEV ? `An error occurred: ${errorMessage}` : 'An error occurred. Please try again later.'
+        error: 'Oops! Something went wrong on our end. Please try again in a moment, or contact us directly at hello@auxodata.com.'
       }),
       {
         status: 500,

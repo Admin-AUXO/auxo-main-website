@@ -5,37 +5,37 @@ import { z } from 'zod';
  */
 export const contactFormSchema = z.object({
   name: z.string()
-    .min(2, 'Name must be at least 2 characters')
-    .max(100, 'Name must be less than 100 characters')
-    .regex(/^[a-zA-Z\s'-]+$/, 'Name contains invalid characters'),
+    .min(2, 'Please enter at least 2 characters for your name')
+    .max(100, 'Name is too long (max 100 characters)')
+    .regex(/^[a-zA-Z\s'-]+$/, 'Name can only contain letters, spaces, hyphens, and apostrophes'),
 
   email: z.string()
-    .email('Invalid email address')
-    .max(255, 'Email too long'),
+    .email('Please enter a valid email address (e.g., name@company.com)')
+    .max(255, 'Email address is too long'),
 
   company: z.string()
-    .min(2, 'Company name must be at least 2 characters')
-    .max(200, 'Company name too long')
+    .min(2, 'Please enter your company name (at least 2 characters)')
+    .max(200, 'Company name is too long (max 200 characters)')
     .optional()
     .or(z.literal('')), // Allow empty string
 
   phone: z.string()
-    .max(50, 'Phone number too long')
+    .max(50, 'Phone number is too long')
     .optional()
     .or(z.literal('')),
 
   industry: z.string()
-    .max(100, 'Industry name too long')
+    .max(100, 'Industry name is too long')
     .optional()
     .or(z.literal('')),
 
   companySize: z.string()
-    .max(50, 'Company size value too long')
+    .max(50, 'Company size value is too long')
     .optional()
     .or(z.literal('')),
 
   role: z.string()
-    .max(100, 'Role name too long')
+    .max(100, 'Role name is too long')
     .optional()
     .or(z.literal('')),
 
@@ -44,21 +44,21 @@ export const contactFormSchema = z.object({
     .default([]),
 
   timeline: z.string()
-    .max(50, 'Timeline value too long')
+    .max(50, 'Timeline value is too long')
     .optional()
     .or(z.literal('')),
 
   budget: z.string()
-    .max(50, 'Budget value too long')
+    .max(50, 'Budget value is too long')
     .optional()
     .or(z.literal('')),
 
   message: z.string()
-    .min(10, 'Message must be at least 10 characters')
-    .max(5000, 'Message must be less than 5000 characters'),
+    .min(10, 'Please provide more details (at least 10 characters)')
+    .max(5000, 'Message is too long (max 5000 characters)'),
 
   hearAbout: z.string()
-    .max(100, 'Source value too long')
+    .max(100, 'Source value is too long')
     .optional()
     .or(z.literal('')),
 
@@ -77,12 +77,12 @@ export const contactFormSchema = z.object({
  */
 export const newsletterSchema = z.object({
   email: z.string()
-    .email('Invalid email address')
-    .max(255, 'Email too long'),
+    .email('Please enter a valid email address (e.g., name@company.com)')
+    .max(255, 'Email address is too long'),
 
   consent: z.boolean()
     .refine((val) => val === true, {
-      message: 'Consent is required for newsletter subscription',
+      message: 'Please consent to receive our newsletter',
     })
     .optional()
     .default(true),

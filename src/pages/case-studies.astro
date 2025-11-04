@@ -28,18 +28,40 @@ const base = import.meta.env.BASE_URL;
         </p>
       </ContentWrapper>
 
-      <!-- Transparency Note -->
-      <ContentWrapper maxWidth="4xl" class="mb-16">
-        <div class="bg-accent-green/10 border border-accent-green/30 rounded-xl p-6 sm:p-8">
-          <div class="flex items-start gap-4">
-            <Icon name="mdi:information" class="w-6 h-6 text-accent-green flex-shrink-0 mt-0.5" />
-            <div>
-              <h3 class="font-bold mb-2 text-base sm:text-lg text-primary transition-colors">
-                Methodology Examples
-              </h3>
-              <p class="text-sm sm:text-base text-secondary transition-colors leading-relaxed">
-                These examples demonstrate our methodology approach. While we're new, our methodology is proven. Our founding team has delivered similar results for years. Be our first success story—let's build something together.
-              </p>
+      <!-- Founder Experience & Methodology -->
+      <ContentWrapper maxWidth="6xl" class="mb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Founder Experience -->
+          <div class="bg-accent-green/10 border border-accent-green/30 rounded-xl p-6 sm:p-8">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-10 h-10 bg-accent-green/20 rounded-lg flex items-center justify-center">
+                <Icon name="mdi:account-group" class="w-6 h-6 text-accent-green" />
+              </div>
+              <div>
+                <h3 class="font-bold mb-2 text-base sm:text-lg text-primary transition-colors">
+                  {caseStudiesContent.hero.founderExperience.title}
+                </h3>
+                <p class="text-sm sm:text-base text-secondary transition-colors leading-relaxed">
+                  {caseStudiesContent.hero.founderExperience.description}
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Proven Methodology -->
+          <div class="bg-accent-green/10 border border-accent-green/30 rounded-xl p-6 sm:p-8">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0 w-10 h-10 bg-accent-green/20 rounded-lg flex items-center justify-center">
+                <Icon name="mdi:certificate" class="w-6 h-6 text-accent-green" />
+              </div>
+              <div>
+                <h3 class="font-bold mb-2 text-base sm:text-lg text-primary transition-colors">
+                  {caseStudiesContent.hero.provenMethodology.title}
+                </h3>
+                <p class="text-sm sm:text-base text-secondary transition-colors leading-relaxed">
+                  {caseStudiesContent.hero.provenMethodology.description}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -48,20 +70,20 @@ const base = import.meta.env.BASE_URL;
       <!-- Stats Bar -->
       <ContentWrapper maxWidth="5xl" class="mb-16">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div class="bg-card border border-theme rounded-xl p-6 text-center">
-            <div class="text-3xl font-black text-accent-green transition-colors mb-2">{siteData.stats.foundingClients}</div>
+          <div class="bg-card border border-theme rounded-xl p-6 text-center hover:border-accent-green/50 hover:shadow-lg transition-all group cursor-help" data-stat="projects" data-tooltip="Combined projects delivered by founding team across previous organizations">
+            <div class="text-3xl font-black text-accent-green transition-colors mb-2 stat-value" data-target={siteData.stats.foundingClients.replace('+', '')}>{siteData.stats.foundingClients}</div>
             <p class="text-sm text-secondary transition-colors">Projects Delivered</p>
           </div>
-          <div class="bg-card border border-theme rounded-xl p-6 text-center">
-            <div class="text-3xl font-black text-accent-green transition-colors mb-2">{siteData.stats.industriesServed}</div>
+          <div class="bg-card border border-theme rounded-xl p-6 text-center hover:border-accent-green/50 hover:shadow-lg transition-all group cursor-help" data-stat="industries" data-tooltip="Industries where we've delivered successful analytics solutions">
+            <div class="text-3xl font-black text-accent-green transition-colors mb-2 stat-value" data-target={siteData.stats.industriesServed.replace('+', '')}>{siteData.stats.industriesServed}</div>
             <p class="text-sm text-secondary transition-colors">Industries Served</p>
           </div>
-          <div class="bg-card border border-theme rounded-xl p-6 text-center">
-            <div class="text-3xl font-black text-accent-green transition-colors mb-2">{siteData.stats.yearsExperience}</div>
+          <div class="bg-card border border-theme rounded-xl p-6 text-center hover:border-accent-green/50 hover:shadow-lg transition-all group cursor-help" data-stat="experience" data-tooltip="Combined years of enterprise analytics experience">
+            <div class="text-3xl font-black text-accent-green transition-colors mb-2 stat-value" data-target={siteData.stats.yearsExperience.replace('+', '')}>{siteData.stats.yearsExperience}</div>
             <p class="text-sm text-secondary transition-colors">Years Experience</p>
           </div>
-          <div class="bg-card border border-theme rounded-xl p-6 text-center">
-            <div class="text-3xl font-black text-accent-green transition-colors mb-2">{siteData.stats.technologiesMastered}</div>
+          <div class="bg-card border border-theme rounded-xl p-6 text-center hover:border-accent-green/50 hover:shadow-lg transition-all group cursor-help" data-stat="technologies" data-tooltip="Technologies and platforms we've mastered and implemented">
+            <div class="text-3xl font-black text-accent-green transition-colors mb-2 stat-value" data-target={siteData.stats.technologiesMastered.replace('+', '')}>{siteData.stats.technologiesMastered}</div>
             <p class="text-sm text-secondary transition-colors">Technologies Mastered</p>
           </div>
         </div>
@@ -87,6 +109,40 @@ const base = import.meta.env.BASE_URL;
               <!-- Right: Details -->
               <div class="lg:col-span-2 p-8">
                 <div class="space-y-6">
+                  {/* Key Achievement Badge */}
+                  {study.keyAchievement && (
+                    <div class="bg-accent-green/10 border border-accent-green/30 rounded-lg p-4 mb-4">
+                      <div class="flex items-start gap-2">
+                        <Icon name="mdi:trophy" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                        <div>
+                          <h4 class="text-xs font-bold text-accent-green mb-1 uppercase tracking-wide">Key Achievement</h4>
+                          <p class="text-sm text-primary transition-colors font-medium">{study.keyAchievement}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Key Metrics */}
+                  {study.keyMetrics && study.keyMetrics.length > 0 && (
+                    <div class="bg-surface border border-theme rounded-lg p-4">
+                      <h4 class="text-xs font-bold text-accent-green mb-3 uppercase tracking-wide flex items-center">
+                        <Icon name="mdi:chart-bar" class="w-4 h-4 mr-2" />
+                        Success Metrics
+                      </h4>
+                      <div class="grid grid-cols-2 gap-3">
+                        {study.keyMetrics.map((metric) => (
+                          <div class="text-center">
+                            <div class="text-2xl font-black text-accent-green transition-colors">{metric.value}</div>
+                            <div class="text-xs text-secondary transition-colors mt-1">{metric.label}</div>
+                            {metric.improvement && (
+                              <div class="text-xs text-accent-green/70 mt-0.5">{metric.improvement}</div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   <!-- Challenge -->
                   <div>
                     <h4 class="text-sm font-bold text-accent-green transition-colors mb-2 flex items-center">
@@ -121,6 +177,42 @@ const base = import.meta.env.BASE_URL;
                     </div>
                   </div>
 
+                  {/* Key Insights */}
+                  {study.insights && study.insights.length > 0 && (
+                    <div>
+                      <h4 class="text-sm font-bold text-accent-green transition-colors mb-2 flex items-center">
+                        <Icon name="mdi:lightbulb" class="w-4 h-4 mr-2" />
+                        Key Insights
+                      </h4>
+                      <ul class="space-y-2">
+                        {study.insights.map((insight) => (
+                          <li class="flex items-start text-sm text-secondary transition-colors">
+                            <Icon name="mdi:chevron-right" class="w-4 h-4 text-accent-green mr-2 flex-shrink-0 mt-0.5" />
+                            <span>{insight}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {/* Challenges Overcome */}
+                  {study.challengesOvercome && study.challengesOvercome.length > 0 && (
+                    <div>
+                      <h4 class="text-sm font-bold text-accent-green transition-colors mb-2 flex items-center">
+                        <Icon name="mdi:shield-check" class="w-4 h-4 mr-2" />
+                        Challenges Overcome
+                      </h4>
+                      <ul class="space-y-2">
+                        {study.challengesOvercome.map((challenge) => (
+                          <li class="flex items-start text-sm text-secondary transition-colors">
+                            <Icon name="mdi:check-circle" class="w-4 h-4 text-accent-green mr-2 flex-shrink-0 mt-0.5" />
+                            <span>{challenge}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
                   <!-- Technologies -->
                   <div>
                     <h4 class="text-sm font-bold text-tertiary transition-colors mb-2">Technologies Used</h4>
@@ -143,25 +235,111 @@ const base = import.meta.env.BASE_URL;
       <ContentWrapper maxWidth="4xl" class="mt-20">
         <div class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-8 md:p-12 text-center">
           <h2 class="text-3xl font-bold mb-4">{caseStudiesContent.finalCta.title}</h2>
-          <p class="text-secondary transition-colors mb-8 max-w-2xl mx-auto">
+          <p class="text-secondary transition-colors mb-4 max-w-2xl mx-auto">
             {caseStudiesContent.finalCta.subtitle}
           </p>
+          {caseStudiesContent.finalCta.contextualText && (
+            <p class="text-sm text-accent-green font-medium mb-6">
+              {caseStudiesContent.finalCta.contextualText}
+            </p>
+          )}
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href={`${base}${caseStudiesContent.finalCta.primaryCta.href}`}
-              class="px-8 py-4 bg-accent-green text-black dark:text-white font-bold rounded-lg hover:bg-accent-green/90 transition-colors inline-flex items-center justify-center min-h-[44px] touch-manipulation"
+              class="px-8 py-4 bg-accent-green text-black dark:text-white font-bold rounded-lg hover:bg-accent-green/90 transition-colors inline-flex items-center justify-center min-h-[44px] touch-manipulation hover:scale-105"
             >
               {caseStudiesContent.finalCta.primaryCta.text}
               <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
             </a>
             <a
               href={`${base}${caseStudiesContent.finalCta.secondaryCta.href}`}
-              class="px-8 py-4 bg-surface text-primary font-bold rounded-lg hover:bg-surface/80 transition-colors inline-flex items-center justify-center min-h-[44px] touch-manipulation"
+              class="px-8 py-4 bg-surface text-primary font-bold rounded-lg hover:bg-surface/80 transition-colors inline-flex items-center justify-center min-h-[44px] touch-manipulation border border-theme"
             >
               {caseStudiesContent.finalCta.secondaryCta.text}
+            </a>
+            <a
+              href={`${base}contact/`}
+              class="px-8 py-4 bg-card text-primary font-bold rounded-lg hover:bg-card/80 transition-colors inline-flex items-center justify-center min-h-[44px] touch-manipulation border border-theme"
+            >
+              <Icon name="mdi:calendar-clock" class="w-5 h-5 mr-2" />
+              Schedule Strategy Session
             </a>
           </div>
         </div>
       </ContentWrapper>
   </PageContainer>
 </BaseLayout>
+
+<script>
+  // Animated counters for stats
+  function animateCounter(element: HTMLElement, target: number, duration = 2000) {
+    const start = 0;
+    const increment = target / (duration / 16);
+    let current = start;
+    
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        element.textContent = target + '+';
+        clearInterval(timer);
+      } else {
+        element.textContent = Math.floor(current) + '+';
+      }
+    }, 16);
+  }
+
+  // Tooltip functionality
+  function setupTooltips() {
+    const statCards = document.querySelectorAll('[data-tooltip]');
+    statCards.forEach((card) => {
+      const tooltip = card.getAttribute('data-tooltip');
+      if (!tooltip) return;
+      
+      card.addEventListener('mouseenter', () => {
+        const tooltipEl = document.createElement('div');
+        tooltipEl.className = 'absolute z-50 bg-primary text-on-accent px-3 py-2 rounded-lg text-xs shadow-lg max-w-xs pointer-events-none';
+        tooltipEl.textContent = tooltip;
+        tooltipEl.style.bottom = '100%';
+        tooltipEl.style.marginBottom = '8px';
+        tooltipEl.style.left = '50%';
+        tooltipEl.style.transform = 'translateX(-50%)';
+        card.style.position = 'relative';
+        card.appendChild(tooltipEl);
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        const tooltipEl = card.querySelector('.absolute.z-50');
+        if (tooltipEl) tooltipEl.remove();
+      });
+    });
+  }
+
+  // Intersection Observer for animated counters
+  const observerOptions = {
+    threshold: 0.5,
+    rootMargin: '0px',
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const statElement = entry.target.querySelector('.stat-value') as HTMLElement;
+        if (statElement) {
+          const target = parseInt(statElement.getAttribute('data-target') || '0');
+          if (target > 0 && !statElement.dataset.animated) {
+            statElement.dataset.animated = 'true';
+            animateCounter(statElement, target);
+          }
+        }
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // Observe all stat cards
+  document.addEventListener('DOMContentLoaded', () => {
+    const statCards = document.querySelectorAll('[data-stat]');
+    statCards.forEach((card) => observer.observe(card));
+    setupTooltips();
+  });
+</script>

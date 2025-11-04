@@ -31,8 +31,8 @@ const base = import.meta.env.BASE_URL;
   >
     {
       teamMembers.map((member) => (
-        <div class="bg-card border border-theme rounded-xl p-5 sm:p-6 text-center hover:border-accent-green transition-all group">
-          <div class="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-accent-green to-accent-green/80 rounded-full mx-auto mb-3 sm:mb-4 flex items-center justify-center text-on-accent text-2xl sm:text-3xl font-bold transition-colors">
+        <div class="bg-card border border-theme rounded-xl p-5 sm:p-6 text-center hover:border-accent-green transition-all group hover:shadow-lg">
+          <div class="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-accent-green to-accent-green/80 rounded-full mx-auto mb-3 sm:mb-4 flex items-center justify-center text-on-accent text-2xl sm:text-3xl font-bold transition-colors group-hover:scale-110">
             {member.name
               .split(" ")
               .map((n) => n[0])
@@ -44,13 +44,37 @@ const base = import.meta.env.BASE_URL;
           <p class="text-accent-green text-xs sm:text-sm mb-2 sm:mb-3 transition-colors">
             {member.role}
           </p>
+          
+          {/* Expertise Badges */}
+          {member.expertise && member.expertise.length > 0 && (
+            <div class="mb-3 sm:mb-4">
+              <div class="flex flex-wrap gap-1.5 justify-center">
+                {member.expertise.slice(0, 3).map((skill) => (
+                  <span class="px-2 py-1 bg-accent-green/10 border border-accent-green/20 rounded-full text-xs text-accent-green font-medium transition-colors group-hover:bg-accent-green/20">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+          
           <p class="text-xs sm:text-sm text-secondary mb-3 sm:mb-4 transition-colors">
             {member.bio}
           </p>
+          
+          {/* Fun Fact */}
+          {member.funFact && (
+            <div class="mb-3 sm:mb-4 p-2 bg-accent-green/5 border border-accent-green/10 rounded-lg">
+              <p class="text-xs text-secondary transition-colors italic">
+                💡 {member.funFact}
+              </p>
+            </div>
+          )}
+          
           {member.linkedin && (
             <a
               href={member.linkedin}
-              class="inline-flex items-center text-sm text-secondary hover:text-accent-green transition-colors"
+              class="inline-flex items-center text-sm text-secondary hover:text-accent-green transition-colors min-h-[44px]"
               aria-label={`Connect with ${member.name} on LinkedIn`}
             >
               <Icon name="mdi:linkedin" class="w-4 h-4 mr-1" />

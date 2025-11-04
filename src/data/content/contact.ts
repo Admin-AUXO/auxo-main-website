@@ -35,6 +35,12 @@ export const contactContent: ContactContent = {
     title: "Let's Start Your Analytics",
     titleHighlight: 'Journey Together',
     subtitle: "As a startup, we move fast. Share your challenges and we'll respond within 24 hours with a personalized approach—no automated replies, no sales funnels. Just real conversations.",
+    benefits: [
+      'Free strategy session with founders',
+      'Custom assessment of your data needs',
+      'Personalized recommendations',
+      'No obligation, just honest advice',
+    ],
   },
   sidebar: {
     title: 'Get in Touch',

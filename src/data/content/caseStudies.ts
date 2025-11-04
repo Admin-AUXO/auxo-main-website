@@ -10,6 +10,14 @@ export interface CaseStudy {
   icon: string;
   color: string;
   borderColor: string;
+  keyMetrics?: {
+    label: string;
+    value: string;
+    improvement?: string;
+  }[];
+  keyAchievement?: string;
+  insights?: string[];
+  challengesOvercome?: string[];
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -30,6 +38,23 @@ export const caseStudies: CaseStudy[] = [
     icon: 'mdi:store',
     color: 'from-blue-500/20 to-cyan-500/20',
     borderColor: 'border-blue-500/30',
+    keyMetrics: [
+      { label: 'Cost Reduction', value: '35%', improvement: 'vs. baseline' },
+      { label: 'Forecast Accuracy', value: '25%', improvement: 'improvement' },
+      { label: 'Revenue Increase', value: '15%', improvement: 'through optimization' },
+      { label: 'ROI Timeline', value: '6 months', improvement: 'faster than expected' },
+    ],
+    keyAchievement: 'Transformed inventory management from reactive to predictive, reducing waste while improving customer satisfaction',
+    insights: [
+      'Seasonal patterns vary significantly by location—localized models outperformed global ones',
+      'Real-time dashboards enabled store managers to make daily adjustments',
+      'Customer footfall patterns identified optimal restocking times',
+    ],
+    challengesOvercome: [
+      'Data quality issues across 50+ locations—implemented automated data validation',
+      'Legacy systems integration—built custom connectors without disrupting operations',
+      'Change management—provided comprehensive training and ongoing support',
+    ],
   },
   {
     id: 'banking-fraud',
@@ -48,6 +73,23 @@ export const caseStudies: CaseStudy[] = [
     icon: 'mdi:shield-check',
     color: 'from-red-500/20 to-orange-500/20',
     borderColor: 'border-red-500/30',
+    keyMetrics: [
+      { label: 'False Positives', value: '70%', improvement: 'reduction' },
+      { label: 'Detection Accuracy', value: '95%', improvement: 'vs. 78% baseline' },
+      { label: 'Annual Savings', value: '$2M+', improvement: 'fraud prevention' },
+      { label: 'Response Time', value: '<100ms', improvement: 'real-time scoring' },
+    ],
+    keyAchievement: 'Balanced fraud prevention with customer experience—reduced false positives while maintaining security',
+    insights: [
+      'Behavioral patterns are more reliable than transaction amounts alone',
+      'Adaptive learning models improved over time as they processed more transactions',
+      'Real-time processing enabled instant decision-making without blocking legitimate transactions',
+    ],
+    challengesOvercome: [
+      'Latency requirements—optimized ML models for sub-100ms response times',
+      'Model explainability for compliance—built interpretable models with clear reasoning',
+      'Data privacy concerns—implemented federated learning approach for sensitive data',
+    ],
   },
   {
     id: 'healthcare-analytics',
@@ -129,6 +171,14 @@ export const caseStudiesContent = {
     title: 'Results We Deliver',
     titleHighlight: 'For Our Clients',
     subtitle: "As a new consultancy, we're building our portfolio with every project. These examples represent the types of results our founding team has delivered at previous organizations—and what we'll achieve together.",
+    founderExperience: {
+      title: 'Founding Team Experience',
+      description: 'Our founding team brings 15+ years of combined enterprise experience from leading organizations across the UAE and MENA region. We\'ve delivered similar results for years—now we\'re bringing that expertise to AUXO.',
+    },
+    provenMethodology: {
+      title: 'Proven Methodology',
+      description: 'These case studies showcase our systematic approach: deep discovery, data-driven solutions, and measurable results. We don\'t experiment on clients—we apply battle-tested methodologies.',
+    },
   },
   finalCta: {
     title: 'Ready to Write Your Success Story?',
@@ -141,6 +191,7 @@ export const caseStudiesContent = {
       text: 'Explore Services',
       href: 'services',
     },
+    contextualText: 'See similar results in your industry',
   },
 };
 

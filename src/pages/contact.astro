@@ -31,10 +31,28 @@ const base = import.meta.env.BASE_URL;
         >
       </h1>
       <p
-        class="text-base sm:text-lg md:text-xl text-secondary transition-colors"
+        class="text-base sm:text-lg md:text-xl text-secondary transition-colors mb-6"
       >
         {contactContent.hero.subtitle}
       </p>
+      
+      {/* What You'll Get */}
+      {contactContent.hero.benefits && contactContent.hero.benefits.length > 0 && (
+        <div class="bg-accent-green/10 border border-accent-green/30 rounded-xl p-6 text-left max-w-2xl mx-auto">
+          <h3 class="font-bold mb-3 text-primary transition-colors flex items-center">
+            <Icon name="mdi:sparkles" class="w-5 h-5 mr-2 text-accent-green" />
+            What You'll Get:
+          </h3>
+          <ul class="space-y-2">
+            {contactContent.hero.benefits.map((benefit) => (
+              <li class="flex items-start text-sm text-secondary transition-colors">
+                <Icon name="mdi:check-circle" class="w-4 h-4 text-accent-green mr-2 flex-shrink-0 mt-0.5" />
+                <span>{benefit}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </ContentWrapper>
 
     <!-- Two Column Layout -->
@@ -163,6 +181,32 @@ const base = import.meta.env.BASE_URL;
             </p>
           </div>
 
+          <!-- Quick Actions Section -->
+          <div class="mt-8 p-6 bg-card border border-theme rounded-lg">
+            <h3 class="font-bold mb-4 text-base sm:text-lg text-primary transition-colors flex items-center">
+              <Icon name="mdi:lightning-bolt" class="w-5 h-5 mr-2 text-accent-green" />
+              Quick Actions
+            </h3>
+            <div class="space-y-3">
+              <a
+                href={`mailto:${siteData.email}`}
+                class="flex items-center gap-3 px-4 py-2 bg-accent-green/10 hover:bg-accent-green/20 border border-accent-green/30 rounded-lg text-sm text-accent-green font-medium transition-colors group min-h-[44px]"
+              >
+                <Icon name="mdi:email" class="w-5 h-5 flex-shrink-0" />
+                <span>Email Now</span>
+              </a>
+              {siteData.phone && (
+                <a
+                  href={`tel:${siteData.phone}`}
+                  class="flex items-center gap-3 px-4 py-2 bg-accent-green/10 hover:bg-accent-green/20 border border-accent-green/30 rounded-lg text-sm text-accent-green font-medium transition-colors group min-h-[44px]"
+                >
+                  <Icon name="mdi:phone" class="w-5 h-5 flex-shrink-0" />
+                  <span>Call Now</span>
+                </a>
+              )}
+            </div>
+          </div>
+
           <!-- Quick Links Section -->
           <div class="mt-8 p-6 bg-card border border-theme rounded-lg">
             <h3 class="font-bold mb-4 text-base sm:text-lg text-primary transition-colors">
@@ -171,24 +215,31 @@ const base = import.meta.env.BASE_URL;
             <div class="space-y-3">
               <a
                 href={`${base}about/`}
-                class="flex items-center gap-3 text-sm text-secondary hover:text-accent-green transition-colors group"
+                class="flex items-center gap-3 text-sm text-secondary hover:text-accent-green transition-colors group min-h-[44px]"
               >
                 <Icon name="mdi:account-group" class="w-5 h-5 flex-shrink-0" />
                 <span class="group-hover:underline">See how we work</span>
               </a>
               <a
                 href={`${base}tools/maturity-calculator/`}
-                class="flex items-center gap-3 text-sm text-secondary hover:text-accent-green transition-colors group"
+                class="flex items-center gap-3 text-sm text-secondary hover:text-accent-green transition-colors group min-h-[44px]"
               >
                 <Icon name="mdi:calculator" class="w-5 h-5 flex-shrink-0" />
                 <span class="group-hover:underline">Take maturity assessment</span>
               </a>
               <a
                 href={`${base}services/`}
-                class="flex items-center gap-3 text-sm text-secondary hover:text-accent-green transition-colors group"
+                class="flex items-center gap-3 text-sm text-secondary hover:text-accent-green transition-colors group min-h-[44px]"
               >
                 <Icon name="mdi:briefcase" class="w-5 h-5 flex-shrink-0" />
                 <span class="group-hover:underline">Explore our services</span>
+              </a>
+              <a
+                href={`${base}faq/`}
+                class="flex items-center gap-3 text-sm text-secondary hover:text-accent-green transition-colors group min-h-[44px]"
+              >
+                <Icon name="mdi:help-circle" class="w-5 h-5 flex-shrink-0" />
+                <span class="group-hover:underline">Check our FAQ</span>
               </a>
             </div>
           </div>
@@ -324,67 +375,110 @@ const base = import.meta.env.BASE_URL;
             <Icon name="mdi:arrow-right" class="w-6 h-6 text-accent-green" />
             What Happens Next
           </h3>
-          <div class="space-y-4">
-            <div class="flex items-start gap-4">
-              <div
-                class="flex-shrink-0 w-8 h-8 bg-accent-green/20 rounded-full flex items-center justify-center font-bold text-accent-green"
-              >
-                1
+          
+          {/* Visual Timeline */}
+          <div class="relative mb-6 pl-8">
+            <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-accent-green/20"></div>
+            
+            <div class="space-y-6">
+              <div class="relative flex items-start gap-4">
+                <div class="absolute left-[-2rem] top-0 w-8 h-8 bg-accent-green/20 rounded-full flex items-center justify-center font-bold text-accent-green border-2 border-accent-green z-10">
+                  1
+                </div>
+                <div class="flex-1">
+                  <div class="flex items-center gap-2 mb-1">
+                    <h4 class="font-semibold text-primary transition-colors">
+                      We'll review your message
+                    </h4>
+                    <span class="text-xs bg-accent-green/10 text-accent-green px-2 py-0.5 rounded-full font-medium">
+                      Within 24 hours
+                    </span>
+                  </div>
+                  <p class="text-sm text-secondary transition-colors">
+                    A founder will personally review your inquiry
+                  </p>
+                </div>
               </div>
-              <div>
-                <h4 class="font-semibold text-primary mb-1 transition-colors">
-                  We'll review your message
-                </h4>
-                <p class="text-sm text-secondary transition-colors">
-                  Within 24 hours, a founder will personally review your inquiry
-                </p>
+              
+              <div class="relative flex items-start gap-4">
+                <div class="absolute left-[-2rem] top-0 w-8 h-8 bg-accent-green/20 rounded-full flex items-center justify-center font-bold text-accent-green border-2 border-accent-green z-10">
+                  2
+                </div>
+                <div class="flex-1">
+                  <div class="flex items-center gap-2 mb-1">
+                    <h4 class="font-semibold text-primary transition-colors">
+                      Founder will reach out
+                    </h4>
+                    <span class="text-xs bg-accent-green/10 text-accent-green px-2 py-0.5 rounded-full font-medium">
+                      Same day or next
+                    </span>
+                  </div>
+                  <p class="text-sm text-secondary transition-colors">
+                    Via your preferred method (email, phone, or video call)
+                  </p>
+                </div>
+              </div>
+              
+              <div class="relative flex items-start gap-4">
+                <div class="absolute left-[-2rem] top-0 w-8 h-8 bg-accent-green/20 rounded-full flex items-center justify-center font-bold text-accent-green border-2 border-accent-green z-10">
+                  3
+                </div>
+                <div class="flex-1">
+                  <div class="flex items-center gap-2 mb-1">
+                    <h4 class="font-semibold text-primary transition-colors">
+                      Free consultation call
+                    </h4>
+                    <span class="text-xs bg-accent-green/10 text-accent-green px-2 py-0.5 rounded-full font-medium">
+                      30-45 minutes
+                    </span>
+                  </div>
+                  <p class="text-sm text-secondary transition-colors">
+                    Understand your needs and answer questions
+                  </p>
+                </div>
+              </div>
+              
+              <div class="relative flex items-start gap-4">
+                <div class="absolute left-[-2rem] top-0 w-8 h-8 bg-accent-green/20 rounded-full flex items-center justify-center font-bold text-accent-green border-2 border-accent-green z-10">
+                  4
+                </div>
+                <div class="flex-1">
+                  <div class="flex items-center gap-2 mb-1">
+                    <h4 class="font-semibold text-primary transition-colors">
+                      Personalized recommendations
+                    </h4>
+                    <span class="text-xs bg-accent-green/10 text-accent-green px-2 py-0.5 rounded-full font-medium">
+                      Actionable steps
+                    </span>
+                  </div>
+                  <p class="text-sm text-secondary transition-colors">
+                    Clear next steps with no obligation
+                  </p>
+                </div>
               </div>
             </div>
-            <div class="flex items-start gap-4">
-              <div
-                class="flex-shrink-0 w-8 h-8 bg-accent-green/20 rounded-full flex items-center justify-center font-bold text-accent-green"
-              >
-                2
-              </div>
-              <div>
-                <h4 class="font-semibold text-primary mb-1 transition-colors">
-                  Founder will reach out
-                </h4>
-                <p class="text-sm text-secondary transition-colors">
-                  Via your preferred method (email, phone, or video call)
-                </p>
-              </div>
-            </div>
-            <div class="flex items-start gap-4">
-              <div
-                class="flex-shrink-0 w-8 h-8 bg-accent-green/20 rounded-full flex items-center justify-center font-bold text-accent-green"
-              >
-                3
-              </div>
-              <div>
-                <h4 class="font-semibold text-primary mb-1 transition-colors">
-                  Free consultation call
-                </h4>
-                <p class="text-sm text-secondary transition-colors">
-                  30-45 minutes to understand your needs and answer questions
-                </p>
-              </div>
-            </div>
-            <div class="flex items-start gap-4">
-              <div
-                class="flex-shrink-0 w-8 h-8 bg-accent-green/20 rounded-full flex items-center justify-center font-bold text-accent-green"
-              >
-                4
-              </div>
-              <div>
-                <h4 class="font-semibold text-primary mb-1 transition-colors">
-                  Personalized recommendations
-                </h4>
-                <p class="text-sm text-secondary transition-colors">
-                  Actionable next steps with no obligation
-                </p>
-              </div>
-            </div>
+          </div>
+          
+          {/* What to Prepare Checklist */}
+          <div class="bg-accent-green/5 border border-accent-green/20 rounded-lg p-4">
+            <h4 class="font-semibold mb-2 text-primary transition-colors flex items-center">
+              <Icon name="mdi:check-circle" class="w-5 h-5 mr-2 text-accent-green" />
+              What to Prepare (Optional):
+            </h4>
+            <ul class="space-y-1 text-sm text-secondary transition-colors">
+              <li class="flex items-start">
+                <Icon name="mdi:check" class="w-4 h-4 text-accent-green mr-2 flex-shrink-0 mt-0.5" />
+                <span>Current data challenges or goals</span>
+              </li>
+              <li class="flex items-start">
+                <Icon name="mdi:check" class="w-4 h-4 text-accent-green mr-2 flex-shrink-0 mt-0.5" />
+                <span>Existing analytics tools (if any)</span>
+              </li>
+              <li class="flex items-start">
+                <Icon name="mdi:check" class="w-4 h-4 text-accent-green mr-2 flex-shrink-0 mt-0.5" />
+                <span>Key business questions you want answered</span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -392,31 +486,37 @@ const base = import.meta.env.BASE_URL;
 
     <!-- Additional Contact Options -->
     <ContentWrapper maxWidth="4xl" class="mt-8 sm:mt-12 md:mt-16">
+      <div class="text-center mb-8">
+        <h2 class="text-2xl font-bold mb-2 text-primary transition-colors">Other Ways to Connect</h2>
+        <p class="text-secondary transition-colors">Choose the method that works best for you</p>
+      </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         {
           contactContent.additionalOptions.map((option) => (
-            <div class="text-center p-6 bg-card border border-theme rounded-lg hover:border-accent-green transition-colors">
-              <Icon
-                name={option.icon}
-                class="w-12 h-12 text-accent-green mx-auto mb-4 transition-colors"
-              />
-              <h3 class="font-bold mb-2 text-primary transition-colors">
+            <div class="text-center p-6 sm:p-8 bg-card border-2 border-theme rounded-xl hover:border-accent-green hover:shadow-lg transition-all group">
+              <div class="w-16 h-16 bg-accent-green/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-accent-green/20 transition-colors">
+                <Icon
+                  name={option.icon}
+                  class="w-8 h-8 text-accent-green transition-colors"
+                />
+              </div>
+              <h3 class="font-bold mb-2 text-lg text-primary transition-colors">
                 {option.title}
               </h3>
-              <p class="text-sm text-secondary mb-4 transition-colors">
+              <p class="text-sm text-secondary mb-6 transition-colors">
                 {option.description}
               </p>
               {option.action.type === "button" ? (
                 <button
                   id={option.action.id}
-                  class="text-accent-green hover:underline text-sm focus:outline-none focus:ring-2 focus:ring-accent-green/50 rounded px-2 transition-colors min-h-[44px]"
+                  class="w-full px-6 py-3 bg-accent-green text-on-accent font-bold rounded-lg hover:bg-accent-green/90 transition-colors min-h-[44px] touch-manipulation"
                 >
                   {option.action.text}
                 </button>
               ) : option.action.href === "brochure.pdf" ? (
                 <a
                   href={`${base}${option.action.href}`}
-                  class="text-accent-green hover:underline text-sm transition-colors"
+                  class="inline-flex items-center justify-center w-full px-6 py-3 bg-accent-green text-on-accent font-bold rounded-lg hover:bg-accent-green/90 transition-colors min-h-[44px] touch-manipulation"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -425,7 +525,7 @@ const base = import.meta.env.BASE_URL;
               ) : (
                 <a
                   href={`${base}${option.action.href}`}
-                  class="text-accent-green hover:underline text-sm transition-colors"
+                  class="inline-flex items-center justify-center w-full px-6 py-3 bg-accent-green text-on-accent font-bold rounded-lg hover:bg-accent-green/90 transition-colors min-h-[44px] touch-manipulation"
                 >
                   {option.action.text}
                 </a>
@@ -433,6 +533,26 @@ const base = import.meta.env.BASE_URL;
             </div>
           ))
         }
+      </div>
+    </ContentWrapper>
+    
+    <!-- Trust Indicators -->
+    <ContentWrapper maxWidth="4xl" class="mt-8 sm:mt-12 md:mt-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-accent-green/10 border-2 border-accent-green/30 rounded-xl p-6 text-center">
+          <Icon name="mdi:clock" class="w-12 h-12 text-accent-green mx-auto mb-3" />
+          <h3 class="font-bold mb-2 text-primary transition-colors">Guaranteed Response Time</h3>
+          <p class="text-sm text-secondary transition-colors">
+            We respond within 24 hours. Usually faster. No automated replies—just real conversations.
+          </p>
+        </div>
+        <div class="bg-accent-green/10 border-2 border-accent-green/30 rounded-xl p-6 text-center">
+          <Icon name="mdi:shield-check" class="w-12 h-12 text-accent-green mx-auto mb-3" />
+          <h3 class="font-bold mb-2 text-primary transition-colors">Privacy Promise</h3>
+          <p class="text-sm text-secondary transition-colors">
+            Your information is confidential. PDPL compliant. We never share your details with third parties.
+          </p>
+        </div>
       </div>
     </ContentWrapper>
   </PageContainer>

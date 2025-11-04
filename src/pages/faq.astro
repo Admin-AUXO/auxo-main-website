@@ -14,7 +14,7 @@ const base = import.meta.env.BASE_URL;
 >
   <PageContainer maxWidth="7xl" paddingTop="pt-24" paddingBottom="pb-16">
       <!-- Hero Section -->
-      <ContentWrapper maxWidth="4xl" class="text-center mb-16">
+      <ContentWrapper maxWidth="4xl" class="text-center mb-12">
         <div
           class="inline-block px-3 py-1 bg-accent-green/10 border border-accent-green/20 rounded-full mb-4"
         >
@@ -26,10 +26,91 @@ const base = import.meta.env.BASE_URL;
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
           Frequently Asked Questions
         </h1>
-        <p class="text-xl text-secondary transition-colors leading-relaxed">
+        <p class="text-xl text-secondary transition-colors leading-relaxed mb-8">
           Find answers to common questions about our data analytics services,
           pricing, and how we can help transform your business.
         </p>
+        
+        {/* Search Bar */}
+        <div class="max-w-2xl mx-auto mb-6">
+          <div class="relative">
+            <Icon name="mdi:search" class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-secondary" />
+            <input
+              type="text"
+              id="faq-search"
+              placeholder="Search FAQs (e.g., pricing, services, timeline)..."
+              class="w-full pl-12 pr-4 py-3 bg-card border-2 border-theme rounded-lg focus:border-accent-green focus:outline-none text-primary transition-colors min-h-[44px]"
+            />
+            <button
+              id="clear-search"
+              class="absolute right-4 top-1/2 transform -translate-y-1/2 hidden text-secondary hover:text-accent-green transition-colors"
+              aria-label="Clear search"
+            >
+              <Icon name="mdi:close" class="w-5 h-5" />
+            </button>
+          </div>
+          <p class="text-xs text-secondary mt-2 text-left">
+            Press <kbd class="px-2 py-1 bg-surface border border-theme rounded text-xs">/</kbd> to focus search
+          </p>
+        </div>
+        
+        {/* Popular Questions */}
+        <div class="max-w-4xl mx-auto mb-8">
+          <h2 class="text-lg font-bold mb-4 text-primary transition-colors flex items-center justify-center gap-2">
+            <Icon name="mdi:star" class="w-5 h-5 text-accent-green" />
+            Popular Questions
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <a
+              href="#faq-general-0"
+              class="p-3 bg-card border border-theme rounded-lg hover:border-accent-green hover:bg-surface transition-all text-left group min-h-[44px]"
+              data-popular-question
+            >
+              <div class="flex items-start gap-2">
+                <Icon name="mdi:help-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                <span class="text-sm text-primary transition-colors group-hover:text-accent-green">
+                  Why should I work with a startup instead of a big consultancy?
+                </span>
+              </div>
+            </a>
+            <a
+              href="#faq-pricing-0"
+              class="p-3 bg-card border border-theme rounded-lg hover:border-accent-green hover:bg-surface transition-all text-left group min-h-[44px]"
+              data-popular-question
+            >
+              <div class="flex items-start gap-2">
+                <Icon name="mdi:help-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                <span class="text-sm text-primary transition-colors group-hover:text-accent-green">
+                  How do you price your services?
+                </span>
+              </div>
+            </a>
+            <a
+              href="#faq-general-5"
+              class="p-3 bg-card border border-theme rounded-lg hover:border-accent-green hover:bg-surface transition-all text-left group min-h-[44px]"
+              data-popular-question
+            >
+              <div class="flex items-start gap-2">
+                <Icon name="mdi:help-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                <span class="text-sm text-primary transition-colors group-hover:text-accent-green">
+                  You're new—how do I know you can deliver?
+                </span>
+              </div>
+            </a>
+            <a
+              href="#faq-pricing-1"
+              class="p-3 bg-card border border-theme rounded-lg hover:border-accent-green hover:bg-surface transition-all text-left group min-h-[44px]"
+              data-popular-question
+            >
+              <div class="flex items-start gap-2">
+                <Icon name="mdi:help-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                <span class="text-sm text-primary transition-colors group-hover:text-accent-green">
+                  What is your typical project timeline?
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
       </ContentWrapper>
 
       <!-- FAQ Content -->
@@ -48,11 +129,32 @@ const base = import.meta.env.BASE_URL;
                   }`}
                 >
                   <Icon name={category.icon} class="w-5 h-5" />
-                  {category.category}
+                  <span>{category.category}</span>
+                  <span class="ml-1 px-2 py-0.5 bg-primary/20 dark:bg-primary/10 rounded-full text-xs font-medium">
+                    {category.questions.length}
+                  </span>
                 </button>
               ))
             }
           </div>
+        </div>
+        
+        {/* Expand/Collapse All */}
+        <div class="mb-6 flex justify-center gap-3">
+          <button
+            id="expand-all"
+            class="px-4 py-2 bg-surface border border-theme rounded-lg text-sm font-medium text-secondary hover:text-accent-green hover:border-accent-green transition-colors min-h-[44px] touch-manipulation"
+          >
+            <Icon name="mdi:chevron-down" class="w-4 h-4 inline mr-2" />
+            Expand All
+          </button>
+          <button
+            id="collapse-all"
+            class="px-4 py-2 bg-surface border border-theme rounded-lg text-sm font-medium text-secondary hover:text-accent-green hover:border-accent-green transition-colors min-h-[44px] touch-manipulation"
+          >
+            <Icon name="mdi:chevron-up" class="w-4 h-4 inline mr-2" />
+            Collapse All
+          </button>
         </div>
 
         <!-- FAQ Categories -->
@@ -63,24 +165,53 @@ const base = import.meta.env.BASE_URL;
               class={`category-content ${categoryIndex === 0 ? "" : "hidden"}`}
             >
               <div class="space-y-4 sm:space-y-5">
-                {category.questions.map((item, itemIndex) => (
-                  <div class="faq-item bg-card border border-theme rounded-xl overflow-hidden hover:border-accent-green/30 transition-all duration-200 hover:shadow-lg" data-faq-index={itemIndex}>
-                    <button class="faq-question w-full text-left px-6 py-5 flex items-center justify-between hover:bg-surface transition-colors min-h-[44px] touch-manipulation group" aria-expanded="false">
-                      <span class="font-semibold text-lg text-primary pr-4 transition-colors">
-                        {item.q}
-                      </span>
-                      <Icon
-                        name="mdi:chevron-down"
-                        class="faq-chevron w-6 h-6 text-accent-green transition-all flex-shrink-0"
-                      />
-                    </button>
-                    <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
-                      <div class="px-6 pb-5 text-secondary transition-colors leading-relaxed">
-                        {item.a}
+                {category.questions.map((item, itemIndex) => {
+                  // Check if answer has a short version (first sentence before period)
+                  const shortAnswer = item.a.includes('.') ? item.a.split('.')[0] + '.' : null;
+                  const hasShortAnswer = shortAnswer && shortAnswer.length < 150 && item.a.length > shortAnswer.length;
+                  
+                  return (
+                    <div 
+                      class="faq-item bg-card border border-theme rounded-xl overflow-hidden hover:border-accent-green/30 transition-all duration-200 hover:shadow-lg" 
+                      data-faq-index={itemIndex}
+                      data-category={category.category.toLowerCase().replace(/\s+/g, '-')}
+                      id={`faq-${category.category.toLowerCase().replace(/\s+/g, '-')}-${itemIndex}`}
+                    >
+                      <button class="faq-question w-full text-left px-6 py-5 flex items-center justify-between hover:bg-surface transition-colors min-h-[44px] touch-manipulation group" aria-expanded="false">
+                        <span class="font-semibold text-lg text-primary pr-4 transition-colors">
+                          {item.q}
+                        </span>
+                        <Icon
+                          name="mdi:chevron-down"
+                          class="faq-chevron w-6 h-6 text-accent-green transition-all flex-shrink-0"
+                        />
+                      </button>
+                      <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
+                        <div class="px-6 pb-5 text-secondary transition-colors leading-relaxed">
+                          {hasShortAnswer ? (
+                            <div>
+                              <p class="mb-2 font-medium">{shortAnswer}</p>
+                              <p class="text-sm">{item.a.substring(shortAnswer.length).trim()}</p>
+                            </div>
+                          ) : (
+                            <p>{item.a}</p>
+                          )}
+                          {/* Still Have Questions CTA */}
+                          <div class="mt-4 pt-4 border-t border-theme">
+                            <p class="text-sm text-secondary mb-2">Still have questions?</p>
+                            <a
+                              href={`${base}contact/`}
+                              class="inline-flex items-center gap-2 text-sm text-accent-green hover:underline font-medium"
+                            >
+                              <Icon name="mdi:message" class="w-4 h-4" />
+                              Contact us
+                            </a>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           ))
@@ -139,6 +270,93 @@ const base = import.meta.env.BASE_URL;
 </BaseLayout>
 
 <script>
+  // Search functionality
+  const searchInput = document.getElementById("faq-search") as HTMLInputElement;
+  const clearSearchBtn = document.getElementById("clear-search") as HTMLButtonElement;
+  const faqItems = document.querySelectorAll(".faq-item");
+  
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      const query = (e.target as HTMLInputElement).value.toLowerCase().trim();
+      
+      if (query) {
+        clearSearchBtn?.classList.remove("hidden");
+        
+        faqItems.forEach((item) => {
+          const question = item.querySelector(".faq-question span")?.textContent?.toLowerCase() || "";
+          const answer = item.querySelector(".faq-answer")?.textContent?.toLowerCase() || "";
+          const matches = question.includes(query) || answer.includes(query);
+          
+          if (matches) {
+            (item as HTMLElement).classList.remove("hidden");
+            // Highlight search term (simple approach)
+            const questionEl = item.querySelector(".faq-question span");
+            if (questionEl && question.includes(query)) {
+              questionEl.innerHTML = questionEl.textContent?.replace(
+                new RegExp(query, "gi"),
+                (match) => `<mark class="bg-accent-green/30">${match}</mark>`
+              ) || "";
+            }
+          } else {
+            (item as HTMLElement).classList.add("hidden");
+          }
+        });
+      } else {
+        clearSearchBtn?.classList.add("hidden");
+        faqItems.forEach((item) => {
+          (item as HTMLElement).classList.remove("hidden");
+          // Remove highlights
+          const questionEl = item.querySelector(".faq-question span");
+          if (questionEl) {
+            questionEl.innerHTML = questionEl.textContent || "";
+          }
+        });
+      }
+    });
+    
+    clearSearchBtn?.addEventListener("click", () => {
+      searchInput.value = "";
+      searchInput.dispatchEvent(new Event("input"));
+      searchInput.focus();
+    });
+    
+    // Keyboard shortcut: / to focus search
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "/" && document.activeElement?.tagName !== "INPUT") {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    });
+  }
+  
+  // Expand/Collapse All
+  const expandAllBtn = document.getElementById("expand-all");
+  const collapseAllBtn = document.getElementById("collapse-all");
+  
+  expandAllBtn?.addEventListener("click", () => {
+    document.querySelectorAll(".faq-answer").forEach((answer) => {
+      const answerEl = answer as HTMLElement;
+      const question = answer.previousElementSibling as HTMLElement;
+      const chevron = question?.querySelector(".faq-chevron");
+      
+      answerEl.style.maxHeight = answerEl.scrollHeight + "px";
+      chevron?.classList.add("rotate-180");
+      question?.setAttribute("aria-expanded", "true");
+    });
+  });
+  
+  collapseAllBtn?.addEventListener("click", () => {
+    document.querySelectorAll(".faq-answer").forEach((answer) => {
+      const answerEl = answer as HTMLElement;
+      const question = answer.previousElementSibling as HTMLElement;
+      const chevron = question?.querySelector(".faq-chevron");
+      
+      answerEl.style.maxHeight = "0";
+      chevron?.classList.remove("rotate-180");
+      question?.setAttribute("aria-expanded", "false");
+    });
+  });
+  
   // Category switching
   const categoryTabs = document.querySelectorAll(".category-tab");
   const categoryContents = document.querySelectorAll(".category-content");
@@ -256,6 +474,70 @@ const base = import.meta.env.BASE_URL;
         answer.style.maxHeight = answer.scrollHeight + "px";
         chevron.classList.add("rotate-180");
         question.setAttribute("aria-expanded", "true");
+        
+        // Smooth scroll to expanded item
+        setTimeout(() => {
+          faqItem.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }, 100);
+      }
+    });
+    
+    // Keyboard navigation
+    question.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        (question as HTMLElement).click();
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        const nextItem = faqItem?.nextElementSibling?.querySelector(".faq-question") as HTMLElement;
+        if (nextItem) {
+          nextItem.focus();
+        }
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        const prevItem = faqItem?.previousElementSibling?.querySelector(".faq-question") as HTMLElement;
+        if (prevItem) {
+          prevItem.focus();
+        } else {
+          searchInput?.focus();
+        }
+      } else if (e.key === "Escape") {
+        const answer = faqItem?.querySelector(".faq-answer") as HTMLElement;
+        const chevron = question.querySelector(".faq-chevron");
+        if (answer && answer.style.maxHeight && answer.style.maxHeight !== "0px") {
+          answer.style.maxHeight = "0";
+          chevron?.classList.remove("rotate-180");
+          question.setAttribute("aria-expanded", "false");
+        }
+      }
+    });
+  });
+  
+  // Handle popular question links
+  document.querySelectorAll('[data-popular-question]').forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const href = (link as HTMLAnchorElement).getAttribute("href");
+      if (href) {
+        const targetId = href.substring(1); // Remove #
+        const targetItem = document.getElementById(targetId);
+        if (targetItem) {
+          // Switch to correct category if needed
+          const category = targetItem.getAttribute("data-category");
+          if (category) {
+            const categoryTab = Array.from(categoryTabs).find(
+              (tab) => tab.getAttribute("data-category")?.toLowerCase().replace(/\s+/g, "-") === category
+            );
+            categoryTab?.click();
+          }
+          
+          // Open the FAQ item
+          setTimeout(() => {
+            const question = targetItem.querySelector(".faq-question") as HTMLElement;
+            question?.click();
+            targetItem.scrollIntoView({ behavior: "smooth", block: "center" });
+          }, 300);
+        }
       }
     });
   });
@@ -330,5 +612,17 @@ const base = import.meta.env.BASE_URL;
       font-size: 0.875rem;
       padding: 0.625rem 1rem;
     }
+  }
+  
+  /* FAQ search hidden state */
+  .faq-item.hidden {
+    display: none !important;
+  }
+  
+  /* Search highlight */
+  mark {
+    background-color: rgba(var(--accent-green-rgb), 0.3);
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
   }
 </style>

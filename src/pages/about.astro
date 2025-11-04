@@ -39,27 +39,27 @@ const base = import.meta.env.BASE_URL;
       />
 
       <!-- Why Choose Us -->
-      <div class="max-w-5xl mx-auto mb-12 md:mb-20 hidden md:block">
+      <div class="max-w-5xl mx-auto mb-12 md:mb-20">
         <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold mb-4 text-primary transition-colors">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-4 text-primary transition-colors">
             {aboutContent.whyChoose.title}
           </h2>
-          <p class="text-secondary transition-colors">
+          <p class="text-sm sm:text-base text-secondary transition-colors">
             {aboutContent.whyChoose.subtitle}
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {
-            aboutContent.whyChoose.stats.map((stat) => (
-              <div class="bg-card border border-theme rounded-xl p-6 transition-colors">
-                <div class="text-4xl font-black text-accent-green mb-2 transition-colors">
+            aboutContent.whyChoose.stats.map((stat, index) => (
+              <div class="bg-card border border-theme rounded-xl p-6 hover:border-accent-green/50 transition-all duration-300 group" data-stat-index={index}>
+                <div class="text-4xl sm:text-5xl font-black text-accent-green mb-2 transition-colors stat-value" data-target={stat.value}>
                   {stat.value}
                 </div>
-                <h3 class="font-bold mb-2 text-primary transition-colors">
+                <h3 class="font-bold mb-2 text-base sm:text-lg text-primary transition-colors">
                   {stat.title}
                 </h3>
-                <p class="text-sm text-secondary transition-colors">
+                <p class="text-sm text-secondary transition-colors leading-relaxed">
                   {stat.description}
                 </p>
               </div>
@@ -75,23 +75,23 @@ const base = import.meta.env.BASE_URL;
         <div
           class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-8 md:p-12 text-center transition-colors"
         >
-          <h2 class="text-3xl font-bold mb-4 text-primary transition-colors">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-4 text-primary transition-colors">
             {aboutContent.finalCta.title}
           </h2>
-          <p class="text-secondary mb-8 max-w-2xl mx-auto transition-colors">
+          <p class="text-sm sm:text-base text-secondary mb-8 max-w-2xl mx-auto transition-colors leading-relaxed">
             {aboutContent.finalCta.subtitle}
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href={`${base}${aboutContent.finalCta.primaryCta.href}`}
-              class="px-8 py-4 bg-accent-green text-black dark:text-white font-bold rounded-lg hover:bg-accent-green/90 transition-colors inline-flex items-center justify-center min-h-[44px] min-w-[44px]"
+              href={`${base}${aboutContent.finalCta.primaryCta.href}/`}
+              class="px-6 sm:px-8 py-3 sm:py-4 bg-accent-green text-on-accent font-bold rounded-lg hover:bg-accent-green/90 active:bg-accent-green/80 transition-all duration-200 inline-flex items-center justify-center min-h-[44px] min-w-[44px] hover:scale-105 active:scale-95 shadow-lg shadow-accent-green/20"
             >
               {aboutContent.finalCta.primaryCta.text}
               <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
             </a>
             <a
-              href={`${base}${aboutContent.finalCta.secondaryCta.href}`}
-              class="px-8 py-4 bg-surface text-primary font-bold rounded-lg hover:bg-surface/80 transition-colors inline-flex items-center justify-center min-h-[44px] min-w-[44px] border border-theme"
+              href={`${base}${aboutContent.finalCta.secondaryCta.href}/`}
+              class="px-6 sm:px-8 py-3 sm:py-4 bg-surface text-primary font-bold rounded-lg hover:bg-surface/80 active:bg-surface/70 transition-all duration-200 inline-flex items-center justify-center min-h-[44px] min-w-[44px] border border-theme hover:border-accent-green/30"
             >
               {aboutContent.finalCta.secondaryCta.text}
             </a>
@@ -100,3 +100,80 @@ const base = import.meta.env.BASE_URL;
       </div>
   </PageContainer>
 </BaseLayout>
+
+<script>
+  // Animated counters for stats
+  function animateCounter(element: HTMLElement, target: string) {
+    const isNumeric = /^\d+/.test(target);
+    const numericValue = parseInt(target.replace(/[^\d]/g, ''), 10);
+    const suffix = target.replace(/^\d+/, '');
+    
+    if (!isNumeric || isNaN(numericValue)) {
+      // If not numeric, just show the value
+      element.textContent = target;
+      return;
+    }
+    
+    const duration = 2000; // 2 seconds
+    const startTime = performance.now();
+    const startValue = 0;
+    
+    function updateCounter(currentTime: number) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const currentValue = Math.floor(startValue + (numericValue - startValue) * easeOutQuart);
+      
+      element.textContent = currentValue + suffix;
+      
+      if (progress < 1) {
+        requestAnimationFrame(updateCounter);
+      } else {
+        element.textContent = target;
+      }
+    }
+    
+    requestAnimationFrame(updateCounter);
+  }
+  
+  // Intersection Observer for scroll-triggered animations
+  const observerOptions = {
+    threshold: 0.5,
+    rootMargin: '0px',
+  };
+  
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const statElement = entry.target as HTMLElement;
+        const valueElement = statElement.querySelector('.stat-value') as HTMLElement;
+        const target = valueElement?.getAttribute('data-target');
+        
+        if (valueElement && target && !valueElement.classList.contains('animated')) {
+          valueElement.classList.add('animated');
+          animateCounter(valueElement, target);
+        }
+        
+        statsObserver.unobserve(statElement);
+      }
+    });
+  }, observerOptions);
+  
+  // Observe all stat cards
+  document.querySelectorAll('[data-stat-index]').forEach((card) => {
+    statsObserver.observe(card);
+  });
+  
+  // Re-run on page navigation (Astro view transitions)
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll('[data-stat-index]').forEach((card) => {
+      const valueElement = card.querySelector('.stat-value') as HTMLElement;
+      if (valueElement) {
+        valueElement.classList.remove('animated');
+      }
+      statsObserver.observe(card);
+    });
+  });
+</script>

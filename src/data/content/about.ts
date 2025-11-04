@@ -17,6 +17,14 @@ export interface AboutContent {
     title: string;
     titleHighlight: string;
     subtitle: string;
+    namingStory?: {
+      title: string;
+      description: string;
+    };
+    whyStarted?: {
+      title: string;
+      description: string;
+    };
   };
   mission: {
     icon: string;
@@ -67,6 +75,14 @@ export const aboutContent: AboutContent = {
     title: 'Built to Transform',
     titleHighlight: 'Data Into Decisions',
     subtitle: "We're a new analytics consultancy launched in 2025, founded by experienced data professionals who saw a gap: UAE businesses need enterprise-grade analytics solutions delivered with startup speed and personal attention.",
+    namingStory: {
+      title: 'Why AUXO?',
+      description: 'AUXO comes from the Latin word "auxilium" meaning "help" or "support." We chose this name because we believe data analytics should be an enabler—helping businesses make better decisions, supporting growth, and providing the assistance organizations need to unlock their data\'s potential. Just as "auxilium" represents support and aid, AUXO Data Labs is here to help you transform data into actionable intelligence.',
+    },
+    whyStarted: {
+      title: 'Why We Started AUXO',
+      description: 'After years working in enterprise analytics, we noticed a pattern: great insights were trapped behind complex processes, high costs, and slow decision-making. UAE businesses, especially startups and mid-sized companies, needed enterprise-grade analytics but couldn\'t access traditional consultancies\' offerings. We founded AUXO to bridge that gap—delivering the same quality insights with startup speed, personal attention, and transparent pricing. Every decision we make is driven by your success, not bureaucracy.',
+    },
   },
   mission: {
     icon: 'mdi:target',

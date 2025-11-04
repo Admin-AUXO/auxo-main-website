@@ -124,7 +124,7 @@ export const homepageContent: HomepageContent = {
     titleHighlight: '',
     subtitle: 'Empowering confident, data-driven decisions at speed and scale.',
     primaryCta: {
-      text: "Let's Talk",
+      text: '',
       href: 'contact',
     },
     secondaryCta: {

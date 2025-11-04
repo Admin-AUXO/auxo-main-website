@@ -109,7 +109,7 @@ const expectedImpact = service.businessImpact && service.businessImpact.length >
         <div class="lg:col-span-2 space-y-12">
           <!-- Business Impact Section (Before Features) -->
           {service.businessImpact && service.businessImpact.length > 0 && (
-            <ServiceBusinessImpact impacts={service.businessImpact} />
+            <ServiceBusinessImpact service={service} />
           )}
 
           <!-- Features -->

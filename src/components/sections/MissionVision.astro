@@ -11,49 +11,49 @@ const { mission, vision } = Astro.props;
 ---
 
 <div
-  class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-12 md:mb-20"
+  class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-6 sm:mb-8 md:mb-12 lg:mb-20"
 >
   <div
-    class="bg-gradient-to-br from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-5 sm:p-6 md:p-8 transition-all duration-300 hover:border-accent-green/50 hover:shadow-lg hover:shadow-accent-green/10 group"
+    class="bg-gradient-to-br from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8 transition-all duration-300 hover:border-accent-green/50 hover:shadow-lg hover:shadow-accent-green/10 group"
   >
     <div
-      class="w-12 h-12 sm:w-14 sm:h-14 bg-accent-green rounded-lg flex items-center justify-center mb-3 sm:mb-4 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3"
+      class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-accent-green rounded-lg flex items-center justify-center mb-2 sm:mb-3 md:mb-4 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3"
     >
       <Icon
         name={mission.icon}
-        class="w-6 h-6 sm:w-8 sm:h-8 text-on-accent transition-colors"
+        class="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-on-accent transition-colors"
       />
     </div>
     <h2
-      class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-primary transition-colors"
+      class="text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-3 md:mb-4 text-primary transition-colors"
     >
       {mission.title}
     </h2>
     <p
-      class="text-sm sm:text-base text-secondary leading-relaxed transition-colors"
+      class="text-xs sm:text-sm md:text-base text-secondary leading-relaxed transition-colors"
     >
       {mission.description}
     </p>
   </div>
 
   <div
-    class="bg-gradient-to-br from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-5 sm:p-6 md:p-8 transition-all duration-300 hover:border-accent-green/50 hover:shadow-lg hover:shadow-accent-green/10 group"
+    class="bg-gradient-to-br from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8 transition-all duration-300 hover:border-accent-green/50 hover:shadow-lg hover:shadow-accent-green/10 group"
   >
     <div
-      class="w-12 h-12 sm:w-14 sm:h-14 bg-accent-green rounded-lg flex items-center justify-center mb-3 sm:mb-4 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3"
+      class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-accent-green rounded-lg flex items-center justify-center mb-2 sm:mb-3 md:mb-4 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3"
     >
       <Icon
         name={vision.icon}
-        class="w-6 h-6 sm:w-8 sm:h-8 text-on-accent transition-colors"
+        class="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-on-accent transition-colors"
       />
     </div>
     <h2
-      class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-primary transition-colors"
+      class="text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-3 md:mb-4 text-primary transition-colors"
     >
       {vision.title}
     </h2>
     <p
-      class="text-sm sm:text-base text-secondary leading-relaxed transition-colors"
+      class="text-xs sm:text-sm md:text-base text-secondary leading-relaxed transition-colors"
     >
       {vision.description}
     </p>

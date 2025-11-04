@@ -424,31 +424,37 @@ const navItems: NavItem[] = [
   const menuClose = document.querySelector('.menu-close');
 
   const toggleMenu = () => {
-    if (!menu || !menuOpen || !menuClose) return;
+    // Re-query elements to handle view transitions
+    const currentMenu = document.getElementById('mobile-menu');
+    const currentMenuOpen = document.querySelector('.menu-open');
+    const currentMenuClose = document.querySelector('.menu-close');
+    const currentBtn = document.getElementById('mobile-menu-button');
     
-    const isOpen = menu.classList.contains('open');
+    if (!currentMenu || !currentMenuOpen || !currentMenuClose) return;
+    
+    const isOpen = currentMenu.classList.contains('open');
     
     if (isOpen) {
-      menu.classList.remove('open');
-      menu.classList.add('-translate-y-full', 'opacity-0');
-      menu.classList.remove('translate-y-0', 'opacity-100');
-      menuOpen.classList.remove('opacity-0');
-      menuOpen.classList.add('opacity-100');
-      menuClose.classList.add('opacity-0');
-      menuClose.classList.remove('opacity-100');
+      currentMenu.classList.remove('open');
+      currentMenu.classList.add('-translate-y-full', 'opacity-0');
+      currentMenu.classList.remove('translate-y-0', 'opacity-100');
+      currentMenuOpen.classList.remove('opacity-0');
+      currentMenuOpen.classList.add('opacity-100');
+      currentMenuClose.classList.add('opacity-0');
+      currentMenuClose.classList.remove('opacity-100');
       document.body.style.overflow = '';
     } else {
-      menu.classList.add('open');
-      menu.classList.remove('-translate-y-full', 'opacity-0');
-      menu.classList.add('translate-y-0', 'opacity-100');
-      menuOpen.classList.add('opacity-0');
-      menuOpen.classList.remove('opacity-100');
-      menuClose.classList.remove('opacity-0');
-      menuClose.classList.add('opacity-100');
+      currentMenu.classList.add('open');
+      currentMenu.classList.remove('-translate-y-full', 'opacity-0');
+      currentMenu.classList.add('translate-y-0', 'opacity-100');
+      currentMenuOpen.classList.add('opacity-0');
+      currentMenuOpen.classList.remove('opacity-100');
+      currentMenuClose.classList.remove('opacity-0');
+      currentMenuClose.classList.add('opacity-100');
       document.body.style.overflow = 'hidden';
     }
     
-    btn?.setAttribute('aria-expanded', String(!isOpen));
+    currentBtn?.setAttribute('aria-expanded', String(!isOpen));
   };
 
   // Mobile dropdown toggles
@@ -509,21 +515,24 @@ const navItems: NavItem[] = [
     return false;
   };
 
-  btn?.addEventListener('click', handleMenuButtonClick, { capture: true });
-  btn?.addEventListener('touchend', handleMenuButtonClick, { capture: true, passive: false });
-
   // Close mobile menu when clicking on any link
   const closeMobileMenu = () => {
-    if (!menu || !menuOpen || !menuClose) return;
+    // Re-query elements to handle view transitions
+    const currentMenu = document.getElementById('mobile-menu');
+    const currentMenuOpen = document.querySelector('.menu-open');
+    const currentMenuClose = document.querySelector('.menu-close');
+    const currentBtn = document.getElementById('mobile-menu-button');
     
-    menu.classList.remove('open');
-    menu.classList.add('-translate-y-full', 'opacity-0');
-    menu.classList.remove('translate-y-0', 'opacity-100');
-    menuOpen.classList.remove('opacity-0');
-    menuOpen.classList.add('opacity-100');
-    menuClose.classList.add('opacity-0');
-    menuClose.classList.remove('opacity-100');
-    btn?.setAttribute('aria-expanded', 'false');
+    if (!currentMenu || !currentMenuOpen || !currentMenuClose) return;
+    
+    currentMenu.classList.remove('open');
+    currentMenu.classList.add('-translate-y-full', 'opacity-0');
+    currentMenu.classList.remove('translate-y-0', 'opacity-100');
+    currentMenuOpen.classList.remove('opacity-0');
+    currentMenuOpen.classList.add('opacity-100');
+    currentMenuClose.classList.add('opacity-0');
+    currentMenuClose.classList.remove('opacity-100');
+    currentBtn?.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
     
     document.querySelectorAll('#mobile-menu .mobile-dropdown-content').forEach(content => {
@@ -539,28 +548,78 @@ const navItems: NavItem[] = [
     });
   };
 
-  const mobileLinks = document.querySelectorAll('#mobile-menu a');
-  mobileLinks.forEach(link => {
-    link.addEventListener('click', closeMobileMenu);
-  });
+  // Close mobile menu when clicking outside
+  const handleOutsideClick = (e: Event) => {
+    const target = e.target as HTMLElement;
+    const nav = document.getElementById('main-navigation');
+    const currentMenu = document.getElementById('mobile-menu');
+    
+    if (nav && !nav.contains(target) && currentMenu?.classList.contains('open')) {
+      closeMobileMenu();
+    }
+  };
+
+  // Initialize mobile menu functionality
+  function initializeMobileMenu() {
+    // Re-get elements after DOM swap
+    const currentBtn = document.getElementById('mobile-menu-button');
+    const currentMenu = document.getElementById('mobile-menu');
+    const currentMenuOpen = document.querySelector('.menu-open');
+    const currentMenuClose = document.querySelector('.menu-close');
+    
+    if (!currentBtn || !currentMenu || !currentMenuOpen || !currentMenuClose) return;
+    
+    // Remove old event listeners if they exist
+    currentBtn.replaceWith(currentBtn.cloneNode(true));
+    const newBtn = document.getElementById('mobile-menu-button');
+    if (!newBtn) return;
+    
+    // Re-attach menu button handlers
+    newBtn.addEventListener('click', handleMenuButtonClick, { capture: true });
+    newBtn.addEventListener('touchend', handleMenuButtonClick, { capture: true, passive: false });
+    
+    // Ensure menu is closed and body scroll is unlocked
+    if (currentMenu.classList.contains('open')) {
+      closeMobileMenu();
+    }
+    document.body.style.overflow = '';
+    newBtn.setAttribute('aria-expanded', 'false');
+    
+    // Re-attach link click handlers
+    const currentMobileLinks = document.querySelectorAll('#mobile-menu a');
+    currentMobileLinks.forEach(link => {
+      // Remove old listener if exists
+      link.removeEventListener('click', closeMobileMenu);
+      // Add new listener
+      link.addEventListener('click', closeMobileMenu);
+    });
+    
+    // Setup mobile dropdowns
+    setupMobileDropdowns();
+    
+    // Re-attach outside click handler
+    document.removeEventListener('click', handleOutsideClick);
+    document.addEventListener('click', handleOutsideClick);
+  }
+
+  // Initial setup
+  if (btn && menu && menuOpen && menuClose) {
+    btn.addEventListener('click', handleMenuButtonClick, { capture: true });
+    btn.addEventListener('touchend', handleMenuButtonClick, { capture: true, passive: false });
+    
+    const mobileLinks = document.querySelectorAll('#mobile-menu a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+    
+    document.addEventListener('click', handleOutsideClick);
+  }
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', setupMobileDropdowns);
   } else {
     setupMobileDropdowns();
   }
-
-  // Close mobile menu when clicking outside
-  const handleOutsideClick = (e: Event) => {
-    const target = e.target as HTMLElement;
-    const nav = document.getElementById('main-navigation');
-    
-    if (nav && !nav.contains(target) && menu?.classList.contains('open')) {
-      closeMobileMenu();
-    }
-  };
-
-  document.addEventListener('click', handleOutsideClick);
 
   // Desktop dropdown handlers
   let openDropdown: HTMLElement | null = null;
@@ -677,7 +736,8 @@ const navItems: NavItem[] = [
       if (openDropdown) {
         closeDropdown(openDropdown);
       }
-      if (menu?.classList.contains('open')) {
+      const currentMenu = document.getElementById('mobile-menu');
+      if (currentMenu?.classList.contains('open')) {
         closeMobileMenu();
       }
     }
@@ -771,10 +831,25 @@ const navItems: NavItem[] = [
   document.addEventListener('astro:page-load', updateActiveLinks);
 
   document.addEventListener('astro:before-swap', () => {
-    btn?.removeEventListener('click', handleMenuButtonClick);
-    btn?.removeEventListener('touchend', handleMenuButtonClick);
+    // Close mobile menu if open before navigation
+    const currentMenu = document.getElementById('mobile-menu');
+    if (currentMenu?.classList.contains('open')) {
+      closeMobileMenu();
+    }
+    
+    // Ensure body scroll is unlocked
+    document.body.style.overflow = '';
+    
+    // Clean up event listeners (they'll be re-attached on page-load)
+    const currentBtn = document.getElementById('mobile-menu-button');
+    if (currentBtn) {
+      currentBtn.removeEventListener('click', handleMenuButtonClick);
+      currentBtn.removeEventListener('touchend', handleMenuButtonClick);
+    }
     document.removeEventListener('click', handleOutsideClick);
-    mobileLinks.forEach(link => {
+    
+    const currentMobileLinks = document.querySelectorAll('#mobile-menu a');
+    currentMobileLinks.forEach(link => {
       link.removeEventListener('click', closeMobileMenu);
     });
     
@@ -786,5 +861,10 @@ const navItems: NavItem[] = [
     openDropdown = null;
   });
 
-  document.addEventListener('astro:page-load', initializeDropdowns);
+  // Reinitialize everything after page transition
+  document.addEventListener('astro:page-load', () => {
+    initializeMobileMenu();
+    initializeDropdowns();
+    updateActiveLinks();
+  });
 </script>

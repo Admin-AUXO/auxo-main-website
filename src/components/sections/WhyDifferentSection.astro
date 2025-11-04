@@ -36,46 +36,46 @@ const comparisons: Comparison[] = [
 ];
 ---
 
-<div class="max-w-6xl mx-auto mb-8 sm:mb-12 md:mb-20">
-  <div class="text-center mb-6 sm:mb-8 md:mb-12">
-    <h2 class="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 text-primary transition-colors">
+<div class="max-w-6xl mx-auto mb-6 sm:mb-8 md:mb-12 lg:mb-20">
+  <div class="text-center mb-4 sm:mb-6 md:mb-8 lg:mb-12">
+    <h2 class="text-xl sm:text-2xl md:text-3xl font-bold mb-1.5 sm:mb-2 md:mb-3 lg:mb-4 text-primary transition-colors">
       Why We're Different
     </h2>
-    <p class="text-sm sm:text-base text-secondary transition-colors">
+    <p class="text-xs sm:text-sm md:text-base text-secondary transition-colors">
       Startup agility meets enterprise expertise
     </p>
   </div>
 
-  <div class="bg-card border border-theme rounded-2xl p-6 sm:p-8 overflow-x-auto">
+  <div class="bg-card border border-theme rounded-2xl p-4 sm:p-6 md:p-8 overflow-x-auto">
     <div class="min-w-full">
       <!-- Header -->
-      <div class="grid grid-cols-3 gap-4 mb-4 pb-4 border-b border-theme">
-        <div class="font-bold text-base sm:text-lg text-primary transition-colors">
+      <div class="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 mb-3 sm:mb-4 pb-3 sm:pb-4 border-b border-theme">
+        <div class="font-bold text-xs sm:text-sm md:text-base lg:text-lg text-primary transition-colors">
           Feature
         </div>
-        <div class="font-bold text-base sm:text-lg text-secondary transition-colors text-center">
+        <div class="font-bold text-xs sm:text-sm md:text-base lg:text-lg text-secondary transition-colors text-center">
           Big Consultancies
         </div>
-        <div class="font-bold text-base sm:text-lg text-accent-green transition-colors text-center">
+        <div class="font-bold text-xs sm:text-sm md:text-base lg:text-lg text-accent-green transition-colors text-center">
           AUXO Data Labs
         </div>
       </div>
 
       <!-- Comparison Rows -->
-      <div class="space-y-4">
+      <div class="space-y-3 sm:space-y-4">
         {comparisons.map((comparison) => (
-          <div class="grid grid-cols-3 gap-4 py-3 sm:py-4 border-b border-theme/50 last:border-0">
-            <div class="font-semibold text-sm sm:text-base text-primary transition-colors">
+          <div class="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 py-2 sm:py-3 md:py-4 border-b border-theme/50 last:border-0">
+            <div class="font-semibold text-xs sm:text-sm md:text-base text-primary transition-colors">
               {comparison.feature}
             </div>
-            <div class="flex items-center justify-center gap-2">
-              <Icon name="mdi:close" class="w-5 h-5 text-secondary transition-colors" />
+            <div class="flex items-center justify-center gap-1 sm:gap-2">
+              <Icon name="mdi:close" class="w-4 h-4 sm:w-5 sm:h-5 text-secondary transition-colors flex-shrink-0" />
               <span class="text-xs sm:text-sm text-secondary transition-colors text-center">
                 {comparison.them}
               </span>
             </div>
-            <div class="flex items-center justify-center gap-2">
-              <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green transition-colors" />
+            <div class="flex items-center justify-center gap-1 sm:gap-2">
+              <Icon name="mdi:check-circle" class="w-4 h-4 sm:w-5 sm:h-5 text-accent-green transition-colors flex-shrink-0" />
               <span class="text-xs sm:text-sm text-primary transition-colors text-center">
                 {comparison.us}
               </span>

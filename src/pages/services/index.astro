@@ -142,9 +142,9 @@ const servicesFAQs = [
     <ServicesHero content={servicesPageContent.hero} />
 
     <!-- Priority 1: Services Grid -->
-    <SectionContainer class="mb-10 sm:mb-12 md:mb-14">
+    <SectionContainer class="mb-8 sm:mb-10">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
-        <div class="text-center mb-8 sm:mb-10">
+        <div class="text-center mb-6 sm:mb-8">
           <h2
             class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-primary transition-colors"
           >
@@ -161,9 +161,9 @@ const servicesFAQs = [
     </SectionContainer>
 
     <!-- Priority 2: Why Our Approach is Different Section -->
-    <SectionContainer class="mb-10 sm:mb-12 md:mb-14">
+    <SectionContainer class="mb-8 sm:mb-10">
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="text-center mb-8">
+        <div class="text-center mb-6 sm:mb-8">
           <h2
             class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-primary transition-colors"
           >
@@ -177,10 +177,10 @@ const servicesFAQs = [
         </div>
 
         <!-- Comparison Table -->
-        <div class="bg-card border-2 border-theme rounded-2xl overflow-hidden relative">
+        <div class="bg-card border-2 border-theme rounded-2xl overflow-hidden relative pt-4">
           <!-- Badge above table -->
-          <div class="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-            <div class="bg-accent-green/20 border border-accent-green/30 rounded-full px-4 py-1.5 backdrop-blur-sm">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
+            <div class="bg-card border-2 border-accent-green/30 rounded-full px-4 py-1.5 shadow-lg">
               <span class="text-accent-green text-sm font-semibold">vs. Big Consultancies</span>
             </div>
           </div>
@@ -303,7 +303,7 @@ const servicesFAQs = [
     </SectionContainer>
 
     <!-- Priority 2: Business Impact Section -->
-    <SectionContainer class="mb-10 sm:mb-12 md:mb-14">
+    <SectionContainer class="mb-8 sm:mb-10">
       <BusinessImpact
         impacts={allBusinessImpacts}
         title="Business Outcomes You Can Expect"
@@ -312,9 +312,9 @@ const servicesFAQs = [
     </SectionContainer>
 
     <!-- Industries We Serve Section -->
-    <SectionContainer class="mb-10 sm:mb-12 md:mb-14">
+    <SectionContainer class="mb-8 sm:mb-10">
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="text-center mb-8 sm:mb-10">
+        <div class="text-center mb-6 sm:mb-8">
           <h2
             class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-primary transition-colors"
           >
@@ -357,9 +357,9 @@ const servicesFAQs = [
     </SectionContainer>
 
     <!-- How We Work Section (Concise) -->
-    <SectionContainer class="mb-10 sm:mb-12 md:mb-14">
+    <SectionContainer class="mb-8 sm:mb-10">
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="text-center mb-8">
+        <div class="text-center mb-6 sm:mb-8">
           <div
             class="inline-block mb-3 px-4 py-2 bg-accent-green/10 border border-accent-green/20 rounded-full"
           >
@@ -380,7 +380,7 @@ const servicesFAQs = [
         </div>
 
         <div
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
         >
           {
             servicesPageContent.process.steps.map((step, index) => (
@@ -388,13 +388,13 @@ const servicesFAQs = [
                 class="relative group"
               >
                 <!-- Progress Indicator -->
-                <div class="absolute -top-3 left-1/2 -translate-x-1/2 z-20 bg-card border-2 border-accent-green/30 rounded-full px-3 py-1 shadow-lg">
+                <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 z-20 bg-card border-2 border-accent-green/30 rounded-full px-2.5 py-1 shadow-lg">
                   <span class="text-xs font-bold text-accent-green">
                     Step {step.number} of {servicesPageContent.process.steps.length}
                   </span>
                 </div>
                 
-                <div class="bg-card border-2 border-accent-green/30 rounded-xl p-6 sm:p-8 hover:border-accent-green pulse-box transition-all duration-300 hover:shadow-xl hover:-translate-y-2 h-full relative overflow-hidden pt-8">
+                <div class="bg-card border-2 border-accent-green/30 rounded-xl p-5 sm:p-6 hover:border-accent-green pulse-box transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full relative overflow-hidden pt-7">
                   <!-- Large Number Background -->
                   <div class="absolute top-0 right-0 w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-end pr-4 sm:pr-6 opacity-10 group-hover:opacity-20 transition-opacity">
                     <span class="text-7xl sm:text-8xl font-black text-accent-green leading-none">
@@ -426,9 +426,9 @@ const servicesFAQs = [
     </SectionContainer>
 
     <!-- FAQ Section -->
-    <SectionContainer class="mb-10 sm:mb-12 md:mb-14">
+    <SectionContainer class="mb-8 sm:mb-10">
       <div class="max-w-4xl mx-auto px-4 sm:px-6">
-        <div class="text-center mb-8">
+        <div class="text-center mb-6 sm:mb-8">
           <h2
             class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-primary transition-colors"
           >
@@ -441,7 +441,7 @@ const servicesFAQs = [
           </p>
         </div>
 
-        <div class="space-y-4">
+        <div class="space-y-3 sm:space-y-4">
           {servicesFAQs.map((faq, index) => (
             <div class="faq-item bg-card border-2 border-theme rounded-xl overflow-hidden hover:border-accent-green/30 transition-all duration-200">
               <button
@@ -486,53 +486,53 @@ const servicesFAQs = [
     <SectionContainer class="mb-8 sm:mb-10">
       <div class="max-w-4xl mx-auto px-4 sm:px-6">
         <div
-          class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-8 md:p-12 text-center transition-colors"
+          class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-6 sm:p-8 md:p-10 text-center transition-colors"
         >
-          <h2 class="text-2xl sm:text-3xl font-bold mb-4 text-primary transition-colors">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-primary transition-colors">
             {servicesPageContent.cta.title}
           </h2>
           <p
-            class="text-secondary mb-8 max-w-2xl mx-auto leading-relaxed transition-colors"
+            class="text-secondary mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed transition-colors"
           >
             {servicesPageContent.cta.subtitle}
           </p>
           
           <!-- What You'll Get Section -->
-          <div class="bg-card/50 border border-accent-green/20 rounded-xl p-6 mb-8 max-w-2xl mx-auto">
-            <h3 class="text-lg font-semibold text-primary mb-4 transition-colors">
+          <div class="bg-card/50 border border-accent-green/20 rounded-xl p-5 sm:p-6 mb-6 sm:mb-8 max-w-2xl mx-auto">
+            <h3 class="text-lg font-semibold text-primary mb-3 sm:mb-4 transition-colors">
               What You'll Get
             </h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
-              <div class="flex items-start gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 text-left">
+              <div class="flex items-start gap-2 sm:gap-3">
                 <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
                 <span class="text-sm text-secondary transition-colors">Free 30-minute consultation</span>
               </div>
-              <div class="flex items-start gap-3">
+              <div class="flex items-start gap-2 sm:gap-3">
                 <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
                 <span class="text-sm text-secondary transition-colors">Custom assessment of your needs</span>
               </div>
-              <div class="flex items-start gap-3">
+              <div class="flex items-start gap-2 sm:gap-3">
                 <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
                 <span class="text-sm text-secondary transition-colors">No obligation, just honest advice</span>
               </div>
-              <div class="flex items-start gap-3">
+              <div class="flex items-start gap-2 sm:gap-3">
                 <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
                 <span class="text-sm text-secondary transition-colors">Direct access to founders</span>
               </div>
             </div>
           </div>
           
-          <div class="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+          <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-4 sm:mb-6">
             <a
               href={`${base}${servicesPageContent.cta.primaryCta.href}`}
-              class="px-8 py-4 bg-accent-green text-black dark:text-white font-bold rounded-lg hover:bg-accent-green/90 transition-all inline-flex items-center justify-center hover:shadow-lg hover:shadow-accent-green/30 min-h-[44px] min-w-[44px] animate-pulse hover:animate-none"
+              class="px-6 sm:px-8 py-3 sm:py-4 bg-accent-green text-black dark:text-white font-bold rounded-lg hover:bg-accent-green/90 transition-all inline-flex items-center justify-center hover:shadow-lg hover:shadow-accent-green/30 min-h-[44px] min-w-[44px] animate-pulse hover:animate-none"
             >
               {servicesPageContent.cta.primaryCta.text}
               <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
             </a>
             <a
               href={`${base}${servicesPageContent.cta.secondaryCta.href}`}
-              class="px-8 py-4 bg-surface text-primary font-bold rounded-lg hover:bg-surface/80 transition-colors inline-flex items-center justify-center min-h-[44px] min-w-[44px] border border-theme"
+              class="px-6 sm:px-8 py-3 sm:py-4 bg-surface text-primary font-bold rounded-lg hover:bg-surface/80 transition-colors inline-flex items-center justify-center min-h-[44px] min-w-[44px] border border-theme"
             >
               {servicesPageContent.cta.secondaryCta.text}
               <Icon name="mdi:calculator" class="w-5 h-5 ml-2" />

@@ -60,13 +60,6 @@ export interface HomepageContent {
     challenges: ProblemCard[];
     closing: string;
   };
-  methodology: {
-    title: string;
-    titleHighlight: string;
-    subtitle: string;
-    steps: ProcessStep[];
-    valueProps: ValueProp[];
-  };
   whyChoose: {
     title: string;
     titleHighlight: string;
@@ -122,12 +115,6 @@ export interface HomepageContent {
     };
     disclaimer: string;
   };
-  finalCta: {
-    title: string;
-    subtitle: string;
-    ctaText: string;
-    ctaHref: string;
-  };
 }
 
 export const homepageContent: HomepageContent = {
@@ -136,14 +123,13 @@ export const homepageContent: HomepageContent = {
     title: 'Every Organization has data. Few understand it',
     titleHighlight: '',
     subtitle: 'Empowering confident, data-driven decisions at speed and scale.',
-    subheadline: 'We turn your data into decisions. No jargon. No delays. Just results.',
     primaryCta: {
       text: "Let's Talk",
       href: 'contact',
     },
     secondaryCta: {
-      text: 'See How We Work',
-      href: '#services',
+      text: "Check your Org's Data Maturity",
+      href: 'tools/maturity-calculator',
     },
     features: [
       'Precision Analytics',
@@ -194,70 +180,6 @@ export const homepageContent: HomepageContent = {
     ] as ProblemCard[],
     closing: 'We help you overcome these challenges with proven methodologies and cutting-edge solutions',
   },
-  methodology: {
-    title: 'Get your Data',
-    titleHighlight: 'Maturity Report',
-    subtitle: 'A structured approach to turn your analytics vision into reality',
-    steps: [
-      {
-        number: 1,
-        icon: 'mdi:eye',
-        title: 'Discover',
-        description: 'Assess your current analytics state and identify strategic opportunities for growth',
-        details: [
-          'Comprehensive data audit across all systems and sources',
-          'Stakeholder interviews to understand business goals and pain points',
-          'Gap analysis comparing current state to industry best practices',
-          'Risk assessment for compliance and data governance',
-          'Quick wins identification for immediate value delivery',
-        ],
-      },
-      {
-        number: 2,
-        icon: 'mdi:lightbulb',
-        title: 'Design',
-        description: 'Create a tailored analytics roadmap with clear milestones and success metrics',
-        details: [
-          'Custom analytics architecture designed for your specific needs',
-          'Clear roadmap with phased milestones and delivery timelines',
-          'Success metrics and KPIs aligned with business objectives',
-          'Technology stack selection based on your infrastructure',
-          'Change management plan for smooth adoption',
-        ],
-      },
-      {
-        number: 3,
-        icon: 'mdi:check-circle',
-        title: 'Deploy',
-        description: 'Implement solutions using agile sprints with rapid delivery and continuous feedback',
-        details: [
-          'Agile sprint-based development with 2-week iterations',
-          'Weekly progress updates and demo sessions',
-          'Continuous integration and automated testing',
-          'Phased rollout to minimize business disruption',
-          'Training sessions for your team throughout implementation',
-        ],
-      },
-      {
-        number: 4,
-        icon: 'mdi:chart-line',
-        title: 'Optimize',
-        description: 'Monitor performance, refine models, and continuously improve to maximize ROI',
-        details: [
-          'Real-time performance monitoring and alerting',
-          'Regular model retraining and refinement',
-          'A/B testing for continuous improvement',
-          'Quarterly business reviews to assess ROI',
-          'Ongoing support and optimization recommendations',
-        ],
-      },
-    ] as ProcessStep[],
-    valueProps: [
-      { label: '2-4 Weeks', description: 'Time to First Insights' },
-      { label: 'Agile', description: 'Iterative Approach' },
-      { label: '100%', description: 'Transparent Process' },
-    ],
-  },
   whyChoose: {
     title: 'Why Choose',
     titleHighlight: 'AUXO?',
@@ -286,10 +208,10 @@ export const homepageContent: HomepageContent = {
     ] as WhyChooseItem[],
   },
   maturityCalculator: {
-    badge: 'Free Assessment Tool',
-    title: 'Discover Your Analytics',
-    titleHighlight: 'Maturity Level',
-    subtitle: 'Take our 5-minute assessment to understand where your organization stands and get personalized recommendations.',
+    badge: '',
+    title: 'Get Your Data',
+    titleHighlight: 'Maturity Report',
+    subtitle: 'Take our assessment to see where your organization stands on data maturity.',
     benefits: [
       {
         title: 'Evaluate 5 Key Dimensions',
@@ -299,13 +221,9 @@ export const homepageContent: HomepageContent = {
         title: 'Get Instant Results',
         description: 'Receive your maturity score and actionable recommendations',
       },
-      {
-        title: '100% Free & Anonymous',
-        description: 'No registration required, completely confidential',
-      },
     ],
     cta: {
-      text: 'Start Free Assessment',
+      text: 'Start Data Assessment',
       href: 'tools/maturity-calculator',
     },
     dimensions: [
@@ -318,7 +236,7 @@ export const homepageContent: HomepageContent = {
   },
   blog: {
     title: 'Latest',
-    titleHighlight: 'Insights',
+    titleHighlight: '',
     subtitle: 'Expert perspectives on analytics, AI, and digital transformation in the UAE',
     viewAllText: 'View All Articles',
   },
@@ -360,13 +278,6 @@ export const homepageContent: HomepageContent = {
       href: 'contact',
     },
     disclaimer: 'No long-term contracts required • Cancel anytime',
-  },
-  finalCta: {
-    title: 'Ready to Transform Your Business?',
-    subtitle: 'Schedule a free consultation to discuss your analytics needs',
-    ctaText: "Let's Talk",
-    ctaHref: 'contact',
-    disclaimer: '',
   },
   startupAdvantages: {
     advantages: [

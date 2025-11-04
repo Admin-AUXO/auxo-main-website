@@ -1,7 +1,6 @@
 ---
 import { homepageContent, type HomepageContent } from "../../data/content/homepage";
 import SectionContainer from "../layouts/SectionContainer.astro";
-import ProjectTimeline from "./ProjectTimeline.astro";
 import { Icon } from "astro-icon/components";
 
 const content: HomepageContent["methodology"] = homepageContent.methodology;
@@ -112,54 +111,5 @@ const content: HomepageContent["methodology"] = homepageContent.methodology;
       </div>
     </div>
 
-    <!-- Project Timeline -->
-    <div class="mb-12 sm:mb-16">
-      <ProjectTimeline />
-    </div>
-
-    <!-- Transparency Promise Box -->
-    <div class="max-w-4xl mx-auto">
-      <div class="bg-accent-green/10 border border-accent-green/30 rounded-xl p-6 sm:p-8">
-        <div class="flex items-start gap-4 mb-4">
-          <div class="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-accent-green/20 rounded-lg flex items-center justify-center">
-            <Icon name="mdi:shield-check" class="w-5 h-5 sm:w-6 sm:h-6 text-accent-green" />
-          </div>
-          <div class="flex-1">
-            <h3 class="text-lg sm:text-xl font-bold mb-3 text-primary transition-colors">
-              Transparency Promise
-            </h3>
-            <p class="text-sm sm:text-base text-secondary mb-4 leading-relaxed transition-colors">
-              No surprises. Regular updates. You're always in the loop.
-            </p>
-            <div class="space-y-3">
-              <div class="flex items-start gap-3">
-                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
-                <p class="text-sm text-secondary transition-colors">
-                  Weekly progress updates with clear milestones
-                </p>
-              </div>
-              <div class="flex items-start gap-3">
-                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
-                <p class="text-sm text-secondary transition-colors">
-                  No hidden costs or surprise charges
-                </p>
-              </div>
-              <div class="flex items-start gap-3">
-                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
-                <p class="text-sm text-secondary transition-colors">
-                  Direct communication with founders, no layers
-                </p>
-              </div>
-              <div class="flex items-start gap-3">
-                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
-                <p class="text-sm text-secondary transition-colors">
-                  Full access to project documentation and reports
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </SectionContainer>

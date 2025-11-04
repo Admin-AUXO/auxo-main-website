@@ -7,9 +7,48 @@ interface ServiceTimelineProps {
 
 const { timeline } = Astro.props;
 
-// Parse timeline to determine phases (simplified logic)
-// For now, we'll use a generic timeline structure
-// In the future, this could be customized per service
+// Parse timeline to determine phases and durations
+function parseTimeline(timelineStr: string): { minWeeks: number; maxWeeks: number } {
+  const match = timelineStr.match(/(\d+)-(\d+)\s*weeks?/i);
+  if (match) {
+    return { minWeeks: parseInt(match[1]), maxWeeks: parseInt(match[2]) };
+  }
+  // Fallback for single number or other formats
+  const singleMatch = timelineStr.match(/(\d+)\s*weeks?/i);
+  if (singleMatch) {
+    const weeks = parseInt(singleMatch[1]);
+    return { minWeeks: weeks, maxWeeks: weeks };
+  }
+  // Default fallback
+  return { minWeeks: 8, maxWeeks: 12 };
+}
+
+const { minWeeks, maxWeeks } = parseTimeline(timeline);
+const avgWeeks = Math.round((minWeeks + maxWeeks) / 2);
+
+// Calculate phase durations based on timeline
+// Phase 1: Discovery (20% of timeline)
+// Phase 2: Design & Build (50% of timeline)
+// Phase 3: Deploy (20% of timeline)
+// Phase 4: Optimize (10% of timeline, optional)
+const phase1Weeks = Math.max(1, Math.round(avgWeeks * 0.2));
+const phase2Weeks = Math.max(2, Math.round(avgWeeks * 0.5));
+const phase3Weeks = Math.max(1, Math.round(avgWeeks * 0.2));
+const phase4Weeks = Math.max(1, Math.round(avgWeeks * 0.1));
+
+const phase1End = phase1Weeks;
+const phase2Start = phase1End + 1;
+const phase2End = phase2Start + phase2Weeks - 1;
+const phase3Start = phase2End + 1;
+const phase3End = phase3Start + phase3Weeks - 1;
+const phase4Start = phase3End + 1;
+
+function formatPhaseRange(start: number, end: number): string {
+  if (start === end) {
+    return `Week ${start}`;
+  }
+  return `Week ${start}-${end}`;
+}
 ---
 
 <div class="bg-card border border-theme rounded-2xl p-6 sm:p-8 mb-8 sm:mb-12">
@@ -29,23 +68,23 @@ const { timeline } = Astro.props;
     
     <div class="relative grid grid-cols-4 gap-4">
       <!-- Phase 1: Discovery -->
-      <div class="relative">
-        <div class="bg-surface border-2 border-accent-green/30 rounded-xl p-4 sm:p-6 hover:border-accent-green transition-all duration-300">
+      <div class="relative flex">
+        <div class="bg-surface border-2 border-accent-green/30 rounded-xl p-4 sm:p-6 hover:border-accent-green transition-all duration-300 w-full flex flex-col">
           <div class="flex items-center justify-center mb-3">
             <div class="w-12 h-12 bg-accent-green/20 rounded-full flex items-center justify-center border-4 border-card relative z-10">
               <Icon name="mdi:eye" class="w-6 h-6 text-accent-green" />
             </div>
           </div>
           <h4 class="text-sm font-bold mb-2 text-center text-primary transition-colors">
-            Week 1-2
+            {formatPhaseRange(1, phase1End)}
           </h4>
           <p class="text-xs font-semibold mb-2 text-center text-accent-green transition-colors">
             Discovery
           </p>
-          <p class="text-xs text-secondary text-center transition-colors mb-3">
+          <p class="text-xs text-secondary text-center transition-colors mb-3 flex-1">
             Assess needs and define goals
           </p>
-          <div class="flex items-center justify-center gap-2 text-xs text-secondary">
+          <div class="flex items-center justify-center gap-2 text-xs text-secondary mt-auto">
             <Icon name="mdi:account-group" class="w-4 h-4 text-accent-green" />
             <span>Executive touchpoint</span>
           </div>
@@ -53,23 +92,23 @@ const { timeline } = Astro.props;
       </div>
 
       <!-- Phase 2: Design & Build -->
-      <div class="relative">
-        <div class="bg-surface border-2 border-accent-green/30 rounded-xl p-4 sm:p-6 hover:border-accent-green transition-all duration-300">
+      <div class="relative flex">
+        <div class="bg-surface border-2 border-accent-green/30 rounded-xl p-4 sm:p-6 hover:border-accent-green transition-all duration-300 w-full flex flex-col">
           <div class="flex items-center justify-center mb-3">
             <div class="w-12 h-12 bg-accent-green/20 rounded-full flex items-center justify-center border-4 border-card relative z-10">
               <Icon name="mdi:lightbulb" class="w-6 h-6 text-accent-green" />
             </div>
           </div>
           <h4 class="text-sm font-bold mb-2 text-center text-primary transition-colors">
-            Week 3-6
+            {formatPhaseRange(phase2Start, phase2End)}
           </h4>
           <p class="text-xs font-semibold mb-2 text-center text-accent-green transition-colors">
             Design & Build
           </p>
-          <p class="text-xs text-secondary text-center transition-colors mb-3">
+          <p class="text-xs text-secondary text-center transition-colors mb-3 flex-1">
             Create and implement solutions
           </p>
-          <div class="flex items-center justify-center gap-2 text-xs text-secondary">
+          <div class="flex items-center justify-center gap-2 text-xs text-secondary mt-auto">
             <Icon name="mdi:calendar-check" class="w-4 h-4 text-accent-green" />
             <span>Weekly updates</span>
           </div>
@@ -77,23 +116,23 @@ const { timeline } = Astro.props;
       </div>
 
       <!-- Phase 3: Deploy -->
-      <div class="relative">
-        <div class="bg-surface border-2 border-accent-green/30 rounded-xl p-4 sm:p-6 hover:border-accent-green transition-all duration-300">
+      <div class="relative flex">
+        <div class="bg-surface border-2 border-accent-green/30 rounded-xl p-4 sm:p-6 hover:border-accent-green transition-all duration-300 w-full flex flex-col">
           <div class="flex items-center justify-center mb-3">
             <div class="w-12 h-12 bg-accent-green/20 rounded-full flex items-center justify-center border-4 border-card relative z-10">
               <Icon name="mdi:check-circle" class="w-6 h-6 text-accent-green" />
             </div>
           </div>
           <h4 class="text-sm font-bold mb-2 text-center text-primary transition-colors">
-            Week 7-8
+            {formatPhaseRange(phase3Start, phase3End)}
           </h4>
           <p class="text-xs font-semibold mb-2 text-center text-accent-green transition-colors">
             Deploy
           </p>
-          <p class="text-xs text-secondary text-center transition-colors mb-3">
+          <p class="text-xs text-secondary text-center transition-colors mb-3 flex-1">
             Launch with rapid delivery
           </p>
-          <div class="flex items-center justify-center gap-2 text-xs text-secondary">
+          <div class="flex items-center justify-center gap-2 text-xs text-secondary mt-auto">
             <Icon name="mdi:rocket" class="w-4 h-4 text-accent-green" />
             <span>Fast launch</span>
           </div>
@@ -101,23 +140,23 @@ const { timeline } = Astro.props;
       </div>
 
       <!-- Phase 4: Optimize -->
-      <div class="relative">
-        <div class="bg-surface border-2 border-accent-green/30 rounded-xl p-4 sm:p-6 hover:border-accent-green transition-all duration-300">
+      <div class="relative flex">
+        <div class="bg-surface border-2 border-accent-green/30 rounded-xl p-4 sm:p-6 hover:border-accent-green transition-all duration-300 w-full flex flex-col">
           <div class="flex items-center justify-center mb-3">
             <div class="w-12 h-12 bg-accent-green/20 rounded-full flex items-center justify-center border-4 border-card relative z-10">
               <Icon name="mdi:chart-line" class="w-6 h-6 text-accent-green" />
             </div>
           </div>
           <h4 class="text-sm font-bold mb-2 text-center text-primary transition-colors">
-            Week 9+
+            {formatPhaseRange(phase4Start, phase4Start + phase4Weeks - 1)}+
           </h4>
           <p class="text-xs font-semibold mb-2 text-center text-accent-green transition-colors">
             Optimize
           </p>
-          <p class="text-xs text-secondary text-center transition-colors mb-3">
+          <p class="text-xs text-secondary text-center transition-colors mb-3 flex-1">
             Monitor and refine
           </p>
-          <div class="flex items-center justify-center gap-2 text-xs text-secondary">
+          <div class="flex items-center justify-center gap-2 text-xs text-secondary mt-auto">
             <Icon name="mdi:trending-up" class="w-4 h-4 text-accent-green" />
             <span>Ongoing support</span>
           </div>
@@ -138,7 +177,7 @@ const { timeline } = Astro.props;
           </div>
           <div>
             <h4 class="text-sm font-bold text-primary transition-colors">
-              Week 1-2: Discovery
+              {formatPhaseRange(1, phase1End)}: Discovery
             </h4>
             <p class="text-xs text-secondary transition-colors">
               Assess needs and define goals
@@ -162,7 +201,7 @@ const { timeline } = Astro.props;
           </div>
           <div>
             <h4 class="text-sm font-bold text-primary transition-colors">
-              Week 3-6: Design & Build
+              {formatPhaseRange(phase2Start, phase2End)}: Design & Build
             </h4>
             <p class="text-xs text-secondary transition-colors">
               Create and implement solutions
@@ -186,7 +225,7 @@ const { timeline } = Astro.props;
           </div>
           <div>
             <h4 class="text-sm font-bold text-primary transition-colors">
-              Week 7-8: Deploy
+              {formatPhaseRange(phase3Start, phase3End)}: Deploy
             </h4>
             <p class="text-xs text-secondary transition-colors">
               Launch with rapid delivery
@@ -210,7 +249,7 @@ const { timeline } = Astro.props;
           </div>
           <div>
             <h4 class="text-sm font-bold text-primary transition-colors">
-              Week 9+: Optimize
+              {formatPhaseRange(phase4Start, phase4Start + phase4Weeks - 1)}+: Optimize
             </h4>
             <p class="text-xs text-secondary transition-colors">
               Monitor and refine

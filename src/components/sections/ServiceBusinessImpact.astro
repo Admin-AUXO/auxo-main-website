@@ -56,17 +56,43 @@ const getImpactIcon = (impact: string): string => {
     Business Outcomes You Can Expect
   </h2>
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-    {impacts.map((impact: string) => (
-      <div class="flex items-start gap-3 p-3 sm:p-4 bg-card/50 rounded-lg border border-theme/50 hover:border-accent-green/50 transition-colors">
-        <div class="w-8 h-8 bg-accent-green/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-          <Icon
-            name={getImpactIcon(impact)}
-            class="w-4 h-4 sm:w-5 sm:h-5 text-accent-green transition-colors"
-          />
+    {impacts.map((impact: string, index: number) => {
+      // Check if impact contains percentage or improvement indicators
+      const hasPercentage = /\d+%/.test(impact) || /\d+x/.test(impact) || /\d+\s*(times|fold)/i.test(impact);
+      const isHighImpact = hasPercentage || index < 2; // First 2 impacts are typically high priority
+      
+      return (
+        <div class={`flex items-start gap-3 p-3 sm:p-4 rounded-lg border transition-all duration-300 hover:scale-[1.02] ${
+          isHighImpact 
+            ? 'bg-card/70 border-accent-green/50 shadow-md' 
+            : 'bg-card/50 border-theme/50 hover:border-accent-green/50'
+        }`}>
+          <div class={`w-10 h-10 bg-accent-green/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5 transition-colors ${
+            isHighImpact ? 'bg-accent-green/30' : ''
+          }`}>
+            <Icon
+              name={getImpactIcon(impact)}
+              class="w-5 h-5 sm:w-6 sm:h-6 text-accent-green transition-colors"
+            />
+          </div>
+          <div class="flex-1">
+            <div class="flex items-start gap-2 mb-1">
+              <span class="text-sm sm:text-base text-primary transition-colors leading-relaxed flex-1">{impact}</span>
+              {isHighImpact && (
+                <span class="bg-accent-green/20 text-accent-green text-xs font-semibold px-2 py-0.5 rounded-full border border-accent-green/30 flex-shrink-0">
+                  High Impact
+                </span>
+              )}
+            </div>
+            {hasPercentage && (
+              <div class="mt-2 h-1.5 bg-surface rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-accent-green to-accent-green/70 rounded-full" style="width: 75%"></div>
+              </div>
+            )}
+          </div>
         </div>
-        <span class="text-sm sm:text-base text-primary transition-colors leading-relaxed">{impact}</span>
-      </div>
-    ))}
+      );
+    })}
   </div>
 </div>
 

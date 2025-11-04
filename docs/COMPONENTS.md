@@ -141,14 +141,50 @@ Layout wrappers and specialized layouts.
 
 ## 4. Section Components (`src/components/sections/`)
 
-Large, self-contained components that form the main sections of pages.
+Large, self-contained components that form the main sections of pages. Organized by page for better maintainability.
 
 -   **Location:** `src/components/sections/`
--   **Purpose:** Larger, self-contained components that form the main sections of pages.
--   **Examples:**
-    -   `HeroSection.astro` - Homepage hero with CTA
-    -   `MethodologySection.astro` - Methodology showcase
-    -   `TeamSection.astro` - Team member cards
+-   **Organization:** Section components are organized into page-specific subdirectories:
+    -   `sections/home/` - Homepage sections
+    -   `sections/about/` - About page sections
+    -   `sections/services/` - Services page sections
+    -   `sections/blog/` - Blog page sections
+    -   `sections/shared/` - Sections used across multiple pages
+
+### Homepage Sections (`sections/home/`)
+
+-   **HeroSection.astro** - Homepage hero with CTA
+-   **MaturityCalculatorSection.astro** - Interactive maturity calculator preview
+-   **MethodologySection.astro** - Methodology showcase
+-   **LaunchOfferSection.astro** - Launch offer promotion
+-   **FinalCtaSection.astro** - Final call-to-action
+-   **BlogPreview.astro** - Blog post preview section
+-   **WhyChooseSection.astro** - Why choose us section
+
+### About Page Sections (`sections/about/`)
+
+-   **AboutHero.astro** - About page hero
+-   **MissionVision.astro** - Mission and vision cards
+-   **TeamSection.astro** - Team member cards
+-   **CredentialsSection.astro** - Credentials and certifications
+-   **WhyDifferentSection.astro** - Comparison table
+-   **EnhancedValuesSection.astro** - Company values showcase
+
+### Services Sections (`sections/services/`)
+
+-   **ServicesHero.astro** - Services page hero
+-   **ServiceGrid.astro** - Grid of service cards
+-   **BusinessImpact.astro** - Business impact showcase
+-   **ServiceSummary.astro** - Service detail summary box
+-   **ServiceBusinessImpact.astro** - Service-specific business impact
+-   **ServiceStartupAdvantage.astro** - Startup advantage highlight
+-   **ServiceTimeline.astro** - Service timeline display
+-   **ExecutiveTimeCommitment.astro** - Executive time commitment info
+-   **ServicesSection.astro** - Services showcase section
+
+### Blog Sections (`sections/blog/`)
+
+-   **BlogPostCard.astro** - Blog post card component (used in listings and related posts)
     -   `ServiceGrid.astro` - Services overview grid
     -   `BusinessImpact.astro` - Business value proposition
 -   **Usage:** Imported directly into page files (e.g., `src/pages/index.astro`).

@@ -1,12 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageContainer from "../components/layouts/PageContainer.astro";
-import AboutHero from "../components/sections/AboutHero.astro";
-import MissionVision from "../components/sections/MissionVision.astro";
-import TeamSection from "../components/sections/TeamSection.astro";
-import CredentialsSection from "../components/sections/CredentialsSection.astro";
-import WhyDifferentSection from "../components/sections/WhyDifferentSection.astro";
-import EnhancedValuesSection from "../components/sections/EnhancedValuesSection.astro";
+import AboutHero from "../components/sections/about/AboutHero.astro";
+import MissionVision from "../components/sections/about/MissionVision.astro";
+import TeamSection from "../components/sections/about/TeamSection.astro";
+import CredentialsSection from "../components/sections/about/CredentialsSection.astro";
+import WhyDifferentSection from "../components/sections/about/WhyDifferentSection.astro";
+import EnhancedValuesSection from "../components/sections/about/EnhancedValuesSection.astro";
 import { team } from "../data/collections/team";
 import { aboutContent } from "../data/content/about";
 import { Icon } from "astro-icon/components";
@@ -18,64 +18,85 @@ const base = import.meta.env.BASE_URL;
   title="About Us - Data Analytics Experts | AUXO Data Labs"
   description="Learn about AUXO Data Labs, a new analytics consultancy launched in 2025. Meet our founding team and discover how we're transforming data analytics in the UAE."
 >
-  <PageContainer maxWidth="7xl" paddingTop="pt-20 sm:pt-24" paddingBottom="pb-10 sm:pb-12 md:pb-16">
-      <!-- Hero Section -->
-      <AboutHero content={aboutContent.hero} />
+  <PageContainer
+    maxWidth="7xl"
+    paddingTop="pt-20 sm:pt-24"
+    paddingBottom="pb-10 sm:pb-12 md:pb-16"
+  >
+    <!-- Hero Section -->
+    <AboutHero content={aboutContent.hero} />
 
-      <!-- Mission & Vision -->
-      <MissionVision mission={aboutContent.mission} vision={aboutContent.vision} />
+    <!-- Mission & Vision -->
+    <MissionVision
+      mission={aboutContent.mission}
+      vision={aboutContent.vision}
+    />
 
-      <!-- Credentials Section -->
-      <CredentialsSection />
+    <!-- Credentials Section -->
+    <CredentialsSection />
 
-      <!-- Why We're Different -->
-      <WhyDifferentSection />
+    <!-- Why We're Different -->
+    <WhyDifferentSection />
 
-      <!-- Enhanced Values Section -->
-      <EnhancedValuesSection
-        values={aboutContent.values.items}
-        title={aboutContent.values.title}
-        subtitle={aboutContent.values.subtitle}
-      />
+    <!-- Enhanced Values Section -->
+    <EnhancedValuesSection
+      values={aboutContent.values.items}
+      title={aboutContent.values.title}
+      subtitle={aboutContent.values.subtitle}
+    />
 
-      <!-- Why Choose Us -->
-      <div class="max-w-5xl mx-auto mb-8 sm:mb-12 md:mb-20">
-        <div class="text-center mb-6 sm:mb-8 md:mb-12">
-          <h2 class="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 text-primary transition-colors">
-            {aboutContent.whyChoose.title}
-          </h2>
-          <p class="text-xs sm:text-sm md:text-base text-secondary transition-colors">
-            {aboutContent.whyChoose.subtitle}
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-          {
-            aboutContent.whyChoose.stats.map((stat, index) => (
-              <div class="bg-card border border-theme rounded-xl p-4 sm:p-6 hover:border-accent-green/50 transition-all duration-300 group" data-stat-index={index}>
-                <div class="text-3xl sm:text-4xl md:text-5xl font-black text-accent-green mb-1.5 sm:mb-2 transition-colors stat-value" data-target={stat.value}>
-                  {stat.value}
-                </div>
-                <h3 class="font-bold mb-1.5 sm:mb-2 text-sm sm:text-base md:text-lg text-primary transition-colors">
-                  {stat.title}
-                </h3>
-                <p class="text-xs sm:text-sm text-secondary transition-colors leading-relaxed">
-                  {stat.description}
-                </p>
-              </div>
-            ))
-          }
-        </div>
+    <!-- Why Choose Us -->
+    <div class="max-w-5xl mx-auto mb-8 sm:mb-12 md:mb-20">
+      <div class="text-center mb-6 sm:mb-8 md:mb-12">
+        <h2
+          class="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 text-primary transition-colors"
+        >
+          {aboutContent.whyChoose.title}
+        </h2>
+        <p
+          class="text-xs sm:text-sm md:text-base text-secondary transition-colors"
+        >
+          {aboutContent.whyChoose.subtitle}
+        </p>
       </div>
 
-      <!-- Naming Story & Why We Started -->
-      {aboutContent.hero.namingStory && aboutContent.hero.whyStarted && (
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+        {
+          aboutContent.whyChoose.stats.map((stat, index) => (
+            <div
+              class="bg-card border border-theme rounded-xl p-4 sm:p-6 hover:border-accent-green/50 transition-all duration-300 group"
+              data-stat-index={index}
+            >
+              <div
+                class="text-3xl sm:text-4xl md:text-5xl font-black text-accent-green mb-1.5 sm:mb-2 transition-colors stat-value"
+                data-target={stat.value}
+              >
+                {stat.value}
+              </div>
+              <h3 class="font-bold mb-1.5 sm:mb-2 text-sm sm:text-base md:text-lg text-primary transition-colors">
+                {stat.title}
+              </h3>
+              <p class="text-xs sm:text-sm text-secondary transition-colors leading-relaxed">
+                {stat.description}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Naming Story & Why We Started -->
+    {
+      aboutContent.hero.namingStory && aboutContent.hero.whyStarted && (
         <div class="max-w-5xl mx-auto mb-8 sm:mb-12 md:mb-20">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
             <div class="bg-card border border-theme rounded-xl p-4 sm:p-6 md:p-8 hover:border-accent-green/50 transition-all duration-300 group">
               <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
                 <div class="w-8 h-8 sm:w-10 sm:h-10 bg-accent-green/10 rounded-lg flex items-center justify-center group-hover:bg-accent-green/20 transition-colors">
-                  <Icon name="mdi:sparkles" class="w-4 h-4 sm:w-5 sm:h-5 text-accent-green" />
+                  <Icon
+                    name="mdi:sparkles"
+                    class="w-4 h-4 sm:w-5 sm:h-5 text-accent-green"
+                  />
                 </div>
                 <h3 class="text-base sm:text-lg md:text-xl font-bold text-primary transition-colors">
                   {aboutContent.hero.namingStory.title}
@@ -85,11 +106,14 @@ const base = import.meta.env.BASE_URL;
                 {aboutContent.hero.namingStory.description}
               </p>
             </div>
-            
+
             <div class="bg-gradient-to-br from-accent-green/10 to-accent-green/20 border-2 border-accent-green/30 rounded-xl p-4 sm:p-6 md:p-8 hover:border-accent-green/50 transition-all duration-300 group">
               <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
                 <div class="w-8 h-8 sm:w-10 sm:h-10 bg-accent-green rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Icon name="mdi:rocket" class="w-4 h-4 sm:w-5 sm:h-5 text-on-accent" />
+                  <Icon
+                    name="mdi:rocket"
+                    class="w-4 h-4 sm:w-5 sm:h-5 text-on-accent"
+                  />
                 </div>
                 <h3 class="text-base sm:text-lg md:text-xl font-bold text-primary transition-colors">
                   {aboutContent.hero.whyStarted.title}
@@ -101,38 +125,46 @@ const base = import.meta.env.BASE_URL;
             </div>
           </div>
         </div>
-      )}
+      )
+    }
 
-      <!-- Team Section -->
-      <TeamSection team={team} content={aboutContent.team} />
+    <!-- Team Section -->
+    <TeamSection team={team} content={aboutContent.team} />
 
-      <div class="max-w-4xl mx-auto">
-        <div
-          class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-6 sm:p-8 md:p-12 text-center transition-colors"
+    <div class="max-w-4xl mx-auto">
+      <div
+        class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-6 sm:p-8 md:p-12 text-center transition-colors"
+      >
+        <h2
+          class="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 text-primary transition-colors"
         >
-          <h2 class="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 text-primary transition-colors">
-            {aboutContent.finalCta.title}
-          </h2>
-          <p class="text-xs sm:text-sm md:text-base text-secondary mb-6 sm:mb-8 max-w-2xl mx-auto transition-colors leading-relaxed">
-            {aboutContent.finalCta.subtitle}
-          </p>
-          <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            <a
-              href={`${base}${aboutContent.finalCta.primaryCta.href}/`}
-              class="px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-accent-green text-on-accent font-bold rounded-lg hover:bg-accent-green/90 active:bg-accent-green/80 transition-all duration-200 inline-flex items-center justify-center min-h-[44px] min-w-[44px] hover:scale-105 active:scale-95 shadow-lg shadow-accent-green/20 text-sm sm:text-base"
-            >
-              {aboutContent.finalCta.primaryCta.text}
-              <Icon name="mdi:arrow-right" class="w-4 h-4 sm:w-5 sm:h-5 ml-1.5 sm:ml-2" />
-            </a>
-            <a
-              href={`${base}${aboutContent.finalCta.secondaryCta.href}/`}
-              class="px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-surface text-primary font-bold rounded-lg hover:bg-surface/80 active:bg-surface/70 transition-all duration-200 inline-flex items-center justify-center min-h-[44px] min-w-[44px] border border-theme hover:border-accent-green/30 text-sm sm:text-base"
-            >
-              {aboutContent.finalCta.secondaryCta.text}
-            </a>
-          </div>
+          {aboutContent.finalCta.title}
+        </h2>
+        <p
+          class="text-xs sm:text-sm md:text-base text-secondary mb-6 sm:mb-8 max-w-2xl mx-auto transition-colors leading-relaxed"
+        >
+          {aboutContent.finalCta.subtitle}
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+          <a
+            href={`${base}${aboutContent.finalCta.primaryCta.href}/`}
+            class="px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-accent-green text-on-accent font-bold rounded-lg hover:bg-accent-green/90 active:bg-accent-green/80 transition-all duration-200 inline-flex items-center justify-center min-h-[44px] min-w-[44px] hover:scale-105 active:scale-95 shadow-lg shadow-accent-green/20 text-sm sm:text-base"
+          >
+            {aboutContent.finalCta.primaryCta.text}
+            <Icon
+              name="mdi:arrow-right"
+              class="w-4 h-4 sm:w-5 sm:h-5 ml-1.5 sm:ml-2"
+            />
+          </a>
+          <a
+            href={`${base}${aboutContent.finalCta.secondaryCta.href}/`}
+            class="px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-surface text-primary font-bold rounded-lg hover:bg-surface/80 active:bg-surface/70 transition-all duration-200 inline-flex items-center justify-center min-h-[44px] min-w-[44px] border border-theme hover:border-accent-green/30 text-sm sm:text-base"
+          >
+            {aboutContent.finalCta.secondaryCta.text}
+          </a>
         </div>
       </div>
+    </div>
   </PageContainer>
 </BaseLayout>
 
@@ -140,73 +172,81 @@ const base = import.meta.env.BASE_URL;
   // Animated counters for stats
   function animateCounter(element: HTMLElement, target: string) {
     const isNumeric = /^\d+/.test(target);
-    const numericValue = parseInt(target.replace(/[^\d]/g, ''), 10);
-    const suffix = target.replace(/^\d+/, '');
-    
+    const numericValue = parseInt(target.replace(/[^\d]/g, ""), 10);
+    const suffix = target.replace(/^\d+/, "");
+
     if (!isNumeric || isNaN(numericValue)) {
       // If not numeric, just show the value
       element.textContent = target;
       return;
     }
-    
+
     const duration = 2000; // 2 seconds
     const startTime = performance.now();
     const startValue = 0;
-    
+
     function updateCounter(currentTime: number) {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      
+
       // Easing function for smooth animation
       const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      const currentValue = Math.floor(startValue + (numericValue - startValue) * easeOutQuart);
-      
+      const currentValue = Math.floor(
+        startValue + (numericValue - startValue) * easeOutQuart,
+      );
+
       element.textContent = currentValue + suffix;
-      
+
       if (progress < 1) {
         requestAnimationFrame(updateCounter);
       } else {
         element.textContent = target;
       }
     }
-    
+
     requestAnimationFrame(updateCounter);
   }
-  
+
   // Intersection Observer for scroll-triggered animations
   const observerOptions = {
     threshold: 0.5,
-    rootMargin: '0px',
+    rootMargin: "0px",
   };
-  
+
   const statsObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const statElement = entry.target as HTMLElement;
-        const valueElement = statElement.querySelector('.stat-value') as HTMLElement;
-        const target = valueElement?.getAttribute('data-target');
-        
-        if (valueElement && target && !valueElement.classList.contains('animated')) {
-          valueElement.classList.add('animated');
+        const valueElement = statElement.querySelector(
+          ".stat-value",
+        ) as HTMLElement;
+        const target = valueElement?.getAttribute("data-target");
+
+        if (
+          valueElement &&
+          target &&
+          !valueElement.classList.contains("animated")
+        ) {
+          valueElement.classList.add("animated");
           animateCounter(valueElement, target);
         }
-        
+
         statsObserver.unobserve(statElement);
       }
     });
   }, observerOptions);
-  
+
   // Observe all stat cards
-  document.querySelectorAll('[data-stat-index]').forEach((card) => {
+  document.querySelectorAll("[data-stat-index]").forEach((card) => {
     statsObserver.observe(card);
   });
-  
+
   // Re-run on page navigation (Astro view transitions)
-  document.addEventListener('astro:page-load', () => {
-    document.querySelectorAll('[data-stat-index]').forEach((card) => {
-      const valueElement = card.querySelector('.stat-value') as HTMLElement;
+  document.addEventListener("astro:page-load", () => {
+    document.querySelectorAll("[data-stat-index]").forEach((card) => {
+      const valueElement = card.querySelector(".stat-value") as HTMLElement;
       if (valueElement) {
-        valueElement.classList.remove('animated');
+        valueElement.classList.remove("animated");
       }
       statsObserver.observe(card);
     });

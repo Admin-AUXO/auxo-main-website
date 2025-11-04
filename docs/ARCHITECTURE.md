@@ -33,6 +33,11 @@ src/
 │   ├── ui/                 # Interactive UI elements
 │   ├── layouts/            # Layout wrapper components
 │   ├── sections/           # Large page-section components
+│   │   ├── home/           # Homepage sections
+│   │   ├── about/          # About page sections
+│   │   ├── services/       # Services page sections
+│   │   ├── blog/           # Blog page sections
+│   │   └── shared/         # Shared sections
 │   ├── effects/            # Visual effects and animations
 │   ├── schema/             # Structured data components
 │   └── dev/                # Development tools

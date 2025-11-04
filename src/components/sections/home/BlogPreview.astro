@@ -1,11 +1,11 @@
 ---
 import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
-import { homepageContent } from "../../data/content/homepage";
-import { commonText } from "../../data/shared/common";
-import { calculateReadTime } from "../../utils/content";
-import { formatDate } from "../../utils/date";
-import SectionContainer from "../layouts/SectionContainer.astro";
+import { homepageContent } from "../../../data/content/homepage";
+import { commonText } from "../../../data/shared/common";
+import { calculateReadTime } from "../../../utils/content";
+import { formatDate } from "../../../utils/date";
+import SectionContainer from "../../layouts/SectionContainer.astro";
 
 const base = import.meta.env.BASE_URL;
 
@@ -31,11 +31,13 @@ const hasPosts = latestPosts.length > 0;
         class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-primary transition-colors"
       >
         {homepageContent.blog.title}
-        {homepageContent.blog.titleHighlight && (
-          <span class="text-gradient-green"
-            >{homepageContent.blog.titleHighlight}</span
-          >
-        )}
+        {
+          homepageContent.blog.titleHighlight && (
+            <span class="text-gradient-green">
+              {homepageContent.blog.titleHighlight}
+            </span>
+          )
+        }
       </h2>
       <p
         class="text-base sm:text-lg text-secondary max-w-2xl mx-auto transition-colors"
@@ -57,7 +59,10 @@ const hasPosts = latestPosts.length > 0;
                   <div class="flex items-center gap-2 mb-4 flex-wrap">
                     {post.data.tags && post.data.tags[0] && (
                       <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-accent-green/10 border border-accent-green/20 rounded-full">
-                        <Icon name="mdi:post" class="w-3 h-3 text-accent-green" />
+                        <Icon
+                          name="mdi:post"
+                          class="w-3 h-3 text-accent-green"
+                        />
                         <span class="text-accent-green text-xs font-semibold uppercase tracking-wide">
                           {post.data.tags[0]}
                         </span>
@@ -65,7 +70,10 @@ const hasPosts = latestPosts.length > 0;
                     )}
                     {index === 0 && (
                       <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-accent-green/20 border border-accent-green/40 rounded-full">
-                        <Icon name="mdi:star" class="w-3 h-3 text-accent-green" />
+                        <Icon
+                          name="mdi:star"
+                          class="w-3 h-3 text-accent-green"
+                        />
                         <span class="text-accent-green text-xs font-bold uppercase tracking-wide">
                           Featured
                         </span>

@@ -1,7 +1,10 @@
 ---
 import { Icon } from "astro-icon/components";
-import { homepageContent, type HomepageContent } from "../../data/content/homepage";
-import SectionContainer from "../layouts/SectionContainer.astro";
+import {
+  homepageContent,
+  type HomepageContent,
+} from "../../../data/content/homepage";
+import SectionContainer from "../../layouts/SectionContainer.astro";
 
 const content: HomepageContent["whyChoose"] = homepageContent.whyChoose;
 ---
@@ -18,9 +21,7 @@ const content: HomepageContent["whyChoose"] = homepageContent.whyChoose;
         class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-primary transition-colors"
       >
         {content.title}
-        <span class="text-gradient-green"
-          >{content.titleHighlight}</span
-        >
+        <span class="text-gradient-green">{content.titleHighlight}</span>
       </h2>
       <p
         class="text-base sm:text-lg text-secondary max-w-2xl mx-auto italic transition-colors"

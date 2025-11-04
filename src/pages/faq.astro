@@ -528,19 +528,35 @@ const base = import.meta.env.BASE_URL;
             // Find category tab by matching the normalized category name
             const categoryTab = Array.from(categoryTabs).find((tab) => {
               const tabCategory = tab.getAttribute("data-category");
-              const normalizedTabCategory = tabCategory?.toLowerCase().replace(/\s+/g, "-").replace(/[&?]/g, "");
-              const normalizedTargetCategory = category.toLowerCase().replace(/\s+/g, "-").replace(/[&?]/g, "");
+              if (!tabCategory) return false;
+              
+              // Normalize both for comparison (remove special chars, lowercase, replace spaces)
+              const normalize = (str: string) => str.toLowerCase().replace(/\s+/g, "-").replace(/[&?]/g, "");
+              const normalizedTabCategory = normalize(tabCategory);
+              const normalizedTargetCategory = normalize(category);
+              
               return normalizedTabCategory === normalizedTargetCategory;
             });
-            categoryTab?.click();
+            
+            if (categoryTab) {
+              categoryTab.click();
+            }
           }
           
-          // Open the FAQ item
+          // Open the FAQ item after category switch animation completes
           setTimeout(() => {
-            const question = targetItem.querySelector(".faq-question") as HTMLElement;
-            question?.click();
-            targetItem.scrollIntoView({ behavior: "smooth", block: "center" });
-          }, 300);
+            // Re-query the element in case DOM was updated
+            const targetItemAfterWait = document.getElementById(targetId);
+            if (targetItemAfterWait) {
+              const question = targetItemAfterWait.querySelector(".faq-question") as HTMLElement;
+              if (question) {
+                question.click();
+                setTimeout(() => {
+                  targetItemAfterWait.scrollIntoView({ behavior: "smooth", block: "center" });
+                }, 100);
+              }
+            }
+          }, 400);
         }
       }
     });

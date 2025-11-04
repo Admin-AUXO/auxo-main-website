@@ -9,6 +9,7 @@ export interface ProcessStep {
   icon: string;
   title: string;
   description: string;
+  details?: string[];
 }
 
 export interface ValueProp {
@@ -202,24 +203,52 @@ export const homepageContent: HomepageContent = {
         icon: 'mdi:eye',
         title: 'Discover',
         description: 'Assess your current analytics state and identify strategic opportunities for growth',
+        details: [
+          'Comprehensive data audit across all systems and sources',
+          'Stakeholder interviews to understand business goals and pain points',
+          'Gap analysis comparing current state to industry best practices',
+          'Risk assessment for compliance and data governance',
+          'Quick wins identification for immediate value delivery',
+        ],
       },
       {
         number: 2,
         icon: 'mdi:lightbulb',
         title: 'Design',
         description: 'Create a tailored analytics roadmap with clear milestones and success metrics',
+        details: [
+          'Custom analytics architecture designed for your specific needs',
+          'Clear roadmap with phased milestones and delivery timelines',
+          'Success metrics and KPIs aligned with business objectives',
+          'Technology stack selection based on your infrastructure',
+          'Change management plan for smooth adoption',
+        ],
       },
       {
         number: 3,
         icon: 'mdi:check-circle',
         title: 'Deploy',
         description: 'Implement solutions using agile sprints with rapid delivery and continuous feedback',
+        details: [
+          'Agile sprint-based development with 2-week iterations',
+          'Weekly progress updates and demo sessions',
+          'Continuous integration and automated testing',
+          'Phased rollout to minimize business disruption',
+          'Training sessions for your team throughout implementation',
+        ],
       },
       {
         number: 4,
         icon: 'mdi:chart-line',
         title: 'Optimize',
         description: 'Monitor performance, refine models, and continuously improve to maximize ROI',
+        details: [
+          'Real-time performance monitoring and alerting',
+          'Regular model retraining and refinement',
+          'A/B testing for continuous improvement',
+          'Quarterly business reviews to assess ROI',
+          'Ongoing support and optimization recommendations',
+        ],
       },
     ] as ProcessStep[],
     valueProps: [

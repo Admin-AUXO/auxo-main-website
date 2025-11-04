@@ -215,6 +215,32 @@ const legalLinks = [
         </div>
       </section>
 
+      <!-- Founder Contact Section -->
+      <section class="lg:col-span-12 mt-6 lg:mt-0">
+        <div
+          class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border border-accent-green/30 rounded-xl p-6 sm:p-8"
+        >
+          <h4
+            class="text-sm font-bold tracking-wide text-primary uppercase mb-3 transition-colors"
+          >
+            Questions? Reach out directly
+          </h4>
+          <p class="text-sm text-secondary mb-4 transition-colors">
+            Talk directly with founders. No account managers. No sales pitches.
+          </p>
+          <a
+            href={`mailto:${siteData.email}`}
+            class="inline-flex items-center gap-2 px-6 py-3 bg-accent-green text-on-accent rounded-lg hover:bg-accent-green/90 active:bg-accent-green/80 transition-all duration-200 font-semibold text-sm min-h-[44px] min-w-[44px] group"
+          >
+            <Icon
+              name="mdi:email"
+              class="w-5 h-5 group-hover:scale-110 transition-transform"
+            />
+            <span>{siteData.email}</span>
+          </a>
+        </div>
+      </section>
+
       <!-- Startup Promise Section -->
       <section
         class="lg:col-span-12 mt-6 lg:mt-8 pt-6 lg:pt-8 border-t border-theme"

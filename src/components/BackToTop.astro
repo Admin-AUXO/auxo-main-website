@@ -1,0 +1,70 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<button
+  id="back-to-top"
+  class="fixed bottom-6 right-6 z-50 w-12 h-12 sm:w-14 sm:h-14 bg-accent-green text-on-accent rounded-full shadow-lg shadow-accent-green/30 hover:shadow-xl hover:shadow-accent-green/40 hover:scale-110 active:scale-95 transition-all duration-300 opacity-0 invisible pointer-events-none flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-accent-green/50 focus:ring-offset-2 focus:ring-offset-primary min-w-[48px] min-h-[48px] touch-manipulation"
+  aria-label="Back to top"
+>
+  <Icon name="mdi:arrow-up" class="w-6 h-6" />
+</button>
+
+<script>
+  function initBackToTop() {
+    const backToTopBtn = document.getElementById('back-to-top');
+    if (!backToTopBtn) return;
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY || window.pageYOffset;
+      
+      if (scrollY > 300) {
+        backToTopBtn.classList.remove('opacity-0', 'invisible', 'pointer-events-none');
+        backToTopBtn.classList.add('opacity-100', 'visible', 'pointer-events-auto');
+      } else {
+        backToTopBtn.classList.add('opacity-0', 'invisible', 'pointer-events-none');
+        backToTopBtn.classList.remove('opacity-100', 'visible', 'pointer-events-auto');
+      }
+    };
+
+    const scrollToTop = (e: Event) => {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+
+    // Throttle scroll handler for performance
+    let ticking = false;
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', throttledHandleScroll, { passive: true });
+    backToTopBtn.addEventListener('click', scrollToTop);
+
+    // Initial check
+    handleScroll();
+
+    // Cleanup on Astro view transitions
+    document.addEventListener('astro:before-swap', () => {
+      window.removeEventListener('scroll', throttledHandleScroll);
+      backToTopBtn.removeEventListener('click', scrollToTop);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBackToTop);
+  } else {
+    initBackToTop();
+  }
+
+  document.addEventListener('astro:page-load', initBackToTop);
+</script>

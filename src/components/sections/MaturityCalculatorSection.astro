@@ -18,13 +18,15 @@ const dimensionIconMap: Record<string, string> = {
     <div class="max-w-7xl mx-auto">
       <!-- Header Section -->
       <div class="text-center mb-12 sm:mb-16 lg:mb-20">
-        <div
-          class="inline-block mb-4 px-4 py-2 bg-accent-green/10 border border-accent-green/20 rounded-full backdrop-blur-sm"
-        >
-          <span class="text-accent-green text-sm font-semibold tracking-wide"
-            >{content.badge}</span
+        {content.badge && (
+          <div
+            class="inline-block mb-4 px-4 py-2 bg-accent-green/10 border border-accent-green/20 rounded-full backdrop-blur-sm"
           >
-        </div>
+            <span class="text-accent-green text-sm font-semibold tracking-wide"
+              >{content.badge}</span
+            >
+          </div>
+        )}
         <h2
           class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-primary transition-colors"
         >

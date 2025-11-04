@@ -43,8 +43,8 @@ const base = import.meta.env.BASE_URL;
                   data-category={category.category}
                   class={`category-tab px-6 py-3 rounded-lg font-semibold transition-all flex items-center gap-2 min-h-[44px] touch-manipulation ${
                     index === 0
-                      ? "bg-accent-green text-black dark:text-white"
-                      : "bg-card text-secondary transition-colors hover:bg-surface hover:text-accent-green transition-colors border border-theme"
+                      ? "bg-accent-green category-tab-active"
+                      : "bg-card text-secondary hover:bg-surface hover:text-accent-green border border-theme"
                   }`}
                 >
                   <Icon name={category.icon} class="w-5 h-5" />
@@ -62,20 +62,20 @@ const base = import.meta.env.BASE_URL;
               data-category-content={category.category}
               class={`category-content ${categoryIndex === 0 ? "" : "hidden"}`}
             >
-              <div class="grid grid-cols-1 gap-4">
-                {category.questions.map((item) => (
-                  <div class="faq-item bg-card border border-theme rounded-xl overflow-hidden">
-                    <button class="faq-question w-full text-left px-6 py-5 flex items-center justify-between hover:bg-surface transition-colors min-h-[44px] touch-manipulation" aria-expanded="false">
-                      <span class="font-semibold text-lg text-primary pr-4">
+              <div class="space-y-4 sm:space-y-5">
+                {category.questions.map((item, itemIndex) => (
+                  <div class="faq-item bg-card border border-theme rounded-xl overflow-hidden hover:border-accent-green/30 transition-all duration-200 hover:shadow-lg" data-faq-index={itemIndex}>
+                    <button class="faq-question w-full text-left px-6 py-5 flex items-center justify-between hover:bg-surface transition-colors min-h-[44px] touch-manipulation group" aria-expanded="false">
+                      <span class="font-semibold text-lg text-primary pr-4 transition-colors">
                         {item.q}
                       </span>
                       <Icon
                         name="mdi:chevron-down"
-                        class="faq-chevron w-6 h-6 text-accent-green transition-colors transition-transform flex-shrink-0"
+                        class="faq-chevron w-6 h-6 text-accent-green transition-all flex-shrink-0"
                       />
                     </button>
                     <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
-                      <div class="px-6 pb-5 text-primary transition-colors leading-relaxed">
+                      <div class="px-6 pb-5 text-secondary transition-colors leading-relaxed">
                         {item.a}
                       </div>
                     </div>
@@ -100,7 +100,7 @@ const base = import.meta.env.BASE_URL;
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href={`${base}contact/`}
-              class="inline-flex items-center justify-center px-8 py-3 bg-accent-green text-black dark:text-white font-bold rounded-lg hover:bg-accent-green/90 transition-colors min-h-[44px] touch-manipulation"
+              class="inline-flex items-center justify-center px-8 py-3 bg-accent-green font-bold rounded-lg hover:bg-accent-green/90 transition-colors min-h-[44px] touch-manipulation"
             >
               Contact Us
               <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
@@ -132,28 +132,44 @@ const base = import.meta.env.BASE_URL;
         if (t.getAttribute("data-category") === category) {
           t.classList.remove(
             "bg-card",
-            "text-secondary transition-colors",
+            "text-secondary",
             "border",
             "border-theme",
+            "hover:bg-surface",
+            "hover:text-accent-green",
           );
-          t.classList.add("bg-accent-green", "text-black", "dark:text-white");
+          t.classList.add("bg-accent-green", "category-tab-active");
         } else {
-          t.classList.remove("bg-accent-green", "text-black", "dark:text-white");
+          t.classList.remove("bg-accent-green", "category-tab-active");
           t.classList.add(
             "bg-card",
-            "text-secondary transition-colors",
+            "text-secondary",
             "border",
             "border-theme",
+            "hover:bg-surface",
+            "hover:text-accent-green",
           );
         }
       });
 
-      // Show/hide content
+      // Show/hide content with smooth transition
       categoryContents.forEach((content) => {
+        const contentEl = content as HTMLElement;
         if (content.getAttribute("data-category-content") === category) {
-          content.classList.remove("hidden");
+          contentEl.classList.remove("hidden");
+          // Smooth fade-in animation
+          contentEl.style.opacity = "0";
+          setTimeout(() => {
+            contentEl.style.transition = "opacity 0.3s ease-in";
+            contentEl.style.opacity = "1";
+          }, 10);
         } else {
-          content.classList.add("hidden");
+          contentEl.style.opacity = "0";
+          setTimeout(() => {
+            contentEl.classList.add("hidden");
+            contentEl.style.opacity = "";
+            contentEl.style.transition = "";
+          }, 300);
         }
       });
 
@@ -165,14 +181,20 @@ const base = import.meta.env.BASE_URL;
       document.querySelectorAll(".faq-chevron").forEach((chevron) => {
         chevron.classList.remove("rotate-180");
       });
+      document.querySelectorAll(".faq-question").forEach((question) => {
+        question.setAttribute("aria-expanded", "false");
+      });
+      
+      // DO NOT scroll - keep current scroll position when switching categories
     });
   });
 
-  // FAQ accordion
+  // FAQ accordion - ensure only one item opens at a time
   const faqQuestions = document.querySelectorAll(".faq-question");
 
   faqQuestions.forEach((question) => {
-    question.addEventListener("click", () => {
+    question.addEventListener("click", (e) => {
+      e.stopPropagation();
       const faqItem = question.parentElement;
       if (!faqItem) return;
 
@@ -186,12 +208,31 @@ const base = import.meta.env.BASE_URL;
       const isOpen = answer.style.maxHeight && answer.style.maxHeight !== "0px";
 
       if (isOpen) {
-        // Close
+        // Close this item
         answer.style.maxHeight = "0";
         chevron.classList.remove("rotate-180");
         question.setAttribute("aria-expanded", "false");
       } else {
-        // Open
+        // Close all other items first to prevent layout issues
+        document.querySelectorAll(".faq-answer").forEach((otherAnswer) => {
+          if (otherAnswer !== answer) {
+            const otherEl = otherAnswer as HTMLElement;
+            otherEl.style.maxHeight = "0";
+          }
+        });
+        document.querySelectorAll(".faq-chevron").forEach((otherChevron) => {
+          if (otherChevron !== chevron) {
+            otherChevron.classList.remove("rotate-180");
+          }
+        });
+        document.querySelectorAll(".faq-question").forEach((otherQuestion) => {
+          if (otherQuestion !== question) {
+            otherQuestion.setAttribute("aria-expanded", "false");
+          }
+        });
+        
+        // Then open this item
+        // Use scrollHeight to get accurate height
         answer.style.maxHeight = answer.scrollHeight + "px";
         chevron.classList.add("rotate-180");
         question.setAttribute("aria-expanded", "true");
@@ -207,6 +248,61 @@ const base = import.meta.env.BASE_URL;
 
   .category-tab {
     white-space: nowrap;
+  }
+  
+  /* Active category tab styling - theme-aware */
+  .category-tab-active {
+    color: var(--text-on-accent) !important;
+  }
+  
+  .category-tab-active svg {
+    color: var(--text-on-accent) !important;
+  }
+
+  /* FAQ item hover effects */
+  .faq-item {
+    transition: all 0.2s ease;
+  }
+  
+  .faq-item:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Category content transitions */
+  .category-content {
+    transition: opacity 0.3s ease-in;
+  }
+  
+  .category-content.hidden {
+    display: none !important;
+  }
+  
+  /* FAQ answer smooth expansion - prevent layout shifts */
+  .faq-answer {
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    box-sizing: border-box;
+  }
+  
+  /* Active FAQ item styling */
+  .faq-item[aria-expanded="true"] .faq-question {
+    background-color: var(--bg-surface);
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .faq-item[aria-expanded="true"] {
+    border-color: var(--accent-green);
+  }
+  
+  /* Prevent FAQ items from affecting each other's layout */
+  .faq-item {
+    align-self: flex-start;
+    width: 100%;
+  }
+  
+  /* Ensure FAQ container maintains stable height */
+  .category-content > div {
+    display: flex;
+    flex-direction: column;
   }
 
   @media (max-width: 640px) {

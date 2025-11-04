@@ -81,7 +81,7 @@ const hasPosts = latestPosts.length > 0;
                   </div>
 
                   <a
-                    href={`${base}blog/${post.id}`}
+                    href={`${base}blog/${post.id.replace(/\.mdx?$/, "")}/`}
                     class="inline-flex items-center gap-2 text-accent-green hover:text-accent-green/80 font-semibold text-sm sm:text-base group-hover:gap-3 transition-all min-h-[44px]"
                     aria-label={`Read article: ${post.data.title}`}
                   >

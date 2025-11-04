@@ -19,7 +19,7 @@ export async function GET(context: APIContext) {
   // Generate RSS items from blog posts
   const items = sortedPosts.map((post) => {
     const slug = post.id.replace(/\.mdx?$/, '');
-    const postUrl = `${base}blog/${slug}`;
+    const postUrl = `${base}blog/${slug}/`;
     
     return {
       title: post.data.title,

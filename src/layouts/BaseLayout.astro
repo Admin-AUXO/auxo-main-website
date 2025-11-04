@@ -68,20 +68,35 @@ const {
         document.documentElement.classList.add(theme);
       })();
     </script>
-    <!-- Ensure theme persists across View Transitions -->
+    <!-- Ensure theme persists across View Transitions - Apply IMMEDIATELY after swap to prevent flash -->
     <script>
-      // Re-apply theme after view transitions
-      document.addEventListener("astro:page-load", () => {
-        const getTheme = () => {
-          const stored = localStorage.getItem("theme");
-          if (stored === "light" || stored === "dark") return stored;
-          if (window.matchMedia("(prefers-color-scheme: light)").matches)
-            return "light";
-          return "dark";
-        };
+      // Get theme helper function
+      const getTheme = () => {
+        const stored = localStorage.getItem("theme");
+        if (stored === "light" || stored === "dark") return stored;
+        if (window.matchMedia("(prefers-color-scheme: light)").matches)
+          return "light";
+        return "dark";
+      };
+
+      // Apply theme to a document element
+      const applyThemeToElement = (element: HTMLElement) => {
         const theme = getTheme();
-        document.documentElement.classList.remove("dark", "light");
-        document.documentElement.classList.add(theme);
+        element.classList.remove("dark", "light");
+        element.classList.add(theme);
+      };
+
+      // CRITICAL: Apply theme IMMEDIATELY after swap (synchronously, no delay)
+      // This fires immediately after DOM swap, before any rendering can occur
+      document.addEventListener("astro:after-swap", () => {
+        // Apply theme synchronously - no requestAnimationFrame to avoid any delay
+        applyThemeToElement(document.documentElement);
+      });
+
+      // Also apply theme on page load (backup) and update icons
+      document.addEventListener("astro:page-load", () => {
+        // Ensure theme is applied (should already be correct from after-swap, but ensure consistency)
+        applyThemeToElement(document.documentElement);
 
         // Update theme toggle icon if it exists
         const themeToggle = document.getElementById("theme-toggle");
@@ -90,6 +105,7 @@ const {
           const lightIcon = themeToggle.querySelector(".theme-icon-light");
 
           if (darkIcon && lightIcon) {
+            const theme = getTheme();
             if (theme === "dark") {
               darkIcon.classList.remove("opacity-0", "rotate-90", "scale-0");
               darkIcon.classList.add("opacity-100", "rotate-0", "scale-100");

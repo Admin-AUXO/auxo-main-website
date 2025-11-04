@@ -132,5 +132,11 @@ export default defineConfig({
     optimizeDeps: {
       exclude: ['astro:assets'],
     },
+    esbuild: {
+      // Suppress CSS syntax warnings from minification (these are false positives)
+      logOverride: {
+        'css-syntax-error': 'silent',
+      },
+    },
   },
 });

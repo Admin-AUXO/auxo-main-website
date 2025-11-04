@@ -115,6 +115,18 @@ export interface HomepageContent {
     };
     disclaimer: string;
   };
+  finalCta: {
+    title: string;
+    subtitle: string;
+    ctaText: string;
+    ctaHref: string;
+  };
+  methodology: {
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+    steps: ProcessStep[];
+  };
 }
 
 export const homepageContent: HomepageContent = {
@@ -278,6 +290,67 @@ export const homepageContent: HomepageContent = {
       href: 'contact',
     },
     disclaimer: 'No long-term contracts required • Cancel anytime',
+  },
+  finalCta: {
+    title: "Ready to Unlock Your Data's Potential?",
+    subtitle: "Let's build your data-driven future. Schedule a free consultation to discuss your analytics challenges and discover how AUXO can help you achieve your goals.",
+    ctaText: 'Schedule a Free Consultation',
+    ctaHref: 'contact',
+  },
+  methodology: {
+    title: 'Our Proven 4-Step',
+    titleHighlight: 'Methodology',
+    subtitle: 'We follow a structured, agile process to deliver actionable insights and measurable results, ensuring transparency and collaboration at every stage.',
+    steps: [
+      {
+        number: 1,
+        icon: 'mdi:magnify',
+        title: 'Discover & Strategize',
+        description: 'We start by understanding your business goals, challenges, and existing data landscape to define a clear analytics strategy.',
+        details: [
+          'Stakeholder workshops',
+          'Data source identification',
+          'KPI definition',
+          'Technology stack assessment',
+        ],
+      },
+      {
+        number: 2,
+        icon: 'mdi:cogs',
+        title: 'Engineer & Implement',
+        description: 'Our team builds robust data pipelines and infrastructure to ensure your data is clean, accessible, and ready for analysis.',
+        details: [
+          'ETL/ELT pipeline development',
+          'Data warehousing setup',
+          'Data governance framework',
+          'Cloud infrastructure configuration',
+        ],
+      },
+      {
+        number: 3,
+        icon: 'mdi:chart-bar',
+        title: 'Analyze & Visualize',
+        description: 'We transform raw data into interactive dashboards and reports, uncovering insights that drive informed decision-making.',
+        details: [
+          'Business intelligence dashboards',
+          'Predictive analytics models',
+          'Custom performance reports',
+          'Data storytelling and presentation',
+        ],
+      },
+      {
+        number: 4,
+        icon: 'mdi:trending-up',
+        title: 'Optimize & Scale',
+        description: 'We continuously refine your analytics solution, providing ongoing support to ensure it evolves with your business needs.',
+        details: [
+          'Performance monitoring',
+          'A/B testing and experimentation',
+          'User training and adoption',
+          'Scalability planning',
+        ],
+      },
+    ],
   },
   startupAdvantages: {
     advantages: [

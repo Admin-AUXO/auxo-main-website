@@ -505,7 +505,7 @@ const base = import.meta.env.BASE_URL;
     });
     
     // Keyboard navigation
-    question.addEventListener("keydown", (e: KeyboardEvent) => {
+    question.addEventListener("keydown", (e: any) => {
       const faqItem = question.parentElement;
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();

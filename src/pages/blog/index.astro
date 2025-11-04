@@ -8,7 +8,6 @@ import { getCollection } from 'astro:content';
 import { commonText } from '../../data/shared/common';
 import { blogPageContent } from '../../data/content/blog';
 import { calculateReadTime } from '../../utils/content';
-import { formatDateLong } from '../../utils/date';
 
 const base = import.meta.env.BASE_URL;
 
@@ -42,7 +41,7 @@ postsWithReadTime.forEach(post => {
 
 // Get popular tags (filter out tags with only 1 mention, then get top 10 with efficient tie-breaking)
 const popularTags = Array.from(tagCounts.entries())
-  .filter(([tag, count]) => count > 1) // Filter out tags with only 1 mention
+  .filter(([, count]) => count > 1) // Filter out tags with only 1 mention
   .sort((a, b) => {
     // Sort by count (descending), then alphabetically by tag name (ascending) for tie-breaking
     if (b[1] !== a[1]) {
@@ -57,7 +56,6 @@ const popularTags = Array.from(tagCounts.entries())
 const popularPosts = postsWithReadTime.slice(0, 4);
 
 ---
-
 
 <BaseLayout
   title="Blog - Data Analytics Insights | AUXO Data Labs"
@@ -330,123 +328,6 @@ const popularPosts = postsWithReadTime.slice(0, 4);
           </form>
         </div>
       </SectionContainer>
+      
   </PageContainer>
 </BaseLayout>
-
-<script is:inline define:vars={{ newsletterText: commonText.newsletter, postsData: JSON.stringify(postsWithReadTime.map(p => ({ id: p.id.replace(/\.mdx?$/, ''), title: p.data.title, description: p.data.description, tags: p.data.tags || [] }))) }}>
-  const form = document.getElementById('blog-newsletter-form');
-  const emailInput = document.getElementById('blog-newsletter-email');
-  const consentCheckbox = document.getElementById('blog-newsletter-consent');
-  const button = document.getElementById('blog-newsletter-btn');
-  const message = document.getElementById('blog-newsletter-message');
-
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const email = emailInput?.value;
-    const consent = consentCheckbox?.checked;
-
-    if (!email || !consent) return;
-
-    button.disabled = true;
-    button.textContent = newsletterText.subscribing;
-
-    try {
-      const response = await fetch(`${import.meta.env.BASE_URL}api/newsletter/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          consent,
-          timestamp: new Date().toISOString()
-        })
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        const errorMessage = data.error || newsletterText.error;
-        message.textContent = errorMessage;
-        message.className = 'text-sm text-accent-red';
-        return;
-      }
-
-      message.textContent = data.message || newsletterText.success;
-      message.className = 'text-sm text-accent-green';
-      form.reset();
-
-      // Hide message after 8 seconds
-      setTimeout(() => {
-        message.textContent = '';
-      }, 8000);
-
-    } catch (error) {
-      console.error('Newsletter subscription error:', error);
-      message.textContent = 'An error occurred. Please try again later.';
-      message.className = 'text-sm text-accent-red';
-    } finally {
-      button.disabled = false;
-      button.textContent = newsletterText.subscribe;
-    }
-  });
-
-  // Blog filtering functionality
-  const blogPostItems = document.querySelectorAll('.blog-post-item');
-  const tagFilterButtons = document.querySelectorAll('.tag-filter-btn');
-
-  let currentCategory = 'all';
-
-  // Update tag button visual states
-  function updateTagButtonStates() {
-    tagFilterButtons.forEach(btn => {
-      const tag = btn.getAttribute('data-tag') || '';
-      if (currentCategory === tag) {
-        // Active state - selected tag
-        btn.classList.remove('bg-card', 'border-theme');
-        btn.classList.add('bg-accent-green', 'text-white', 'border-accent-green');
-      } else {
-        // Inactive state - default styling
-        btn.classList.remove('bg-accent-green', 'text-white', 'border-accent-green');
-        btn.classList.add('bg-card', 'border-theme');
-      }
-    });
-  }
-
-  // Tag filtering from Popular Tags section
-  tagFilterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const tag = btn.getAttribute('data-tag') || '';
-      if (tag) {
-        // Toggle: if same tag clicked, reset to 'all', otherwise filter by tag
-        if (currentCategory === tag) {
-          currentCategory = 'all';
-        } else {
-          currentCategory = tag;
-        }
-        
-        updateTagButtonStates();
-        filterPosts();
-      }
-    });
-  });
-
-  // Filter posts based on category/tag
-  function filterPosts() {
-    blogPostItems.forEach((item) => {
-      const categories = JSON.parse(item.getAttribute('data-categories') || '[]');
-      
-      // Check category filter
-      const categoryMatch = currentCategory === 'all' || categories.includes(currentCategory);
-      
-      if (categoryMatch) {
-        item.classList.remove('hidden');
-      } else {
-        item.classList.add('hidden');
-      }
-    });
-  }
-
-  // Initialize - show all posts and set initial button states
-  updateTagButtonStates();
-  filterPosts();
-</script>

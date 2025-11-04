@@ -253,52 +253,58 @@ const expectedImpact = service.businessImpact && service.businessImpact.length >
             </h2>
             <div class="space-y-3 sm:space-y-4">
               {
-                useCases.map((useCase, index) => {
-                  // Infer industry from use case content
-                  const lowerText = (useCase.title + ' ' + useCase.description).toLowerCase();
-                  let industry = '';
-                  let industryIcon = 'mdi:briefcase';
-                  
-                  if (lowerText.includes('retail') || lowerText.includes('e-commerce') || lowerText.includes('store')) {
-                    industry = 'Retail';
-                    industryIcon = 'mdi:store';
-                  } else if (lowerText.includes('healthcare') || lowerText.includes('hospital') || lowerText.includes('medical')) {
-                    industry = 'Healthcare';
-                    industryIcon = 'mdi:hospital';
-                  } else if (lowerText.includes('finance') || lowerText.includes('banking') || lowerText.includes('financial')) {
-                    industry = 'Finance';
-                    industryIcon = 'mdi:currency-usd';
-                  } else if (lowerText.includes('manufacturing') || lowerText.includes('factory') || lowerText.includes('production')) {
-                    industry = 'Manufacturing';
-                    industryIcon = 'mdi:factory';
-                  } else if (lowerText.includes('logistics') || lowerText.includes('supply chain') || lowerText.includes('warehouse')) {
-                    industry = 'Logistics';
-                    industryIcon = 'mdi:truck-fast';
-                  } else if (lowerText.includes('professional services') || lowerText.includes('consulting')) {
-                    industry = 'Professional Services';
-                    industryIcon = 'mdi:briefcase';
-                  }
-                  
-                  return (
-                    <div class="flex items-start gap-3 p-3 sm:p-4 bg-card/50 rounded-lg border border-theme/50 hover:border-accent-green/50 hover:bg-card/70 transition-all duration-300 min-h-[44px]">
-                      <div class="w-8 h-8 bg-accent-green/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Icon name="mdi:lightbulb" class="w-4 h-4 text-accent-green transition-colors" />
-                      </div>
-                      <div class="flex-1">
-                        <div class="flex items-start gap-2 flex-wrap mb-1">
-                          <h3 class="font-semibold text-sm sm:text-base text-primary transition-colors flex-1">{useCase.title}</h3>
-                          {industry && (
-                            <span class="bg-surface text-secondary text-xs font-medium px-2 py-1 rounded-full border border-theme flex items-center gap-1 flex-shrink-0">
-                              <Icon name={industryIcon} class="w-3 h-3 text-accent-green" />
-                              <span class="hidden sm:inline">{industry}</span>
-                            </span>
-                          )}
+                useCases && useCases.length > 0 ? (
+                  useCases.map((useCase) => {
+                    // Infer industry from use case content
+                    const lowerText = (useCase.title + ' ' + useCase.description).toLowerCase();
+                    let industry = '';
+                    let industryIcon = 'mdi:briefcase';
+                    
+                    if (lowerText.includes('retail') || lowerText.includes('e-commerce') || lowerText.includes('store')) {
+                      industry = 'Retail';
+                      industryIcon = 'mdi:store';
+                    } else if (lowerText.includes('healthcare') || lowerText.includes('hospital') || lowerText.includes('medical')) {
+                      industry = 'Healthcare';
+                      industryIcon = 'mdi:hospital';
+                    } else if (lowerText.includes('finance') || lowerText.includes('banking') || lowerText.includes('financial')) {
+                      industry = 'Finance';
+                      industryIcon = 'mdi:currency-usd';
+                    } else if (lowerText.includes('manufacturing') || lowerText.includes('factory') || lowerText.includes('production')) {
+                      industry = 'Manufacturing';
+                      industryIcon = 'mdi:factory';
+                    } else if (lowerText.includes('logistics') || lowerText.includes('supply chain') || lowerText.includes('warehouse')) {
+                      industry = 'Logistics';
+                      industryIcon = 'mdi:truck-fast';
+                    } else if (lowerText.includes('professional services') || lowerText.includes('consulting')) {
+                      industry = 'Professional Services';
+                      industryIcon = 'mdi:briefcase';
+                    }
+                    
+                    return (
+                      <div class="bg-card border border-theme rounded-lg p-4 sm:p-5 hover:border-accent-green/50 transition-colors">
+                        <div class="flex items-start gap-3">
+                          <div class="w-8 h-8 bg-accent-green/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <Icon name="mdi:lightbulb" class="w-4 h-4 text-accent-green transition-colors" />
+                          </div>
+                          <div class="flex-1">
+                            <div class="flex items-start gap-2 flex-wrap mb-1">
+                              <h3 class="font-semibold text-sm sm:text-base text-primary transition-colors flex-1">{useCase.title}</h3>
+                              {industry && (
+                                <span class="bg-surface text-secondary text-xs font-medium px-2 py-1 rounded-full border border-theme flex items-center gap-1 flex-shrink-0">
+                                  <Icon name={industryIcon} class="w-3 h-3 text-accent-green" />
+                                  <span class="hidden sm:inline">{industry}</span>
+                                </span>
+                              )}
+                            </div>
+                            <p class="text-xs sm:text-sm text-secondary transition-colors leading-relaxed">{useCase.description}</p>
+                          </div>
                         </div>
-                        <p class="text-xs sm:text-sm text-secondary transition-colors leading-relaxed">{useCase.description}</p>
                       </div>
-                    </div>
-                  );
-                })
+                    );
+                  })
+                ) : (
+                  <p class="text-sm text-secondary transition-colors">No specific use cases found for this service.</p>
+                )
               }
             </div>
           </div>

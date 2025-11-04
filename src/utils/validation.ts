@@ -97,15 +97,10 @@ export type ContactFormData = z.infer<typeof contactFormSchema>;
 export type NewsletterData = z.infer<typeof newsletterSchema>;
 
 /**
- * Shared email validation regex
- * @deprecated Use Zod schema instead
+ * Checks if a value is a non-empty string.
+ * @param {any} value - The value to check.
+ * @returns {boolean} True if the value is a non-empty string, false otherwise.
  */
-export const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-/**
- * Email validation function
- * @deprecated Use Zod schema instead
- */
-export function isValidEmail(email: string): boolean {
-  return EMAIL_REGEX.test(email);
+export function isNonEmptyString(value: any): boolean {
+  return typeof value === 'string' && value.trim() !== '';
 }

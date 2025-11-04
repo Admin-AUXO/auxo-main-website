@@ -252,7 +252,7 @@ const navItems: NavItem[] = [
               <span class="mobile-nav-active-bg absolute inset-0 bg-accent-green/10 rounded-lg opacity-0 transition-opacity duration-300 pointer-events-none"></span>
             </button>
             <div class="mobile-dropdown-content hidden pl-4 mt-3 space-y-2 overflow-hidden border-l-2 border-theme ml-2">
-              {item.dropdown.map((sub: DropdownItem, subIndex) => (
+              {item.dropdown.map((sub: DropdownItem) => (
                 <a 
                   href={sub.href} 
                   class="flex items-center gap-3 px-4 py-3 min-h-[48px] text-sm text-secondary hover:text-accent-green active:text-accent-green active:bg-surface rounded-lg transition-all duration-200 touch-manipulation group/item bg-surface border border-transparent hover:border-theme-light active:border-theme-light relative"
@@ -744,35 +744,37 @@ const navItems: NavItem[] = [
   });
 
   // Scroll-based navigation styling
-  let lastScrollTop = 0;
   const nav = document.getElementById('main-navigation');
   const scrollProgress = document.createElement('div');
   scrollProgress.className = 'nav-scroll-progress';
   if (nav) {
     nav.appendChild(scrollProgress);
   }
-
-  const handleScroll = () => {
-    if (!nav) return;
-    
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPercent = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-    
-    // Update scroll progress
-    if (scrollProgress) {
-      scrollProgress.style.transform = `scaleX(${scrollPercent / 100})`;
+  let isScrolling = false;
+  
+  function handleScroll() {
+    if (!isScrolling) {
+      window.requestAnimationFrame(() => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+        
+        // Update scroll progress
+        if (scrollProgress) {
+          scrollProgress.style.transform = `scaleX(${scrollPercent / 100})`;
+        }
+        
+        // Add scrolled class after initial scroll
+        if (scrollTop > 10) {
+          nav?.classList.add('nav-scrolled');
+        } else {
+          nav?.classList.remove('nav-scrolled');
+        }
+        
+        isScrolling = false;
+      });
     }
-    
-    // Add scrolled class after initial scroll
-    if (scrollTop > 10) {
-      nav.classList.add('nav-scrolled');
-    } else {
-      nav.classList.remove('nav-scrolled');
-    }
-    
-    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-  };
+  }
 
   window.addEventListener('scroll', handleScroll, { passive: true });
   handleScroll(); // Initial call

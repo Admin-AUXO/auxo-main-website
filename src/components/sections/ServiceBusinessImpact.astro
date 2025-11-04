@@ -1,11 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 
-interface ServiceBusinessImpactProps {
-  impacts: string[];
-}
-
-const { impacts } = Astro.props;
+const { service } = Astro.props;
 
 // Helper function to get appropriate icon for impact
 const getImpactIcon = (impact: string): string => {
@@ -56,7 +52,7 @@ const getImpactIcon = (impact: string): string => {
     Business Outcomes You Can Expect
   </h2>
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-    {impacts.map((impact: string, index: number) => {
+    {service.impacts.map((impact: string, index: number) => {
       // Check if impact contains percentage or improvement indicators
       const hasPercentage = /\d+%/.test(impact) || /\d+x/.test(impact) || /\d+\s*(times|fold)/i.test(impact);
       const isHighImpact = hasPercentage || index < 2; // First 2 impacts are typically high priority

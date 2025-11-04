@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import SEO from "../components/SEO.astro";
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
@@ -7,6 +7,7 @@ import CookieConsent from "../components/CookieConsent.astro";
 import DevBar from "../components/DevBar.astro";
 import ParticleBackground from "../components/ParticleBackground.astro";
 import BackToTop from "../components/BackToTop.astro";
+import { siteData } from "../data/config/site";
 import "../styles/global.css";
 
 export interface Props {
@@ -54,7 +55,10 @@ const {
       tags={tags}
       canonicalURL={canonicalURL}
     />
-    <ViewTransitions />
+    <meta name="theme-color" content={siteData.themeColor} />
+    <meta name="author" content={siteData.author} />
+
+    <ClientRouter />
     <!-- Initialize theme before page load to prevent flash -->
     <script is:inline>
       (function () {
@@ -132,8 +136,8 @@ const {
     {
       showParticles && (
         <script
+          is:inline
           src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"
-          defer
         />
       )
     }
@@ -158,10 +162,10 @@ const {
       transition:animate="fade"
     >
       <slot />
+      <Footer hideNewsletter={hideFooterNewsletter} />
+      <BackToTop />
+      <CookieConsent />
+      <DevBar />
     </main>
-    <Footer hideNewsletter={hideFooterNewsletter} />
-    <BackToTop />
-    <CookieConsent />
-    <DevBar />
   </body>
 </html>

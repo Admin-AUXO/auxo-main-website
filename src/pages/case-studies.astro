@@ -303,7 +303,9 @@ const base = import.meta.env.BASE_URL;
         tooltipEl.style.marginBottom = '8px';
         tooltipEl.style.left = '50%';
         tooltipEl.style.transform = 'translateX(-50%)';
-        card.style.position = 'relative';
+        if (card instanceof HTMLElement) {
+          card.style.position = 'relative';
+        }
         card.appendChild(tooltipEl);
       });
       

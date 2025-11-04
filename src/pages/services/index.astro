@@ -442,7 +442,7 @@ const servicesFAQs = [
         </div>
 
         <div class="space-y-3 sm:space-y-4">
-          {servicesFAQs.map((faq, index) => {
+          {servicesFAQs.map((faq) => {
             // Extract short answer (first sentence) if available
             const shortAnswer = faq.answer.includes('.') ? faq.answer.split('.')[0] + '.' : null;
             const hasShortAnswer = shortAnswer && shortAnswer.length < 150 && faq.answer.length > shortAnswer.length;

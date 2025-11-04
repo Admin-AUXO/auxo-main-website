@@ -417,7 +417,10 @@ const calculatorFAQs = [
   </PageContainer>
 </BaseLayout>
 
-<script define:vars={{ content: maturityCalculatorContent }}>
+<script
+  is:inline
+  define:vars={{ content: maturityCalculatorContent }}
+>
   // Assessment Data - imported from content file
   const classificationQuestions = content.classificationQuestions;
   const questionSets = content.questions;
@@ -563,7 +566,7 @@ const calculatorFAQs = [
     if (!optionsContainer) return;
     optionsContainer.innerHTML = "";
 
-    q.options.forEach((option, optIndex) => {
+    q.options.forEach((option) => {
       const button = document.createElement("button");
       const isSelected = currentAnswers[index] === option.score;
 
@@ -581,7 +584,7 @@ const calculatorFAQs = [
 
       button.setAttribute("data-score", String(option.score));
       button.addEventListener("click", (e) =>
-        selectAnswer(option.score, optIndex, e),
+        selectAnswer(option.score, e),
       );
 
       optionsContainer.appendChild(button);
@@ -595,9 +598,8 @@ const calculatorFAQs = [
     if (nextBtn) nextBtn.disabled = !currentAnswers[index];
   }
 
-  function selectAnswer(score, optIndex, e) {
+  function selectAnswer(score, e) {
     setCurrentAnswer(currentQuestion, score);
-    const currentAnswers = getCurrentAnswers();
 
     // Get all option buttons for current question
     const optionsContainer = getElementSafe("answer-options");
@@ -774,12 +776,6 @@ const calculatorFAQs = [
             : score >= 2
               ? "text-orange-400"
               : "text-red-400";
-      const bgGradient =
-        score >= 4
-          ? "from-accent-green/20 to-accent-green/30"
-          : score >= 3
-            ? "from-yellow-400/20 to-orange-400/20"
-            : "from-orange-400/20 to-red-400/20";
 
       const div = document.createElement("div");
       div.className =
@@ -942,15 +938,13 @@ const calculatorFAQs = [
     const recs = [];
 
     // Find lowest and highest scoring dimensions
-    const sortedDimensions = Object.entries(scores).sort((a, b) => a[1] - b[1]);
+    const sortedDimensions = Object.entries(scores)
+      .map(([dimension, score]) => ({ dimension, score }))
+      .sort((a, b) => a.score - b.score);
+
     const lowest = sortedDimensions[0];
-    const highest = sortedDimensions[sortedDimensions.length - 1];
 
     // Get pathway-specific context
-    const pathwayName =
-      pathway && pathways[pathway]
-        ? pathways[pathway].name
-        : "your organization";
     const companySize =
       classificationAnswers && classificationAnswers[0]
         ? classificationAnswers[0]

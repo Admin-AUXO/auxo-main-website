@@ -1,5 +1,6 @@
 export const siteData = {
   name: 'AUXO Data Labs',
+  author: 'AUXO Data Labs',
   tagline: 'Look Beyond Data',
   description: 'A new data analytics consultancy in Dubai, UAE. Enterprise-grade solutions delivered with startup agility and personal attention.',
   url: 'https://auxodata.com',
@@ -27,4 +28,5 @@ export const siteData = {
     responseTime: '<24hrs',
   },
   privacyEmail: 'privacy@auxodata.com',
+  themeColor: '#121212',
 };

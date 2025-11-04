@@ -77,15 +77,17 @@ export default defineConfig({
         // Optimized: Only icons actually used in the project (audited from codebase)
         mdi: [
           // Alphabetically sorted for easier maintenance
-          'account', 'account-group', 'alert-circle', 'arrow-left', 'arrow-right',
-          'book-open', 'briefcase', 'calculator', 'calendar', 'calendar-check', 'calendar-clock', 'certificate', 'clock',
-          'chart-bar', 'chart-line', 'chart-scatter-plot', 'check', 'check-circle', 'chevron-down',
-          'currency-usd', 'database', 'database-cog', 'download', 'email', 'email-newsletter',
-          'email-outline', 'eye', 'factory', 'file-document', 'handshake', 'help-circle', 'home',
-          'hospital', 'information', 'lightbulb', 'linkedin', 'lock', 'map-marker', 'moon-waning-crescent',
-          'office-building', 'package-variant', 'phone', 'post', 'robot', 'rocket',
-          'security', 'share-variant', 'shield-check', 'star', 'store', 'strategy',
-          'target', 'tools', 'trophy', 'truck-fast', 'twitter', 'white-balance-sunny'
+          'account', 'account-group', 'alert', 'alert-circle', 'arrow-left', 'arrow-right', 'arrow-up', 'arrow-down',
+          'book-open', 'briefcase', 'calculator', 'calendar', 'calendar-check', 'calendar-clock', 'certificate', 'chat', 
+          'check', 'check-circle', 'chevron-down', 'chevron-left', 'chevron-right', 'chevron-up', 'clock', 'close',
+          'chart-bar', 'chart-line', 'chart-scatter-plot', 'cloud', 'code', 'currency-usd',
+          'database', 'database-cog', 'download', 'email', 'email-newsletter', 'email-outline', 
+          'eye', 'factory', 'file-document', 'filter', 'handshake', 'heart', 'help-circle', 'home',
+          'hospital', 'information', 'lightbulb', 'lightning-bolt', 'linkedin', 'lock', 'map-marker', 'menu',
+          'message', 'minus', 'moon-waning-crescent', 'office-building', 'package-variant', 'phone', 'plus', 'post',
+          'refresh', 'robot', 'rocket', 'search', 'security', 'server', 'settings', 'share-variant',
+          'shield-check', 'sparkles', 'star', 'store', 'strategy', 'sync', 'target', 'tools', 
+          'trending-up', 'trophy', 'truck-fast', 'twitter', 'white-balance-sunny'
         ],
       },
       svgoOptions: {

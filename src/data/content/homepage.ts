@@ -28,6 +28,7 @@ export interface HomepageContent {
     title: string;
     titleHighlight: string;
     subtitle: string;
+    subheadline?: string;
     primaryCta: {
       text: string;
       href: string;
@@ -38,6 +39,17 @@ export interface HomepageContent {
     };
     features: string[];
     scrollIndicator: string;
+    startupAdvantage?: {
+      text: string;
+      href: string;
+    };
+  };
+  startupAdvantages: {
+    advantages: Array<{
+      icon: string;
+      title: string;
+      description: string;
+    }>;
   };
   problems: {
     title: string;
@@ -122,12 +134,13 @@ export const homepageContent: HomepageContent = {
     title: 'Every Organization has data.',
     titleHighlight: 'Few understand it',
     subtitle: 'Empowering confident, data-driven decisions at speed and scale.',
+    subheadline: 'We turn your data into decisions. No jargon. No delays. Just results.',
     primaryCta: {
-      text: 'Schedule Free Consultation',
+      text: "Let's Talk",
       href: 'contact',
     },
     secondaryCta: {
-      text: 'Explore Services',
+      text: 'See How We Work',
       href: '#services',
     },
     features: [
@@ -136,6 +149,10 @@ export const homepageContent: HomepageContent = {
       'Navigate Uncertainty',
     ],
     scrollIndicator: 'Scroll to explore',
+    startupAdvantage: {
+      text: 'Why work with a startup? Agility. Innovation. Personal attention. See the difference',
+      href: '#startup-advantages',
+    },
   },
   problems: {
     title: 'Are You Struggling with',
@@ -317,8 +334,32 @@ export const homepageContent: HomepageContent = {
   finalCta: {
     title: 'Ready to Transform Your Business?',
     subtitle: 'Schedule a free consultation to discuss your analytics needs',
-    ctaText: 'Get Started Today',
+    ctaText: "Let's Talk",
     ctaHref: 'contact',
+  },
+  startupAdvantages: {
+    advantages: [
+      {
+        icon: 'mdi:account-group',
+        title: 'Direct Access to Founders',
+        description: 'Work directly with founders and senior team members. No account managers. No junior consultants.',
+      },
+      {
+        icon: 'mdi:rocket',
+        title: 'Agile Methodology',
+        description: 'Fast results through iterative sprints. No lengthy planning phases. Quick wins, continuous improvement.',
+      },
+      {
+        icon: 'mdi:lightning-bolt',
+        title: 'No Bureaucracy',
+        description: 'Fast decisions. Quick responses. No layers of approval. We move at startup speed.',
+      },
+      {
+        icon: 'mdi:heart',
+        title: 'Personal Attention',
+        description: "You're not just a number. We care about your success. Every client gets dedicated attention.",
+      },
+    ],
   },
 };
 

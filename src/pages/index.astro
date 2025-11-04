@@ -6,12 +6,14 @@ import { siteData } from "../data/config/site";
 // Section Components
 import HeroSection from "../components/sections/HeroSection.astro";
 import ServicesSection from "../components/sections/ServicesSection.astro";
+import StartupAdvantages from "../components/sections/StartupAdvantages.astro";
 import MethodologySection from "../components/sections/MethodologySection.astro";
 import WhyChooseSection from "../components/sections/WhyChooseSection.astro";
 import MaturityCalculatorSection from "../components/sections/MaturityCalculatorSection.astro";
 import BlogPreview from "../components/sections/BlogPreview.astro";
 import LaunchOfferSection from "../components/sections/LaunchOfferSection.astro";
 import FinalCtaSection from "../components/sections/FinalCtaSection.astro";
+import { homepageContent } from "../data/content/homepage";
 
 // Styles and Scripts
 import "../styles/homepage.css";
@@ -28,6 +30,10 @@ import "../styles/homepage.css";
   <HeroSection />
 
   <ServicesSection />
+
+  <StartupAdvantages
+    advantages={homepageContent.startupAdvantages.advantages}
+  />
 
   <MethodologySection />
 

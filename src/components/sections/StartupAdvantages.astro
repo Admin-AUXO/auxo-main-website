@@ -1,0 +1,132 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  advantages: Array<{
+    icon: string;
+    title: string;
+    description: string;
+  }>;
+}
+
+const { advantages } = Astro.props;
+---
+
+<section
+  id="startup-advantages"
+  class="py-12 sm:py-16 lg:py-20 bg-card transition-colors"
+>
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      <!-- Section Header -->
+      <div class="text-center mb-10 sm:mb-12 md:mb-16">
+        <div
+          class="inline-block mb-4 px-4 py-2 bg-accent-green/10 border border-accent-green/30 rounded-full"
+        >
+          <span
+            class="text-accent-green text-xs md:text-sm font-semibold tracking-wide transition-colors"
+          >
+            Why Choose a Startup?
+          </span>
+        </div>
+        <h2
+          class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 text-primary transition-colors"
+        >
+          <span class="block">Startup Advantages,</span>
+          <span class="text-accent-green transition-colors"
+            >Enterprise Expertise</span
+          >
+        </h2>
+        <p
+          class="text-sm sm:text-base md:text-lg text-secondary max-w-3xl mx-auto leading-relaxed transition-colors"
+        >
+          We're new. That's our advantage. No legacy processes. Latest tools.
+          Fresh perspective. Direct founder access.
+        </p>
+      </div>
+
+      <!-- Advantages Grid -->
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"
+      >
+        {
+          advantages.map((advantage, index) => (
+            <div
+              class="group bg-card border border-theme rounded-xl p-6 hover:border-accent-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-accent-green/10 animate-fade-in"
+              data-animation-delay={index * 100}
+            >
+              <div class="w-12 h-12 sm:w-14 sm:h-14 bg-accent-green/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-accent-green/20 transition-colors">
+                <Icon
+                  name={advantage.icon}
+                  class="w-6 h-6 sm:w-7 sm:h-7 text-accent-green transition-transform group-hover:scale-110"
+                />
+              </div>
+              <h3 class="text-lg sm:text-xl font-bold mb-2 text-primary transition-colors">
+                {advantage.title}
+              </h3>
+              <p class="text-sm sm:text-base text-secondary leading-relaxed transition-colors">
+                {advantage.description}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Transparency Box -->
+      <div
+        class="mt-10 sm:mt-12 md:mt-16 bg-accent-green/10 border border-accent-green/30 rounded-xl p-6 sm:p-8 md:p-10 text-center animate-fade-in"
+      >
+        <div class="max-w-3xl mx-auto">
+          <Icon
+            name="mdi:rocket"
+            class="w-12 h-12 sm:w-16 sm:h-16 text-accent-green mx-auto mb-4 sm:mb-6"
+          />
+          <h3
+            class="text-xl sm:text-2xl md:text-3xl font-bold mb-4 text-primary transition-colors"
+          >
+            We're New. That's Our Advantage.
+          </h3>
+          <p
+            class="text-sm sm:text-base md:text-lg text-secondary leading-relaxed mb-6 transition-colors"
+          >
+            No legacy processes holding us back. Latest tools and methodologies.
+            Fresh perspective on your challenges. Direct access to founders who
+            care about your success.
+          </p>
+          <div
+            class="flex flex-wrap justify-center gap-4 text-sm sm:text-base text-secondary"
+          >
+            <div class="flex items-center gap-2">
+              <Icon
+                name="mdi:check-circle"
+                class="w-5 h-5 text-accent-green flex-shrink-0"
+              />
+              <span>No bureaucracy</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <Icon
+                name="mdi:check-circle"
+                class="w-5 h-5 text-accent-green flex-shrink-0"
+              />
+              <span>Fast decisions</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <Icon
+                name="mdi:check-circle"
+                class="w-5 h-5 text-accent-green flex-shrink-0"
+              />
+              <span>Personal attention</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <Icon
+                name="mdi:check-circle"
+                class="w-5 h-5 text-accent-green flex-shrink-0"
+              />
+              <span>Latest tools</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

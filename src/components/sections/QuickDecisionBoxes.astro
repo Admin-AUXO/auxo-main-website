@@ -18,8 +18,8 @@ const { cards } = Astro.props;
 <div class="max-w-6xl mx-auto">
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
     {cards.map((card) => (
-      <div class="bg-card border-2 border-theme rounded-xl p-6 sm:p-8 hover:border-accent-green/60 transition-all duration-300 hover:shadow-lg">
-        <div class="flex items-center gap-4 mb-4">
+      <div class="bg-card border-2 border-theme rounded-xl p-6 sm:p-8 hover:border-accent-green/60 transition-all duration-300 hover:shadow-lg flex flex-col h-full">
+        <div class="flex items-center gap-4 mb-4 flex-shrink-0">
           <div class="w-12 h-12 sm:w-14 sm:h-14 bg-accent-green/20 rounded-lg flex items-center justify-center flex-shrink-0">
             <Icon name={card.icon} class="w-6 h-6 sm:w-7 sm:h-7 text-accent-green" />
           </div>
@@ -33,7 +33,7 @@ const { cards } = Astro.props;
           </div>
         </div>
         {card.description && (
-          <p class="text-xs sm:text-sm text-secondary leading-relaxed transition-colors">
+          <p class="text-xs sm:text-sm text-secondary leading-relaxed transition-colors flex-1 overflow-hidden">
             {card.description}
           </p>
         )}

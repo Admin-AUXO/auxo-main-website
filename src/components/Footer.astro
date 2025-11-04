@@ -65,40 +65,69 @@ const legalLinks = [
         </div>
 
         <!-- Contact Information -->
-        <div class="space-y-1.5 text-sm">
-          <a
-            href={`mailto:${siteData.email}`}
-            class="flex items-center gap-3 text-secondary hover:text-accent-green transition-colors duration-200 group"
-          >
-            <div
-              class="w-9 h-9 bg-surface rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-accent-green/10 transition-colors"
+        <div class="space-y-3 text-sm">
+          <div class="space-y-2">
+            <a
+              href={`mailto:${siteData.email}`}
+              class="flex items-center gap-3 text-secondary hover:text-accent-green transition-colors duration-200 group"
             >
-              <Icon name="mdi:email" class="w-4 h-4 text-accent-green" />
-            </div>
-            <span class="break-all">{siteData.email}</span>
-          </a>
+              <div
+                class="w-9 h-9 bg-surface rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-accent-green/10 transition-colors"
+              >
+                <Icon name="mdi:email" class="w-4 h-4 text-accent-green" />
+              </div>
+              <span class="break-all">{siteData.email}</span>
+            </a>
+            <!-- Email Action Button -->
+            <a
+              href={`mailto:${siteData.email}?subject=Inquiry from AUXO Website`}
+              class="inline-flex items-center gap-2 px-4 py-2 bg-accent-green/10 hover:bg-accent-green/20 border border-accent-green/30 rounded-lg text-xs font-semibold text-accent-green transition-all duration-200 min-h-[36px] group"
+            >
+              <Icon name="mdi:email-outline" class="w-4 h-4 group-hover:scale-110 transition-transform" />
+              <span>Email Now</span>
+            </a>
+          </div>
           {
             siteData.phone && (
-              <a
-                href={`tel:${siteData.phone}`}
-                class="flex items-center gap-3 text-secondary hover:text-accent-green transition-colors duration-200 group"
-              >
-                <div class="w-9 h-9 bg-surface rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-accent-green/10 transition-colors">
-                  <Icon name="mdi:phone" class="w-4 h-4 text-accent-green" />
-                </div>
-                <span>{siteData.phone}</span>
-              </a>
+              <div class="space-y-2">
+                <a
+                  href={`tel:${siteData.phone}`}
+                  class="flex items-center gap-3 text-secondary hover:text-accent-green transition-colors duration-200 group"
+                >
+                  <div class="w-9 h-9 bg-surface rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-accent-green/10 transition-colors">
+                    <Icon name="mdi:phone" class="w-4 h-4 text-accent-green" />
+                  </div>
+                  <span>{siteData.phone}</span>
+                </a>
+                <!-- Phone Action Button -->
+                <a
+                  href={`tel:${siteData.phone}`}
+                  class="inline-flex items-center gap-2 px-4 py-2 bg-accent-green/10 hover:bg-accent-green/20 border border-accent-green/30 rounded-lg text-xs font-semibold text-accent-green transition-all duration-200 min-h-[36px] group"
+                >
+                  <Icon name="mdi:phone" class="w-4 h-4 group-hover:scale-110 transition-transform" />
+                  <span>Call Now</span>
+                </a>
+              </div>
             )
           }
-          <div class="flex items-center gap-3 text-secondary">
-            <div
-              class="w-9 h-9 bg-surface rounded-lg flex items-center justify-center flex-shrink-0"
-            >
-              <Icon name="mdi:map-marker" class="w-4 h-4 text-accent-green" />
+          <div class="space-y-2">
+            <div class="flex items-center gap-3 text-secondary">
+              <div
+                class="w-9 h-9 bg-surface rounded-lg flex items-center justify-center flex-shrink-0"
+              >
+                <Icon name="mdi:map-marker" class="w-4 h-4 text-accent-green" />
+              </div>
+              <span>
+                {siteData.address.city}, {siteData.address.country}
+              </span>
             </div>
-            <span>
-              {siteData.address.city}, {siteData.address.country}
-            </span>
+            <!-- Response Time Guarantee -->
+            <div class="flex items-center gap-2 px-3 py-2 bg-accent-green/10 border border-accent-green/30 rounded-lg">
+              <Icon name="mdi:clock" class="w-4 h-4 text-accent-green flex-shrink-0" />
+              <span class="text-xs text-secondary transition-colors">
+                We respond within <span class="font-semibold text-accent-green">24 hours</span>
+              </span>
+            </div>
           </div>
         </div>
 
@@ -133,85 +162,140 @@ const legalLinks = [
 
       <!-- Navigation Links -->
       <section
-        class="lg:col-span-7 grid grid-cols-2 sm:grid-cols-2 gap-6 sm:gap-6"
+        class="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-6"
       >
-        <!-- Quick Links -->
+        <!-- Learn Section -->
         <div class="space-y-4">
           <h4
-            class="text-xs font-bold tracking-wide text-primary uppercase transition-colors"
+            class="text-xs font-bold tracking-wide text-primary uppercase transition-colors flex items-center gap-2"
           >
-            Navigation
+            <Icon name="mdi:book-open" class="w-4 h-4 text-accent-green" />
+            Learn
           </h4>
           <nav>
             <ul class="space-y-2">
-              {
-                quickLinks.map((link) => (
-                  <li>
-                    <a
-                      href={link.href}
-                      class="text-sm text-secondary hover:text-accent-green transition-colors duration-200 inline-flex items-center gap-2 group min-h-[32px]"
-                    >
-                      <span>{link.label}</span>
-                      <Icon
-                        name="mdi:arrow-right"
-                        class="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
-                      />
-                    </a>
-                  </li>
-                ))
-              }
+              <li>
+                <a
+                  href={`${base}about/`}
+                  class="text-sm text-secondary hover:text-accent-green transition-colors duration-200 inline-flex items-center gap-2 group min-h-[32px]"
+                >
+                  <span>About Us</span>
+                  <Icon
+                    name="mdi:arrow-right"
+                    class="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
+                  />
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`${base}services/`}
+                  class="text-sm text-secondary hover:text-accent-green transition-colors duration-200 inline-flex items-center gap-2 group min-h-[32px]"
+                >
+                  <span>Services</span>
+                  <Icon
+                    name="mdi:arrow-right"
+                    class="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
+                  />
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`${base}case-studies/`}
+                  class="text-sm text-secondary hover:text-accent-green transition-colors duration-200 inline-flex items-center gap-2 group min-h-[32px]"
+                >
+                  <span>Case Studies</span>
+                  <Icon
+                    name="mdi:arrow-right"
+                    class="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
+                  />
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`${base}blog/`}
+                  class="text-sm text-secondary hover:text-accent-green transition-colors duration-200 inline-flex items-center gap-2 group min-h-[32px]"
+                >
+                  <span>Blog</span>
+                  <Icon
+                    name="mdi:arrow-right"
+                    class="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
+                  />
+                </a>
+              </li>
             </ul>
           </nav>
         </div>
 
-        <!-- Resources -->
+        <!-- Engage Section -->
         <div class="space-y-4">
           <h4
-            class="text-xs font-bold tracking-wide text-primary uppercase transition-colors"
+            class="text-xs font-bold tracking-wide text-primary uppercase transition-colors flex items-center gap-2"
           >
-            Resources
+            <Icon name="mdi:handshake" class="w-4 h-4 text-accent-green" />
+            Engage
+          </h4>
+          <ul class="space-y-2">
+            <li>
+              <a
+                href={`${base}contact/`}
+                class="text-sm text-secondary hover:text-accent-green transition-colors duration-200 inline-flex items-center gap-2 group min-h-[32px]"
+              >
+                <Icon
+                  name="mdi:message"
+                  class="w-4 h-4 text-accent-green/70 group-hover:text-accent-green transition-colors flex-shrink-0"
+                />
+                <span>Contact Us</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href={`${base}tools/maturity-calculator/`}
+                class="text-sm text-secondary hover:text-accent-green transition-colors duration-200 inline-flex items-center gap-2 group min-h-[32px]"
+              >
+                <Icon
+                  name="mdi:calculator"
+                  class="w-4 h-4 text-accent-green/70 group-hover:text-accent-green transition-colors flex-shrink-0"
+                />
+                <span>Maturity Calculator</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href={`${base}faq/`}
+                class="text-sm text-secondary hover:text-accent-green transition-colors duration-200 inline-flex items-center gap-2 group min-h-[32px]"
+              >
+                <Icon
+                  name="mdi:help-circle"
+                  class="w-4 h-4 text-accent-green/70 group-hover:text-accent-green transition-colors flex-shrink-0"
+                />
+                <span>FAQ</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Legal Section -->
+        <div class="space-y-4">
+          <h4
+            class="text-xs font-bold tracking-wide text-primary uppercase transition-colors flex items-center gap-2"
+          >
+            <Icon name="mdi:shield-check" class="w-4 h-4 text-accent-green" />
+            Legal
           </h4>
           <ul class="space-y-2">
             {
-              resourceLinks.map((link) => (
+              legalLinks.map((link) => (
                 <li>
                   <a
                     href={link.href}
-                    class="text-sm text-secondary hover:text-accent-green transition-colors duration-200 inline-flex items-center gap-2 group min-h-[32px]"
+                    class="text-sm text-secondary hover:text-accent-green transition-colors duration-200 min-h-[32px] inline-flex items-center"
                   >
-                    <Icon
-                      name={link.icon}
-                      class="w-4 h-4 text-accent-green/70 group-hover:text-accent-green transition-colors flex-shrink-0"
-                    />
-                    <span>{link.label}</span>
+                    {link.label}
                   </a>
                 </li>
               ))
             }
           </ul>
-
-          <!-- Legal Links -->
-          <div class="pt-3 border-t border-theme">
-            <h4
-              class="text-xs font-bold tracking-wide text-primary uppercase transition-colors mb-4"
-            >
-              Legal
-            </h4>
-            <ul class="space-y-2">
-              {
-                legalLinks.map((link) => (
-                  <li>
-                    <a
-                      href={link.href}
-                      class="text-sm text-secondary hover:text-accent-green transition-colors duration-200 min-h-[32px] inline-flex items-center"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
         </div>
       </section>
 
@@ -247,15 +331,43 @@ const legalLinks = [
           class="bg-card/50 border border-accent-green/20 rounded-xl p-6 sm:p-8"
         >
           <div class="max-w-2xl mx-auto text-center">
-            <h4
-              class="text-lg sm:text-xl font-bold text-primary mb-3 transition-colors"
-            >
-              Get monthly insights on data analytics, delivered to your inbox
-            </h4>
-            <p class="text-sm text-secondary mb-6 transition-colors">
+            <div class="flex items-center justify-center gap-3 mb-3">
+              <h4
+                class="text-lg sm:text-xl font-bold text-primary transition-colors"
+              >
+                Get monthly insights on data analytics, delivered to your inbox
+              </h4>
+              <!-- Frequency Badge -->
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-accent-green/10 border border-accent-green/30 rounded-full text-xs font-semibold text-accent-green whitespace-nowrap">
+                <Icon name="mdi:calendar-check" class="w-3.5 h-3.5" />
+                Monthly
+              </span>
+            </div>
+            <p class="text-sm text-secondary mb-4 transition-colors">
               Join executives who want to stay ahead of the curve. Get practical
               insights, industry trends, and actionable strategies—no fluff.
             </p>
+            
+            <!-- Recent Newsletter Preview -->
+            <div class="bg-surface/50 border border-theme rounded-lg p-4 mb-6 max-w-xl mx-auto text-left">
+              <p class="text-xs font-semibold mb-2 text-primary uppercase tracking-wide transition-colors">
+                Recent Topics
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 bg-card border border-theme rounded-md text-xs text-secondary transition-colors">
+                  Data Maturity Models
+                </span>
+                <span class="px-2.5 py-1 bg-card border border-theme rounded-md text-xs text-secondary transition-colors">
+                  ROI Frameworks
+                </span>
+                <span class="px-2.5 py-1 bg-card border border-theme rounded-md text-xs text-secondary transition-colors">
+                  Analytics Best Practices
+                </span>
+                <span class="px-2.5 py-1 bg-card border border-theme rounded-md text-xs text-secondary transition-colors">
+                  Startup Case Studies
+                </span>
+              </div>
+            </div>
 
             <!-- Value Proposition Cards -->
             <div
@@ -442,14 +554,18 @@ const legalLinks = [
         <!-- Separator (hidden on mobile, visible on tablet+) -->
         <span class="hidden sm:inline text-tertiary" aria-hidden="true">•</span>
 
-        <!-- PDPL Compliance -->
-        <span class="flex items-center gap-2 whitespace-nowrap">
+        <!-- PDPL Compliance Badge -->
+        <a
+          href={`${base}legal/privacy-policy/`}
+          class="flex items-center gap-2 whitespace-nowrap px-3 py-1.5 bg-accent-green/10 border border-accent-green/30 rounded-lg hover:bg-accent-green/20 transition-all duration-200 group"
+          aria-label="View Privacy Policy - PDPL Compliant"
+        >
           <Icon
             name="mdi:shield-check"
-            class="w-4 h-4 text-accent-green flex-shrink-0 transition-colors"
+            class="w-4 h-4 text-accent-green flex-shrink-0 transition-colors group-hover:scale-110"
           />
-          <span>PDPL Compliant</span>
-        </span>
+          <span class="text-xs font-semibold text-accent-green">PDPL Compliant</span>
+        </a>
       </div>
     </div>
   </div>

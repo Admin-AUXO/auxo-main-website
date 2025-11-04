@@ -44,7 +44,7 @@ const navItems: NavItem[] = [
 
 <nav 
   id="main-navigation" 
-  class="fixed top-0 left-0 right-0 z-50 bg-primary/98 backdrop-blur-md border-b border-theme transition-all duration-300 shadow-lg"
+  class="fixed top-0 left-0 right-0 z-50 bg-primary/98 backdrop-blur-md border-b border-theme transition-all duration-300 shadow-lg nav-scrolled"
 >
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 sm:h-18 lg:h-20">
@@ -91,7 +91,9 @@ const navItems: NavItem[] = [
                   aria-hidden="true"
                 />
                 <!-- Active Indicator -->
-                <span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-accent-green rounded-full transition-all duration-300 group-hover:w-3/4"></span>
+                <span class="nav-indicator absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-accent-green rounded-full transition-all duration-300 group-hover:w-3/4"></span>
+                <!-- Active Background -->
+                <span class="nav-active-bg absolute inset-0 bg-accent-green/10 rounded-lg opacity-0 transition-opacity duration-300 pointer-events-none"></span>
               </button>
 
               <!-- Dropdown Menu -->
@@ -154,7 +156,9 @@ const navItems: NavItem[] = [
             >
               <span>{item.name}</span>
               <!-- Active Indicator -->
-              <span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-accent-green rounded-full transition-all duration-300 group-hover:w-3/4"></span>
+              <span class="nav-indicator absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-accent-green rounded-full transition-all duration-300 group-hover:w-3/4"></span>
+              <!-- Active Background -->
+              <span class="nav-active-bg absolute inset-0 bg-accent-green/10 rounded-lg opacity-0 transition-opacity duration-300 pointer-events-none"></span>
             </a>
           )
         ))}
@@ -167,10 +171,20 @@ const navItems: NavItem[] = [
         <!-- CTA Button -->
         <a 
           href={`${base}contact/`} 
-          class="ml-3 px-5 py-2.5 text-sm font-semibold bg-accent-green text-on-accent rounded-lg hover:bg-accent-green/90 active:bg-accent-green/80 transition-all duration-200 min-h-[44px] flex items-center hover:scale-105 active:scale-95"
+          class="nav-cta ml-3 px-5 py-2.5 text-sm font-semibold bg-accent-green text-on-accent rounded-lg hover:bg-accent-green/90 active:bg-accent-green/80 transition-all duration-200 min-h-[44px] flex items-center hover:scale-105 active:scale-95 relative group"
           aria-label="Let's Talk - Contact us"
+          data-tooltip="Get a free strategy session"
         >
-          Let's Talk
+          <span class="relative z-10">Let's Talk</span>
+          <!-- Pulse Animation -->
+          <span class="absolute inset-0 rounded-lg bg-accent-green animate-pulse opacity-75"></span>
+          <!-- Glow Effect -->
+          <span class="absolute inset-0 rounded-lg bg-accent-green blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-300 -z-10"></span>
+          <!-- Tooltip -->
+          <span class="nav-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-card border border-theme rounded-lg text-xs text-primary whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pointer-events-none z-50 shadow-lg">
+            Get a free strategy session
+            <span class="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-card"></span>
+          </span>
         </a>
       </div>
 
@@ -218,30 +232,34 @@ const navItems: NavItem[] = [
     class="lg:hidden fixed inset-x-0 top-16 sm:top-18 bg-card border-t border-theme max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain transform -translate-y-full opacity-0 transition-all duration-300 ease-out shadow-2xl"
     style="touch-action: pan-y; -webkit-overflow-scrolling: touch;"
   >
-    <div class="px-4 sm:px-6 py-6 space-y-2">
+    <div class="px-4 sm:px-6 py-6 space-y-3">
       {navItems.map((item, index) => (
         item.dropdown ? (
           <div class="mobile-dropdown" data-nav-item={index}>
             <button 
               type="button"
-              class="mobile-dropdown-btn w-full flex items-center justify-between px-4 py-3.5 min-h-[52px] text-secondary hover:text-primary active:text-primary active:bg-surface rounded-lg transition-all duration-200 font-medium touch-manipulation bg-surface border border-theme hover:border-theme-light active:border-theme-light text-base"
+              class="mobile-dropdown-btn w-full flex items-center justify-between px-4 py-3.5 min-h-[52px] text-secondary hover:text-primary active:text-primary active:bg-surface rounded-lg transition-all duration-200 font-medium touch-manipulation bg-surface border border-theme hover:border-theme-light active:border-theme-light text-base relative group"
               aria-expanded="false"
               aria-label={`${item.name} menu`}
             >
-              <span>{item.name}</span>
+              <span class="relative z-10">{item.name}</span>
               <Icon 
                 name="mdi:chevron-down" 
-                class="w-5 h-5 transition-transform duration-200 flex-shrink-0 text-accent-green dropdown-arrow-mobile"
+                class="w-5 h-5 transition-transform duration-200 flex-shrink-0 text-accent-green dropdown-arrow-mobile relative z-10"
                 aria-hidden="true"
               />
+              <!-- Active Background -->
+              <span class="mobile-nav-active-bg absolute inset-0 bg-accent-green/10 rounded-lg opacity-0 transition-opacity duration-300 pointer-events-none"></span>
             </button>
-            <div class="mobile-dropdown-content hidden pl-4 mt-2 space-y-1.5 overflow-hidden">
-              {item.dropdown.map((sub: DropdownItem) => (
+            <div class="mobile-dropdown-content hidden pl-4 mt-3 space-y-2 overflow-hidden border-l-2 border-theme ml-2">
+              {item.dropdown.map((sub: DropdownItem, subIndex) => (
                 <a 
                   href={sub.href} 
-                  class="flex items-center gap-3 px-4 py-3 min-h-[48px] text-sm text-secondary hover:text-accent-green active:text-accent-green active:bg-surface rounded-lg transition-all duration-200 touch-manipulation group/item bg-surface border border-transparent hover:border-theme-light active:border-theme-light"
+                  class="flex items-center gap-3 px-4 py-3 min-h-[48px] text-sm text-secondary hover:text-accent-green active:text-accent-green active:bg-surface rounded-lg transition-all duration-200 touch-manipulation group/item bg-surface border border-transparent hover:border-theme-light active:border-theme-light relative"
                 >
-                  <div class="w-8 h-8 bg-surface rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-accent-green/10 transition-colors duration-200">
+                  <!-- Visual Connector Line -->
+                  <div class="absolute -left-[18px] top-1/2 -translate-y-1/2 w-3 h-0.5 bg-theme"></div>
+                  <div class="w-8 h-8 bg-surface rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:bg-accent-green/10 transition-colors duration-200 border border-theme group-hover/item:border-accent-green/30">
                     <Icon name={sub.icon} class="w-4 h-4 text-accent-green" />
                   </div>
                   <div class="flex-1 min-w-0">
@@ -256,9 +274,13 @@ const navItems: NavItem[] = [
         ) : (
           <a 
             href={item.href} 
-            class="block px-4 py-3.5 min-h-[52px] text-base text-secondary hover:text-primary active:text-primary active:bg-surface rounded-lg transition-all duration-200 font-medium touch-manipulation flex items-center bg-surface border border-theme hover:border-theme-light active:border-theme-light"
+            class="mobile-nav-link block px-4 py-3.5 min-h-[52px] text-base text-secondary hover:text-primary active:text-primary active:bg-surface rounded-lg transition-all duration-200 font-medium touch-manipulation flex items-center bg-surface border border-theme hover:border-theme-light active:border-theme-light relative group"
           >
-            {item.name}
+            <span>{item.name}</span>
+            <!-- Active Background -->
+            <span class="mobile-nav-active-bg absolute inset-0 bg-accent-green/10 rounded-lg opacity-0 transition-opacity duration-300 pointer-events-none"></span>
+            <!-- Active Border -->
+            <span class="mobile-nav-active-border absolute inset-0 rounded-lg border-2 border-accent-green opacity-0 transition-opacity duration-300 pointer-events-none"></span>
           </a>
         )
       ))}
@@ -266,10 +288,12 @@ const navItems: NavItem[] = [
       <!-- Mobile CTA Button -->
       <a 
         href={`${base}contact/`} 
-        class="block mt-4 px-6 py-3.5 min-h-[56px] bg-accent-green text-on-accent font-semibold rounded-lg active:bg-accent-green/90 transition-all duration-200 text-center touch-manipulation flex items-center justify-center text-base shadow-lg shadow-accent-green/20"
+        class="block mt-4 px-6 py-3.5 min-h-[56px] bg-accent-green text-on-accent font-semibold rounded-lg active:bg-accent-green/90 transition-all duration-200 text-center touch-manipulation flex items-center justify-center text-base shadow-lg shadow-accent-green/20 relative"
         aria-label="Let's Talk - Contact us"
       >
-        Let's Talk
+        <span class="relative z-10">Let's Talk</span>
+        <!-- Pulse Animation -->
+        <span class="absolute inset-0 rounded-lg bg-accent-green animate-pulse opacity-75"></span>
       </a>
     </div>
   </div>
@@ -311,6 +335,84 @@ const navItems: NavItem[] = [
   .dropdown-toggle.active .nav-indicator,
   .nav-link:hover .nav-indicator {
     width: 75%;
+  }
+
+  /* Active state styling */
+  .nav-link.active .nav-active-bg,
+  .dropdown-toggle.active .nav-active-bg {
+    opacity: 1;
+  }
+
+  .mobile-nav-link.active .mobile-nav-active-bg,
+  .mobile-nav-link.active .mobile-nav-active-border {
+    opacity: 1;
+  }
+
+  /* Scroll-based navigation styling */
+  #main-navigation.nav-scrolled {
+    background: rgb(var(--bg-primary-rgb) / 0.99);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  :root.light #main-navigation.nav-scrolled {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  }
+
+  #main-navigation.nav-scrolled .container > div {
+    height: 4rem;
+  }
+  
+  @media (min-width: 1024px) {
+    #main-navigation.nav-scrolled .container > div {
+      height: 4.5rem;
+    }
+  }
+
+  /* Scroll progress indicator */
+  .nav-scroll-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--accent-green), var(--accent-green));
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.1s ease-out;
+    z-index: 1;
+  }
+
+  /* Pulse animation for CTA */
+  @keyframes nav-pulse {
+    0%, 100% {
+      opacity: 0.75;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+
+  .nav-cta .animate-pulse {
+    animation: nav-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Tooltip positioning */
+  .nav-tooltip {
+    transform: translateX(-50%) translateY(4px);
+  }
+
+  .nav-tooltip span {
+    border-top-color: var(--color-card);
+  }
+
+  /* Mobile menu slide animation */
+  #mobile-menu {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-out;
+  }
+
+  #mobile-menu.open {
+    transform: translateY(0);
+    opacity: 1;
   }
 </style>
 
@@ -581,24 +683,85 @@ const navItems: NavItem[] = [
     }
   });
 
+  // Scroll-based navigation styling
+  let lastScrollTop = 0;
+  const nav = document.getElementById('main-navigation');
+  const scrollProgress = document.createElement('div');
+  scrollProgress.className = 'nav-scroll-progress';
+  if (nav) {
+    nav.appendChild(scrollProgress);
+  }
+
+  const handleScroll = () => {
+    if (!nav) return;
+    
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    
+    // Update scroll progress
+    if (scrollProgress) {
+      scrollProgress.style.transform = `scaleX(${scrollPercent / 100})`;
+    }
+    
+    // Add scrolled class after initial scroll
+    if (scrollTop > 10) {
+      nav.classList.add('nav-scrolled');
+    } else {
+      nav.classList.remove('nav-scrolled');
+    }
+    
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+  };
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll(); // Initial call
+
   // Active link highlighting
   const updateActiveLinks = () => {
     const currentPath = window.location.pathname;
     
-    document.querySelectorAll('.nav-link').forEach(link => {
+    document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
+      const href = link.getAttribute('href');
+      if (!href) return;
+      
+      // Remove active class first
+      link.classList.remove('active', 'text-accent-green');
+      
+      const linkPath = href.replace(/\/$/, '');
+      const normalizedCurrentPath = currentPath.replace(/\/$/, '');
+      
+      // Check if this link matches current path
+      const isActive = normalizedCurrentPath === linkPath || 
+          (normalizedCurrentPath.startsWith(linkPath) && linkPath !== '' && linkPath !== '/') ||
+          currentPath === href ||
+          (normalizedCurrentPath === '' && linkPath === '');
+      
+      if (isActive) {
+        link.classList.add('active', 'text-accent-green');
+        const indicator = link.querySelector('.nav-indicator');
+        if (indicator) {
+          (indicator as HTMLElement).style.width = '75%';
+        }
+      }
+    });
+
+    // Also check dropdown items for active state
+    document.querySelectorAll('#mobile-menu a, .dropdown-menu a').forEach(link => {
       const href = link.getAttribute('href');
       if (!href) return;
       
       const linkPath = href.replace(/\/$/, '');
       const normalizedCurrentPath = currentPath.replace(/\/$/, '');
       
-      if (normalizedCurrentPath === linkPath || 
-          (normalizedCurrentPath.startsWith(linkPath) && linkPath !== '' && linkPath !== '/') ||
-          currentPath === href) {
-        link.classList.add('text-accent-green');
-        const indicator = link.querySelector('.nav-indicator');
-        if (indicator) {
-          (indicator as HTMLElement).style.width = '75%';
+      const isActive = normalizedCurrentPath === linkPath || 
+          currentPath === href;
+      
+      if (isActive) {
+        // Mark parent dropdown as active if applicable
+        const parentButton = link.closest('.mobile-dropdown-content')?.previousElementSibling;
+        if (parentButton && parentButton.classList.contains('mobile-dropdown-btn')) {
+          parentButton.classList.add('active');
         }
       }
     });

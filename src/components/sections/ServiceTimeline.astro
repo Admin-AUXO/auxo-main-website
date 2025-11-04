@@ -1,0 +1,228 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface ServiceTimelineProps {
+  timeline: string; // e.g., "4-8 weeks"
+}
+
+const { timeline } = Astro.props;
+
+// Parse timeline to determine phases (simplified logic)
+// For now, we'll use a generic timeline structure
+// In the future, this could be customized per service
+---
+
+<div class="bg-card border border-theme rounded-2xl p-6 sm:p-8 mb-8 sm:mb-12">
+  <div class="text-center mb-6 sm:mb-8">
+    <h2 class="text-xl sm:text-2xl font-bold mb-2 text-primary transition-colors">
+      Project Timeline
+    </h2>
+    <p class="text-sm sm:text-base text-secondary transition-colors">
+      Typical Duration: <span class="font-semibold text-accent-green">{timeline}</span>
+    </p>
+  </div>
+
+  <!-- Timeline: Desktop (Horizontal) -->
+  <div class="hidden lg:block relative">
+    <!-- Connecting Line -->
+    <div class="absolute top-8 left-0 right-0 h-0.5 bg-gradient-to-r from-accent-green via-accent-green/60 to-accent-green"></div>
+    
+    <div class="relative grid grid-cols-4 gap-4">
+      <!-- Phase 1: Discovery -->
+      <div class="relative">
+        <div class="bg-surface border-2 border-accent-green/30 rounded-xl p-4 sm:p-6 hover:border-accent-green transition-all duration-300">
+          <div class="flex items-center justify-center mb-3">
+            <div class="w-12 h-12 bg-accent-green/20 rounded-full flex items-center justify-center border-4 border-card relative z-10">
+              <Icon name="mdi:eye" class="w-6 h-6 text-accent-green" />
+            </div>
+          </div>
+          <h4 class="text-sm font-bold mb-2 text-center text-primary transition-colors">
+            Week 1-2
+          </h4>
+          <p class="text-xs font-semibold mb-2 text-center text-accent-green transition-colors">
+            Discovery
+          </p>
+          <p class="text-xs text-secondary text-center transition-colors mb-3">
+            Assess needs and define goals
+          </p>
+          <div class="flex items-center justify-center gap-2 text-xs text-secondary">
+            <Icon name="mdi:account-group" class="w-4 h-4 text-accent-green" />
+            <span>Executive touchpoint</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 2: Design & Build -->
+      <div class="relative">
+        <div class="bg-surface border-2 border-accent-green/30 rounded-xl p-4 sm:p-6 hover:border-accent-green transition-all duration-300">
+          <div class="flex items-center justify-center mb-3">
+            <div class="w-12 h-12 bg-accent-green/20 rounded-full flex items-center justify-center border-4 border-card relative z-10">
+              <Icon name="mdi:lightbulb" class="w-6 h-6 text-accent-green" />
+            </div>
+          </div>
+          <h4 class="text-sm font-bold mb-2 text-center text-primary transition-colors">
+            Week 3-6
+          </h4>
+          <p class="text-xs font-semibold mb-2 text-center text-accent-green transition-colors">
+            Design & Build
+          </p>
+          <p class="text-xs text-secondary text-center transition-colors mb-3">
+            Create and implement solutions
+          </p>
+          <div class="flex items-center justify-center gap-2 text-xs text-secondary">
+            <Icon name="mdi:calendar-check" class="w-4 h-4 text-accent-green" />
+            <span>Weekly updates</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 3: Deploy -->
+      <div class="relative">
+        <div class="bg-surface border-2 border-accent-green/30 rounded-xl p-4 sm:p-6 hover:border-accent-green transition-all duration-300">
+          <div class="flex items-center justify-center mb-3">
+            <div class="w-12 h-12 bg-accent-green/20 rounded-full flex items-center justify-center border-4 border-card relative z-10">
+              <Icon name="mdi:check-circle" class="w-6 h-6 text-accent-green" />
+            </div>
+          </div>
+          <h4 class="text-sm font-bold mb-2 text-center text-primary transition-colors">
+            Week 7-8
+          </h4>
+          <p class="text-xs font-semibold mb-2 text-center text-accent-green transition-colors">
+            Deploy
+          </p>
+          <p class="text-xs text-secondary text-center transition-colors mb-3">
+            Launch with rapid delivery
+          </p>
+          <div class="flex items-center justify-center gap-2 text-xs text-secondary">
+            <Icon name="mdi:rocket" class="w-4 h-4 text-accent-green" />
+            <span>Fast launch</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 4: Optimize -->
+      <div class="relative">
+        <div class="bg-surface border-2 border-accent-green/30 rounded-xl p-4 sm:p-6 hover:border-accent-green transition-all duration-300">
+          <div class="flex items-center justify-center mb-3">
+            <div class="w-12 h-12 bg-accent-green/20 rounded-full flex items-center justify-center border-4 border-card relative z-10">
+              <Icon name="mdi:chart-line" class="w-6 h-6 text-accent-green" />
+            </div>
+          </div>
+          <h4 class="text-sm font-bold mb-2 text-center text-primary transition-colors">
+            Week 9+
+          </h4>
+          <p class="text-xs font-semibold mb-2 text-center text-accent-green transition-colors">
+            Optimize
+          </p>
+          <p class="text-xs text-secondary text-center transition-colors mb-3">
+            Monitor and refine
+          </p>
+          <div class="flex items-center justify-center gap-2 text-xs text-secondary">
+            <Icon name="mdi:trending-up" class="w-4 h-4 text-accent-green" />
+            <span>Ongoing support</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline: Mobile (Vertical) -->
+  <div class="lg:hidden space-y-6">
+    <!-- Phase 1: Discovery -->
+    <div class="relative pl-8 border-l-2 border-accent-green/30">
+      <div class="absolute -left-2.5 top-0 w-5 h-5 bg-accent-green rounded-full border-4 border-card"></div>
+      <div class="bg-surface border-2 border-accent-green/30 rounded-xl p-4">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 bg-accent-green/20 rounded-lg flex items-center justify-center flex-shrink-0">
+            <Icon name="mdi:eye" class="w-5 h-5 text-accent-green" />
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-primary transition-colors">
+              Week 1-2: Discovery
+            </h4>
+            <p class="text-xs text-secondary transition-colors">
+              Assess needs and define goals
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-secondary">
+          <Icon name="mdi:account-group" class="w-4 h-4 text-accent-green" />
+          <span>Executive touchpoint</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 2: Design & Build -->
+    <div class="relative pl-8 border-l-2 border-accent-green/30">
+      <div class="absolute -left-2.5 top-0 w-5 h-5 bg-accent-green rounded-full border-4 border-card"></div>
+      <div class="bg-surface border-2 border-accent-green/30 rounded-xl p-4">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 bg-accent-green/20 rounded-lg flex items-center justify-center flex-shrink-0">
+            <Icon name="mdi:lightbulb" class="w-5 h-5 text-accent-green" />
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-primary transition-colors">
+              Week 3-6: Design & Build
+            </h4>
+            <p class="text-xs text-secondary transition-colors">
+              Create and implement solutions
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-secondary">
+          <Icon name="mdi:calendar-check" class="w-4 h-4 text-accent-green" />
+          <span>Weekly updates</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 3: Deploy -->
+    <div class="relative pl-8 border-l-2 border-accent-green/30">
+      <div class="absolute -left-2.5 top-0 w-5 h-5 bg-accent-green rounded-full border-4 border-card"></div>
+      <div class="bg-surface border-2 border-accent-green/30 rounded-xl p-4">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 bg-accent-green/20 rounded-lg flex items-center justify-center flex-shrink-0">
+            <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green" />
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-primary transition-colors">
+              Week 7-8: Deploy
+            </h4>
+            <p class="text-xs text-secondary transition-colors">
+              Launch with rapid delivery
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-secondary">
+          <Icon name="mdi:rocket" class="w-4 h-4 text-accent-green" />
+          <span>Fast launch</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 4: Optimize -->
+    <div class="relative pl-8 border-l-2 border-accent-green/30">
+      <div class="absolute -left-2.5 top-0 w-5 h-5 bg-accent-green rounded-full border-4 border-card"></div>
+      <div class="bg-surface border-2 border-accent-green/30 rounded-xl p-4">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 bg-accent-green/20 rounded-lg flex items-center justify-center flex-shrink-0">
+            <Icon name="mdi:chart-line" class="w-5 h-5 text-accent-green" />
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-primary transition-colors">
+              Week 9+: Optimize
+            </h4>
+            <p class="text-xs text-secondary transition-colors">
+              Monitor and refine
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-secondary">
+          <Icon name="mdi:trending-up" class="w-4 h-4 text-accent-green" />
+          <span>Ongoing support</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

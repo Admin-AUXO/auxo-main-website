@@ -7,6 +7,11 @@ import { services } from "../../data/collections/services";
 import { getUseCases } from "../../data/collections/servicesUseCases";
 import { Icon } from "astro-icon/components";
 import { generateServiceBreadcrumbs } from "../../utils/breadcrumbs";
+import ServiceSummary from "../../components/sections/ServiceSummary.astro";
+import ServiceBusinessImpact from "../../components/sections/ServiceBusinessImpact.astro";
+import ServiceStartupAdvantage from "../../components/sections/ServiceStartupAdvantage.astro";
+import ServiceTimeline from "../../components/sections/ServiceTimeline.astro";
+import ExecutiveTimeCommitment from "../../components/sections/ExecutiveTimeCommitment.astro";
 
 const base = import.meta.env.BASE_URL;
 
@@ -25,6 +30,11 @@ const breadcrumbItems = generateServiceBreadcrumbs(
   Astro.url.pathname,
   service.title
 );
+
+// Get first business impact as expected impact summary
+const expectedImpact = service.businessImpact && service.businessImpact.length > 0
+  ? service.businessImpact[0]
+  : undefined;
 ---
 
 <BaseLayout
@@ -57,10 +67,24 @@ const breadcrumbItems = generateServiceBreadcrumbs(
         <p class="text-lg sm:text-xl text-secondary transition-colors leading-relaxed">{service.description}</p>
   </ContentWrapper>
 
+  <!-- Quick Summary Box -->
+  <ContentWrapper maxWidth="5xl" class="mb-8 sm:mb-12">
+    <ServiceSummary
+      timeline={service.timeline}
+      involvement="Minimal"
+      expectedImpact={expectedImpact}
+    />
+  </ContentWrapper>
+
   <!-- Two Column Layout -->
   <ContentWrapper maxWidth="5xl" class="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12">
         <!-- Main Content -->
         <div class="lg:col-span-2 space-y-12">
+          <!-- Business Impact Section (Before Features) -->
+          {service.businessImpact && service.businessImpact.length > 0 && (
+            <ServiceBusinessImpact impacts={service.businessImpact} />
+          )}
+
           <!-- Features -->
           <div class="bg-card border border-theme rounded-2xl p-6 sm:p-8">
               <h2 class="text-xl sm:text-2xl font-bold mb-5 sm:mb-6 flex items-center text-primary transition-colors">
@@ -80,6 +104,9 @@ const breadcrumbItems = generateServiceBreadcrumbs(
               }
             </ul>
           </div>
+
+          <!-- Startup Advantage Section -->
+          <ServiceStartupAdvantage />
 
           <!-- Deliverables -->
           <div class="bg-card border border-theme rounded-2xl p-6 sm:p-8">
@@ -104,6 +131,14 @@ const breadcrumbItems = generateServiceBreadcrumbs(
               }
             </div>
           </div>
+
+          <!-- Timeline & Engagement Section -->
+          {service.timeline && (
+            <>
+              <ServiceTimeline timeline={service.timeline} />
+              <ExecutiveTimeCommitment />
+            </>
+          )}
 
           <!-- Use Cases -->
           <div
@@ -132,6 +167,21 @@ const breadcrumbItems = generateServiceBreadcrumbs(
         <!-- Sidebar -->
         <div class="lg:col-span-1">
           <div class="sticky top-24 space-y-5 sm:space-y-6">
+            <!-- Founder Access Highlight -->
+            <div class="bg-accent-green/10 border border-accent-green/30 rounded-xl p-4 sm:p-5">
+              <div class="flex items-start gap-3">
+                <Icon name="mdi:account-group" class="w-5 h-5 sm:w-6 sm:h-6 text-accent-green transition-colors flex-shrink-0 mt-0.5" />
+                <div>
+                  <h3 class="font-bold mb-1 text-sm sm:text-base text-primary transition-colors">
+                    Work directly with founders
+                  </h3>
+                  <p class="text-xs text-secondary transition-colors leading-relaxed">
+                    No junior consultants. No account managers. Direct access throughout the project.
+                  </p>
+                </div>
+              </div>
+            </div>
+
             <!-- CTA Card -->
             <div class="bg-card border border-theme rounded-2xl p-5 sm:p-6">
               <h3 class="font-bold mb-3 sm:mb-4 text-base sm:text-lg text-primary transition-colors">Ready to Get Started?</h3>
@@ -142,8 +192,47 @@ const breadcrumbItems = generateServiceBreadcrumbs(
                 href={`${base}contact/`}
                 class="block w-full py-3 sm:py-3 bg-accent-green font-semibold rounded-lg hover:bg-accent-green/90 active:bg-accent-green/80 transition-colors text-center text-sm sm:text-base min-h-[44px] flex items-center justify-center touch-manipulation"
               >
-                Contact Us
+                Let's Talk
               </a>
+              <p class="text-xs text-secondary text-center mt-3 transition-colors">
+                No obligation. Just honest advice.
+              </p>
+            </div>
+
+            <!-- Quick Decision Guide -->
+            <div class="bg-card border border-theme rounded-2xl p-5 sm:p-6">
+              <h3 class="font-bold mb-3 sm:mb-4 text-base sm:text-lg text-primary transition-colors">
+                Is this right for you?
+              </h3>
+              <div class="space-y-3">
+                <div class="flex items-start gap-3">
+                  <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green transition-colors flex-shrink-0 mt-0.5" />
+                  <span class="text-xs sm:text-sm text-primary transition-colors">
+                    Do you need faster insights?
+                  </span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green transition-colors flex-shrink-0 mt-0.5" />
+                  <span class="text-xs sm:text-sm text-primary transition-colors">
+                    Want direct founder access?
+                  </span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green transition-colors flex-shrink-0 mt-0.5" />
+                  <span class="text-xs sm:text-sm text-primary transition-colors">
+                    Prefer agile methodology?
+                  </span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green transition-colors flex-shrink-0 mt-0.5" />
+                  <span class="text-xs sm:text-sm text-primary transition-colors">
+                    Value transparency?
+                  </span>
+                </div>
+              </div>
+              <p class="text-xs text-secondary mt-4 text-center transition-colors">
+                If you answered yes, let's talk!
+              </p>
             </div>
 
             <!-- Related Services -->

@@ -1,5 +1,49 @@
 export const faqData = [
   {
+    category: 'Why Choose a Startup?',
+    icon: 'mdi:rocket',
+    questions: [
+      {
+        q: 'Why should I work with a startup instead of a big consultancy?',
+        a: 'Startups offer faster implementation, direct founder access, more flexible pricing, and no bureaucracy. You get enterprise expertise without the corporate overhead. As a startup, we move quickly, stay agile, and prioritize your success above everything.',
+      },
+      {
+        q: 'What if you\'re too small for my needs?',
+        a: 'Our founding team brings 15+ years of combined enterprise experience. We\'re selective about clients to ensure we can deliver exceptional results. If we can\'t meet your needs, we\'ll tell you honestly—transparency is our advantage.',
+      },
+      {
+        q: 'How do I know you\'ll be around in a year?',
+        a: 'We\'re committed to building a sustainable, long-term business. Our founding team has deep roots in the UAE market and a proven track record. We\'re building AUXO for the long term, not a quick exit.',
+      },
+      {
+        q: 'What\'s the advantage of working with founders directly?',
+        a: 'You get strategic thinking, not just execution. Founders make decisions fast, understand your business holistically, and are personally invested in your success. No account managers, no junior consultants, no layers of approval.',
+      },
+    ],
+  },
+  {
+    category: 'For Executives',
+    icon: 'mdi:briefcase',
+    questions: [
+      {
+        q: 'How much time do I need to commit?',
+        a: 'Minimal. We respect executive time. Typical involvement: 1-hour kickoff meeting, 15-minute weekly updates, 1-hour final review, and as-needed quick questions. We handle the heavy lifting so you can focus on strategic decisions.',
+      },
+      {
+        q: 'What\'s the typical ROI for your services?',
+        a: 'ROI varies by project, but common outcomes include: 80% reduction in reporting time, faster decision-making with real-time insights, cost optimization through data-driven strategies, and improved revenue through better customer insights. We provide ROI frameworks tailored to your specific goals.',
+      },
+      {
+        q: 'How do you handle confidential information?',
+        a: 'We take confidentiality seriously. All team members sign NDAs, we use enterprise-grade security practices, are PDPL compliant, and maintain strict data access controls. Your data never leaves secure environments without your explicit approval.',
+      },
+      {
+        q: 'Can I work directly with founders?',
+        a: 'Yes, absolutely. Direct founder access is one of our key differentiators. You\'ll work directly with founders throughout the project—no account managers, no junior consultants. This ensures strategic thinking and fast decision-making.',
+      },
+    ],
+  },
+  {
     category: 'General',
     icon: 'mdi:information',
     questions: [
@@ -22,6 +66,18 @@ export const faqData = [
       {
         q: 'You\'re a new consultancy—should I be concerned about working with a startup?',
         a: 'We\'re transparent about being new, and we see it as an advantage. Our founding team brings 15+ years of combined experience from leading organizations. Being a startup means we\'re agile, responsive, and focused—you get enterprise expertise without the corporate overhead. We\'re also selective about taking on founding clients to ensure we can deliver exceptional results.',
+      },
+      {
+        q: 'You\'re new—how do I know you can deliver?',
+        a: 'While we\'re new as AUXO, our founding team has delivered similar projects for years. We\'re building on proven methodologies, not experimenting. Plus, being new means we\'re hungry to prove ourselves—you get our absolute best effort and attention.',
+      },
+      {
+        q: 'Do you have any client references?',
+        a: 'As a new consultancy, we\'re building our portfolio. However, our founding team has extensive experience from previous roles. We\'re happy to discuss our methodology, credentials, and approach. We\'re also selective about early clients to ensure we can deliver exceptional results and build those references.',
+      },
+      {
+        q: 'What if something goes wrong?',
+        a: 'We\'re transparent, proactive communicators. If issues arise, we address them immediately—no bureaucracy, no blame games. As founders, we\'re personally invested in your success. We also maintain clear project scopes, regular check-ins, and documented processes to minimize risks.',
       },
     ],
   },

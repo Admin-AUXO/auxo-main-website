@@ -1,0 +1,74 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Value {
+  icon: string;
+  title: string;
+  description: string;
+  demonstration?: string;
+}
+
+interface Props {
+  values: Value[];
+  title: string;
+  subtitle: string;
+}
+
+const { values, title, subtitle } = Astro.props;
+---
+
+<div class="max-w-6xl mx-auto mb-8 sm:mb-12 md:mb-20">
+  <div class="text-center mb-6 sm:mb-8 md:mb-12">
+    <h2
+      class="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 text-primary transition-colors"
+    >
+      {title}
+    </h2>
+    <p
+      class="text-xs sm:text-sm md:text-base text-secondary leading-relaxed transition-colors"
+    >
+      <em>{subtitle}</em>
+    </p>
+  </div>
+
+  <div class="space-y-6 sm:space-y-8">
+    {values.map((value) => (
+      <div class="bg-card border border-theme rounded-xl p-5 sm:p-6 md:p-8 hover:border-accent-green transition-all">
+        <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
+          <div class="flex-shrink-0">
+            <div class="w-16 h-16 bg-accent-green/10 rounded-xl flex items-center justify-center">
+              <Icon
+                name={value.icon}
+                class="w-8 h-8 sm:w-10 sm:h-10 text-accent-green transition-colors"
+              />
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="font-bold mb-2 text-lg sm:text-xl text-primary transition-colors">
+              {value.title}
+            </h3>
+            <p class="text-sm sm:text-base text-secondary mb-4 transition-colors leading-relaxed">
+              {value.description}
+            </p>
+            {value.demonstration && (
+              <div class="bg-surface/50 border border-accent-green/20 rounded-lg p-3 sm:p-4">
+                <div class="flex items-start gap-2">
+                  <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green transition-colors flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p class="text-xs sm:text-sm font-semibold text-primary mb-1 transition-colors">
+                      How we demonstrate this:
+                    </p>
+                    <p class="text-xs sm:text-sm text-secondary transition-colors leading-relaxed">
+                      {value.demonstration}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+

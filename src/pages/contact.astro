@@ -162,6 +162,47 @@ const base = import.meta.env.BASE_URL;
               {contactContent.sidebar.info.fastResponse.description}
             </p>
           </div>
+
+          <!-- Quick Links Section -->
+          <div class="mt-8 p-6 bg-card border border-theme rounded-lg">
+            <h3 class="font-bold mb-4 text-base sm:text-lg text-primary transition-colors">
+              Before you reach out, you might want to:
+            </h3>
+            <div class="space-y-3">
+              <a
+                href={`${base}about/`}
+                class="flex items-center gap-3 text-sm text-secondary hover:text-accent-green transition-colors group"
+              >
+                <Icon name="mdi:account-group" class="w-5 h-5 flex-shrink-0" />
+                <span class="group-hover:underline">See how we work</span>
+              </a>
+              <a
+                href={`${base}tools/maturity-calculator/`}
+                class="flex items-center gap-3 text-sm text-secondary hover:text-accent-green transition-colors group"
+              >
+                <Icon name="mdi:calculator" class="w-5 h-5 flex-shrink-0" />
+                <span class="group-hover:underline">Take maturity assessment</span>
+              </a>
+              <a
+                href={`${base}services/`}
+                class="flex items-center gap-3 text-sm text-secondary hover:text-accent-green transition-colors group"
+              >
+                <Icon name="mdi:briefcase" class="w-5 h-5 flex-shrink-0" />
+                <span class="group-hover:underline">Explore our services</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Response Time Badge -->
+          <div class="mt-8 p-4 bg-accent-green/10 border border-accent-green/30 rounded-lg text-center">
+            <div class="flex items-center justify-center gap-2 mb-2">
+              <Icon name="mdi:clock" class="w-5 h-5 text-accent-green" />
+              <span class="text-sm font-semibold text-accent-green">24-hour response guarantee</span>
+            </div>
+            <p class="text-xs text-secondary transition-colors">
+              Usually faster. We respect your time.
+            </p>
+          </div>
         </div>
       </div>
 

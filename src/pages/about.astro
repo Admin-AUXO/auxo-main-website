@@ -4,6 +4,9 @@ import PageContainer from "../components/layouts/PageContainer.astro";
 import AboutHero from "../components/sections/AboutHero.astro";
 import MissionVision from "../components/sections/MissionVision.astro";
 import TeamSection from "../components/sections/TeamSection.astro";
+import CredentialsSection from "../components/sections/CredentialsSection.astro";
+import WhyDifferentSection from "../components/sections/WhyDifferentSection.astro";
+import EnhancedValuesSection from "../components/sections/EnhancedValuesSection.astro";
 import { team } from "../data/collections/team";
 import { aboutContent } from "../data/content/about";
 import { Icon } from "astro-icon/components";
@@ -22,42 +25,18 @@ const base = import.meta.env.BASE_URL;
       <!-- Mission & Vision -->
       <MissionVision mission={aboutContent.mission} vision={aboutContent.vision} />
 
-      <!-- Our Values -->
-      <div class="max-w-6xl mx-auto mb-8 sm:mb-12 md:mb-20">
-        <div class="text-center mb-6 sm:mb-8 md:mb-12">
-          <h2
-            class="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 text-primary transition-colors"
-          >
-            {aboutContent.values.title}
-          </h2>
-          <p
-            class="text-xs sm:text-sm md:text-base text-secondary leading-relaxed hidden md:block transition-colors"
-          >
-            <em>{aboutContent.values.subtitle}</em>
-          </p>
-        </div>
+      <!-- Credentials Section -->
+      <CredentialsSection />
 
-        <div
-          class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6"
-        >
-          {
-            aboutContent.values.items.map((value) => (
-              <div class="bg-card border border-theme rounded-xl p-4 sm:p-6 text-center hover:border-accent-green transition-colors">
-                <Icon
-                  name={value.icon}
-                  class="w-10 h-10 sm:w-12 sm:h-12 text-accent-green mx-auto mb-3 sm:mb-4 transition-colors"
-                />
-                <h3 class="font-bold mb-1.5 sm:mb-2 text-sm sm:text-lg text-primary transition-colors">
-                  {value.title}
-                </h3>
-                <p class="text-xs sm:text-sm text-secondary leading-relaxed hidden sm:block transition-colors">
-                  {value.description}
-                </p>
-              </div>
-            ))
-          }
-        </div>
-      </div>
+      <!-- Why We're Different -->
+      <WhyDifferentSection />
+
+      <!-- Enhanced Values Section -->
+      <EnhancedValuesSection
+        values={aboutContent.values.items}
+        title={aboutContent.values.title}
+        subtitle={aboutContent.values.subtitle}
+      />
 
       <!-- Why Choose Us -->
       <div class="max-w-5xl mx-auto mb-12 md:mb-20 hidden md:block">

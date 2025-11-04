@@ -92,17 +92,37 @@ const base = import.meta.env.BASE_URL;
         <div
           class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-8 text-center"
         >
-          <h3 class="text-2xl font-bold mb-4">Still Have Questions?</h3>
+          <h3 class="text-2xl font-bold mb-4 text-primary transition-colors">Still Have Questions? Let's Talk</h3>
           <p class="text-primary transition-colors mb-6">
             Our team is here to help. Get in touch and we'll answer any
             questions you have about our services.
           </p>
+          
+          <!-- Common Next Steps -->
+          <div class="bg-card/50 border border-theme rounded-lg p-6 mb-6 text-left max-w-2xl mx-auto">
+            <h4 class="font-semibold mb-3 text-primary transition-colors">What happens next:</h4>
+            <div class="space-y-2">
+              <div class="flex items-start gap-3">
+                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                <span class="text-sm text-secondary transition-colors">We'll answer your questions</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                <span class="text-sm text-secondary transition-colors">Schedule a free consultation (if you want)</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                <span class="text-sm text-secondary transition-colors">No pressure, just honest advice</span>
+              </div>
+            </div>
+          </div>
+
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href={`${base}contact/`}
               class="inline-flex items-center justify-center px-8 py-3 bg-accent-green font-bold rounded-lg hover:bg-accent-green/90 transition-colors min-h-[44px] touch-manipulation"
             >
-              Contact Us
+              Let's Talk
               <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
             </a>
             <a

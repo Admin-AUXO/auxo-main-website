@@ -1,0 +1,54 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface ServiceStartupAdvantageProps {
+  benefits: string[];
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  benefits = [
+    "Faster implementation than big consultancies",
+    "Direct founder access throughout the project",
+    "Agile methodology with quick iterations",
+    "No bureaucracy - fast decisions",
+  ],
+  title = "Why Choose Our Approach",
+  subtitle,
+} = Astro.props;
+---
+
+<div class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/30 rounded-2xl p-6 sm:p-8 mb-8 sm:mb-12">
+  <div class="flex items-start gap-4 mb-4 sm:mb-6">
+    <div class="w-12 h-12 bg-accent-green/20 rounded-lg flex items-center justify-center flex-shrink-0">
+      <Icon name="mdi:rocket" class="w-6 h-6 sm:w-8 sm:h-8 text-accent-green transition-colors" />
+    </div>
+    <div class="flex-1">
+      <h2 class="text-xl sm:text-2xl font-bold mb-2 text-primary transition-colors">
+        {title}
+      </h2>
+      {subtitle && (
+        <p class="text-sm sm:text-base text-secondary transition-colors mb-4">
+          {subtitle}
+        </p>
+      )}
+    </div>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+    {benefits.map((benefit: string) => (
+      <div class="flex items-start gap-3">
+        <div class="w-5 h-5 sm:w-6 sm:h-6 bg-accent-green/20 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0">
+          <Icon name="mdi:check" class="w-3 h-3 sm:w-4 sm:h-4 text-accent-green transition-colors" />
+        </div>
+        <span class="text-sm sm:text-base text-primary transition-colors leading-relaxed">{benefit}</span>
+      </div>
+    ))}
+  </div>
+  <div class="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-accent-green/30">
+    <p class="text-xs sm:text-sm text-secondary italic transition-colors">
+      Fast decisions. Quick responses. No layers of approval.
+    </p>
+  </div>
+</div>
+

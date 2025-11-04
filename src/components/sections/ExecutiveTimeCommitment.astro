@@ -1,0 +1,80 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div class="bg-card border-2 border-accent-green/30 rounded-2xl p-6 sm:p-8 mb-8 sm:mb-12">
+  <h2 class="text-xl sm:text-2xl font-bold mb-5 sm:mb-6 flex items-center text-primary transition-colors">
+    <Icon name="mdi:calendar-clock" class="w-5 h-5 sm:w-6 sm:h-6 text-accent-green transition-colors mr-2 sm:mr-3 flex-shrink-0" />
+    What to Expect: Your Involvement
+  </h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+    <div class="flex items-start gap-4">
+      <div class="w-12 h-12 bg-accent-green/20 rounded-lg flex items-center justify-center flex-shrink-0">
+        <Icon name="mdi:account-group" class="w-6 h-6 text-accent-green transition-colors" />
+      </div>
+      <div>
+        <h3 class="font-bold mb-1 text-base sm:text-lg text-primary transition-colors">
+          Kickoff Meeting
+        </h3>
+        <p class="text-sm text-secondary transition-colors mb-2">
+          1 hour initial consultation
+        </p>
+        <p class="text-xs text-tertiary transition-colors">
+          We'll discuss your goals and answer questions
+        </p>
+      </div>
+    </div>
+
+    <div class="flex items-start gap-4">
+      <div class="w-12 h-12 bg-accent-green/20 rounded-lg flex items-center justify-center flex-shrink-0">
+        <Icon name="mdi:calendar-check" class="w-6 h-6 text-accent-green transition-colors" />
+      </div>
+      <div>
+        <h3 class="font-bold mb-1 text-base sm:text-lg text-primary transition-colors">
+          Weekly Updates
+        </h3>
+        <p class="text-sm text-secondary transition-colors mb-2">
+          15 minutes per week
+        </p>
+        <p class="text-xs text-tertiary transition-colors">
+          Quick progress review and feedback
+        </p>
+      </div>
+    </div>
+
+    <div class="flex items-start gap-4">
+      <div class="w-12 h-12 bg-accent-green/20 rounded-lg flex items-center justify-center flex-shrink-0">
+        <Icon name="mdi:check-circle" class="w-6 h-6 text-accent-green transition-colors" />
+      </div>
+      <div>
+        <h3 class="font-bold mb-1 text-base sm:text-lg text-primary transition-colors">
+          Final Review
+        </h3>
+        <p class="text-sm text-secondary transition-colors mb-2">
+          1 hour final presentation
+        </p>
+        <p class="text-xs text-tertiary transition-colors">
+          Review results and next steps
+        </p>
+      </div>
+    </div>
+
+    <div class="flex items-start gap-4">
+      <div class="w-12 h-12 bg-accent-green/20 rounded-lg flex items-center justify-center flex-shrink-0">
+        <Icon name="mdi:message" class="w-6 h-6 text-accent-green transition-colors" />
+      </div>
+      <div>
+        <h3 class="font-bold mb-1 text-base sm:text-lg text-primary transition-colors">
+          As Needed
+        </h3>
+        <p class="text-sm text-secondary transition-colors mb-2">
+          Quick questions
+        </p>
+        <p class="text-xs text-tertiary transition-colors">
+          Direct access to founders when you need answers
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+

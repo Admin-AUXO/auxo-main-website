@@ -1,0 +1,72 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface ServiceBusinessImpactProps {
+  impacts: string[];
+}
+
+const { impacts } = Astro.props;
+
+// Helper function to get appropriate icon for impact
+const getImpactIcon = (impact: string): string => {
+  const lowerImpact = impact.toLowerCase();
+  if (lowerImpact.includes("decision") || lowerImpact.includes("insight"))
+    return "mdi:target";
+  if (
+    lowerImpact.includes("time") ||
+    lowerImpact.includes("reduce") ||
+    lowerImpact.includes("efficiency")
+  )
+    return "mdi:clock";
+  if (
+    lowerImpact.includes("roi") ||
+    lowerImpact.includes("cost") ||
+    lowerImpact.includes("margin")
+  )
+    return "mdi:trending-up";
+  if (
+    lowerImpact.includes("compliance") ||
+    lowerImpact.includes("risk") ||
+    lowerImpact.includes("security")
+  )
+    return "mdi:shield-check";
+  if (
+    lowerImpact.includes("predict") ||
+    lowerImpact.includes("forecast") ||
+    lowerImpact.includes("trend")
+  )
+    return "mdi:chart-line";
+  if (lowerImpact.includes("automate") || lowerImpact.includes("optimize"))
+    return "mdi:lightning-bolt";
+  if (lowerImpact.includes("growth") || lowerImpact.includes("opportunity"))
+    return "mdi:rocket";
+  if (
+    lowerImpact.includes("quality") ||
+    lowerImpact.includes("trust") ||
+    lowerImpact.includes("confidence")
+  )
+    return "mdi:trophy";
+  return "mdi:star";
+};
+---
+
+<div class="bg-gradient-to-br from-accent-green/10 to-accent-green/20 border border-accent-green/30 rounded-2xl p-6 sm:p-8 mb-8 sm:mb-12">
+  <h2 class="text-xl sm:text-2xl font-bold mb-5 sm:mb-6 flex items-center text-primary transition-colors">
+    <Icon name="mdi:chart-line" class="w-5 h-5 sm:w-6 sm:h-6 text-accent-green transition-colors mr-2 sm:mr-3 flex-shrink-0" />
+    Business Outcomes You Can Expect
+  </h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+    {impacts.map((impact: string) => (
+      <div class="flex items-start gap-3 p-3 sm:p-4 bg-card/50 rounded-lg border border-theme/50 hover:border-accent-green/50 transition-colors">
+        <div class="w-8 h-8 bg-accent-green/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+          <Icon
+            name={getImpactIcon(impact)}
+            class="w-4 h-4 sm:w-5 sm:h-5 text-accent-green transition-colors"
+          />
+        </div>
+        <span class="text-sm sm:text-base text-primary transition-colors leading-relaxed">{impact}</span>
+      </div>
+    ))}
+  </div>
+</div>
+

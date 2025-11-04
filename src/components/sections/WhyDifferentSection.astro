@@ -1,0 +1,89 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Comparison {
+  feature: string;
+  them: string;
+  us: string;
+}
+
+const comparisons: Comparison[] = [
+  {
+    feature: "Implementation Speed",
+    them: "Months of planning and bureaucracy",
+    us: "Weeks to first insights, agile delivery",
+  },
+  {
+    feature: "Who You Work With",
+    them: "Junior consultants, account managers",
+    us: "Direct access to founders",
+  },
+  {
+    feature: "Pricing",
+    them: "High costs, long-term contracts",
+    us: "Startup-friendly pricing, flexible terms",
+  },
+  {
+    feature: "Decision Making",
+    them: "Multiple layers of approval",
+    us: "Fast decisions, no bureaucracy",
+  },
+  {
+    feature: "Personal Attention",
+    them: "One of many clients",
+    us: "Your success is our priority",
+  },
+];
+---
+
+<div class="max-w-6xl mx-auto mb-8 sm:mb-12 md:mb-20">
+  <div class="text-center mb-6 sm:mb-8 md:mb-12">
+    <h2 class="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 text-primary transition-colors">
+      Why We're Different
+    </h2>
+    <p class="text-sm sm:text-base text-secondary transition-colors">
+      Startup agility meets enterprise expertise
+    </p>
+  </div>
+
+  <div class="bg-card border border-theme rounded-2xl p-6 sm:p-8 overflow-x-auto">
+    <div class="min-w-full">
+      <!-- Header -->
+      <div class="grid grid-cols-3 gap-4 mb-4 pb-4 border-b border-theme">
+        <div class="font-bold text-base sm:text-lg text-primary transition-colors">
+          Feature
+        </div>
+        <div class="font-bold text-base sm:text-lg text-secondary transition-colors text-center">
+          Big Consultancies
+        </div>
+        <div class="font-bold text-base sm:text-lg text-accent-green transition-colors text-center">
+          AUXO Data Labs
+        </div>
+      </div>
+
+      <!-- Comparison Rows -->
+      <div class="space-y-4">
+        {comparisons.map((comparison) => (
+          <div class="grid grid-cols-3 gap-4 py-3 sm:py-4 border-b border-theme/50 last:border-0">
+            <div class="font-semibold text-sm sm:text-base text-primary transition-colors">
+              {comparison.feature}
+            </div>
+            <div class="flex items-center justify-center gap-2">
+              <Icon name="mdi:close" class="w-5 h-5 text-secondary transition-colors" />
+              <span class="text-xs sm:text-sm text-secondary transition-colors text-center">
+                {comparison.them}
+              </span>
+            </div>
+            <div class="flex items-center justify-center gap-2">
+              <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green transition-colors" />
+              <span class="text-xs sm:text-sm text-primary transition-colors text-center">
+                {comparison.us}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+

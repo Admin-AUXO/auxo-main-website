@@ -2,6 +2,7 @@ export interface Value {
   icon: string;
   title: string;
   description: string;
+  demonstration?: string;
 }
 
 export interface Stat {
@@ -85,21 +86,25 @@ export const aboutContent: AboutContent = {
         icon: 'mdi:lightbulb',
         title: 'Innovation',
         description: 'We embrace cutting-edge technologies and continuously evolve our solutions',
+        demonstration: 'We use the latest tools and methodologies, not legacy systems. Our startup status means we\'re not tied to outdated technology stacks.',
       },
       {
         icon: 'mdi:handshake',
         title: 'Partnership',
         description: 'Your success is our success. We work as an extension of your team',
+        demonstration: 'Direct founder access means you get strategic thinking, not just execution. We\'re invested in your long-term success.',
       },
       {
         icon: 'mdi:shield-check',
         title: 'Integrity',
         description: 'We maintain the highest standards of data security and ethical practices',
+        demonstration: 'PDPL compliant from day one. Transparent processes. No hidden costs. Your data and trust are our top priorities.',
       },
       {
         icon: 'mdi:trophy',
         title: 'Excellence',
         description: 'We deliver exceptional quality in every project, no matter the size',
+        demonstration: 'Every project gets founder attention. No junior consultants learning on your dime. We deliver enterprise quality with startup speed.',
       },
     ] as Value[],
   },

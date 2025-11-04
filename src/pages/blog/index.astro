@@ -95,9 +95,26 @@ const recentPosts = sortedPosts.slice(1);
         <div class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-8 md:p-12 text-center transition-colors">
           <Icon name="mdi:email-newsletter" class="w-16 h-16 text-accent-green mx-auto mb-4 transition-colors" />
           <h2 class="text-3xl font-bold mb-4 text-primary transition-colors">{commonText.newsletter.title}</h2>
-          <p class="text-secondary mb-8 max-w-2xl mx-auto transition-colors">
+          <p class="text-secondary mb-6 max-w-2xl mx-auto transition-colors">
             {commonText.newsletter.subtitle}
           </p>
+          <div class="bg-card/50 border border-accent-green/20 rounded-lg p-6 mb-8 max-w-2xl mx-auto text-left">
+            <p class="text-sm font-semibold mb-3 text-primary transition-colors">What you'll receive:</p>
+            <div class="space-y-2">
+              <div class="flex items-start gap-2">
+                <Icon name="mdi:check" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                <span class="text-sm text-secondary transition-colors">Industry trends and insights</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <Icon name="mdi:check" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                <span class="text-sm text-secondary transition-colors">ROI frameworks and practical tips</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <Icon name="mdi:check" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                <span class="text-sm text-secondary transition-colors">Data analytics best practices</span>
+              </div>
+            </div>
+          </div>
           <form id="blog-newsletter-form" class="flex flex-col gap-4 max-w-md mx-auto">
             <div class="flex flex-col sm:flex-row gap-4">
               <input
@@ -127,6 +144,9 @@ const recentPosts = sortedPosts.slice(1);
                 <a href={`${base}legal/privacy-policy/`} class="text-accent-green hover:underline transition-colors"> {commonText.newsletter.privacyLink}</a>
               </span>
             </label>
+            <p class="text-xs text-secondary mt-2 transition-colors">
+              Monthly insights. No spam. Unsubscribe anytime.
+            </p>
             <p id="blog-newsletter-message" class="text-sm"></p>
           </form>
         </div>

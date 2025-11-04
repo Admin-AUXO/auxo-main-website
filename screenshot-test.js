@@ -140,7 +140,8 @@ async function takeScreenshots() {
       
       // Check for JavaScript errors
       const errors = await page.evaluate(() => {
-        return window.errors || [];
+        // @ts-ignore - window.errors is set by test harness
+        return (window as any).errors || [];
       });
       if (errors.length > 0) {
         console.log('JavaScript errors found:', errors);
@@ -212,7 +213,8 @@ async function takeScreenshots() {
         containerChildren: container ? Array.from(container.children).map(c => c.tagName) : [],
         hasParticleScript,
         scriptsLoaded: scripts.length,
-        windowErrors: window.errors || []
+        // @ts-ignore - window.errors is set by test harness
+        windowErrors: (window as any).errors || []
       };
     });
     

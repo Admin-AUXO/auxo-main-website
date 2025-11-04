@@ -44,7 +44,6 @@ const content: HomepageContent["maturityCalculator"] = homepageContent.maturityC
                   <div
                     class="flex items-start gap-4 animate-fade-in"
                     data-animation-delay={index * 100}
-                    key={benefit.title}
                   >
                     <div class="w-10 h-10 bg-accent-green/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
                       <Icon
@@ -70,7 +69,6 @@ const content: HomepageContent["maturityCalculator"] = homepageContent.maturityC
             href={`${base}${content.cta.href}`}
             class="inline-flex items-center gap-2 bg-accent-green text-black dark:text-white px-8 py-4 rounded-lg font-bold hover:bg-accent-green/90 active:bg-accent-green/80 transition-all hover:scale-105 active:scale-95 text-base min-h-[48px]"
             aria-label={content.cta.text}
-            prefetch={true}
           >
             {content.cta.text}
             <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -92,7 +90,7 @@ const content: HomepageContent["maturityCalculator"] = homepageContent.maturityC
               {
                 content.dimensions.map(
                   (dimension) => (
-                    <div class="bg-surface rounded-lg p-4" key={dimension.name}>
+                    <div class="bg-surface rounded-lg p-4">
                       <div class="flex items-center justify-between mb-2">
                         <div class="flex items-center gap-3">
                           <div class="w-10 h-10 bg-accent-green/10 rounded-lg flex items-center justify-center">

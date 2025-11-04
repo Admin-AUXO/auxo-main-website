@@ -1,6 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
-import { getCollection, render, type CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import { homepageContent } from "../../data/content/homepage";
 import { commonText } from "../../data/shared/common";
 import { calculateReadTime } from "../../utils/content";
@@ -55,7 +55,6 @@ const hasPosts = latestPosts.length > 0;
               <article
                 class="bg-card border-2 border-accent-green/30 rounded-xl overflow-hidden hover:border-accent-green pulse-box transition-all duration-300 group shadow-lg hover:shadow-xl hover:-translate-y-2 animate-fade-in"
                 data-animation-delay={index * 100}
-                key={post.id}
               >
                 <div class="p-6 sm:p-8">
                   {post.data.tags && post.data.tags[0] && (
@@ -98,7 +97,6 @@ const hasPosts = latestPosts.length > 0;
             <a
               href={`${base}blog/`}
               class="inline-flex items-center gap-2 px-8 py-4 bg-surface border border-theme text-primary rounded-lg hover:border-accent-green/50 hover:bg-accent-green/10 transition-all font-semibold min-h-[48px]"
-              prefetch={true}
             >
               {homepageContent.blog.viewAllText}
               <Icon name="mdi:arrow-right" class="w-5 h-5" />

@@ -4,18 +4,7 @@ import { checkRateLimit, getClientIP, RateLimitPresets } from '../../utils/rateL
 import { ZodError } from 'zod';
 import * as brevo from '@getbrevo/brevo';
 
-/**
- * Escape HTML to prevent XSS in email templates
- */
-function escapeHtml(text: string | undefined | null): string {
-  if (!text) return '';
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
+// Removed unused escapeHtml function - email sanitization handled by Brevo API
 
 /**
  * Newsletter Subscription API Endpoint

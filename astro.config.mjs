@@ -114,7 +114,6 @@ export default defineConfig({
     // Maintenance mode - enabled via MAINTENANCE_MODE environment variable
     maintenance({
       enabled: import.meta.env.MAINTENANCE_MODE === 'true',
-      message: 'We are currently performing scheduled maintenance. We will be back shortly.',
     }),
   ],
   // Experimental features removed:

@@ -1,5 +1,4 @@
 ---
-import { Icon } from "astro-icon/components";
 import { homepageContent, type HomepageContent } from "../../data/content/homepage";
 import SectionContainer from "../layouts/SectionContainer.astro";
 
@@ -40,7 +39,6 @@ const content: HomepageContent["methodology"] = homepageContent.methodology;
             <div
               class="relative group animate-fade-in"
               data-animation-delay={index * 150}
-              key={`step-${step.number}`}
             >
               <div class="bg-card border-2 border-accent-green/30 rounded-xl p-6 sm:p-8 hover:border-accent-green pulse-box transition-all duration-300 hover:shadow-xl hover:-translate-y-2 h-full relative overflow-hidden">
                 <!-- Large Number Background -->

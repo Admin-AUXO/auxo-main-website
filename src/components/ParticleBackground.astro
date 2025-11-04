@@ -12,6 +12,15 @@
 </div>
 
 <script>
+  // Type declaration for tsParticles loaded from CDN
+  declare global {
+    interface Window {
+      tsParticles?: {
+        load: (id: string, config: unknown) => Promise<void>;
+      };
+    }
+  }
+
   // Store cleanup functions
   let scrollHandler: (() => void) | null = null;
   let mouseMoveHandler: ((e: MouseEvent) => void) | null = null;
@@ -96,7 +105,6 @@
     let randomSpeed: number;
     let randomLinkDistance: number;
     let randomConnectDistance: number;
-    let randomOpacity: number;
     let randomAnimSpeed: number;
     let randomShapeType: string[];
 
@@ -157,8 +165,7 @@
       0.12,
     );
 
-    // Use theme-aware opacity for links (override random)
-    randomOpacity = particleLinkOpacity;
+    // Use theme-aware opacity for links
     randomAnimSpeed = Math.random() * 2 + 0.5; // 0.5-2.5
     randomShapeType =
       Math.random() > 0.5

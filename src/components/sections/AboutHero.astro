@@ -1,6 +1,5 @@
 ---
 import { aboutContent } from "../../data/content/about";
-import { Icon } from "astro-icon/components";
 
 interface Props {
   content: typeof aboutContent.hero;
@@ -9,9 +8,8 @@ interface Props {
 const { content } = Astro.props;
 ---
 
-<div class="max-w-5xl mx-auto mb-8 sm:mb-12 md:mb-20">
-  <!-- Main Hero Content -->
-  <div class="text-center mb-8 sm:mb-12">
+<div class="max-w-4xl mx-auto mb-8 sm:mb-12 md:mb-20">
+  <div class="text-center">
     <div
       class="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-accent-green/10 border border-accent-green/20 rounded-full mb-3 md:mb-4"
     >
@@ -34,42 +32,5 @@ const { content } = Astro.props;
       {content.subtitle}
     </p>
   </div>
-
-  <!-- Naming Story & Why We Started -->
-  {(content.namingStory || content.whyStarted) && (
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-      {content.namingStory && (
-        <div class="bg-card border border-theme rounded-xl p-6 sm:p-8 hover:border-accent-green/50 transition-all duration-300 group">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 bg-accent-green/10 rounded-lg flex items-center justify-center group-hover:bg-accent-green/20 transition-colors">
-              <Icon name="mdi:sparkles" class="w-5 h-5 text-accent-green" />
-            </div>
-            <h3 class="text-lg sm:text-xl font-bold text-primary transition-colors">
-              {content.namingStory.title}
-            </h3>
-          </div>
-          <p class="text-sm sm:text-base text-secondary leading-relaxed transition-colors">
-            {content.namingStory.description}
-          </p>
-        </div>
-      )}
-      
-      {content.whyStarted && (
-        <div class="bg-gradient-to-br from-accent-green/10 to-accent-green/20 border-2 border-accent-green/30 rounded-xl p-6 sm:p-8 hover:border-accent-green/50 transition-all duration-300 group">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 bg-accent-green rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-              <Icon name="mdi:rocket" class="w-5 h-5 text-on-accent" />
-            </div>
-            <h3 class="text-lg sm:text-xl font-bold text-primary transition-colors">
-              {content.whyStarted.title}
-            </h3>
-          </div>
-          <p class="text-sm sm:text-base text-secondary leading-relaxed transition-colors">
-            {content.whyStarted.description}
-          </p>
-        </div>
-      )}
-    </div>
-  )}
 </div>
 

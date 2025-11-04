@@ -74,14 +74,14 @@ export const aboutContent: AboutContent = {
     badge: 'Our Story',
     title: 'Built to Transform',
     titleHighlight: 'Data Into Decisions',
-    subtitle: "We're a new analytics consultancy launched in 2025, founded by experienced data professionals who saw a gap: UAE businesses need enterprise-grade analytics solutions delivered with startup speed and personal attention.",
+    subtitle: "Enterprise-grade analytics with startup speed. We're building the consultancy we wish existed—fast decisions, founder access, transparent pricing. No bureaucracy, just results.",
     namingStory: {
       title: 'Why AUXO?',
-      description: 'AUXO comes from the Latin word "auxilium" meaning "help" or "support." We chose this name because we believe data analytics should be an enabler—helping businesses make better decisions, supporting growth, and providing the assistance organizations need to unlock their data\'s potential. Just as "auxilium" represents support and aid, AUXO Data Labs is here to help you transform data into actionable intelligence.',
+      description: 'AUXO comes from "auxilium"—Latin for "help" or "support." We\'re here to help you unlock your data\'s potential. Simple name, clear mission: transform data into decisions.',
     },
     whyStarted: {
       title: 'Why We Started AUXO',
-      description: 'After years working in enterprise analytics, we noticed a pattern: great insights were trapped behind complex processes, high costs, and slow decision-making. UAE businesses, especially startups and mid-sized companies, needed enterprise-grade analytics but couldn\'t access traditional consultancies\' offerings. We founded AUXO to bridge that gap—delivering the same quality insights with startup speed, personal attention, and transparent pricing. Every decision we make is driven by your success, not bureaucracy.',
+      description: 'We saw great insights trapped behind slow processes and high costs. UAE startups and mid-sized companies needed enterprise analytics but couldn\'t access traditional consultancies. So we built AUXO—same quality, startup speed, transparent pricing. Your success drives every decision.',
     },
   },
   mission: {

@@ -6,6 +6,7 @@ export interface Service {
   features: string[];
   deliverables: string[];
   timeline?: string; // Typical timeline, e.g., "4-8 weeks"
+  complexity?: 'Beginner-Friendly' | 'Intermediate' | 'Enterprise-Level'; // Complexity indicator
   businessImpact?: string[]; // Business outcomes, e.g., "Faster decision-making", "Better ROI visibility"
 }
 
@@ -16,6 +17,7 @@ export const services: Service[] = [
     description: 'Turn complex data into real-time insights through intuitive, decision-ready dashboards.',
     icon: 'mdi:chart-line',
     timeline: '4-8 weeks',
+    complexity: 'Beginner-Friendly',
     businessImpact: [
       'Faster decision-making with real-time insights',
       'Reduce reporting time by up to 80%',
@@ -42,6 +44,7 @@ export const services: Service[] = [
     description: 'Transform raw information into predictive, actionable intelligence for smarter decisions.',
     icon: 'mdi:chart-scatter-plot',
     timeline: '6-10 weeks',
+    complexity: 'Intermediate',
     businessImpact: [
       'Predict and prevent customer churn',
       'Optimize pricing strategies for better margins',
@@ -68,6 +71,7 @@ export const services: Service[] = [
     description: 'Align your data initiatives with business goals through a clear, execution-ready strategy.',
     icon: 'mdi:strategy',
     timeline: '3-6 weeks',
+    complexity: 'Beginner-Friendly',
     businessImpact: [
       'Clear roadmap for data investments',
       'Better ROI on analytics spending',
@@ -94,6 +98,7 @@ export const services: Service[] = [
     description: 'Build scalable, secure data pipelines that unify systems and power analytics.',
     icon: 'mdi:database-cog',
     timeline: '8-12 weeks',
+    complexity: 'Enterprise-Level',
     businessImpact: [
       'Unified view of business operations',
       'Reduce data processing costs',
@@ -120,6 +125,7 @@ export const services: Service[] = [
     description: 'Deploy cutting edge AI to automate, predict, and optimize business outcomes intelligently.',
     icon: 'mdi:robot',
     timeline: '10-16 weeks',
+    complexity: 'Enterprise-Level',
     businessImpact: [
       'Automate repetitive tasks and processes',
       'Predict trends before they happen',
@@ -146,6 +152,7 @@ export const services: Service[] = [
     description: 'Ensure trusted, compliant, and secure data across your entire enterprise.',
     icon: 'mdi:shield-check',
     timeline: '6-10 weeks',
+    complexity: 'Intermediate',
     businessImpact: [
       'Ensure regulatory compliance (PDPL, GDPR)',
       'Build trust in your data quality',

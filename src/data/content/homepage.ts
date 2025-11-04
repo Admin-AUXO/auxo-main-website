@@ -50,6 +50,7 @@ export interface HomepageContent {
       icon: string;
       title: string;
       description: string;
+      metric?: string;
     }>;
   };
   problems: {
@@ -372,21 +373,25 @@ export const homepageContent: HomepageContent = {
         icon: 'mdi:account-group',
         title: 'Direct Access to Founders',
         description: 'Work directly with founders and senior team members. No account managers. No junior consultants.',
+        metric: '24-hour response time vs. 5-7 days',
       },
       {
         icon: 'mdi:rocket',
         title: 'Agile Methodology',
         description: 'Fast results through iterative sprints. No lengthy planning phases. Quick wins, continuous improvement.',
+        metric: '2-4 weeks to first insights vs. 8-12 weeks',
       },
       {
         icon: 'mdi:lightning-bolt',
         title: 'No Bureaucracy',
         description: 'Fast decisions. Quick responses. No layers of approval. We move at startup speed.',
+        metric: 'Same-day decisions vs. multi-week approval cycles',
       },
       {
         icon: 'mdi:heart',
         title: 'Personal Attention',
         description: "You're not just a number. We care about your success. Every client gets dedicated attention.",
+        metric: '100% founder involvement vs. junior consultant teams',
       },
     ],
   },

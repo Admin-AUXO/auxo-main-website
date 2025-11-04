@@ -146,12 +146,29 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Primary CTA pulse animation */
+@keyframes primaryCtaPulse {
+  0%, 100% {
+    box-shadow: 0 10px 25px -5px rgba(var(--accent-green-rgb), 0.3),
+                0 0 0 0 rgba(var(--accent-green-rgb), 0.4);
+  }
+  50% {
+    box-shadow: 0 10px 25px -5px rgba(var(--accent-green-rgb), 0.4),
+                0 0 0 8px rgba(var(--accent-green-rgb), 0);
+  }
+}
+
+.primary-cta {
+  animation: primaryCtaPulse 3s ease-in-out infinite;
+}
+
 /* Respect prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   .logo-tile,
   .logo-caption,
   .hero-content,
-  .animate-fade-in {
+  .animate-fade-in,
+  .primary-cta {
     animation: none;
     opacity: 1;
     transform: none;
@@ -159,5 +176,9 @@ html {
 
   html {
     scroll-behavior: auto;
+  }
+  
+  .primary-cta {
+    box-shadow: 0 10px 25px -5px rgba(var(--accent-green-rgb), 0.3);
   }
 }

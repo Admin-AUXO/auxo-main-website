@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Navigation from "../components/Navigation.astro";
 import { siteData } from "../data/config/site";
+import { Icon } from "astro-icon/components";
 
 // Section Components
 import HeroSection from "../components/sections/HeroSection.astro";
@@ -12,7 +13,6 @@ import QuickDecisionBoxes from "../components/sections/QuickDecisionBoxes.astro"
 import WhyChooseSection from "../components/sections/WhyChooseSection.astro";
 import MaturityCalculatorSection from "../components/sections/MaturityCalculatorSection.astro";
 import BlogPreview from "../components/sections/BlogPreview.astro";
-import LaunchOfferSection from "../components/sections/LaunchOfferSection.astro";
 import FinalCtaSection from "../components/sections/FinalCtaSection.astro";
 import { homepageContent } from "../data/content/homepage";
 
@@ -53,6 +53,21 @@ import "../styles/homepage.css";
           Key information to help you make quick decisions
         </p>
       </div>
+      <!-- Trust Badges -->
+      <div class="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8 sm:mb-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-accent-green/10 border border-accent-green/30 rounded-full">
+          <Icon name="mdi:shield-check" class="w-4 h-4 text-accent-green" />
+          <span class="text-xs sm:text-sm font-semibold text-accent-green">PDPL Compliant</span>
+        </div>
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-accent-green/10 border border-accent-green/30 rounded-full">
+          <Icon name="mdi:rocket" class="w-4 h-4 text-accent-green" />
+          <span class="text-xs sm:text-sm font-semibold text-accent-green">Founded 2025</span>
+        </div>
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-accent-green/10 border border-accent-green/30 rounded-full">
+          <Icon name="mdi:map-marker" class="w-4 h-4 text-accent-green" />
+          <span class="text-xs sm:text-sm font-semibold text-accent-green">UAE-Based</span>
+        </div>
+      </div>
       <QuickDecisionBoxes
         cards={[
           {
@@ -76,6 +91,13 @@ import "../styles/homepage.css";
             description:
               "We respect your time. Only essential touchpoints, clear communication",
           },
+          {
+            icon: "mdi:shield-check",
+            value: "Transparent",
+            label: "Pricing & Process",
+            description:
+              "No hidden costs. Clear pricing upfront. 100% transparent process from day one",
+          },
         ]}
       />
     </div>
@@ -86,8 +108,6 @@ import "../styles/homepage.css";
   <MaturityCalculatorSection />
 
   <BlogPreview />
-
-  <LaunchOfferSection />
 
   <FinalCtaSection />
 

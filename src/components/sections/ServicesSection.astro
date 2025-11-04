@@ -81,7 +81,7 @@ const getCardClasses = (index: number) => {
               
               <!-- Card Content -->
               <div class="relative h-full bg-card/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 transition-all duration-500 group-hover:bg-card/95 group-hover:scale-[1.02] min-h-[300px] sm:min-h-[340px] flex flex-col border-2 border-accent-green">
-                <!-- Startup Badge -->
+                <!-- Badges Container -->
                 <div class="absolute top-3 right-3 z-10 flex flex-col gap-2 items-end">
                   <div class="bg-accent-green/20 text-accent-green text-xs font-semibold px-2 py-1 rounded-full border border-accent-green/30 backdrop-blur-sm">
                     Fast Implementation
@@ -91,6 +91,16 @@ const getCardClasses = (index: number) => {
                     <div class="bg-surface/80 backdrop-blur-sm text-secondary text-xs font-medium px-2 py-1 rounded-full border border-theme flex items-center gap-1.5">
                       <Icon name="mdi:clock" class="w-3 h-3 text-accent-green" />
                       <span>{service.timeline}</span>
+                    </div>
+                  )}
+                  <!-- Complexity Badge -->
+                  {service.complexity && (
+                    <div class="bg-surface/80 backdrop-blur-sm text-secondary text-xs font-medium px-2 py-1 rounded-full border border-theme flex items-center gap-1.5">
+                      <Icon 
+                        name={service.complexity === 'Beginner-Friendly' ? 'mdi:check-circle' : service.complexity === 'Intermediate' ? 'mdi:trending-up' : 'mdi:certificate'} 
+                        class="w-3 h-3 text-accent-green" 
+                      />
+                      <span>{service.complexity}</span>
                     </div>
                   )}
                 </div>

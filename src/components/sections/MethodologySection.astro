@@ -43,6 +43,16 @@ const content: HomepageContent["methodology"] = homepageContent.methodology;
               data-animation-delay={index * 150}
             >
               <div class="bg-card border-2 border-accent-green/30 rounded-xl p-6 sm:p-8 hover:border-accent-green pulse-box transition-all duration-300 hover:shadow-xl hover:-translate-y-2 h-full relative overflow-hidden">
+                <!-- Step Number Badge - More Prominent -->
+                <div class="absolute top-4 left-4 w-12 h-12 sm:w-14 sm:h-14 bg-accent-green/20 border-2 border-accent-green rounded-full flex items-center justify-center z-10">
+                  <span class="text-xl sm:text-2xl font-black text-accent-green leading-none">
+                    {step.number}
+                  </span>
+                </div>
+                <!-- Step X of 4 Indicator -->
+                <div class="absolute top-4 right-4 text-xs sm:text-sm font-semibold text-secondary opacity-70">
+                  Step {step.number} of {content.steps.length}
+                </div>
                 <!-- Large Number Background -->
                 <div class="absolute top-0 right-0 w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-end pr-4 sm:pr-6 opacity-10 group-hover:opacity-20 transition-opacity">
                   <span class="text-7xl sm:text-8xl font-black text-accent-green leading-none">
@@ -87,7 +97,14 @@ const content: HomepageContent["methodology"] = homepageContent.methodology;
                 )}
               </div>
               {index < content.steps.length - 1 && (
-                <div class="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-accent-green to-transparent z-10" />
+                <div class="hidden lg:flex absolute top-1/2 -right-4 items-center z-10">
+                  <!-- Connector Line -->
+                  <div class="w-8 h-0.5 bg-gradient-to-r from-accent-green via-accent-green/60 to-transparent"></div>
+                  <!-- Connector Arrow -->
+                  <div class="w-4 h-4 flex items-center justify-center -ml-1">
+                    <Icon name="mdi:arrow-right" class="w-4 h-4 text-accent-green" />
+                  </div>
+                </div>
               )}
             </div>
           ))

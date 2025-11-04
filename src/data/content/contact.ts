@@ -1,4 +1,36 @@
-export const contactContent = {
+export interface ContactAction {
+  text: string;
+  type: 'button' | 'link';
+  id?: string;
+  href?: string;
+}
+
+export interface ContactAdditionalOption {
+  icon: string;
+  title: string;
+  description: string;
+  action: ContactAction;
+}
+
+export interface ContactContent {
+  hero: {
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+  };
+  sidebar: {
+    title: string;
+    info: {
+      fastResponse: {
+        title: string;
+        description: string;
+      };
+    };
+  };
+  additionalOptions: ContactAdditionalOption[];
+}
+
+export const contactContent: ContactContent = {
   hero: {
     title: "Let's Start Your Analytics",
     titleHighlight: 'Journey Together',
@@ -20,7 +52,7 @@ export const contactContent = {
       description: 'Book a free 30-minute consultation',
       action: {
         text: 'Book Now →',
-        type: 'button' as const,
+        type: 'button',
         id: 'schedule-btn',
       },
     },
@@ -30,7 +62,7 @@ export const contactContent = {
       description: 'Learn more about our services',
       action: {
         text: 'Download PDF →',
-        type: 'link' as const,
+        type: 'link',
         href: 'brochure.pdf',
       },
     },
@@ -40,7 +72,7 @@ export const contactContent = {
       description: 'Assess your data analytics maturity',
       action: {
         text: 'Take Assessment →',
-        type: 'link' as const,
+        type: 'link',
         href: 'tools/maturity-calculator',
       },
     },

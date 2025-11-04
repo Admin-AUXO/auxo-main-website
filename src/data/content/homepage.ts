@@ -132,9 +132,9 @@ export interface HomepageContent {
 
 export const homepageContent: HomepageContent = {
   hero: {
-    badge: 'Rethink Data. Rethink Decisions.',
-    title: 'Every Organization has data.',
-    titleHighlight: 'Few understand it',
+    badge: '',
+    title: 'Every Organization has data. Few understand it',
+    titleHighlight: '',
     subtitle: 'Empowering confident, data-driven decisions at speed and scale.',
     subheadline: 'We turn your data into decisions. No jargon. No delays. Just results.',
     primaryCta: {
@@ -195,8 +195,8 @@ export const homepageContent: HomepageContent = {
     closing: 'We help you overcome these challenges with proven methodologies and cutting-edge solutions',
   },
   methodology: {
-    title: 'Our',
-    titleHighlight: 'Proven Methodology',
+    title: 'Get your Data',
+    titleHighlight: 'Maturity Report',
     subtitle: 'A structured approach to turn your analytics vision into reality',
     steps: [
       {
@@ -366,6 +366,7 @@ export const homepageContent: HomepageContent = {
     subtitle: 'Schedule a free consultation to discuss your analytics needs',
     ctaText: "Let's Talk",
     ctaHref: 'contact',
+    disclaimer: '',
   },
   startupAdvantages: {
     advantages: [

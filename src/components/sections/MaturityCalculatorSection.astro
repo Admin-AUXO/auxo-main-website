@@ -5,131 +5,158 @@ import SectionContainer from "../layouts/SectionContainer.astro";
 
 const base = import.meta.env.BASE_URL;
 const content: HomepageContent["maturityCalculator"] = homepageContent.maturityCalculator;
+
+// Icon mapping for dimensions
+const dimensionIconMap: Record<string, string> = {
+  'Infrastructure': 'mdi:database',
+  'Analytics': 'mdi:chart-bar',
+  'People & Skills': 'mdi:account-group',
+};
 ---
 
-<SectionContainer padding="md" background="default">
-  <div class="container mx-auto px-4 sm:px-6">
-    <div class="max-w-6xl mx-auto">
-      <div
-        class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center"
-      >
-        <!-- Left: Content -->
-        <div class="animate-fade-in">
-          <div
-            class="inline-block px-4 py-2 bg-accent-green/10 border border-accent-green/20 rounded-full mb-4"
+<SectionContainer padding="lg" background="default">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <!-- Header Section -->
+      <div class="text-center mb-12 sm:mb-16 lg:mb-20">
+        <div
+          class="inline-block mb-4 px-4 py-2 bg-accent-green/10 border border-accent-green/20 rounded-full backdrop-blur-sm"
+        >
+          <span class="text-accent-green text-sm font-semibold tracking-wide"
+            >{content.badge}</span
           >
-            <span class="text-accent-green text-sm font-semibold"
-              >{content.badge}</span
-            >
-          </div>
-          <h2
-            class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-primary transition-colors"
-          >
-            {content.title}
-            <br class="hidden sm:block" />
-            <span class="text-gradient-green"
-              >{content.titleHighlight}</span
-            >
-          </h2>
-          <p
-            class="text-base sm:text-lg text-secondary mb-6 sm:mb-8 leading-relaxed transition-colors"
-          >
-            {content.subtitle}
-          </p>
+        </div>
+        <h2
+          class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-primary transition-colors"
+        >
+          {content.title} <span class="text-gradient-green">{content.titleHighlight}</span>
+        </h2>
+        <p
+          class="text-base sm:text-lg text-secondary max-w-2xl mx-auto leading-relaxed transition-colors"
+        >
+          {content.subtitle}
+        </p>
+      </div>
 
-          <div class="space-y-4 mb-6 sm:mb-8">
+      <!-- Main Content Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-12">
+        <!-- Left: Benefits & Features -->
+        <div class="space-y-6">
+          <!-- Benefits List -->
+          <div class="space-y-4">
             {
-              content.benefits.map(
-                (benefit, index) => (
-                  <div
-                    class="flex items-start gap-4 animate-fade-in"
-                    data-animation-delay={index * 100}
-                  >
-                    <div class="w-10 h-10 bg-accent-green/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Icon
-                        name="mdi:check-circle"
-                        class="w-6 h-6 text-accent-green"
-                      />
+              content.benefits.map((benefit, index) => (
+                <div
+                  class="group assessment-benefit-card bg-card/80 backdrop-blur-sm border-2 border-accent-green rounded-2xl p-6 hover:border-accent-green/80 hover:bg-card/95 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-accent-green/20"
+                  style={`animation-delay: ${index * 100}ms`}
+                >
+                  <div class="flex items-start gap-4">
+                    <div class="relative flex-shrink-0">
+                      <div class="absolute inset-0 bg-accent-green/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div class="relative w-14 h-14 bg-gradient-to-br from-accent-green/20 to-accent-green/5 rounded-xl flex items-center justify-center group-hover:from-accent-green/30 group-hover:to-accent-green/10 transition-all duration-300 group-hover:scale-110">
+                        <Icon
+                          name="mdi:check-circle"
+                          class="w-7 h-7 text-accent-green transition-transform duration-300 group-hover:scale-110"
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <p class="font-semibold text-primary mb-1 transition-colors">
+                    <div class="flex-1 pt-1">
+                      <h3 class="font-bold text-lg mb-2 text-primary transition-colors group-hover:text-accent-green">
                         {benefit.title}
-                      </p>
-                      <p class="text-sm text-secondary transition-colors">
+                      </h3>
+                      <p class="text-sm sm:text-base text-secondary leading-relaxed transition-colors">
                         {benefit.description}
                       </p>
                     </div>
                   </div>
-                ),
-              )
+                </div>
+              ))
             }
           </div>
 
+          <!-- CTA Button -->
           <a
             href={`${base}${content.cta.href}`}
-            class="inline-flex items-center gap-2 bg-accent-green text-on-accent px-8 py-4 rounded-lg font-bold hover:bg-accent-green/90 active:bg-accent-green/80 transition-all hover:scale-105 active:scale-95 text-base min-h-[48px]"
+            class="group assessment-cta-button inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 bg-accent-green text-on-accent rounded-xl font-bold hover:bg-accent-green/90 active:bg-accent-green/80 transition-all duration-300 hover:scale-105 active:scale-95 text-base sm:text-lg min-h-[56px] shadow-lg shadow-accent-green/30 hover:shadow-xl hover:shadow-accent-green/40"
             aria-label={content.cta.text}
           >
-            {content.cta.text}
-            <Icon name="mdi:arrow-right" class="w-5 h-5" />
+            <span>{content.cta.text}</span>
+            <Icon 
+              name="mdi:arrow-right" 
+              class="w-6 h-6 transition-transform duration-300 group-hover:translate-x-1" 
+            />
           </a>
         </div>
 
-        <!-- Right: Visual -->
-        <div
-          class="relative hidden lg:block animate-fade-in"
-          data-animation-delay="200"
-        >
-          <div class="bg-card border border-theme rounded-2xl p-8 shadow-2xl">
-            <h3
-              class="text-xl font-bold mb-6 text-center text-primary transition-colors"
-            >
-              Assessment Dimensions
-            </h3>
-            <div class="space-y-4">
+        <!-- Right: Interactive Preview Card -->
+        <div class="relative hidden lg:block">
+          <div class="assessment-preview-card relative bg-card/90 backdrop-blur-md border-2 border-accent-green rounded-3xl p-8 shadow-2xl">
+            <!-- Decorative Background Elements -->
+            <div class="absolute top-0 right-0 w-32 h-32 bg-accent-green/5 rounded-bl-full"></div>
+            <div class="absolute bottom-0 left-0 w-24 h-24 bg-accent-green/5 rounded-tr-full"></div>
+            
+            <!-- Header -->
+            <div class="relative mb-8">
+              <div class="flex items-center gap-3 mb-2">
+                <div class="w-12 h-12 bg-gradient-to-br from-accent-green/20 to-accent-green/5 rounded-xl flex items-center justify-center">
+                  <Icon name="mdi:chart-line" class="w-6 h-6 text-accent-green" />
+                </div>
+                <h3 class="text-2xl font-bold text-primary transition-colors">
+                  Assessment Preview
+                </h3>
+              </div>
+              <p class="text-sm text-secondary transition-colors">
+                See what you'll get from your assessment
+              </p>
+            </div>
+
+            <!-- Dimensions Preview -->
+            <div class="relative space-y-5 mb-6">
               {
-                content.dimensions.map(
-                  (dimension) => (
-                    <div class="bg-surface rounded-lg p-4">
-                      <div class="flex items-center justify-between mb-2">
+                content.dimensions.map((dimension, index) => {
+                  const icon = dimensionIconMap[dimension.name] || 'mdi:chart-line';
+                  
+                  return (
+                    <div
+                      class="dimension-preview-item bg-surface/50 rounded-xl p-4 border border-accent-green/20 hover:border-accent-green/40 transition-all duration-300"
+                      style={`animation-delay: ${index * 150}ms`}
+                    >
+                      <div class="flex items-center justify-between mb-3">
                         <div class="flex items-center gap-3">
                           <div class="w-10 h-10 bg-accent-green/10 rounded-lg flex items-center justify-center">
-                            <Icon
-                              name={
-                                dimension.name === "Infrastructure"
-                                  ? "mdi:database"
-                                  : dimension.name === "Analytics"
-                                    ? "mdi:chart-bar"
-                                    : "mdi:account-group"
-                              }
-                              class="w-5 h-5 text-accent-green"
-                            />
+                            <Icon name={icon} class="w-5 h-5 text-accent-green" />
                           </div>
-                          <span class="font-medium text-primary transition-colors">
+                          <span class="font-semibold text-primary transition-colors">
                             {dimension.name}
                           </span>
                         </div>
-                        <span class="text-accent-green font-bold transition-colors">
+                        <span class="text-accent-green font-bold text-lg transition-colors">
                           {dimension.score}
                         </span>
                       </div>
-                      <div class="h-2 bg-surface rounded-full overflow-hidden">
+                      <!-- Progress Bar -->
+                      <div class="relative h-3 bg-surface rounded-full overflow-hidden">
                         <div
-                          class="h-full bg-gradient-to-r from-accent-green to-green-500 transition-all duration-500"
+                          class="h-full bg-gradient-to-r from-accent-green via-accent-green to-green-500 rounded-full transition-all duration-1000 ease-out relative overflow-hidden"
                           style={`width: ${dimension.percentage}%`}
-                        />
+                        >
+                          <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer"></div>
+                        </div>
                       </div>
                     </div>
-                  ),
-                )
+                  );
+                })
               }
+            </div>
 
-              <div class="text-center mt-6 pt-6 border-t border-theme">
-                <p
-                  class="text-2xl font-bold text-accent-green mb-1 transition-colors"
-                >
-                  {content.resultLabel}
-                </p>
+            <!-- Result Summary -->
+            <div class="relative pt-6 border-t-2 border-accent-green/20">
+              <div class="text-center">
+                <div class="inline-block px-4 py-2 bg-accent-green/10 border border-accent-green/30 rounded-lg mb-3">
+                  <p class="text-2xl font-bold text-accent-green transition-colors">
+                    {content.resultLabel}
+                  </p>
+                </div>
                 <p class="text-sm text-secondary transition-colors">
                   {content.resultSubtext}
                 </p>
@@ -138,6 +165,95 @@ const content: HomepageContent["maturityCalculator"] = homepageContent.maturityC
           </div>
         </div>
       </div>
+
+      <!-- Trust Indicators -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
+        <div class="text-center p-4 bg-card/50 backdrop-blur-sm border border-accent-green/20 rounded-xl">
+          <Icon name="mdi:clock" class="w-8 h-8 text-accent-green mx-auto mb-2" />
+          <p class="text-sm font-semibold text-primary transition-colors">5-10 Minutes</p>
+          <p class="text-xs text-secondary transition-colors">Quick Assessment</p>
+        </div>
+        <div class="text-center p-4 bg-card/50 backdrop-blur-sm border border-accent-green/20 rounded-xl">
+          <Icon name="mdi:lock" class="w-8 h-8 text-accent-green mx-auto mb-2" />
+          <p class="text-sm font-semibold text-primary transition-colors">100% Anonymous</p>
+          <p class="text-xs text-secondary transition-colors">No Registration</p>
+        </div>
+        <div class="text-center p-4 bg-card/50 backdrop-blur-sm border border-accent-green/20 rounded-xl">
+          <Icon name="mdi:chart-line" class="w-8 h-8 text-accent-green mx-auto mb-2" />
+          <p class="text-sm font-semibold text-primary transition-colors">Instant Results</p>
+          <p class="text-xs text-secondary transition-colors">Get Your Score</p>
+        </div>
+      </div>
     </div>
   </div>
+
+  <style>
+    /* Assessment Section Animations */
+    .assessment-benefit-card,
+    .assessment-preview-card,
+    .dimension-preview-item {
+      animation: fadeInUp 0.6s ease-out forwards;
+      opacity: 0;
+    }
+
+    .assessment-cta-button {
+      animation: fadeInUp 0.6s ease-out 600ms forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Shimmer animation for progress bars */
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    .animate-shimmer {
+      animation: shimmer 2s infinite;
+    }
+
+    /* Respect reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      .assessment-benefit-card,
+      .assessment-preview-card,
+      .dimension-preview-item,
+      .assessment-cta-button {
+        animation: none;
+        opacity: 1;
+      }
+      
+      .assessment-benefit-card *,
+      .assessment-preview-card *,
+      .dimension-preview-item *,
+      .assessment-cta-button * {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+
+    /* Mobile optimizations */
+    @media (max-width: 640px) {
+      .assessment-benefit-card {
+        padding: 1rem;
+      }
+      
+      .assessment-cta-button {
+        width: 100%;
+      }
+    }
+  </style>
 </SectionContainer>

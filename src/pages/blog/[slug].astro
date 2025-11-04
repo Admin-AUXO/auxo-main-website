@@ -9,8 +9,14 @@ import { Icon } from "astro-icon/components";
 import { calculateReadTime } from "../../utils/content";
 import { formatDateLong } from "../../utils/date";
 import { generateBlogBreadcrumbs } from "../../utils/breadcrumbs";
+import BlogPostCard from "../../components/sections/BlogPostCard.astro";
 
 const base = import.meta.env.BASE_URL;
+
+// Get all posts for related posts functionality
+const allPosts = await getCollection("blog", ({ data }) => {
+  return data.draft !== true;
+});
 
 // Generate static paths for all blog posts
 export async function getStaticPaths() {
@@ -73,6 +79,139 @@ const breadcrumbItems = generateBlogBreadcrumbs(
   Astro.url.pathname,
   post.data.title
 );
+
+// Generate table of contents from headings in content with hierarchy
+const contentText = post.body;
+const headingRegex = /^(#{2,3})\s+(.+)$/gm;
+const toc: Array<{ level: number; text: string; id: string; children?: Array<{ level: number; text: string; id: string }> }> = [];
+let match;
+const allHeadings: Array<{ level: number; text: string; id: string }> = [];
+while ((match = headingRegex.exec(contentText)) !== null) {
+  const level = match[1].length;
+  const text = match[2].trim();
+  const id = text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+  allHeadings.push({ level, text, id });
+}
+
+// Build hierarchical TOC structure
+let currentH2: { level: number; text: string; id: string; children?: Array<{ level: number; text: string; id: string }> } | null = null;
+allHeadings.forEach((heading) => {
+  if (heading.level === 2) {
+    // New H2 section
+    if (currentH2) {
+      toc.push(currentH2);
+    }
+    currentH2 = { ...heading, children: [] };
+  } else if (heading.level === 3 && currentH2) {
+    // H3 is a child of current H2
+    currentH2.children = currentH2.children || [];
+    currentH2.children.push(heading);
+  }
+});
+// Add the last H2 section
+if (currentH2) {
+  toc.push(currentH2);
+}
+
+// Find related posts based on tags and category
+const currentPostTags = post.data.tags || [];
+const currentPostId = post.id;
+
+const relatedPosts = allPosts
+  .filter((p) => p.id !== currentPostId)
+  .map((p) => {
+    const postTags = p.data.tags || [];
+    const commonTags = currentPostTags.filter((tag) => postTags.includes(tag));
+    return {
+      post: p,
+      score: commonTags.length,
+      commonTags,
+    };
+  })
+  .filter((item) => item.score > 0)
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 3)
+  .map((item) => ({
+    ...item.post,
+    readTime: calculateReadTime(item.post.body),
+  }));
+
+// Get next and previous posts for navigation
+const sortedPosts = allPosts.sort(
+  (a, b) =>
+    new Date(b.data.publishDate).getTime() -
+    new Date(a.data.publishDate).getTime()
+);
+const currentIndex = sortedPosts.findIndex((p) => p.id === currentPostId);
+const nextPost =
+  currentIndex > 0 ? sortedPosts[currentIndex - 1] : undefined;
+const prevPost =
+  currentIndex < sortedPosts.length - 1
+    ? sortedPosts[currentIndex + 1]
+    : undefined;
+
+// Generate article URL for sharing
+const articleUrl = `${Astro.site || "https://auxodata.com"}${base}blog/${post.id.replace(/\.mdx?$/, "")}/`;
+const articleTitle = post.data.title;
+const articleDescription = post.data.description;
+
+// Determine contextual CTA based on article tags
+const getContextualCTA = () => {
+  const tags = post.data.tags || [];
+  const title = post.data.title.toLowerCase();
+  const description = (post.data.description || "").toLowerCase();
+
+  if (
+    tags.some((t) => t.toLowerCase().includes("data strategy")) ||
+    title.includes("data strategy") ||
+    description.includes("data strategy")
+  ) {
+    return {
+      title: "Get Your Data Strategy Assessment",
+      description: "Let's evaluate your current data capabilities and create a roadmap for success.",
+      href: `${base}contact/`,
+      icon: "mdi:strategy",
+    };
+  } else if (
+    tags.some((t) => t.toLowerCase().includes("business intelligence")) ||
+    tags.some((t) => t.toLowerCase().includes("bi")) ||
+    title.includes("business intelligence") ||
+    title.includes("bi ")
+  ) {
+    return {
+      title: "Schedule BI Consultation",
+      description: "Discover how business intelligence can transform your decision-making.",
+      href: `${base}contact/`,
+      icon: "mdi:chart-bar",
+    };
+  } else if (
+    tags.some((t) => t.toLowerCase().includes("machine learning")) ||
+    tags.some((t) => t.toLowerCase().includes("ml")) ||
+    tags.some((t) => t.toLowerCase().includes("ai")) ||
+    title.includes("machine learning") ||
+    title.includes("ml ")
+  ) {
+    return {
+      title: "Explore ML Solutions",
+      description: "See how machine learning can solve your business challenges.",
+      href: `${base}services/`,
+      icon: "mdi:robot",
+    };
+  } else {
+    return {
+      title: "Ready to Transform Your Data?",
+      description: "Let's discuss how AUXO Data Labs can help your business leverage data analytics.",
+      href: `${base}contact/`,
+      icon: "mdi:lightbulb",
+    };
+  }
+};
+
+const contextualCTA = getContextualCTA();
 ---
 
 <BaseLayout
@@ -84,6 +223,19 @@ const breadcrumbItems = generateBlogBreadcrumbs(
   tags={post.data.tags}
 >
   <PageContainer maxWidth="4xl" paddingTop="pt-24" paddingBottom="pb-16">
+    <!-- Reading Progress Bar -->
+    <div
+      id="reading-progress"
+      class="fixed top-0 left-0 right-0 h-1 bg-accent-green/20 z-50 transition-all duration-300"
+      style="width: 0%"
+    >
+      <div
+        class="h-full bg-accent-green transition-all duration-300"
+        id="reading-progress-bar"
+        style="width: 0%"
+      ></div>
+    </div>
+
     <article>
       <!-- Breadcrumb with Structured Data -->
       <ContentWrapper maxWidth="4xl" class="mb-8">
@@ -111,7 +263,8 @@ const breadcrumbItems = generateBlogBreadcrumbs(
 
         <!-- Title -->
         <h1
-          class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 leading-tight"
+          class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 leading-tight"
+          id="article-title"
         >
           {post.data.title}
         </h1>
@@ -141,7 +294,19 @@ const breadcrumbItems = generateBlogBreadcrumbs(
               name="mdi:clock"
               class="w-5 h-5 text-accent-green transition-colors"
             />
-            <span>{calculateReadTime(post.body)} min read</span>
+            <span id="read-time">{calculateReadTime(post.body)} min read</span>
+          </div>
+          <span class="text-tertiary transition-colors hidden sm:inline">•</span>
+          <div class="flex items-center gap-2 hidden sm:flex">
+            <button
+              id="print-button"
+              class="flex items-center gap-1.5 text-secondary hover:text-accent-green transition-colors"
+              aria-label="Print article"
+              title="Print article"
+            >
+              <Icon name="mdi:file-document" class="w-4 h-4" />
+              <span class="text-xs">Print</span>
+            </button>
           </div>
         </div>
 
@@ -170,15 +335,19 @@ const breadcrumbItems = generateBlogBreadcrumbs(
         )
       }
 
-      <!-- Article Content -->
+      <!-- Article Content with Sidebar Layout -->
       <ContentWrapper maxWidth="4xl">
-        <div
-          class="prose prose-sm sm:prose-base md:prose-lg max-w-none
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
+          <!-- Main Content -->
+          <div class="lg:col-span-3">
+            <div
+              id="article-content"
+              class="prose prose-sm sm:prose-base md:prose-lg max-w-none
           prose-headings:text-primary prose-headings:font-bold
-          prose-h1:text-3xl sm:prose-h1:text-4xl md:prose-h1:text-5xl prose-h1:mb-6 prose-h1:mt-0
-          prose-h2:text-2xl sm:prose-h2:text-3xl md:prose-h2:text-4xl prose-h2:mt-10 sm:prose-h2:mt-12 prose-h2:mb-5 sm:prose-h2:mb-6 prose-h2:text-primary prose-h2:font-bold prose-h2:leading-tight
-          prose-h3:text-xl sm:prose-h3:text-2xl md:prose-h3:text-3xl prose-h3:mt-8 sm:prose-h3:mt-10 prose-h3:mb-3 sm:prose-h3:mb-4 prose-h3:text-primary prose-h3:font-semibold
-          prose-h4:text-lg sm:prose-h4:text-xl prose-h4:mt-6 sm:prose-h4:mt-8 prose-h4:mb-3 prose-h4:text-secondary
+          prose-h1:text-lg sm:prose-h1:text-xl md:prose-h1:text-2xl prose-h1:mb-4 sm:prose-h1:mb-5 prose-h1:mt-0
+          prose-h2:text-xl sm:prose-h2:text-2xl md:prose-h2:text-3xl prose-h2:mt-8 sm:prose-h2:mt-10 prose-h2:mb-4 sm:prose-h2:mb-5 prose-h2:text-primary prose-h2:font-bold prose-h2:leading-tight
+          prose-h3:text-lg sm:prose-h3:text-xl md:prose-h3:text-2xl prose-h3:mt-6 sm:prose-h3:mt-8 prose-h3:mb-3 sm:prose-h3:mb-4 prose-h3:text-primary prose-h3:font-semibold
+          prose-h4:text-base sm:prose-h4:text-lg prose-h4:mt-5 sm:prose-h4:mt-6 prose-h4:mb-2 sm:prose-h4:mb-3 prose-h4:text-secondary
           prose-p:text-secondary prose-p:leading-relaxed prose-p:mb-5 sm:prose-p:mb-6 prose-p:text-sm sm:prose-p:text-base prose-p:font-normal
           prose-a:text-primary prose-a:no-underline hover:prose-a:text-accent-green hover:prose-a:underline prose-a:font-medium prose-a:transition-colors
           prose-strong:text-primary prose-strong:font-semibold
@@ -198,8 +367,60 @@ const breadcrumbItems = generateBlogBreadcrumbs(
           prose-th:bg-card prose-th:text-primary prose-th:font-semibold prose-th:p-3 sm:prose-th:p-4 prose-th:text-left prose-th:text-sm sm:prose-th:text-base
           prose-td:border-b prose-td:border-theme prose-td:p-3 sm:prose-td:p-4 prose-td:text-secondary prose-td:text-sm sm:prose-td:text-base
           prose-tr:hover:bg-card/50 prose-tr:transition-colors"
-        >
-          <Content />
+            >
+              <Content />
+            </div>
+          </div>
+
+          <!-- Table of Contents Sidebar -->
+          {
+            toc.length > 0 && (
+              <aside class="lg:col-span-2 hidden lg:block">
+                <div class="sticky top-24">
+                  <div class="bg-card border border-theme rounded-xl p-5 sm:p-6 min-w-[280px]">
+                    <h3 class="font-bold text-primary mb-4 flex items-center gap-2 transition-colors">
+                      <Icon name="mdi:book-open" class="w-5 h-5 text-accent-green transition-colors" />
+                      Table of Contents
+                    </h3>
+                    <nav class="space-y-1">
+                      {toc.map((section) => (
+                        <div class="toc-section">
+                          <a
+                            href={`#${section.id}`}
+                            class="block px-3 py-2 rounded-lg text-sm font-semibold text-primary hover:text-accent-green hover:bg-accent-green/10 transition-all min-h-[44px] flex items-center justify-between group"
+                          >
+                            <span>{section.text}</span>
+                            {section.children && section.children.length > 0 && (
+                              <Icon 
+                                name="mdi:chevron-down" 
+                                class="w-4 h-4 text-tertiary group-hover:text-accent-green transition-all toc-chevron"
+                                data-section-id={section.id}
+                              />
+                            )}
+                          </a>
+                          {section.children && section.children.length > 0 && (
+                            <div 
+                              class="toc-subsection hidden pl-4 space-y-1"
+                              data-section-children={section.id}
+                            >
+                              {section.children.map((subsection) => (
+                                <a
+                                  href={`#${subsection.id}`}
+                                  class="block px-3 py-2 rounded-lg text-sm text-secondary hover:text-accent-green hover:bg-accent-green/10 transition-all min-h-[44px] flex items-center"
+                                >
+                                  {subsection.text}
+                                </a>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </nav>
+                  </div>
+                </div>
+              </aside>
+            )
+          }
         </div>
 
         <!-- Social Share Buttons -->
@@ -213,36 +434,186 @@ const breadcrumbItems = generateBlogBreadcrumbs(
               >
                 Share this article:
               </p>
-              {/* @ts-expect-error - platforms prop is supported by astro-social-share but not in types */}
-              <SocialShare
-                description={post.data.description}
-                title={post.data.title}
-                url={`${Astro.site || "https://auxodata.com"}${base}blog/${post.id.replace(/\.mdx?$/, "")}/`}
-                platforms={["twitter", "linkedin", "facebook", "reddit"]}
-              />
+              <div class="flex flex-wrap items-center gap-3">
+                {/* @ts-expect-error - platforms prop is supported by astro-social-share but not in types */}
+                <SocialShare
+                  description={post.data.description}
+                  title={post.data.title}
+                  url={articleUrl}
+                  platforms={["twitter", "linkedin", "facebook", "reddit"]}
+                />
+                <!-- Copy Link Button -->
+                <button
+                  id="copy-link-button"
+                  class="inline-flex items-center gap-2 px-4 py-2 bg-surface text-primary rounded-lg hover:bg-accent-green/10 hover:text-accent-green transition-all min-h-[44px] touch-manipulation"
+                  aria-label="Copy link"
+                  title="Copy link to clipboard"
+                >
+                  <Icon name="mdi:share-variant" class="w-4 h-4" />
+                  <span class="text-sm font-medium hidden sm:inline">Copy Link</span>
+                </button>
+                <!-- Email Share -->
+                <a
+                  href={`mailto:?subject=${encodeURIComponent(articleTitle)}&body=${encodeURIComponent(`${articleTitle}\n\n${articleDescription}\n\n${articleUrl}`)}`}
+                  class="inline-flex items-center gap-2 px-4 py-2 bg-surface text-primary rounded-lg hover:bg-accent-green/10 hover:text-accent-green transition-all min-h-[44px] touch-manipulation"
+                  aria-label="Share via email"
+                  title="Share via email"
+                >
+                  <Icon name="mdi:email-outline" class="w-4 h-4" />
+                  <span class="text-sm font-medium hidden sm:inline">Email</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </ContentWrapper>
+
+      <!-- Key Takeaways Section -->
+      {
+        // Extract or manually add takeaways - using a placeholder for now
+        // In a real implementation, this could come from frontmatter or be auto-extracted
+        true && (
+          <ContentWrapper maxWidth="4xl" class="mt-12 sm:mt-16">
+            <div
+              class="bg-gradient-to-br from-accent-green/10 to-accent-green/5 border-2 border-accent-green/20 rounded-2xl p-6 sm:p-8"
+              id="key-takeaways"
+            >
+              <h2 class="text-2xl sm:text-3xl font-bold mb-5 sm:mb-6 flex items-center text-primary transition-colors">
+                <Icon name="mdi:lightbulb" class="w-6 h-6 sm:w-7 sm:h-7 text-accent-green transition-colors mr-3" />
+                Key Takeaways
+              </h2>
+              <div class="space-y-3 sm:space-y-4">
+                <div class="flex items-start gap-3">
+                  <Icon name="mdi:check-circle" class="w-5 h-5 sm:w-6 sm:h-6 text-accent-green transition-colors flex-shrink-0 mt-0.5" />
+                  <p class="text-sm sm:text-base text-secondary transition-colors leading-relaxed">
+                    This article provides insights into data analytics and business intelligence best practices.
+                  </p>
+                </div>
+                <div class="flex items-start gap-3">
+                  <Icon name="mdi:check-circle" class="w-5 h-5 sm:w-6 sm:h-6 text-accent-green transition-colors flex-shrink-0 mt-0.5" />
+                  <p class="text-sm sm:text-base text-secondary transition-colors leading-relaxed">
+                    Understanding your data capabilities is the first step toward transformation.
+                  </p>
+                </div>
+                <div class="flex items-start gap-3">
+                  <Icon name="mdi:check-circle" class="w-5 h-5 sm:w-6 sm:h-6 text-accent-green transition-colors flex-shrink-0 mt-0.5" />
+                  <p class="text-sm sm:text-base text-secondary transition-colors leading-relaxed">
+                    Partnering with experienced data consultants can accelerate your journey.
+                  </p>
+                </div>
+              </div>
+              <div class="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-theme">
+                <h3 class="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-primary transition-colors">
+                  What's Next?
+                </h3>
+                <div class="space-y-2 sm:space-y-3">
+                  <a
+                    href={`${base}contact/`}
+                    class="flex items-center gap-2 text-accent-green hover:text-accent-green/80 transition-colors font-medium text-sm sm:text-base min-h-[44px] touch-manipulation"
+                  >
+                    <Icon name="mdi:arrow-right" class="w-4 h-4" />
+                    <span>Schedule a consultation to discuss your data needs</span>
+                  </a>
+                  <a
+                    href={`${base}services/`}
+                    class="flex items-center gap-2 text-accent-green hover:text-accent-green/80 transition-colors font-medium text-sm sm:text-base min-h-[44px] touch-manipulation"
+                  >
+                    <Icon name="mdi:arrow-right" class="w-4 h-4" />
+                    <span>Explore our data analytics services</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </ContentWrapper>
+        )
+      }
+
+      <!-- Related Posts Section -->
+      {
+        relatedPosts.length > 0 && (
+          <ContentWrapper maxWidth="4xl" class="mt-12 sm:mt-16">
+            <div class="mb-6 sm:mb-8">
+              <h2 class="text-2xl sm:text-3xl font-bold text-primary transition-colors flex items-center gap-3">
+                <Icon name="mdi:book-open" class="w-6 h-6 sm:w-7 sm:h-7 text-accent-green transition-colors" />
+                Related Posts
+              </h2>
+              <p class="text-sm sm:text-base text-secondary transition-colors mt-2">
+                Continue reading with these related articles
+              </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              {relatedPosts.map((relatedPost) => (
+                <div class="blog-related-post">
+                  <BlogPostCard post={relatedPost} featured={false} />
+                </div>
+              ))}
+            </div>
+          </ContentWrapper>
+        )
+      }
+
+      <!-- Next/Previous Post Navigation -->
+      {
+        (nextPost || prevPost) && (
+          <ContentWrapper maxWidth="4xl" class="mt-10 sm:mt-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+              {
+                prevPost && (
+                  <a
+                    href={`${base}blog/${prevPost.id.replace(/\.mdx?$/, "")}/`}
+                    class="group bg-card border border-theme rounded-xl p-5 sm:p-6 hover:border-accent-green transition-all min-h-[44px] touch-manipulation"
+                  >
+                    <div class="flex items-center gap-2 mb-2 text-xs sm:text-sm text-tertiary transition-colors">
+                      <Icon name="mdi:arrow-left" class="w-4 h-4" />
+                      <span>Previous Post</span>
+                    </div>
+                    <h3 class="text-base sm:text-lg font-semibold text-primary group-hover:text-accent-green transition-colors line-clamp-2">
+                      {prevPost.data.title}
+                    </h3>
+                  </a>
+                )
+              }
+              {
+                nextPost && (
+                  <a
+                    href={`${base}blog/${nextPost.id.replace(/\.mdx?$/, "")}/`}
+                    class="group bg-card border border-theme rounded-xl p-5 sm:p-6 hover:border-accent-green transition-all min-h-[44px] touch-manipulation md:text-right"
+                  >
+                    <div class="flex items-center gap-2 mb-2 text-xs sm:text-sm text-tertiary transition-colors md:justify-end">
+                      <span>Next Post</span>
+                      <Icon name="mdi:arrow-right" class="w-4 h-4" />
+                    </div>
+                    <h3 class="text-base sm:text-lg font-semibold text-primary group-hover:text-accent-green transition-colors line-clamp-2">
+                      {nextPost.data.title}
+                    </h3>
+                  </a>
+                )
+              }
+            </div>
+          </ContentWrapper>
+        )
+      }
 
       <!-- Call to Action -->
       <ContentWrapper maxWidth="4xl" class="mt-12 sm:mt-16">
         <div
           class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-6 sm:p-8 md:p-12 text-center"
         >
-          <h2 class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">
-            Ready to Transform Your Data?
-          </h2>
+          <div class="flex items-center justify-center gap-2 mb-4">
+            <Icon name={contextualCTA.icon} class="w-6 h-6 sm:w-7 sm:h-7 text-accent-green transition-colors" />
+            <h2 class="text-2xl sm:text-3xl font-bold">
+              {contextualCTA.title}
+            </h2>
+          </div>
           <p
             class="text-sm sm:text-base text-secondary transition-colors mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed"
           >
-            Let's discuss how AUXO Data Labs can help your business leverage
-            data analytics and business intelligence.
+            {contextualCTA.description}
           </p>
           <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <a
-              href={`${base}contact/`}
-              class="px-6 sm:px-8 py-3 sm:py-4 bg-accent-green font-bold rounded-lg hover:bg-accent-green/90 active:bg-accent-green/80 transition-all transform hover:scale-105 active:scale-95 inline-flex items-center justify-center gap-2 text-sm sm:text-base min-h-[44px] touch-manipulation"
+              href={contextualCTA.href}
+              class="px-6 sm:px-8 py-3 sm:py-4 bg-accent-green font-bold rounded-lg hover:bg-accent-green/90 active:bg-accent-green/80 transition-all transform hover:scale-105 active:scale-95 inline-flex items-center justify-center gap-2 text-sm sm:text-base min-h-[44px] touch-manipulation animate-pulse"
             >
               <Icon name="mdi:email" class="w-4 h-4 sm:w-5 sm:h-5" />
               Get In Touch
@@ -273,18 +644,46 @@ const breadcrumbItems = generateBlogBreadcrumbs(
 </BaseLayout>
 
 <style>
-  /* Enhanced code block styling - Theme-aware */
-  .prose pre {
+  /* Enhanced code block styling - Following Astro/Shiki best practices */
+  /* Shiki outputs .astro-code class with inline styles */
+  .prose pre.astro-code,
+  .prose pre[class*="astro-code"] {
     background: var(--bg-card) !important;
-    border: 1px solid var(--border-color) !important;
-    padding: 1.25rem 1.5rem;
+    border: none !important;
+    padding: 1rem 1.25rem;
+    margin: 0 !important;
     overflow-x: auto;
     position: relative;
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
+    border-radius: 0;
+    /* Preserve Shiki's inline styles for syntax highlighting */
   }
 
-  .prose pre code {
+  /* Fallback for non-Shiki code blocks */
+  .prose pre:not(.astro-code):not([class*="astro-code"]) {
+    background: var(--bg-card) !important;
+    border: none !important;
+    padding: 1rem 1.25rem;
+    margin: 0 !important;
+    overflow-x: auto;
+    position: relative;
+    border-radius: 0;
+  }
+
+  /* Code element inside Shiki blocks */
+  .prose pre.astro-code code,
+  .prose pre[class*="astro-code"] code {
+    background: transparent !important;
+    padding: 0 !important;
+    border-radius: 0;
+    font-size: 0.875rem;
+    line-height: 1.75;
+    display: block;
+    width: 100%;
+    /* Don't override Shiki's inline color styles */
+  }
+
+  /* Fallback for non-Shiki code */
+  .prose pre:not(.astro-code) code {
     background: transparent !important;
     padding: 0 !important;
     border-radius: 0;
@@ -303,19 +702,6 @@ const breadcrumbItems = generateBlogBreadcrumbs(
     word-wrap: break-word;
   }
 
-  /* Code block wrapper for copy functionality */
-  .prose pre::before {
-    content: "";
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    width: 1rem;
-    height: 1rem;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23a3e635'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z' /%3E%3C/svg%3E")
-      no-repeat center;
-    opacity: 0.5;
-    cursor: pointer;
-  }
 
   /* Responsive tables */
   @media (max-width: 768px) {
@@ -406,13 +792,624 @@ const breadcrumbItems = generateBlogBreadcrumbs(
     margin-right: auto;
   }
 
-  /* Shiki theme adjustments for better contrast - Theme-aware */
-  .prose pre[class*="language-"] {
-    background: var(--bg-card) !important;
+  /* Shiki theme adjustments - Work with .astro-code class */
+  /* Following Astro documentation: Use .astro-code instead of .shiki */
+  /* Shiki outputs inline styles with CSS variables for light/dark mode */
+  .prose pre.astro-code,
+  .prose pre[class*="astro-code"] {
+    /* Shiki handles colors via inline styles, we just ensure container styling */
+  }
+
+  /* Support for Shiki's dual theme CSS variables (light/dark mode) */
+  /* Reference: https://docs.astro.build/en/guides/syntax-highlighting/ */
+  @media (prefers-color-scheme: dark) {
+    .prose .astro-code,
+    .prose .astro-code span {
+      color: var(--shiki-dark) !important;
+      background-color: var(--shiki-dark-bg) !important;
+      font-style: var(--shiki-dark-font-style) !important;
+      font-weight: var(--shiki-dark-font-weight) !important;
+      text-decoration: var(--shiki-dark-text-decoration) !important;
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    .prose .astro-code,
+    .prose .astro-code span {
+      color: var(--shiki-light) !important;
+      background-color: var(--shiki-light-bg) !important;
+      font-style: var(--shiki-light-font-style) !important;
+      font-weight: var(--shiki-light-font-weight) !important;
+      text-decoration: var(--shiki-light-text-decoration) !important;
+    }
+  }
+
+  /* Ensure code blocks maintain proper contrast in both themes */
+  .code-block-wrapper pre.astro-code,
+  .code-block-wrapper pre[class*="astro-code"] {
+    /* Shiki's inline styles are preserved, we just add container */
   }
 
   /* Ensure proper text selection - Theme-aware */
   .prose *::selection {
     background: rgba(var(--accent-green-rgb), 0.3) !important;
   }
+
+  /* Add IDs to headings for TOC navigation */
+  .prose h2,
+  .prose h3 {
+    scroll-margin-top: 5rem;
+  }
+
+  /* Code block wrapper - improved implementation following Astro/Shiki best practices */
+  /* Shiki outputs .astro-code class - we wrap it without breaking inline styles */
+  .prose pre.astro-code,
+  .prose pre[class*="astro-code"],
+  .prose pre:not(.astro-code):not([class*="astro-code"]) {
+    position: relative;
+    overflow: hidden;
+    margin: 0 !important;
+  }
+
+  /* Code block wrapper with header */
+  .code-block-wrapper {
+    position: relative;
+    margin: 1.5rem 0;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  }
+
+  .code-block-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0.75rem;
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.75rem;
+    min-height: 2.25rem;
+    gap: 0.75rem;
+  }
+
+  .code-block-language {
+    color: var(--text-tertiary);
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    text-transform: capitalize;
+  }
+
+  .code-copy-button {
+    padding: 0.375rem 0.75rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    opacity: 1;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    line-height: 1;
+    min-height: 1.75rem;
+    min-width: 3.5rem;
+    z-index: 10;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .code-copy-button:hover {
+    opacity: 1;
+    background: var(--accent-green);
+    color: var(--bg-primary);
+    border-color: var(--accent-green);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .code-copy-button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .code-copy-button:focus {
+    outline: 2px solid var(--accent-green);
+    outline-offset: 2px;
+  }
+
+  .code-copy-button:focus-visible {
+    outline: 2px solid var(--accent-green);
+    outline-offset: 2px;
+  }
+
+  .code-copy-button.copied {
+    background: var(--accent-green);
+    color: var(--bg-primary);
+    border-color: var(--accent-green);
+    opacity: 1;
+    animation: copySuccess 0.3s ease;
+  }
+
+  @keyframes copySuccess {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .code-copy-button .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  .code-copy-button .copy-text {
+    font-weight: 500;
+    letter-spacing: 0.025em;
+  }
+
+  /* Ensure code blocks inside wrapper maintain proper styling */
+  /* Preserve Shiki's inline styles while adding container */
+  .code-block-wrapper pre.astro-code,
+  .code-block-wrapper pre[class*="astro-code"],
+  .code-block-wrapper pre {
+    border-radius: 0;
+    margin: 0;
+    /* Shiki's inline color styles are preserved automatically */
+  }
+
+  /* Ensure Shiki's syntax highlighting works inside wrapper */
+  .code-block-wrapper .astro-code,
+  .code-block-wrapper [class*="astro-code"] {
+    /* Shiki handles all color styling via inline styles */
+    /* We just provide the container structure */
+  }
+
+  /* TOC expandable sections */
+  .toc-section {
+    margin-bottom: 0.25rem;
+  }
+
+  .toc-chevron {
+    transition: transform 0.2s ease;
+  }
+
+  .toc-section.active .toc-chevron {
+    transform: rotate(180deg);
+  }
+
+  .toc-subsection {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.2s ease;
+    opacity: 0;
+  }
+
+  .toc-section.active .toc-subsection {
+    max-height: 1000px;
+    opacity: 1;
+    display: block;
+  }
+
+  /* Print styles */
+  @media print {
+    #reading-progress,
+    #copy-link-button,
+    #print-button,
+    .code-copy-button,
+    .code-block-header,
+    aside,
+    nav,
+    footer,
+    header {
+      display: none !important;
+    }
+
+    .code-block-wrapper {
+      border: 1px solid #ccc;
+      page-break-inside: avoid;
+    }
+
+    .prose {
+      max-width: 100% !important;
+    }
+
+    .prose pre {
+      page-break-inside: avoid;
+    }
+
+    .prose img {
+      max-width: 100%;
+      page-break-inside: avoid;
+    }
+  }
 </style>
+
+<script define:vars={{ baseUrl: base }}>
+  // Reading progress bar
+  function updateReadingProgress() {
+    const article = document.getElementById('article-content');
+    const progressBar = document.getElementById('reading-progress-bar');
+    
+    if (!article || !progressBar) return;
+
+    const articleTop = article.offsetTop;
+    const articleHeight = article.offsetHeight;
+    const windowHeight = window.innerHeight;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    const articleBottom = articleTop + articleHeight;
+    const windowBottom = scrollTop + windowHeight;
+    
+    if (scrollTop < articleTop) {
+      progressBar.style.width = '0%';
+    } else if (windowBottom > articleBottom) {
+      progressBar.style.width = '100%';
+    } else {
+      const scrolled = scrollTop - articleTop;
+      const progress = (scrolled / (articleHeight - windowHeight)) * 100;
+      progressBar.style.width = Math.min(100, Math.max(0, progress)) + '%';
+    }
+  }
+
+  // Copy link functionality
+  function initCopyLink() {
+    const copyButton = document.getElementById('copy-link-button');
+    if (!copyButton) return;
+
+    copyButton.addEventListener('click', async () => {
+      const url = window.location.href;
+      
+      try {
+        await navigator.clipboard.writeText(url);
+        const originalText = copyButton.querySelector('span')?.textContent || 'Copy Link';
+        copyButton.innerHTML = `
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          <span class="text-sm font-medium hidden sm:inline">Copied!</span>
+        `;
+        copyButton.classList.add('bg-accent-green', 'text-primary');
+        
+        setTimeout(() => {
+          copyButton.innerHTML = `
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+            </svg>
+            <span class="text-sm font-medium hidden sm:inline">${originalText}</span>
+          `;
+          copyButton.classList.remove('bg-accent-green', 'text-primary');
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy link:', err);
+      }
+    });
+  }
+
+  // Print functionality
+  function initPrint() {
+    const printButton = document.getElementById('print-button');
+    if (!printButton) return;
+
+    printButton.addEventListener('click', () => {
+      window.print();
+    });
+  }
+
+  // Enhanced code blocks with improved implementation based on Astro best practices
+  function enhanceCodeBlocks() {
+    // Check if clipboard API is available
+    const hasClipboard = navigator.clipboard && navigator.clipboard.writeText;
+    
+    if (!hasClipboard) {
+      // Fallback: hide copy buttons if clipboard API not available
+      return;
+    }
+
+    // Target Shiki code blocks (.astro-code) and regular pre elements
+    const codeBlocks = document.querySelectorAll('.prose pre:not([data-enhanced])');
+    
+    codeBlocks.forEach((pre, index) => {
+      const code = pre.querySelector('code');
+      if (!code) return;
+
+      // Mark as enhanced to prevent double processing
+      pre.setAttribute('data-enhanced', 'true');
+
+      // Multiple language detection methods following Astro/Shiki best practices
+      // Shiki outputs code blocks with .astro-code class and language info
+      let language = 'text';
+      
+      // Method 1: Check Shiki's data-lang attribute (primary method)
+      if (code.hasAttribute('data-lang')) {
+        language = code.getAttribute('data-lang') || 'text';
+      }
+      // Method 2: Check pre element for language class (Shiki pattern)
+      else if (pre.className) {
+        const preLangMatch = pre.className.match(/language-(\w+)/);
+        if (preLangMatch) {
+          language = preLangMatch[1];
+        }
+      }
+      // Method 3: Check code element for language-* pattern (fallback)
+      else if (code.className) {
+        const languageMatch = code.className.match(/language-(\w+)/);
+        if (languageMatch) {
+          language = languageMatch[1];
+        }
+      }
+      // Method 4: Check for Shiki's class pattern (astro-code-*)
+      else if (pre.className) {
+        const shikiMatch = pre.className.match(/astro-code-(\w+)/);
+        if (shikiMatch) {
+          language = shikiMatch[1];
+        }
+      }
+
+      // Normalize language names for display
+      const languageNames: Record<string, string> = {
+        'js': 'JavaScript',
+        'ts': 'TypeScript',
+        'py': 'Python',
+        'rb': 'Ruby',
+        'go': 'Go',
+        'rs': 'Rust',
+        'sh': 'Shell',
+        'bash': 'Bash',
+        'zsh': 'Zsh',
+        'yml': 'YAML',
+        'yaml': 'YAML',
+        'json': 'JSON',
+        'xml': 'XML',
+        'html': 'HTML',
+        'css': 'CSS',
+        'scss': 'SCSS',
+        'sass': 'Sass',
+        'md': 'Markdown',
+        'mdx': 'MDX',
+        'sql': 'SQL',
+        'graphql': 'GraphQL',
+        'dockerfile': 'Dockerfile',
+      };
+
+      const displayLanguage = languageNames[language.toLowerCase()] || language.charAt(0).toUpperCase() + language.slice(1);
+
+      // Create wrapper with unique ID
+      const wrapperId = `code-block-${index}`;
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-block-wrapper';
+      wrapper.setAttribute('role', 'group');
+      wrapper.setAttribute('aria-label', `Code block: ${displayLanguage}`);
+
+      // Create header with language and copy button
+      const header = document.createElement('div');
+      header.className = 'code-block-header';
+      header.setAttribute('role', 'toolbar');
+      header.setAttribute('aria-label', 'Code block toolbar');
+
+      const languageLabel = document.createElement('span');
+      languageLabel.className = 'code-block-language';
+      languageLabel.setAttribute('aria-label', `Programming language: ${displayLanguage}`);
+      languageLabel.textContent = displayLanguage;
+
+      const copyButton = document.createElement('button');
+      copyButton.className = 'code-copy-button';
+      copyButton.setAttribute('aria-label', 'Copy code to clipboard');
+      copyButton.setAttribute('title', 'Copy code');
+      copyButton.setAttribute('type', 'button');
+      copyButton.setAttribute('data-code-block-id', wrapperId);
+      
+      // Store original HTML for reset - enhanced with better visibility
+      const originalHTML = `
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+        </svg>
+        <span class="sr-only">Copy code</span>
+        <span aria-hidden="true" class="copy-text">Copy</span>
+      `;
+      
+      copyButton.innerHTML = originalHTML;
+
+      // Improved copy functionality with better error handling
+      copyButton.addEventListener('click', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Get code text - handle both textContent and innerText
+        let codeText = '';
+        if (code.textContent) {
+          codeText = code.textContent;
+        } else if ((code as HTMLElement).innerText) {
+          codeText = (code as HTMLElement).innerText;
+        }
+
+        if (!codeText.trim()) {
+          console.warn('No code content to copy');
+          return;
+        }
+
+        try {
+          // Use Clipboard API
+          await navigator.clipboard.writeText(codeText);
+          
+          // Visual feedback
+          copyButton.innerHTML = `
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span class="sr-only">Code copied to clipboard</span>
+            <span aria-hidden="true" class="copy-text">Copied!</span>
+          `;
+          copyButton.classList.add('copied');
+          copyButton.setAttribute('aria-label', 'Code copied to clipboard');
+          
+          // Reset after 2 seconds
+          setTimeout(() => {
+            copyButton.innerHTML = originalHTML;
+            copyButton.classList.remove('copied');
+            copyButton.setAttribute('aria-label', 'Copy code to clipboard');
+          }, 2000);
+        } catch (err) {
+          // Fallback for older browsers
+          console.warn('Clipboard API failed, using fallback', err);
+          
+          // Fallback: Create temporary textarea
+          const textarea = document.createElement('textarea');
+          textarea.value = codeText;
+          textarea.style.position = 'fixed';
+          textarea.style.opacity = '0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          
+          try {
+            document.execCommand('copy');
+            copyButton.innerHTML = `
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="sr-only">Code copied to clipboard</span>
+              <span aria-hidden="true" class="copy-text">Copied!</span>
+            `;
+            copyButton.classList.add('copied');
+            setTimeout(() => {
+              copyButton.innerHTML = originalHTML;
+              copyButton.classList.remove('copied');
+            }, 2000);
+          } catch (fallbackErr) {
+            console.error('Copy failed:', fallbackErr);
+            // Show error state
+            copyButton.setAttribute('aria-label', 'Copy failed. Please select and copy manually.');
+          } finally {
+            document.body.removeChild(textarea);
+          }
+        }
+      });
+
+      header.appendChild(languageLabel);
+      header.appendChild(copyButton);
+
+      // Wrap pre element
+      pre.parentNode?.insertBefore(wrapper, pre);
+      wrapper.id = wrapperId;
+      wrapper.appendChild(header);
+      wrapper.appendChild(pre);
+    });
+
+    // Add IDs to headings for TOC navigation
+    const headings = document.querySelectorAll('.prose h2:not([id]), .prose h3:not([id])');
+    headings.forEach((heading) => {
+      const text = heading.textContent || '';
+      const id = text
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-');
+      if (id) {
+        heading.id = id;
+      }
+    });
+  }
+
+  // Initialize collapsible TOC
+  function initCollapsibleTOC() {
+    const tocSections = document.querySelectorAll('.toc-section');
+    
+    tocSections.forEach((section) => {
+      const header = section.querySelector('a');
+      const chevron = section.querySelector('.toc-chevron');
+      const subsection = section.querySelector('.toc-subsection');
+      
+      if (!header || !subsection || !chevron) return;
+
+      // Make chevron clickable to toggle
+      chevron.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        section.classList.toggle('active');
+      });
+
+      // Allow clicking on the link text to navigate, but clicking on chevron area toggles
+      header.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        // If clicking on chevron or its parent span, toggle instead of navigating
+        if (target === chevron || target.closest('.toc-chevron') || target.closest('svg')) {
+          e.preventDefault();
+          e.stopPropagation();
+          section.classList.toggle('active');
+        }
+        // Otherwise, let the link navigate normally
+      });
+    });
+  }
+
+  // Add inline CTA after first H2
+  function addInlineCTA() {
+    const firstH2 = document.querySelector('.prose h2');
+    if (!firstH2) return;
+
+    // Check if CTA already exists
+    if (document.getElementById('inline-cta')) return;
+
+    const contactUrl = baseUrl + 'contact/';
+    const inlineCTA = document.createElement('div');
+    inlineCTA.id = 'inline-cta';
+    inlineCTA.className = 'my-8 sm:my-10 p-6 sm:p-8 bg-gradient-to-r from-accent-green/10 to-accent-green/5 border-2 border-accent-green/20 rounded-xl';
+    inlineCTA.innerHTML = `
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="flex-1">
+          <h3 class="text-lg sm:text-xl font-bold mb-2 text-primary">Want to learn more?</h3>
+          <p class="text-sm sm:text-base text-secondary">Get personalized insights for your business.</p>
+        </div>
+        <a
+          href="${contactUrl}"
+          class="px-6 py-3 bg-accent-green text-primary font-bold rounded-lg hover:bg-accent-green/90 transition-all inline-flex items-center justify-center gap-2 text-sm sm:text-base min-h-[44px] touch-manipulation whitespace-nowrap"
+        >
+          Contact Us
+        </a>
+      </div>
+    `;
+
+    firstH2.parentNode?.insertBefore(inlineCTA, firstH2.nextSibling);
+  }
+
+  // Initialize all features
+  document.addEventListener('DOMContentLoaded', () => {
+    updateReadingProgress();
+    initCopyLink();
+    initPrint();
+    enhanceCodeBlocks();
+    initCollapsibleTOC();
+    addInlineCTA();
+
+    // Update reading progress on scroll
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateReadingProgress();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  });
+</script>

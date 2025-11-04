@@ -18,8 +18,14 @@ export default defineConfig({
     mdx({
       syntaxHighlight: 'shiki',
       shikiConfig: {
-        theme: 'github-dark',
+        // Use dual themes for light/dark mode support
+        themes: {
+          light: 'github-light',
+          dark: 'github-dark',
+        },
         wrap: true,
+        // Add transformers for better code block features (optional)
+        // transformers: [],
       },
     }),
     sitemap({

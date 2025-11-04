@@ -935,11 +935,11 @@ def anonymize_customer_data(customer_id):
 
 ## Common Pitfalls to Avoid
 
-❌ **Over-engineering from day one** → Start with essentials, evolve
-❌ **Technology-first approach** → Define processes first, then tools
-❌ **Compliance-only mindset** → Focus on business value AND compliance
-❌ **Ignoring change management** → Invest in training and adoption
-❌ **Siloed governance team** → Embed governance in business units
+- ❌ **Over-engineering from day one** → Start with essentials, evolve
+- ❌ **Technology-first approach** → Define processes first, then tools
+- ❌ **Compliance-only mindset** → Focus on business value AND compliance
+- ❌ **Ignoring change management** → Invest in training and adoption
+- ❌ **Siloed governance team** → Embed governance in business units
 
 ## Next Steps
 

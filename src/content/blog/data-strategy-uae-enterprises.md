@@ -258,11 +258,11 @@ Technology is only part of the equation. Training, change management, and buildi
 
 ## Common Mistakes to Avoid
 
-❌ **Technology-first approach** → Start with business problems, not tools
-❌ **Trying to do everything at once** → Phased approach with quick wins
-❌ **Ignoring change management** → Invest in training and adoption
-❌ **No executive sponsorship** → Secure C-level champion early
-❌ **Underestimating data quality** → Address quality issues from day one
+- ❌ **Technology-first approach** → Start with business problems, not tools
+- ❌ **Trying to do everything at once** → Phased approach with quick wins
+- ❌ **Ignoring change management** → Invest in training and adoption
+- ❌ **No executive sponsorship** → Secure C-level champion early
+- ❌ **Underestimating data quality** → Address quality issues from day one
 
 ## Next Steps
 

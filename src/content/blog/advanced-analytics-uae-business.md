@@ -469,25 +469,25 @@ print(f"Per group: {ceil(required_n):,} visitors")
 
 **Common mistakes to avoid:**
 
-❌ **Peeking:** Checking results multiple times
-- Inflates false positive rate
-- **Solution:** Pre-commit to sample size, check once
+- ❌ **Peeking:** Checking results multiple times
+  - Inflates false positive rate
+  - **Solution:** Pre-commit to sample size, check once
 
-❌ **Stopping early:** Declaring winner at p=0.04
-- Not enough statistical power
-- **Solution:** Run to full sample size
+- ❌ **Stopping early:** Declaring winner at p=0.04
+  - Not enough statistical power
+  - **Solution:** Run to full sample size
 
-❌ **Ignoring seasonality:** Running test Mon-Wed only
-- Weekday vs. weekend behavior differs
-- **Solution:** Run full weeks (minimum 1 week, ideally 2-4)
+- ❌ **Ignoring seasonality:** Running test Mon-Wed only
+  - Weekday vs. weekend behavior differs
+  - **Solution:** Run full weeks (minimum 1 week, ideally 2-4)
 
-❌ **Novelty effect:** Users engage more with new design initially
-- Wears off after familiarity sets in
-- **Solution:** Run test 2-4 weeks
+- ❌ **Novelty effect:** Users engage more with new design initially
+  - Wears off after familiarity sets in
+  - **Solution:** Run test 2-4 weeks
 
-❌ **Selection bias:** Showing test only to mobile users
-- Results won't generalize
-- **Solution:** Random assignment, all user types
+- ❌ **Selection bias:** Showing test only to mobile users
+  - Results won't generalize
+  - **Solution:** Random assignment, all user types
 
 **4. Analyze Results**
 

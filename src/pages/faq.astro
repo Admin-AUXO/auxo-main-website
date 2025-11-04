@@ -62,7 +62,7 @@ const base = import.meta.env.BASE_URL;
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
             <a
-              href="#faq-general-0"
+              href="#faq-why-choose-a-startup-0"
               class="p-3 bg-card border border-theme rounded-lg hover:border-accent-green hover:bg-surface transition-all text-left group min-h-[44px]"
               data-popular-question
             >
@@ -74,7 +74,7 @@ const base = import.meta.env.BASE_URL;
               </div>
             </a>
             <a
-              href="#faq-pricing-0"
+              href="#faq-pricing-process-0"
               class="p-3 bg-card border border-theme rounded-lg hover:border-accent-green hover:bg-surface transition-all text-left group min-h-[44px]"
               data-popular-question
             >
@@ -98,7 +98,7 @@ const base = import.meta.env.BASE_URL;
               </div>
             </a>
             <a
-              href="#faq-pricing-1"
+              href="#faq-pricing-process-1"
               class="p-3 bg-card border border-theme rounded-lg hover:border-accent-green hover:bg-surface transition-all text-left group min-h-[44px]"
               data-popular-question
             >
@@ -174,8 +174,8 @@ const base = import.meta.env.BASE_URL;
                     <div 
                       class="faq-item bg-card border border-theme rounded-xl overflow-hidden hover:border-accent-green/30 transition-all duration-200 hover:shadow-lg" 
                       data-faq-index={itemIndex}
-                      data-category={category.category.toLowerCase().replace(/\s+/g, '-')}
-                      id={`faq-${category.category.toLowerCase().replace(/\s+/g, '-')}-${itemIndex}`}
+                      data-category={category.category.toLowerCase().replace(/\s+/g, '-').replace(/[&?]/g, '')}
+                      id={`faq-${category.category.toLowerCase().replace(/\s+/g, '-').replace(/[&?]/g, '')}-${itemIndex}`}
                     >
                       <button class="faq-question w-full text-left px-6 py-5 flex items-center justify-between hover:bg-surface transition-colors min-h-[44px] touch-manipulation group" aria-expanded="false">
                         <span class="font-semibold text-lg text-primary pr-4 transition-colors">
@@ -525,9 +525,13 @@ const base = import.meta.env.BASE_URL;
           // Switch to correct category if needed
           const category = targetItem.getAttribute("data-category");
           if (category) {
-            const categoryTab = Array.from(categoryTabs).find(
-              (tab) => tab.getAttribute("data-category")?.toLowerCase().replace(/\s+/g, "-") === category
-            );
+            // Find category tab by matching the normalized category name
+            const categoryTab = Array.from(categoryTabs).find((tab) => {
+              const tabCategory = tab.getAttribute("data-category");
+              const normalizedTabCategory = tabCategory?.toLowerCase().replace(/\s+/g, "-").replace(/[&?]/g, "");
+              const normalizedTargetCategory = category.toLowerCase().replace(/\s+/g, "-").replace(/[&?]/g, "");
+              return normalizedTabCategory === normalizedTargetCategory;
+            });
             categoryTab?.click();
           }
           

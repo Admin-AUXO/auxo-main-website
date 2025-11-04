@@ -6,6 +6,7 @@ export interface Service {
   features: string[];
   deliverables: string[];
   timeline?: string; // Typical timeline, e.g., "4-8 weeks"
+  businessImpact?: string[]; // Business outcomes, e.g., "Faster decision-making", "Better ROI visibility"
 }
 
 export const services: Service[] = [
@@ -15,6 +16,12 @@ export const services: Service[] = [
     description: 'Turn complex data into real-time insights through intuitive, decision-ready dashboards.',
     icon: 'mdi:chart-line',
     timeline: '4-8 weeks',
+    businessImpact: [
+      'Faster decision-making with real-time insights',
+      'Reduce reporting time by up to 80%',
+      'Improve strategic planning accuracy',
+      'Better visibility into KPIs and performance',
+    ],
     features: [
       'Power BI & Tableau dashboard development',
       'Automated reporting with scheduling',
@@ -35,6 +42,12 @@ export const services: Service[] = [
     description: 'Transform raw information into predictive, actionable intelligence for smarter decisions.',
     icon: 'mdi:chart-scatter-plot',
     timeline: '6-10 weeks',
+    businessImpact: [
+      'Predict and prevent customer churn',
+      'Optimize pricing strategies for better margins',
+      'Identify growth opportunities early',
+      'Make data-driven decisions with confidence',
+    ],
     features: [
       'Descriptive & diagnostic analytics',
       'Predictive modeling & forecasting',
@@ -55,6 +68,12 @@ export const services: Service[] = [
     description: 'Align your data initiatives with business goals through a clear, execution-ready strategy.',
     icon: 'mdi:strategy',
     timeline: '3-6 weeks',
+    businessImpact: [
+      'Clear roadmap for data investments',
+      'Better ROI on analytics spending',
+      'Avoid costly technology mistakes',
+      'Align data initiatives with business goals',
+    ],
     features: [
       'Data maturity assessment',
       'Strategic roadmap development',
@@ -75,6 +94,12 @@ export const services: Service[] = [
     description: 'Build scalable, secure data pipelines that unify systems and power analytics.',
     icon: 'mdi:database-cog',
     timeline: '8-12 weeks',
+    businessImpact: [
+      'Unified view of business operations',
+      'Reduce data processing costs',
+      'Enable real-time business insights',
+      'Scale analytics as you grow',
+    ],
     features: [
       'ETL/ELT pipeline development',
       'Cloud data warehouse design (AWS, Azure, GCP)',
@@ -95,6 +120,12 @@ export const services: Service[] = [
     description: 'Deploy cutting edge AI to automate, predict, and optimize business outcomes intelligently.',
     icon: 'mdi:robot',
     timeline: '10-16 weeks',
+    businessImpact: [
+      'Automate repetitive tasks and processes',
+      'Predict trends before they happen',
+      'Personalize customer experiences',
+      'Optimize operations for efficiency',
+    ],
     features: [
       'Custom ML model development & tuning',
       'Natural language processing (NLP)',
@@ -115,6 +146,12 @@ export const services: Service[] = [
     description: 'Ensure trusted, compliant, and secure data across your entire enterprise.',
     icon: 'mdi:shield-check',
     timeline: '6-10 weeks',
+    businessImpact: [
+      'Ensure regulatory compliance (PDPL, GDPR)',
+      'Build trust in your data quality',
+      'Reduce risk of data breaches',
+      'Enable confident data-driven decisions',
+    ],
     features: [
       'UAE PDPL & GDPR compliance frameworks',
       'Data catalog & metadata management',

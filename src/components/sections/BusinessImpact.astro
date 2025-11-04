@@ -1,0 +1,61 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface BusinessImpactItem {
+  icon: string;
+  title: string;
+  description?: string;
+}
+
+interface Props {
+  impacts: BusinessImpactItem[];
+  title?: string;
+  subtitle?: string;
+}
+
+const { 
+  impacts, 
+  title = "What This Means for Your Business",
+  subtitle = "Business outcomes, not just technical features"
+} = Astro.props;
+---
+
+<div class="max-w-6xl mx-auto">
+  {(title || subtitle) && (
+    <div class="text-center mb-8 sm:mb-12">
+      {title && (
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-primary transition-colors">
+          {title}
+        </h2>
+      )}
+      {subtitle && (
+        <p class="text-base sm:text-lg text-secondary max-w-2xl mx-auto transition-colors">
+          {subtitle}
+        </p>
+      )}
+    </div>
+  )}
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+    {impacts.map((impact) => (
+      <div class="bg-card border-2 border-theme rounded-xl p-4 sm:p-6 hover:border-accent-green/60 transition-all duration-300 hover:shadow-lg">
+        <div class="flex flex-col items-center text-center">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 bg-accent-green/20 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
+            <Icon 
+              name={impact.icon} 
+              class="w-6 h-6 sm:w-7 sm:h-7 text-accent-green transition-colors" 
+            />
+          </div>
+          <h3 class="text-sm sm:text-base font-semibold text-primary mb-2 transition-colors">
+            {impact.title}
+          </h3>
+          {impact.description && (
+            <p class="text-xs sm:text-sm text-secondary leading-relaxed transition-colors">
+              {impact.description}
+            </p>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

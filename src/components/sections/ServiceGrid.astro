@@ -18,9 +18,22 @@ const base = import.meta.env.BASE_URL;
     serviceList.map((service) => (
       <a
         href={`${base}services/${service.id}/`}
-        class="group bg-card border-2 border-theme rounded-2xl p-4 sm:p-5 md:p-8 hover:border-accent-green transition-all duration-300 hover:transform hover:-translate-y-1"
+        class="group bg-card border-2 border-theme rounded-2xl p-4 sm:p-5 md:p-8 hover:border-accent-green transition-all duration-300 hover:transform hover:-translate-y-1 relative"
         aria-label={`Learn more about ${service.title}`}
       >
+        <!-- Badges Container -->
+        <div class="absolute top-3 right-3 z-10 flex flex-col gap-2 items-end">
+          <div class="bg-accent-green/20 text-accent-green text-xs font-semibold px-2 py-1 rounded-full border border-accent-green/30 backdrop-blur-sm">
+            Founder-Led
+          </div>
+          {service.timeline && (
+            <div class="bg-surface/80 backdrop-blur-sm text-secondary text-xs font-medium px-2 py-1 rounded-full border border-theme flex items-center gap-1.5">
+              <Icon name="mdi:clock" class="w-3 h-3 text-accent-green" />
+              <span>{service.timeline}</span>
+            </div>
+          )}
+        </div>
+
         <div class="w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-accent-green/10 rounded-lg flex items-center justify-center mb-3 md:mb-4 group-hover:bg-accent-green/20 transition-colors">
           <Icon
             name={service.icon}
@@ -28,7 +41,7 @@ const base = import.meta.env.BASE_URL;
           />
         </div>
 
-        <h3 class="text-base sm:text-lg md:text-xl font-bold mb-2 md:mb-3 group-hover:text-accent-green transition-colors tracking-tight text-primary">
+        <h3 class="text-base sm:text-lg md:text-xl font-bold mb-2 md:mb-3 group-hover:text-accent-green transition-colors tracking-tight text-primary pr-16">
           {service.title}
         </h3>
 

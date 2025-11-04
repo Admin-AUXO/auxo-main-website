@@ -5,11 +5,67 @@ import PageContainer from "../../components/layouts/PageContainer.astro";
 import SectionContainer from "../../components/layouts/SectionContainer.astro";
 import ServicesHero from "../../components/sections/ServicesHero.astro";
 import ServiceGrid from "../../components/sections/ServiceGrid.astro";
+import BusinessImpact from "../../components/sections/BusinessImpact.astro";
 import { services } from "../../data/collections/services";
 import { servicesPageContent } from "../../data/content/services";
 import { Icon } from "astro-icon/components";
 
 const base = import.meta.env.BASE_URL;
+
+// Transform business impacts into display format with icons
+const getImpactIcon = (impact: string): string => {
+  const lowerImpact = impact.toLowerCase();
+  if (lowerImpact.includes("decision") || lowerImpact.includes("insight"))
+    return "mdi:target";
+  if (
+    lowerImpact.includes("time") ||
+    lowerImpact.includes("reduce") ||
+    lowerImpact.includes("efficiency")
+  )
+    return "mdi:clock";
+  if (
+    lowerImpact.includes("roi") ||
+    lowerImpact.includes("cost") ||
+    lowerImpact.includes("margin")
+  )
+    return "mdi:trending-up";
+  if (
+    lowerImpact.includes("compliance") ||
+    lowerImpact.includes("risk") ||
+    lowerImpact.includes("security")
+  )
+    return "mdi:shield-check";
+  if (
+    lowerImpact.includes("predict") ||
+    lowerImpact.includes("forecast") ||
+    lowerImpact.includes("trend")
+  )
+    return "mdi:chart-line";
+  if (lowerImpact.includes("automate") || lowerImpact.includes("optimize"))
+    return "mdi:lightning-bolt";
+  if (lowerImpact.includes("growth") || lowerImpact.includes("opportunity"))
+    return "mdi:rocket";
+  if (
+    lowerImpact.includes("quality") ||
+    lowerImpact.includes("trust") ||
+    lowerImpact.includes("confidence")
+  )
+    return "mdi:trophy";
+  return "mdi:star"; // Default icon
+};
+
+// Extract unique business impacts from all services
+const allBusinessImpacts = services
+  .filter(
+    (service) => service.businessImpact && service.businessImpact.length > 0,
+  )
+  .flatMap((service) => service.businessImpact!)
+  .filter((impact, index, self) => self.indexOf(impact) === index) // Remove duplicates
+  .slice(0, 8) // Limit to top 8 for display
+  .map((impact) => ({
+    icon: getImpactIcon(impact),
+    title: impact,
+  }));
 
 // FAQ data for structured data
 const servicesFAQs = [
@@ -186,6 +242,15 @@ const servicesFAQs = [
           </div>
         </div>
       </div>
+    </SectionContainer>
+
+    <!-- Business Impact Section -->
+    <SectionContainer class="mb-12 sm:mb-16 md:mb-20">
+      <BusinessImpact
+        impacts={allBusinessImpacts}
+        title="Business Outcomes You Can Expect"
+        subtitle="What our services mean for your business—executive-focused outcomes, not just technical features"
+      />
     </SectionContainer>
 
     <!-- Services Grid -->

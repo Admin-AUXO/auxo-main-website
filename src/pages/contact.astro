@@ -15,183 +15,385 @@ const base = import.meta.env.BASE_URL;
   title="Contact Us - Get Started with Data Analytics | AUXO Data Labs"
   description="Ready to transform your data into insights? As a startup, we move fast with personal attention. Contact AUXO Data Labs for a free consultation—responses within 24 hours."
 >
-  <PageContainer maxWidth="7xl" paddingTop="pt-20 sm:pt-24" paddingBottom="pb-12 sm:pb-16">
-      <!-- Header -->
-      <ContentWrapper maxWidth="3xl" class="text-center mb-8 sm:mb-12 md:mb-16">
-        <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4">
-          {contactContent.hero.title}
-          <span class="text-accent-green transition-colors">
-            {contactContent.hero.titleHighlight}</span
-          >
-        </h1>
-        <p class="text-base sm:text-lg md:text-xl text-secondary transition-colors">
-          {contactContent.hero.subtitle}
-        </p>
-      </ContentWrapper>
+  <PageContainer
+    maxWidth="7xl"
+    paddingTop="pt-20 sm:pt-24"
+    paddingBottom="pb-12 sm:pb-16"
+  >
+    <!-- Header -->
+    <ContentWrapper maxWidth="3xl" class="text-center mb-8 sm:mb-12 md:mb-16">
+      <h1
+        class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4"
+      >
+        {contactContent.hero.title}
+        <span class="text-accent-green transition-colors">
+          {contactContent.hero.titleHighlight}</span
+        >
+      </h1>
+      <p
+        class="text-base sm:text-lg md:text-xl text-secondary transition-colors"
+      >
+        {contactContent.hero.subtitle}
+      </p>
+    </ContentWrapper>
 
-      <!-- Two Column Layout -->
-      <ContentWrapper maxWidth="7xl" class="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10 md:gap-12 mb-8 sm:mb-12 md:mb-16">
-        <!-- Contact Information Column -->
-        <div class="lg:col-span-1 mb-6 lg:mb-0">
-          <div class="lg:sticky lg:top-24">
-            <h2 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">
-              {contactContent.sidebar.title}
-            </h2>
+    <!-- Two Column Layout -->
+    <ContentWrapper
+      maxWidth="7xl"
+      class="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10 md:gap-12 mb-8 sm:mb-12 md:mb-16"
+    >
+      <!-- Contact Information Column -->
+      <div class="lg:col-span-1 mb-6 lg:mb-0">
+        <div class="lg:sticky lg:top-24">
+          <h2 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">
+            {contactContent.sidebar.title}
+          </h2>
 
-            <div class="space-y-6">
-              <!-- Email -->
-              <div class="flex items-start space-x-4">
-                <div
-                  class="w-10 h-10 bg-accent-green/10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors"
-                >
-                  <Icon name="mdi:email" class="w-5 h-5 text-accent-green transition-colors" />
-                </div>
-                <div>
-                  <h3 class="font-semibold mb-1 text-primary transition-colors">{commonText.labels.email}</h3>
-                  <a
-                    href={`mailto:${siteData.email}`}
-                    class="text-secondary hover:text-accent-green transition-colors"
-                  >
-                    {siteData.email}
-                  </a>
-                </div>
+          <div class="space-y-6">
+            <!-- Email -->
+            <div class="flex items-start space-x-4">
+              <div
+                class="w-10 h-10 bg-accent-green/10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors"
+              >
+                <Icon
+                  name="mdi:email"
+                  class="w-5 h-5 text-accent-green transition-colors"
+                />
               </div>
-
-              <!-- Phone -->
-              {
-                siteData.phone && (
-                  <div class="flex items-start space-x-4">
-                    <div class="w-10 h-10 bg-accent-green/10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors">
-                      <Icon name="mdi:phone" class="w-5 h-5 text-accent-green transition-colors" />
-                    </div>
-                    <div>
-                      <h3 class="font-semibold mb-1 text-primary transition-colors">
-                        {commonText.labels.phone}
-                      </h3>
-                      <a
-                        href={`tel:${siteData.phone}`}
-                        class="text-secondary hover:text-accent-green transition-colors"
-                      >
-                        {siteData.phone}
-                      </a>
-                    </div>
-                  </div>
-                )
-              }
-
-              <!-- Location -->
-              <div class="flex items-start space-x-4">
-                <div
-                  class="w-10 h-10 bg-accent-green/10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors"
+              <div>
+                <h3 class="font-semibold mb-1 text-primary transition-colors">
+                  {commonText.labels.email}
+                </h3>
+                <a
+                  href={`mailto:${siteData.email}`}
+                  class="text-secondary hover:text-accent-green transition-colors"
                 >
-                  <Icon name="mdi:map-marker" class="w-5 h-5 text-accent-green transition-colors" />
-                </div>
-                <div>
-                  <h3 class="font-semibold mb-1 text-primary transition-colors">
-                    {commonText.labels.location}
-                  </h3>
-                  <p class="text-secondary transition-colors">
-                    {siteData.address.city}<br />
-                    {siteData.address.country}
-                  </p>
-                </div>
-              </div>
-
-              <!-- Social -->
-              <div class="flex items-start space-x-4">
-                <div
-                  class="w-10 h-10 bg-accent-green/10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors"
-                >
-                  <Icon
-                    name="mdi:share-variant"
-                    class="w-5 h-5 text-accent-green transition-colors"
-                  />
-                </div>
-                <div>
-                  <h3 class="font-semibold mb-2 text-primary transition-colors">
-                    {commonText.labels.followUs}
-                  </h3>
-                  <div class="flex gap-3">
-                    <a
-                      href={siteData.social.linkedin}
-                      class="w-8 h-8 bg-surface rounded-lg flex items-center justify-center hover:bg-accent-green hover:text-black dark:hover:text-white transition-colors min-h-[44px] min-w-[44px] touch-manipulation"
-                    >
-                      <Icon name="mdi:linkedin" class="w-4 h-4" />
-                    </a>
-                    <a
-                      href={siteData.social.twitter}
-                      class="w-8 h-8 bg-surface rounded-lg flex items-center justify-center hover:bg-accent-green hover:text-black dark:hover:text-white transition-colors min-h-[44px] min-w-[44px] touch-manipulation"
-                    >
-                      <Icon name="mdi:twitter" class="w-4 h-4" />
-                    </a>
-                  </div>
-                </div>
+                  {siteData.email}
+                </a>
               </div>
             </div>
 
-            <!-- Quick Info Box -->
-            <div
-              class="mt-8 p-6 bg-gradient-to-br from-accent-green/10 to-accent-green/20 border border-accent-green/20 rounded-lg transition-colors"
+            <!-- Phone -->
+            {
+              siteData.phone && (
+                <div class="flex items-start space-x-4">
+                  <div class="w-10 h-10 bg-accent-green/10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors">
+                    <Icon
+                      name="mdi:phone"
+                      class="w-5 h-5 text-accent-green transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <h3 class="font-semibold mb-1 text-primary transition-colors">
+                      {commonText.labels.phone}
+                    </h3>
+                    <a
+                      href={`tel:${siteData.phone}`}
+                      class="text-secondary hover:text-accent-green transition-colors"
+                    >
+                      {siteData.phone}
+                    </a>
+                  </div>
+                </div>
+              )
+            }
+
+            <!-- Location -->
+            <div class="flex items-start space-x-4">
+              <div
+                class="w-10 h-10 bg-accent-green/10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors"
+              >
+                <Icon
+                  name="mdi:map-marker"
+                  class="w-5 h-5 text-accent-green transition-colors"
+                />
+              </div>
+              <div>
+                <h3 class="font-semibold mb-1 text-primary transition-colors">
+                  {commonText.labels.location}
+                </h3>
+                <p class="text-secondary transition-colors">
+                  {siteData.address.city}<br />
+                  {siteData.address.country}
+                </p>
+              </div>
+            </div>
+
+            <!-- Social -->
+            <div class="flex items-start space-x-4">
+              <div
+                class="w-10 h-10 bg-accent-green/10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors"
+              >
+                <Icon
+                  name="mdi:share-variant"
+                  class="w-5 h-5 text-accent-green transition-colors"
+                />
+              </div>
+              <div>
+                <h3 class="font-semibold mb-2 text-primary transition-colors">
+                  {commonText.labels.followUs}
+                </h3>
+                <div class="flex gap-3">
+                  <a
+                    href={siteData.social.linkedin}
+                    class="w-8 h-8 bg-surface rounded-lg flex items-center justify-center hover:bg-accent-green hover:text-black dark:hover:text-white transition-colors min-h-[44px] min-w-[44px] touch-manipulation"
+                  >
+                    <Icon name="mdi:linkedin" class="w-4 h-4" />
+                  </a>
+                  <a
+                    href={siteData.social.twitter}
+                    class="w-8 h-8 bg-surface rounded-lg flex items-center justify-center hover:bg-accent-green hover:text-black dark:hover:text-white transition-colors min-h-[44px] min-w-[44px] touch-manipulation"
+                  >
+                    <Icon name="mdi:twitter" class="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Info Box -->
+          <div
+            class="mt-8 p-6 bg-gradient-to-br from-accent-green/10 to-accent-green/20 border border-accent-green/20 rounded-lg transition-colors"
+          >
+            <h3 class="font-bold mb-2 text-primary transition-colors">
+              {contactContent.sidebar.info.fastResponse.title}
+            </h3>
+            <p class="text-sm text-secondary transition-colors">
+              {contactContent.sidebar.info.fastResponse.description}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Column -->
+      <div class="lg:col-span-2 space-y-6">
+        <!-- Response Time Promise Badge -->
+        <div class="flex items-center justify-center sm:justify-start gap-3">
+          <div
+            class="bg-accent-green/10 border border-accent-green/30 rounded-full px-4 py-2 flex items-center gap-2"
+          >
+            <Icon name="mdi:clock" class="w-5 h-5 text-accent-green" />
+            <span class="text-sm font-semibold text-accent-green"
+              >We respond within 24 hours. Usually faster.</span
             >
-              <h3 class="font-bold mb-2 text-primary transition-colors">
-                {contactContent.sidebar.info.fastResponse.title}
+          </div>
+        </div>
+
+        <!-- What to Expect Section -->
+        <div
+          class="bg-accent-green/10 border border-accent-green/30 rounded-xl p-6 sm:p-8"
+        >
+          <div class="flex items-start gap-4 mb-4">
+            <div
+              class="flex-shrink-0 w-10 h-10 bg-accent-green/20 rounded-lg flex items-center justify-center"
+            >
+              <Icon name="mdi:check-circle" class="w-6 h-6 text-accent-green" />
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-bold mb-3 text-primary transition-colors">
+                Your Free Consultation Includes:
               </h3>
-              <p class="text-sm text-secondary transition-colors">
-                {contactContent.sidebar.info.fastResponse.description}
+              <ul class="space-y-2">
+                <li class="flex items-start gap-2">
+                  <Icon
+                    name="mdi:check"
+                    class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
+                  />
+                  <span class="text-sm text-secondary transition-colors"
+                    >Custom assessment of your data needs</span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <Icon
+                    name="mdi:check"
+                    class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
+                  />
+                  <span class="text-sm text-secondary transition-colors"
+                    >Personalized recommendations</span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <Icon
+                    name="mdi:check"
+                    class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
+                  />
+                  <span class="text-sm text-secondary transition-colors"
+                    >Implementation roadmap</span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <Icon
+                    name="mdi:check"
+                    class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
+                  />
+                  <span class="text-sm text-secondary transition-colors"
+                    >No obligation, just honest advice</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Startup Advantage Callout -->
+        <div
+          class="bg-card border border-accent-green/30 rounded-lg p-4 sm:p-6"
+        >
+          <div class="flex items-start gap-3">
+            <Icon
+              name="mdi:rocket"
+              class="w-5 h-5 sm:w-6 sm:h-6 text-accent-green flex-shrink-0 mt-0.5"
+            />
+            <div>
+              <p
+                class="text-sm sm:text-base text-primary font-medium transition-colors"
+              >
+                Talk directly with founders. No account managers. No sales
+                pitches.
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Form Column -->
-        <div class="lg:col-span-2">
-          <div class="bg-card/50 border border-theme rounded-2xl p-8 transition-colors">
-            <MultiStepForm />
+        <!-- Form -->
+        <div
+          class="bg-card/50 border border-theme rounded-2xl p-8 transition-colors"
+        >
+          <MultiStepForm />
+        </div>
+
+        <!-- Privacy Note -->
+        <div class="text-center">
+          <p
+            class="text-xs text-secondary flex items-center justify-center gap-2 transition-colors"
+          >
+            <Icon name="mdi:shield-check" class="w-4 h-4 text-accent-green" />
+            <span
+              >Your information is confidential. We never share details. PDPL
+              compliant.</span
+            >
+          </p>
+        </div>
+
+        <!-- What Happens Next Section -->
+        <div class="bg-card border-2 border-theme rounded-xl p-6 sm:p-8">
+          <h3
+            class="text-xl font-bold mb-4 text-primary transition-colors flex items-center gap-2"
+          >
+            <Icon name="mdi:arrow-right" class="w-6 h-6 text-accent-green" />
+            What Happens Next
+          </h3>
+          <div class="space-y-4">
+            <div class="flex items-start gap-4">
+              <div
+                class="flex-shrink-0 w-8 h-8 bg-accent-green/20 rounded-full flex items-center justify-center font-bold text-accent-green"
+              >
+                1
+              </div>
+              <div>
+                <h4 class="font-semibold text-primary mb-1 transition-colors">
+                  We'll review your message
+                </h4>
+                <p class="text-sm text-secondary transition-colors">
+                  Within 24 hours, a founder will personally review your inquiry
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div
+                class="flex-shrink-0 w-8 h-8 bg-accent-green/20 rounded-full flex items-center justify-center font-bold text-accent-green"
+              >
+                2
+              </div>
+              <div>
+                <h4 class="font-semibold text-primary mb-1 transition-colors">
+                  Founder will reach out
+                </h4>
+                <p class="text-sm text-secondary transition-colors">
+                  Via your preferred method (email, phone, or video call)
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div
+                class="flex-shrink-0 w-8 h-8 bg-accent-green/20 rounded-full flex items-center justify-center font-bold text-accent-green"
+              >
+                3
+              </div>
+              <div>
+                <h4 class="font-semibold text-primary mb-1 transition-colors">
+                  Free consultation call
+                </h4>
+                <p class="text-sm text-secondary transition-colors">
+                  30-45 minutes to understand your needs and answer questions
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div
+                class="flex-shrink-0 w-8 h-8 bg-accent-green/20 rounded-full flex items-center justify-center font-bold text-accent-green"
+              >
+                4
+              </div>
+              <div>
+                <h4 class="font-semibold text-primary mb-1 transition-colors">
+                  Personalized recommendations
+                </h4>
+                <p class="text-sm text-secondary transition-colors">
+                  Actionable next steps with no obligation
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-      </ContentWrapper>
+      </div>
+    </ContentWrapper>
 
-      <!-- Additional Contact Options -->
-      <ContentWrapper maxWidth="4xl" class="mt-8 sm:mt-12 md:mt-16">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {
-            contactContent.additionalOptions.map((option) => (
-              <div class="text-center p-6 bg-card border border-theme rounded-lg hover:border-accent-green transition-colors">
-                <Icon
-                  name={option.icon}
-                  class="w-12 h-12 text-accent-green mx-auto mb-4 transition-colors"
-                />
-                <h3 class="font-bold mb-2 text-primary transition-colors">{option.title}</h3>
-                <p class="text-sm text-secondary mb-4 transition-colors">{option.description}</p>
-                {option.action.type === "button" ? (
-                  <button
-                    id={option.action.id}
-                    class="text-accent-green hover:underline text-sm focus:outline-none focus:ring-2 focus:ring-accent-green/50 rounded px-2 transition-colors min-h-[44px]"
-                  >
-                    {option.action.text}
-                  </button>
-                ) : option.action.href === 'brochure.pdf' ? (
-                  <a
-                    href={`${base}${option.action.href}`}
-                    class="text-accent-green hover:underline text-sm transition-colors"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {option.action.text}
-                  </a>
-                ) : (
-                  <a
-                    href={`${base}${option.action.href}`}
-                    class="text-accent-green hover:underline text-sm transition-colors"
-                  >
-                    {option.action.text}
-                  </a>
-                )}
-              </div>
-            ))
-          }
-        </div>
-      </ContentWrapper>
+    <!-- Additional Contact Options -->
+    <ContentWrapper maxWidth="4xl" class="mt-8 sm:mt-12 md:mt-16">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {
+          contactContent.additionalOptions.map((option) => (
+            <div class="text-center p-6 bg-card border border-theme rounded-lg hover:border-accent-green transition-colors">
+              <Icon
+                name={option.icon}
+                class="w-12 h-12 text-accent-green mx-auto mb-4 transition-colors"
+              />
+              <h3 class="font-bold mb-2 text-primary transition-colors">
+                {option.title}
+              </h3>
+              <p class="text-sm text-secondary mb-4 transition-colors">
+                {option.description}
+              </p>
+              {option.action.type === "button" ? (
+                <button
+                  id={option.action.id}
+                  class="text-accent-green hover:underline text-sm focus:outline-none focus:ring-2 focus:ring-accent-green/50 rounded px-2 transition-colors min-h-[44px]"
+                >
+                  {option.action.text}
+                </button>
+              ) : option.action.href === "brochure.pdf" ? (
+                <a
+                  href={`${base}${option.action.href}`}
+                  class="text-accent-green hover:underline text-sm transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {option.action.text}
+                </a>
+              ) : (
+                <a
+                  href={`${base}${option.action.href}`}
+                  class="text-accent-green hover:underline text-sm transition-colors"
+                >
+                  {option.action.text}
+                </a>
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </ContentWrapper>
   </PageContainer>
 </BaseLayout>
 

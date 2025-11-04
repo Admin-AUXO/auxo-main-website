@@ -27,18 +27,15 @@ const hasPosts = latestPosts.length > 0;
 <SectionContainer id="blog-preview" padding="md">
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-12 sm:mb-16">
-      <div
-        class="inline-block mb-4 px-4 py-2 bg-accent-green/10 border border-accent-green/20 rounded-full"
-      >
-        <span class="text-accent-green text-sm font-semibold">Insights</span>
-      </div>
       <h2
         class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-primary transition-colors"
       >
         {homepageContent.blog.title}
-        <span class="text-gradient-green"
-          >{homepageContent.blog.titleHighlight}</span
-        >
+        {homepageContent.blog.titleHighlight && (
+          <span class="text-gradient-green"
+            >{homepageContent.blog.titleHighlight}</span
+          >
+        )}
       </h2>
       <p
         class="text-base sm:text-lg text-secondary max-w-2xl mx-auto transition-colors"

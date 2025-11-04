@@ -128,7 +128,7 @@ export const homepageContent: HomepageContent = {
       href: 'contact',
     },
     secondaryCta: {
-      text: 'Check Data maturity level',
+      text: "Check your Org's Data Maturity",
       href: 'tools/maturity-calculator',
     },
     features: [
@@ -221,13 +221,9 @@ export const homepageContent: HomepageContent = {
         title: 'Get Instant Results',
         description: 'Receive your maturity score and actionable recommendations',
       },
-      {
-        title: '100% Free & Anonymous',
-        description: 'No registration required, completely confidential',
-      },
     ],
     cta: {
-      text: 'Start Free Assessment',
+      text: 'Start Data Assessment',
       href: 'tools/maturity-calculator',
     },
     dimensions: [
@@ -240,7 +236,7 @@ export const homepageContent: HomepageContent = {
   },
   blog: {
     title: 'Latest',
-    titleHighlight: 'Insights',
+    titleHighlight: '',
     subtitle: 'Expert perspectives on analytics, AI, and digital transformation in the UAE',
     viewAllText: 'View All Articles',
   },

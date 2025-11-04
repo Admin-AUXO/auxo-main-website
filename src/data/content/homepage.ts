@@ -285,7 +285,6 @@ export const homepageContent: HomepageContent = {
         icon: 'mdi:account-group',
         title: 'Direct Access to Founders',
         description: 'Work directly with founders and senior team members. No account managers. No junior consultants.',
-        metric: '24-hour response time vs. 5-7 days',
       },
       {
         icon: 'mdi:rocket',

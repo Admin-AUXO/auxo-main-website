@@ -115,13 +115,6 @@ export interface HomepageContent {
     };
     disclaimer: string;
   };
-  finalCta: {
-    title: string;
-    subtitle: string;
-    ctaText: string;
-    ctaHref: string;
-    disclaimer?: string;
-  };
 }
 
 export const homepageContent: HomepageContent = {
@@ -135,8 +128,8 @@ export const homepageContent: HomepageContent = {
       href: 'contact',
     },
     secondaryCta: {
-      text: 'See How We Work',
-      href: '#services',
+      text: 'Check Data maturity level',
+      href: 'tools/maturity-calculator',
     },
     features: [
       'Precision Analytics',
@@ -289,13 +282,6 @@ export const homepageContent: HomepageContent = {
       href: 'contact',
     },
     disclaimer: 'No long-term contracts required • Cancel anytime',
-  },
-  finalCta: {
-    title: 'Ready to Transform Your Business?',
-    subtitle: 'Schedule a free consultation to discuss your analytics needs',
-    ctaText: "Let's Talk",
-    ctaHref: 'contact',
-    disclaimer: '',
   },
   startupAdvantages: {
     advantages: [

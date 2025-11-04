@@ -7,6 +7,8 @@ import { Icon } from 'astro-icon/components';
 import { getCollection } from 'astro:content';
 import { commonText } from '../../data/shared/common';
 import { blogPageContent } from '../../data/content/blog';
+import { calculateReadTime } from '../../utils/content';
+import { formatDateLong } from '../../utils/date';
 
 const base = import.meta.env.BASE_URL;
 
@@ -18,18 +20,53 @@ const sortedPosts = posts.sort((a, b) =>
   new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
 );
 
+// Calculate read times for all posts
+const postsWithReadTime = sortedPosts.map(post => ({
+  ...post,
+  readTime: calculateReadTime(post.body)
+}));
+
 // Featured post (most recent)
-const featuredPost = sortedPosts[0];
-const recentPosts = sortedPosts.slice(1);
+const featuredPost = postsWithReadTime[0];
+const recentPosts = postsWithReadTime.slice(1);
+
+// Calculate tag counts
+const tagCounts = new Map<string, number>();
+postsWithReadTime.forEach(post => {
+  if (post.data.tags && post.data.tags.length > 0) {
+    post.data.tags.forEach(tag => {
+      tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+    });
+  }
+});
+
+// Get popular tags (filter out tags with only 1 mention, then get top 10 with efficient tie-breaking)
+const popularTags = Array.from(tagCounts.entries())
+  .filter(([tag, count]) => count > 1) // Filter out tags with only 1 mention
+  .sort((a, b) => {
+    // Sort by count (descending), then alphabetically by tag name (ascending) for tie-breaking
+    if (b[1] !== a[1]) {
+      return b[1] - a[1];
+    }
+    return a[0].localeCompare(b[0]);
+  })
+  .slice(0, 10) // Always keep only top 10
+  .map(([tag]) => tag);
+
+// Get popular posts (most recent 4 posts as trending)
+const popularPosts = postsWithReadTime.slice(0, 4);
+
 ---
+
 
 <BaseLayout
   title="Blog - Data Analytics Insights | AUXO Data Labs"
   description="Explore the latest insights, trends, and best practices in data analytics, business intelligence, and data science from the experts at AUXO Data Labs."
+  hideFooterNewsletter={true}
 >
   <PageContainer maxWidth="7xl" paddingTop="pt-24" paddingBottom="pb-16">
       <!-- Header -->
-      <div class="max-w-3xl mx-auto text-center mb-16">
+      <div class="max-w-3xl mx-auto text-center mb-8">
         <div class="inline-block px-4 py-2 bg-accent-green/10 border border-accent-green/20 rounded-full mb-4">
           <span class="text-accent-green text-sm font-semibold transition-colors">{blogPageContent.hero.badge}</span>
         </div>
@@ -46,21 +83,117 @@ const recentPosts = sortedPosts.slice(1);
         <>
           <!-- Featured Post -->
           {featuredPost && (
-            <BlogPostCard post={featuredPost} featured={true} />
+            <div class="blog-post-item" data-categories={JSON.stringify(featuredPost.data.tags || [])}>
+              <BlogPostCard post={featuredPost} featured={true} />
+            </div>
+          )}
+
+          <!-- Popular Tags Section -->
+          {popularTags.length > 0 && (
+            <SectionContainer class="mb-6">
+              <div class="max-w-6xl mx-auto">
+                <div class="flex items-center gap-3 mb-4">
+                  <Icon name="mdi:post" class="w-8 h-8 text-accent-green transition-colors" />
+                  <h2 class="text-2xl md:text-3xl font-bold text-primary transition-colors">Popular Tags</h2>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                  {popularTags.map((tag) => (
+                    <button
+                      data-tag={tag}
+                      class="tag-filter-btn px-4 py-2 bg-card border border-theme rounded-full text-sm font-medium hover:bg-accent-green/10 hover:text-accent-green hover:border-accent-green transition-colors min-h-[44px] active:bg-accent-green/10"
+                    >
+                      #{tag} ({tagCounts.get(tag) || 0})
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </SectionContainer>
+          )}
+
+          <!-- Popular Posts Section -->
+          {popularPosts.length > 0 && (
+            <SectionContainer class="mb-6">
+              <div class="max-w-6xl mx-auto">
+                <div class="flex items-center gap-3 mb-4">
+                  <Icon name="mdi:trending-up" class="w-8 h-8 text-accent-green transition-colors" />
+                  <h2 class="text-2xl md:text-3xl font-bold text-primary transition-colors">Popular Posts</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {popularPosts.slice(1, 5).map((post) => (
+                    <div class="blog-post-item" data-categories={JSON.stringify(post.data.tags || [])}>
+                      <BlogPostCard post={post} featured={false} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </SectionContainer>
           )}
 
           <!-- Recent Posts Grid -->
           {recentPosts.length > 0 && (
-            <div class="max-w-6xl mx-auto">
-              <h2 class="text-2xl font-bold mb-8 text-primary transition-colors">{blogPageContent.recentPosts.title}</h2>
+            <div class="max-w-6xl mx-auto mb-6">
+              <h2 class="text-2xl font-bold mb-4 text-primary transition-colors">{blogPageContent.recentPosts.title}</h2>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 blog-posts-container">
                 {recentPosts.map((post) => (
-                  <BlogPostCard post={post} featured={false} />
+                  <div class="blog-post-item" data-categories={JSON.stringify(post.data.tags || [])}>
+                    <BlogPostCard post={post} featured={false} />
+                  </div>
                 ))}
               </div>
             </div>
           )}
+
+          <!-- Related Content Section -->
+          <SectionContainer class="mb-6">
+            <div class="max-w-6xl mx-auto">
+              <h2 class="text-2xl font-bold mb-4 text-primary transition-colors">Explore Related Content</h2>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <a
+                  href={`${base}services/`}
+                  class="group bg-card border-2 border-theme rounded-xl p-6 hover:border-accent-green transition-all duration-300 hover:-translate-y-1"
+                >
+                  <div class="flex items-center gap-3 mb-4">
+                    <Icon name="mdi:chart-bar" class="w-8 h-8 text-accent-green transition-colors" />
+                    <h3 class="text-xl font-bold text-primary group-hover:text-accent-green transition-colors">Our Services</h3>
+                  </div>
+                  <p class="text-secondary mb-4 transition-colors">Explore our data analytics and business intelligence services</p>
+                  <span class="text-accent-green font-semibold group-hover:gap-3 transition-all inline-flex items-center gap-2 min-h-[44px]">
+                    View Services
+                    <Icon name="mdi:arrow-right" class="w-5 h-5" />
+                  </span>
+                </a>
+                <a
+                  href={`${base}tools/maturity-calculator/`}
+                  class="group bg-card border-2 border-theme rounded-xl p-6 hover:border-accent-green transition-all duration-300 hover:-translate-y-1"
+                >
+                  <div class="flex items-center gap-3 mb-4">
+                    <Icon name="mdi:calculator" class="w-8 h-8 text-accent-green transition-colors" />
+                    <h3 class="text-xl font-bold text-primary group-hover:text-accent-green transition-colors">Maturity Calculator</h3>
+                  </div>
+                  <p class="text-secondary mb-4 transition-colors">Assess your data analytics maturity level</p>
+                  <span class="text-accent-green font-semibold group-hover:gap-3 transition-all inline-flex items-center gap-2 min-h-[44px]">
+                    Try Calculator
+                    <Icon name="mdi:arrow-right" class="w-5 h-5" />
+                  </span>
+                </a>
+                <a
+                  href={`${base}contact/`}
+                  class="group bg-card border-2 border-theme rounded-xl p-6 hover:border-accent-green transition-all duration-300 hover:-translate-y-1"
+                >
+                  <div class="flex items-center gap-3 mb-4">
+                    <Icon name="mdi:chat" class="w-8 h-8 text-accent-green transition-colors" />
+                    <h3 class="text-xl font-bold text-primary group-hover:text-accent-green transition-colors">Get in Touch</h3>
+                  </div>
+                  <p class="text-secondary mb-4 transition-colors">Have questions? Contact us for a consultation</p>
+                  <span class="text-accent-green font-semibold group-hover:gap-3 transition-all inline-flex items-center gap-2 min-h-[44px]">
+                    Contact Us
+                    <Icon name="mdi:arrow-right" class="w-5 h-5" />
+                  </span>
+                </a>
+              </div>
+            </div>
+          </SectionContainer>
         </>
       ) : (
         <div class="max-w-2xl mx-auto text-center py-16">
@@ -72,7 +205,30 @@ const recentPosts = sortedPosts.slice(1);
           <p class="text-secondary mb-8 transition-colors">
             {blogPageContent.empty.description}
           </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          
+          <!-- What to Expect Section -->
+          <div class="bg-card border border-theme rounded-lg p-6 mb-8 text-left">
+            <h3 class="text-lg font-semibold mb-4 text-primary transition-colors flex items-center gap-2">
+              <Icon name="mdi:lightbulb" class="w-5 h-5 text-accent-green" />
+              What to Expect
+            </h3>
+            <div class="space-y-2">
+              <div class="flex items-start gap-2">
+                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                <span class="text-sm text-secondary transition-colors">Data analytics insights and best practices</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                <span class="text-sm text-secondary transition-colors">Industry trends and case studies</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                <span class="text-sm text-secondary transition-colors">Practical guides and tutorials</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <a
               href={`${base}contact/`}
               class="px-6 py-3 bg-accent-green font-semibold rounded-lg hover:bg-accent-green/90 transition-colors inline-flex items-center justify-center min-h-[44px] min-w-[44px]"
@@ -80,20 +236,38 @@ const recentPosts = sortedPosts.slice(1);
               {commonText.buttons.subscribe}
             </a>
             <a
-              href={`${base}${blogPageContent.empty.ctaHref}`}
+              href={`${base}${blogPageContent.empty.ctaHref}/`}
               class="px-6 py-3 bg-surface text-primary font-semibold rounded-lg hover:bg-surface/80 transition-colors inline-flex items-center justify-center min-h-[44px] min-w-[44px] border border-theme"
             >
               {blogPageContent.empty.ctaText}
+            </a>
+          </div>
+
+          <!-- Explore Services Section -->
+          <div class="bg-card border border-theme rounded-lg p-6">
+            <h3 class="text-lg font-semibold mb-4 text-primary transition-colors">Explore Our Services</h3>
+            <p class="text-sm text-secondary mb-4 transition-colors">
+              While you wait for new content, discover how we can help transform your data analytics.
+            </p>
+            <a
+              href={`${base}services/`}
+              class="inline-flex items-center gap-2 text-accent-green hover:text-accent-green/80 font-semibold text-sm transition-colors min-h-[44px]"
+            >
+              View Services
+              <Icon name="mdi:arrow-right" class="w-4 h-4" />
             </a>
           </div>
         </div>
       )}
 
       <!-- Newsletter Signup -->
-      <SectionContainer class="mt-20">
+      <SectionContainer class="mt-8">
         <div class="max-w-4xl mx-auto">
         <div class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-8 md:p-12 text-center transition-colors">
           <Icon name="mdi:email-newsletter" class="w-16 h-16 text-accent-green mx-auto mb-4 transition-colors" />
+          <div class="inline-block px-4 py-2 bg-accent-green/20 border border-accent-green/40 rounded-full mb-4">
+            <span class="text-accent-green text-sm font-semibold transition-colors">Join 500+ subscribers</span>
+          </div>
           <h2 class="text-3xl font-bold mb-4 text-primary transition-colors">{commonText.newsletter.title}</h2>
           <p class="text-secondary mb-6 max-w-2xl mx-auto transition-colors">
             {commonText.newsletter.subtitle}
@@ -113,7 +287,15 @@ const recentPosts = sortedPosts.slice(1);
                 <Icon name="mdi:check" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
                 <span class="text-sm text-secondary transition-colors">Data analytics best practices</span>
               </div>
+              <div class="flex items-start gap-2">
+                <Icon name="mdi:check" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                <span class="text-sm text-secondary transition-colors">Exclusive early access to new content</span>
+              </div>
             </div>
+          </div>
+          <div class="flex items-center justify-center gap-2 mb-6 text-sm text-secondary">
+            <Icon name="mdi:calendar-clock" class="w-5 h-5 text-accent-green" />
+            <span>Monthly insights. No spam. Unsubscribe anytime.</span>
           </div>
           <form id="blog-newsletter-form" class="flex flex-col gap-4 max-w-md mx-auto">
             <div class="flex flex-col sm:flex-row gap-4">
@@ -144,9 +326,6 @@ const recentPosts = sortedPosts.slice(1);
                 <a href={`${base}legal/privacy-policy/`} class="text-accent-green hover:underline transition-colors"> {commonText.newsletter.privacyLink}</a>
               </span>
             </label>
-            <p class="text-xs text-secondary mt-2 transition-colors">
-              Monthly insights. No spam. Unsubscribe anytime.
-            </p>
             <p id="blog-newsletter-message" class="text-sm"></p>
           </form>
         </div>
@@ -154,7 +333,7 @@ const recentPosts = sortedPosts.slice(1);
   </PageContainer>
 </BaseLayout>
 
-<script is:inline define:vars={{ newsletterText: commonText.newsletter }}>
+<script is:inline define:vars={{ newsletterText: commonText.newsletter, postsData: JSON.stringify(postsWithReadTime.map(p => ({ id: p.id.replace(/\.mdx?$/, ''), title: p.data.title, description: p.data.description, tags: p.data.tags || [] }))) }}>
   const form = document.getElementById('blog-newsletter-form');
   const emailInput = document.getElementById('blog-newsletter-email');
   const consentCheckbox = document.getElementById('blog-newsletter-consent');
@@ -210,4 +389,64 @@ const recentPosts = sortedPosts.slice(1);
       button.textContent = newsletterText.subscribe;
     }
   });
+
+  // Blog filtering functionality
+  const blogPostItems = document.querySelectorAll('.blog-post-item');
+  const tagFilterButtons = document.querySelectorAll('.tag-filter-btn');
+
+  let currentCategory = 'all';
+
+  // Update tag button visual states
+  function updateTagButtonStates() {
+    tagFilterButtons.forEach(btn => {
+      const tag = btn.getAttribute('data-tag') || '';
+      if (currentCategory === tag) {
+        // Active state - selected tag
+        btn.classList.remove('bg-card', 'border-theme');
+        btn.classList.add('bg-accent-green', 'text-white', 'border-accent-green');
+      } else {
+        // Inactive state - default styling
+        btn.classList.remove('bg-accent-green', 'text-white', 'border-accent-green');
+        btn.classList.add('bg-card', 'border-theme');
+      }
+    });
+  }
+
+  // Tag filtering from Popular Tags section
+  tagFilterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tag = btn.getAttribute('data-tag') || '';
+      if (tag) {
+        // Toggle: if same tag clicked, reset to 'all', otherwise filter by tag
+        if (currentCategory === tag) {
+          currentCategory = 'all';
+        } else {
+          currentCategory = tag;
+        }
+        
+        updateTagButtonStates();
+        filterPosts();
+      }
+    });
+  });
+
+  // Filter posts based on category/tag
+  function filterPosts() {
+    blogPostItems.forEach((item) => {
+      const categories = JSON.parse(item.getAttribute('data-categories') || '[]');
+      
+      // Check category filter
+      const categoryMatch = currentCategory === 'all' || categories.includes(currentCategory);
+      
+      if (categoryMatch) {
+        item.classList.remove('hidden');
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+  }
+
+  // Initialize - show all posts and set initial button states
+  updateTagButtonStates();
+  filterPosts();
 </script>

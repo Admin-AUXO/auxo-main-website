@@ -21,6 +21,7 @@ export interface Props {
   canonicalURL?: string;
   showNav?: boolean;
   showParticles?: boolean; // Conditional particle loading for performance
+  hideFooterNewsletter?: boolean; // Hide newsletter section in footer
 }
 
 const {
@@ -35,6 +36,7 @@ const {
   canonicalURL,
   showNav = true,
   showParticles = false, // Default to false - only enable on homepage
+  hideFooterNewsletter = false, // Default to false - show newsletter in footer
 } = Astro.props;
 ---
 
@@ -157,7 +159,7 @@ const {
     >
       <slot />
     </main>
-    <Footer />
+    <Footer hideNewsletter={hideFooterNewsletter} />
     <BackToTop />
     <CookieConsent />
     <DevBar />

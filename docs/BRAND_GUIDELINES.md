@@ -40,7 +40,7 @@ Use these utility classes for theme-aware styling. Add `transition-colors` for s
 
 ## 3. Typography
 
-Fonts are loaded from Google Fonts in `src/components/SEO.astro`.
+Fonts are loaded from Google Fonts in `src/components/common/SEO.astro`.
 
 | Purpose      | Font Family         | Weights         |
 | ------------ | ------------------- | --------------- |
@@ -79,6 +79,6 @@ Fonts are loaded from Google Fonts in `src/components/SEO.astro`.
 
 -   **Tailwind Config:** `tailwind.config.js`
 -   **Global Styles & CSS Variables:** `src/styles/global.css`
--   **Font Loading:** `src/components/SEO.astro`
--   **Theme Toggle:** `src/components/ThemeToggle.astro`
+-   **Font Loading:** `src/components/common/SEO.astro`
+-   **Theme Toggle:** `src/components/ui/ThemeToggle.astro`
 

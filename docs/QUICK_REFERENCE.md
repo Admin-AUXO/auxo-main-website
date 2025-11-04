@@ -6,15 +6,15 @@ A quick lookup guide for common tasks, file locations, and commands.
 
 ## File Locations
 
-| Purpose                | Location                                  |
-|------------------------|-------------------------------------------|
-| Homepage               | `src/pages/index.astro`                   |
-| Navigation             | `src/components/Navigation.astro`         |
-| Footer                 | `src/components/Footer.astro`             |
-| Theme Toggle           | `src/components/ThemeToggle.astro`        |
-| Particle Background    | `src/components/ParticleBackground.astro` |
-| SEO Component          | `src/components/SEO.astro`                |
-| Base Layout            | `src/layouts/BaseLayout.astro`            |
+| Purpose                | Location                                         |
+|------------------------|--------------------------------------------------|
+| Homepage               | `src/pages/index.astro`                          |
+| Navigation             | `src/components/common/Navigation.astro`         |
+| Footer                 | `src/components/common/Footer.astro`             |
+| Theme Toggle           | `src/components/ui/ThemeToggle.astro`            |
+| Particle Background    | `src/components/effects/ParticleBackground.astro`|
+| SEO Component          | `src/components/common/SEO.astro`                |
+| Base Layout            | `src/layouts/BaseLayout.astro`                   |
 | Site Configuration     | `src/data/config/site.ts`                 |
 | Services Data          | `src/data/collections/services.ts`         |
 | Common Text            | `src/data/shared/common.ts`               |

@@ -16,7 +16,7 @@ This document outlines content tone, SEO, and management practices.
 
 ## 2. SEO Guidelines
 
--   **Meta Tags:** Use the `src/components/SEO.astro` component for all pages.
+-   **Meta Tags:** Use the `src/components/common/SEO.astro` component for all pages.
     -   **Title:** < 60 characters, include primary keyword and brand name.
     -   **Description:** < 160 characters, compelling and keyword-rich.
 -   **Structured Data:** The `SEO` component and `FAQSchema` component automatically handle JSON-LD structured data for `Organization`, `WebSite`, `BlogPosting`, `BreadcrumbList`, and `FAQPage`.

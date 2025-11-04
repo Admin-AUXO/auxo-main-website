@@ -29,8 +29,13 @@ This document outlines the project's file structure and sitemap.
 ```
 src/
 ├── components/             # Reusable Astro components
+│   ├── common/             # Core site-wide components
+│   ├── ui/                 # Interactive UI elements
 │   ├── layouts/            # Layout wrapper components
-│   └── sections/           # Large page-section components
+│   ├── sections/           # Large page-section components
+│   ├── effects/            # Visual effects and animations
+│   ├── schema/             # Structured data components
+│   └── dev/                # Development tools
 ├── content/                # Astro content collections (blog posts)
 ├── data/                   # TypeScript data files for site content
 │   ├── collections/        # Structured data (services, FAQs)
@@ -59,9 +64,9 @@ src/
 | Homepage               | `src/pages/index.astro`                   |
 | Base Layout            | `src/layouts/BaseLayout.astro`            |
 | **Components**         |                                           |
-| Navigation             | `src/components/Navigation.astro`         |
-| Footer                 | `src/components/Footer.astro`             |
-| SEO Component          | `src/components/SEO.astro`                |
+| Navigation             | `src/components/common/Navigation.astro`  |
+| Footer                 | `src/components/common/Footer.astro`      |
+| SEO Component          | `src/components/common/SEO.astro`         |
 | **Content**            |                                           |
 | Blog Posts (Markdown)  | `src/content/blog/`                       |
 | Services Data          | `src/data/collections/services.ts`        |

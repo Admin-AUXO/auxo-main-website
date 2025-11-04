@@ -1,274 +1,78 @@
 # Deployment
 
-This document covers CI/CD workflows, deployment processes, and environment configurations.
+This document covers the CI/CD and deployment process.
 
 ---
 
-## Overview
+## 1. Deployment Environments
 
-The project uses GitHub Actions for CI/CD automation. Deployment is configured for production environment.
-
----
-
-## Deployment Environment
-
-### Production
-
-- **Platform:** GitHub Pages
-- **Branch:** `master`
-- **Workflow:** `.github/workflows/deploy.yml`
-- **URL:** Production domain (configured in repository settings)
+-   **Production:**
+    -   **Platform:** GitHub Pages
+    -   **Branch:** `master`
+    -   **Workflow:** `.github/workflows/deploy.yml`
 
 ---
 
-## CI/CD Workflow
+## 2. CI/CD Workflow (`deploy.yml`)
 
-### Production Deployment (`deploy.yml`)
-
-**Trigger:** Push to `master` branch
-
-**Steps:**
-1. Checkout code
-2. Setup Node.js
-3. Install dependencies (`npm ci`)
-4. Run linting (`npm run lint`)
-5. Run type checking (`npm run check`)
-6. Build project (`npm run build`)
-7. Deploy to GitHub Pages
-
-**Configuration:**
-- Uses GitHub Actions deployment
-- Publishes `dist/` directory to GitHub Pages
-- Requires repository secrets for deployment permissions
+-   **Trigger:** Push to `master` branch.
+-   **Steps:**
+    1.  Checkout code.
+    2.  Setup Node.js.
+    3.  Install dependencies (`npm ci`).
+    4.  Run checks (`npm run lint` & `npm run check`).
+    5.  Build project (`npm run build`).
+    6.  Deploy `dist/` directory to GitHub Pages.
 
 ---
 
-## Pre-Deployment Checklist
+## 3. Manual Deployment & Local Build
 
-Before deploying:
+**CRITICAL:** Always run commands from the project root: `A:\AUXO\Main Website`
 
-- [ ] All tests pass (`npm run lint`, `npm run check`, `npm run build`)
-- [ ] Environment variables configured correctly
-- [ ] Brevo sender email verified
-- [ ] Security headers up to date (`public/_headers`)
-- [ ] No sensitive data in code or commits
-- [ ] Documentation updated if needed
+**PowerShell Syntax:** Use semicolons (`;`) instead of `&&`.
 
----
-
-## Environment Variables
-
-### Required for Production
-
-See `ENVIRONMENT_VARIABLES.md` for complete list. Required variables:
-
-- `PUBLIC_SITE_URL`: Base URL for the website
-- `BREVO_API_KEY`: Brevo API key
-- `BREVO_FROM_EMAIL`: Verified sender email (must be verified in Brevo)
-- `BREVO_FROM_NAME`: Display name for sender
-- `CONTACT_EMAIL`: Email to receive contact form submissions
-
-### GitHub Secrets
-
-Configure these in repository settings → Secrets:
-
-- Environment variables (for production)
+1.  **Navigate to Project Root:**
+    ```powershell
+    cd "A:\AUXO\Main Website"
+    ```
+2.  **Install Dependencies:**
+    ```powershell
+    npm ci
+    ```
+3.  **Run Checks & Build:**
+    ```powershell
+    npm run lint; npm run check; npm run build
+    ```
+4.  **Preview Production Build:**
+    ```powershell
+    npm run preview
+    ```
 
 ---
 
-## Manual Deployment
+## 4. Pre-Deployment Checklist
 
-### Local Build
-
-**IMPORTANT:** Always run commands from the project root directory: `A:\AUXO\Main Website`
-
-**PowerShell Syntax Note:** PowerShell does NOT support `&&` operator. Use semicolon (`;`) or run commands separately.
-
-```powershell
-# Navigate to project root first
-cd "A:\AUXO\Main Website"
-
-# Install dependencies
-npm ci
-
-# Run checks (run separately or use semicolon)
-npm run lint
-npm run check
-
-# Build
-npm run build
-
-# Preview
-npm run preview
-```
-
-**Alternative (PowerShell with semicolon):**
-```powershell
-cd "A:\AUXO\Main Website"; npm ci; npm run lint; npm run check; npm run build
-```
-
-**DO NOT USE:** `cd "A:\AUXO\Main Website" && npm run build` (this will fail in PowerShell)
-
-### Deploy to Production
-
-1. Merge changes to `master` branch
-2. GitHub Actions will automatically deploy
-3. Monitor deployment in Actions tab
+-   [ ] All local checks pass: `npm run lint`, `npm run check`, `npm run build`.
+-   [ ] Environment variables are correctly configured in repository secrets.
+-   [ ] **CRITICAL:** `BREVO_FROM_EMAIL` is verified in the Brevo dashboard.
+-   [ ] Security headers in `public/_headers` are up-to-date.
+-   [ ] No sensitive data is included in the commit.
+-   [ ] Documentation has been updated if required.
 
 ---
 
-## Build Configuration
+## 5. Maintenance Mode
 
-### Build Output
-
-- **Directory:** `dist/`
-- **Static Assets:** Copied from `public/`
-- **Generated Pages:** HTML files from Astro pages
-- **API Endpoints:** Server-side endpoints in `dist/api/`
-
-### Build Process
-
-1. **Static Generation:** Astro generates static HTML from `.astro` pages
-2. **Content Processing:** Processes content collections (blog posts)
-3. **Asset Optimization:** Optimizes images and assets
-4. **API Endpoints:** Includes server-side API endpoints
-5. **Sitemap Generation:** Generates sitemap.xml files
+-   **Integration:** `astro-maintenance`
+-   **To Enable:** Set `MAINTENANCE_MODE=true` as an environment variable.
+-   **To Disable:** Set to `false` or remove the variable.
 
 ---
 
-## Deployment Platform
+## 6. Rollback Procedure
 
-### GitHub Pages
-
-**Configuration:**
-- Source branch: `master`
-- Build directory: `dist/`
-- Custom domain: Configured in repository settings
-
-**Limitations:**
-- Static files only (API endpoints require server-side hosting)
-- Build must complete successfully
-- Limited server-side functionality
-
----
-
-## Security Headers
-
-### Configuration
-
-**File:** `public/_headers`
-
-**Deployment:**
-- **GitHub Pages:** Requires manual configuration
-
-**Headers Configured:**
-- Content-Security-Policy (CSP)
-- X-Frame-Options
-- X-Content-Type-Options
-- X-XSS-Protection
-- Strict-Transport-Security (HSTS)
-- Referrer-Policy
-- Permissions-Policy
-
-See `SECURITY.md` for detailed security information.
-
----
-
-## Maintenance Mode
-
-### Configuration
-
-**Integration:** `astro-maintenance` package
-
-**Usage:**
-1. Set `MAINTENANCE_MODE=true` environment variable
-2. Deploy to show maintenance page
-3. Remove variable to restore normal site
-
-**Use Cases:**
-- Major updates
-- Database migrations
-- Scheduled maintenance
-
----
-
-## Monitoring & Rollback
-
-### Deployment Monitoring
-
-- **GitHub Actions:** Check Actions tab for deployment status
-- **Production Site:** Verify site loads correctly after deployment
-
-### Rollback Procedure
-
-1. Revert commit in `master` branch
-2. Push revert commit
-3. GitHub Actions will deploy previous version
-
----
-
-## Post-Deployment Verification
-
-After deployment, verify:
-
-- [ ] Site loads correctly
-- [ ] All pages accessible
-- [ ] Forms submit successfully
-- [ ] API endpoints respond correctly
-- [ ] Email delivery working (test contact form)
-- [ ] No console errors
-- [ ] Mobile responsiveness maintained
-- [ ] SEO tags present
-- [ ] Security headers applied
-
----
-
-## Troubleshooting
-
-### Build Failures
-
-**Common Causes:**
-- TypeScript errors
-- Linting failures
-- Missing environment variables
-- Invalid configuration
-
-**Resolution:**
-1. Check build logs in GitHub Actions
-2. Fix errors locally
-3. Test build with `npm run build`
-4. Push fixes
-
-### Deployment Failures
-
-**Common Causes:**
-- Missing secrets/environment variables
-- Permissions issues
-- Platform-specific errors
-
-**Resolution:**
-1. Verify secrets configured correctly
-2. Check platform-specific logs
-3. Verify permissions in repository settings
-
-### Email Issues
-
-**Common Causes:**
-- Unverified Brevo sender email
-- Incorrect API key
-- Rate limiting
-
-**Resolution:**
-1. Verify `BREVO_FROM_EMAIL` in Brevo dashboard
-2. Check `BREVO_API_KEY` is correct
-3. Review Brevo dashboard for errors
-
----
-
-## Additional Resources
-
-- **Security:** See `SECURITY.md`
-- **Environment Variables:** See `ENVIRONMENT_VARIABLES.md`
-- **Architecture:** See `ARCHITECTURE.md`
-- **API Endpoints:** See `API_ENDPOINTS.md`
+1.  Revert the commit in the `master` branch.
+2.  Push the revert commit.
+3.  GitHub Actions will automatically redeploy the previous version.
 

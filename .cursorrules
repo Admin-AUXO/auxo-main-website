@@ -53,8 +53,9 @@ cd "A:\AUXO\Main Website"; npm run build
 4. **Navigate to Project Root:** Always ensure you're in `A:\AUXO\Main Website` before running commands
 5. Implement following conventions
 6. Run checks: `npm run lint`, `npm run check`, `npm run build` (from project root)
-7. **Always ask:** "Are there any additional changes you'd like me to make?"
-8. **For small changes:** Confirm before pushing to GitHub
+7. **Push to `master`:** All changes must be pushed directly to the `master` branch. Do not create new branches.
+8. **Always ask:** "Are there any additional changes you'd like me to make?"
+9. **For small changes:** Confirm before pushing to GitHub
 
 ## Code Conventions
 
@@ -97,11 +98,11 @@ cd "A:\AUXO\Main Website"; npm run build
 
 ## File Locations Quick Reference
 
-- Homepage: `src/pages/index.astro`
+For a detailed list of key file locations, refer to `docs/ARCHITECTURE.md`. Key directories include:
 - Components: `src/components/`
-- Data: `src/data/` (config/, collections/, content/, shared/)
-- Global Styles: `src/styles/global.css`
-- API Endpoints: `src/pages/api/`
+- Data & Content: `src/data/` and `src/content/`
+- Pages & APIs: `src/pages/`
+- Global Styles: `src/styles/`
 
 ## Common Commands
 
@@ -134,14 +135,11 @@ After completing work:
 2. For small changes: Confirm before pushing to GitHub
 3. Be helpful and proactive in suggesting improvements
 
-## Documentation Updates
+## Documentation & Commit History
 
-When changes affect:
-- Project structure → Update `docs/ARCHITECTURE.md`
-- Components → Update `docs/COMPONENTS.md`
-- APIs → Update `docs/API_ENDPOINTS.md`
-- Security → Update `docs/SECURITY.md`
-- All changes → Update `docs/CHANGELOG.md`
+- **Update Documentation:** If your changes affect project structure, components, APIs, etc., update the corresponding file in `docs/`.
+- **Use GitHub for History:** This project uses the Git commit history as the changelog. Refer to `docs/GITHUB_GUIDELINES.md` for conventions.
+- **Write Good Commits:** Write clear, descriptive commit messages following the Conventional Commits standard. The commit message is the primary source of information about a change.
 
 ## Important Gotchas
 

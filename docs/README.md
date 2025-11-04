@@ -191,15 +191,15 @@ This documentation is designed for **AI Coding Agents** and developers working o
 
 ---
 
-#### [`CHANGELOG.md`](./CHANGELOG.md)
-**Purpose:** Track significant changes and updates
+#### [`GITHUB_GUIDELINES.md`](./GITHUB_GUIDELINES.md)
+**Purpose:** Instructions for using GitHub for change tracking
 
 **Contains:**
-- Change history
-- Release notes
-- Update guidelines
+- How to check commit history
+- Commit message conventions
+- Pull Request guidelines
 
-**When to read:** When reviewing project history or creating releases
+**When to read:** To understand how to document your changes via commits
 
 ---
 
@@ -253,7 +253,8 @@ When making changes that affect documentation:
 4. **Security changes:** Update [`SECURITY.md`](./SECURITY.md)
 5. **Configuration changes:** Update [`ENVIRONMENT_VARIABLES.md`](./ENVIRONMENT_VARIABLES.md)
 6. **Architecture changes:** Update [`ARCHITECTURE.md`](./ARCHITECTURE.md)
-7. **All changes:** Update [`CHANGELOG.md`](./CHANGELOG.md)
+
+**Commit Messages are the Changelog:** Refer to [`GITHUB_GUIDELINES.md`](./GITHUB_GUIDELINES.md) for how to write effective commit messages.
 
 ### Documentation Standards
 

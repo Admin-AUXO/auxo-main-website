@@ -434,7 +434,7 @@ import { Icon } from 'astro-icon/components';
 - **DEPLOYMENT.md** - CI/CD workflows
 - **SECURITY.md** - Security features
 - **ENVIRONMENT_VARIABLES.md** - Configuration
-- **CHANGELOG.md** - Change tracking
+- **GITHUB_GUIDELINES.md** - Git and commit conventions
 - **QUICK_REFERENCE.md** - This file
 
 ---

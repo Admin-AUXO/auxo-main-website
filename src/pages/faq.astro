@@ -393,7 +393,8 @@ const base = import.meta.env.BASE_URL;
       // Show/hide content with smooth transition
       categoryContents.forEach((content) => {
         const contentEl = content as HTMLElement;
-        if (content.getAttribute("data-category-content") === category) {
+        const contentCategory = content.getAttribute("data-category-content");
+        if (contentCategory === category) {
           contentEl.classList.remove("hidden");
           // Smooth fade-in animation
           contentEl.style.opacity = "0";
@@ -513,51 +514,76 @@ const base = import.meta.env.BASE_URL;
     });
   });
   
+  // Helper function to normalize category names for comparison
+  function normalizeCategory(category: string): string {
+    return category.toLowerCase().replace(/\s+/g, "-").replace(/[&?]/g, "").replace(/-+/g, "-");
+  }
+
   // Handle popular question links
   document.querySelectorAll('[data-popular-question]').forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       const href = (link as HTMLAnchorElement).getAttribute("href");
-      if (href) {
-        const targetId = href.substring(1); // Remove #
-        const targetItem = document.getElementById(targetId);
-        if (targetItem) {
-          // Switch to correct category if needed
-          const category = targetItem.getAttribute("data-category");
-          if (category) {
-            // Find category tab by matching the normalized category name
-            const categoryTab = Array.from(categoryTabs).find((tab) => {
-              const tabCategory = tab.getAttribute("data-category");
-              if (!tabCategory) return false;
-              
-              // Normalize both for comparison (remove special chars, lowercase, replace spaces)
-              const normalize = (str: string) => str.toLowerCase().replace(/\s+/g, "-").replace(/[&?]/g, "");
-              const normalizedTabCategory = normalize(tabCategory);
-              const normalizedTargetCategory = normalize(category);
-              
-              return normalizedTabCategory === normalizedTargetCategory;
-            });
+      if (!href) return;
+      
+      const targetId = href.substring(1); // Remove #
+      
+      // First, try to find the target item (might be hidden if category is not active)
+      let targetItem = document.getElementById(targetId);
+      
+      if (!targetItem) {
+        // If not found, it might be in a hidden category - find it by searching all categories
+        const allFaqItems = document.querySelectorAll(".faq-item");
+        allFaqItems.forEach((item) => {
+          if (item.id === targetId) {
+            targetItem = item as HTMLElement;
+          }
+        });
+      }
+      
+      if (targetItem) {
+        // Get the normalized category from the FAQ item
+        const itemCategory = targetItem.getAttribute("data-category");
+        if (itemCategory) {
+          // Find category tab by matching the normalized category name
+          const categoryTab = Array.from(categoryTabs).find((tab) => {
+            const tabCategory = tab.getAttribute("data-category");
+            if (!tabCategory) return false;
             
-            if (categoryTab) {
-              categoryTab.click();
+            // Normalize both for comparison
+            return normalizeCategory(tabCategory) === normalizeCategory(itemCategory);
+          });
+          
+          if (categoryTab) {
+            // Click the category tab to switch
+            (categoryTab as HTMLElement).click();
+          }
+        }
+        
+        // Wait for category switch animation, then open the FAQ item
+        setTimeout(() => {
+          // Re-query the element after category switch
+          const finalTargetItem = document.getElementById(targetId);
+          if (finalTargetItem) {
+            // Ensure it's visible (category content should be shown)
+            const categoryContent = finalTargetItem.closest('[data-category-content]') as HTMLElement;
+            if (categoryContent && categoryContent.classList.contains("hidden")) {
+              categoryContent.classList.remove("hidden");
+            }
+            
+            // Find and click the question button
+            const question = finalTargetItem.querySelector(".faq-question") as HTMLElement;
+            if (question) {
+              // Scroll into view first, then click
+              finalTargetItem.scrollIntoView({ behavior: "smooth", block: "center" });
+              
+              // Small delay before clicking to ensure element is in view
+              setTimeout(() => {
+                question.click();
+              }, 100);
             }
           }
-          
-          // Open the FAQ item after category switch animation completes
-          setTimeout(() => {
-            // Re-query the element in case DOM was updated
-            const targetItemAfterWait = document.getElementById(targetId);
-            if (targetItemAfterWait) {
-              const question = targetItemAfterWait.querySelector(".faq-question") as HTMLElement;
-              if (question) {
-                question.click();
-                setTimeout(() => {
-                  targetItemAfterWait.scrollIntoView({ behavior: "smooth", block: "center" });
-                }, 100);
-              }
-            }
-          }, 400);
-        }
+        }, 500); // Increased timeout to ensure category switch completes
       }
     });
   });

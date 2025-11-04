@@ -1,9 +1,20 @@
-export const services = [
+export interface Service {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  features: string[];
+  deliverables: string[];
+  timeline?: string; // Typical timeline, e.g., "4-8 weeks"
+}
+
+export const services: Service[] = [
   {
     id: 'business-intelligence',
     title: 'Business Intelligence & Reporting',
     description: 'Turn complex data into real-time insights through intuitive, decision-ready dashboards.',
     icon: 'mdi:chart-line',
+    timeline: '4-8 weeks',
     features: [
       'Power BI & Tableau dashboard development',
       'Automated reporting with scheduling',
@@ -23,6 +34,7 @@ export const services = [
     title: 'Advanced Data Analytics',
     description: 'Transform raw information into predictive, actionable intelligence for smarter decisions.',
     icon: 'mdi:chart-scatter-plot',
+    timeline: '6-10 weeks',
     features: [
       'Descriptive & diagnostic analytics',
       'Predictive modeling & forecasting',
@@ -42,6 +54,7 @@ export const services = [
     title: 'Data Strategy & Roadmap',
     description: 'Align your data initiatives with business goals through a clear, execution-ready strategy.',
     icon: 'mdi:strategy',
+    timeline: '3-6 weeks',
     features: [
       'Data maturity assessment',
       'Strategic roadmap development',
@@ -61,6 +74,7 @@ export const services = [
     title: 'Data Engineering & Integration',
     description: 'Build scalable, secure data pipelines that unify systems and power analytics.',
     icon: 'mdi:database-cog',
+    timeline: '8-12 weeks',
     features: [
       'ETL/ELT pipeline development',
       'Cloud data warehouse design (AWS, Azure, GCP)',
@@ -80,6 +94,7 @@ export const services = [
     title: 'Machine Learning & AI Solutions',
     description: 'Deploy cutting edge AI to automate, predict, and optimize business outcomes intelligently.',
     icon: 'mdi:robot',
+    timeline: '10-16 weeks',
     features: [
       'Custom ML model development & tuning',
       'Natural language processing (NLP)',
@@ -99,6 +114,7 @@ export const services = [
     title: 'Data Governance & Compliance',
     description: 'Ensure trusted, compliant, and secure data across your entire enterprise.',
     icon: 'mdi:shield-check',
+    timeline: '6-10 weeks',
     features: [
       'UAE PDPL & GDPR compliance frameworks',
       'Data catalog & metadata management',

@@ -8,6 +8,7 @@ import HeroSection from "../components/sections/HeroSection.astro";
 import ServicesSection from "../components/sections/ServicesSection.astro";
 import StartupAdvantages from "../components/sections/StartupAdvantages.astro";
 import MethodologySection from "../components/sections/MethodologySection.astro";
+import QuickDecisionBoxes from "../components/sections/QuickDecisionBoxes.astro";
 import WhyChooseSection from "../components/sections/WhyChooseSection.astro";
 import MaturityCalculatorSection from "../components/sections/MaturityCalculatorSection.astro";
 import BlogPreview from "../components/sections/BlogPreview.astro";
@@ -36,6 +37,49 @@ import "../styles/homepage.css";
   />
 
   <MethodologySection />
+
+  <!-- Quick Decision Boxes Section -->
+  <section class="py-12 sm:py-16 md:py-20 bg-primary">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10 sm:mb-12">
+        <h2
+          class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-primary transition-colors"
+        >
+          At a Glance
+        </h2>
+        <p
+          class="text-base sm:text-lg text-secondary max-w-2xl mx-auto transition-colors"
+        >
+          Key information to help you make quick decisions
+        </p>
+      </div>
+      <QuickDecisionBoxes
+        cards={[
+          {
+            icon: "mdi:clock",
+            value: "2-4 Weeks",
+            label: "Time to First Insights",
+            description:
+              "Get actionable insights faster than traditional consultancies",
+          },
+          {
+            icon: "mdi:account-group",
+            value: "Direct",
+            label: "Founder Access",
+            description:
+              "Work directly with founders, no junior consultants or account managers",
+          },
+          {
+            icon: "mdi:calendar-clock",
+            value: "Minimal",
+            label: "Your Involvement",
+            description:
+              "We respect your time. Only essential touchpoints, clear communication",
+          },
+        ]}
+      />
+    </div>
+  </section>
 
   <WhyChooseSection />
 

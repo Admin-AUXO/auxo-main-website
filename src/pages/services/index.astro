@@ -48,16 +48,215 @@ const servicesFAQs = [
   title="Data Analytics Services | AUXO Data Labs"
   description="Enterprise-grade data analytics services delivered with startup speed. From Business Intelligence to AI solutions—work directly with our senior team for personalized attention."
 >
-  <PageContainer maxWidth="7xl" paddingTop="pt-20 sm:pt-24" paddingBottom="pb-10 sm:pb-12 md:pb-16">
-      <!-- Header -->
-      <ServicesHero content={servicesPageContent.hero} />
+  <PageContainer
+    maxWidth="7xl"
+    paddingTop="pt-20 sm:pt-24"
+    paddingBottom="pb-10 sm:pb-12 md:pb-16"
+  >
+    <!-- Header -->
+    <ServicesHero content={servicesPageContent.hero} />
 
-      <!-- Services Grid -->
-      <ServiceGrid services={services} />
+    <!-- Why Our Approach is Different Section -->
+    <SectionContainer class="mb-12 sm:mb-16 md:mb-20">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-8 sm:mb-12">
+          <h2
+            class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-primary transition-colors"
+          >
+            Why Our Approach is <span class="text-accent-green">Different</span>
+          </h2>
+          <p
+            class="text-base sm:text-lg text-secondary max-w-2xl mx-auto transition-colors"
+          >
+            Big consultancies vs. startup agility—here's what you get with AUXO
+          </p>
+        </div>
 
-      <!-- Process Section -->
-      <SectionContainer class="hidden md:block">
-        <div class="max-w-5xl mx-auto">
+        <!-- Comparison Table -->
+        <div class="bg-card border-2 border-theme rounded-2xl overflow-hidden">
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-theme"
+          >
+            <!-- Them (Big Consultancies) -->
+            <div class="p-6 sm:p-8">
+              <div class="flex items-center gap-3 mb-6">
+                <div
+                  class="w-12 h-12 bg-surface rounded-lg flex items-center justify-center"
+                >
+                  <Icon
+                    name="mdi:office-building"
+                    class="w-6 h-6 text-secondary"
+                  />
+                </div>
+                <h3 class="text-xl font-bold text-primary transition-colors">
+                  Big Consultancies
+                </h3>
+              </div>
+              <ul class="space-y-4">
+                <li class="flex items-start gap-3">
+                  <Icon
+                    name="mdi:close"
+                    class="w-5 h-5 text-secondary flex-shrink-0 mt-0.5"
+                  />
+                  <span class="text-sm text-secondary transition-colors"
+                    >Slow processes and lengthy timelines</span
+                  >
+                </li>
+                <li class="flex items-start gap-3">
+                  <Icon
+                    name="mdi:close"
+                    class="w-5 h-5 text-secondary flex-shrink-0 mt-0.5"
+                  />
+                  <span class="text-sm text-secondary transition-colors"
+                    >Junior consultants, senior partners rarely involved</span
+                  >
+                </li>
+                <li class="flex items-start gap-3">
+                  <Icon
+                    name="mdi:close"
+                    class="w-5 h-5 text-secondary flex-shrink-0 mt-0.5"
+                  />
+                  <span class="text-sm text-secondary transition-colors"
+                    >High costs with complex pricing structures</span
+                  >
+                </li>
+                <li class="flex items-start gap-3">
+                  <Icon
+                    name="mdi:close"
+                    class="w-5 h-5 text-secondary flex-shrink-0 mt-0.5"
+                  />
+                  <span class="text-sm text-secondary transition-colors"
+                    >Multiple layers of account management</span
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <!-- Us (AUXO) -->
+            <div class="p-6 sm:p-8 bg-accent-green/5">
+              <div class="flex items-center gap-3 mb-6">
+                <div
+                  class="w-12 h-12 bg-accent-green/20 rounded-lg flex items-center justify-center"
+                >
+                  <Icon name="mdi:rocket" class="w-6 h-6 text-accent-green" />
+                </div>
+                <h3 class="text-xl font-bold text-primary transition-colors">
+                  AUXO Data Labs
+                </h3>
+              </div>
+              <ul class="space-y-4">
+                <li class="flex items-start gap-3">
+                  <Icon
+                    name="mdi:check-circle"
+                    class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
+                  />
+                  <span class="text-sm text-primary transition-colors"
+                    >Fast results and agile implementation</span
+                  >
+                </li>
+                <li class="flex items-start gap-3">
+                  <Icon
+                    name="mdi:check-circle"
+                    class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
+                  />
+                  <span class="text-sm text-primary transition-colors"
+                    >Direct access to founders on every project</span
+                  >
+                </li>
+                <li class="flex items-start gap-3">
+                  <Icon
+                    name="mdi:check-circle"
+                    class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
+                  />
+                  <span class="text-sm text-primary transition-colors"
+                    >Startup-friendly pricing, transparent costs</span
+                  >
+                </li>
+                <li class="flex items-start gap-3">
+                  <Icon
+                    name="mdi:check-circle"
+                    class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
+                  />
+                  <span class="text-sm text-primary transition-colors"
+                    >No bureaucracy, fast decisions</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </SectionContainer>
+
+    <!-- Services Grid -->
+    <ServiceGrid services={services} />
+
+    <!-- Founder Access Highlight -->
+    <SectionContainer class="mb-12 sm:mb-16 md:mb-20">
+      <div class="max-w-4xl mx-auto">
+        <div
+          class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border border-accent-green/30 rounded-xl p-6 sm:p-8"
+        >
+          <div class="flex items-start gap-4 mb-4">
+            <div
+              class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-accent-green/20 rounded-lg flex items-center justify-center"
+            >
+              <Icon
+                name="mdi:account-group"
+                class="w-6 h-6 sm:w-7 sm:h-7 text-accent-green"
+              />
+            </div>
+            <div class="flex-1">
+              <h3
+                class="text-xl sm:text-2xl font-bold mb-2 text-primary transition-colors"
+              >
+                Work With Founders, Not Junior Consultants
+              </h3>
+              <p
+                class="text-sm sm:text-base text-secondary leading-relaxed mb-4 transition-colors"
+              >
+                Every project gets direct access to our founding team. No
+                account managers. No junior consultants. Just experienced
+                leaders who understand your business.
+              </p>
+              <ul class="space-y-2">
+                <li class="flex items-start gap-2">
+                  <Icon
+                    name="mdi:check-circle"
+                    class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
+                  />
+                  <span class="text-sm text-secondary transition-colors"
+                    >Direct communication with decision-makers</span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <Icon
+                    name="mdi:check-circle"
+                    class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
+                  />
+                  <span class="text-sm text-secondary transition-colors"
+                    >Fast decisions without layers of approval</span
+                  >
+                </li>
+                <li class="flex items-start gap-2">
+                  <Icon
+                    name="mdi:check-circle"
+                    class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
+                  />
+                  <span class="text-sm text-secondary transition-colors"
+                    >Personal attention and customized solutions</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </SectionContainer>
+
+    <!-- Process Section -->
+    <SectionContainer class="mb-12 sm:mb-16 md:mb-20">
+      <div class="max-w-6xl mx-auto">
         <div class="text-center mb-12">
           <h2 class="text-3xl font-bold mb-4 text-primary transition-colors">
             {servicesPageContent.process.title}
@@ -67,11 +266,11 @@ const servicesFAQs = [
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
           {
             servicesPageContent.process.steps.map((step) => (
               <div class="text-center">
-                <div class="w-16 h-16 bg-gradient-to-br from-accent-green to-accent-green/80 rounded-full flex items-center justify-center mx-auto mb-4 text-black dark:text-white font-bold text-xl transition-colors">
+                <div class="w-16 h-16 bg-gradient-to-br from-accent-green to-accent-green/80 rounded-full flex items-center justify-center mx-auto mb-4 text-on-accent font-bold text-xl transition-colors">
                   {step.number}
                 </div>
                 <h3 class="font-bold mb-2 text-lg text-primary transition-colors">
@@ -84,7 +283,97 @@ const servicesFAQs = [
             ))
           }
         </div>
-      </SectionContainer>
+
+        <!-- Your Involvement Guide -->
+        <div
+          class="bg-card border-2 border-accent-green/30 rounded-xl p-6 sm:p-8"
+        >
+          <div class="flex items-start gap-4 mb-6">
+            <div
+              class="flex-shrink-0 w-12 h-12 bg-accent-green/20 rounded-lg flex items-center justify-center"
+            >
+              <Icon
+                name="mdi:calendar-clock"
+                class="w-6 h-6 text-accent-green"
+              />
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-bold mb-3 text-primary transition-colors">
+                What to Expect: Your Time Commitment
+              </h3>
+              <p class="text-sm text-secondary mb-6 transition-colors">
+                We respect your time. Here's what your involvement looks like:
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="flex items-start gap-3 p-4 bg-surface rounded-lg">
+                  <Icon
+                    name="mdi:account-group"
+                    class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
+                  />
+                  <div>
+                    <div
+                      class="font-semibold text-primary text-sm mb-1 transition-colors"
+                    >
+                      Kickoff Meeting
+                    </div>
+                    <div class="text-xs text-secondary transition-colors">
+                      1 hour - Initial discussion
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3 p-4 bg-surface rounded-lg">
+                  <Icon
+                    name="mdi:calendar-check"
+                    class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
+                  />
+                  <div>
+                    <div
+                      class="font-semibold text-primary text-sm mb-1 transition-colors"
+                    >
+                      Weekly Updates
+                    </div>
+                    <div class="text-xs text-secondary transition-colors">
+                      15 min - Progress reviews
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3 p-4 bg-surface rounded-lg">
+                  <Icon
+                    name="mdi:check-circle"
+                    class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
+                  />
+                  <div>
+                    <div
+                      class="font-semibold text-primary text-sm mb-1 transition-colors"
+                    >
+                      Final Review
+                    </div>
+                    <div class="text-xs text-secondary transition-colors">
+                      1 hour - Deliverable approval
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3 p-4 bg-surface rounded-lg">
+                  <Icon
+                    name="mdi:message"
+                    class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
+                  />
+                  <div>
+                    <div
+                      class="font-semibold text-primary text-sm mb-1 transition-colors"
+                    >
+                      As Needed
+                    </div>
+                    <div class="text-xs text-secondary transition-colors">
+                      Quick questions & decisions
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- CTA Section -->
       <div class="max-w-4xl mx-auto">
@@ -117,5 +406,6 @@ const servicesFAQs = [
           </div>
         </div>
       </div>
+    </SectionContainer>
   </PageContainer>
 </BaseLayout>

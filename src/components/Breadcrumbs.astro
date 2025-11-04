@@ -27,22 +27,22 @@ const breadcrumbSchema = {
 ---
 
 <!-- Breadcrumb Navigation -->
-<nav aria-label="Breadcrumb" class="mb-8">
+<nav aria-label="Breadcrumb" class="mb-8 breadcrumb-theme">
   <ol class="flex items-center gap-2 text-sm flex-wrap">
     {items.map((item, index) => (
       <li class="flex items-center gap-2">
         {index > 0 && (
-          <Icon name="mdi:chevron-down" class="w-4 h-4 text-gray-600 -rotate-90" aria-hidden="true" />
+          <Icon name="mdi:chevron-down" class="w-4 h-4 text-tertiary -rotate-90" aria-hidden="true" />
         )}
         {item.href ? (
           <a
             href={item.href}
-            class="text-gray-400 hover:text-lime-400 transition-colors font-medium"
+            class="text-secondary hover:text-accent-green transition-colors font-medium"
           >
             {item.label}
           </a>
         ) : (
-          <span class="text-lime-400 font-semibold" aria-current="page">
+          <span class="text-accent-green font-semibold" aria-current="page">
             {item.label}
           </span>
         )}

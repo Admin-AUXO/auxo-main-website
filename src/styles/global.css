@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================
+   AUXO DATA LABS - Global Styles
+   Theme-aware CSS with dark/light mode support
+   ============================================ */
+
 @layer base {
   :root {
     /* Typography - Clean, modern font stack */
@@ -168,6 +173,24 @@
     color: var(--text-tertiary);
     /* Ensure sufficient contrast for readability */
     opacity: 1;
+  }
+
+  /* Text on accent background - theme-aware */
+  .text-on-accent {
+    color: var(--text-on-accent);
+  }
+
+  /* Accent colors */
+  .text-accent-green {
+    color: var(--accent-green);
+  }
+
+  .bg-accent-green {
+    background-color: var(--accent-green);
+  }
+
+  .bg-accent-red {
+    background-color: var(--accent-red);
   }
 
   /* Theme-aware background colors */
@@ -909,27 +932,50 @@
   }
 }
 
-/* Breadcrumbs theme-aware styling for astro-breadcrumbs - FIXED single-line format */
-/* CRITICAL: Highest specificity to override all conflicting styles */
+/* ============================================
+   BREADCRUMBS - Theme-aware styling for astro-breadcrumbs
+   Ensures horizontal layout and proper theme colors
+   ============================================ */
+
+/* Target both breadcrumb-theme wrapper AND astro-breadcrumbs generated classes */
 .breadcrumb-theme,
 .breadcrumb-theme *,
-.breadcrumb-theme nav,
-.breadcrumb-theme nav * {
+.c-breadcrumbs,
+.c-breadcrumbs * {
   box-sizing: border-box;
 }
 
+/* Ensure the wrapper is a block container */
 .breadcrumb-theme {
   display: block !important;
   width: 100% !important;
 }
 
-/* Force horizontal layout for all ol elements within breadcrumb */
+/* CRITICAL: Target astro-breadcrumbs nav structure - ensure horizontal layout */
+.breadcrumb-theme nav,
+.breadcrumb-theme nav[aria-label="Breadcrumb"],
+.breadcrumb-theme > nav,
+.breadcrumb-theme > nav[aria-label="Breadcrumb"],
+.breadcrumb-theme nav[aria-label="breadcrumbs"],
+.breadcrumb-theme nav.c-breadcrumbs,
+.c-breadcrumbs {
+  display: block !important;
+  width: 100% !important;
+}
+
+/* Force horizontal layout for all ol elements - target both breadcrumb-theme and astro-breadcrumbs classes */
 .breadcrumb-theme ol,
 .breadcrumb-theme > ol,
 .breadcrumb-theme nav ol,
 .breadcrumb-theme nav > ol,
 .breadcrumb-theme [aria-label="Breadcrumb"] ol,
-.breadcrumb-theme [aria-label="Breadcrumb"] > ol {
+.breadcrumb-theme [aria-label="Breadcrumb"] > ol,
+.breadcrumb-theme nav ol,
+.breadcrumb-theme nav[aria-label="Breadcrumb"] ol,
+.breadcrumb-theme nav[aria-label="breadcrumbs"] ol,
+.breadcrumb-theme nav.c-breadcrumbs ol,
+.c-breadcrumbs ol,
+.c-breadcrumbs__crumbs {
   display: flex !important;
   flex-direction: row !important;
   flex-wrap: nowrap !important;
@@ -947,7 +993,12 @@
 .breadcrumb-theme li,
 .breadcrumb-theme nav li,
 .breadcrumb-theme ol li,
-.breadcrumb-theme [aria-label="Breadcrumb"] li {
+.breadcrumb-theme [aria-label="Breadcrumb"] li,
+.breadcrumb-theme nav ol li,
+.breadcrumb-theme nav[aria-label="breadcrumbs"] li,
+.breadcrumb-theme nav.c-breadcrumbs li,
+.c-breadcrumbs li,
+.c-breadcrumbs__crumb {
   display: inline-flex !important;
   flex-direction: row !important;
   align-items: center !important;
@@ -961,17 +1012,24 @@
   vertical-align: middle !important;
 }
 
-/* Ensure breadcrumb items are inline */
-.breadcrumb-theme li::before {
+/* Remove any default list markers */
+.breadcrumb-theme li::before,
+.breadcrumb-theme li::marker,
+.c-breadcrumbs li::before,
+.c-breadcrumbs li::marker,
+.c-breadcrumbs__crumb::before,
+.c-breadcrumbs__crumb::marker {
   display: none !important;
+  content: none !important;
 }
 
-/* Style the chevron separator between items */
-.breadcrumb-theme li:not(:last-child) {
-  margin-right: 0.25rem;
-}
-
-.breadcrumb-theme a {
+/* Theme-aware link styling */
+.breadcrumb-theme a,
+.breadcrumb-theme nav a,
+.breadcrumb-theme ol a,
+.breadcrumb-theme li a,
+.c-breadcrumbs a,
+.c-breadcrumbs__link {
   color: var(--text-secondary) !important;
   text-decoration: none !important;
   font-weight: 500;
@@ -980,35 +1038,42 @@
   display: inline-block;
 }
 
-.breadcrumb-theme a:hover {
+.breadcrumb-theme a:hover,
+.breadcrumb-theme nav a:hover,
+.c-breadcrumbs a:hover,
+.c-breadcrumbs__link:hover {
   color: var(--accent-green) !important;
   text-decoration: none !important;
 }
 
-.breadcrumb-theme span {
+/* Current page link styling */
+.breadcrumb-theme a[aria-current="location"],
+.breadcrumb-theme a.is-current,
+.c-breadcrumbs a[aria-current="location"],
+.c-breadcrumbs__link.is-current {
+  color: var(--accent-green) !important;
+  font-weight: 600;
+}
+
+/* Current page (span) styling */
+.breadcrumb-theme span,
+.breadcrumb-theme nav span,
+.breadcrumb-theme li span[aria-current="page"],
+.c-breadcrumbs span {
   color: var(--accent-green) !important;
   font-weight: 600;
   white-space: nowrap;
   display: inline-block;
 }
 
-/* Style chevron separator icons - ensure they're visible and properly sized */
+/* Separator icons - theme-aware */
 .breadcrumb-theme svg,
 .breadcrumb-theme li svg,
+.breadcrumb-theme nav svg,
 .breadcrumb-theme * svg,
-.breadcrumb-theme [class*="separator"] svg,
-.breadcrumb-theme::before,
-.breadcrumb-theme::after,
-.breadcrumb-theme li::before,
-.breadcrumb-theme li::after {
-  color: var(--text-tertiary) !important;
-  fill: var(--text-tertiary) !important;
-}
-
-/* Ensure separators are visible - support both SVG and text separators */
-.breadcrumb-theme svg,
-.breadcrumb-theme li svg,
-.breadcrumb-theme * svg {
+.c-breadcrumbs svg,
+.c-breadcrumbs li svg,
+.c-breadcrumbs * svg {
   width: 1rem !important;
   height: 1rem !important;
   flex-shrink: 0 !important;
@@ -1017,12 +1082,14 @@
   display: inline-block !important;
   opacity: 1 !important;
   visibility: visible !important;
+  color: var(--text-tertiary) !important;
+  fill: var(--text-tertiary) !important;
 }
 
-/* Add separator between breadcrumb items - always show separator */
+/* Text separator fallback (if no SVG) - add separators between items */
 .breadcrumb-theme li:not(:last-child)::after,
-.breadcrumb-theme nav li:not(:last-child)::after,
-.breadcrumb-theme ol li:not(:last-child)::after {
+.c-breadcrumbs li:not(:last-child)::after,
+.c-breadcrumbs__crumb:not(:last-child)::after {
   content: '›' !important;
   display: inline-block !important;
   margin: 0 0.5rem !important;
@@ -1034,48 +1101,13 @@
   pointer-events: none !important;
 }
 
-/* If SVG separator exists, show both but make text separator subtle */
-.breadcrumb-theme li:not(:last-child):has(svg)::after {
+/* If SVG separator exists, make text separator subtle */
+.breadcrumb-theme li:not(:last-child):has(svg)::after,
+.c-breadcrumbs li:not(:last-child):has(svg)::after {
   opacity: 0.4 !important;
 }
 
-/* CRITICAL: Override any Tailwind or global styles that might break breadcrumbs */
-.breadcrumb-theme nav,
-.breadcrumb-theme nav[aria-label="Breadcrumb"] {
-  display: block !important;
-  width: 100% !important;
-}
-
-/* Override any flex-col or column layouts */
-.breadcrumb-theme,
-.breadcrumb-theme *,
-.breadcrumb-theme ol,
-.breadcrumb-theme nav,
-.breadcrumb-theme nav ol {
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
-}
-
-/* Prevent any block or vertical stacking */
-.breadcrumb-theme li {
-  display: inline-flex !important;
-  flex-direction: row !important;
-  list-style: none !important;
-  vertical-align: middle !important;
-  white-space: nowrap !important;
-}
-
-/* Ensure breadcrumb text doesn't wrap */
-.breadcrumb-theme a,
-.breadcrumb-theme span,
-.breadcrumb-theme li a,
-.breadcrumb-theme li span {
-  white-space: nowrap !important;
-  display: inline-block !important;
-  vertical-align: middle !important;
-}
-
-/* CRITICAL: Override ALL possible Tailwind utility classes that might conflict */
+/* CRITICAL: Override ALL Tailwind utility classes that might conflict */
 .breadcrumb-theme.flex-col,
 .breadcrumb-theme[class*="flex-col"],
 .breadcrumb-theme nav.flex-col,
@@ -1083,31 +1115,64 @@
 .breadcrumb-theme ol.flex-col,
 .breadcrumb-theme ol[class*="flex-col"],
 .breadcrumb-theme li.flex-col,
-.breadcrumb-theme li[class*="flex-col"] {
+.breadcrumb-theme li[class*="flex-col"],
+.c-breadcrumbs.flex-col,
+.c-breadcrumbs ol.flex-col,
+.c-breadcrumbs li.flex-col {
   flex-direction: row !important;
 }
 
 .breadcrumb-theme.block,
 .breadcrumb-theme[class*="block"]:not([class*="inline-block"]),
 .breadcrumb-theme li.block,
-.breadcrumb-theme li[class*="block"]:not([class*="inline-block"]) {
+.breadcrumb-theme li[class*="block"]:not([class*="inline-block"]),
+.c-breadcrumbs.block,
+.c-breadcrumbs li.block {
   display: inline-flex !important;
 }
 
-/* Override any grid layouts that might break breadcrumbs */
 .breadcrumb-theme.grid,
 .breadcrumb-theme[class*="grid"],
 .breadcrumb-theme ol.grid,
-.breadcrumb-theme ol[class*="grid"] {
+.breadcrumb-theme ol[class*="grid"],
+.c-breadcrumbs.grid,
+.c-breadcrumbs ol.grid {
   display: flex !important;
   grid-template-columns: none !important;
   grid-template-rows: none !important;
 }
 
-/* Force horizontal alignment - override any vertical alignment */
 .breadcrumb-theme[class*="items-start"],
 .breadcrumb-theme[class*="items-end"],
 .breadcrumb-theme ol[class*="items-start"],
-.breadcrumb-theme ol[class*="items-end"] {
+.breadcrumb-theme ol[class*="items-end"],
+.c-breadcrumbs[class*="items-start"],
+.c-breadcrumbs ol[class*="items-start"],
+.c-breadcrumbs ol[class*="items-end"] {
   align-items: center !important;
+}
+
+/* Ensure no vertical stacking anywhere in breadcrumb structure */
+.breadcrumb-theme,
+.breadcrumb-theme *,
+.breadcrumb-theme ol,
+.breadcrumb-theme nav,
+.breadcrumb-theme nav ol,
+.c-breadcrumbs,
+.c-breadcrumbs ol {
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+}
+
+.breadcrumb-theme a,
+.breadcrumb-theme span,
+.breadcrumb-theme li a,
+.breadcrumb-theme li span,
+.c-breadcrumbs a,
+.c-breadcrumbs span,
+.c-breadcrumbs li a,
+.c-breadcrumbs li span {
+  white-space: nowrap !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
 }

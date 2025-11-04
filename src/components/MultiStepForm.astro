@@ -100,7 +100,7 @@ const base = import.meta.env.BASE_URL;
       <h3 class="text-2xl font-bold mb-2">
         {multiStepFormContent.step2.title}
       </h3>
-      <p class="text-gray-400 mb-6">{multiStepFormContent.step2.subtitle}</p>
+      <p class="text-tertiary mb-6 transition-colors">{multiStepFormContent.step2.subtitle}</p>
 
       <div class="space-y-4">
         <div>
@@ -152,7 +152,7 @@ const base = import.meta.env.BASE_URL;
               aria-label="Company Size: 51-200 employees, Growing Business"
             >
               <div class="font-medium">51-200</div>
-              <div class="text-xs text-gray-400">Growing Business</div>
+              <div class="text-xs text-tertiary transition-colors">Growing Business</div>
             </button>
             <button
               type="button"
@@ -161,7 +161,7 @@ const base = import.meta.env.BASE_URL;
               aria-label="Company Size: 201-1000 employees, Mid-Market"
             >
               <div class="font-medium">201-1000</div>
-              <div class="text-xs text-gray-400">Mid-Market</div>
+              <div class="text-xs text-tertiary transition-colors">Mid-Market</div>
             </button>
             <button
               type="button"
@@ -170,7 +170,7 @@ const base = import.meta.env.BASE_URL;
               aria-label="Company Size: 1000+ employees, Enterprise"
             >
               <div class="font-medium">1000+</div>
-              <div class="text-xs text-gray-400">Enterprise</div>
+              <div class="text-xs text-tertiary transition-colors">Enterprise</div>
             </button>
           </div>
           <input
@@ -206,7 +206,7 @@ const base = import.meta.env.BASE_URL;
       <h3 class="text-2xl font-bold mb-2">
         {multiStepFormContent.step3.title}
       </h3>
-      <p class="text-gray-400 mb-6">{multiStepFormContent.step3.subtitle}</p>
+      <p class="text-tertiary mb-6 transition-colors">{multiStepFormContent.step3.subtitle}</p>
 
       <div class="space-y-4">
         <fieldset>
@@ -378,7 +378,7 @@ const base = import.meta.env.BASE_URL;
       <h3 class="text-2xl font-bold mb-2">
         {multiStepFormContent.step4.title}
       </h3>
-      <p class="text-gray-400 mb-6">{multiStepFormContent.step4.subtitle}</p>
+      <p class="text-tertiary mb-6 transition-colors">{multiStepFormContent.step4.subtitle}</p>
 
       <div class="space-y-4">
         <div>
@@ -486,14 +486,14 @@ const base = import.meta.env.BASE_URL;
       <button
         type="button"
         id="next-btn"
-        class="px-6 py-3 bg-accent-green text-black font-semibold rounded-lg hover:bg-accent-green/90 transition-all min-h-[44px]"
+        class="px-6 py-3 bg-accent-green text-on-accent font-semibold rounded-lg hover:bg-accent-green/90 transition-all min-h-[44px]"
       >
         {multiStepFormContent.navigation.next}
       </button>
       <button
         type="submit"
         id="submit-btn"
-        class="hidden px-6 py-3 bg-accent-green text-black dark:text-white font-semibold rounded-lg hover:bg-accent-green/90 transition-colors min-h-[44px]"
+        class="hidden px-6 py-3 bg-accent-green text-on-accent font-semibold rounded-lg hover:bg-accent-green/90 transition-colors min-h-[44px]"
       >
         {multiStepFormContent.navigation.submit}
       </button>
@@ -506,7 +506,7 @@ const base = import.meta.env.BASE_URL;
           class="w-16 h-16 bg-accent-green rounded-full flex items-center justify-center mx-auto mb-4"
         >
           <svg
-            class="w-8 h-8 text-black dark:text-white transition-colors"
+            class="w-8 h-8 text-on-accent transition-colors"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -525,7 +525,7 @@ const base = import.meta.env.BASE_URL;
         </p>
         <a
           href={base}
-          class="inline-block px-6 py-3 bg-accent-green text-black dark:text-white font-semibold rounded-lg hover:bg-accent-green/90 transition-colors min-h-[44px] min-w-[44px]"
+          class="inline-block px-6 py-3 bg-accent-green text-on-accent font-semibold rounded-lg hover:bg-accent-green/90 transition-colors min-h-[44px] min-w-[44px]"
         >
           {commonText.buttons.returnHome}
         </a>
@@ -583,9 +583,9 @@ const base = import.meta.env.BASE_URL;
     const toast = document.createElement("div");
     toast.className = `fixed top-24 right-4 z-50 px-6 py-4 rounded-lg shadow-lg transform transition-all duration-300 translate-x-0 ${
       type === "success"
-        ? "bg-accent-green text-black"
+        ? "bg-accent-green text-on-accent"
         : type === "error"
-          ? "bg-red-500 text-white"
+          ? "bg-accent-red text-on-accent"
           : "bg-yellow-500 text-black"
     }`;
     toast.innerHTML = `

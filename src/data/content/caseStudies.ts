@@ -108,6 +108,23 @@ export const caseStudies: CaseStudy[] = [
     icon: 'mdi:hospital',
     color: 'from-green-500/20 to-emerald-500/20',
     borderColor: 'border-green-500/30',
+    keyMetrics: [
+      { label: 'Wait Time Reduction', value: '40%', improvement: 'vs. previous average' },
+      { label: 'Resource Utilization', value: '30%', improvement: 'improvement' },
+      { label: 'Patient Satisfaction', value: '92%', improvement: 'high satisfaction rate' },
+      { label: 'Daily Capacity', value: '20%', improvement: 'more patients served' },
+    ],
+    keyAchievement: 'Eliminated bottlenecks in patient flow while maintaining high-quality care standards, resulting in better patient experience and operational efficiency',
+    insights: [
+      'Peak appointment times varied significantly by specialty—customized scheduling rules per department',
+      'Resource allocation patterns revealed underutilized equipment during certain hours',
+      'Patient arrival patterns showed 15% early arrivals, which we leveraged to reduce gaps',
+    ],
+    challengesOvercome: [
+      'Complex multi-department coordination—implemented cross-functional analytics dashboard',
+      'Real-time data integration from multiple legacy systems—built automated ETL pipelines',
+      'Change management across medical staff—provided training and demonstrated ROI with pilot departments',
+    ],
   },
   {
     id: 'logistics-optimization',
@@ -126,6 +143,23 @@ export const caseStudies: CaseStudy[] = [
     icon: 'mdi:truck-fast',
     color: 'from-yellow-500/20 to-amber-500/20',
     borderColor: 'border-yellow-500/30',
+    keyMetrics: [
+      { label: 'Fuel Cost Savings', value: '25%', improvement: 'annual reduction' },
+      { label: 'On-Time Delivery', value: '35%', improvement: 'improvement rate' },
+      { label: 'Delivery Efficiency', value: '18%', improvement: 'more deliveries per vehicle' },
+      { label: 'Carbon Reduction', value: '22%', improvement: 'environmental impact' },
+    ],
+    keyAchievement: 'Transformed logistics operations from reactive to predictive, reducing operational costs while improving customer satisfaction and environmental sustainability',
+    insights: [
+      'Traffic patterns and delivery windows were more predictable than assumed—optimization algorithms capitalized on this',
+      'Combining multiple deliveries in optimized routes reduced total distance by 30% on average',
+      'Driver behavior data revealed opportunities for training and efficiency improvements',
+    ],
+    challengesOvercome: [
+      'Real-time route adjustments—implemented dynamic routing that adapts to traffic and delivery changes',
+      'Integration with existing fleet management systems—built API connectors without disrupting operations',
+      'Driver adoption—provided mobile app with clear benefits and incentives for optimized routes',
+    ],
   },
   {
     id: 'manufacturing-quality',
@@ -144,6 +178,23 @@ export const caseStudies: CaseStudy[] = [
     icon: 'mdi:factory',
     color: 'from-purple-500/20 to-pink-500/20',
     borderColor: 'border-purple-500/30',
+    keyMetrics: [
+      { label: 'Downtime Reduction', value: '60%', improvement: 'unplanned incidents' },
+      { label: 'Defect Rate', value: '45%', improvement: 'decrease' },
+      { label: 'Cost Savings', value: '$1.5M', improvement: 'annual maintenance' },
+      { label: 'Equipment Lifespan', value: '+3 years', improvement: 'extended' },
+    ],
+    keyAchievement: 'Shifted from reactive to predictive operations, preventing costly breakdowns and quality issues before they impact production',
+    insights: [
+      'Vibration patterns and temperature trends were early indicators of equipment failure—caught 80% of issues 2-3 weeks early',
+      'Computer vision models identified defects that human inspectors missed 15% of the time',
+      'Predictive alerts allowed scheduled maintenance during low-production windows, minimizing disruption',
+    ],
+    challengesOvercome: [
+      'IoT sensor deployment in harsh manufacturing environment—designed robust sensor network with proper shielding',
+      'Real-time data processing from thousands of sensors—implemented distributed processing with Apache Spark',
+      'Change management with maintenance teams—demonstrated value with pilot program showing clear ROI',
+    ],
   },
   {
     id: 'real-estate-insights',
@@ -162,6 +213,23 @@ export const caseStudies: CaseStudy[] = [
     icon: 'mdi:office-building',
     color: 'from-lime-500/20 to-green-500/20',
     borderColor: 'border-lime-500/30',
+    keyMetrics: [
+      { label: 'Pricing Accuracy', value: '15%', improvement: 'improvement' },
+      { label: 'Analysis Speed', value: '90%', improvement: 'faster' },
+      { label: 'Investment Opportunities', value: '12', improvement: 'high-ROI identified' },
+      { label: 'Data-Driven Decisions', value: '3x', improvement: 'increase' },
+    ],
+    keyAchievement: 'Transformed real estate investment decisions from intuition-based to data-driven, enabling faster and more accurate market assessments',
+    insights: [
+      'Location features (schools, transport, amenities) had stronger price correlation than previously assumed',
+      'Market trends showed seasonal patterns that could be leveraged for timing investments',
+      'Combining multiple data sources (transactions, demographics, development plans) provided more accurate valuations',
+    ],
+    challengesOvercome: [
+      'Fragmented data sources—aggregated data from multiple APIs, government databases, and internal systems',
+      'Real-time market data integration—built automated data pipelines with scheduled updates',
+      'User adoption by traditional real estate professionals—created intuitive dashboards with clear visualizations',
+    ],
   },
 ];
 

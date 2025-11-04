@@ -54,6 +54,34 @@ const getImpactIcon = (impact: string): string => {
   return "mdi:star"; // Default icon
 };
 
+// Map business impacts with descriptions/examples
+const impactDescriptions: Record<string, string> = {
+  'Faster decision-making with real-time insights': 'Real-time dashboards reduce reporting time by 80%',
+  'Reduce reporting time by up to 80%': 'Automated reports replace manual compilation processes',
+  'Improve strategic planning accuracy': 'Data-driven forecasting improves planning confidence',
+  'Better visibility into KPIs and performance': 'Track analytics ROI with clear metrics and KPIs',
+  'Predict and prevent customer churn': 'Early warning systems identify at-risk customers',
+  'Optimize pricing strategies for better margins': 'Data-driven pricing increases profitability',
+  'Identify growth opportunities early': 'Trend analysis reveals untapped market potential',
+  'Make data-driven decisions with confidence': 'Comprehensive analytics replace guesswork',
+  'Clear roadmap for data investments': 'Strategic planning prevents costly mistakes',
+  'Better ROI on analytics spending': 'Measurable outcomes justify technology investments',
+  'Avoid costly technology mistakes': 'Expert guidance prevents vendor lock-in',
+  'Align data initiatives with business goals': 'Strategic alignment ensures business value',
+  'Unified view of business operations': 'Single source of truth across all departments',
+  'Reduce data processing costs': 'Optimized pipelines cut infrastructure expenses',
+  'Enable real-time business insights': 'Live data powers instant decision-making',
+  'Scale analytics as you grow': 'Flexible architecture adapts to business growth',
+  'Automate repetitive tasks and processes': 'ML models handle routine operations',
+  'Predict trends before they happen': 'Forecasting models anticipate market changes',
+  'Personalize customer experiences': 'AI-driven recommendations increase engagement',
+  'Optimize operations for efficiency': 'Data insights streamline workflows',
+  'Ensure regulatory compliance (PDPL, GDPR)': 'Compliance frameworks meet legal requirements',
+  'Build trust in your data quality': 'Governance ensures reliable business decisions',
+  'Reduce risk of data breaches': 'Security measures protect sensitive information',
+  'Enable confident data-driven decisions': 'Quality data builds executive confidence',
+};
+
 // Extract unique business impacts from all services
 const allBusinessImpacts = services
   .filter(
@@ -65,6 +93,7 @@ const allBusinessImpacts = services
   .map((impact) => ({
     icon: getImpactIcon(impact),
     title: impact,
+    description: impactDescriptions[impact] || undefined,
   }));
 
 // FAQ data for structured data
@@ -148,12 +177,22 @@ const servicesFAQs = [
         </div>
 
         <!-- Comparison Table -->
-        <div class="bg-card border-2 border-theme rounded-2xl overflow-hidden">
+        <div class="bg-card border-2 border-theme rounded-2xl overflow-hidden relative">
+          <!-- Badge above table -->
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+            <div class="bg-accent-green/20 border border-accent-green/30 rounded-full px-4 py-1.5 backdrop-blur-sm">
+              <span class="text-accent-green text-sm font-semibold">vs. Big Consultancies</span>
+            </div>
+          </div>
+          
           <div
-            class="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-theme"
+            class="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-theme relative"
           >
+            <!-- Visual separator with accent-green -->
+            <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-transparent via-accent-green/30 to-transparent z-10"></div>
+            
             <!-- Them (Big Consultancies) -->
-            <div class="p-6 sm:p-8">
+            <div class="p-6 sm:p-8 relative z-0">
               <div class="flex items-center gap-3 mb-6">
                 <div
                   class="w-12 h-12 bg-surface rounded-lg flex items-center justify-center"
@@ -208,7 +247,7 @@ const servicesFAQs = [
             </div>
 
             <!-- Us (AUXO) -->
-            <div class="p-6 sm:p-8 bg-accent-green/5">
+            <div class="p-6 sm:p-8 bg-gradient-to-br from-accent-green/10 via-accent-green/15 to-accent-green/10 hover:scale-[1.02] transition-transform duration-300 relative z-0 shadow-lg shadow-accent-green/10 border-l-2 border-accent-green/20 md:border-l-0">
               <div class="flex items-center gap-3 mb-6">
                 <div
                   class="w-12 h-12 bg-accent-green/20 rounded-lg flex items-center justify-center"
@@ -225,7 +264,7 @@ const servicesFAQs = [
                     name="mdi:check-circle"
                     class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
                   />
-                  <span class="text-sm text-primary transition-colors"
+                  <span class="text-sm text-primary transition-colors font-medium"
                     >Fast results and agile implementation</span
                   >
                 </li>
@@ -234,7 +273,7 @@ const servicesFAQs = [
                     name="mdi:check-circle"
                     class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
                   />
-                  <span class="text-sm text-primary transition-colors"
+                  <span class="text-sm text-primary transition-colors font-medium"
                     >Direct access to founders on every project</span
                   >
                 </li>
@@ -243,7 +282,7 @@ const servicesFAQs = [
                     name="mdi:check-circle"
                     class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
                   />
-                  <span class="text-sm text-primary transition-colors"
+                  <span class="text-sm text-primary transition-colors font-medium"
                     >Startup-friendly pricing, transparent costs</span
                   >
                 </li>
@@ -252,7 +291,7 @@ const servicesFAQs = [
                     name="mdi:check-circle"
                     class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5"
                   />
-                  <span class="text-sm text-primary transition-colors"
+                  <span class="text-sm text-primary transition-colors font-medium"
                     >No bureaucracy, fast decisions</span
                   >
                 </li>
@@ -270,6 +309,51 @@ const servicesFAQs = [
         title="Business Outcomes You Can Expect"
         subtitle="What our services mean for your business—executive-focused outcomes, not just technical features"
       />
+    </SectionContainer>
+
+    <!-- Industries We Serve Section -->
+    <SectionContainer class="mb-10 sm:mb-12 md:mb-14">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-8 sm:mb-10">
+          <h2
+            class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-primary transition-colors"
+          >
+            Industries We <span class="text-accent-green">Serve</span>
+          </h2>
+          <p
+            class="text-base sm:text-lg text-secondary max-w-2xl mx-auto transition-colors"
+          >
+            Our data analytics solutions are tailored to meet the unique challenges and requirements of different industries
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          {[
+            { name: 'Retail & E-commerce', icon: 'mdi:store', description: 'Optimize inventory, pricing, and customer experience with data-driven insights' },
+            { name: 'Healthcare & Life Sciences', icon: 'mdi:hospital', description: 'Improve patient outcomes and operational efficiency through analytics' },
+            { name: 'Finance & Banking', icon: 'mdi:currency-usd', description: 'Enhance risk management and customer insights with advanced analytics' },
+            { name: 'Logistics & Supply Chain', icon: 'mdi:truck-fast', description: 'Streamline operations and reduce costs with predictive analytics' },
+            { name: 'Manufacturing', icon: 'mdi:factory', description: 'Optimize production and quality control with real-time data insights' },
+            { name: 'Professional Services', icon: 'mdi:briefcase', description: 'Improve client satisfaction and operational efficiency' },
+          ].map((industry) => (
+            <div class="bg-card border-2 border-theme rounded-xl p-6 hover:border-accent-green transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-accent-green/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Icon name={industry.icon} class="w-6 h-6 text-accent-green" />
+                </div>
+                <div class="flex-1">
+                  <h3 class="text-lg font-bold text-primary mb-2 transition-colors">
+                    {industry.name}
+                  </h3>
+                  <p class="text-sm text-secondary leading-relaxed transition-colors">
+                    {industry.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </SectionContainer>
 
     <!-- How We Work Section (Concise) -->
@@ -303,7 +387,14 @@ const servicesFAQs = [
               <div
                 class="relative group"
               >
-                <div class="bg-card border-2 border-accent-green/30 rounded-xl p-6 sm:p-8 hover:border-accent-green pulse-box transition-all duration-300 hover:shadow-xl hover:-translate-y-2 h-full relative overflow-hidden">
+                <!-- Progress Indicator -->
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 z-20 bg-card border-2 border-accent-green/30 rounded-full px-3 py-1 shadow-lg">
+                  <span class="text-xs font-bold text-accent-green">
+                    Step {step.number} of {servicesPageContent.process.steps.length}
+                  </span>
+                </div>
+                
+                <div class="bg-card border-2 border-accent-green/30 rounded-xl p-6 sm:p-8 hover:border-accent-green pulse-box transition-all duration-300 hover:shadow-xl hover:-translate-y-2 h-full relative overflow-hidden pt-8">
                   <!-- Large Number Background -->
                   <div class="absolute top-0 right-0 w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-end pr-4 sm:pr-6 opacity-10 group-hover:opacity-20 transition-opacity">
                     <span class="text-7xl sm:text-8xl font-black text-accent-green leading-none">
@@ -325,11 +416,68 @@ const servicesFAQs = [
                   </p>
                 </div>
                 {index < servicesPageContent.process.steps.length - 1 && (
-                  <div class="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-accent-green to-transparent z-10" />
+                  <div class="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-accent-green via-accent-green/50 to-transparent z-10 animate-pulse" />
                 )}
               </div>
             ))
           }
+        </div>
+      </div>
+    </SectionContainer>
+
+    <!-- FAQ Section -->
+    <SectionContainer class="mb-10 sm:mb-12 md:mb-14">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-8">
+          <h2
+            class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-primary transition-colors"
+          >
+            Frequently Asked <span class="text-accent-green">Questions</span>
+          </h2>
+          <p
+            class="text-base sm:text-lg text-secondary max-w-2xl mx-auto transition-colors"
+          >
+            Common questions about our services—get answers before reaching out
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          {servicesFAQs.map((faq, index) => (
+            <div class="faq-item bg-card border-2 border-theme rounded-xl overflow-hidden hover:border-accent-green/30 transition-all duration-200">
+              <button
+                class="faq-question w-full text-left px-6 py-5 flex items-center justify-between hover:bg-surface transition-colors min-h-[44px] touch-manipulation group"
+                aria-expanded="false"
+              >
+                <span class="font-semibold text-base sm:text-lg text-primary pr-4 transition-colors flex-1">
+                  {faq.question}
+                </span>
+                <Icon
+                  name="mdi:chevron-down"
+                  class="faq-chevron w-6 h-6 text-accent-green transition-all flex-shrink-0"
+                />
+              </button>
+              <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
+                <div class="px-6 pb-5 text-secondary transition-colors leading-relaxed">
+                  <div class="flex items-center gap-2 mb-4">
+                    <div class="flex-1 h-px bg-accent-green/20"></div>
+                    <Icon name="mdi:help-circle" class="w-4 h-4 text-accent-green/50" />
+                    <div class="flex-1 h-px bg-accent-green/20"></div>
+                  </div>
+                  <p class="text-base">{faq.answer}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="text-center mt-8">
+          <a
+            href={`${base}faq/`}
+            class="inline-flex items-center gap-2 text-accent-green hover:text-accent-green/80 font-semibold transition-colors"
+          >
+            View all FAQs
+            <Icon name="mdi:arrow-right" class="w-5 h-5" />
+          </a>
         </div>
       </div>
     </SectionContainer>
@@ -348,10 +496,36 @@ const servicesFAQs = [
           >
             {servicesPageContent.cta.subtitle}
           </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          
+          <!-- What You'll Get Section -->
+          <div class="bg-card/50 border border-accent-green/20 rounded-xl p-6 mb-8 max-w-2xl mx-auto">
+            <h3 class="text-lg font-semibold text-primary mb-4 transition-colors">
+              What You'll Get
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
+              <div class="flex items-start gap-3">
+                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                <span class="text-sm text-secondary transition-colors">Free 30-minute consultation</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                <span class="text-sm text-secondary transition-colors">Custom assessment of your needs</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                <span class="text-sm text-secondary transition-colors">No obligation, just honest advice</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                <span class="text-sm text-secondary transition-colors">Direct access to founders</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex flex-col sm:flex-row gap-4 justify-center mb-6">
             <a
               href={`${base}${servicesPageContent.cta.primaryCta.href}`}
-              class="px-8 py-4 bg-accent-green text-black dark:text-white font-bold rounded-lg hover:bg-accent-green/90 transition-colors inline-flex items-center justify-center hover:shadow-lg hover:shadow-accent-green/30 min-h-[44px] min-w-[44px]"
+              class="px-8 py-4 bg-accent-green text-black dark:text-white font-bold rounded-lg hover:bg-accent-green/90 transition-all inline-flex items-center justify-center hover:shadow-lg hover:shadow-accent-green/30 min-h-[44px] min-w-[44px] animate-pulse hover:animate-none"
             >
               {servicesPageContent.cta.primaryCta.text}
               <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
@@ -364,9 +538,84 @@ const servicesFAQs = [
               <Icon name="mdi:calculator" class="w-5 h-5 ml-2" />
             </a>
           </div>
+          
+          <!-- Trust Badge -->
+          <div class="text-center">
+            <p class="text-sm text-secondary transition-colors flex items-center justify-center gap-2">
+              <Icon name="mdi:account-group" class="w-4 h-4 text-accent-green" />
+              <span>Join 50+ businesses we've helped</span>
+            </p>
+          </div>
         </div>
       </div>
     </SectionContainer>
   </PageContainer>
 
 </BaseLayout>
+
+<script>
+  // FAQ accordion functionality
+  const faqQuestions = document.querySelectorAll(".faq-question");
+
+  faqQuestions.forEach((question) => {
+    question.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const faqItem = question.parentElement;
+      if (!faqItem) return;
+
+      const answer = faqItem.querySelector(".faq-answer") as HTMLElement | null;
+      const chevron = question.querySelector(
+        ".faq-chevron",
+      ) as HTMLElement | null;
+
+      if (!answer || !chevron) return;
+
+      const isOpen = answer.style.maxHeight && answer.style.maxHeight !== "0px";
+
+      if (isOpen) {
+        // Close this item
+        answer.style.maxHeight = "0";
+        chevron.classList.remove("rotate-180");
+        question.setAttribute("aria-expanded", "false");
+      } else {
+        // Close all other items first to prevent layout issues
+        document.querySelectorAll(".faq-answer").forEach((otherAnswer) => {
+          if (otherAnswer !== answer) {
+            const otherEl = otherAnswer as HTMLElement;
+            otherEl.style.maxHeight = "0";
+          }
+        });
+        document.querySelectorAll(".faq-chevron").forEach((otherChevron) => {
+          if (otherChevron !== chevron) {
+            otherChevron.classList.remove("rotate-180");
+          }
+        });
+        document.querySelectorAll(".faq-question").forEach((otherQuestion) => {
+          if (otherQuestion !== question) {
+            otherQuestion.setAttribute("aria-expanded", "false");
+          }
+        });
+        
+        // Then open this item
+        // Use scrollHeight to get accurate height
+        answer.style.maxHeight = answer.scrollHeight + "px";
+        chevron.classList.add("rotate-180");
+        question.setAttribute("aria-expanded", "true");
+        
+        // Smooth scroll to expanded item
+        setTimeout(() => {
+          faqItem.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }, 100);
+      }
+    });
+    
+    // Keyboard navigation
+    question.addEventListener("keydown", (e: Event) => {
+      const keyEvent = e as KeyboardEvent;
+      if (keyEvent.key === "Enter" || keyEvent.key === " ") {
+        keyEvent.preventDefault();
+        (question as HTMLElement).click();
+      }
+    });
+  });
+</script>

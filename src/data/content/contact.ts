@@ -17,6 +17,7 @@ export interface ContactContent {
     title: string;
     titleHighlight: string;
     subtitle: string;
+    benefits?: string[];
   };
   sidebar: {
     title: string;

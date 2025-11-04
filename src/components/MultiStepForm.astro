@@ -2,6 +2,7 @@
 // Multi-step lead generation form with assisted answer fields
 import { multiStepFormContent } from "../data/content/forms";
 import { commonText } from "../data/shared/common";
+import { Icon } from "astro-icon/components";
 
 const base = import.meta.env.BASE_URL;
 ---
@@ -11,14 +12,14 @@ const base = import.meta.env.BASE_URL;
     <!-- Progress Bar -->
     <div class="mb-8">
       <div class="flex justify-between items-center mb-2">
-        <span class="text-sm text-secondary transition-colors"
-          >Step <span id="current-step-num">1</span> of 4</span
-        >
-        <span class="text-sm text-secondary transition-colors"
-          ><span id="progress-percent">25</span>% Complete</span
-        >
+        <span class="text-sm font-medium text-primary transition-colors">
+          <span id="current-step-name">Basic Information</span> - Step <span id="current-step-num">1</span> of 4
+        </span>
+        <span class="text-sm text-secondary transition-colors">
+          <span id="progress-percent">25</span>% Complete
+        </span>
       </div>
-      <div class="h-2 bg-surface rounded-full overflow-hidden">
+      <div class="h-2 bg-surface rounded-full overflow-hidden mb-3">
         <div
           id="progress-bar"
           class="h-full bg-gradient-to-r from-accent-green to-green-500 transition-all duration-500"
@@ -38,7 +39,9 @@ const base = import.meta.env.BASE_URL;
       <div class="space-y-4">
         <div>
           <label for="name" class="block">
-            <span class="block text-sm font-medium mb-2">Full Name *</span>
+            <span class="block text-sm font-medium mb-2">
+              Full Name <span class="text-accent-green">*</span>
+            </span>
             <input
               type="text"
               id="name"
@@ -46,13 +49,20 @@ const base = import.meta.env.BASE_URL;
               required
               class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
               placeholder="John Smith"
+              aria-describedby="name-help name-error"
             />
+            <p id="name-help" class="mt-1 text-xs text-secondary transition-colors">
+              We'll use this to personalize your consultation
+            </p>
+            <p id="name-error" class="mt-1 text-xs text-accent-red hidden" role="alert"></p>
           </label>
         </div>
 
         <div>
           <label for="email" class="block">
-            <span class="block text-sm font-medium mb-2">Work Email *</span>
+            <span class="block text-sm font-medium mb-2">
+              Work Email <span class="text-accent-green">*</span>
+            </span>
             <input
               type="email"
               id="email"
@@ -60,13 +70,20 @@ const base = import.meta.env.BASE_URL;
               required
               class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
               placeholder="john@company.com"
+              aria-describedby="email-help email-error"
             />
+            <p id="email-help" class="mt-1 text-xs text-secondary transition-colors">
+              We'll send a confirmation and respond within 24 hours
+            </p>
+            <p id="email-error" class="mt-1 text-xs text-accent-red hidden" role="alert"></p>
           </label>
         </div>
 
         <div>
           <label for="company" class="block">
-            <span class="block text-sm font-medium mb-2">Company Name *</span>
+            <span class="block text-sm font-medium mb-2">
+              Company Name <span class="text-accent-green">*</span>
+            </span>
             <input
               type="text"
               id="company"
@@ -74,34 +91,51 @@ const base = import.meta.env.BASE_URL;
               required
               class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
               placeholder="Acme Corporation"
+              list="company-suggestions"
+              aria-describedby="company-help company-error"
             />
+            <datalist id="company-suggestions">
+              <option value="Dubai Corporation">Dubai Corporation</option>
+              <option value="Abu Dhabi Holdings">Abu Dhabi Holdings</option>
+              <option value="Sharjah Industries">Sharjah Industries</option>
+            </datalist>
+            <p id="company-help" class="mt-1 text-xs text-secondary transition-colors">
+              Helps us understand your industry context
+            </p>
+            <p id="company-error" class="mt-1 text-xs text-accent-red hidden" role="alert"></p>
           </label>
         </div>
 
         <div>
           <label for="phone" class="block">
-            <span class="block text-sm font-medium mb-2"
-              >Phone Number (Optional)</span
-            >
+            <span class="block text-sm font-medium mb-2">
+              Phone Number <span class="text-secondary text-xs">(Optional)</span>
+            </span>
             <input
               type="tel"
               id="phone"
               name="phone"
               class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
               placeholder="+971 50 123 4567"
+              aria-describedby="phone-help phone-error"
             />
+            <p id="phone-help" class="mt-1 text-xs text-secondary transition-colors">
+              For faster response - we can call if you prefer
+            </p>
+            <p id="phone-error" class="mt-1 text-xs text-accent-red hidden" role="alert"></p>
           </label>
         </div>
 
         <div>
           <label for="whyReachingOut" class="block">
-            <span class="block text-sm font-medium mb-2"
-              >Why are you reaching out? (Optional)</span
-            >
+            <span class="block text-sm font-medium mb-2">
+              Why are you reaching out? <span class="text-secondary text-xs">(Optional)</span>
+            </span>
             <select
               id="whyReachingOut"
               name="whyReachingOut"
               class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary"
+              aria-describedby="whyReachingOut-help"
             >
               <option value="">Select an option...</option>
               <option value="I have an immediate need">I have an immediate need</option>
@@ -109,6 +143,9 @@ const base = import.meta.env.BASE_URL;
               <option value="Just exploring options">Just exploring options</option>
               <option value="Want to learn more">Want to learn more</option>
             </select>
+            <p id="whyReachingOut-help" class="mt-1 text-xs text-secondary transition-colors">
+              Helps us prioritize your inquiry
+            </p>
           </label>
         </div>
 
@@ -560,7 +597,7 @@ const base = import.meta.env.BASE_URL;
     <div id="success-message" class="hidden">
       <div class="text-center py-12">
         <div
-          class="w-16 h-16 bg-accent-green rounded-full flex items-center justify-center mx-auto mb-4"
+          class="w-16 h-16 bg-accent-green rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse"
         >
           <svg
             class="w-8 h-8 text-on-accent transition-colors"
@@ -575,17 +612,70 @@ const base = import.meta.env.BASE_URL;
               d="M5 13l4 4L19 7"></path>
           </svg>
         </div>
-        <h3 class="text-2xl font-bold mb-2">Thank you for your inquiry!</h3>
-        <p class="text-secondary mb-6 transition-colors">
-          We've received your information and will get back to you within 24
-          hours.
+        <h3 class="text-2xl font-bold mb-2" id="success-title">Thank you for your inquiry!</h3>
+        <p class="text-secondary mb-6 transition-colors" id="success-message-text">
+          We've received your information and will get back to you within 24 hours.
         </p>
-        <a
-          href={base}
-          class="inline-block px-6 py-3 bg-accent-green text-on-accent font-semibold rounded-lg hover:bg-accent-green/90 transition-colors min-h-[44px] min-w-[44px]"
-        >
-          {commonText.buttons.returnHome}
-        </a>
+        
+        <!-- What Happens Next Timeline -->
+        <div class="bg-accent-green/10 border border-accent-green/30 rounded-xl p-6 mb-6 max-w-2xl mx-auto text-left">
+          <h4 class="font-bold mb-4 text-primary transition-colors">
+            What Happens Next
+          </h4>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-6 h-6 bg-accent-green rounded-full flex items-center justify-center text-xs font-bold text-on-accent">
+                1
+              </div>
+              <div>
+                <p class="font-medium text-primary transition-colors">Confirmation email</p>
+                <p class="text-sm text-secondary transition-colors">Check your inbox within minutes</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-6 h-6 bg-accent-green rounded-full flex items-center justify-center text-xs font-bold text-on-accent">
+                2
+              </div>
+              <div>
+                <p class="font-medium text-primary transition-colors">Founder review</p>
+                <p class="text-sm text-secondary transition-colors">Within 24 hours (usually faster)</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-6 h-6 bg-accent-green rounded-full flex items-center justify-center text-xs font-bold text-on-accent">
+                3
+              </div>
+              <div>
+                <p class="font-medium text-primary transition-colors">Personal response</p>
+                <p class="text-sm text-secondary transition-colors">Via your preferred contact method</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="flex-shrink-0 w-6 h-6 bg-accent-green rounded-full flex items-center justify-center text-xs font-bold text-on-accent">
+                4
+              </div>
+              <div>
+                <p class="font-medium text-primary transition-colors">Free consultation</p>
+                <p class="text-sm text-secondary transition-colors">Schedule a call to discuss your needs</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <a
+            href={base}
+            class="inline-flex items-center justify-center px-6 py-3 bg-accent-green text-on-accent font-semibold rounded-lg hover:bg-accent-green/90 transition-colors min-h-[44px] min-w-[44px]"
+          >
+            {commonText.buttons.returnHome}
+          </a>
+          <a
+            href={`${base}about/`}
+            class="inline-flex items-center justify-center px-6 py-3 bg-surface text-primary font-semibold rounded-lg hover:bg-surface/80 transition-colors border border-theme min-h-[44px] min-w-[44px]"
+          >
+            Learn More About Us
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -613,6 +703,16 @@ const base = import.meta.env.BASE_URL;
     background-color: var(--accent-green-dim);
     border-color: var(--accent-green);
   }
+  
+  .step-name-indicator {
+    transition: color 0.3s ease;
+  }
+  
+  input.border-accent-red,
+  select.border-accent-red,
+  textarea.border-accent-red {
+    border-color: var(--accent-red) !important;
+  }
 </style>
 
 <script
@@ -634,6 +734,15 @@ const base = import.meta.env.BASE_URL;
   const progressBar = document.getElementById("progress-bar");
   const currentStepNum = document.getElementById("current-step-num");
   const progressPercent = document.getElementById("progress-percent");
+  const currentStepName = document.getElementById("current-step-name");
+  
+  // Step names mapping
+  const stepNames = {
+    1: "Basic Information",
+    2: "About Your Organization",
+    3: "Your Analytics Challenges",
+    4: "Review & Submit"
+  };
 
   // Utility: Show toast notification
   function showNotification(message, type = "error") {
@@ -687,6 +796,22 @@ const base = import.meta.env.BASE_URL;
     if (currentStepNum) currentStepNum.textContent = String(currentStep);
     if (progressPercent)
       progressPercent.textContent = String(Math.round(percent));
+    if (currentStepName) currentStepName.textContent = stepNames[currentStep] || "";
+    
+    // Update step name indicators
+    document.querySelectorAll(".step-name-indicator").forEach((indicator) => {
+      const step = parseInt(indicator.getAttribute("data-step") || "0");
+      if (step === currentStep) {
+        indicator.classList.add("text-accent-green", "font-semibold");
+        indicator.classList.remove("text-secondary");
+      } else if (step < currentStep) {
+        indicator.classList.add("text-accent-green/70");
+        indicator.classList.remove("text-secondary");
+      } else {
+        indicator.classList.remove("text-accent-green", "font-semibold", "text-accent-green/70");
+        indicator.classList.add("text-secondary");
+      }
+    });
   }
 
   function showStep(step) {
@@ -710,11 +835,78 @@ const base = import.meta.env.BASE_URL;
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
+  // Inline validation helper
+  function showFieldError(fieldId, message) {
+    const field = document.getElementById(fieldId);
+    const errorEl = document.getElementById(`${fieldId}-error`);
+    if (field && errorEl) {
+      field.classList.add("border-accent-red", "focus:border-accent-red");
+      field.classList.remove("border-theme", "focus:border-accent-green");
+      errorEl.textContent = message;
+      errorEl.classList.remove("hidden");
+    }
+  }
+
+  function clearFieldError(fieldId) {
+    const field = document.getElementById(fieldId);
+    const errorEl = document.getElementById(`${fieldId}-error`);
+    if (field && errorEl) {
+      field.classList.remove("border-accent-red", "focus:border-accent-red");
+      field.classList.add("border-theme", "focus:border-accent-green");
+      errorEl.classList.add("hidden");
+      errorEl.textContent = "";
+    }
+  }
+
+  // Real-time validation
+  function setupFieldValidation() {
+    // Email validation
+    const emailField = document.getElementById("email");
+    if (emailField) {
+      emailField.addEventListener("blur", () => {
+        const email = emailField.value.trim();
+        if (email) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+            showFieldError("email", formText.validation.invalidEmail);
+          } else {
+            clearFieldError("email");
+          }
+        }
+      });
+      emailField.addEventListener("input", () => {
+        if (emailField.value.trim()) clearFieldError("email");
+      });
+    }
+
+    // Phone validation (optional field)
+    const phoneField = document.getElementById("phone");
+    if (phoneField) {
+      phoneField.addEventListener("blur", () => {
+        const phone = phoneField.value.trim();
+        if (phone) {
+          // Basic phone validation (international format)
+          const phoneRegex = /^[\+]?[(]?[0-9]{1,4}[)]?[-\s\.]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,9}$/;
+          if (!phoneRegex.test(phone)) {
+            showFieldError("phone", formText.validation.invalidPhone);
+          } else {
+            clearFieldError("phone");
+          }
+        }
+      });
+      phoneField.addEventListener("input", () => {
+        if (phoneField.value.trim()) clearFieldError("phone");
+      });
+    }
+  }
+
   function validateStep(step) {
     const currentStepEl = document.querySelector(`[data-step="${step}"]`);
     const requiredFields = currentStepEl?.querySelectorAll("[required]");
 
     if (!requiredFields) return false;
+
+    let isValid = true;
 
     for (let field of requiredFields) {
       if (field.type === "checkbox") {
@@ -725,17 +917,31 @@ const base = import.meta.env.BASE_URL;
           );
           const anyChecked = Array.from(serviceChecks).some((cb) => cb.checked);
           if (!anyChecked) {
-            showNotification(formText.validation.required, "warning");
-            return false;
+            showNotification("Please select at least one service", "warning");
+            isValid = false;
           }
         }
-      } else if (!field.value.trim()) {
-        field.focus();
-        showNotification(formText.validation.required, "warning");
-        return false;
+      } else {
+        const fieldId = field.id;
+        if (!field.value.trim()) {
+          field.focus();
+          showFieldError(fieldId, formText.validation.required);
+          showNotification(formText.validation.required, "warning");
+          isValid = false;
+        } else {
+          clearFieldError(fieldId);
+          // Additional validation for email
+          if (field.type === "email") {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(field.value.trim())) {
+              showFieldError(fieldId, formText.validation.invalidEmail);
+              isValid = false;
+            }
+          }
+        }
       }
     }
-    return true;
+    return isValid;
   }
 
   const handleNext = () => {
@@ -823,7 +1029,18 @@ const base = import.meta.env.BASE_URL;
           throw new Error(errorMessage);
         }
 
-        // Show success message
+        // Show success message with personalization
+        const userName = formData.name.split(" ")[0] || "there";
+        const successTitle = document.getElementById("success-title");
+        const successText = document.getElementById("success-message-text");
+        
+        if (successTitle) {
+          successTitle.textContent = `Thank you, ${userName}!`;
+        }
+        if (successText) {
+          successText.textContent = `We've received your information and will get back to you within 24 hours. ${formData.preferredContact ? `We'll reach out via ${formData.preferredContact.toLowerCase()}.` : ""}`;
+        }
+        
         document.querySelector(".form-step.active")?.classList.remove("active");
         document.getElementById("success-message")?.classList.remove("hidden");
         document
@@ -858,6 +1075,7 @@ const base = import.meta.env.BASE_URL;
 
   // Initialize
   showStep(1);
+  setupFieldValidation();
 
   // Cleanup function for Astro view transitions
   document.addEventListener("astro:before-swap", () => {

@@ -178,9 +178,17 @@ const base = import.meta.env.BASE_URL;
                       id={`faq-${category.category.toLowerCase().replace(/\s+/g, '-').replace(/[&?]/g, '').replace(/-+/g, '-')}-${itemIndex}`}
                     >
                       <button class="faq-question w-full text-left px-6 py-5 flex items-center justify-between hover:bg-surface transition-colors min-h-[44px] touch-manipulation group" aria-expanded="false">
-                        <span class="font-semibold text-lg text-primary pr-4 transition-colors">
-                          {item.q}
-                        </span>
+                        <div class="flex items-start gap-3 flex-1">
+                          <div class="flex-shrink-0 w-8 h-8 bg-accent-green/10 rounded-lg flex items-center justify-center mt-0.5 group-hover:bg-accent-green/20 transition-colors">
+                            <Icon
+                              name={category.icon}
+                              class="w-5 h-5 text-accent-green transition-colors"
+                            />
+                          </div>
+                          <span class="font-semibold text-lg text-primary pr-4 transition-colors flex-1">
+                            {item.q}
+                          </span>
+                        </div>
                         <Icon
                           name="mdi:chevron-down"
                           class="faq-chevron w-6 h-6 text-accent-green transition-all flex-shrink-0"
@@ -188,23 +196,36 @@ const base = import.meta.env.BASE_URL;
                       </button>
                       <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
                         <div class="px-6 pb-5 text-secondary transition-colors leading-relaxed">
+                          {/* Visual separator line */}
+                          <div class="flex items-center gap-2 mb-4">
+                            <div class="flex-1 h-px bg-accent-green/20"></div>
+                            <Icon name={category.icon} class="w-4 h-4 text-accent-green/50" />
+                            <div class="flex-1 h-px bg-accent-green/20"></div>
+                          </div>
+                          
                           {hasShortAnswer ? (
                             <div>
-                              <p class="mb-2 font-medium">{shortAnswer}</p>
-                              <p class="text-sm">{item.a.substring(shortAnswer.length).trim()}</p>
+                              <p class="mb-3 font-medium text-primary transition-colors text-base">{shortAnswer}</p>
+                              <div class="pl-4 border-l-2 border-accent-green/30">
+                                <p class="text-sm">{item.a.substring(shortAnswer.length).trim()}</p>
+                              </div>
                             </div>
                           ) : (
-                            <p>{item.a}</p>
+                            <p class="text-base">{item.a}</p>
                           )}
+                          
                           {/* Still Have Questions CTA */}
-                          <div class="mt-4 pt-4 border-t border-theme">
-                            <p class="text-sm text-secondary mb-2">Still have questions?</p>
+                          <div class="mt-6 pt-4 border-t border-theme bg-accent-green/5 rounded-lg p-4 -mx-2">
+                            <p class="text-sm font-medium text-primary mb-2 transition-colors flex items-center gap-2">
+                              <Icon name="mdi:help-circle" class="w-4 h-4 text-accent-green" />
+                              Still have questions?
+                            </p>
                             <a
                               href={`${base}contact/`}
-                              class="inline-flex items-center gap-2 text-sm text-accent-green hover:underline font-medium"
+                              class="inline-flex items-center gap-2 text-sm text-accent-green hover:text-accent-green/80 hover:underline font-medium transition-colors"
                             >
                               <Icon name="mdi:message" class="w-4 h-4" />
-                              Contact us
+                              Contact us for personalized help
                             </a>
                           </div>
                         </div>
@@ -484,7 +505,8 @@ const base = import.meta.env.BASE_URL;
     });
     
     // Keyboard navigation
-    question.addEventListener("keydown", (e) => {
+    question.addEventListener("keydown", (e: KeyboardEvent) => {
+      const faqItem = question.parentElement;
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
         (question as HTMLElement).click();
@@ -610,10 +632,21 @@ const base = import.meta.env.BASE_URL;
   /* FAQ item hover effects */
   .faq-item {
     transition: all 0.2s ease;
+    position: relative;
   }
   
   .faq-item:hover {
     transform: translateY(-2px);
+  }
+  
+  /* Category icon enhancement */
+  .faq-item:hover .faq-question .bg-accent-green\/10 {
+    transform: scale(1.1);
+  }
+  
+  /* Answer visual hierarchy */
+  .faq-answer .border-l-2 {
+    border-left-color: rgba(var(--accent-green-rgb), 0.3);
   }
   
   /* Category content transitions */

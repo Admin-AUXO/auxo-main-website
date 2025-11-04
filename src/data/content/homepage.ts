@@ -136,7 +136,7 @@ export const homepageContent: HomepageContent = {
     titleHighlight: '',
     subtitle: 'Empowering confident, data-driven decisions at speed and scale.',
     primaryCta: {
-      text: "Let's Talk",
+      text: '',
       href: 'contact',
     },
     secondaryCta: {
@@ -358,7 +358,6 @@ export const homepageContent: HomepageContent = {
         icon: 'mdi:account-group',
         title: 'Direct Access to Founders',
         description: 'Work directly with founders and senior team members. No account managers. No junior consultants.',
-        metric: '24-hour response time vs. 5-7 days',
       },
       {
         icon: 'mdi:rocket',

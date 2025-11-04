@@ -81,19 +81,21 @@ const content: HomepageContent["hero"] = homepageContent.hero;
 
         <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-4 px-4">
           <!-- Primary CTA - Enhanced with larger size, stronger shadow, and animation -->
-          <a
-            href={`${base}${content.primaryCta.href}`}
-            class="group primary-cta bg-accent-green text-on-accent px-8 sm:px-10 py-4 sm:py-5 rounded-lg font-bold hover:bg-accent-green/90 active:bg-accent-green/80 transition-all hover:scale-105 active:scale-95 text-base sm:text-lg min-h-[52px] sm:min-h-[56px] flex items-center justify-center gap-2 shadow-lg shadow-accent-green/30 hover:shadow-xl hover:shadow-accent-green/40 relative overflow-hidden"
-            aria-label={content.primaryCta.text}
-          >
-            <span class="relative z-10">{content.primaryCta.text}</span>
-            <Icon
-              name="mdi:arrow-right"
-              class="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1 transition-transform relative z-10"
-            />
-            <!-- Subtle glow effect on hover -->
-            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -translate-x-full group-hover:translate-x-full"></div>
-          </a>
+          {content.primaryCta.text && (
+            <a
+              href={`${base}${content.primaryCta.href}`}
+              class="group primary-cta bg-accent-green text-on-accent px-8 sm:px-10 py-4 sm:py-5 rounded-lg font-bold hover:bg-accent-green/90 active:bg-accent-green/80 transition-all hover:scale-105 active:scale-95 text-base sm:text-lg min-h-[52px] sm:min-h-[56px] flex items-center justify-center gap-2 shadow-lg shadow-accent-green/30 hover:shadow-xl hover:shadow-accent-green/40 relative overflow-hidden"
+              aria-label={content.primaryCta.text}
+            >
+              <span class="relative z-10">{content.primaryCta.text}</span>
+              <Icon
+                name="mdi:arrow-right"
+                class="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1 transition-transform relative z-10"
+              />
+              <!-- Subtle glow effect on hover -->
+              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -translate-x-full group-hover:translate-x-full"></div>
+            </a>
+          )}
           <!-- Secondary CTA - Reduced visual weight -->
           <a
             href={`${base}${content.secondaryCta.href}`}

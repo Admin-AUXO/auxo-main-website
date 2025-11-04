@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import MultiStepForm from "../components/MultiStepForm.astro";
+import PageContainer from "../components/layouts/PageContainer.astro";
+import ContentWrapper from "../components/layouts/ContentWrapper.astro";
 import { siteData } from "../data/config/site";
 import { contactContent } from "../data/content/contact";
 import { commonText } from "../data/shared/common";
@@ -13,10 +15,9 @@ const base = import.meta.env.BASE_URL;
   title="Contact Us - Get Started with Data Analytics | AUXO Data Labs"
   description="Ready to transform your data into insights? As a startup, we move fast with personal attention. Contact AUXO Data Labs for a free consultation—responses within 24 hours."
 >
-  <div class="pt-20 sm:pt-24 pb-12 sm:pb-16">
-    <div class="container mx-auto px-4 sm:px-6">
+  <PageContainer maxWidth="7xl" paddingTop="pt-20 sm:pt-24" paddingBottom="pb-12 sm:pb-16">
       <!-- Header -->
-      <div class="max-w-3xl mx-auto text-center mb-8 sm:mb-12 md:mb-16">
+      <ContentWrapper maxWidth="3xl" class="text-center mb-8 sm:mb-12 md:mb-16">
         <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4">
           {contactContent.hero.title}
           <span class="text-accent-green transition-colors">
@@ -26,10 +27,10 @@ const base = import.meta.env.BASE_URL;
         <p class="text-base sm:text-lg md:text-xl text-secondary transition-colors">
           {contactContent.hero.subtitle}
         </p>
-      </div>
+      </ContentWrapper>
 
       <!-- Two Column Layout -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10 md:gap-12 mb-8 sm:mb-12 md:mb-16">
+      <ContentWrapper maxWidth="7xl" class="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10 md:gap-12 mb-8 sm:mb-12 md:mb-16">
         <!-- Contact Information Column -->
         <div class="lg:col-span-1 mb-6 lg:mb-0">
           <div class="lg:sticky lg:top-24">
@@ -113,13 +114,13 @@ const base = import.meta.env.BASE_URL;
                   <div class="flex gap-3">
                     <a
                       href={siteData.social.linkedin}
-                      class="w-8 h-8 bg-surface rounded-lg flex items-center justify-center hover:bg-accent-green hover:text-black dark:hover:text-white transition-colors min-h-[44px] min-w-[44px]"
+                      class="w-8 h-8 bg-surface rounded-lg flex items-center justify-center hover:bg-accent-green hover:text-black dark:hover:text-white transition-colors min-h-[44px] min-w-[44px] touch-manipulation"
                     >
                       <Icon name="mdi:linkedin" class="w-4 h-4" />
                     </a>
                     <a
                       href={siteData.social.twitter}
-                      class="w-8 h-8 bg-surface rounded-lg flex items-center justify-center hover:bg-accent-green hover:text-black dark:hover:text-white transition-colors min-h-[44px] min-w-[44px]"
+                      class="w-8 h-8 bg-surface rounded-lg flex items-center justify-center hover:bg-accent-green hover:text-black dark:hover:text-white transition-colors min-h-[44px] min-w-[44px] touch-manipulation"
                     >
                       <Icon name="mdi:twitter" class="w-4 h-4" />
                     </a>
@@ -148,10 +149,10 @@ const base = import.meta.env.BASE_URL;
             <MultiStepForm />
           </div>
         </div>
-      </div>
+      </ContentWrapper>
 
       <!-- Additional Contact Options -->
-      <div class="max-w-4xl mx-auto">
+      <ContentWrapper maxWidth="4xl" class="mt-8 sm:mt-12 md:mt-16">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           {
             contactContent.additionalOptions.map((option) => (
@@ -190,9 +191,8 @@ const base = import.meta.env.BASE_URL;
             ))
           }
         </div>
-      </div>
-    </div>
-  </div>
+      </ContentWrapper>
+  </PageContainer>
 </BaseLayout>
 
 <script>

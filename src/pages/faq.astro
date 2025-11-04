@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PageContainer from "../components/layouts/PageContainer.astro";
+import ContentWrapper from "../components/layouts/ContentWrapper.astro";
 import { Icon } from "astro-icon/components";
 import { faqData } from "../data/collections/faq";
 
@@ -10,10 +12,9 @@ const base = import.meta.env.BASE_URL;
   title="Frequently Asked Questions | AUXO Data Labs"
   description="Have questions about working with a startup consultancy? Find answers about our services, pricing, process, and the advantages of working with AUXO Data Labs."
 >
-  <div class="pt-24 pb-16">
-    <div class="container mx-auto px-4">
+  <PageContainer maxWidth="7xl" paddingTop="pt-24" paddingBottom="pb-16">
       <!-- Hero Section -->
-      <div class="max-w-4xl mx-auto text-center mb-16">
+      <ContentWrapper maxWidth="4xl" class="text-center mb-16">
         <div
           class="inline-block px-3 py-1 bg-accent-green/10 border border-accent-green/20 rounded-full mb-4"
         >
@@ -29,10 +30,10 @@ const base = import.meta.env.BASE_URL;
           Find answers to common questions about our data analytics services,
           pricing, and how we can help transform your business.
         </p>
-      </div>
+      </ContentWrapper>
 
       <!-- FAQ Content -->
-      <div class="max-w-7xl mx-auto">
+      <ContentWrapper maxWidth="7xl">
         <!-- Category Tabs -->
         <div class="mb-12">
           <div class="flex flex-wrap gap-3 justify-center">
@@ -40,9 +41,9 @@ const base = import.meta.env.BASE_URL;
               faqData.map((category, index) => (
                 <button
                   data-category={category.category}
-                  class={`category-tab px-6 py-3 rounded-lg font-semibold transition-all flex items-center gap-2 ${
+                  class={`category-tab px-6 py-3 rounded-lg font-semibold transition-all flex items-center gap-2 min-h-[44px] touch-manipulation ${
                     index === 0
-                      ? "bg-accent-green text-black dark:text-primary"
+                      ? "bg-accent-green text-black dark:text-white"
                       : "bg-card text-secondary transition-colors hover:bg-surface hover:text-accent-green transition-colors border border-theme"
                   }`}
                 >
@@ -64,7 +65,7 @@ const base = import.meta.env.BASE_URL;
               <div class="grid grid-cols-1 gap-4">
                 {category.questions.map((item) => (
                   <div class="faq-item bg-card border border-theme rounded-xl overflow-hidden">
-                    <button class="faq-question w-full text-left px-6 py-5 flex items-center justify-between hover:bg-surface transition-colors">
+                    <button class="faq-question w-full text-left px-6 py-5 flex items-center justify-between hover:bg-surface transition-colors min-h-[44px] touch-manipulation" aria-expanded="false">
                       <span class="font-semibold text-lg text-primary pr-4">
                         {item.q}
                       </span>
@@ -84,10 +85,10 @@ const base = import.meta.env.BASE_URL;
             </div>
           ))
         }
-      </div>
+      </ContentWrapper>
 
       <!-- CTA Section -->
-      <div class="max-w-4xl mx-auto mt-16">
+      <ContentWrapper maxWidth="4xl" class="mt-16">
         <div
           class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-8 text-center"
         >
@@ -99,23 +100,22 @@ const base = import.meta.env.BASE_URL;
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href={`${base}contact/`}
-              class="inline-flex items-center justify-center px-8 py-3 bg-accent-green text-black dark:text-primary font-bold rounded-lg hover:bg-accent-green/90 transition-colors"
+              class="inline-flex items-center justify-center px-8 py-3 bg-accent-green text-black dark:text-white font-bold rounded-lg hover:bg-accent-green/90 transition-colors min-h-[44px] touch-manipulation"
             >
               Contact Us
               <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
             </a>
             <a
               href={`${base}tools/maturity-calculator/`}
-              class="inline-flex items-center justify-center px-8 py-3 bg-surface text-primary font-bold rounded-lg hover:bg-surface/80 transition-colors border border-theme"
+              class="inline-flex items-center justify-center px-8 py-3 bg-surface text-primary font-bold rounded-lg hover:bg-surface/80 transition-colors border border-theme min-h-[44px] touch-manipulation"
             >
               <Icon name="mdi:calculator" class="w-5 h-5 mr-2" />
               Try Maturity Calculator
             </a>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
+      </ContentWrapper>
+  </PageContainer>
 </BaseLayout>
 
 <script>
@@ -136,9 +136,9 @@ const base = import.meta.env.BASE_URL;
             "border",
             "border-theme",
           );
-          t.classList.add("bg-accent-green", "text-black dark:text-white");
+          t.classList.add("bg-accent-green", "text-black", "dark:text-white");
         } else {
-          t.classList.remove("bg-accent-green", "text-black dark:text-white");
+          t.classList.remove("bg-accent-green", "text-black", "dark:text-white");
           t.classList.add(
             "bg-card",
             "text-secondary transition-colors",
@@ -189,10 +189,12 @@ const base = import.meta.env.BASE_URL;
         // Close
         answer.style.maxHeight = "0";
         chevron.classList.remove("rotate-180");
+        question.setAttribute("aria-expanded", "false");
       } else {
         // Open
         answer.style.maxHeight = answer.scrollHeight + "px";
         chevron.classList.add("rotate-180");
+        question.setAttribute("aria-expanded", "true");
       }
     });
   });

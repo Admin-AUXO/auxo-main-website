@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageContainer from '../components/layouts/PageContainer.astro';
+import ContentWrapper from '../components/layouts/ContentWrapper.astro';
 import { Icon } from 'astro-icon/components';
 import { siteData } from '../data/config/site';
 import { caseStudies, caseStudiesContent } from '../data/content/caseStudies';
@@ -11,10 +13,9 @@ const base = import.meta.env.BASE_URL;
   title="Case Studies - Success Stories | AUXO Data Labs"
   description="See the types of results our founding team has delivered. As a new consultancy, we're building our portfolio—these examples represent what we'll achieve together."
 >
-  <div class="pt-24 pb-16">
-    <div class="container mx-auto px-4">
+  <PageContainer maxWidth="7xl" paddingTop="pt-24" paddingBottom="pb-16">
       <!-- Header -->
-      <div class="max-w-3xl mx-auto text-center mb-16">
+      <ContentWrapper maxWidth="3xl" class="text-center mb-16">
         <div class="inline-block px-4 py-2 bg-accent-green/10 border border-accent-green/20 rounded-full mb-4">
           <span class="text-accent-green transition-colors text-sm font-semibold">{caseStudiesContent.hero.badge}</span>
         </div>
@@ -25,10 +26,10 @@ const base = import.meta.env.BASE_URL;
         <p class="text-xl text-secondary transition-colors">
           {caseStudiesContent.hero.subtitle}
         </p>
-      </div>
+      </ContentWrapper>
 
       <!-- Stats Bar -->
-      <div class="max-w-5xl mx-auto mb-16">
+      <ContentWrapper maxWidth="5xl" class="mb-16">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
           <div class="bg-card border border-theme rounded-xl p-6 text-center">
             <div class="text-3xl font-black text-accent-green transition-colors mb-2">{siteData.stats.foundingClients}</div>
@@ -47,21 +48,21 @@ const base = import.meta.env.BASE_URL;
             <p class="text-sm text-secondary transition-colors">Technologies Mastered</p>
           </div>
         </div>
-      </div>
+      </ContentWrapper>
 
       <!-- Case Studies Grid -->
-      <div class="max-w-6xl mx-auto space-y-12">
+      <ContentWrapper maxWidth="6xl" class="space-y-12">
         {caseStudies.map((study) => (
           <div class={`bg-card border-2 ${study.borderColor} rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300`}>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-0">
               <!-- Left: Icon & Basic Info -->
               <div class={`bg-gradient-to-br ${study.color} p-8 flex flex-col justify-center items-center lg:items-start text-center lg:text-left`}>
-                <div class="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4">
-                  <Icon name={study.icon} class="w-12 h-12 text-primary" />
+                <div class="w-20 h-20 bg-primary/10 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4">
+                  <Icon name={study.icon} class="w-12 h-12 text-primary transition-colors" />
                 </div>
-                <h3 class="text-2xl font-bold mb-2">{study.title}</h3>
+                <h3 class="text-2xl font-bold mb-2 text-primary transition-colors">{study.title}</h3>
                 <p class="text-sm text-primary transition-colors mb-4">{study.client}</p>
-                <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-semibold">
+                <div class="inline-block px-3 py-1 bg-primary/20 backdrop-blur-sm rounded-full text-xs font-semibold text-primary transition-colors">
                   {study.industry}
                 </div>
               </div>
@@ -119,10 +120,10 @@ const base = import.meta.env.BASE_URL;
             </div>
           </div>
         ))}
-      </div>
+      </ContentWrapper>
 
       <!-- CTA Section -->
-      <div class="max-w-4xl mx-auto mt-20">
+      <ContentWrapper maxWidth="4xl" class="mt-20">
         <div class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-8 md:p-12 text-center">
           <h2 class="text-3xl font-bold mb-4">{caseStudiesContent.finalCta.title}</h2>
           <p class="text-secondary transition-colors mb-8 max-w-2xl mx-auto">
@@ -131,20 +132,19 @@ const base = import.meta.env.BASE_URL;
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href={`${base}${caseStudiesContent.finalCta.primaryCta.href}`}
-              class="px-8 py-4 bg-accent-green text-black dark:text-primary font-bold rounded-lg hover:bg-accent-green/90 transition-colors inline-flex items-center justify-center"
+              class="px-8 py-4 bg-accent-green text-black dark:text-white font-bold rounded-lg hover:bg-accent-green/90 transition-colors inline-flex items-center justify-center min-h-[44px] touch-manipulation"
             >
               {caseStudiesContent.finalCta.primaryCta.text}
               <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
             </a>
             <a
               href={`${base}${caseStudiesContent.finalCta.secondaryCta.href}`}
-              class="px-8 py-4 bg-surface text-primary font-bold rounded-lg hover:bg-surface/80 transition-colors inline-flex items-center justify-center"
+              class="px-8 py-4 bg-surface text-primary font-bold rounded-lg hover:bg-surface/80 transition-colors inline-flex items-center justify-center min-h-[44px] touch-manipulation"
             >
               {caseStudiesContent.finalCta.secondaryCta.text}
             </a>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
+      </ContentWrapper>
+  </PageContainer>
 </BaseLayout>

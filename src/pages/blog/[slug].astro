@@ -456,14 +456,10 @@ const contextualCTA = getContextualCTA();
                 Share this article:
               </p>
               <div class="flex flex-wrap items-center gap-3">
-                {
-                  /* @ts-expect-error - platforms prop is supported by astro-social-share but not in types */
-                }
                 <SocialShare
                   description={post.data.description}
                   title={post.data.title}
                   url={articleUrl}
-                  platforms={["twitter", "linkedin", "facebook", "reddit"]}
                 />
                 <!-- Copy Link Button -->
                 <button

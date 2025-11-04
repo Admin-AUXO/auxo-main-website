@@ -14,7 +14,7 @@ const base = import.meta.env.BASE_URL;
 const breadcrumbItems = generateBreadcrumbs(
   Astro.url.pathname,
   {},
-  "Data Analytics Maturity Assessment"
+  "Data Analytics Maturity Assessment",
 );
 
 // FAQ data for structured data
@@ -429,10 +429,7 @@ const calculatorFAQs = [
   </PageContainer>
 </BaseLayout>
 
-<script
-  is:inline
-  define:vars={{ content: maturityCalculatorContent }}
->
+<script is:inline define:vars={{ content: maturityCalculatorContent }}>
   // Assessment Data - imported from content file
   const classificationQuestions = content.classificationQuestions;
   const questionSets = content.questions;
@@ -554,7 +551,6 @@ const calculatorFAQs = [
     if (!q) return;
 
     currentQuestion = index;
-    const currentAnswers = getCurrentAnswers();
 
     // Update progress
     const progress = ((index + 1) / TOTAL_QUESTIONS) * 100;
@@ -580,6 +576,7 @@ const calculatorFAQs = [
 
     q.options.forEach((option) => {
       const button = document.createElement("button");
+      const currentAnswers = getCurrentAnswers();
       const isSelected = currentAnswers[index] === option.score;
 
       // Enhanced styling with better highlighting
@@ -595,9 +592,7 @@ const calculatorFAQs = [
       `;
 
       button.setAttribute("data-score", String(option.score));
-      button.addEventListener("click", (e) =>
-        selectAnswer(option.score, e),
-      );
+      button.addEventListener("click", (e) => selectAnswer(option.score, e));
 
       optionsContainer.appendChild(button);
     });
@@ -680,8 +675,6 @@ const calculatorFAQs = [
   });
 
   document.getElementById("q-next-btn")?.addEventListener("click", () => {
-    const currentAnswers = getCurrentAnswers();
-
     // Check if we're transitioning from classification to assessment
     if (
       isClassificationPhase &&
@@ -769,17 +762,8 @@ const calculatorFAQs = [
     if (!dimensionResults) return;
     dimensionResults.innerHTML = "";
 
-    const dimensionIcons = {
-      "Data Infrastructure": "mdi:database",
-      "Analytics Capabilities": "mdi:chart-bar",
-      "People & Skills": "mdi:account-group",
-      "Data Culture": "mdi:lightbulb",
-      Governance: "mdi:shield-check",
-    };
-
     Object.entries(avgScores).forEach(([dimension, score]) => {
       const percentage = (score / 5) * 100;
-      const icon = dimensionIcons[dimension] || "mdi:chart-line";
       const scoreColor =
         score >= 4
           ? "text-accent-green"
@@ -1144,17 +1128,22 @@ const calculatorFAQs = [
 
     // Open print window
     const printWindow = window.open("", "_blank");
-    printWindow.document.write(`
-      <html>
-        <head>
-          <title>Data Analytics Maturity Assessment Report</title>
-          ${printStyles}
-        </head>
-        <body>
-          ${resultsContainer.innerHTML}
-        </body>
-      </html>
-    `);
+    if (!printWindow) return;
+
+    // Use document.write for print window (deprecated but necessary for new window content)
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    printWindow.document.open();
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    printWindow.document.write(`<!DOCTYPE html>
+<html>
+  <head>
+    <title>Data Analytics Maturity Assessment Report</title>
+    ${printStyles}
+  </head>
+  <body>
+    ${resultsContainer.innerHTML}
+  </body>
+</html>`);
     printWindow.document.close();
     printWindow.print();
   });

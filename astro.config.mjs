@@ -140,11 +140,28 @@ export default defineConfig({
     optimizeDeps: {
       exclude: ['astro:assets'],
     },
+    build: {
+      cssCodeSplit: true, // Split CSS per page for better caching
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // Split vendor chunks for better caching
+            'router': ['astro:transitions/client'],
+          },
+        },
+      },
+    },
     esbuild: {
       // Suppress CSS syntax warnings from minification (these are false positives)
       logOverride: {
         'css-syntax-error': 'silent',
       },
+      // Enable tree-shaking and minification
+      treeShaking: true,
+      minifyIdentifiers: true,
+      minifySyntax: true,
+      minifyWhitespace: true,
+      drop: ['console', 'debugger'], // Remove console.log and debugger statements in production
     },
   },
 });

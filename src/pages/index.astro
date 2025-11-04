@@ -6,7 +6,6 @@ import { siteData } from "../data/config/site";
 // Section Components
 import HeroSection from "../components/sections/HeroSection.astro";
 import ServicesSection from "../components/sections/ServicesSection.astro";
-import StartupAdvantages from "../components/sections/StartupAdvantages.astro";
 import MethodologySection from "../components/sections/MethodologySection.astro";
 import QuickDecisionBoxes from "../components/sections/QuickDecisionBoxes.astro";
 import WhyChooseSection from "../components/sections/WhyChooseSection.astro";
@@ -30,10 +29,6 @@ import "../styles/homepage.css";
   <HeroSection />
 
   <ServicesSection />
-
-  <StartupAdvantages
-    advantages={homepageContent.startupAdvantages.advantages}
-  />
 
   <MethodologySection />
 

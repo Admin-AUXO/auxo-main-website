@@ -136,7 +136,6 @@ export const homepageContent: HomepageContent = {
     title: 'Every Organization has data. Few understand it',
     titleHighlight: '',
     subtitle: 'Empowering confident, data-driven decisions at speed and scale.',
-    subheadline: 'We turn your data into decisions. No jargon. No delays. Just results.',
     primaryCta: {
       text: "Let's Talk",
       href: 'contact',

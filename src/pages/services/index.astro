@@ -442,32 +442,42 @@ const servicesFAQs = [
         </div>
 
         <div class="space-y-3 sm:space-y-4">
-          {servicesFAQs.map((faq, index) => (
-            <div class="faq-item bg-card border-2 border-theme rounded-xl overflow-hidden hover:border-accent-green/30 transition-all duration-200">
-              <button
-                class="faq-question w-full text-left px-6 py-5 flex items-center justify-between hover:bg-surface transition-colors min-h-[44px] touch-manipulation group"
-                aria-expanded="false"
-              >
-                <span class="font-semibold text-base sm:text-lg text-primary pr-4 transition-colors flex-1">
-                  {faq.question}
-                </span>
-                <Icon
-                  name="mdi:chevron-down"
-                  class="faq-chevron w-6 h-6 text-accent-green transition-all flex-shrink-0"
-                />
-              </button>
-              <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
-                <div class="px-6 pb-5 text-secondary transition-colors leading-relaxed">
-                  <div class="flex items-center gap-2 mb-4">
-                    <div class="flex-1 h-px bg-accent-green/20"></div>
-                    <Icon name="mdi:help-circle" class="w-4 h-4 text-accent-green/50" />
-                    <div class="flex-1 h-px bg-accent-green/20"></div>
+          {servicesFAQs.map((faq, index) => {
+            // Extract short answer (first sentence) if available
+            const shortAnswer = faq.answer.includes('.') ? faq.answer.split('.')[0] + '.' : null;
+            const hasShortAnswer = shortAnswer && shortAnswer.length < 150 && faq.answer.length > shortAnswer.length;
+            
+            return (
+              <div class="faq-item bg-card border-2 border-theme rounded-xl overflow-hidden hover:border-accent-green/30 transition-all duration-200">
+                <button
+                  class="faq-question w-full text-left px-6 py-5 flex items-center justify-between hover:bg-surface transition-colors min-h-[44px] touch-manipulation group"
+                  aria-expanded="false"
+                >
+                  <span class="font-semibold text-base sm:text-lg text-primary pr-4 transition-colors flex-1">
+                    {faq.question}
+                  </span>
+                  <Icon
+                    name="mdi:chevron-down"
+                    class="faq-chevron w-6 h-6 text-accent-green transition-all flex-shrink-0"
+                  />
+                </button>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
+                  <div class="px-6 pb-5 text-secondary transition-colors leading-relaxed">
+                    {hasShortAnswer ? (
+                      <div>
+                        <p class="mb-3 font-medium text-primary transition-colors text-base">{shortAnswer}</p>
+                        <div class="pl-4 border-l-2 border-accent-green/30">
+                          <p class="text-sm">{faq.answer.substring(shortAnswer.length).trim()}</p>
+                        </div>
+                      </div>
+                    ) : (
+                      <p class="text-base">{faq.answer}</p>
+                    )}
                   </div>
-                  <p class="text-base">{faq.answer}</p>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         <div class="text-center mt-8">

@@ -1,4 +1,25 @@
-export const blogPageContent = {
+export interface BlogPageContent {
+  hero: {
+    badge: string;
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+  };
+  featured: {
+    badge: string;
+  };
+  recentPosts: {
+    title: string;
+  };
+  empty: {
+    title: string;
+    description: string;
+    ctaText: string;
+    ctaHref: string;
+  };
+}
+
+export const blogPageContent: BlogPageContent = {
   hero: {
     badge: 'Insights & Resources',
     title: 'Data Analytics',

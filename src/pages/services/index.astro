@@ -1,9 +1,12 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import FAQSchema from "../../components/FAQSchema.astro";
+import PageContainer from "../../components/layouts/PageContainer.astro";
+import SectionContainer from "../../components/layouts/SectionContainer.astro";
+import ServicesHero from "../../components/sections/ServicesHero.astro";
+import ServiceGrid from "../../components/sections/ServiceGrid.astro";
 import { services } from "../../data/collections/services";
 import { servicesPageContent } from "../../data/content/services";
-import { commonText } from "../../data/shared/common";
 import { Icon } from "astro-icon/components";
 
 const base = import.meta.env.BASE_URL;
@@ -45,81 +48,16 @@ const servicesFAQs = [
   title="Data Analytics Services | AUXO Data Labs"
   description="Enterprise-grade data analytics services delivered with startup speed. From Business Intelligence to AI solutions—work directly with our senior team for personalized attention."
 >
-  <div class="pt-20 sm:pt-24 pb-10 sm:pb-12 md:pb-16">
-    <div class="container mx-auto px-4 sm:px-6">
+  <PageContainer maxWidth="7xl" paddingTop="pt-20 sm:pt-24" paddingBottom="pb-10 sm:pb-12 md:pb-16">
       <!-- Header -->
-      <div class="max-w-3xl mx-auto text-center mb-8 sm:mb-10 md:mb-16">
-        <div
-          class="inline-block px-3 py-1.5 md:px-4 md:py-2 bg-accent-green/10 border border-accent-green/20 rounded-full mb-3 md:mb-4"
-        >
-          <span
-            class="text-accent-green text-xs md:text-sm font-semibold tracking-wide transition-colors"
-            >{servicesPageContent.hero.badge}</span
-          >
-        </div>
-        <h1
-          class="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 md:mb-4 leading-tight text-primary transition-colors"
-        >
-          {servicesPageContent.hero.title}
-          <span class="text-accent-green transition-colors">
-            {servicesPageContent.hero.titleHighlight}</span
-          >
-        </h1>
-        <p
-          class="text-xs sm:text-sm md:text-xl text-secondary leading-relaxed hidden md:block transition-colors"
-        >
-          {servicesPageContent.hero.subtitle}
-        </p>
-      </div>
+      <ServicesHero content={servicesPageContent.hero} />
 
       <!-- Services Grid -->
-      <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-12 md:mb-16"
-      >
-        {
-          services.map((service) => (
-            <a
-              href={`${base}services/${service.id}/`}
-              class="group bg-card border-2 border-theme rounded-2xl p-4 sm:p-5 md:p-8 hover:border-accent-green transition-all duration-300 hover:transform hover:-translate-y-1"
-            >
-              <div class="w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-accent-green/10 rounded-lg flex items-center justify-center mb-3 md:mb-4 group-hover:bg-accent-green/20 transition-colors">
-                <Icon
-                  name={service.icon}
-                  class="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-accent-green transition-colors"
-                />
-              </div>
-
-              <h3 class="text-base sm:text-lg md:text-xl font-bold mb-2 md:mb-3 group-hover:text-accent-green transition-colors tracking-tight text-primary">
-                {service.title}
-              </h3>
-
-              <p class="text-secondary mb-3 sm:mb-4 md:mb-6 text-xs sm:text-sm leading-relaxed line-clamp-2 md:line-clamp-3 lg:line-clamp-none transition-colors">
-                {service.description}
-              </p>
-
-              <div class="flex items-center text-accent-green font-bold text-sm transition-colors">
-                {commonText.buttons.learnMore}
-                <svg
-                  class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </div>
-            </a>
-          ))
-        }
-      </div>
+      <ServiceGrid services={services} />
 
       <!-- Process Section -->
-      <div class="max-w-5xl mx-auto mb-12 md:mb-16 hidden md:block">
+      <SectionContainer class="hidden md:block">
+        <div class="max-w-5xl mx-auto">
         <div class="text-center mb-12">
           <h2 class="text-3xl font-bold mb-4 text-primary transition-colors">
             {servicesPageContent.process.title}
@@ -146,7 +84,7 @@ const servicesFAQs = [
             ))
           }
         </div>
-      </div>
+      </SectionContainer>
 
       <!-- CTA Section -->
       <div class="max-w-4xl mx-auto">
@@ -179,6 +117,5 @@ const servicesFAQs = [
           </div>
         </div>
       </div>
-    </div>
-  </div>
+  </PageContainer>
 </BaseLayout>

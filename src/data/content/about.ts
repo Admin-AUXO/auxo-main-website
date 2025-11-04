@@ -10,7 +10,57 @@ export interface Stat {
   description: string;
 }
 
-export const aboutContent = {
+export interface AboutContent {
+  hero: {
+    badge: string;
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+  };
+  mission: {
+    icon: string;
+    title: string;
+    description: string;
+  };
+  vision: {
+    icon: string;
+    title: string;
+    description: string;
+  };
+  values: {
+    title: string;
+    subtitle: string;
+    items: Value[];
+  };
+  whyChoose: {
+    title: string;
+    subtitle: string;
+    stats: Stat[];
+  };
+  team: {
+    title: string;
+    subtitle: string;
+    hiring: {
+      text: string;
+      ctaText: string;
+      ctaHref: string;
+    };
+  };
+  finalCta: {
+    title: string;
+    subtitle: string;
+    primaryCta: {
+      text: string;
+      href: string;
+    };
+    secondaryCta: {
+      text: string;
+      href: string;
+    };
+  };
+}
+
+export const aboutContent: AboutContent = {
   hero: {
     badge: 'Our Story',
     title: 'Built to Transform',

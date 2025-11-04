@@ -202,6 +202,7 @@ const { Content } = await render(post);
               >
                 Share this article:
               </p>
+              {/* @ts-expect-error - platforms prop is supported by astro-social-share but not in types */}
               <SocialShare
                 description={post.data.description}
                 title={post.data.title}

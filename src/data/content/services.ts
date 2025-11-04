@@ -4,7 +4,33 @@ export interface ProcessStep {
   description: string;
 }
 
-export const servicesPageContent = {
+export interface ServicesPageContent {
+  hero: {
+    badge: string;
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+  };
+  process: {
+    title: string;
+    subtitle: string;
+    steps: ProcessStep[];
+  };
+  cta: {
+    title: string;
+    subtitle: string;
+    primaryCta: {
+      text: string;
+      href: string;
+    };
+    secondaryCta: {
+      text: string;
+      href: string;
+    };
+  };
+}
+
+export const servicesPageContent: ServicesPageContent = {
   hero: {
     badge: 'What We Do',
     title: 'End-to-End Data',

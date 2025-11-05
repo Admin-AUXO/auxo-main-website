@@ -88,7 +88,7 @@ export default defineConfig({
           
           // Alerts & Status
           'alert', 'alert-circle', 'alert-outline', 'check', 'check-circle', 'check-circle-outline', 
-          'close', 'close-circle', 'information', 'information-outline', 'warning', 'error',
+          'close', 'close-circle', 'information', 'information-outline',
           
           // Arrows & Navigation
           'arrow-left', 'arrow-right', 'arrow-up', 'arrow-down', 'arrow-left-bold', 'arrow-right-bold',
@@ -97,7 +97,7 @@ export default defineConfig({
           // Business & Analytics
           'briefcase', 'briefcase-outline', 'chart-bar', 'chart-line', 'chart-scatter-plot', 
           'chart-box', 'chart-pie', 'chart-timeline-variant', 'trending-up', 'trending-down',
-          'target', 'strategy', 'trophy', 'certificate', 'award',
+          'target', 'strategy', 'trophy', 'certificate',
           
           // Communication
           'email', 'email-outline', 'email-newsletter', 'message', 'message-outline', 'chat', 
@@ -105,10 +105,11 @@ export default defineConfig({
           
           // Data & Technology
           'database', 'database-cog', 'database-outline', 'server', 'cloud', 'cloud-upload',
-          'code', 'code-braces', 'robot', 'robot-outline', 'artificial-intelligence',
+          'code-braces', 'code-tags', 'code-json', 'code-array', 'code-brackets', 'code-string',
+          'robot', 'robot-outline',
           
           // Documents & Files
-          'file-document', 'file-document-outline', 'file-pdf', 'book-open', 'book-open-variant',
+          'file-document', 'file-document-outline', 'file-pdf-box', 'book-open', 'book-open-variant',
           'post', 'download', 'upload', 'file-export', 'file-import',
           
           // Time & Calendar
@@ -116,7 +117,7 @@ export default defineConfig({
           'calendar-clock', 'calendar-outline', 'calendar-range',
           
           // UI Elements
-          'home', 'search', 'magnify', 'filter', 'filter-outline', 'settings', 'cog', 'cogs',
+          'home', 'magnify', 'magnify-plus', 'magnify-minus', 'magnify-close', 'filter', 'filter-outline', 'cog', 'cogs',
           'eye', 'eye-outline', 'lock', 'lock-outline', 'shield-check', 'security',
           'refresh', 'sync', 'play', 'pause', 'stop', 'plus', 'minus',
           
@@ -132,8 +133,8 @@ export default defineConfig({
           
           // Features & Actions
           'calculator', 'lightbulb', 'lightbulb-outline', 'lightning-bolt', 'rocket',
-          'sparkles', 'star', 'star-outline', 'heart', 'heart-outline', 'bookmark',
-          'help-circle', 'help-circle-outline', 'question-circle', 'information-circle',
+          'star', 'star-outline', 'star-four-points', 'heart', 'heart-outline', 'bookmark',
+          'help-circle', 'help-circle-outline', 'information-outline',
           
           // Tools & Utilities
           'tools', 'wrench', 'hammer-wrench', 'screwdriver', 'pencil', 'pencil-outline',
@@ -148,26 +149,26 @@ export default defineConfig({
           'contrast', 'palette-outline',
           
           // Additional Useful Icons
-          'check-all', 'check-bold', 'check-circle-multiple-outline', 'checkbox-marked-circle',
+          'check-all', 'check-bold', 'checkbox-marked-circle',
           'arrow-right-circle', 'arrow-left-circle', 'chevron-double-left', 'chevron-double-right',
           'chart-box-outline', 'chart-line-variant', 'chart-arc', 'chart-bell-curve',
           'database-search', 'database-sync', 'database-edit', 'database-lock',
-          'email-send', 'email-multiple', 'email-mark-as-unread', 'message-text',
+          'email-open', 'email-multiple', 'email-mark-as-unread', 'message-text',
           'phone-in-talk', 'phone-forward', 'phone-missed', 'phone-ring',
           'file-chart', 'file-chart-outline', 'file-document-edit', 'file-document-multiple',
           'calendar-multiple', 'calendar-multiple-check', 'calendar-star', 'calendar-text',
           'map-search', 'map-marker-radius', 'map-marker-multiple', 'map-marker-check',
           'account-multiple', 'account-supervisor-circle', 'account-tie', 'account-cog',
           'shield-account', 'shield-lock', 'shield-check-outline', 'shield-alert',
-          'lightning-bolt-outline', 'rocket-launch', 'rocket-outline', 'sparkles-outline',
+          'lightning-bolt-outline', 'rocket-launch', 'rocket-outline',
           'star-circle', 'star-four-points', 'star-four-points-outline', 'star-shooting',
           'handshake-outline', 'handshake', 'account-group-outline', 'account-network',
           'briefcase-check', 'briefcase-edit', 'briefcase-plus', 'briefcase-search',
-          'factory-outline', 'hospital-building', 'store-outline', 'office-building-outline',
-          'truck-delivery', 'package-variant-closed', 'package', 'package-up',
+          'hospital-building', 'store-outline', 'office-building-outline',
+          'truck-delivery', 'package-variant-closed', 'package', 'package-up', 'package-variant-plus',
           'shopping-outline', 'cart-outline', 'cart-plus', 'cart-arrow-down',
           'code-json', 'code-tags', 'code-brackets', 'code-string', 'code-array',
-          'artificial-intelligence', 'robot-industrial', 'robot-mower', 'robot-vacuum',
+          'robot-industrial', 'robot-mower', 'robot-vacuum',
           'chart-gantt', 'chart-waterfall', 'chart-sankey', 'chart-tree',
           'database-arrow-right', 'database-arrow-left', 'database-export', 'database-import',
           'cloud-sync', 'cloud-download', 'cloud-upload-outline', 'cloud-check',
@@ -180,23 +181,23 @@ export default defineConfig({
           'file-search', 'file-find', 'file-remove', 'file-plus',
           'book-open-page-variant', 'book-edit', 'book-remove', 'book-plus',
           'download-multiple', 'download-outline', 'upload-outline', 'download-off',
-          'share-circle', 'share-all', 'share-variant-outline', 'share-off',
-          'settings-outline', 'settings-helper', 'cog-outline', 'cog-sync',
+          'share-circle', 'share-all', 'share-variant-outline', 'share-off', 'share-outline',
+          'cog-outline', 'cog-sync',
           'eye-off', 'eye-off-outline', 'eye-check', 'eye-check-outline',
           'lock-open', 'lock-open-outline', 'lock-reset', 'lock-alert',
-          'shield-outline', 'shield-half-full', 'shield-home', 'shield-cross',
+          'shield-outline', 'shield-home', 'shield-cross',
           'refresh-circle', 'sync-alert', 'sync-off', 'sync-circle',
           'play-circle', 'pause-circle', 'stop-circle', 'play-pause',
           'plus-circle', 'plus-circle-outline', 'minus-circle', 'minus-circle-outline',
-          'magnify-plus', 'magnify-minus', 'magnify-remove', 'magnify-close',
+          'magnify-plus', 'magnify-minus', 'magnify-close',
           'filter-remove', 'filter-variant', 'filter-variant-remove', 'filter-check',
-          'map-plus', 'map-minus', 'map-legend', 'map-remove',
+          'map-plus', 'map-minus', 'map-legend',
           'earth-box', 'earth-box-off', 'earth-plus', 'earth-minus',
-          'linkedin-box', 'twitter-box', 'facebook-box', 'instagram',
+          'linkedin', 'twitter', 'facebook', 'instagram',
           'factory', 'hospital-box', 'storefront', 'store-24-hour',
-          'truck-delivery-outline', 'truck-fast-outline', 'package-variant-add',
+          'truck-delivery-outline', 'truck-fast-outline', 'package-variant-plus',
           'shopping', 'cart-outline', 'cart-arrow-up', 'cart-remove',
-          'calculator-variant', 'calculator-outline', 'abacus', 'calculator',
+          'calculator-variant', 'abacus', 'calculator',
           'lightbulb-on', 'lightbulb-off', 'lightbulb-group', 'lightbulb-multiple',
           'rocket-launch-outline', 'rocket-outline',
           'star-circle-outline', 'star-four-points-outline', 'star-shooting-outline',
@@ -212,12 +213,10 @@ export default defineConfig({
           'file-document-edit-outline',
           'book-open-variant-outline',
           'download-multiple-outline',
-          'share-outline', 'share-circle-outline',
+          'share-outline',
           'cog-outline',
           'eye-off-outline',
           'lock-open-outline',
-          'shield-half-full-outline',
-          'sync-alert-outline',
           'map-marker-radius-outline'
         ],
       },

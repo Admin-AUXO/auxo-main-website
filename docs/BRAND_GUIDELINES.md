@@ -75,10 +75,31 @@ Fonts are loaded from Google Fonts in `src/components/common/SEO.astro`.
 
 ---
 
-## 6. Key File Locations
+## 6. CSS Organization
+
+### Main CSS Files
+
+-   **Global Styles:** `src/styles/global.css` (optimized, ~950 lines)
+    -   Base layer: CSS variables, theme colors, typography
+    -   Utilities layer: Animations, interactive elements, layouts
+    -   Well-organized with clear section comments
+-   **Homepage Styles:** `src/styles/homepage.css` (~125 lines)
+    -   Homepage-specific animations and hero effects
+    -   Logo tile animations
+
+### Performance Optimizations
+
+The CSS has been optimized for:
+-   **Reduced file size:** Consolidated redundant rules
+-   **Better organization:** Clear section comments for easy navigation
+-   **Improved maintainability:** Simplified selectors, removed excessive !important
+-   **Performance:** CSS containment, will-change properties where appropriate
+
+## 7. Key File Locations
 
 -   **Tailwind Config:** `tailwind.config.js`
 -   **Global Styles & CSS Variables:** `src/styles/global.css`
+-   **Homepage Styles:** `src/styles/homepage.css`
 -   **Font Loading:** `src/components/common/SEO.astro`
 -   **Theme Toggle:** `src/components/ui/ThemeToggle.astro`
 

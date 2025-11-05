@@ -93,31 +93,7 @@
   opacity: 0;
 }
 
-/* Animation delay utilities - replacing inline styles */
-.animate-delay-0 {
-  animation-delay: 0ms;
-}
-
-.animate-delay-100 {
-  animation-delay: 100ms;
-}
-
-.animate-delay-200 {
-  animation-delay: 200ms;
-}
-
-.animate-delay-300 {
-  animation-delay: 300ms;
-}
-
-.animate-delay-400 {
-  animation-delay: 400ms;
-}
-
-.animate-delay-500 {
-  animation-delay: 500ms;
-}
-
+/* Additional animation delays beyond global.css (600-900ms) */
 .animate-delay-600 {
   animation-delay: 600ms;
 }
@@ -132,18 +108,6 @@
 
 .animate-delay-900 {
   animation-delay: 900ms;
-}
-
-/* Hero backdrop for better text readability in both themes */
-.hero-backdrop {
-  background-color: rgba(var(--bg-card-rgb), var(--card-backdrop-opacity));
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-/* Smooth scroll behavior */
-html {
-  scroll-behavior: smooth;
 }
 
 /* Primary CTA pulse animation */

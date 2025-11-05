@@ -324,7 +324,11 @@
 }
 
 @layer utilities {
-  /* Fluid Brand-Green Animations - Theme-aware */
+  /* ============================================
+     ANIMATIONS & KEYFRAMES
+     ============================================ */
+  
+  /* Glow pulse animation */
   @keyframes glow-pulse {
     0%, 100% {
       box-shadow: 0 0 5px rgba(var(--accent-green-rgb), var(--accent-green-opacity-3)),
@@ -431,14 +435,18 @@
     will-change: opacity, transform;
   }
 
-  /* Stagger delays for list items */
+  /* Animation delay utilities */
   .animate-delay-100 { animation-delay: 100ms; }
   .animate-delay-200 { animation-delay: 200ms; }
   .animate-delay-300 { animation-delay: 300ms; }
   .animate-delay-400 { animation-delay: 400ms; }
   .animate-delay-500 { animation-delay: 500ms; }
 
-  /* Smooth hover transitions with CSS containment for performance */
+  /* ============================================
+     INTERACTIVE ELEMENTS
+     ============================================ */
+  
+  /* Hover transitions with performance optimization */
   .hover-lift {
     transition: transform var(--duration-fast) var(--timing-smooth),
                 box-shadow var(--duration-fast) var(--timing-smooth);
@@ -454,7 +462,11 @@
                 0 0 40px rgba(var(--accent-green-rgb), var(--accent-green-opacity-2));
   }
 
-  /* Gradient text - theme-aware */
+  /* ============================================
+     TYPOGRAPHY UTILITIES
+     ============================================ */
+  
+  /* Gradient text effect */
   .text-gradient-green {
     background: linear-gradient(135deg, var(--accent-green) 0%, var(--accent-green) 100%);
     -webkit-background-clip: text;
@@ -462,7 +474,11 @@
     background-clip: text;
   }
 
-  /* Box-based content layouts with CSS containment - Theme-aware */
+  /* ============================================
+     CONTENT BOXES & LAYOUTS
+     ============================================ */
+  
+  /* Box-based content layouts with responsive padding */
   .content-box {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
@@ -515,7 +531,10 @@
     }
   }
 
-  /* Mobile-first improvements */
+  /* ============================================
+     MOBILE OPTIMIZATIONS
+     ============================================ */
+  
   @media (max-width: 640px) {
     .container {
       @apply px-4;
@@ -576,115 +595,58 @@
     border-color: var(--accent-green);
   }
   
-  /* CRITICAL: Safety rules to prevent unreadable text in wrong theme */
+  /* ============================================
+     THEME SAFETY RULES
+     Prevent unreadable text in wrong theme
+     ============================================ */
   
-  /* Dark theme - ensure no black text appears (except on green buttons) */
+  /* Dark theme - no black text except on green buttons */
   :root.dark .text-black,
   :root:not(.light) .text-black {
-    color: var(--text-primary) !important;
+    color: var(--text-primary);
   }
   
-  /* Exception: Black text on green buttons in dark theme is handled by text-on-accent */
   :root.dark .bg-accent-green .text-black,
-  :root:not(.light) .bg-accent-green .text-black,
-  :root.dark a.bg-accent-green.text-black,
-  :root:not(.light) a.bg-accent-green.text-black,
-  :root.dark button.bg-accent-green.text-black,
-  :root:not(.light) button.bg-accent-green.text-black {
-    color: var(--text-on-accent) !important;
-  }
-  
-  /* Light theme - ensure no white text appears */
-  :root.light .text-white {
-    color: var(--text-primary) !important;
-  }
-  
-  /* Exception: White text on green buttons in light theme should use text-on-accent (black) */
-  :root.light .bg-accent-green .text-white,
-  :root.light a.bg-accent-green.text-white,
-  :root.light button.bg-accent-green.text-white {
-    color: var(--text-on-accent) !important;
-  }
-  
-  /* Ensure all body text uses theme-aware colors */
-  :root.dark body,
-  :root:not(.light) body {
-    color: var(--text-primary);
-  }
-  
-  :root.light body {
-    color: var(--text-primary);
-  }
-  
-  /* Ensure all headings use theme-aware colors */
-  :root.dark h1,
-  :root:not(.light) h1,
-  :root.dark h2,
-  :root:not(.light) h2,
-  :root.dark h3,
-  :root:not(.light) h3,
-  :root.dark h4,
-  :root:not(.light) h4,
-  :root.dark h5,
-  :root:not(.light) h5,
-  :root.dark h6,
-  :root:not(.light) h6 {
-    color: var(--text-primary);
-  }
-  
-  :root.light h1,
-  :root.light h2,
-  :root.light h3,
-  :root.light h4,
-  :root.light h5,
-  :root.light h6 {
-    color: var(--text-primary);
-  }
-  
-  /* Ensure paragraphs use theme-aware colors */
-  :root.dark p,
-  :root:not(.light) p {
-    color: var(--text-primary);
-  }
-  
-  :root.light p {
-    color: var(--text-primary);
-  }
-  
-  /* CRITICAL: All buttons with accent-green background use theme-aware text */
-  /* Default to text-on-accent only when no explicit text color class is present */
-  a.bg-accent-green:not(.text-black):not(.text-white):not(.text-primary):not(.text-secondary):not(.text-on-accent):not([class*="text-accent"]),
-  button.bg-accent-green:not(.text-black):not(.text-white):not(.text-primary):not(.text-secondary):not(.text-on-accent):not([class*="text-accent"]),
-  .bg-accent-green:not(.text-black):not(.text-white):not(.text-primary):not(.text-secondary):not(.text-on-accent):not([class*="text-accent"]) {
+  :root:not(.light) .bg-accent-green .text-black {
     color: var(--text-on-accent);
   }
   
-  /* Ensure all text inside green buttons inherits properly (but allow explicit overrides) */
-  .bg-accent-green:not(.text-black):not(.text-white) *:not(.icon):not(.text-accent-green):not(.text-primary):not(.text-secondary),
-  a.bg-accent-green:not(.text-black):not(.text-white) *:not(.icon):not(.text-accent-green):not(.text-primary):not(.text-secondary),
-  button.bg-accent-green:not(.text-black):not(.text-white) *:not(.icon):not(.text-accent-green):not(.text-primary):not(.text-secondary) {
+  /* Light theme - no white text except on green buttons */
+  :root.light .text-white {
+    color: var(--text-primary);
+  }
+  
+  :root.light .bg-accent-green .text-white {
+    color: var(--text-on-accent);
+  }
+  
+  /* Base text elements use theme colors */
+  body,
+  h1, h2, h3, h4, h5, h6,
+  p {
+    color: var(--text-primary);
+  }
+  
+  /* Green button text colors */
+  .bg-accent-green:not([class*="text-"]) {
+    color: var(--text-on-accent);
+  }
+  
+  .bg-accent-green * {
     color: inherit;
   }
   
-  /* Exception: Buttons with text-black dark:text-white pattern - respect theme */
-  /* In dark theme, use white; in light theme, use black */
-  :root.dark .bg-accent-green.text-black,
-  :root.dark a.bg-accent-green.text-black,
-  :root.dark button.bg-accent-green.text-black {
-    color: #ffffff !important;
+  /* Theme-specific overrides for explicit text classes */
+  :root.dark .bg-accent-green.text-black {
+    color: #ffffff;
   }
   
-  :root.light .bg-accent-green.text-black,
-  :root.light a.bg-accent-green.text-black,
-  :root.light button.bg-accent-green.text-black {
-    color: #000000 !important;
+  :root.light .bg-accent-green.text-black {
+    color: #000000;
   }
   
-  /* Buttons explicitly using text-white should stay white */
-  .bg-accent-green.text-white,
-  a.bg-accent-green.text-white,
-  button.bg-accent-green.text-white {
-    color: #ffffff !important;
+  .bg-accent-green.text-white {
+    color: #ffffff;
   }
   
   /* Add green accent borders to important boxes on hover - Theme-aware */
@@ -692,152 +654,94 @@
     border-color: rgba(var(--accent-green-rgb), 0.6);
   }
   
-  /* CRITICAL: Ensure text readability in all box backgrounds */
-  
-  /* Text in bg-card boxes - always readable */
+  /* Background boxes text readability */
   .bg-card,
-  [class*="bg-card"] {
+  .bg-surface,
+  .bg-primary,
+  .bg-secondary {
     color: var(--text-primary);
   }
   
   .bg-card *,
-  [class*="bg-card"] * {
-    color: inherit;
-  }
-  
-  /* Text in bg-surface boxes - always readable */
-  .bg-surface,
-  [class*="bg-surface"] {
-    color: var(--text-primary);
-  }
-  
   .bg-surface *,
-  [class*="bg-surface"] * {
+  .bg-primary *,
+  .bg-secondary * {
     color: inherit;
   }
   
-  /* Text in bg-primary boxes - always readable */
-  .bg-primary {
-    color: var(--text-primary);
-  }
-  
-  [class*="bg-primary"] {
-    color: var(--text-primary);
-  }
-  
-  /* Exception: Navigation uses its own styling */
-  nav.bg-primary,
-  nav[class*="bg-primary"],
-  [class*="nav"].bg-primary {
+  /* Navigation exception */
+  nav.bg-primary {
     color: var(--text-secondary);
   }
   
-  .bg-primary * {
-    color: inherit;
-  }
-  
-  [class*="bg-primary"] * {
-    color: inherit;
-  }
-  
-  /* Exception: Navigation elements keep their styling */
-  nav.bg-primary *,
-  nav[class*="bg-primary"] *,
-  [class*="nav"].bg-primary * {
-    color: inherit;
-  }
-  
-  /* Text in bg-secondary boxes - always readable */
-  .bg-secondary,
-  [class*="bg-secondary"] {
+  /* Override hardcoded colors in boxes */
+  .bg-card .text-white,
+  .bg-card .text-black,
+  .bg-surface .text-white,
+  .bg-surface .text-black,
+  .bg-primary .text-white,
+  .bg-primary .text-black,
+  .bg-secondary .text-white,
+  .bg-secondary .text-black {
     color: var(--text-primary);
   }
   
-  .bg-secondary *,
-  [class*="bg-secondary"] * {
-    color: inherit;
-  }
-  
-  /* Override any hardcoded colors in boxes */
-  .bg-card .text-white,
-  .bg-surface .text-white,
-  .bg-primary .text-white,
-  .bg-secondary .text-white {
-    color: var(--text-primary) !important;
-  }
-  
-  .bg-card .text-black,
-  .bg-surface .text-black,
-  .bg-primary .text-black,
-  .bg-secondary .text-black {
-    color: var(--text-primary) !important;
-  }
-  
-  /* Exception: Green buttons in boxes - use text-on-accent */
+  /* Green buttons in boxes */
   .bg-card .bg-accent-green,
   .bg-surface .bg-accent-green,
   .bg-primary .bg-accent-green,
   .bg-secondary .bg-accent-green {
-    color: var(--text-on-accent) !important;
+    color: var(--text-on-accent);
   }
   
-  /* Ensure icons in boxes use theme-aware colors */
-  .bg-card svg,
-  .bg-surface svg,
-  .bg-primary svg,
-  .bg-secondary svg {
+  /* Icon colors */
+  svg {
     color: inherit;
   }
   
-  /* Green icons should always use accent-green */
   .text-accent-green,
-  [class*="text-accent-green"],
   svg.text-accent-green {
-    color: var(--accent-green) !important;
-    fill: var(--accent-green) !important;
+    color: var(--accent-green);
+    fill: var(--accent-green);
   }
   
-  /* CRITICAL: Override green text in blog prose content - force theme colors */
-  /* Links should be primary color, green only on hover */
-  .prose > a,
-  .prose p > a,
-  .prose li > a,
-  .prose div > a {
-    color: var(--text-primary) !important;
+  /* ============================================
+     PROSE CONTENT STYLING
+     Theme-aware typography for blog posts
+     ============================================ */
+  
+  .prose a {
+    color: var(--text-primary);
+    transition: color var(--theme-transition);
   }
   
-  .prose > a:hover,
-  .prose p > a:hover,
-  .prose li > a:hover,
-  .prose div > a:hover {
-    color: var(--accent-green) !important;
+  .prose a:hover {
+    color: var(--accent-green);
   }
   
-  /* Exception: Green buttons in prose should use text-on-accent */
   .prose a.bg-accent-green,
   .prose [class*="bg-accent-green"] a {
-    color: var(--text-on-accent) !important;
+    color: var(--text-on-accent);
   }
   
-  /* Force inline code to use theme colors (not green) */
-  .prose > code,
-  .prose p > code,
-  .prose li > code {
-    color: var(--text-primary) !important;
+  .prose code {
+    color: var(--text-primary);
   }
   
-  /* Exception: Code blocks preserve their styling */
   .prose pre code {
-    color: var(--text-secondary) !important;
+    color: var(--text-secondary);
   }
   
-  /* Force list markers to use theme colors (not green) */
   .prose ul li::marker,
   .prose ol li::marker {
-    color: var(--text-primary) !important;
+    color: var(--text-primary);
   }
   
-  /* Progressive Disclosure - Details/Summary styling */
+  /* ============================================
+     PROGRESSIVE DISCLOSURE
+     Animated details/summary elements
+     ============================================ */
+  
   details.progressive-disclosure {
     transition: all var(--duration-fast) var(--timing-smooth);
   }
@@ -888,83 +792,47 @@
     border-radius: 0.375rem;
   }
 
-  /* Ensure all text content in blog uses theme colors - override any green classes */
-  .prose > p,
-  .prose > span,
-  .prose > div,
-  .prose > li,
-  .prose p > span {
-    color: var(--text-secondary) !important;
+  /* Prose text content styling */
+  .prose p,
+  .prose span,
+  .prose div,
+  .prose li {
+    color: var(--text-secondary);
   }
   
-  /* Override any accidental green text classes in prose */
-  .prose > .text-accent-green,
-  .prose p > .text-accent-green {
-    color: var(--text-primary) !important;
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose h5,
+  .prose h6 {
+    color: var(--text-primary);
   }
   
-  /* Exception: Green text on green backgrounds should use text-on-accent */
-  .prose .bg-accent-green > .text-accent-green,
-  .prose [class*="bg-accent-green"] > .text-accent-green {
-    color: var(--text-on-accent) !important;
-  }
-  
-  /* Headings should remain primary color */
-  .prose > h1,
-  .prose > h2,
-  .prose > h3,
-  .prose > h4,
-  .prose > h5,
-  .prose > h6 {
-    color: var(--text-primary) !important;
-  }
-  
-  /* CRITICAL: Ensure all text elements in blog content are readable */
   .prose *:not(code):not(pre):not(pre *) {
     color: inherit;
   }
   
-  /* Force readability for nested elements */
-  .prose p *,
-  .prose li *,
-  .prose div *,
-  .prose span * {
-    color: inherit !important;
-  }
-  
-  /* Override any white/black text in blog content */
   .prose .text-white,
-  .prose .text-black,
-  .prose [class*="text-white"],
-  .prose [class*="text-black"] {
-    color: var(--text-primary) !important;
+  .prose .text-black {
+    color: var(--text-primary);
   }
   
-  /* Ensure code blocks have proper contrast */
+  /* Code blocks and tables */
   .prose pre {
-    background: var(--bg-card) !important;
-    color: var(--text-secondary) !important;
+    background: var(--bg-card);
+    color: var(--text-secondary);
   }
   
-  .prose pre code {
-    color: var(--text-secondary) !important;
-  }
-  
-  /* Ensure table content is readable */
   .prose table {
-    color: var(--text-secondary) !important;
+    color: var(--text-secondary);
   }
   
   .prose table th {
-    color: var(--text-primary) !important;
+    color: var(--text-primary);
   }
   
-  .prose table td {
-    color: var(--text-secondary) !important;
-  }
-  
-  /* Ensure all links use theme-aware colors */
-  /* Use explicit selectors to avoid minification conflicts with Tailwind prose */
+  /* Link styling for non-prose content */
   nav a,
   header a,
   footer a,
@@ -984,123 +852,79 @@
     color: var(--accent-green);
   }
   
-  /* Exception: Links inside green buttons should use text-on-accent */
+  /* Links inside green buttons */
   a.bg-accent-green,
-  button a.bg-accent-green,
-  [class*="bg-accent-green"] > a,
   [class*="bg-accent-green"] a {
-    color: var(--text-on-accent) !important;
+    color: var(--text-on-accent);
   }
   
   a.bg-accent-green:hover,
-  button a.bg-accent-green:hover,
-  [class*="bg-accent-green"] > a:hover,
   [class*="bg-accent-green"] a:hover {
-    color: var(--text-on-accent) !important;
+    color: var(--text-on-accent);
     opacity: 0.9;
   }
 }
 
 /* ============================================
-   BREADCRUMBS - Theme-aware styling for astro-breadcrumbs
-   Ensures horizontal layout and proper theme colors
+   BREADCRUMBS - Theme-aware styling
    ============================================ */
 
-/* Target both breadcrumb-theme wrapper AND astro-breadcrumbs generated classes */
+/* Breadcrumb container structure */
 .breadcrumb-theme,
+.c-breadcrumbs {
+  display: block;
+  width: 100%;
+}
+
 .breadcrumb-theme *,
-.c-breadcrumbs,
 .c-breadcrumbs * {
   box-sizing: border-box;
 }
 
-/* Ensure the wrapper is a block container */
-.breadcrumb-theme {
-  display: block !important;
-  width: 100% !important;
-}
-
-/* CRITICAL: Target astro-breadcrumbs nav structure - ensure horizontal layout */
-.breadcrumb-theme nav,
-.breadcrumb-theme nav[aria-label="Breadcrumb"],
-.breadcrumb-theme > nav,
-.breadcrumb-theme > nav[aria-label="Breadcrumb"],
-.breadcrumb-theme nav[aria-label="breadcrumbs"],
-.breadcrumb-theme nav.c-breadcrumbs,
-.c-breadcrumbs {
-  display: block !important;
-  width: 100% !important;
-}
-
-/* Force horizontal layout for all ol elements - target both breadcrumb-theme and astro-breadcrumbs classes */
+/* Horizontal list layout */
 .breadcrumb-theme ol,
-.breadcrumb-theme > ol,
-.breadcrumb-theme nav ol,
-.breadcrumb-theme nav > ol,
-.breadcrumb-theme [aria-label="Breadcrumb"] ol,
-.breadcrumb-theme [aria-label="Breadcrumb"] > ol,
-.breadcrumb-theme nav ol,
-.breadcrumb-theme nav[aria-label="Breadcrumb"] ol,
-.breadcrumb-theme nav[aria-label="breadcrumbs"] ol,
-.breadcrumb-theme nav.c-breadcrumbs ol,
 .c-breadcrumbs ol,
 .c-breadcrumbs__crumbs {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
-  align-items: center !important;
-  gap: 0.5rem !important;
-  list-style: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  overflow-x: auto !important;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  width: 100% !important;
+  width: 100%;
 }
 
-/* Force all list items to be inline and horizontal */
+/* List items */
 .breadcrumb-theme li,
-.breadcrumb-theme nav li,
-.breadcrumb-theme ol li,
-.breadcrumb-theme [aria-label="Breadcrumb"] li,
-.breadcrumb-theme nav ol li,
-.breadcrumb-theme nav[aria-label="breadcrumbs"] li,
-.breadcrumb-theme nav.c-breadcrumbs li,
 .c-breadcrumbs li,
 .c-breadcrumbs__crumb {
-  display: inline-flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  gap: 0.5rem !important;
-  white-space: nowrap !important;
-  flex-shrink: 0 !important;
-  flex-wrap: nowrap !important;
-  list-style: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  vertical-align: middle !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+  list-style: none;
 }
 
-/* Remove any default list markers */
 .breadcrumb-theme li::before,
 .breadcrumb-theme li::marker,
 .c-breadcrumbs li::before,
 .c-breadcrumbs li::marker,
 .c-breadcrumbs__crumb::before,
 .c-breadcrumbs__crumb::marker {
-  display: none !important;
-  content: none !important;
+  display: none;
 }
 
-/* Theme-aware link styling */
+/* Links and text styling */
 .breadcrumb-theme a,
-.breadcrumb-theme nav a,
-.breadcrumb-theme ol a,
-.breadcrumb-theme li a,
 .c-breadcrumbs a,
 .c-breadcrumbs__link {
-  color: var(--text-secondary) !important;
-  text-decoration: none !important;
+  color: var(--text-secondary);
+  text-decoration: none;
   font-weight: 500;
   transition: color var(--theme-transition);
   white-space: nowrap;
@@ -1108,140 +932,49 @@
 }
 
 .breadcrumb-theme a:hover,
-.breadcrumb-theme nav a:hover,
 .c-breadcrumbs a:hover,
 .c-breadcrumbs__link:hover {
-  color: var(--accent-green) !important;
-  text-decoration: none !important;
+  color: var(--accent-green);
 }
 
-/* Current page link styling */
+/* Current page styling */
 .breadcrumb-theme a[aria-current="location"],
 .breadcrumb-theme a.is-current,
-.c-breadcrumbs a[aria-current="location"],
-.c-breadcrumbs__link.is-current {
-  color: var(--accent-green) !important;
-  font-weight: 600;
-}
-
-/* Current page (span) styling */
 .breadcrumb-theme span,
-.breadcrumb-theme nav span,
-.breadcrumb-theme li span[aria-current="page"],
+.c-breadcrumbs a[aria-current="location"],
+.c-breadcrumbs__link.is-current,
 .c-breadcrumbs span {
-  color: var(--accent-green) !important;
+  color: var(--accent-green);
   font-weight: 600;
   white-space: nowrap;
   display: inline-block;
 }
 
-/* Separator icons - theme-aware */
+/* Separator icons */
 .breadcrumb-theme svg,
-.breadcrumb-theme li svg,
-.breadcrumb-theme nav svg,
-.breadcrumb-theme * svg,
-.c-breadcrumbs svg,
-.c-breadcrumbs li svg,
-.c-breadcrumbs * svg {
-  width: 1rem !important;
-  height: 1rem !important;
-  flex-shrink: 0 !important;
-  margin: 0 0.25rem !important;
-  vertical-align: middle !important;
-  display: inline-block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  color: var(--text-tertiary) !important;
-  fill: var(--text-tertiary) !important;
+.c-breadcrumbs svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  margin: 0 0.25rem;
+  color: var(--text-tertiary);
+  fill: var(--text-tertiary);
 }
 
-/* Text separator fallback (if no SVG) - add separators between items */
+/* Text separator fallback */
 .breadcrumb-theme li:not(:last-child)::after,
 .c-breadcrumbs li:not(:last-child)::after,
 .c-breadcrumbs__crumb:not(:last-child)::after {
-  content: '›' !important;
-  display: inline-block !important;
-  margin: 0 0.5rem !important;
-  color: var(--text-tertiary) !important;
-  font-weight: 600 !important;
-  font-size: 1rem !important;
-  vertical-align: middle !important;
-  opacity: 0.7 !important;
-  pointer-events: none !important;
+  content: '›';
+  display: inline-block;
+  margin: 0 0.5rem;
+  color: var(--text-tertiary);
+  font-weight: 600;
+  opacity: 0.7;
+  pointer-events: none;
 }
 
-/* If SVG separator exists, make text separator subtle */
 .breadcrumb-theme li:not(:last-child):has(svg)::after,
 .c-breadcrumbs li:not(:last-child):has(svg)::after {
-  opacity: 0.4 !important;
-}
-
-/* CRITICAL: Override ALL Tailwind utility classes that might conflict */
-.breadcrumb-theme.flex-col,
-.breadcrumb-theme[class*="flex-col"],
-.breadcrumb-theme nav.flex-col,
-.breadcrumb-theme nav[class*="flex-col"],
-.breadcrumb-theme ol.flex-col,
-.breadcrumb-theme ol[class*="flex-col"],
-.breadcrumb-theme li.flex-col,
-.breadcrumb-theme li[class*="flex-col"],
-.c-breadcrumbs.flex-col,
-.c-breadcrumbs ol.flex-col,
-.c-breadcrumbs li.flex-col {
-  flex-direction: row !important;
-}
-
-.breadcrumb-theme.block,
-.breadcrumb-theme[class*="block"]:not([class*="inline-block"]),
-.breadcrumb-theme li.block,
-.breadcrumb-theme li[class*="block"]:not([class*="inline-block"]),
-.c-breadcrumbs.block,
-.c-breadcrumbs li.block {
-  display: inline-flex !important;
-}
-
-.breadcrumb-theme.grid,
-.breadcrumb-theme[class*="grid"],
-.breadcrumb-theme ol.grid,
-.breadcrumb-theme ol[class*="grid"],
-.c-breadcrumbs.grid,
-.c-breadcrumbs ol.grid {
-  display: flex !important;
-  grid-template-columns: none !important;
-  grid-template-rows: none !important;
-}
-
-.breadcrumb-theme[class*="items-start"],
-.breadcrumb-theme[class*="items-end"],
-.breadcrumb-theme ol[class*="items-start"],
-.breadcrumb-theme ol[class*="items-end"],
-.c-breadcrumbs[class*="items-start"],
-.c-breadcrumbs ol[class*="items-start"],
-.c-breadcrumbs ol[class*="items-end"] {
-  align-items: center !important;
-}
-
-/* Ensure no vertical stacking anywhere in breadcrumb structure */
-.breadcrumb-theme,
-.breadcrumb-theme *,
-.breadcrumb-theme ol,
-.breadcrumb-theme nav,
-.breadcrumb-theme nav ol,
-.c-breadcrumbs,
-.c-breadcrumbs ol {
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
-}
-
-.breadcrumb-theme a,
-.breadcrumb-theme span,
-.breadcrumb-theme li a,
-.breadcrumb-theme li span,
-.c-breadcrumbs a,
-.c-breadcrumbs span,
-.c-breadcrumbs li a,
-.c-breadcrumbs li span {
-  white-space: nowrap !important;
-  display: inline-block !important;
-  vertical-align: middle !important;
+  opacity: 0.4;
 }

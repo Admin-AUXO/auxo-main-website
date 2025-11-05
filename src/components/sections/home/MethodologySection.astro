@@ -1,0 +1,142 @@
+---
+import { Icon } from "astro-icon/components";
+import {
+  homepageContent,
+  type HomepageContent,
+} from "../../../data/content/homepage";
+import SectionContainer from "../../layouts/SectionContainer.astro";
+
+const content: HomepageContent["methodology"] = homepageContent.methodology;
+---
+
+<SectionContainer id="methodology" padding="lg" class="relative">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-8 sm:mb-12 animate-fade-in">
+        <div
+          class="inline-block mb-3 px-4 py-2 bg-accent-green/10 border border-accent-green rounded-full"
+        >
+          <span
+            class="text-accent-green text-sm font-semibold"
+            style="font-family: var(--font-body);"
+            >How We Work</span
+          >
+        </div>
+        <h2
+          class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-primary transition-colors"
+          style="font-family: var(--font-display);"
+        >
+          {content.title}
+          <span class="text-accent-green block mt-1"
+            >{content.titleHighlight}</span
+          >
+        </h2>
+        <p
+          class="text-base sm:text-lg text-secondary max-w-2xl mx-auto transition-colors"
+          style="font-family: var(--font-body);"
+        >
+          {content.subtitle}
+        </p>
+      </div>
+
+      <!-- Process Steps Grid -->
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
+      >
+        {
+          content.steps.map((step, index) => (
+            <div
+              class="relative group animate-fade-in"
+              style={`animation-delay: ${index * 150}ms`}
+            >
+              <!-- Progress Indicator -->
+              <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 z-20 bg-card border-2 border-accent-green/30 rounded-full px-2.5 py-1 shadow-lg">
+                <span class="text-xs font-bold text-accent-green" style="font-family: var(--font-body);">
+                  Step {step.number} of {content.steps.length}
+                </span>
+              </div>
+              
+              <div class="bg-card border-2 border-accent-green/30 rounded-xl p-6 sm:p-8 hover:border-accent-green pulse-box transition-all duration-300 hover:shadow-xl hover:-translate-y-1 h-full relative overflow-hidden pt-7 min-h-[256px] sm:min-h-[304px]">
+                <!-- Large Number Background -->
+                <div class="absolute top-0 right-0 w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-end pr-4 sm:pr-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                  <span class="text-7xl sm:text-8xl font-black text-accent-green leading-none" style="font-family: var(--font-display);">
+                    {step.number}
+                  </span>
+                </div>
+                
+                <!-- Icon -->
+                <div class="mb-5">
+                  <div class="w-12 h-12 bg-gradient-to-br from-accent-green/20 to-accent-green/10 rounded-xl flex items-center justify-center group-hover:from-accent-green/30 group-hover:to-accent-green/20 transition-all duration-300 shadow-lg shadow-accent-green/10 mb-3">
+                    <Icon
+                      name={step.icon}
+                      class="w-6 h-6 text-accent-green group-hover:scale-110 transition-transform"
+                    />
+                  </div>
+                </div>
+                
+                <!-- Title -->
+                <div class="mb-5">
+                  <h3 class="text-xl sm:text-2xl font-bold mb-2 text-primary transition-colors" style="font-family: var(--font-display);">
+                    {step.title}
+                  </h3>
+                  <div class="w-12 h-1 bg-accent-green rounded-full"></div>
+                </div>
+                
+                <!-- Description -->
+                <p class="text-secondary leading-relaxed text-sm sm:text-base transition-colors" style="font-family: var(--font-body);">
+                  {step.description}
+                </p>
+              </div>
+              
+              <!-- Connector Arrow -->
+              {index < content.steps.length - 1 && (
+                <div class="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-accent-green via-accent-green/50 to-transparent z-10 animate-pulse" />
+              )}
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Why Auxo & Why We Started Boxes -->
+      <div class="mt-12 sm:mt-16 max-w-5xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 animate-fade-in">
+          <!-- Why Auxo -->
+          <div class="bg-card border border-theme rounded-xl p-4 sm:p-6 md:p-8 hover:border-accent-green/50 transition-all duration-300 group">
+            <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+              <div class="w-8 h-8 sm:w-10 sm:h-10 bg-accent-green/10 rounded-lg flex items-center justify-center group-hover:bg-accent-green/20 transition-colors">
+                <Icon
+                  name="mdi:star-four-points"
+                  class="w-4 h-4 sm:w-5 sm:h-5 text-accent-green"
+                />
+              </div>
+              <h3 class="text-base sm:text-lg md:text-xl font-bold text-primary transition-colors" style="font-family: var(--font-display);">
+                Why AUXO?
+              </h3>
+            </div>
+            <p class="text-xs sm:text-sm md:text-base text-secondary leading-relaxed transition-colors" style="font-family: var(--font-body);">
+              AUXO comes from "auxilium"—Latin for "help" or "support." We're here to help you unlock your data's potential. Simple name, clear mission: transform data into decisions.
+            </p>
+          </div>
+
+          <!-- Why We Started AUXO -->
+          <div class="bg-gradient-to-br from-accent-green/10 to-accent-green/20 border-2 border-accent-green/30 rounded-xl p-4 sm:p-6 md:p-8 hover:border-accent-green/50 transition-all duration-300 group">
+            <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+              <div class="w-8 h-8 sm:w-10 sm:h-10 bg-accent-green rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Icon
+                  name="mdi:rocket"
+                  class="w-4 h-4 sm:w-5 sm:h-5 text-on-accent"
+                />
+              </div>
+              <h3 class="text-base sm:text-lg md:text-xl font-bold text-primary transition-colors" style="font-family: var(--font-display);">
+                Why We Started AUXO
+              </h3>
+            </div>
+            <p class="text-xs sm:text-sm md:text-base text-secondary leading-relaxed transition-colors" style="font-family: var(--font-body);">
+              We saw great insights trapped behind slow processes and high costs. UAE startups and mid-sized companies needed enterprise analytics but couldn't access traditional consultancies. So we built AUXO—same quality, startup speed, transparent pricing. Your success drives every decision.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</SectionContainer>

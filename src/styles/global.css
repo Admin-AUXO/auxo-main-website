@@ -10,12 +10,11 @@
 @layer base {
   :root {
     /* Typography - Optimized font stack for better hierarchy and readability */
-    /* Montserrat: Bold, distinctive brand font for logo */
-    /* Plus Jakarta Sans: Modern geometric font for headings (600-800) */
-    /* Inter: Clean, highly readable font optimized for body text (400-500) */
-    --font-body: 'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    /* Montserrat: Bold, distinctive brand font for logo only */
+    /* Plus Jakarta Sans: Modern geometric font for all text (headings, body, etc.) with varying weights */
+    --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    --font-brand: 'Montserrat', 'Plus Jakarta Sans', sans-serif;
+    --font-brand: 'Montserrat', system-ui, sans-serif;
 
     /* Shared animation timing */
     --timing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
@@ -294,6 +293,16 @@
     text-rendering: optimizeLegibility;
   }
 
+  /* Logo Text Color - Theme-aware */
+  /* Match hero section: black text in dark theme, white text in light theme */
+  :root {
+    --logo-text-color: #000000; /* Black text in dark theme */
+  }
+
+  :root.light {
+    --logo-text-color: #FFFFFF; /* White text in light theme */
+  }
+
   /* ============================================
      ACCESSIBLE FOCUS INDICATORS
      WCAG AA compliant - clearly visible in all themes
@@ -481,13 +490,13 @@
     font-weight: 800;
   }
 
-  /* Body text - Inter for optimal readability */
+  /* Body text - Plus Jakarta Sans */
   p {
     line-height: 1.7;
-    letter-spacing: -0.011em; /* Optimized for Inter */
+    letter-spacing: -0.01em;
   }
   
-  /* Ensure body text uses Inter by default */
+  /* Ensure body text uses Plus Jakarta Sans */
   body {
     font-family: var(--font-body);
   }

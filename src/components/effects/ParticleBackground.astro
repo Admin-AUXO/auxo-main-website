@@ -110,17 +110,17 @@
 
     if (isMobile) {
       randomParticleCount = Math.floor(Math.random() * 15) + 20; // 20-35 particles
-      randomSpeed = Math.random() * 0.3 + 0.2; // 0.2-0.5
+      randomSpeed = Math.random() * 0.4 + 0.3; // 0.3-0.7 (increased from 0.2-0.5)
       randomLinkDistance = Math.floor(Math.random() * 50) + 80; // 80-130px
       randomConnectDistance = Math.floor(Math.random() * 50) + 80; // 80-130px
     } else if (isTablet) {
       randomParticleCount = Math.floor(Math.random() * 25) + 35; // 35-60 particles
-      randomSpeed = Math.random() * 0.4 + 0.25; // 0.25-0.65
+      randomSpeed = Math.random() * 0.5 + 0.35; // 0.35-0.85 (increased from 0.25-0.65)
       randomLinkDistance = Math.floor(Math.random() * 70) + 90; // 90-160px
       randomConnectDistance = Math.floor(Math.random() * 70) + 100; // 100-170px
     } else {
       randomParticleCount = Math.floor(Math.random() * 40) + 50; // 50-90 particles
-      randomSpeed = Math.random() * 0.6 + 0.3; // 0.3-0.9
+      randomSpeed = Math.random() * 0.7 + 0.4; // 0.4-1.1 (increased from 0.3-0.9)
       randomLinkDistance = Math.floor(Math.random() * 100) + 100; // 100-200px
       randomConnectDistance = Math.floor(Math.random() * 100) + 120; // 120-220px
     }
@@ -166,7 +166,7 @@
     );
 
     // Use theme-aware opacity for links
-    randomAnimSpeed = Math.random() * 2 + 0.5; // 0.5-2.5
+    randomAnimSpeed = Math.random() * 3 + 1; // 1-4 (increased from 0.5-2.5 for more dynamic animation)
     randomShapeType =
       Math.random() > 0.5
         ? ["circle", "square"]
@@ -217,6 +217,7 @@
               enable: true,
               opacity: particleTriangleOpacity,
             },
+            frequency: 0.05, // Slightly more frequent connections (default is 0.01)
           },
           move: {
             direction: randomDirection,
@@ -224,9 +225,15 @@
             outModes: {
               default: "bounce",
             },
-            random: Math.random() > 0.5,
+            random: Math.random() > 0.3, // More random movement (changed from > 0.5 to > 0.3)
             speed: randomSpeed,
-            straight: Math.random() > 0.3,
+            straight: Math.random() > 0.5, // Less straight movement for more organic feel (changed from > 0.3 to > 0.5)
+            attract: {
+              enable: false, // Disable attract for cleaner movement
+            },
+            trail: {
+              enable: false, // Keep trails off for readability
+            },
           },
           number: {
             density: {
@@ -239,7 +246,7 @@
             value: { min: particleOpacityMin, max: particleOpacityMax },
             animation: {
               enable: true,
-              speed: randomAnimSpeed,
+              speed: randomAnimSpeed * 1.2, // 20% faster opacity animation
               minimumValue: particleOpacityMin,
               sync: false,
             },
@@ -251,7 +258,7 @@
             value: { min: 1, max: 3 },
             animation: {
               enable: true,
-              speed: randomAnimSpeed,
+              speed: randomAnimSpeed * 1.2, // 20% faster size animation
               minimumValue: 0.5,
               sync: false,
             },

@@ -1,0 +1,176 @@
+---
+import { Icon } from "astro-icon/components";
+import {
+  homepageContent,
+  type HomepageContent,
+} from "../../../data/content/homepage";
+import Card from "../../ui/Card.astro";
+import SectionContainer from "../../layouts/SectionContainer.astro";
+
+const content: HomepageContent["startupAdvantages"] =
+  homepageContent.startupAdvantages;
+---
+
+<SectionContainer id="startup-advantages" padding="lg" class="relative">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <!-- Magazine-Style Header -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16 mb-20">
+        <div class="lg:col-span-1">
+          <div
+            class="inline-block mb-6 px-5 py-2.5 bg-accent-green/10 border border-accent-green rounded-full backdrop-blur-sm"
+          >
+            <span
+              class="text-accent-green text-xs font-bold tracking-wider uppercase"
+              style="font-family: var(--font-body);">Why Choose Us</span
+            >
+          </div>
+          <h2
+            class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 text-primary transition-colors leading-tight tracking-tight"
+            style="font-family: var(--font-display);"
+          >
+            The <span class="text-gradient-green">Startup Advantage</span>
+          </h2>
+          <p
+            class="text-base sm:text-lg text-secondary leading-relaxed transition-colors font-normal"
+            style="font-family: var(--font-body);"
+          >
+            Big consultancies vs. startup agility—here's what makes AUXO
+            different.
+          </p>
+        </div>
+
+        <!-- Large Feature Card -->
+        <div class="lg:col-span-2">
+          <Card
+            accentBorder
+            padding="lg"
+            class="bg-gradient-to-br from-accent-green/10 via-accent-green/5 to-transparent border-2 border-accent-green/30 shadow-xl"
+          >
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {
+                content.advantages.map((advantage, index) => (
+                  <div
+                    class="flex items-start gap-5 animate-fade-in group/adv"
+                    style={`animation-delay: ${index * 100}ms`}
+                  >
+                    <div class="w-14 h-14 bg-gradient-to-br from-accent-green/25 to-accent-green/15 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover/adv:from-accent-green/35 group-hover/adv:to-accent-green/25 transition-all duration-300 shadow-lg shadow-accent-green/10">
+                      <Icon
+                        name={advantage.icon}
+                        class="w-7 h-7 text-accent-green group-hover/adv:scale-110 transition-transform"
+                      />
+                    </div>
+                    <div class="flex-1 pt-1">
+                      <h3
+                        class="font-bold text-xl mb-3 text-primary transition-colors leading-tight"
+                        style="font-family: var(--font-display);"
+                      >
+                        {advantage.title}
+                      </h3>
+                      <p
+                        class="text-sm text-secondary leading-relaxed transition-colors font-normal"
+                        style="font-family: var(--font-body);"
+                      >
+                        {advantage.description}
+                      </p>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+          </Card>
+        </div>
+      </div>
+
+      <!-- Comparison Card -->
+      <Card padding="lg" class="border-2 shadow-lg">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <!-- Them -->
+          <div class="p-8 border-r-0 md:border-r-2 border-theme">
+            <div class="flex items-center gap-4 mb-8">
+              <div
+                class="w-14 h-14 bg-surface rounded-xl flex items-center justify-center shadow-md"
+              >
+                <Icon
+                  name="mdi:office-building"
+                  class="w-7 h-7 text-secondary"
+                />
+              </div>
+              <h3
+                class="text-2xl font-bold text-primary transition-colors"
+                style="font-family: var(--font-display);"
+              >
+                Big Consultancies
+              </h3>
+            </div>
+            <ul class="space-y-4">
+              {
+                [
+                  "Slow processes",
+                  "Junior consultants",
+                  "High costs",
+                  "Multiple layers",
+                ].map((item) => (
+                  <li class="flex items-start gap-3">
+                    <Icon
+                      name="mdi:close"
+                      class="w-5 h-5 text-secondary flex-shrink-0 mt-1"
+                    />
+                    <span
+                      class="text-base text-secondary transition-colors font-normal leading-relaxed"
+                      style="font-family: var(--font-body);"
+                    >
+                      {item}
+                    </span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+
+          <!-- Us -->
+          <div
+            class="p-8 bg-gradient-to-br from-accent-green/15 via-accent-green/10 to-accent-green/5 border-2 border-accent-green/40 rounded-2xl shadow-lg"
+          >
+            <div class="flex items-center gap-4 mb-8">
+              <div
+                class="w-14 h-14 bg-gradient-to-br from-accent-green/30 to-accent-green/20 rounded-xl flex items-center justify-center shadow-lg shadow-accent-green/20"
+              >
+                <Icon name="mdi:rocket" class="w-7 h-7 text-accent-green" />
+              </div>
+              <h3
+                class="text-2xl font-bold text-primary transition-colors"
+                style="font-family: var(--font-display);"
+              >
+                AUXO Data Labs
+              </h3>
+            </div>
+            <ul class="space-y-4">
+              {
+                [
+                  "Fast results",
+                  "Direct founder access",
+                  "Startup-friendly pricing",
+                  "No bureaucracy",
+                ].map((item) => (
+                  <li class="flex items-start gap-3">
+                    <Icon
+                      name="mdi:check-circle"
+                      class="w-5 h-5 text-accent-green flex-shrink-0 mt-1"
+                    />
+                    <span
+                      class="text-base text-primary font-semibold transition-colors leading-relaxed"
+                      style="font-family: var(--font-body);"
+                    >
+                      {item}
+                    </span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </Card>
+    </div>
+  </div>
+</SectionContainer>

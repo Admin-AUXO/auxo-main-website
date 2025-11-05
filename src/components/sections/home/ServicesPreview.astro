@@ -1,0 +1,211 @@
+---
+import { Icon } from "astro-icon/components";
+import { services } from "../../../data/collections/services";
+import SectionContainer from "../../layouts/SectionContainer.astro";
+
+const base = import.meta.env.BASE_URL;
+
+// Create alternating layout pattern for visual interest
+const getCardClasses = (index: number) => {
+  const isOffset = index % 3 === 1; // Second column cards have slight offset on desktop
+  
+  let classes = "service-card group relative overflow-hidden";
+  
+  if (isOffset) {
+    classes += " lg:transform lg:translate-y-8";
+  }
+  
+  return classes;
+};
+---
+
+<SectionContainer id="services" padding="lg" class="relative">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <!-- Section Header -->
+      <div class="text-center mb-12 sm:mb-16 lg:mb-20 animate-fade-in">
+        <div
+          class="inline-block mb-3 px-4 py-2 bg-accent-green/10 border border-accent-green rounded-full"
+        >
+          <span
+            class="text-accent-green text-sm font-semibold"
+            style="font-family: var(--font-body);"
+            >Our Services</span
+          >
+        </div>
+        <h2
+          class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-primary transition-colors"
+          style="font-family: var(--font-display);"
+        >
+          Transform Your <span class="text-gradient-green block mt-2"
+            >Data Into Decisions</span
+          >
+        </h2>
+        <p
+          class="text-base sm:text-lg text-secondary max-w-2xl mx-auto leading-relaxed transition-colors"
+          style="font-family: var(--font-body);"
+        >
+          Enterprise-grade analytics delivered with startup speed. From strategy to AI—we make data intelligence accessible.
+        </p>
+      </div>
+
+      <!-- Services Grid - Matching Main Services Page Design -->
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto mb-12"
+      >
+        {
+          (() => {
+            const serviceOrder = ['data-strategy', 'data-engineering', 'business-intelligence'];
+            return services
+              .filter(service => serviceOrder.includes(service.id))
+              .sort((a, b) => serviceOrder.indexOf(a.id) - serviceOrder.indexOf(b.id));
+          })().map((service, index) => {
+            const cardClasses = getCardClasses(index);
+            
+            return (
+              <a
+                href={`${base}services/${service.id}/`}
+                class={cardClasses}
+                aria-label={`Learn more about ${service.title}`}
+              >
+                <!-- Card Background with Gradient Overlay -->
+                <div class="absolute inset-0 bg-gradient-to-br from-accent-green/5 via-transparent to-accent-green/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
+                
+                <!-- Animated Border Glow on Hover -->
+                <div class="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-accent-green group-hover:shadow-[0_0_30px_rgba(var(--accent-green-rgb),0.3)] transition-all duration-500 pointer-events-none"></div>
+                
+                <!-- Card Content -->
+                <div class="relative h-full bg-card/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 transition-all duration-500 group-hover:bg-card/95 group-hover:scale-[1.02] min-h-[300px] sm:min-h-[340px] flex flex-col border-2 border-accent-green/30 hover:border-accent-green">
+                  <!-- Badges Container -->
+                  <div class="absolute top-4 right-4 z-10 flex flex-col gap-2.5 items-end">
+                    <div class="bg-accent-green/20 text-accent-green text-xs font-semibold px-3 py-1.5 rounded-full border border-accent-green backdrop-blur-sm whitespace-nowrap">
+                      Founder-Led
+                    </div>
+                    <!-- Time-to-Value Badge -->
+                    {service.timeline && (
+                      <div class="bg-accent-green/20 text-accent-green text-xs font-semibold px-3 py-1.5 rounded-full border border-accent-green backdrop-blur-sm flex items-center gap-1.5 whitespace-nowrap">
+                        <Icon name="mdi:clock" class="w-3.5 h-3.5" />
+                        <span>{service.timeline}</span>
+                      </div>
+                    )}
+                    <!-- Complexity Badge -->
+                    {service.complexity && (
+                      <div class="bg-accent-green/20 text-accent-green text-xs font-semibold px-3 py-1.5 rounded-full border border-accent-green backdrop-blur-sm flex items-center gap-1.5 whitespace-nowrap">
+                        <Icon 
+                          name={service.complexity === 'Beginner-Friendly' ? 'mdi:check-circle' : service.complexity === 'Intermediate' ? 'mdi:trending-up' : 'mdi:certificate'} 
+                          class="w-3.5 h-3.5" 
+                        />
+                        <span>{service.complexity}</span>
+                      </div>
+                    )}
+                  </div>
+                  
+                  <!-- Icon Container with Animated Background -->
+                  <div class="relative mb-6">
+                    <div class="absolute -inset-2 bg-accent-green/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-accent-green/20 to-accent-green/5 rounded-2xl flex items-center justify-center group-hover:from-accent-green/30 group-hover:to-accent-green/10 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
+                      <Icon 
+                        name={service.icon} 
+                        class="w-8 h-8 sm:w-10 sm:h-10 text-accent-green transition-transform duration-500 group-hover:scale-110" 
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Content -->
+                  <div class="flex-1 flex flex-col">
+                    <h3 class="text-xl sm:text-2xl font-bold mb-3 text-primary transition-colors group-hover:text-accent-green" style="font-family: var(--font-display);">
+                      {service.title}
+                    </h3>
+                    <p class="text-sm sm:text-base text-secondary leading-relaxed transition-colors flex-1 mb-6" style="font-family: var(--font-body);">
+                      {service.description}
+                    </p>
+                    
+                    <!-- CTA Link -->
+                    <div class="mt-auto pt-4">
+                      <span class="inline-flex items-center gap-2 text-accent-green font-semibold text-sm sm:text-base group-hover:gap-3 transition-all duration-300 min-h-[44px]" style="font-family: var(--font-body);">
+                        Learn more
+                        <Icon 
+                          name="mdi:arrow-right" 
+                          class="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-x-1"
+                          aria-hidden="true"
+                        />
+                      </span>
+                    </div>
+                  </div>
+
+                  <!-- Decorative Corner Element -->
+                  <div class="absolute top-0 right-0 w-24 h-24 bg-accent-green/5 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                </div>
+              </a>
+            );
+          })
+        }
+      </div>
+
+      <!-- View All Button -->
+      <div class="text-center">
+        <a
+          href={`${base}services/`}
+          class="group inline-flex items-center gap-3 px-8 py-4 bg-surface/80 backdrop-blur-sm border-2 border-theme text-primary rounded-xl hover:border-accent-green/60 hover:bg-accent-green/10 transition-all duration-300 font-semibold min-h-[44px] hover:shadow-lg hover:shadow-accent-green/20 hover:-translate-y-1"
+          aria-label="View all services"
+        >
+          <span style="font-family: var(--font-body);">View All Services</span>
+          <Icon 
+            name="mdi:arrow-right" 
+            class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+            aria-hidden="true"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Service Card Animations */
+    .service-card {
+      animation: fadeInUp 0.6s ease-out forwards;
+      opacity: 0;
+    }
+    
+    .service-card:nth-child(1) {
+      animation-delay: 0ms;
+    }
+    .service-card:nth-child(2) {
+      animation-delay: 100ms;
+    }
+    .service-card:nth-child(3) {
+      animation-delay: 200ms;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Respect reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      .service-card {
+        animation: none;
+        opacity: 1;
+      }
+      
+      .service-card * {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+
+    /* Mobile: Remove offset transforms */
+    @media (max-width: 1023px) {
+      .service-card {
+        transform: none !important;
+      }
+    }
+  </style>
+</SectionContainer>

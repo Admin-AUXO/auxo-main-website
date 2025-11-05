@@ -1,0 +1,82 @@
+---
+import { Icon } from "astro-icon/components";
+import {
+  homepageContent,
+  type HomepageContent,
+} from "../../../data/content/homepage";
+import Panel from "../../ui/Panel.astro";
+import SectionContainer from "../../layouts/SectionContainer.astro";
+
+const content: HomepageContent["launchOffer"] = homepageContent.launchOffer;
+---
+
+<SectionContainer id="partnership" padding="lg">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 sm:mb-20 animate-fade-in">
+        <div
+          class="inline-block mb-6 px-5 py-2.5 bg-accent-green/10 border border-accent-green rounded-full backdrop-blur-sm"
+        >
+          <span
+            class="text-accent-green text-xs font-bold tracking-wider uppercase"
+            style="font-family: var(--font-body);">Working With AUXO</span
+          >
+        </div>
+        <h2
+          class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 text-primary transition-colors leading-[1.1] tracking-tight"
+          style="font-family: var(--font-display);"
+        >
+          {content.title}
+          <span class="text-gradient-green block mt-2"
+            >{content.titleHighlight}</span
+          >
+        </h2>
+        <p
+          class="text-lg sm:text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal"
+          style="font-family: var(--font-body);"
+        >
+          {content.subtitle}
+        </p>
+      </div>
+
+      <!-- Benefits Grid -->
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-12"
+      >
+        {
+          content.benefits.map((benefit, index) => (
+            <div
+              class="text-center animate-fade-in group"
+              style={`animation-delay: ${index * 100}ms`}
+            >
+              <Panel
+                elevated
+                padding="lg"
+                class="h-full border-2 hover:border-accent-green/50 transition-all duration-300 shadow-lg"
+              >
+                <div class="w-16 h-16 bg-gradient-to-br from-accent-green/20 to-accent-green/10 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:from-accent-green/30 group-hover:to-accent-green/20 transition-all duration-300 shadow-lg shadow-accent-green/10">
+                  <Icon
+                    name={benefit.icon}
+                    class="w-8 h-8 text-accent-green group-hover:scale-110 transition-transform"
+                  />
+                </div>
+                <h3
+                  class="font-bold text-xl mb-3 text-primary transition-colors leading-tight"
+                  style="font-family: var(--font-display);"
+                >
+                  {benefit.title}
+                </h3>
+                <p
+                  class="text-sm text-secondary transition-colors font-normal leading-relaxed"
+                  style="font-family: var(--font-body);"
+                >
+                  {benefit.description}
+                </p>
+              </Panel>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</SectionContainer>

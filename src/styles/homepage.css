@@ -3,28 +3,24 @@
  * Enhanced magazine-style design with improved typography
  */
 
-/* Logo Animation Styles */
-.logo-tile {
-  background: linear-gradient(135deg, #a3e635 0%, #86d12f 100%);
+/* Logo Animation Styles - Simplified and working */
+.logo-grid {
   display: grid;
-  place-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.logo-tile {
+  background: var(--accent-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
   border-radius: 0;
-  transform-origin: center center;
   opacity: 0;
   transform: scale(0) rotate(-180deg);
   animation: tileReveal 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-  transition: all var(--theme-transition);
-}
-
-/* Logo tiles - same green color in both themes for consistency */
-:root.dark .logo-tile,
-:root:not(.light) .logo-tile,
-:root.light .logo-tile {
-  background: linear-gradient(135deg, #a3e635 0%, #86d12f 100%);
-}
-
-.logo-tile:hover {
-  transform: scale(1.05) rotate(0deg);
+  transition: background-color var(--theme-transition);
 }
 
 .logo-tile:nth-child(1) {
@@ -43,11 +39,41 @@
 .logo-char {
   font-family: var(--font-brand);
   font-weight: 900;
-  font-size: clamp(2.5rem, 8vmin, 4rem);
-  /* Black text on green logo tile - works in both themes (logo tiles are always green) */
+  font-size: clamp(2.5rem, 8vmin, 4.5rem);
   color: #000000;
   line-height: 1;
   letter-spacing: -0.02em;
+  transition: color var(--theme-transition);
+}
+
+/* Light theme: white text on darker green background */
+:root.light .logo-char {
+  color: #FFFFFF;
+}
+
+/* Typing animation styles */
+.typing-badge {
+  min-height: 1.5rem;
+}
+
+.typing-enhanced {
+  position: relative;
+  display: inline-block;
+}
+
+.typing-badge #typing-text::after {
+  content: '|';
+  animation: blink 1s infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
 }
 
 .logo-caption {
@@ -64,7 +90,11 @@
 
 /* Keyframe Animations */
 @keyframes tileReveal {
-  to {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+  }
+  100% {
     opacity: 1;
     transform: scale(1) rotate(0deg);
   }

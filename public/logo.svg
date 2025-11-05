@@ -20,18 +20,18 @@
 
   <!-- 2x2 Grid - Sharp corners -->
   <!-- Top-left - A -->
-  <rect x="0" y="0" width="18" height="18" fill="url(#gradA-nav)"/>
-  <text x="9" y="14" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="13" fill="#000">A</text>
+  <rect x="0" y="0" width="18" height="18" fill="url(#gradA-nav)" class="logo-box-bg"/>
+  <text x="9" y="14" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="13" fill="#000" class="logo-box-text">A</text>
 
   <!-- Top-right - U -->
-  <rect x="22" y="0" width="18" height="18" fill="url(#gradU-nav)"/>
-  <text x="31" y="14" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="13" fill="#000">U</text>
+  <rect x="22" y="0" width="18" height="18" fill="url(#gradU-nav)" class="logo-box-bg"/>
+  <text x="31" y="14" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="13" fill="#000" class="logo-box-text">U</text>
 
   <!-- Bottom-left - X -->
-  <rect x="0" y="22" width="18" height="18" fill="url(#gradX-nav)"/>
-  <text x="9" y="36" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="13" fill="#000">X</text>
+  <rect x="0" y="22" width="18" height="18" fill="url(#gradX-nav)" class="logo-box-bg"/>
+  <text x="9" y="36" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="13" fill="#000" class="logo-box-text">X</text>
 
   <!-- Bottom-right - O -->
-  <rect x="22" y="22" width="18" height="18" fill="url(#gradO-nav)"/>
-  <text x="31" y="36" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="13" fill="#000">O</text>
+  <rect x="22" y="22" width="18" height="18" fill="url(#gradO-nav)" class="logo-box-bg"/>
+  <text x="31" y="36" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="13" fill="#000" class="logo-box-text">O</text>
 </svg>

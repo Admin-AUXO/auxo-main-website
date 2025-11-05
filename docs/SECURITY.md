@@ -39,7 +39,7 @@ Security headers are configured in `public/_headers` to protect against common a
     -   API keys, tokens, or other secrets
     -   `.cursor/` directory and `.cursor/mcp.json` (MCP configuration)
 -   **ALWAYS** use environment variables for secrets.
--   **Brevo API Key:** Store `BREVO_API_KEY` in environment variables and ensure `BREVO_FROM_EMAIL` is verified in the Brevo dashboard.
+-   **Maileroo API Key:** Store `MAILEROO_API_KEY` in environment variables and ensure `MAILEROO_FROM_EMAIL` is verified in the Maileroo dashboard.
 
 ---
 
@@ -55,7 +55,7 @@ Security headers are configured in `public/_headers` to protect against common a
 
 -   [ ] **No Hardcoded Secrets:** Verify no API keys, tokens, or other secrets are present in the code.
 -   [ ] **Environment Variables:** Ensure all required secrets are defined in environment variables.
--   [ ] **Brevo Email Verification:** Confirm the `BREVO_FROM_EMAIL` is verified before deploying.
+-   [ ] **Maileroo Email Verification:** Confirm the `MAILEROO_FROM_EMAIL` is verified before deploying.
 -   [ ] **Input Validation:** Ensure all form and API inputs are strictly validated.
 -   [ ] **Dependency Audit:** Run `npm audit` and address any high or critical vulnerabilities.
 -   [ ] **Headers:** Check that security headers in `public/_headers` are correctly configured.

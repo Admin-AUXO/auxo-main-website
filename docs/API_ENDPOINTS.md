@@ -47,7 +47,7 @@ This document outlines the site's API endpoints.
 -   **Error Responses:**
     -   `400 Bad Request`: Validation failed.
     -   `429 Too Many Requests`: Rate limit exceeded.
-    -   `500 Internal Server Error`: Brevo API error.
+    -   `500 Internal Server Error`: Maileroo API error.
 
 ### Request Body
 
@@ -63,5 +63,5 @@ This document outlines the site's API endpoints.
 -   **API Endpoints:** `src/pages/api/`
 -   **Validation Schemas:** `src/utils/validation.ts`
 -   **Rate Limiting:** `src/utils/rateLimit.ts`
--   **Brevo Configuration:** Requires `BREVO_API_KEY` and `BREVO_FROM_EMAIL` environment variables. **Note:** `BREVO_FROM_EMAIL` must be verified in the Brevo dashboard.
+-   **Maileroo Configuration:** Requires `MAILEROO_API_KEY` and `MAILEROO_FROM_EMAIL` environment variables. **Note:** `MAILEROO_FROM_EMAIL` must be verified in the Maileroo dashboard.
 

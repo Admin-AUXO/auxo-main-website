@@ -18,10 +18,12 @@ This document outlines the environment variables required for the project.
 | Variable | Required | Description | Example |
 | :--- | :--- | :--- | :--- |
 | `PUBLIC_SITE_URL` | **Yes** | Base URL for the website, used for SEO and sitemap generation. | `https://auxodata.com` |
-| `BREVO_API_KEY` | **Yes** | API key for the Brevo (Sendinblue) email service. | `xkeysib-...` |
-| `BREVO_FROM_EMAIL` | **Yes** | **CRITICAL:** Verified sender email in Brevo. Emails will fail if not verified. | `noreply@auxodata.com` |
-| `BREVO_FROM_NAME` | **Yes** | Display name for the sender in emails. | `AUXO Data Labs` |
-| `CONTACT_EMAIL` | **Yes** | Email address that receives contact form submissions. | `contact@auxodata.com` |
+| `MAILEROO_API_KEY` | **Yes** | API key for the Maileroo email service. | `5b710bcf...` |
+| `MAILEROO_API_BASE_URL` | No | Base URL for Maileroo API (defaults to `https://smtp.maileroo.com/api/v2`). | `https://smtp.maileroo.com/api/v2` |
+| `MAILEROO_FROM_EMAIL` | **Yes** | **CRITICAL:** Verified sender email in Maileroo. Emails will fail if not verified. | `hello@auxodata.com` |
+| `MAILEROO_FROM_NAME` | **Yes** | Display name for the sender in emails. | `AUXO Data Labs` |
+| `MAILEROO_NEWSLETTER_LIST_ID` | No | Newsletter list ID in Maileroo (defaults to `1`). | `1` |
+| `CONTACT_EMAIL` | **Yes** | Email address that receives contact form submissions. | `hello@auxodata.com` |
 | `PUBLIC_GOOGLE_ANALYTICS_ID` | No | Google Analytics measurement ID for tracking. | `G-XXXXXXXXXX` |
 | `MAINTENANCE_MODE` | No | Set to `true` to enable the site-wide maintenance page. | `false` |
 
@@ -36,6 +38,6 @@ This document outlines the environment variables required for the project.
 
 ## 4. Troubleshooting
 
--   **Emails Not Sending:** The most common issue is that the `BREVO_FROM_EMAIL` has not been verified in your Brevo dashboard. Double-check this first. Also, verify your `BREVO_API_KEY`.
+-   **Emails Not Sending:** The most common issue is that the `MAILEROO_FROM_EMAIL` has not been verified in your Maileroo dashboard. Double-check this first. Also, verify your `MAILEROO_API_KEY` and ensure it's correct.
 -   **Missing Variables:** If a variable is `undefined`, ensure it is correctly named in your `.env` file or hosting provider settings and that you have restarted the development server.
 

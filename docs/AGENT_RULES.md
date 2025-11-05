@@ -95,7 +95,7 @@
     -   `.env`
     -   `.cursor/`
     -   `.cursor/mcp.json`
--   **Brevo Email:** The sender email (`BREVO_FROM_EMAIL`) **MUST** be verified in the Brevo dashboard before deployment, or emails will fail.
+-   **Maileroo Email:** The sender email (`MAILEROO_FROM_EMAIL`) **MUST** be verified in the Maileroo dashboard before deployment, or emails will fail.
 -   **API Endpoints:** Endpoints in `src/pages/api/` have Zod validation and IP-based rate limiting. Do not bypass them.
 
 ---

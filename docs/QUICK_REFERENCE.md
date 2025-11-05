@@ -176,10 +176,10 @@ import { commonText } from '@/data/shared/common';
 
 ```env
 PUBLIC_SITE_URL=https://auxodata.com
-BREVO_API_KEY=your-api-key
-BREVO_FROM_EMAIL=noreply@auxodata.com
-BREVO_FROM_NAME=AUXO Data Labs
-CONTACT_EMAIL=contact@auxodata.com
+MAILEROO_API_KEY=your-api-key
+MAILEROO_FROM_EMAIL=hello@auxodata.com
+MAILEROO_FROM_NAME=AUXO Data Labs
+CONTACT_EMAIL=hello@auxodata.com
 ```
 
 ### Optional
@@ -407,9 +407,9 @@ import { Icon } from 'astro-icon/components';
 **Problem:** Contact form/newsletter not sending emails
 
 **Solution:** 
-- Verify `BREVO_FROM_EMAIL` is verified in Brevo dashboard
-- Check `BREVO_API_KEY` is correct
-- Review Brevo dashboard for errors
+- Verify `MAILEROO_FROM_EMAIL` is verified in Maileroo dashboard
+- Check `MAILEROO_API_KEY` is correct
+- Review Maileroo dashboard for errors
 
 ### Build Failures
 

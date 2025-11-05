@@ -55,7 +55,7 @@ This document covers the CI/CD and deployment process.
 
 -   [ ] All local checks pass: `npm run lint`, `npm run check`, `npm run build`.
 -   [ ] Environment variables are correctly configured in repository secrets.
--   [ ] **CRITICAL:** `BREVO_FROM_EMAIL` is verified in the Brevo dashboard.
+-   [ ] **CRITICAL:** `MAILEROO_FROM_EMAIL` is verified in the Maileroo dashboard.
 -   [ ] Security headers in `public/_headers` are up-to-date.
 -   [ ] No sensitive data is included in the commit.
 -   [ ] Documentation has been updated if required.

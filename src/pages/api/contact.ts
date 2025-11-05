@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { contactFormSchema } from '../../utils/validation';
 import { checkRateLimit, getClientIP, RateLimitPresets } from '../../utils/rateLimit';
 import { ZodError } from 'zod';
-import * as brevo from '@getbrevo/brevo';
+import { sendEmail, createOrUpdateContact, subscribeToList } from '../../utils/maileroo';
 
 /**
  * Escape HTML to prevent XSS in email templates
@@ -21,7 +21,7 @@ function escapeHtml(text: string | undefined | null): string {
  * Contact Form API Endpoint
  *
  * Integrations:
- * - ✅ Brevo (Sendinblue) for email delivery
+ * - ✅ Maileroo for email delivery
  * - ✅ Zod validation
  * - ✅ Rate limiting
  * - ✅ Honeypot spam protection
@@ -30,18 +30,12 @@ function escapeHtml(text: string | undefined | null): string {
  * TODO: Store submissions in database/CRM
  */
 
-// Initialize Brevo
-const BREVO_API_KEY = import.meta.env.BREVO_API_KEY;
-const FROM_EMAIL = import.meta.env.BREVO_FROM_EMAIL || 'noreply@auxodata.com';
-const FROM_NAME = import.meta.env.BREVO_FROM_NAME || 'AUXO Data Labs';
+// Initialize Maileroo
+const MAILEROO_API_KEY = import.meta.env.MAILEROO_API_KEY;
+const FROM_EMAIL = import.meta.env.MAILEROO_FROM_EMAIL || 'hello@auxodata.com';
+const FROM_NAME = import.meta.env.MAILEROO_FROM_NAME || 'AUXO Data Labs';
 const CONTACT_EMAIL = import.meta.env.CONTACT_EMAIL || 'hello@auxodata.com';
-
-let apiInstance: brevo.TransactionalEmailsApi | null = null;
-
-if (BREVO_API_KEY) {
-  apiInstance = new brevo.TransactionalEmailsApi();
-  apiInstance.setApiKey(brevo.TransactionalEmailsApiApiKeys.apiKey, BREVO_API_KEY);
-}
+const NEWSLETTER_LIST_ID = Number(import.meta.env.MAILEROO_NEWSLETTER_LIST_ID) || 1;
 
 export const GET: APIRoute = async () => {
   return new Response(
@@ -136,9 +130,9 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    // Send email notification using Brevo
-    if (!BREVO_API_KEY || !apiInstance) {
-      console.error('Brevo API key not configured');
+    // Send email notification using Maileroo
+    if (!MAILEROO_API_KEY) {
+      console.error('Maileroo API key not configured');
       // Still return success to user, log error for admin
       return new Response(
         JSON.stringify({
@@ -156,45 +150,35 @@ export const POST: APIRoute = async ({ request }) => {
     
     try {
       // Email to business (notification)
-      const notificationEmail = new brevo.SendSmtpEmail();
-      notificationEmail.to = [{ email: CONTACT_EMAIL }];
-      notificationEmail.sender = { email: FROM_EMAIL, name: FROM_NAME };
-      notificationEmail.replyTo = { email: email, name: name };
-      notificationEmail.subject = `🔔 New Contact Form Submission from ${escapeHtml(name)}`;
-      notificationEmail.textContent = `You have received a new contact form submission from the AUXO Data Labs website.
+      const notificationTextContent = `New Contact Form Submission
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Contact Details:
-• Name: ${name}
-• Email: ${email}
-• Company: ${company || 'Not provided'}
-• Phone: ${phone || 'Not provided'}
-• Role: ${role || 'Not provided'}
+Contact:
+${name} | ${email}
+${company ? `Company: ${company}` : ''}
+${phone ? `Phone: ${phone}` : ''}
+${role ? `Role: ${role}` : ''}
 
-Company Information:
-• Industry: ${industry || 'Not provided'}
-• Company Size: ${companySize || 'Not provided'}
+${industry || companySize ? `Company: ${industry || ''}${industry && companySize ? ' • ' : ''}${companySize || ''}` : ''}
 
-Project Details:
-• Services Interested In: ${services && services.length > 0 ? services.join(', ') : 'Not specified'}
-• Timeline: ${timeline || 'Not specified'}
-• Budget Range: ${budget || 'Not specified'}
+Project:
+${services && services.length > 0 ? `Services: ${services.join(', ')}` : ''}
+${timeline ? `Timeline: ${timeline}` : ''}
+${budget ? `Budget: ${budget}` : ''}
 
 Message:
 ${message}
 
-Additional Information:
-• Lead Source: ${hearAbout || 'Not specified'}
-• Newsletter Subscription: ${newsletter ? 'Yes' : 'No'}
+${hearAbout ? `Source: ${hearAbout}` : ''}
+${newsletter ? 'Newsletter: Subscribed' : ''}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Submitted: ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Dubai' })} (Dubai time)
-IP Address: ${getClientIP(request)}
 
-Reply to this email to respond directly to ${name}.`;
-      notificationEmail.htmlContent = `
+Reply directly to ${name} by replying to this email.`;
+      const notificationHtmlContent = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -218,57 +202,36 @@ Reply to this email to respond directly to ${name}.`;
       <h1>🔔 New Contact Form Submission</h1>
     </div>
     <div class="content">
-      <p>You have received a new inquiry from the AUXO Data Labs website.</p>
+      <p>New inquiry from the AUXO Data Labs website.</p>
 
       <div class="info-box">
-        <h3 style="margin-top: 0; color: #000;">Contact Details</h3>
-        <div class="label">Name</div>
-        <div class="value">${escapeHtml(name)}</div>
-
-        <div class="label">Email</div>
-        <div class="value"><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></div>
-
-        <div class="label">Company</div>
-        <div class="value">${company ? escapeHtml(company) : '<em>Not provided</em>'}</div>
-
-        <div class="label">Phone</div>
-        <div class="value">${phone ? escapeHtml(phone) : '<em>Not provided</em>'}</div>
-
-        <div class="label">Role</div>
-        <div class="value">${role ? escapeHtml(role) : '<em>Not provided</em>'}</div>
+        <h3 style="margin-top: 0; color: #000;">Contact</h3>
+        <div class="value" style="margin-bottom: 10px;"><strong>${escapeHtml(name)}</strong><br>
+        <a href="mailto:${escapeHtml(email)}" style="color: #A3E635;">${escapeHtml(email)}</a></div>
+        ${company ? `<div class="label">Company</div><div class="value">${escapeHtml(company)}</div>` : ''}
+        ${phone ? `<div class="label">Phone</div><div class="value">${escapeHtml(phone)}</div>` : ''}
+        ${role ? `<div class="label">Role</div><div class="value">${escapeHtml(role)}</div>` : ''}
       </div>
 
-      <div class="info-box">
-        <h3 style="margin-top: 0; color: #000;">Company Information</h3>
-        <div class="label">Industry</div>
-        <div class="value">${industry ? escapeHtml(industry) : '<em>Not provided</em>'}</div>
-
-        <div class="label">Company Size</div>
-        <div class="value">${companySize ? escapeHtml(companySize) : '<em>Not provided</em>'}</div>
-      </div>
-
+      ${(industry || companySize || services?.length || timeline || budget) ? `
       <div class="info-box">
         <h3 style="margin-top: 0; color: #000;">Project Details</h3>
-        <div class="label">Services Interested In</div>
-        <div class="value">${services && services.length > 0 ? escapeHtml(services.join(', ')) : '<em>Not specified</em>'}</div>
-
-        <div class="label">Timeline</div>
-        <div class="value">${timeline ? escapeHtml(timeline) : '<em>Not specified</em>'}</div>
-
-        <div class="label">Budget Range</div>
-        <div class="value">${budget ? escapeHtml(budget) : '<em>Not specified</em>'}</div>
+        ${industry || companySize ? `<div class="label">Company</div><div class="value">${escapeHtml([industry, companySize].filter(Boolean).join(' • ') || 'Not provided')}</div>` : ''}
+        ${services && services.length > 0 ? `<div class="label">Services</div><div class="value">${escapeHtml(services.join(', '))}</div>` : ''}
+        ${timeline ? `<div class="label">Timeline</div><div class="value">${escapeHtml(timeline)}</div>` : ''}
+        ${budget ? `<div class="label">Budget</div><div class="value">${escapeHtml(budget)}</div>` : ''}
       </div>
+      ` : ''}
 
-      <div class="label">Message:</div>
+      <div class="label">Message</div>
       <div class="message-box">${escapeHtml(message).replace(/\n/g, '<br>')}</div>
 
+      ${(hearAbout || newsletter) ? `
       <div class="info-box" style="border-left-color: #666;">
-        <div class="label">Lead Source</div>
-        <div class="value">${hearAbout ? escapeHtml(hearAbout) : '<em>Not specified</em>'}</div>
-
-        <div class="label">Newsletter Subscription</div>
-        <div class="value">${newsletter ? '✓ Yes' : '✗ No'}</div>
+        ${hearAbout ? `<div class="label">Source</div><div class="value">${escapeHtml(hearAbout)}</div>` : ''}
+        ${newsletter ? `<div class="label">Newsletter</div><div class="value">✓ Subscribed</div>` : ''}
       </div>
+      ` : ''}
 
       <a href="mailto:${escapeHtml(email)}?subject=Re: Your inquiry to AUXO Data Labs" class="button">Reply to ${escapeHtml(name)}</a>
 
@@ -283,7 +246,14 @@ Reply to this email to respond directly to ${name}.`;
 
       // Send notification email to business
       try {
-        await apiInstance.sendTransacEmail(notificationEmail);
+        await sendEmail({
+          from: { email: FROM_EMAIL, name: FROM_NAME },
+          to: [{ email: CONTACT_EMAIL }],
+          subject: `🔔 New Contact Form Submission from ${escapeHtml(name)}`,
+          html: notificationHtmlContent,
+          plain: notificationTextContent,
+          replyTo: { email: email, name: name },
+        });
         emailsSent.notification = true;
       } catch (notificationError) {
         const errorMessage = notificationError instanceof Error ? notificationError.message : 'Unknown error';
@@ -300,28 +270,23 @@ Reply to this email to respond directly to ${name}.`;
       }
 
       // Confirmation email to user
-      const confirmationEmail = new brevo.SendSmtpEmail();
-      confirmationEmail.to = [{ email: email, name: name }];
-      confirmationEmail.sender = { email: FROM_EMAIL, name: FROM_NAME };
-      confirmationEmail.subject = 'Thank you for contacting AUXO Data Labs';
-      confirmationEmail.textContent = `Dear ${name},
+      const confirmationTextContent = `Hi ${name},
 
-Thank you for reaching out to AUXO Data Labs. We have received your message and will get back to you within 24-48 hours.
+Thank you for contacting AUXO Data Labs. We've received your message and will respond within 24-48 hours.
 
-Your Message:
+Your message:
 ${message}
 
-In the meantime, feel free to explore our services at https://auxodata.com
+Explore our services and insights: https://auxodata.com
 
 Best regards,
 The AUXO Data Labs Team
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 AUXO Data Labs
-A New Data Analytics Consultancy in Dubai, UAE
-Website: https://auxodata.com
-Email: hello@auxodata.com`;
-      confirmationEmail.htmlContent = `
+Dubai, UAE
+https://auxodata.com | hello@auxodata.com`;
+      const confirmationHtmlContent = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -343,17 +308,16 @@ Email: hello@auxodata.com`;
       <div>Data Labs</div>
     </div>
     <div class="content">
-      <h2>Thank You for Reaching Out!</h2>
-      <p>Dear ${escapeHtml(name)},</p>
-      <p>We have received your message and appreciate you taking the time to contact AUXO Data Labs.</p>
-      <p>Our team will review your inquiry and get back to you within <strong>24-48 hours</strong>.</p>
+      <h2>Thank You for Reaching Out</h2>
+      <p>Hi ${escapeHtml(name)},</p>
+      <p>We've received your message and will respond within <strong>24-48 hours</strong>.</p>
 
       <div class="message-box">
-        <strong>Your Message:</strong><br><br>
+        <strong>Your message:</strong><br><br>
         ${escapeHtml(message).replace(/\n/g, '<br>')}
       </div>
 
-      <p>In the meantime, feel free to explore our <a href="https://auxodata.com/services" style="color: #A3E635;">services</a> and <a href="https://auxodata.com/blog" style="color: #A3E635;">blog</a> for insights on data analytics.</p>
+      <p>Explore our <a href="https://auxodata.com/services" style="color: #A3E635;">services</a> and <a href="https://auxodata.com/blog" style="color: #A3E635;">insights</a> while you wait.</p>
 
       <p>Best regards,<br><strong>The AUXO Data Labs Team</strong></p>
     </div>
@@ -369,7 +333,13 @@ Email: hello@auxodata.com`;
 
       // Send confirmation email to user
       try {
-        await apiInstance.sendTransacEmail(confirmationEmail);
+        await sendEmail({
+          from: { email: FROM_EMAIL, name: FROM_NAME },
+          to: [{ email: email, name: name }],
+          subject: 'Thank you for contacting AUXO Data Labs',
+          html: confirmationHtmlContent,
+          plain: confirmationTextContent,
+        });
         emailsSent.confirmation = true;
       } catch (confirmationError) {
         const errorMessage = confirmationError instanceof Error ? confirmationError.message : 'Unknown error';
@@ -388,21 +358,13 @@ Email: hello@auxodata.com`;
       // If user opted in for newsletter, subscribe them
       if (newsletter && email) {
         try {
-          const contactsApi = new brevo.ContactsApi();
-          contactsApi.setApiKey(brevo.ContactsApiApiKeys.apiKey, BREVO_API_KEY!);
-
-          const contact = new brevo.CreateContact();
-          contact.email = email;
-          contact.listIds = [2]; // Newsletter list ID
-          contact.attributes = {
+          await createOrUpdateContact(email, {
             SOURCE: 'Contact Form',
             SUBSCRIBED_AT: new Date().toISOString(),
             NAME: name,
             COMPANY: company || '',
-          };
-          contact.updateEnabled = true;
-
-          await contactsApi.createContact(contact);
+          });
+          await subscribeToList(email, NEWSLETTER_LIST_ID);
         } catch (newsletterError) {
           // Log but don't fail - newsletter subscription is optional
           const errorMessage = newsletterError instanceof Error ? newsletterError.message : 'Unknown error';

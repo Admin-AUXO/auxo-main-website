@@ -167,7 +167,7 @@ This documentation is designed for **AI Coding Agents** and developers working o
 - Required variables
 - Optional variables
 - Setup instructions
-- Brevo configuration
+- Maileroo configuration
 - Security best practices
 - Troubleshooting
 

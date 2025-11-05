@@ -115,5 +115,5 @@ src/
 2.  **Components:** Astro components in `src/components/` import data to render UI.
 3.  **Pages:** Pages in `src/pages/` assemble components and layouts.
 4.  **Build:** Astro generates static HTML from pages, components, and data.
-5.  **API:** Client-side forms submit to API endpoints in `src/pages/api/`, which use Brevo for email delivery.
+5.  **API:** Client-side forms submit to API endpoints in `src/pages/api/`, which use Maileroo for email delivery.
 

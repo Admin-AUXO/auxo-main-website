@@ -2,15 +2,18 @@ import type { APIRoute } from 'astro';
 import { newsletterSchema } from '../../utils/validation';
 import { checkRateLimit, getClientIP, RateLimitPresets } from '../../utils/rateLimit';
 import { ZodError } from 'zod';
-import * as brevo from '@getbrevo/brevo';
-
-// Removed unused escapeHtml function - email sanitization handled by Brevo API
+import {
+  sendEmail,
+  createOrUpdateContact,
+  subscribeToList,
+  isSubscribedToList,
+} from '../../utils/maileroo';
 
 /**
  * Newsletter Subscription API Endpoint
  *
  * Integrations:
- * - ✅ Brevo for email delivery and contact management
+ * - ✅ Maileroo for email delivery and contact management
  * - ✅ Zod validation
  * - ✅ Rate limiting
  * - ✅ Double opt-in for GDPR/UAE PDPL compliance
@@ -24,22 +27,12 @@ import * as brevo from '@getbrevo/brevo';
  * TODO: Add reCAPTCHA for additional spam protection
  */
 
-// Initialize Brevo
-const BREVO_API_KEY = import.meta.env.BREVO_API_KEY;
-const FROM_EMAIL = import.meta.env.BREVO_FROM_EMAIL || 'noreply@auxodata.com';
-const FROM_NAME = import.meta.env.BREVO_FROM_NAME || 'AUXO Data Labs';
+// Initialize Maileroo
+const MAILEROO_API_KEY = import.meta.env.MAILEROO_API_KEY;
+const FROM_EMAIL = import.meta.env.MAILEROO_FROM_EMAIL || 'hello@auxodata.com';
+const FROM_NAME = import.meta.env.MAILEROO_FROM_NAME || 'AUXO Data Labs';
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://auxodata.com';
-
-let contactsApi: brevo.ContactsApi | null = null;
-let emailApi: brevo.TransactionalEmailsApi | null = null;
-
-if (BREVO_API_KEY) {
-  contactsApi = new brevo.ContactsApi();
-  contactsApi.setApiKey(brevo.ContactsApiApiKeys.apiKey, BREVO_API_KEY);
-
-  emailApi = new brevo.TransactionalEmailsApi();
-  emailApi.setApiKey(brevo.TransactionalEmailsApiApiKeys.apiKey, BREVO_API_KEY);
-}
+const NEWSLETTER_LIST_ID = Number(import.meta.env.MAILEROO_NEWSLETTER_LIST_ID) || 1;
 
 export const GET: APIRoute = async () => {
   return new Response(
@@ -93,9 +86,9 @@ export const POST: APIRoute = async ({ request }) => {
     const validated = newsletterSchema.parse(data);
     const { email, consent } = validated;
 
-    // Check if Brevo is configured
-    if (!contactsApi || !emailApi || !BREVO_API_KEY) {
-      console.error('Brevo is not configured. Please set BREVO_API_KEY in .env');
+    // Check if Maileroo is configured
+    if (!MAILEROO_API_KEY) {
+      console.error('Maileroo is not configured. Please set MAILEROO_API_KEY in .env');
       return new Response(
         JSON.stringify({
           success: false,
@@ -111,18 +104,11 @@ export const POST: APIRoute = async ({ request }) => {
     try {
       // Check if contact already exists and is subscribed
       let isAlreadySubscribed = false;
-      const newsletterListId = 2; // Newsletter list ID in Brevo
       
       try {
-        const existingContact = await contactsApi.getContactInfo(email);
-
-        // Check if contact is already in the newsletter list
-        if (existingContact.body.listIds?.includes(newsletterListId)) {
-          isAlreadySubscribed = true;
-        }
+        isAlreadySubscribed = await isSubscribedToList(email, NEWSLETTER_LIST_ID);
       } catch (error) {
-        // Contact doesn't exist (404), which is fine - proceed with creation
-        // Handle Brevo API errors more specifically
+        // Handle Maileroo API errors more specifically
         const errorMessage = error instanceof Error ? error.message : 'Unknown error';
         const errorStatus = (error as { statusCode?: number })?.statusCode;
         
@@ -158,74 +144,47 @@ export const POST: APIRoute = async ({ request }) => {
         );
       }
 
-      // Add or update contact in Brevo
-      // Note: Brevo will send a double opt-in confirmation email automatically
-      // if the list is configured for double opt-in in Brevo dashboard
-      const contact = new brevo.CreateContact();
-      contact.email = email;
-      contact.listIds = [newsletterListId]; // Newsletter list ID in Brevo
-      contact.attributes = {
-        SOURCE: 'Website',
-        SUBSCRIBED_AT: new Date().toISOString(),
-        CONSENT: String(consent)
-      };
-      contact.updateEnabled = true; // Update if contact already exists
-
+      // Add or update contact in Maileroo
+      // Note: Maileroo may send a double opt-in confirmation email automatically
+      // if the list is configured for double opt-in in Maileroo dashboard
       try {
-        await contactsApi.createContact(contact);
+        await createOrUpdateContact(email, {
+          SOURCE: 'Website',
+          SUBSCRIBED_AT: new Date().toISOString(),
+          CONSENT: String(consent),
+        });
+        await subscribeToList(email, NEWSLETTER_LIST_ID);
       } catch (createError) {
-        // Handle specific Brevo errors for contact creation
+        // Handle specific Maileroo errors for contact creation
         const errorMessage = createError instanceof Error ? createError.message : 'Unknown error';
         const errorStatus = (createError as { statusCode?: number })?.statusCode;
         
-        // Handle duplicate contact (already exists) - this is okay
-        if (errorStatus === 400 && errorMessage.includes('duplicate')) {
-          // Contact already exists but wasn't in the list - update it
-          try {
-            await contactsApi.updateContact(email, {
-              listIds: [newsletterListId],
-              attributes: {
-                SOURCE: 'Website',
-                SUBSCRIBED_AT: new Date().toISOString(),
-                CONSENT: String(consent)
-              }
-            });
-          } catch (updateError) {
-            console.error('Error updating existing contact:', {
-              error: updateError instanceof Error ? updateError.message : 'Unknown error',
-              email,
-              timestamp: new Date().toISOString()
-            });
-            throw new Error('Failed to process subscription');
-          }
-        } else {
-          // For other errors, log and throw
-          console.error('Error creating contact:', {
-            error: errorMessage,
-            statusCode: errorStatus,
-            email,
-            timestamp: new Date().toISOString(),
-            ...(import.meta.env.DEV && { details: createError })
-          });
+        // For other errors, log and throw
+        console.error('Error creating/updating contact:', {
+          error: errorMessage,
+          statusCode: errorStatus,
+          email,
+          timestamp: new Date().toISOString(),
+          ...(import.meta.env.DEV && { details: createError })
+        });
+        
+        // Don't fail on duplicate/conflict errors - contact might already exist
+        if (errorStatus !== 409 && errorStatus !== 400) {
           throw new Error('Failed to process subscription');
         }
       }
 
-      // Note: If double opt-in is enabled in Brevo dashboard for list ID 2,
-      // Brevo will automatically send its own confirmation email.
+      // Note: If double opt-in is enabled in Maileroo dashboard for the newsletter list,
+      // Maileroo will automatically send its own confirmation email.
       // This custom confirmation email is informational only.
-      // For proper double opt-in, configure it in Brevo dashboard or implement a confirmation endpoint.
+      // For proper double opt-in, configure it in Maileroo dashboard or implement a confirmation endpoint.
       
       // Send informational confirmation email
-      const confirmationEmail = new brevo.SendSmtpEmail();
-      confirmationEmail.to = [{ email: email }];
-      confirmationEmail.sender = { email: FROM_EMAIL, name: FROM_NAME };
-      confirmationEmail.subject = 'Welcome to AUXO Data Labs Newsletter';
-      confirmationEmail.textContent = `Thank you for subscribing to the AUXO Data Labs newsletter!
+      const confirmationTextContent = `Welcome to AUXO Data Labs Newsletter
 
-Your subscription request has been received.${BREVO_API_KEY ? ' If double opt-in is enabled in Brevo, you will receive a confirmation email to complete your subscription.' : ' Welcome!'}
+Your subscription request has been received.${MAILEROO_API_KEY ? ' If double opt-in is enabled, you will receive a confirmation email to complete your subscription.' : ''}
 
-Why subscribe?
+What to expect:
 • Expert insights on data analytics and business intelligence
 • Industry trends and case studies from the UAE and beyond
 • Practical tips to improve your data strategy
@@ -237,12 +196,9 @@ Best regards,
 The AUXO Data Labs Team
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-AUXO Data Labs
-A New Data Analytics Consultancy in Dubai, UAE
-Website: ${SITE_URL}
-Email: ${FROM_EMAIL}`;
-
-      confirmationEmail.htmlContent = `
+AUXO Data Labs | Dubai, UAE
+${SITE_URL} | ${FROM_EMAIL}`;
+      const confirmationHtmlContent = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -267,13 +223,13 @@ Email: ${FROM_EMAIL}`;
       <div>Data Labs</div>
     </div>
     <div class="content">
-      <h2>Welcome to AUXO Data Labs!</h2>
-      <p>Thank you for subscribing to our newsletter. You're one step away from receiving expert insights on data analytics and business intelligence.</p>
+      <h2>Welcome to AUXO Data Labs</h2>
+      <p>Thank you for subscribing. You're one step away from receiving expert insights on data analytics and business intelligence.</p>
 
-      ${BREVO_API_KEY ? '<p style="color: #666; font-size: 14px;">If you receive a confirmation email from Brevo, please click the link to complete your subscription.</p>' : ''}
+      ${MAILEROO_API_KEY ? '<p style="color: #666; font-size: 14px;">If you receive a confirmation email, please click the link to complete your subscription.</p>' : ''}
 
       <div class="benefits">
-        <h3 style="margin-top: 0;">What you'll receive:</h3>
+        <h3 style="margin-top: 0;">What you'll receive</h3>
         <div class="benefit-item">Expert insights on data analytics and business intelligence</div>
         <div class="benefit-item">Industry trends and case studies from the UAE and beyond</div>
         <div class="benefit-item">Practical tips to improve your data strategy</div>
@@ -295,10 +251,16 @@ Email: ${FROM_EMAIL}`;
 </html>`;
 
       try {
-        await emailApi.sendTransacEmail(confirmationEmail);
+        await sendEmail({
+          from: { email: FROM_EMAIL, name: FROM_NAME },
+          to: [{ email: email }],
+          subject: 'Welcome to AUXO Data Labs Newsletter',
+          html: confirmationHtmlContent,
+          plain: confirmationTextContent,
+        });
       } catch (emailError) {
         // Log email sending error but don't fail the subscription
-        // The contact is already added to Brevo, so subscription succeeded
+        // The contact is already added to Maileroo, so subscription succeeded
         const errorMessage = emailError instanceof Error ? emailError.message : 'Unknown error';
         const errorStatus = (emailError as { statusCode?: number })?.statusCode;
         
@@ -310,22 +272,22 @@ Email: ${FROM_EMAIL}`;
           ...(import.meta.env.DEV && { details: emailError })
         });
         
-        // If it's a critical Brevo service error, still return success
+        // If it's a critical Maileroo service error, still return success
         // since the subscription was processed
-        // User will receive Brevo's double opt-in email if configured
+        // User will receive Maileroo's double opt-in email if configured
       }
 
-    } catch (brevoError) {
+    } catch (mailerooError) {
       // Enhanced error logging for critical errors
-      const errorMessage = brevoError instanceof Error ? brevoError.message : 'Unknown error';
-      const errorStatus = (brevoError as { statusCode?: number })?.statusCode;
+      const errorMessage = mailerooError instanceof Error ? mailerooError.message : 'Unknown error';
+      const errorStatus = (mailerooError as { statusCode?: number })?.statusCode;
       
-      console.error('Brevo API error:', {
+      console.error('Maileroo API error:', {
         error: errorMessage,
         statusCode: errorStatus,
         email,
         timestamp: new Date().toISOString(),
-        ...(import.meta.env.DEV && { details: brevoError })
+        ...(import.meta.env.DEV && { details: mailerooError })
       });
 
       // Provide more specific error messages based on status code

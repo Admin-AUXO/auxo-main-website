@@ -88,10 +88,11 @@
        ============================================ */
     /* Primary Button (Green) */
     --btn-primary-bg: var(--accent-green);
-    --btn-primary-bg-hover: #B8F042;      /* Lighter green - maintains contrast */
-    --btn-primary-bg-active: #8FCB28;     /* Darker green - maintains contrast */
+    --btn-primary-bg-hover: #8FCB28;       /* Slightly darker green - maintains excellent contrast with dark text */
+    --btn-primary-bg-active: #7FB520;     /* Darker green - maintains contrast */
     --btn-primary-bg-disabled: #4A551F;   /* Very dark green - clearly disabled */
     --btn-primary-text: var(--text-on-accent);
+    --btn-primary-text-hover: var(--text-on-accent); /* Same text color on hover */
     --btn-primary-text-disabled: #6B6B6B; /* Muted text for disabled state */
     --btn-primary-border: transparent;
     --btn-primary-border-hover: transparent;
@@ -192,10 +193,11 @@
        ============================================ */
     /* Primary Button (Green) */
     --btn-primary-bg: var(--accent-green);
-    --btn-primary-bg-hover: #166534;      /* Darker green - maintains contrast */
+    --btn-primary-bg-hover: #1A7A3E;      /* Slightly lighter green - maintains contrast */
     --btn-primary-bg-active: #14532D;     /* Even darker - maintains contrast */
     --btn-primary-bg-disabled: #A7D4B8;     /* Light green - clearly disabled */
     --btn-primary-text: var(--text-on-accent);
+    --btn-primary-text-hover: var(--text-on-accent); /* Same text color on hover */
     --btn-primary-text-disabled: #9CA3AF; /* Muted text for disabled state */
     --btn-primary-border: transparent;
     --btn-primary-border-hover: transparent;

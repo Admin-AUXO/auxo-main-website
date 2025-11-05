@@ -5,11 +5,10 @@ import {
   type HomepageContent,
 } from "../../../data/content/homepage";
 
-const base = import.meta.env.BASE_URL;
 const content: HomepageContent["hero"] = homepageContent.hero;
 ---
 
-      <section
+<section
   id="hero"
   class="relative min-h-[85vh] sm:min-h-[90vh] flex flex-col items-center justify-center overflow-hidden pt-4 sm:pt-8 pb-12 sm:pb-16"
 >
@@ -37,7 +36,7 @@ const content: HomepageContent["hero"] = homepageContent.hero;
       </div>
 
       <!-- Brand Text -->
-      <div class="logo-caption mb-8">
+      <div class="logo-caption mb-8 sm:mb-12">
         <h1
           class="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-primary tracking-tight transition-colors"
         >
@@ -50,97 +49,32 @@ const content: HomepageContent["hero"] = homepageContent.hero;
         </p>
       </div>
 
-      <!-- Hero Content -->
-      <div
-        class="hero-content hero-backdrop rounded-3xl p-6 sm:p-8 md:p-10 border border-theme/50 backdrop-blur-sm bg-card/80 dark:bg-card/90"
-      >
-        <div
-          class="inline-block mb-6 px-4 py-2 bg-accent-green/10 border border-accent-green/30 rounded-full backdrop-blur-sm"
-        >
-          <span
-            class="text-accent-green text-xs md:text-sm font-semibold tracking-wide transition-colors"
-            >{content.badge}</span
-          >
-        </div>
-
+      <!-- Main Headline -->
+      <div class="hero-headline mb-12 sm:mb-16">
         <h2
-          class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 md:mb-8 leading-tight text-primary transition-colors"
+          class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-primary transition-colors"
         >
-          <span class="block">{content.title}</span>
-          <span class="text-gradient-green block">{content.titleHighlight}</span
-          >
+          <span class="block">Every Organization has data.</span>
+          <span class="block text-accent-green mt-2">Few understand it!</span>
         </h2>
+      </div>
 
-        {
-          content.subheadline && (
-            <p class="text-base sm:text-lg md:text-xl text-secondary mb-6 md:mb-8 max-w-3xl mx-auto leading-relaxed px-4 transition-colors">
-              {content.subheadline}
-            </p>
-          )
-        }
-
-        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-4 px-4">
-          <!-- Primary CTA - Enhanced with larger size, stronger shadow, and animation -->
-          {content.primaryCta.text && (
-            <a
-              href={`${base}${content.primaryCta.href}`}
-              class="group primary-cta bg-accent-green text-on-accent px-8 sm:px-10 py-4 sm:py-5 rounded-lg font-bold hover:bg-accent-green/90 active:bg-accent-green/80 transition-colors active:scale-95 text-base sm:text-lg min-h-[52px] sm:min-h-[56px] flex items-center justify-center gap-2 relative"
-              aria-label={content.primaryCta.text}
-            >
-              <span>{content.primaryCta.text}</span>
-              <Icon
-                name="mdi:arrow-right"
-                class="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1 transition-transform"
-              />
-            </a>
-          )}
-          <!-- Secondary CTA - Reduced visual weight -->
-          <a
-            href={`${base}${content.secondaryCta.href}`}
-            class="bg-card border border-accent-green/40 text-accent-green px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-medium hover:bg-accent-green/10 hover:border-accent-green/60 active:bg-accent-green/20 active:border-accent-green/80 transition-colors active:scale-95 text-sm sm:text-base min-h-[44px] sm:min-h-[48px] flex items-center justify-center"
-            aria-label={content.secondaryCta.text}
-          >
-            {content.secondaryCta.text}
-          </a>
-        </div>
-
-        <div
-          class="flex flex-wrap justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-secondary px-4 transition-colors mb-6 sm:mb-8"
+      <!-- Scroll Indicator -->
+      <div class="relative z-10">
+        <a
+          href="#services"
+          class="flex flex-col items-center text-secondary hover:text-accent-green transition-colors group"
+          aria-label={content.scrollIndicator}
         >
-          {
-            content.features.map((feature, index) => (
-              <div
-                class="flex items-center gap-2 animate-fade-in animate-delay-100"
-                data-animation-delay={index}
-              >
-                <Icon
-                  name="mdi:check-circle"
-                  class="w-4 h-4 sm:w-5 sm:h-5 text-accent-green flex-shrink-0"
-                />
-                <span class="font-medium">{feature}</span>
-              </div>
-            ))
-          }
-        </div>
-
+          <span class="text-xs mb-2">{content.scrollIndicator}</span>
+          <div class="animate-bounce">
+            <Icon
+              name="mdi:chevron-down"
+              class="w-6 h-6 group-hover:scale-110 transition-transform"
+            />
+          </div>
+        </a>
       </div>
     </div>
-  </div>
-
-  <!-- Scroll Indicator -->
-  <div class="relative z-10 pb-6 mt-8">
-    <a
-      href="#services"
-      class="flex flex-col items-center text-secondary hover:text-accent-green transition-colors group"
-      aria-label={content.scrollIndicator}
-    >
-      <span class="text-xs mb-2">{content.scrollIndicator}</span>
-      <div class="animate-bounce">
-        <Icon
-          name="mdi:chevron-down"
-          class="w-6 h-6 group-hover:scale-110 transition-transform"
-        />
-      </div>
-    </a>
   </div>
 </section>

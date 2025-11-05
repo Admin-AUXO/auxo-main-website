@@ -81,7 +81,7 @@
     --text-tertiary: #808080;     /* Increased from #666666 for better readability */
     --border-color: #333333;      /* Increased from #272727 for better visibility */
     --border-color-light: #404040; /* Increased from #3a3a3a for better visibility */
-    --text-on-accent: #1a1a1a;     /* Use dark grey text on green buttons in dark theme for better readability */
+    --text-on-accent: #000000;     /* Use black text on green buttons in dark theme for better readability */
     
     /* ============================================
        BUTTON STATE TOKENS - Dark Theme
@@ -186,7 +186,7 @@
     --text-tertiary: #4B5563;     /* Improved contrast: 7.1:1 on white (WCAG AA) */
     --border-color: #E2E8F0;     /* Slightly darker for better visibility */
     --border-color-light: #CBD5E1; /* Darker for better visibility */
-    --text-on-accent: #f5f5f5;     /* Use light grey (near white) text on green buttons in light theme for better readability */
+    --text-on-accent: #FFFFFF;     /* Use white text on green buttons in light theme for better readability */
     
     /* ============================================
        BUTTON STATE TOKENS - Light Theme
@@ -896,6 +896,88 @@
   h1, h2, h3, h4, h5, h6,
   p {
     color: var(--text-primary);
+  }
+
+  /* ============================================
+     NAVIGATION THEME-AWARE BUTTON COLORS
+     Dark background = light text, Light background = dark text
+     ============================================ */
+  
+  /* Nav links - ensure proper contrast on hover */
+  .nav-link:hover,
+  .dropdown-toggle:hover {
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+  }
+
+  /* Dark theme - nav links have light text on dark background */
+  :root.dark .nav-link,
+  :root:not(.light) .nav-link,
+  :root.dark .dropdown-toggle,
+  :root:not(.light) .dropdown-toggle {
+    color: var(--text-secondary);
+  }
+
+  :root.dark .nav-link:hover,
+  :root:not(.light) .nav-link:hover,
+  :root.dark .dropdown-toggle:hover,
+  :root:not(.light) .dropdown-toggle:hover {
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+  }
+
+  /* Light theme - nav links have dark text on light background */
+  :root.light .nav-link,
+  :root.light .dropdown-toggle {
+    color: var(--text-secondary);
+  }
+
+  :root.light .nav-link:hover,
+  :root.light .dropdown-toggle:hover {
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+  }
+
+  /* CTA button - always uses theme-aware text-on-accent */
+  /* Dark mode: black text, Light mode: white text */
+  .nav-cta {
+    background-color: var(--accent-green);
+    color: var(--text-on-accent);
+  }
+
+  .nav-cta:hover {
+    background-color: var(--accent-green);
+    opacity: 0.9;
+    color: var(--text-on-accent);
+  }
+
+  /* Ensure text-on-accent has proper contrast */
+  .text-on-accent {
+    color: var(--text-on-accent);
+    font-weight: 700;
+  }
+
+  /* Dark theme - black text on green button */
+  :root.dark .nav-cta,
+  :root:not(.light) .nav-cta {
+    color: #000000 !important;
+  }
+
+  :root.dark .nav-cta span,
+  :root:not(.light) .nav-cta span,
+  :root.dark .nav-cta .text-on-accent,
+  :root:not(.light) .nav-cta .text-on-accent {
+    color: #000000 !important;
+  }
+
+  /* Light theme - white text on green button */
+  :root.light .nav-cta {
+    color: #FFFFFF !important;
+  }
+
+  :root.light .nav-cta span,
+  :root.light .nav-cta .text-on-accent {
+    color: #FFFFFF !important;
   }
   
   /* Green button text colors */

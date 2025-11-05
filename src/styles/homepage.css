@@ -1,6 +1,6 @@
 /**
  * Homepage-specific styles and animations
- * Optimized for both light and dark theme modes
+ * Enhanced magazine-style design with improved typography
  */
 
 /* Logo Animation Styles */
@@ -47,6 +47,7 @@
   /* Black text on green logo tile - works in both themes (logo tiles are always green) */
   color: #000000;
   line-height: 1;
+  letter-spacing: -0.02em;
 }
 
 .logo-caption {
@@ -55,10 +56,10 @@
   animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
 }
 
-.hero-content {
+.hero-headline {
   opacity: 0;
   transform: translateY(30px);
-  animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s forwards;
+  animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards;
 }
 
 /* Keyframe Animations */
@@ -110,29 +111,57 @@
   animation-delay: 900ms;
 }
 
-/* Primary CTA pulse animation */
-@keyframes primaryCtaPulse {
-  0%, 100% {
-    box-shadow: 0 10px 25px -5px rgba(var(--accent-green-rgb), 0.3),
-                0 0 0 0 rgba(var(--accent-green-rgb), 0.4);
-  }
-  50% {
-    box-shadow: 0 10px 25px -5px rgba(var(--accent-green-rgb), 0.4),
-                0 0 0 8px rgba(var(--accent-green-rgb), 0);
+/* Magazine-style typography enhancements */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+/* Enhanced gradient text */
+.text-gradient-green {
+  background: linear-gradient(135deg, var(--accent-green) 0%, rgba(var(--accent-green-rgb), 0.9) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Magazine-style section spacing */
+.magazine-section {
+  margin-bottom: 6rem;
+}
+
+@media (min-width: 768px) {
+  .magazine-section {
+    margin-bottom: 8rem;
   }
 }
 
-.primary-cta {
-  animation: primaryCtaPulse 3s ease-in-out infinite;
+@media (min-width: 1024px) {
+  .magazine-section {
+    margin-bottom: 10rem;
+  }
+}
+
+/* Enhanced card shadows */
+.card-elevated {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+              0 2px 4px -1px rgba(0, 0, 0, 0.06),
+              0 0 0 1px rgba(var(--accent-green-rgb), 0.1);
+}
+
+:root.light .card-elevated {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 
+              0 2px 4px -1px rgba(0, 0, 0, 0.03),
+              0 0 0 1px rgba(var(--accent-green-rgb), 0.15);
 }
 
 /* Respect prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   .logo-tile,
   .logo-caption,
-  .hero-content,
-  .animate-fade-in,
-  .primary-cta {
+  .hero-headline,
+  .animate-fade-in {
     animation: none;
     opacity: 1;
     transform: none;
@@ -140,9 +169,5 @@
 
   html {
     scroll-behavior: auto;
-  }
-  
-  .primary-cta {
-    box-shadow: 0 10px 25px -5px rgba(var(--accent-green-rgb), 0.3);
   }
 }

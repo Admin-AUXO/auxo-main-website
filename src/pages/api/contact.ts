@@ -35,7 +35,7 @@ const MAILEROO_API_KEY = import.meta.env.MAILEROO_API_KEY;
 const FROM_EMAIL = import.meta.env.MAILEROO_FROM_EMAIL || 'hello@auxodata.com';
 const FROM_NAME = import.meta.env.MAILEROO_FROM_NAME || 'AUXO Data Labs';
 const CONTACT_EMAIL = import.meta.env.CONTACT_EMAIL || 'hello@auxodata.com';
-const NEWSLETTER_LIST_ID = Number(import.meta.env.MAILEROO_NEWSLETTER_LIST_ID) || 1;
+const NEWSLETTER_LIST_ID = Number(import.meta.env.MAILEROO_NEWSLETTER_LIST_ID) || 1995;
 
 export const GET: APIRoute = async () => {
   return new Response(
@@ -150,34 +150,39 @@ export const POST: APIRoute = async ({ request }) => {
     
     try {
       // Email to business (notification)
-      const notificationTextContent = `New Contact Form Submission
+      const notificationTextContent = `You have received a new contact form submission from the AUXO Data Labs website.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Contact:
-${name} | ${email}
-${company ? `Company: ${company}` : ''}
-${phone ? `Phone: ${phone}` : ''}
-${role ? `Role: ${role}` : ''}
+Contact Details:
+• Name: ${name}
+• Email: ${email}
+• Company: ${company || 'Not provided'}
+• Phone: ${phone || 'Not provided'}
+• Role: ${role || 'Not provided'}
 
-${industry || companySize ? `Company: ${industry || ''}${industry && companySize ? ' • ' : ''}${companySize || ''}` : ''}
+Company Information:
+• Industry: ${industry || 'Not provided'}
+• Company Size: ${companySize || 'Not provided'}
 
-Project:
-${services && services.length > 0 ? `Services: ${services.join(', ')}` : ''}
-${timeline ? `Timeline: ${timeline}` : ''}
-${budget ? `Budget: ${budget}` : ''}
+Project Details:
+• Services Interested In: ${services && services.length > 0 ? services.join(', ') : 'Not specified'}
+• Timeline: ${timeline || 'Not specified'}
+• Budget Range: ${budget || 'Not specified'}
 
 Message:
 ${message}
 
-${hearAbout ? `Source: ${hearAbout}` : ''}
-${newsletter ? 'Newsletter: Subscribed' : ''}
+Additional Information:
+• Lead Source: ${hearAbout || 'Not specified'}
+• Newsletter Subscription: ${newsletter ? 'Yes' : 'No'}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Submitted: ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Dubai' })} (Dubai time)
+IP Address: ${getClientIP(request)}
 
-Reply directly to ${name} by replying to this email.`;
+Reply to this email to respond directly to ${name}.`;
       const notificationHtmlContent = `
 <!DOCTYPE html>
 <html>
@@ -202,36 +207,57 @@ Reply directly to ${name} by replying to this email.`;
       <h1>🔔 New Contact Form Submission</h1>
     </div>
     <div class="content">
-      <p>New inquiry from the AUXO Data Labs website.</p>
+      <p>You have received a new inquiry from the AUXO Data Labs website.</p>
 
       <div class="info-box">
-        <h3 style="margin-top: 0; color: #000;">Contact</h3>
-        <div class="value" style="margin-bottom: 10px;"><strong>${escapeHtml(name)}</strong><br>
-        <a href="mailto:${escapeHtml(email)}" style="color: #A3E635;">${escapeHtml(email)}</a></div>
-        ${company ? `<div class="label">Company</div><div class="value">${escapeHtml(company)}</div>` : ''}
-        ${phone ? `<div class="label">Phone</div><div class="value">${escapeHtml(phone)}</div>` : ''}
-        ${role ? `<div class="label">Role</div><div class="value">${escapeHtml(role)}</div>` : ''}
+        <h3 style="margin-top: 0; color: #000;">Contact Details</h3>
+        <div class="label">Name</div>
+        <div class="value">${escapeHtml(name)}</div>
+
+        <div class="label">Email</div>
+        <div class="value"><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></div>
+
+        <div class="label">Company</div>
+        <div class="value">${company ? escapeHtml(company) : '<em>Not provided</em>'}</div>
+
+        <div class="label">Phone</div>
+        <div class="value">${phone ? escapeHtml(phone) : '<em>Not provided</em>'}</div>
+
+        <div class="label">Role</div>
+        <div class="value">${role ? escapeHtml(role) : '<em>Not provided</em>'}</div>
       </div>
 
-      ${(industry || companySize || services?.length || timeline || budget) ? `
+      <div class="info-box">
+        <h3 style="margin-top: 0; color: #000;">Company Information</h3>
+        <div class="label">Industry</div>
+        <div class="value">${industry ? escapeHtml(industry) : '<em>Not provided</em>'}</div>
+
+        <div class="label">Company Size</div>
+        <div class="value">${companySize ? escapeHtml(companySize) : '<em>Not provided</em>'}</div>
+      </div>
+
       <div class="info-box">
         <h3 style="margin-top: 0; color: #000;">Project Details</h3>
-        ${industry || companySize ? `<div class="label">Company</div><div class="value">${escapeHtml([industry, companySize].filter(Boolean).join(' • ') || 'Not provided')}</div>` : ''}
-        ${services && services.length > 0 ? `<div class="label">Services</div><div class="value">${escapeHtml(services.join(', '))}</div>` : ''}
-        ${timeline ? `<div class="label">Timeline</div><div class="value">${escapeHtml(timeline)}</div>` : ''}
-        ${budget ? `<div class="label">Budget</div><div class="value">${escapeHtml(budget)}</div>` : ''}
-      </div>
-      ` : ''}
+        <div class="label">Services Interested In</div>
+        <div class="value">${services && services.length > 0 ? escapeHtml(services.join(', ')) : '<em>Not specified</em>'}</div>
 
-      <div class="label">Message</div>
+        <div class="label">Timeline</div>
+        <div class="value">${timeline ? escapeHtml(timeline) : '<em>Not specified</em>'}</div>
+
+        <div class="label">Budget Range</div>
+        <div class="value">${budget ? escapeHtml(budget) : '<em>Not specified</em>'}</div>
+      </div>
+
+      <div class="label">Message:</div>
       <div class="message-box">${escapeHtml(message).replace(/\n/g, '<br>')}</div>
 
-      ${(hearAbout || newsletter) ? `
       <div class="info-box" style="border-left-color: #666;">
-        ${hearAbout ? `<div class="label">Source</div><div class="value">${escapeHtml(hearAbout)}</div>` : ''}
-        ${newsletter ? `<div class="label">Newsletter</div><div class="value">✓ Subscribed</div>` : ''}
+        <div class="label">Lead Source</div>
+        <div class="value">${hearAbout ? escapeHtml(hearAbout) : '<em>Not specified</em>'}</div>
+
+        <div class="label">Newsletter Subscription</div>
+        <div class="value">${newsletter ? '✓ Yes' : '✗ No'}</div>
       </div>
-      ` : ''}
 
       <a href="mailto:${escapeHtml(email)}?subject=Re: Your inquiry to AUXO Data Labs" class="button">Reply to ${escapeHtml(name)}</a>
 
@@ -272,19 +298,19 @@ Reply directly to ${name} by replying to this email.`;
       // Confirmation email to user
       const confirmationTextContent = `Hi ${name},
 
-Thank you for contacting AUXO Data Labs. We've received your message and will respond within 24-48 hours.
+Thanks for reaching out. We've received your message and will respond within 24-48 hours.
 
 Your message:
 ${message}
 
-Explore our services and insights: https://auxodata.com
+Explore our services and insights while you wait: https://auxodata.com
 
-Best regards,
+Best,
 The AUXO Data Labs Team
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 AUXO Data Labs
-Dubai, UAE
+Data Analytics Consultancy | Dubai, UAE
 https://auxodata.com | hello@auxodata.com`;
       const confirmationHtmlContent = `
 <!DOCTYPE html>
@@ -308,7 +334,7 @@ https://auxodata.com | hello@auxodata.com`;
       <div>Data Labs</div>
     </div>
     <div class="content">
-      <h2>Thank You for Reaching Out</h2>
+      <h2>Thanks for Reaching Out</h2>
       <p>Hi ${escapeHtml(name)},</p>
       <p>We've received your message and will respond within <strong>24-48 hours</strong>.</p>
 
@@ -319,11 +345,11 @@ https://auxodata.com | hello@auxodata.com`;
 
       <p>Explore our <a href="https://auxodata.com/services" style="color: #A3E635;">services</a> and <a href="https://auxodata.com/blog" style="color: #A3E635;">insights</a> while you wait.</p>
 
-      <p>Best regards,<br><strong>The AUXO Data Labs Team</strong></p>
+      <p>Best,<br><strong>The AUXO Data Labs Team</strong></p>
     </div>
     <div class="footer">
       <strong>AUXO Data Labs</strong><br>
-      A New Data Analytics Consultancy in Dubai, UAE<br><br>
+      Data Analytics Consultancy | Dubai, UAE<br><br>
       <a href="https://auxodata.com">Website</a> |
       <a href="mailto:hello@auxodata.com">Email</a>
     </div>
@@ -336,7 +362,7 @@ https://auxodata.com | hello@auxodata.com`;
         await sendEmail({
           from: { email: FROM_EMAIL, name: FROM_NAME },
           to: [{ email: email, name: name }],
-          subject: 'Thank you for contacting AUXO Data Labs',
+          subject: 'Thanks for contacting AUXO Data Labs',
           html: confirmationHtmlContent,
           plain: confirmationTextContent,
         });

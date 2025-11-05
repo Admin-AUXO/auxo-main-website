@@ -32,7 +32,7 @@ const MAILEROO_API_KEY = import.meta.env.MAILEROO_API_KEY;
 const FROM_EMAIL = import.meta.env.MAILEROO_FROM_EMAIL || 'hello@auxodata.com';
 const FROM_NAME = import.meta.env.MAILEROO_FROM_NAME || 'AUXO Data Labs';
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://auxodata.com';
-const NEWSLETTER_LIST_ID = Number(import.meta.env.MAILEROO_NEWSLETTER_LIST_ID) || 1;
+const NEWSLETTER_LIST_ID = Number(import.meta.env.MAILEROO_NEWSLETTER_LIST_ID) || 1995;
 
 export const GET: APIRoute = async () => {
   return new Response(
@@ -180,9 +180,9 @@ export const POST: APIRoute = async ({ request }) => {
       // For proper double opt-in, configure it in Maileroo dashboard or implement a confirmation endpoint.
       
       // Send informational confirmation email
-      const confirmationTextContent = `Welcome to AUXO Data Labs Newsletter
+      const confirmationTextContent = `Thanks for subscribing to the AUXO Data Labs newsletter!
 
-Your subscription request has been received.${MAILEROO_API_KEY ? ' If double opt-in is enabled, you will receive a confirmation email to complete your subscription.' : ''}
+Your subscription request has been received.${MAILEROO_API_KEY ? ' If double opt-in is enabled in Maileroo, you will receive a confirmation email to complete your subscription.' : ' Welcome!'}
 
 What to expect:
 • Expert insights on data analytics and business intelligence
@@ -192,11 +192,12 @@ What to expect:
 
 If you didn't request this subscription, you can safely ignore this email.
 
-Best regards,
+Best,
 The AUXO Data Labs Team
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-AUXO Data Labs | Dubai, UAE
+AUXO Data Labs
+Data Analytics Consultancy | Dubai, UAE
 ${SITE_URL} | ${FROM_EMAIL}`;
       const confirmationHtmlContent = `
 <!DOCTYPE html>
@@ -224,9 +225,9 @@ ${SITE_URL} | ${FROM_EMAIL}`;
     </div>
     <div class="content">
       <h2>Welcome to AUXO Data Labs</h2>
-      <p>Thank you for subscribing. You're one step away from receiving expert insights on data analytics and business intelligence.</p>
+      <p>Thanks for subscribing. You're one step away from receiving expert insights on data analytics and business intelligence.</p>
 
-      ${MAILEROO_API_KEY ? '<p style="color: #666; font-size: 14px;">If you receive a confirmation email, please click the link to complete your subscription.</p>' : ''}
+      ${MAILEROO_API_KEY ? '<p style="color: #666; font-size: 14px;">If you receive a confirmation email from Maileroo, click the link to complete your subscription.</p>' : ''}
 
       <div class="benefits">
         <h3 style="margin-top: 0;">What you'll receive</h3>
@@ -242,7 +243,7 @@ ${SITE_URL} | ${FROM_EMAIL}`;
     </div>
     <div class="footer">
       <strong>AUXO Data Labs</strong><br>
-      A New Data Analytics Consultancy in Dubai, UAE<br><br>
+      Data Analytics Consultancy | Dubai, UAE<br><br>
       <a href="${SITE_URL}">Visit Website</a> |
       <a href="mailto:${FROM_EMAIL}">Contact Us</a>
     </div>

@@ -3,6 +3,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import MultiStepForm from "../components/ui/MultiStepForm.astro";
 import PageContainer from "../components/layouts/PageContainer.astro";
 import ContentWrapper from "../components/layouts/ContentWrapper.astro";
+import Button from "../components/ui/Button.astro";
+import Card from "../components/ui/Card.astro";
 import { siteData } from "../data/config/site";
 import { contactContent } from "../data/content/contact";
 import { commonText } from "../data/shared/common";
@@ -633,7 +635,7 @@ const base = import.meta.env.BASE_URL;
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
         {
           contactContent.additionalOptions.map((option) => (
-            <div class="text-center p-4 sm:p-6 md:p-8 bg-card border-2 border-theme rounded-xl hover:border-accent-green hover:shadow-lg transition-all group">
+            <Card interactive hoverEffect accentBorder padding="md" class="text-center group">
               <div class="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-accent-green/10 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:bg-accent-green/20 transition-colors">
                 <Icon
                   name={option.icon}
@@ -647,30 +649,33 @@ const base = import.meta.env.BASE_URL;
                 {option.description}
               </p>
               {option.action.type === "button" ? (
-                <button
+                <Button
+                  variant="primary"
                   id={option.action.id}
-                  class="w-full px-6 py-3 bg-accent-green text-on-accent font-bold rounded-lg hover:bg-accent-green/90 transition-colors min-h-[44px] touch-manipulation"
+                  class="w-full"
                 >
                   {option.action.text}
-                </button>
+                </Button>
               ) : option.action.href === "brochure.pdf" ? (
-                <a
+                <Button
+                  variant="primary"
                   href={`${base}${option.action.href}`}
-                  class="inline-flex items-center justify-center w-full px-6 py-3 bg-accent-green text-on-accent font-bold rounded-lg hover:bg-accent-green/90 transition-colors min-h-[44px] touch-manipulation"
                   target="_blank"
                   rel="noopener noreferrer"
+                  class="w-full"
                 >
                   {option.action.text}
-                </a>
+                </Button>
               ) : (
-                <a
+                <Button
+                  variant="primary"
                   href={`${base}${option.action.href}`}
-                  class="inline-flex items-center justify-center w-full px-6 py-3 bg-accent-green text-on-accent font-bold rounded-lg hover:bg-accent-green/90 transition-colors min-h-[44px] touch-manipulation"
+                  class="w-full"
                 >
                   {option.action.text}
-                </a>
+                </Button>
               )}
-            </div>
+            </Card>
           ))
         }
       </div>

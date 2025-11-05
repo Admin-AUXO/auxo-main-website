@@ -5,6 +5,7 @@ import ContentWrapper from "../../components/layouts/ContentWrapper.astro";
 import { Breadcrumbs } from "astro-breadcrumbs";
 import FAQSchema from "../../components/schema/FAQSchema.astro";
 import { maturityCalculatorContent } from "../../data/content/maturityCalculator";
+import Button from "../../components/ui/Button.astro";
 import { Icon } from "astro-icon/components";
 import { generateBreadcrumbs } from "../../utils/breadcrumbs";
 
@@ -409,19 +410,21 @@ const calculatorFAQs = [
 
           <!-- CTA Buttons -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <button
+            <Button
+              variant="primary"
               id="print-btn"
-              class="px-6 py-3 bg-accent-green text-black dark:text-white font-semibold rounded-lg hover:bg-accent-green/90 transition-colors flex items-center justify-center min-h-[44px] touch-manipulation"
+              class="flex items-center justify-center"
             >
               <Icon name="mdi:file-document" class="w-5 h-5 mr-2" />
               {maturityCalculatorContent.results.printResults}
-            </button>
-            <a
+            </Button>
+            <Button
+              variant="secondary"
               href={`${base}contact/`}
-              class="px-6 py-3 bg-surface text-primary font-semibold rounded-lg hover:bg-surface/80 transition-colors flex items-center justify-center min-h-[44px] touch-manipulation border border-theme"
+              class="flex items-center justify-center"
             >
               {maturityCalculatorContent.results.contactUs} →
-            </a>
+            </Button>
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ import ServiceGrid from "../../components/sections/services/ServiceGrid.astro";
 import BusinessImpact from "../../components/sections/services/BusinessImpact.astro";
 import { services } from "../../data/collections/services";
 import { servicesPageContent } from "../../data/content/services";
+import Button from "../../components/ui/Button.astro";
 import { Icon } from "astro-icon/components";
 
 const base = import.meta.env.BASE_URL;
@@ -533,20 +534,23 @@ const servicesFAQs = [
           </div>
           
           <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-4">
-            <a
+            <Button
+              variant="primary"
+              size="md"
               href={`${base}${servicesPageContent.cta.primaryCta.href}`}
-              class="px-6 sm:px-8 py-3 sm:py-4 bg-accent-green text-black dark:text-white font-bold rounded-lg hover:bg-accent-green/90 transition-all inline-flex items-center justify-center hover:shadow-lg hover:shadow-accent-green/30 min-h-[44px] min-w-[44px] animate-pulse hover:animate-none"
+              class="animate-pulse hover:animate-none"
             >
               {servicesPageContent.cta.primaryCta.text}
               <Icon name="mdi:arrow-right" class="w-5 h-5 ml-2" />
-            </a>
-            <a
+            </Button>
+            <Button
+              variant="secondary"
+              size="md"
               href={`${base}${servicesPageContent.cta.secondaryCta.href}`}
-              class="px-6 sm:px-8 py-3 sm:py-4 bg-surface text-primary font-bold rounded-lg hover:bg-surface/80 transition-colors inline-flex items-center justify-center min-h-[44px] min-w-[44px] border border-theme"
             >
               {servicesPageContent.cta.secondaryCta.text}
               <Icon name="mdi:calculator" class="w-5 h-5 ml-2" />
-            </a>
+            </Button>
           </div>
           
           <!-- Trust Badge -->

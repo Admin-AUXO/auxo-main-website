@@ -7,6 +7,7 @@ import { siteData } from "../data/config/site";
 import HeroSection from "../components/sections/home/HeroSection.astro";
 import MaturityCalculatorSection from "../components/sections/home/MaturityCalculatorSection.astro";
 import SectionContainer from "../components/layouts/SectionContainer.astro";
+import Button from "../components/ui/Button.astro";
 import { Icon } from "astro-icon/components";
 
 // Styles and Scripts
@@ -39,10 +40,12 @@ import "../styles/homepage.css";
           AUXO Transforms data into decision-grade intelligence through
           Analytics as a Service.
         </p>
-        <a
+        <Button
+          variant="primary"
+          size="lg"
           href={`${import.meta.env.BASE_URL}contact/`}
-          class="group inline-flex items-center gap-3 px-8 py-4 bg-accent-green text-on-accent rounded-xl font-bold hover:bg-accent-green/90 active:bg-accent-green/80 transition-all duration-300 hover:scale-105 active:scale-95 text-base sm:text-lg min-h-[56px] shadow-lg shadow-accent-green/30 hover:shadow-xl hover:shadow-accent-green/40"
-          aria-label="Get Started"
+          ariaLabel="Get Started"
+          class="group"
         >
           <span>Get Started</span>
           <Icon
@@ -50,7 +53,7 @@ import "../styles/homepage.css";
             class="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-300 group-hover:translate-x-1"
             aria-hidden="true"
           />
-        </a>
+        </Button>
       </div>
     </div>
   </SectionContainer>
@@ -70,10 +73,12 @@ import "../styles/homepage.css";
           Where business meets data — delivering secure, compliant, and trusted
           intelligence that drives confident decisions.
         </p>
-        <a
+        <Button
+          variant="outline"
+          size="lg"
           href={`${import.meta.env.BASE_URL}services/`}
-          class="group inline-flex items-center gap-3 px-8 py-4 bg-surface/80 backdrop-blur-sm border-2 border-accent-green text-primary rounded-xl font-semibold hover:border-accent-green/60 hover:bg-accent-green/10 transition-all duration-300 hover:scale-105 active:scale-95 text-base sm:text-lg min-h-[56px] hover:shadow-lg hover:shadow-accent-green/20"
-          aria-label="Check our services"
+          ariaLabel="Check our services"
+          class="group"
         >
           <span>Check our services</span>
           <Icon
@@ -81,7 +86,7 @@ import "../styles/homepage.css";
             class="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-300 group-hover:translate-x-1"
             aria-hidden="true"
           />
-        </a>
+        </Button>
       </div>
     </div>
   </SectionContainer>

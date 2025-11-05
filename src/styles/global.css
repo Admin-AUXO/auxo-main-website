@@ -43,7 +43,7 @@
     --text-tertiary: #808080;     /* Increased from #666666 for better readability */
     --border-color: #333333;      /* Increased from #272727 for better visibility */
     --border-color-light: #404040; /* Increased from #3a3a3a for better visibility */
-    --text-on-accent: #FFFFFF;     /* Use white text on green buttons in dark theme */
+    --text-on-accent: #1a1a1a;     /* Use dark grey text on green buttons in dark theme for better readability */
     
     /* RGB values for backdrop filters */
     --bg-primary-rgb: 0, 0, 0;
@@ -89,7 +89,7 @@
     --text-tertiary: #4B5563;     /* Improved contrast: 7.1:1 on white (WCAG AA) */
     --border-color: #E2E8F0;     /* Slightly darker for better visibility */
     --border-color-light: #CBD5E1; /* Darker for better visibility */
-    --text-on-accent: #000000;     /* Use black text on green buttons in light theme */
+    --text-on-accent: #f5f5f5;     /* Use light grey (near white) text on green buttons in light theme for better readability */
     
     /* RGB values for backdrop filters */
     --bg-primary-rgb: 255, 255, 255;
@@ -651,22 +651,40 @@
     color: var(--text-primary);
   }
   
-  /* CRITICAL: All buttons with accent-green background MUST use theme-aware text */
-  a.bg-accent-green,
-  button.bg-accent-green,
-  .bg-accent-green,
-  .bg-accent-green .button-text-on-accent,
-  .bg-accent-green.button-text-on-accent,
-  a[class*="bg-accent-green"],
-  button[class*="bg-accent-green"] {
-    color: var(--text-on-accent) !important;
+  /* CRITICAL: All buttons with accent-green background use theme-aware text */
+  /* Default to text-on-accent only when no explicit text color class is present */
+  a.bg-accent-green:not(.text-black):not(.text-white):not(.text-primary):not(.text-secondary):not(.text-on-accent):not([class*="text-accent"]),
+  button.bg-accent-green:not(.text-black):not(.text-white):not(.text-primary):not(.text-secondary):not(.text-on-accent):not([class*="text-accent"]),
+  .bg-accent-green:not(.text-black):not(.text-white):not(.text-primary):not(.text-secondary):not(.text-on-accent):not([class*="text-accent"]) {
+    color: var(--text-on-accent);
   }
   
-  /* Ensure all text inside green buttons is readable */
-  .bg-accent-green *:not(.icon),
-  a.bg-accent-green *:not(.icon),
-  button.bg-accent-green *:not(.icon) {
-    color: var(--text-on-accent) !important;
+  /* Ensure all text inside green buttons inherits properly (but allow explicit overrides) */
+  .bg-accent-green:not(.text-black):not(.text-white) *:not(.icon):not(.text-accent-green):not(.text-primary):not(.text-secondary),
+  a.bg-accent-green:not(.text-black):not(.text-white) *:not(.icon):not(.text-accent-green):not(.text-primary):not(.text-secondary),
+  button.bg-accent-green:not(.text-black):not(.text-white) *:not(.icon):not(.text-accent-green):not(.text-primary):not(.text-secondary) {
+    color: inherit;
+  }
+  
+  /* Exception: Buttons with text-black dark:text-white pattern - respect theme */
+  /* In dark theme, use white; in light theme, use black */
+  :root.dark .bg-accent-green.text-black,
+  :root.dark a.bg-accent-green.text-black,
+  :root.dark button.bg-accent-green.text-black {
+    color: #ffffff !important;
+  }
+  
+  :root.light .bg-accent-green.text-black,
+  :root.light a.bg-accent-green.text-black,
+  :root.light button.bg-accent-green.text-black {
+    color: #000000 !important;
+  }
+  
+  /* Buttons explicitly using text-white should stay white */
+  .bg-accent-green.text-white,
+  a.bg-accent-green.text-white,
+  button.bg-accent-green.text-white {
+    color: #ffffff !important;
   }
   
   /* Add green accent borders to important boxes on hover - Theme-aware */

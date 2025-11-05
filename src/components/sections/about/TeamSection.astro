@@ -49,7 +49,7 @@ const { team: teamMembers, content } = Astro.props;
             <div class="mb-3 sm:mb-4">
               <div class="flex flex-wrap gap-1.5 justify-center">
                 {member.expertise.slice(0, 3).map((skill) => (
-                  <span class="px-2 py-1 bg-accent-green/10 border border-accent-green/20 rounded-full text-xs text-accent-green font-medium transition-colors group-hover:bg-accent-green/20">
+                  <span class="px-2 py-1 bg-accent-green/10 border border-accent-green rounded-full text-xs text-accent-green font-medium transition-colors group-hover:bg-accent-green/20">
                     {skill}
                   </span>
                 ))}

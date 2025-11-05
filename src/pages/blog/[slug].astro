@@ -269,7 +269,7 @@ const contextualCTA = getContextualCTA();
           post.data.tags && post.data.tags.length > 0 && (
             <div class="flex flex-wrap gap-2 mb-4 sm:mb-6">
               {post.data.tags.map((tag: string) => (
-                <span class="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-accent-green/10 text-accent-green transition-colors text-xs sm:text-sm rounded-full border border-accent-green/20 font-medium">
+                <span class="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-accent-green/10 text-accent-green transition-colors text-xs sm:text-sm rounded-full border border-accent-green font-medium">
                   #{tag}
                 </span>
               ))}
@@ -373,8 +373,8 @@ const contextualCTA = getContextualCTA();
           prose-li:my-2 prose-li:text-sm sm:prose-li:text-base prose-li:leading-relaxed
           prose-li::marker:text-primary
           prose-code:text-primary prose-code:bg-card/80 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-xs sm:prose-code:text-sm prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
-          prose-pre:bg-card prose-pre:border prose-pre:border-theme prose-pre:rounded-xl prose-pre:shadow-lg prose-pre:text-xs sm:prose-pre:text-sm prose-pre:overflow-x-auto
-          prose-pre code:text-secondary prose-pre code:bg-transparent prose-pre code:p-0
+          prose-pre:bg-card prose-pre:border prose-pre:border-theme prose-pre:rounded-xl prose-pre:shadow-lg prose-pre:text-xs sm:prose-pre:text-sm prose-pre:overflow-x-auto prose-pre:text-primary
+          prose-pre code:text-primary prose-pre code:bg-transparent prose-pre code:p-0
           prose-blockquote:border-l-4 prose-blockquote:border-accent-green prose-blockquote:bg-accent-green/5 prose-blockquote:pl-4 sm:prose-blockquote:pl-6 prose-blockquote:pr-4 sm:prose-blockquote:pr-6 prose-blockquote:py-4 prose-blockquote:my-6 sm:prose-blockquote:my-8 prose-blockquote:rounded-r-lg prose-blockquote:not-italic
           prose-blockquote p:text-secondary prose-blockquote p:mb-0
           prose-img:rounded-xl prose-img:border prose-img:border-theme prose-img:my-6 sm:prose-img:my-8 prose-img:shadow-xl prose-img:w-full prose-img:h-auto
@@ -583,9 +583,9 @@ const contextualCTA = getContextualCTA();
                 Continue reading with these related articles
               </p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 blog-posts-container">
               {relatedPosts.map((relatedPost) => (
-                <div class="blog-related-post">
+                <div class="blog-related-post blog-post-item" data-categories={JSON.stringify(relatedPost.data.tags || [])}>
                   <BlogPostCard post={relatedPost} featured={false} />
                 </div>
               ))}
@@ -685,62 +685,34 @@ const contextualCTA = getContextualCTA();
 </BaseLayout>
 
 <style>
-  /* Enhanced code block styling - Following Astro/Shiki best practices */
-  /* Shiki outputs .astro-code class with inline styles */
-  .prose pre.astro-code,
-  .prose pre[class*="astro-code"] {
-    background: var(--bg-card) !important;
-    border: none !important;
+  /* Code block base styling */
+  .prose pre {
     padding: 1rem 1.25rem;
     margin: 0 !important;
     overflow-x: auto;
-    position: relative;
     border-radius: 0;
-    /* Preserve Shiki's inline styles for syntax highlighting */
   }
 
-  /* Fallback for non-Shiki code blocks */
+  /* Code element styling */
+  .prose pre code {
+    background: transparent !important;
+    padding: 0 !important;
+    font-size: 0.875rem;
+    line-height: 1.75;
+    display: block;
+    width: 100%;
+  }
+
+  /* Non-Shiki code blocks (fallback) */
   .prose pre:not(.astro-code):not([class*="astro-code"]) {
     background: var(--bg-card) !important;
-    border: none !important;
-    padding: 1rem 1.25rem;
-    margin: 0 !important;
-    overflow-x: auto;
-    position: relative;
-    border-radius: 0;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 0.5rem;
+    color: var(--text-primary) !important;
   }
 
-  /* Code element inside Shiki blocks */
-  .prose pre.astro-code code,
-  .prose pre[class*="astro-code"] code {
-    background: transparent !important;
-    padding: 0 !important;
-    border-radius: 0;
-    font-size: 0.875rem;
-    line-height: 1.75;
-    display: block;
-    width: 100%;
-    /* Don't override Shiki's inline color styles */
-  }
-
-  /* Fallback for non-Shiki code */
-  .prose pre:not(.astro-code) code {
-    background: transparent !important;
-    padding: 0 !important;
-    border-radius: 0;
-    font-size: 0.875rem;
-    line-height: 1.75;
-    color: var(--text-secondary) !important;
-    display: block;
-    width: 100%;
-  }
-
-  /* Plaintext code blocks - Theme-aware */
-  .prose pre code[class="language-plaintext"],
-  .prose pre code[class*="plaintext"] {
-    color: var(--text-secondary) !important;
-    white-space: pre-wrap;
-    word-wrap: break-word;
+  .prose pre:not(.astro-code):not([class*="astro-code"]) * {
+    color: var(--text-primary) !important;
   }
 
   /* Responsive tables */
@@ -832,43 +804,6 @@ const contextualCTA = getContextualCTA();
     margin-right: auto;
   }
 
-  /* Shiki theme adjustments - Work with .astro-code class */
-  /* Following Astro documentation: Use .astro-code instead of .shiki */
-  /* Shiki outputs inline styles with CSS variables for light/dark mode */
-  .prose pre.astro-code,
-  .prose pre[class*="astro-code"] {
-    /* Shiki handles colors via inline styles, we just ensure container styling */
-  }
-
-  /* Support for Shiki's dual theme CSS variables (light/dark mode) */
-  /* Reference: https://docs.astro.build/en/guides/syntax-highlighting/ */
-  @media (prefers-color-scheme: dark) {
-    .prose .astro-code,
-    .prose .astro-code span {
-      color: var(--shiki-dark) !important;
-      background-color: var(--shiki-dark-bg) !important;
-      font-style: var(--shiki-dark-font-style) !important;
-      font-weight: var(--shiki-dark-font-weight) !important;
-      text-decoration: var(--shiki-dark-text-decoration) !important;
-    }
-  }
-
-  @media (prefers-color-scheme: light) {
-    .prose .astro-code,
-    .prose .astro-code span {
-      color: var(--shiki-light) !important;
-      background-color: var(--shiki-light-bg) !important;
-      font-style: var(--shiki-light-font-style) !important;
-      font-weight: var(--shiki-light-font-weight) !important;
-      text-decoration: var(--shiki-light-text-decoration) !important;
-    }
-  }
-
-  /* Ensure code blocks maintain proper contrast in both themes */
-  .code-block-wrapper pre.astro-code,
-  .code-block-wrapper pre[class*="astro-code"] {
-    /* Shiki's inline styles are preserved, we just add container */
-  }
 
   /* Ensure proper text selection - Theme-aware */
   .prose *::selection {
@@ -879,16 +814,6 @@ const contextualCTA = getContextualCTA();
   .prose h2,
   .prose h3 {
     scroll-margin-top: 5rem;
-  }
-
-  /* Code block wrapper - improved implementation following Astro/Shiki best practices */
-  /* Shiki outputs .astro-code class - we wrap it without breaking inline styles */
-  .prose pre.astro-code,
-  .prose pre[class*="astro-code"],
-  .prose pre:not(.astro-code):not([class*="astro-code"]) {
-    position: relative;
-    overflow: hidden;
-    margin: 0 !important;
   }
 
   /* Code block wrapper with header */
@@ -1011,21 +936,10 @@ const contextualCTA = getContextualCTA();
     letter-spacing: 0.025em;
   }
 
-  /* Ensure code blocks inside wrapper maintain proper styling */
-  /* Preserve Shiki's inline styles while adding container */
-  .code-block-wrapper pre.astro-code,
-  .code-block-wrapper pre[class*="astro-code"],
+  /* Code blocks inside wrapper */
   .code-block-wrapper pre {
     border-radius: 0;
     margin: 0;
-    /* Shiki's inline color styles are preserved automatically */
-  }
-
-  /* Ensure Shiki's syntax highlighting works inside wrapper */
-  .code-block-wrapper .astro-code,
-  .code-block-wrapper [class*="astro-code"] {
-    /* Shiki handles all color styling via inline styles */
-    /* We just provide the container structure */
   }
 
   /* TOC expandable sections */

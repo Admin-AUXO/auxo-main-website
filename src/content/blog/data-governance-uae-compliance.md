@@ -55,7 +55,7 @@ At AUXO Data Labs, we've helped dozens of organizations across the UAE—from st
 
 ### 5 Pillars of Data Governance
 
-```plaintext
+```python
 ┌────────────────────────────────────────────────────────┐
 │                  DATA GOVERNANCE                        │
 ├────────────────────────────────────────────────────────┤
@@ -100,7 +100,7 @@ Let's explore each pillar in detail.
 
 **1. Data Classification Policy**
 
-```plaintext
+```python
 ┌──────────────┬──────────────┬────────────────────────┐
 │ Level        │ Examples     │ Controls               │
 ├──────────────┼──────────────┼────────────────────────┤
@@ -162,7 +162,7 @@ GRANT ALL ON DATABASE analytics_db TO ROLE executive;
 | Employee data | Active + 5 years | 2 years | 7 years post-employment |
 
 **Automated retention:**
-```python
+```
 # Automated data deletion job
 from datetime import datetime, timedelta
 
@@ -303,7 +303,7 @@ models:
 **1. Encryption**
 
 **At rest:**
-```python
+```
 # Snowflake: Automatic encryption at rest
 # No configuration needed - enabled by default
 
@@ -407,7 +407,7 @@ ORDER BY start_time DESC;
 
 **Example: Privacy-first customer 360 view**
 
-```python
+```
 # Customer data request handler
 class CustomerDataHandler:
     def get_customer_profile(self, customer_id, requestor_role):
@@ -545,7 +545,7 @@ Related Terms:
 
 **Automated archival:**
 
-```python
+```
 # Archive old data to cold storage
 import boto3
 from datetime import datetime, timedelta
@@ -586,7 +586,7 @@ def archive_old_transactions():
 
 **Right to be Forgotten (GDPR Article 17 / UAE PDPL):**
 
-```python
+```
 # Customer data deletion handler
 def process_deletion_request(customer_id, request_id):
     # 1. Verify request legitimacy

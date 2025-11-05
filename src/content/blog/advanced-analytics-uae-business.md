@@ -19,9 +19,9 @@ This comprehensive guide covers the advanced analytics techniques every data-dri
 
 **The Analytics Maturity Curve:**
 
-```plaintext
-Descriptive → Diagnostic → Predictive → Prescriptive
-(What happened?) (Why?) (What will happen?) (What should we do?)
+```python
+# Descriptive → Diagnostic → Predictive → Prescriptive
+# (What happened?) (Why?) (What will happen?) (What should we do?)
 ```
 
 **Descriptive Analytics (Basic BI):**
@@ -383,11 +383,12 @@ print(retention_matrix.round(1))
 
 **Example output:**
 
-```plaintext
-Cohort      Month 0  Month 1  Month 2  Month 3  Month 6  Month 12
-2024-01     100.0    45.2     28.5     22.1     15.3     10.8
-2024-02     100.0    48.1     31.2     24.5     17.2     12.1
-2024-03     100.0    52.3     35.8     28.9     20.1     14.5  ⬆ Improving!
+```python
+# Retention Rate by Cohort (%)
+# Cohort      Month 0  Month 1  Month 2  Month 3  Month 6  Month 12
+# 2024-01     100.0    45.2     28.5     22.1     15.3     10.8
+# 2024-02     100.0    48.1     31.2     24.5     17.2     12.1
+# 2024-03     100.0    52.3     35.8     28.9     20.1     14.5  ⬆ Improving!
 ```
 
 **Insights:**
@@ -594,35 +595,35 @@ print(f"\nEstimated monthly revenue impact: AED {monthly_revenue_lift:,.0f}")
 
 **1. Last-Touch Attribution (Simple but flawed)**
 
-```plaintext
-Facebook → Google → Website → Email → Google (purchase)
-Credit: 100% to Google ❌
+```python
+# Customer journey: Facebook → Google → Website → Email → Google (purchase)
+# Credit: 100% to Google ❌
 ```
 
 **Problem:** Ignores all touchpoints except last one
 
 **2. First-Touch Attribution**
 
-```plaintext
-Facebook → Google → Website → Email → Google
-Credit: 100% to Facebook ❌
+```python
+# Customer journey: Facebook → Google → Website → Email → Google
+# Credit: 100% to Facebook ❌
 ```
 
 **Problem:** Ignores nurturing channels
 
 **3. Linear Attribution**
 
-```plaintext
-Facebook → Google → Website → Email → Google
-Credit: 20% each channel
+```python
+# Customer journey: Facebook → Google → Website → Email → Google
+# Credit: 20% each channel
 ```
 
 **Problem:** Treats all touches equally (first ad = last email?)
 
 **4. Time-Decay Attribution**
 
-```plaintext
-Facebook (5%) → Google (10%) → Website (15%) → Email (25%) → Google (45%)
+```python
+# Customer journey: Facebook (5%) → Google (10%) → Website (15%) → Email (25%) → Google (45%)
 ```
 
 **Better:** Recent touches weighted more
@@ -662,12 +663,12 @@ print(coefficients.sort_values('relative_importance', ascending=False))
 
 **Example output:**
 
-```plaintext
-         channel  coefficient  relative_importance
-email      email         1.82                 42%
-facebook   facebook      1.15                 26%
-google     google        0.98                 23%
-direct     direct        0.39                  9%
+```python
+#          channel  coefficient  relative_importance
+# email      email         1.82                 42%
+# facebook   facebook      1.15                 26%
+# google     google        0.98                 23%
+# direct     direct        0.39                  9%
 ```
 
 **Insight:** Email most impactful, direct least
@@ -909,6 +910,7 @@ Low conversion rate despite high traffic. Need data-driven optimization.
 **Phase 2: Personalization (Weeks 5-8)**
 
 **Recommendation Engine:**
+
 ```python
 # Collaborative filtering for product recommendations
 from sklearn.metrics.pairwise import cosine_similarity

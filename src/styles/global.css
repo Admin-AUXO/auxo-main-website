@@ -1134,7 +1134,7 @@
   }
   
   .prose pre code {
-    color: var(--text-secondary);
+    color: var(--text-primary);
   }
   
   .prose ul li::marker,
@@ -1226,7 +1226,7 @@
   /* Code blocks and tables */
   .prose pre {
     background: var(--bg-card);
-    color: var(--text-secondary);
+    color: var(--text-primary);
   }
   
   .prose table {

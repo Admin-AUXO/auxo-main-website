@@ -320,6 +320,8 @@ export function initializeBlogPostScripts(baseUrl: string) {
     initCopyLink();
     initPrint();
     enhanceCodeBlocks();
+    
+    
     initCollapsibleTOC();
     addInlineCTA(baseUrl);
 

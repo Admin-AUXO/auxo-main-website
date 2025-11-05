@@ -37,7 +37,7 @@ const legalPages = legalContent.navigation.pages.map((page) => ({
                   href={page.href}
                   class={`block px-3 py-2 rounded-lg text-sm transition-all min-h-[44px] flex items-center ${
                     page.name === title
-                      ? "bg-accent-green/10 text-accent-green font-semibold border border-accent-green/20"
+                      ? "bg-accent-green/10 text-accent-green font-semibold border border-accent-green"
                       : "text-secondary hover:text-accent-green hover:bg-accent-green/10"
                   }`}
                 >
@@ -88,7 +88,7 @@ const legalPages = legalContent.navigation.pages.map((page) => ({
       <!-- Header -->
       <div class="mb-8">
         <div
-          class="inline-block px-3 py-1 bg-accent-green/10 border border-accent-green/20 rounded-full mb-4 transition-colors"
+          class="inline-block px-3 py-1 bg-accent-green/10 border border-accent-green rounded-full mb-4 transition-colors"
         >
           <span
             class="text-accent-green text-xs font-semibold uppercase tracking-wide transition-colors"

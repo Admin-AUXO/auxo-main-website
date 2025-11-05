@@ -65,43 +65,44 @@ A well-architected data platform delivers:
 
 ### Reference Architecture
 
-```plaintext
-┌─────────────────────────────────────────────────────────────┐
-│                      DATA SOURCES                            │
-├─────────────────────────────────────────────────────────────┤
-│  ERP  │  CRM  │  E-commerce  │  Marketing  │  Databases    │
-└───┬───────┬────────┬────────────┬──────────────┬────────────┘
-    │       │        │            │              │
-    └───────┴────────┴────────────┴──────────────┘
-                     │
-            ┌────────▼────────┐
-            │  INGESTION LAYER │
-            │  (Fivetran/Airbyte) │
-            └────────┬────────┘
-                     │
-            ┌────────▼────────┐
-            │  LANDING ZONE    │
-            │  (Raw Data)      │
-            └────────┬────────┘
-                     │
-            ┌────────▼────────┐
-            │  TRANSFORMATION  │
-            │  (dbt / Spark)   │
-            └────────┬────────┘
-                     │
-            ┌────────▼────────┐
-            │  DATA WAREHOUSE  │
-            │  (Snowflake/     │
-            │   BigQuery/      │
-            │   Databricks)    │
-            └────────┬────────┘
-                     │
-    ┌────────────────┼────────────────┐
-    │                │                │
-┌───▼───┐      ┌────▼────┐     ┌────▼────┐
-│  BI   │      │   ML    │     │  Apps   │
-│ Tools │      │ Models  │     │         │
-└───────┘      └─────────┘     └─────────┘
+```python
+# Reference Architecture Diagram
+# ┌─────────────────────────────────────────────────────────────┐
+# │                      DATA SOURCES                            │
+# ├─────────────────────────────────────────────────────────────┤
+# │  ERP  │  CRM  │  E-commerce  │  Marketing  │  Databases    │
+# └───┬───────┬────────┬────────────┬──────────────┬────────────┘
+#     │       │        │            │              │
+#     └───────┴────────┴────────────┴──────────────┘
+#                      │
+#             ┌────────▼────────┐
+#             │  INGESTION LAYER │
+#             │  (Fivetran/Airbyte) │
+#             └────────┬────────┘
+#                      │
+#             ┌────────▼────────┐
+#             │  LANDING ZONE    │
+#             │  (Raw Data)      │
+#             └────────┬────────┘
+#                      │
+#             ┌────────▼────────┐
+#             │  TRANSFORMATION  │
+#             │  (dbt / Spark)   │
+#             └────────┬────────┘
+#                      │
+#             ┌────────▼────────┐
+#             │  DATA WAREHOUSE  │
+#             │  (Snowflake/     │
+#             │   BigQuery/      │
+#             │   Databricks)    │
+#             └────────┬────────┘
+#                      │
+#     ┌────────────────┼────────────────┐
+#     │                │                │
+# ┌───▼───┐      ┌────▼────┐     ┌────▼────┐
+# │  BI   │      │   ML    │     │  Apps   │
+# │ Tools │      │ Models  │     │         │
+# └───────┘      └─────────┘     └─────────┘
 ```
 
 ### Key Components
@@ -177,8 +178,9 @@ A well-architected data platform delivers:
 
 ### Traditional ETL (Extract-Transform-Load)
 
-```plaintext
-Source → [Transform on server] → Data Warehouse
+```python
+# Traditional ETL Flow
+# Source → [Transform on server] → Data Warehouse
 ```
 
 **Pros:**
@@ -192,8 +194,9 @@ Source → [Transform on server] → Data Warehouse
 
 ### Modern ELT (Extract-Load-Transform)
 
-```plaintext
-Source → Data Warehouse → [Transform in warehouse]
+```python
+# Modern ELT Flow
+# Source → Data Warehouse → [Transform in warehouse]
 ```
 
 **Pros:**
@@ -266,19 +269,19 @@ Source → Data Warehouse → [Transform in warehouse]
 
 **Data Pipeline Design:**
 
-```plaintext
-Daily Batch Jobs (2 AM UAE time):
-├── SAP → S3 → Snowflake (Full refresh nightly)
-├── Shopify → Snowflake (Incremental, CDC)
-├── Salesforce → Snowflake (Incremental, CDC)
-├── QuickBooks → Snowflake (Daily snapshot)
-└── Marketing tools → Snowflake (Daily API pulls)
+```python
+# Daily Batch Jobs (2 AM UAE time):
+# ├── SAP → S3 → Snowflake (Full refresh nightly)
+# ├── Shopify → Snowflake (Incremental, CDC)
+# ├── Salesforce → Snowflake (Incremental, CDC)
+# ├── QuickBooks → Snowflake (Daily snapshot)
+# └── Marketing tools → Snowflake (Daily API pulls)
 
-Hourly Jobs:
-└── POS systems → Snowflake (Incremental, every hour)
+# Hourly Jobs:
+# └── POS systems → Snowflake (Incremental, every hour)
 
-Real-time (Streaming):
-└── E-commerce events → Kinesis → Snowflake (15-min latency)
+# Real-time (Streaming):
+# └── E-commerce events → Kinesis → Snowflake (15-min latency)
 ```
 
 **Data Models (dbt):**
@@ -501,9 +504,10 @@ Generates browsable documentation with lineage graphs showing data flow.
 
 ### Streaming Architecture
 
-```plaintext
-Data Source → Event Bus → Stream Processing → Data Warehouse
-   (App)      (Kafka)    (Spark/Flink)      (Snowflake)
+```python
+# Streaming Architecture Flow
+# Data Source → Event Bus → Stream Processing → Data Warehouse
+#    (App)      (Kafka)    (Spark/Flink)      (Snowflake)
 ```
 
 **Example: E-commerce Fraud Detection**

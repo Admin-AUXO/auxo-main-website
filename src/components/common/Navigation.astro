@@ -48,13 +48,14 @@ const navItems: NavItem[] = [
   class="fixed top-0 left-0 right-0 z-50 bg-primary/98 backdrop-blur-md border-b border-theme transition-all duration-300 shadow-lg nav-scrolled"
 >
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-14 sm:h-16 lg:h-18">
+    <div class="flex items-center justify-between h-14 sm:h-16 lg:h-18 relative">
       <!-- Logo Section -->
       <a 
-        href={`${base}`} 
-        class="flex items-center space-x-2.5 sm:space-x-3 group relative touch-manipulation" 
+        href={`${base}`}
+        class="flex items-center space-x-2.5 sm:space-x-3 group relative touch-manipulation flex-shrink-0 z-10 pointer-events-auto" 
         aria-label="AUXO Data Labs Home"
         data-nav-home
+        onclick="event.stopPropagation(); return true;"
       >
         <div class="relative">
           <svg 
@@ -93,8 +94,8 @@ const navItems: NavItem[] = [
         </div>
       </a>
 
-      <!-- Desktop Navigation -->
-      <div class="hidden lg:flex items-center space-x-5">
+      <!-- Desktop Navigation - Completely hidden on mobile -->
+      <div class="hidden lg:flex items-center space-x-5 pointer-events-auto">
         {navItems.map((item, index) => (
           item.dropdown ? (
             <div class="relative dropdown-container group" data-nav-item={index}>
@@ -202,16 +203,16 @@ const navItems: NavItem[] = [
         </a>
       </div>
 
-      <!-- Mobile Menu Button -->
-      <div class="flex items-center gap-3 lg:hidden">
-        <!-- Theme Toggle - Mobile (enhanced visibility) -->
-        <div class="relative" title="Toggle theme">
+      <!-- Mobile Theme Toggle and Menu Button - Only visible on mobile -->
+      <div class="flex items-center gap-3 lg:hidden flex-shrink-0 z-10 pointer-events-auto">
+        <!-- Mobile Theme Toggle -->
+        <div class="flex items-center justify-center pointer-events-auto">
           <ThemeToggle />
         </div>
         <button 
           type="button"
           id="mobile-menu-button" 
-          class="relative z-50 text-secondary hover:text-primary p-2 min-w-[44px] min-h-[44px] rounded-lg hover:bg-surface active:bg-surface transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-green/50 touch-manipulation" 
+          class="relative z-50 text-secondary hover:text-primary p-2 min-w-[44px] min-h-[44px] rounded-lg hover:bg-surface active:bg-surface transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-green/50 touch-manipulation pointer-events-auto" 
           aria-label="Toggle mobile menu" 
           aria-expanded="false"
         >
@@ -246,10 +247,10 @@ const navItems: NavItem[] = [
   <!-- Mobile Menu -->
   <div 
     id="mobile-menu" 
-    class="lg:hidden fixed inset-x-0 top-16 sm:top-18 bg-card border-t border-theme max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain transform -translate-y-full opacity-0 transition-all duration-300 ease-out shadow-2xl"
+    class="lg:hidden fixed inset-x-0 top-16 sm:top-18 bg-card max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain transform -translate-y-full opacity-0 transition-all duration-300 ease-out shadow-2xl"
     style="touch-action: pan-y; -webkit-overflow-scrolling: touch;"
   >
-    <div class="px-4 sm:px-6 py-6 space-y-3">
+    <div class="px-4 sm:px-6 py-3 space-y-3">
       {navItems.map((item, index) => (
         item.dropdown ? (
           <div class="mobile-dropdown" data-nav-item={index}>
@@ -305,7 +306,7 @@ const navItems: NavItem[] = [
       <!-- Mobile CTA Button - Theme-aware: Black text in dark mode, White text in light mode -->
       <a 
         href={`${base}contact/`} 
-        class="block mt-4 px-6 py-3.5 min-h-[56px] bg-accent-green text-on-accent font-bold rounded-lg active:bg-accent-green/90 transition-colors duration-200 text-center touch-manipulation flex items-center justify-center text-base relative"
+        class="nav-cta-mobile block mt-4 px-6 py-3.5 min-h-[56px] bg-accent-green font-bold rounded-lg active:bg-accent-green/90 transition-colors duration-200 text-center touch-manipulation flex items-center justify-center text-base relative"
         aria-label="Let's Talk - Contact us"
       >
         <span class="text-on-accent">Let's Talk</span>
@@ -530,7 +531,7 @@ const navItems: NavItem[] = [
     return false;
   };
 
-  // Close mobile menu when clicking on any link
+    // Close mobile menu when clicking on any link (but not theme toggle)
   const closeMobileMenu = () => {
     // Re-query elements to handle view transitions
     const currentMenu = document.getElementById('mobile-menu');
@@ -931,6 +932,53 @@ const navItems: NavItem[] = [
     // Don't set openDropdown to null here - let it persist through transition
   });
 
+  // Function to setup logo navigation - ensures it always goes to home
+  const setupLogoNavigation = () => {
+    const logoLink = document.querySelector('[data-nav-home]') as HTMLAnchorElement;
+    if (!logoLink) return;
+    
+    // Ensure href points to home (base URL), never contact
+    const currentHref = logoLink.getAttribute('href') || '';
+    if (currentHref.includes('contact') || !currentHref || currentHref === '#' || currentHref === '') {
+      // Extract base from current path
+      const path = window.location.pathname;
+      const pathParts = path.split('/').filter(p => p);
+      if (pathParts.length > 0 && pathParts[pathParts.length - 1] === 'contact') {
+        pathParts.pop();
+      }
+      logoLink.href = pathParts.length > 0 ? '/' + pathParts.join('/') + '/' : '/';
+    }
+    
+    // Clone and replace to remove old listeners
+    const newLogoLink = logoLink.cloneNode(true) as HTMLAnchorElement;
+    logoLink.parentNode?.replaceChild(newLogoLink, logoLink);
+    
+    // Add click handler
+    newLogoLink.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      
+      // Close mobile menu if open
+      const currentMenu = document.getElementById('mobile-menu');
+      if (currentMenu?.classList.contains('open')) {
+        closeMobileMenu();
+      }
+      
+      // Navigate to home
+      const href = newLogoLink.getAttribute('href') || '/';
+      const finalHref = href.includes('contact') ? '/' : href;
+      
+      // Use Astro navigation if available
+      if ((window as any).astro?.navigate) {
+        (window as any).astro.navigate(finalHref);
+      } else {
+        window.location.href = finalHref;
+      }
+      
+      return false;
+    }, { passive: false });
+  };
+
   // Reinitialize everything after page transition
   document.addEventListener('astro:page-load', () => {
     // Reset transition state after a short delay to allow DOM to settle
@@ -943,35 +991,81 @@ const navItems: NavItem[] = [
     initializeDropdowns();
     updateActiveLinks();
     
-    // Ensure logo navigation works correctly in mobile
-    const logoLink = document.querySelector('[data-nav-home]') as HTMLAnchorElement;
-    if (logoLink) {
-      // Ensure href is set correctly (should already be set from Astro, but verify)
-      const currentHref = logoLink.getAttribute('href');
-      if (!currentHref || currentHref === '#') {
-        // Fallback: get base from any existing nav link
-        const firstNavLink = document.querySelector('.nav-link') as HTMLAnchorElement;
-        if (firstNavLink) {
-          const navHref = firstNavLink.getAttribute('href') || '';
-          const baseMatch = navHref.match(/^(.+?)\/services\/?/);
-          if (baseMatch) {
-            logoLink.href = baseMatch[1] + '/';
-          } else {
-            logoLink.href = '/';
-          }
-        } else {
-          logoLink.href = '/';
-        }
-      }
+    // Setup logo navigation and click prevention after page load
+    setTimeout(() => {
+      setupLogoNavigation();
       
-      logoLink.addEventListener('click', (e) => {
-        // Ensure navigation happens even if menu is open
-        const currentMenu = document.getElementById('mobile-menu');
-        if (currentMenu?.classList.contains('open')) {
-          closeMobileMenu();
+      // Prevent nav container from capturing clicks on mobile (only on mobile viewport)
+      const navContainer = document.querySelector('#main-navigation > div > div');
+      if (navContainer && window.innerWidth < 1024) {
+        // Set pointer-events to none on container, then enable on children
+        (navContainer as HTMLElement).style.pointerEvents = 'none';
+        
+        // Enable pointer events on all interactive children (logo, theme toggle, menu button, any buttons/links)
+        const interactiveElements = navContainer.querySelectorAll('a, button, [data-nav-home], #theme-toggle');
+        interactiveElements.forEach(el => {
+          (el as HTMLElement).style.pointerEvents = 'auto';
+        });
+        
+        // Add comprehensive click handler to prevent any navigation from empty space
+        const handleContainerClick = (e: Event) => {
+          const target = e.target as HTMLElement;
+          
+          // If clicking directly on container (empty space), prevent everything
+          if (target === navContainer) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            return false;
+          }
+          
+          // Check if click is on empty space (not on any interactive element)
+          const isInteractive = target.closest('a, button, [data-nav-home], #theme-toggle');
+          if (!isInteractive) {
+            // Check if click is between logo, theme toggle, and menu button
+            const logo = navContainer.querySelector('[data-nav-home]') as HTMLElement;
+            const themeToggle = navContainer.querySelector('#theme-toggle') as HTMLElement;
+            const menuBtn = navContainer.querySelector('#mobile-menu-button') as HTMLElement;
+            
+            if (logo && menuBtn) {
+              const logoRect = logo.getBoundingClientRect();
+              const menuBtnRect = menuBtn.getBoundingClientRect();
+              const themeToggleRect = themeToggle?.getBoundingClientRect();
+              const clickX = (e as MouseEvent).clientX;
+              const clickY = (e as MouseEvent).clientY;
+              
+              // Calculate the rightmost edge of interactive elements
+              const rightmostInteractive = themeToggleRect 
+                ? Math.max(logoRect.right, themeToggleRect.right)
+                : logoRect.right;
+              
+              // If click is between interactive elements and menu button horizontally and within nav bar height
+              if (clickX > rightmostInteractive && clickX < menuBtnRect.left &&
+                  clickY >= logoRect.top && clickY <= Math.max(logoRect.bottom, menuBtnRect.bottom)) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                return false;
+              }
+            }
+            
+            // For any other non-interactive click, prevent
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+          }
+        };
+        
+        // Remove old handler if exists
+        if ((navContainer as any).__containerClickHandler) {
+          navContainer.removeEventListener('click', (navContainer as any).__containerClickHandler, true);
         }
-      }, { passive: true });
-    }
+        
+        // Use capture phase to catch clicks before they bubble
+        navContainer.addEventListener('click', handleContainerClick, { passive: false, capture: true });
+        (navContainer as any).__containerClickHandler = handleContainerClick;
+      }
+    }, 100);
   });
   
   // Handle theme toggle events to prevent dropdown closing

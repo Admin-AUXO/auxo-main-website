@@ -24,7 +24,7 @@ const legalLinks = [
     <!-- Main Footer Content -->
     <div class="grid gap-8 sm:gap-10 lg:grid-cols-12 mb-8 sm:mb-10">
       <!-- Brand Section (Left) -->
-      <section class="lg:col-span-5 space-y-6">
+      <section class="lg:col-span-5 space-y-4 sm:space-y-6">
         <!-- Logo and Brand Name (Same as Nav) -->
         <a 
           href={`${base}`} 
@@ -58,11 +58,11 @@ const legalLinks = [
             </svg>
             <div class="absolute inset-0 bg-accent-green/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
-          <div class="flex flex-col items-center hidden sm:flex">
-            <span class="text-primary text-lg sm:text-xl lg:text-2xl font-extrabold tracking-tight leading-tight transition-colors text-center" style="font-family: var(--font-display);">
+          <div class="flex flex-col items-center sm:items-start">
+            <span class="text-primary text-lg sm:text-xl lg:text-2xl font-extrabold tracking-tight leading-tight transition-colors text-center sm:text-left" style="font-family: var(--font-display);">
               Data Labs
             </span>
-            <span class="text-accent-green text-xs sm:text-sm font-semibold italic leading-tight transition-colors text-center" style="font-family: var(--font-display);">
+            <span class="text-accent-green text-xs sm:text-sm font-semibold italic leading-tight transition-colors text-center sm:text-left" style="font-family: var(--font-display);">
               Look Beyond Data
             </span>
           </div>
@@ -138,7 +138,7 @@ const legalLinks = [
 
       <!-- Navigation Links (Right) -->
       <section
-        class="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8"
+        class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-6 sm:mt-0"
       >
         <!-- Learn Section -->
         <div class="space-y-3 sm:space-y-4">

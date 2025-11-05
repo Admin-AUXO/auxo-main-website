@@ -1031,6 +1031,41 @@
   :root.light .nav-cta .text-on-accent {
     color: #FFFFFF !important;
   }
+
+  /* Mobile CTA button - same styling as desktop */
+  .nav-cta-mobile {
+    background-color: var(--accent-green);
+    color: var(--text-on-accent);
+  }
+
+  .nav-cta-mobile:hover {
+    background-color: var(--accent-green);
+    opacity: 0.9;
+    color: var(--text-on-accent);
+  }
+
+  /* Dark theme - black text on green button */
+  :root.dark .nav-cta-mobile,
+  :root:not(.light) .nav-cta-mobile {
+    color: #000000 !important;
+  }
+
+  :root.dark .nav-cta-mobile span,
+  :root:not(.light) .nav-cta-mobile span,
+  :root.dark .nav-cta-mobile .text-on-accent,
+  :root:not(.light) .nav-cta-mobile .text-on-accent {
+    color: #000000 !important;
+  }
+
+  /* Light theme - white text on green button */
+  :root.light .nav-cta-mobile {
+    color: #FFFFFF !important;
+  }
+
+  :root.light .nav-cta-mobile span,
+  :root.light .nav-cta-mobile .text-on-accent {
+    color: #FFFFFF !important;
+  }
   
   /* Green button text colors */
   .bg-accent-green:not([class*="text-"]) {

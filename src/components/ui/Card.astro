@@ -1,0 +1,98 @@
+---
+/**
+ * Card Component
+ * 
+ * Reusable card component with theme-aware styling and interactive states.
+ * Supports hover effects and optional accent borders.
+ * 
+ * @example
+ * <Card>Content here</Card>
+ * <Card interactive hoverEffect>Interactive card</Card>
+ * <Card accentBorder>Accent bordered card</Card>
+ */
+
+export interface Props {
+  interactive?: boolean;
+  hoverEffect?: boolean;
+  accentBorder?: boolean;
+  padding?: 'sm' | 'md' | 'lg' | 'xl';
+  class?: string;
+}
+
+const {
+  interactive = false,
+  hoverEffect = false,
+  accentBorder = false,
+  padding = 'md',
+  class: className = '',
+} = Astro.props;
+
+const paddingClasses = {
+  sm: 'p-4',
+  md: 'p-6 sm:p-8',
+  lg: 'p-8 sm:p-10',
+  xl: 'p-10 sm:p-12',
+};
+
+const baseClasses = `
+  bg-card border border-theme rounded-xl
+  transition-all duration-200
+  ${paddingClasses[padding]}
+  ${interactive ? 'cursor-pointer' : ''}
+  ${hoverEffect ? 'box-hover' : ''}
+  ${accentBorder ? 'box-accent-border' : ''}
+  ${className}
+`;
+---
+
+<div class={baseClasses}>
+  <slot />
+</div>
+
+<style>
+  /* ============================================
+     CARD COMPONENT STYLES
+     Theme-aware card with hover and interaction states
+     ============================================ */
+
+  /* Base card styling */
+  .bg-card {
+    background-color: var(--box-bg-default);
+    border-color: var(--box-border-default);
+    box-shadow: var(--box-shadow-default);
+    position: relative;
+    contain: layout style paint;
+  }
+
+  /* Hover effect */
+  .box-hover:hover {
+    background-color: var(--box-bg-hover);
+    border-color: var(--box-border-hover);
+    box-shadow: var(--box-shadow-hover);
+    transform: translateY(-2px);
+  }
+
+  /* Accent border variant */
+  .box-accent-border {
+    border-width: 2px;
+    border-color: rgba(var(--accent-green-rgb), 0.3);
+  }
+
+  .box-accent-border:hover {
+    border-color: rgba(var(--accent-green-rgb), 0.6);
+  }
+
+  /* Smooth transitions */
+  .bg-card {
+    transition: background-color var(--duration-fast) var(--timing-smooth),
+                border-color var(--duration-fast) var(--timing-smooth),
+                box-shadow var(--duration-fast) var(--timing-smooth),
+                transform var(--duration-fast) var(--timing-smooth);
+  }
+
+  /* Ensure text remains readable */
+  .bg-card * {
+    color: inherit;
+  }
+</style>
+

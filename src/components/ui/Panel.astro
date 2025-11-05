@@ -1,0 +1,61 @@
+---
+/**
+ * Panel Component
+ *
+ * Reusable panel component with elevated surface styling.
+ * Used for sections, sidebars, or content areas.
+ *
+ * @example
+ * <Panel>Panel content</Panel>
+ * <Panel elevated>Elevated panel</Panel>
+ */
+
+export interface Props {
+    elevated?: boolean;
+    padding?: "sm" | "md" | "lg" | "xl";
+    class?: string;
+}
+
+const { elevated = false, padding = "md", class: className = "" } = Astro.props;
+
+const paddingClasses = {
+    sm: "p-4",
+    md: "p-6 sm:p-8",
+    lg: "p-8 sm:p-10",
+    xl: "p-10 sm:p-12",
+};
+
+const baseClasses = `
+  bg-surface rounded-lg border border-theme
+  transition-colors duration-200
+  ${elevated ? "bg-elevated shadow-lg" : ""}
+  ${paddingClasses[padding]}
+  ${className}
+`;
+---
+
+<div class={baseClasses}>
+    <slot />
+</div>
+
+<style>
+    /* ============================================
+     PANEL COMPONENT STYLES
+     Theme-aware panel with elevated option
+     ============================================ */
+
+    .bg-surface {
+        background-color: var(--bg-surface);
+        border-color: var(--box-border-default);
+    }
+
+    .bg-elevated {
+        background-color: var(--bg-elevated);
+    }
+
+    /* Ensure text remains readable */
+    .bg-surface *,
+    .bg-elevated * {
+        color: inherit;
+    }
+</style>

@@ -1,0 +1,125 @@
+---
+/**
+ * Callout Component
+ *
+ * Reusable callout component for highlights, warnings, or important information.
+ * Supports different variants: info, warning, success, error.
+ *
+ * @example
+ * <Callout variant="info">Information callout</Callout>
+ * <Callout variant="warning">Warning callout</Callout>
+ */
+
+export interface Props {
+    variant?: "info" | "warning" | "success" | "error" | "default";
+    padding?: "sm" | "md" | "lg";
+    class?: string;
+}
+
+const {
+    variant = "default",
+    padding = "md",
+    class: className = "",
+} = Astro.props;
+
+const paddingClasses = {
+    sm: "p-4",
+    md: "p-5 sm:p-6",
+    lg: "p-6 sm:p-8",
+};
+
+const variantClasses = {
+    default: "callout-default",
+    info: "callout-info",
+    warning: "callout-warning",
+    success: "callout-success",
+    error: "callout-error",
+};
+
+const baseClasses = `
+  rounded-xl border-2
+  ${paddingClasses[padding]}
+  ${variantClasses[variant]}
+  ${className}
+`;
+---
+
+<div class={baseClasses}>
+    <slot />
+</div>
+
+<style>
+    /* ============================================
+     CALLOUT COMPONENT STYLES
+     Theme-aware callouts with variant support
+     ============================================ */
+
+    /* Default callout */
+    .callout-default {
+        background-color: rgba(
+            var(--accent-green-rgb),
+            var(--accent-green-opacity-1)
+        );
+        border-color: rgba(
+            var(--accent-green-rgb),
+            var(--accent-green-opacity-3)
+        );
+        color: var(--text-primary);
+    }
+
+    /* Info callout */
+    .callout-info {
+        background-color: rgba(59, 130, 246, 0.1);
+        border-color: rgba(59, 130, 246, 0.3);
+        color: var(--text-primary);
+    }
+
+    /* Warning callout */
+    .callout-warning {
+        background-color: rgba(251, 191, 36, 0.1);
+        border-color: rgba(251, 191, 36, 0.3);
+        color: var(--text-primary);
+    }
+
+    /* Success callout */
+    .callout-success {
+        background-color: rgba(
+            var(--accent-green-rgb),
+            var(--accent-green-opacity-1)
+        );
+        border-color: rgba(
+            var(--accent-green-rgb),
+            var(--accent-green-opacity-3)
+        );
+        color: var(--text-primary);
+    }
+
+    /* Error callout */
+    .callout-error {
+        background-color: rgba(var(--accent-red-rgb), 0.1);
+        border-color: rgba(var(--accent-red-rgb), 0.3);
+        color: var(--text-primary);
+    }
+
+    /* Theme-aware adjustments for light theme */
+    :root.light .callout-info {
+        background-color: rgba(59, 130, 246, 0.05);
+    }
+
+    :root.light .callout-warning {
+        background-color: rgba(251, 191, 36, 0.05);
+    }
+
+    :root.light .callout-error {
+        background-color: rgba(220, 38, 38, 0.05);
+    }
+
+    /* Ensure text remains readable */
+    .callout-default *,
+    .callout-info *,
+    .callout-warning *,
+    .callout-success *,
+    .callout-error * {
+        color: inherit;
+    }
+</style>

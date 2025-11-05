@@ -20,13 +20,19 @@ const base = import.meta.env.BASE_URL;
   >
     <div class="w-full max-w-6xl mx-auto text-center">
       <!-- New in Dubai Badge with Typing Animation -->
-      {content.badge && (
-        <div class="mb-4 sm:mb-6 animate-fade-in -mt-4 sm:-mt-6">
-          <div class="typing-badge typing-enhanced">
-            <span id="typing-text" class="text-xs sm:text-sm font-bold text-accent-green tracking-wider uppercase" style="font-family: var(--font-body);"></span>
+      {
+        content.badge && (
+          <div class="mb-4 sm:mb-6 animate-fade-in -mt-4 sm:-mt-6">
+            <div class="typing-badge typing-enhanced">
+              <span
+                id="typing-text"
+                class="text-xs sm:text-sm font-bold text-accent-green tracking-wider uppercase"
+                style="font-family: var(--font-body);"
+              />
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
 
       <!-- Logo Animation Container -->
       <div class="mb-6 sm:mb-8">
@@ -69,46 +75,64 @@ const base = import.meta.env.BASE_URL;
           style="font-family: var(--font-display);"
         >
           <span class="block">{content.title}</span>
-          <span class="block text-accent-green mt-1">{content.titleHighlight}</span>
+          <span class="block text-accent-green mt-1"
+            >{content.titleHighlight}</span
+          >
         </h2>
       </div>
 
       <!-- CTA Buttons -->
-      <div class="hero-cta mb-4 sm:mb-6 animate-fade-in" style="animation-delay: 0.8s;">
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-          {content.primaryCta.text && (
-            <Button
-              variant="primary"
-              size="md"
-              href={`${base}${content.primaryCta.href}/`}
-              class="w-full sm:w-auto font-bold shadow-lg shadow-accent-green/20"
-            >
-              {content.primaryCta.text}
-              <Icon name="mdi:arrow-right" class="w-5 h-5" />
-            </Button>
-          )}
-          {content.secondaryCta.text && (
-            <Button
-              variant="outline"
-              size="md"
-              href={`${base}${content.secondaryCta.href}/`}
-              class="w-full sm:w-auto font-bold"
-            >
-              {content.secondaryCta.text}
-              <Icon name="mdi:chart-line" class="w-5 h-5" />
-            </Button>
-          )}
+      <div
+        class="hero-cta mb-4 sm:mb-6 animate-fade-in"
+        style="animation-delay: 0.8s;"
+      >
+        <div
+          class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
+        >
+          {
+            content.primaryCta.text && (
+              <Button
+                variant="primary"
+                size="md"
+                href={`${base}${content.primaryCta.href}/`}
+                class="w-full sm:w-auto font-bold shadow-lg shadow-accent-green/20"
+              >
+                {content.primaryCta.text}
+                <Icon name="mdi:arrow-right" class="w-5 h-5" />
+              </Button>
+            )
+          }
+          {
+            content.secondaryCta.text && (
+              <Button
+                variant="outline"
+                size="md"
+                href={`${base}${content.secondaryCta.href}/`}
+                class="w-full sm:w-auto font-bold"
+              >
+                {content.secondaryCta.text}
+                <Icon name="mdi:chart-line" class="w-5 h-5" />
+              </Button>
+            )
+          }
         </div>
       </div>
 
       <!-- Scroll Indicator -->
-      <div class="relative z-10 flex flex-col items-center animate-fade-in mt-8 sm:mt-12" style="animation-delay: 1.2s;">
+      <div
+        class="relative z-10 flex flex-col items-center animate-fade-in mt-8 sm:mt-12"
+        style="animation-delay: 1.2s;"
+      >
         <a
           href="#services"
           class="flex flex-col items-center text-secondary hover:text-accent-green transition-colors group"
           aria-label={content.scrollIndicator}
         >
-          <span class="text-xs mb-1 font-medium uppercase tracking-wider" style="font-family: var(--font-body);">{content.scrollIndicator}</span>
+          <span
+            class="text-xs mb-1 font-medium uppercase tracking-wider"
+            style="font-family: var(--font-body);"
+            >{content.scrollIndicator}</span
+          >
           <div class="animate-bounce">
             <Icon
               name="mdi:chevron-down"
@@ -122,41 +146,140 @@ const base = import.meta.env.BASE_URL;
 </section>
 
 <script>
-  // Typing animation for "New in Dubai" badge
-  (function initTypingAnimation() {
-    const typingText = document.getElementById('typing-text');
+  // Typing animation for "HELLO WORLD!" badge with looping support
+  let typingAnimationTimer: ReturnType<typeof setTimeout> | null = null;
+  let typingCharIndex = 0;
+  let typingIsDeleting = false;
+
+  function initTypingAnimation() {
+    // Clear any existing animation
+    if (typingAnimationTimer) {
+      clearTimeout(typingAnimationTimer);
+      typingAnimationTimer = null;
+    }
+
+    const typingText = document.getElementById("typing-text");
     if (!typingText) return;
 
-    const text = 'HELLO WORLD!';
-    let charIndex = 0;
-    let isDeleting = false;
-    let typingSpeed = 100; // ms per character
+    const text = "HELLO WORLD!";
+    typingCharIndex = 0;
+    typingIsDeleting = false;
+    const typingSpeed = 100; // ms per character
 
     function type() {
-      if (!typingText) return;
-      const currentText = text.substring(0, charIndex);
-      typingText.textContent = currentText;
+      const currentTypingText = document.getElementById("typing-text");
+      if (!currentTypingText) return;
 
-      if (!isDeleting && charIndex < text.length) {
-        charIndex++;
-        setTimeout(type, typingSpeed);
-      } else if (isDeleting && charIndex > 0) {
-        charIndex--;
-        setTimeout(type, typingSpeed / 2);
-      } else if (charIndex === text.length) {
+      const currentText = text.substring(0, typingCharIndex);
+      currentTypingText.textContent = currentText;
+
+      if (!typingIsDeleting && typingCharIndex < text.length) {
+        typingCharIndex++;
+        typingAnimationTimer = setTimeout(type, typingSpeed);
+      } else if (typingIsDeleting && typingCharIndex > 0) {
+        typingCharIndex--;
+        typingAnimationTimer = setTimeout(type, typingSpeed / 2);
+      } else if (typingCharIndex === text.length) {
         // Wait before deleting
-        setTimeout(() => {
-          isDeleting = true;
+        typingAnimationTimer = setTimeout(() => {
+          typingIsDeleting = true;
           type();
         }, 2000);
-      } else if (charIndex === 0 && isDeleting) {
-        // Wait before typing again
-        isDeleting = false;
-        setTimeout(type, 500);
+      } else if (typingCharIndex === 0 && typingIsDeleting) {
+        // Wait before typing again (loop)
+        typingIsDeleting = false;
+        typingAnimationTimer = setTimeout(type, 500);
       }
     }
 
     // Start typing after a short delay
-    setTimeout(type, 500);
-  })();
+    typingAnimationTimer = setTimeout(type, 500);
+  }
+
+  // Logo animation reset and re-trigger
+  function initLogoAnimation() {
+    const logoTiles = document.querySelectorAll(".logo-tile");
+    if (!logoTiles.length) return;
+
+    // Reset animation by removing and re-adding the animation property
+    logoTiles.forEach((tile, index) => {
+      const tileEl = tile as HTMLElement;
+
+      // Reset to initial animation state
+      tileEl.style.opacity = "0";
+      tileEl.style.transform = "scale(0) rotate(-180deg)";
+      tileEl.style.animation = "none";
+
+      // Force reflow
+      void tileEl.offsetWidth;
+
+      // Re-enable animation with proper delay
+      tileEl.style.animation = "";
+      tileEl.style.opacity = "";
+      tileEl.style.transform = "";
+
+      // Re-apply animation delay via style if needed
+      if (index > 0) {
+        tileEl.style.animationDelay = `${index * 0.1}s`;
+      }
+    });
+
+    // Also reset logo caption and headline animations
+    const logoCaption = document.querySelector(".logo-caption") as HTMLElement;
+    if (logoCaption) {
+      logoCaption.style.opacity = "0";
+      logoCaption.style.transform = "translateY(20px)";
+      logoCaption.style.animation = "none";
+      void logoCaption.offsetWidth;
+      logoCaption.style.animation = "";
+      logoCaption.style.opacity = "";
+      logoCaption.style.transform = "";
+    }
+
+    const heroHeadline = document.querySelector(
+      ".hero-headline",
+    ) as HTMLElement;
+    if (heroHeadline) {
+      heroHeadline.style.opacity = "0";
+      heroHeadline.style.transform = "translateY(30px)";
+      heroHeadline.style.animation = "none";
+      void heroHeadline.offsetWidth;
+      heroHeadline.style.animation = "";
+      heroHeadline.style.opacity = "";
+      heroHeadline.style.transform = "";
+    }
+  }
+
+  // Initialize animations on page load
+  function setupHeroAnimations() {
+    // Check if we're on the home page
+    const heroSection = document.getElementById("hero");
+    if (!heroSection) return;
+
+    initLogoAnimation();
+    initTypingAnimation();
+  }
+
+  // Run on initial load
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupHeroAnimations);
+  } else {
+    setupHeroAnimations();
+  }
+
+  // Re-initialize on Astro view transitions
+  document.addEventListener("astro:page-load", () => {
+    // Small delay to ensure DOM is ready
+    setTimeout(() => {
+      setupHeroAnimations();
+    }, 50);
+  });
+
+  // Cleanup on page swap
+  document.addEventListener("astro:before-swap", () => {
+    if (typingAnimationTimer) {
+      clearTimeout(typingAnimationTimer);
+      typingAnimationTimer = null;
+    }
+  });
 </script>

@@ -1,5 +1,6 @@
 export interface ProcessStep {
   number: number;
+  icon: string;
   title: string;
   description: string;
 }
@@ -43,21 +44,25 @@ export const servicesPageContent: ServicesPageContent = {
     steps: [
       {
         number: 1,
+        icon: 'mdi:magnify',
         title: 'Discovery',
         description: 'Understand your business challenges and data landscape',
       },
       {
         number: 2,
+        icon: 'mdi:lightbulb',
         title: 'Strategy',
         description: 'Design tailored solutions aligned with your goals',
       },
       {
         number: 3,
+        icon: 'mdi:cogs',
         title: 'Implementation',
         description: 'Build and deploy robust analytics solutions',
       },
       {
         number: 4,
+        icon: 'mdi:trending-up',
         title: 'Support',
         description: 'Ongoing optimization and knowledge transfer',
       },

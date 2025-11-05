@@ -12,7 +12,9 @@ const base = import.meta.env.BASE_URL;
     <div class="mb-8">
       <div class="flex justify-between items-center mb-2">
         <span class="text-sm font-medium text-primary transition-colors">
-          <span id="current-step-name">Basic Information</span> - Step <span id="current-step-num">1</span> of 4
+          <span id="current-step-name">Basic Information</span> - Step <span
+            id="current-step-num">1</span
+          > of 4
         </span>
         <span class="text-sm text-secondary transition-colors">
           <span id="progress-percent">25</span>% Complete
@@ -33,7 +35,9 @@ const base = import.meta.env.BASE_URL;
       <h3 class="text-2xl font-bold mb-2">
         {multiStepFormContent.step1.title}
       </h3>
-      <p class="text-secondary mb-6 transition-colors">{multiStepFormContent.step1.subtitle}</p>
+      <p class="text-secondary mb-6 transition-colors">
+        {multiStepFormContent.step1.subtitle}
+      </p>
 
       <div class="space-y-4">
         <div>
@@ -46,14 +50,17 @@ const base = import.meta.env.BASE_URL;
               id="name"
               name="name"
               required
-              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
+              autocomplete="name"
+              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary dark:placeholder:text-secondary/70 light:placeholder:text-secondary/60"
               placeholder="John Smith"
-              aria-describedby="name-help name-error"
+              aria-describedby="name-error"
             />
-            <p id="name-help" class="mt-1 text-xs text-secondary transition-colors">
-              We'll use this to personalize your consultation
+            <p
+              id="name-error"
+              class="mt-1 text-xs text-accent-red hidden"
+              role="alert"
+            >
             </p>
-            <p id="name-error" class="mt-1 text-xs text-accent-red hidden" role="alert"></p>
           </label>
         </div>
 
@@ -67,14 +74,17 @@ const base = import.meta.env.BASE_URL;
               id="email"
               name="email"
               required
-              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
+              autocomplete="email"
+              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary dark:placeholder:text-secondary/70 light:placeholder:text-secondary/60"
               placeholder="john@company.com"
-              aria-describedby="email-help email-error"
+              aria-describedby="email-error"
             />
-            <p id="email-help" class="mt-1 text-xs text-secondary transition-colors">
-              We'll send a confirmation and respond within 24 hours
+            <p
+              id="email-error"
+              class="mt-1 text-xs text-accent-red hidden"
+              role="alert"
+            >
             </p>
-            <p id="email-error" class="mt-1 text-xs text-accent-red hidden" role="alert"></p>
           </label>
         </div>
 
@@ -88,63 +98,74 @@ const base = import.meta.env.BASE_URL;
               id="company"
               name="company"
               required
-              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
+              autocomplete="organization"
+              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary dark:placeholder:text-secondary/70 light:placeholder:text-secondary/60"
               placeholder="Acme Corporation"
               list="company-suggestions"
-              aria-describedby="company-help company-error"
+              aria-describedby="company-error"
             />
             <datalist id="company-suggestions">
               <option value="Dubai Corporation">Dubai Corporation</option>
               <option value="Abu Dhabi Holdings">Abu Dhabi Holdings</option>
               <option value="Sharjah Industries">Sharjah Industries</option>
             </datalist>
-            <p id="company-help" class="mt-1 text-xs text-secondary transition-colors">
-              Helps us understand your industry context
+            <p
+              id="company-error"
+              class="mt-1 text-xs text-accent-red hidden"
+              role="alert"
+            >
             </p>
-            <p id="company-error" class="mt-1 text-xs text-accent-red hidden" role="alert"></p>
           </label>
         </div>
 
         <div>
           <label for="phone" class="block">
             <span class="block text-sm font-medium mb-2">
-              Phone Number <span class="text-secondary text-xs">(Optional)</span>
+              Phone Number <span class="text-secondary text-xs">(Optional)</span
+              >
             </span>
             <input
               type="tel"
               id="phone"
               name="phone"
-              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
+              autocomplete="tel"
+              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary dark:placeholder:text-secondary/70 light:placeholder:text-secondary/60"
               placeholder="+971 50 123 4567"
-              aria-describedby="phone-help phone-error"
+              aria-describedby="phone-error"
             />
-            <p id="phone-help" class="mt-1 text-xs text-secondary transition-colors">
-              For faster response - we can call if you prefer
+            <p
+              id="phone-error"
+              class="mt-1 text-xs text-accent-red hidden"
+              role="alert"
+            >
             </p>
-            <p id="phone-error" class="mt-1 text-xs text-accent-red hidden" role="alert"></p>
           </label>
         </div>
 
         <div>
           <label for="whyReachingOut" class="block">
             <span class="block text-sm font-medium mb-2">
-              Why are you reaching out? <span class="text-secondary text-xs">(Optional)</span>
+              Why are you reaching out? <span class="text-secondary text-xs"
+                >(Optional)</span
+              >
             </span>
             <select
               id="whyReachingOut"
               name="whyReachingOut"
               class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary"
-              aria-describedby="whyReachingOut-help"
             >
               <option value="">Select an option...</option>
-              <option value="I have an immediate need">I have an immediate need</option>
-              <option value="Planning for next quarter">Planning for next quarter</option>
-              <option value="Just exploring options">Just exploring options</option>
+              <option value="I have an immediate need"
+                >I have an immediate need</option
+              >
+              <option value="Planning for next quarter"
+                >Planning for next quarter</option
+              >
+              <option value="Just exploring options"
+                >Just exploring options</option
+              >
               <option value="Want to learn more">Want to learn more</option>
             </select>
-            <p id="whyReachingOut-help" class="mt-1 text-xs text-secondary transition-colors">
-              Helps us prioritize your inquiry
-            </p>
           </label>
         </div>
 
@@ -193,7 +214,9 @@ const base = import.meta.env.BASE_URL;
       <h3 class="text-2xl font-bold mb-2">
         {multiStepFormContent.step2.title}
       </h3>
-      <p class="text-tertiary mb-6 transition-colors">{multiStepFormContent.step2.subtitle}</p>
+      <p class="text-tertiary mb-6 transition-colors">
+        {multiStepFormContent.step2.subtitle}
+      </p>
 
       <div class="space-y-4">
         <div>
@@ -203,7 +226,7 @@ const base = import.meta.env.BASE_URL;
               id="industry"
               name="industry"
               required
-              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
+              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary dark:placeholder:text-secondary/70 light:placeholder:text-secondary/60"
             >
               <option value="">Select your industry...</option>
               <option value="finance">Financial Services & Banking</option>
@@ -236,7 +259,9 @@ const base = import.meta.env.BASE_URL;
               aria-label="Company Size: 1-50 employees, Small Team"
             >
               <div class="font-medium">1-50</div>
-              <div class="text-xs text-secondary transition-colors">Small Team</div>
+              <div class="text-xs text-secondary transition-colors">
+                Small Team
+              </div>
             </button>
             <button
               type="button"
@@ -245,7 +270,9 @@ const base = import.meta.env.BASE_URL;
               aria-label="Company Size: 51-200 employees, Growing Business"
             >
               <div class="font-medium">51-200</div>
-              <div class="text-xs text-tertiary transition-colors">Growing Business</div>
+              <div class="text-xs text-tertiary transition-colors">
+                Growing Business
+              </div>
             </button>
             <button
               type="button"
@@ -254,7 +281,9 @@ const base = import.meta.env.BASE_URL;
               aria-label="Company Size: 201-1000 employees, Mid-Market"
             >
               <div class="font-medium">201-1000</div>
-              <div class="text-xs text-tertiary transition-colors">Mid-Market</div>
+              <div class="text-xs text-tertiary transition-colors">
+                Mid-Market
+              </div>
             </button>
             <button
               type="button"
@@ -263,7 +292,9 @@ const base = import.meta.env.BASE_URL;
               aria-label="Company Size: 1000+ employees, Enterprise"
             >
               <div class="font-medium">1000+</div>
-              <div class="text-xs text-tertiary transition-colors">Enterprise</div>
+              <div class="text-xs text-tertiary transition-colors">
+                Enterprise
+              </div>
             </button>
           </div>
           <input
@@ -283,13 +314,10 @@ const base = import.meta.env.BASE_URL;
               id="role"
               name="role"
               required
-              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
+              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary dark:placeholder:text-secondary/70 light:placeholder:text-secondary/60"
               placeholder="e.g., Data Manager, CTO, Business Analyst"
             />
           </label>
-          <p class="mt-1 text-xs text-secondary transition-colors">
-            This helps us understand your perspective
-          </p>
         </div>
       </div>
     </div>
@@ -299,7 +327,9 @@ const base = import.meta.env.BASE_URL;
       <h3 class="text-2xl font-bold mb-2">
         {multiStepFormContent.step3.title}
       </h3>
-      <p class="text-tertiary mb-6 transition-colors">{multiStepFormContent.step3.subtitle}</p>
+      <p class="text-tertiary mb-6 transition-colors">
+        {multiStepFormContent.step3.subtitle}
+      </p>
 
       <div class="space-y-4">
         <fieldset>
@@ -433,7 +463,7 @@ const base = import.meta.env.BASE_URL;
               id="timeline"
               name="timeline"
               required
-              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
+              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary dark:placeholder:text-secondary/70 light:placeholder:text-secondary/60"
             >
               <option value="">When do you need this?</option>
               <option value="urgent">Urgent (Within 1 month)</option>
@@ -452,7 +482,7 @@ const base = import.meta.env.BASE_URL;
             <select
               id="budget"
               name="budget"
-              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
+              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary dark:placeholder:text-secondary/70 light:placeholder:text-secondary/60"
             >
               <option value="">Select a range...</option>
               <option value="small">$10k - $50k</option>
@@ -471,7 +501,9 @@ const base = import.meta.env.BASE_URL;
       <h3 class="text-2xl font-bold mb-2">
         {multiStepFormContent.step4.title}
       </h3>
-      <p class="text-tertiary mb-6 transition-colors">{multiStepFormContent.step4.subtitle}</p>
+      <p class="text-tertiary mb-6 transition-colors">
+        {multiStepFormContent.step4.subtitle}
+      </p>
 
       <div class="space-y-4">
         <div>
@@ -488,10 +520,6 @@ const base = import.meta.env.BASE_URL;
               placeholder="Describe your data analytics challenges, goals, or questions..."
             ></textarea>
           </label>
-          <p class="mt-1 text-xs text-secondary transition-colors">
-            Be as detailed as you'd like - this helps us prepare for our
-            conversation
-          </p>
         </div>
 
         <div>
@@ -502,7 +530,7 @@ const base = import.meta.env.BASE_URL;
             <select
               id="hear-about"
               name="hear-about"
-              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary"
+              class="w-full px-4 py-3 bg-surface border border-theme rounded-lg focus:outline-none focus:border-accent-green focus:ring-2 focus:ring-accent-green/30 transition-all text-primary placeholder:text-secondary dark:placeholder:text-secondary/70 light:placeholder:text-secondary/60"
             >
               <option value="">Select an option...</option>
               <option value="search">Google / Search Engine</option>
@@ -515,7 +543,9 @@ const base = import.meta.env.BASE_URL;
           </label>
         </div>
 
-        <div class="p-4 bg-surface border border-theme rounded-lg transition-colors">
+        <div
+          class="p-4 bg-surface border border-theme rounded-lg transition-colors"
+        >
           <label for="newsletter" class="flex items-start cursor-pointer">
             <input
               type="checkbox"
@@ -525,7 +555,9 @@ const base = import.meta.env.BASE_URL;
               class="mt-1 mr-3"
             />
             <div>
-              <div class="font-medium text-sm text-primary transition-colors">Subscribe to our newsletter</div>
+              <div class="font-medium text-sm text-primary transition-colors">
+                Subscribe to our newsletter
+              </div>
               <div class="text-xs text-secondary mt-1 transition-colors">
                 Get insights on data analytics trends and best practices (you
                 can unsubscribe anytime)
@@ -534,7 +566,9 @@ const base = import.meta.env.BASE_URL;
           </label>
         </div>
 
-        <div class="p-4 bg-accent-green/10 border border-accent-green/20 rounded-lg transition-colors">
+        <div
+          class="p-4 bg-accent-green/10 border border-accent-green/20 rounded-lg transition-colors"
+        >
           <label for="privacy" class="flex items-start cursor-pointer">
             <input
               type="checkbox"
@@ -547,7 +581,8 @@ const base = import.meta.env.BASE_URL;
             <div class="text-sm text-primary transition-colors">
               I agree to the <a
                 href={`${base}legal/privacy-policy/`}
-                class="text-accent-green hover:underline transition-colors">Privacy Policy</a
+                class="text-accent-green hover:underline transition-colors"
+                >Privacy Policy</a
               > and consent to AUXO Data Labs contacting me about my inquiry. *
             </div>
           </label>
@@ -567,29 +602,57 @@ const base = import.meta.env.BASE_URL;
     </div>
 
     <!-- Navigation Buttons -->
-    <div class="flex justify-between mt-8">
-      <button
-        type="button"
-        id="prev-btn"
-        class="px-6 py-3 bg-surface border border-theme text-primary rounded-lg hover:bg-accent-green/10 hover:border-accent-green/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
-        disabled
-      >
-        {multiStepFormContent.navigation.back}
-      </button>
-      <button
-        type="button"
-        id="next-btn"
-        class="px-6 py-3 bg-accent-green text-on-accent font-semibold rounded-lg hover:bg-accent-green/90 transition-all min-h-[44px]"
-      >
-        {multiStepFormContent.navigation.next}
-      </button>
-      <button
-        type="submit"
-        id="submit-btn"
-        class="hidden px-6 py-3 bg-accent-green text-on-accent font-semibold rounded-lg hover:bg-accent-green/90 transition-colors min-h-[44px]"
-      >
-        {multiStepFormContent.navigation.submit}
-      </button>
+    <div class="mt-8">
+      <div class="flex flex-col sm:flex-row justify-between gap-3 sm:gap-4">
+        <button
+          type="button"
+          id="prev-btn"
+          class="order-2 sm:order-1 px-6 py-3 bg-surface border border-theme text-primary rounded-lg hover:bg-accent-green/10 hover:border-accent-green/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px] min-w-[44px] w-full sm:w-auto"
+          disabled
+        >
+          {multiStepFormContent.navigation.back}
+        </button>
+        <div class="order-1 sm:order-2 flex-1 sm:flex-initial">
+          <button
+            type="button"
+            id="next-btn"
+            class="w-full sm:w-auto px-6 py-3 bg-accent-green text-on-accent font-semibold rounded-lg hover:bg-accent-green/90 transition-all min-h-[44px] min-w-[44px] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-accent-green/50 disabled:hover:bg-accent-green/50"
+            disabled
+          >
+            {multiStepFormContent.navigation.next}
+          </button>
+          <p
+            id="next-btn-help"
+            class="mt-2 text-xs text-secondary/90 transition-all duration-200 text-center sm:text-left flex items-center gap-1.5 justify-center sm:justify-start"
+            role="status"
+            aria-live="polite"
+          >
+            <svg
+              class="w-3.5 h-3.5 flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <span id="next-btn-help-text"
+              >Fill all required fields to continue</span
+            >
+          </p>
+        </div>
+        <button
+          type="submit"
+          id="submit-btn"
+          class="hidden order-1 sm:order-2 px-6 py-3 bg-accent-green text-on-accent font-semibold rounded-lg hover:bg-accent-green/90 transition-colors min-h-[44px] min-w-[44px] w-full sm:w-auto cursor-pointer"
+        >
+          {multiStepFormContent.navigation.submit}
+        </button>
+      </div>
     </div>
 
     <!-- Success Message -->
@@ -611,56 +674,88 @@ const base = import.meta.env.BASE_URL;
               d="M5 13l4 4L19 7"></path>
           </svg>
         </div>
-        <h3 class="text-2xl font-bold mb-2" id="success-title">Thank you for your inquiry!</h3>
-        <p class="text-secondary mb-6 transition-colors" id="success-message-text">
-          We've received your information and will get back to you within 24 hours.
+        <h3 class="text-2xl font-bold mb-2" id="success-title">
+          Thank you for your inquiry!
+        </h3>
+        <p
+          class="text-secondary mb-6 transition-colors"
+          id="success-message-text"
+        >
+          We've received your information and will get back to you within 24
+          hours.
         </p>
-        
+
         <!-- What Happens Next Timeline -->
-        <div class="bg-accent-green/10 border border-accent-green/30 rounded-xl p-6 mb-6 max-w-2xl mx-auto text-left">
+        <div
+          class="bg-accent-green/10 border border-accent-green/30 rounded-xl p-6 mb-6 max-w-2xl mx-auto text-left"
+        >
           <h4 class="font-bold mb-4 text-primary transition-colors">
             What Happens Next
           </h4>
           <div class="space-y-4">
             <div class="flex items-start gap-3">
-              <div class="flex-shrink-0 w-6 h-6 bg-accent-green rounded-full flex items-center justify-center text-xs font-bold text-on-accent">
+              <div
+                class="flex-shrink-0 w-6 h-6 bg-accent-green rounded-full flex items-center justify-center text-xs font-bold text-on-accent"
+              >
                 1
               </div>
               <div>
-                <p class="font-medium text-primary transition-colors">Confirmation email</p>
-                <p class="text-sm text-secondary transition-colors">Check your inbox within minutes</p>
+                <p class="font-medium text-primary transition-colors">
+                  Confirmation email
+                </p>
+                <p class="text-sm text-secondary transition-colors">
+                  Check your inbox within minutes
+                </p>
               </div>
             </div>
             <div class="flex items-start gap-3">
-              <div class="flex-shrink-0 w-6 h-6 bg-accent-green rounded-full flex items-center justify-center text-xs font-bold text-on-accent">
+              <div
+                class="flex-shrink-0 w-6 h-6 bg-accent-green rounded-full flex items-center justify-center text-xs font-bold text-on-accent"
+              >
                 2
               </div>
               <div>
-                <p class="font-medium text-primary transition-colors">Founder review</p>
-                <p class="text-sm text-secondary transition-colors">Within 24 hours (usually faster)</p>
+                <p class="font-medium text-primary transition-colors">
+                  Founder review
+                </p>
+                <p class="text-sm text-secondary transition-colors">
+                  Within 24 hours (usually faster)
+                </p>
               </div>
             </div>
             <div class="flex items-start gap-3">
-              <div class="flex-shrink-0 w-6 h-6 bg-accent-green rounded-full flex items-center justify-center text-xs font-bold text-on-accent">
+              <div
+                class="flex-shrink-0 w-6 h-6 bg-accent-green rounded-full flex items-center justify-center text-xs font-bold text-on-accent"
+              >
                 3
               </div>
               <div>
-                <p class="font-medium text-primary transition-colors">Personal response</p>
-                <p class="text-sm text-secondary transition-colors">Via your preferred contact method</p>
+                <p class="font-medium text-primary transition-colors">
+                  Personal response
+                </p>
+                <p class="text-sm text-secondary transition-colors">
+                  Via your preferred contact method
+                </p>
               </div>
             </div>
             <div class="flex items-start gap-3">
-              <div class="flex-shrink-0 w-6 h-6 bg-accent-green rounded-full flex items-center justify-center text-xs font-bold text-on-accent">
+              <div
+                class="flex-shrink-0 w-6 h-6 bg-accent-green rounded-full flex items-center justify-center text-xs font-bold text-on-accent"
+              >
                 4
               </div>
               <div>
-                <p class="font-medium text-primary transition-colors">Free consultation</p>
-                <p class="text-sm text-secondary transition-colors">Schedule a call to discuss your needs</p>
+                <p class="font-medium text-primary transition-colors">
+                  Free consultation
+                </p>
+                <p class="text-sm text-secondary transition-colors">
+                  Schedule a call to discuss your needs
+                </p>
               </div>
             </div>
           </div>
         </div>
-        
+
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
           <a
             href={base}
@@ -702,390 +797,804 @@ const base = import.meta.env.BASE_URL;
     background-color: var(--accent-green-dim);
     border-color: var(--accent-green);
   }
-  
+
   .step-name-indicator {
     transition: color 0.3s ease;
   }
-  
+
   input.border-accent-red,
   select.border-accent-red,
   textarea.border-accent-red {
     border-color: var(--accent-red) !important;
   }
+
+  /* Preset values styling - Light color in dark theme, Dark color in light theme */
+  :root.dark select option,
+  :root:not(.light) select option {
+    background-color: var(--bg-surface);
+    color: var(--text-secondary);
+  }
+
+  :root.light select option {
+    background-color: var(--bg-surface);
+    color: var(--text-secondary);
+  }
+
+  /* Placeholder colors - Light in dark theme, Dark in light theme */
+  :root.dark input::placeholder,
+  :root:not(.light) input::placeholder,
+  :root.dark textarea::placeholder,
+  :root:not(.light) textarea::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+  }
+
+  :root.light input::placeholder,
+  :root.light textarea::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.6;
+  }
+
+  /* Autofill detection and styling */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--bg-surface) inset !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  /* Animation for autofill detection */
+  @keyframes onAutoFillStart {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  input:-webkit-autofill {
+    animation-name: onAutoFillStart;
+    animation-duration: 0.0001s;
+  }
+
+  /* Error message styling */
+  [id$="-error"] {
+    display: block;
+    color: var(--accent-red);
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    min-height: 1.25rem;
+  }
+
+  [id$="-error"].hidden {
+    display: none;
+  }
 </style>
 
 <script
   is:inline
-  define:vars={{ formText: multiStepFormContent, commonText: commonText }}
+  define:vars={{
+    formText: multiStepFormContent,
+    commonText: commonText,
+    baseUrl: base,
+  }}
 >
-  // Constants
-  const TOTAL_STEPS = 4;
-  const API_TIMEOUT = 10000; // 10 seconds
+  // Verify script execution
+  console.log("[Form] Script loaded");
 
-  // State
-  let currentStep = 1;
-  let isSubmitting = false;
+  // Wrap everything in try-catch to catch errors
+  try {
+    // Constants
+    const TOTAL_STEPS = 4;
+    const API_TIMEOUT = 10000; // 10 seconds
 
-  // Elements
-  const prevBtn = document.getElementById("prev-btn");
-  const nextBtn = document.getElementById("next-btn");
-  const submitBtn = document.getElementById("submit-btn");
-  const progressBar = document.getElementById("progress-bar");
-  const currentStepNum = document.getElementById("current-step-num");
-  const progressPercent = document.getElementById("progress-percent");
-  const currentStepName = document.getElementById("current-step-name");
-  
-  // Step names mapping
-  const stepNames = {
-    1: "Basic Information",
-    2: "About Your Organization",
-    3: "Your Analytics Challenges",
-    4: "Review & Submit"
-  };
+    // State - will be initialized after DOM ready
+    let currentStep = 1;
+    let isSubmitting = false;
+    let validationInterval = null;
 
-  // Utility: Show toast notification
-  function showNotification(message, type = "error") {
-    const toast = document.createElement("div");
-    toast.className = `fixed top-24 right-4 z-50 px-6 py-4 rounded-lg shadow-lg transform transition-all duration-300 translate-x-0 ${
-      type === "success"
-        ? "bg-accent-green text-on-accent"
-        : type === "error"
-          ? "bg-accent-red text-on-accent"
-          : "bg-yellow-500 text-black"
-    }`;
-    toast.innerHTML = `
+    // Step names mapping
+    const stepNames = {
+      1: "Basic Information",
+      2: "About Your Organization",
+      3: "Your Analytics Challenges",
+      4: "Review & Submit",
+    };
+
+    // Utility: Show toast notification
+    function showNotification(message, type = "error") {
+      const toast = document.createElement("div");
+      toast.className = `fixed top-24 right-4 z-50 px-6 py-4 rounded-lg shadow-lg transform transition-all duration-300 translate-x-0 ${
+        type === "success"
+          ? "bg-accent-green text-on-accent"
+          : type === "error"
+            ? "bg-accent-red text-on-accent"
+            : "bg-yellow-500 text-black"
+      }`;
+      toast.innerHTML = `
       <div class="flex items-center gap-3">
         <span class="font-semibold">${message}</span>
         <button onclick="this.parentElement.parentElement.remove()" class="hover:opacity-70">✕</button>
       </div>
     `;
-    document.body.appendChild(toast);
+      document.body.appendChild(toast);
 
-    // Auto-remove after 5 seconds
-    setTimeout(() => {
-      toast.style.transform = "translateX(400px)";
-      setTimeout(() => toast.remove(), 300);
-    }, 5000);
-  }
-
-  // Company size selection handlers
-  const sizeOptionHandlers = new Map();
-  const handleSizeClick = function () {
-    document
-      .querySelectorAll(".size-option")
-      .forEach((b) => b.classList.remove("selected"));
-    this.classList.add("selected");
-    const sizeInput = document.getElementById("company-size");
-    if (sizeInput && this.dataset.value) {
-      sizeInput.value = this.dataset.value;
+      // Auto-remove after 5 seconds
+      setTimeout(() => {
+        toast.style.transform = "translateX(400px)";
+        setTimeout(() => toast.remove(), 300);
+      }, 5000);
     }
-  };
 
-  document.querySelectorAll(".size-option").forEach((btn) => {
-    sizeOptionHandlers.set(btn, handleSizeClick.bind(btn));
-    const handler = sizeOptionHandlers.get(btn);
-    if (handler) {
-      btn.addEventListener("click", handler);
-    }
-  });
+    // Company size selection handlers
+    const sizeOptionHandlers = new Map();
+    const handleSizeClick = function () {
+      document
+        .querySelectorAll(".size-option")
+        .forEach((b) => b.classList.remove("selected"));
+      this.classList.add("selected");
+      const sizeInput = document.getElementById("company-size");
+      if (sizeInput && this.dataset.value) {
+        sizeInput.value = this.dataset.value;
+      }
+    };
 
-  function updateProgress() {
-    const percent = (currentStep / TOTAL_STEPS) * 100;
-    if (progressBar) progressBar.style.width = `${percent}%`;
-    if (currentStepNum) currentStepNum.textContent = String(currentStep);
-    if (progressPercent)
-      progressPercent.textContent = String(Math.round(percent));
-    if (currentStepName) currentStepName.textContent = stepNames[currentStep] || "";
-    
-    // Update step name indicators
-    document.querySelectorAll(".step-name-indicator").forEach((indicator) => {
-      const step = parseInt(indicator.getAttribute("data-step") || "0");
-      if (step === currentStep) {
-        indicator.classList.add("text-accent-green", "font-semibold");
-        indicator.classList.remove("text-secondary");
-      } else if (step < currentStep) {
-        indicator.classList.add("text-accent-green/70");
-        indicator.classList.remove("text-secondary");
-      } else {
-        indicator.classList.remove("text-accent-green", "font-semibold", "text-accent-green/70");
-        indicator.classList.add("text-secondary");
+    document.querySelectorAll(".size-option").forEach((btn) => {
+      sizeOptionHandlers.set(btn, handleSizeClick.bind(btn));
+      const handler = sizeOptionHandlers.get(btn);
+      if (handler) {
+        btn.addEventListener("click", handler);
       }
     });
-  }
 
-  function showStep(step) {
-    document
-      .querySelectorAll(".form-step")
-      .forEach((s) => s.classList.remove("active"));
-    const stepEl = document.querySelector(`[data-step="${step}"]`);
-    stepEl?.classList.add("active");
+    function updateProgress() {
+      const percent = (currentStep / TOTAL_STEPS) * 100;
+      const progressBarEl = document.getElementById("progress-bar");
+      const currentStepNumEl = document.getElementById("current-step-num");
+      const progressPercentEl = document.getElementById("progress-percent");
+      const currentStepNameEl = document.getElementById("current-step-name");
 
-    if (prevBtn) prevBtn.disabled = step === 1;
+      if (progressBarEl) progressBarEl.style.width = `${percent}%`;
+      if (currentStepNumEl) currentStepNumEl.textContent = String(currentStep);
+      if (progressPercentEl)
+        progressPercentEl.textContent = String(Math.round(percent));
+      if (currentStepNameEl)
+        currentStepNameEl.textContent = stepNames[currentStep] || "";
 
-    if (step === TOTAL_STEPS) {
-      nextBtn?.classList.add("hidden");
-      submitBtn?.classList.remove("hidden");
-    } else {
-      nextBtn?.classList.remove("hidden");
-      submitBtn?.classList.add("hidden");
-    }
-
-    updateProgress();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  // Inline validation helper
-  function showFieldError(fieldId, message) {
-    const field = document.getElementById(fieldId);
-    const errorEl = document.getElementById(`${fieldId}-error`);
-    if (field && errorEl) {
-      field.classList.add("border-accent-red", "focus:border-accent-red");
-      field.classList.remove("border-theme", "focus:border-accent-green");
-      errorEl.textContent = message;
-      errorEl.classList.remove("hidden");
-    }
-  }
-
-  function clearFieldError(fieldId) {
-    const field = document.getElementById(fieldId);
-    const errorEl = document.getElementById(`${fieldId}-error`);
-    if (field && errorEl) {
-      field.classList.remove("border-accent-red", "focus:border-accent-red");
-      field.classList.add("border-theme", "focus:border-accent-green");
-      errorEl.classList.add("hidden");
-      errorEl.textContent = "";
-    }
-  }
-
-  // Real-time validation
-  function setupFieldValidation() {
-    // Email validation
-    const emailField = document.getElementById("email");
-    if (emailField) {
-      emailField.addEventListener("blur", () => {
-        const email = emailField.value.trim();
-        if (email) {
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailRegex.test(email)) {
-            showFieldError("email", formText.validation.invalidEmail);
-          } else {
-            clearFieldError("email");
-          }
-        }
-      });
-      emailField.addEventListener("input", () => {
-        if (emailField.value.trim()) clearFieldError("email");
-      });
-    }
-
-    // Phone validation (optional field)
-    const phoneField = document.getElementById("phone");
-    if (phoneField) {
-      phoneField.addEventListener("blur", () => {
-        const phone = phoneField.value.trim();
-        if (phone) {
-          // Basic phone validation (international format)
-          const phoneRegex = /^[\+]?[(]?[0-9]{1,4}[)]?[-\s\.]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,9}$/;
-          if (!phoneRegex.test(phone)) {
-            showFieldError("phone", formText.validation.invalidPhone);
-          } else {
-            clearFieldError("phone");
-          }
-        }
-      });
-      phoneField.addEventListener("input", () => {
-        if (phoneField.value.trim()) clearFieldError("phone");
-      });
-    }
-  }
-
-  function validateStep(step) {
-    const currentStepEl = document.querySelector(`[data-step="${step}"]`);
-    const requiredFields = currentStepEl?.querySelectorAll("[required]");
-
-    if (!requiredFields) return false;
-
-    let isValid = true;
-
-    for (let field of requiredFields) {
-      if (field.type === "checkbox") {
-        // For step 3, at least one service must be selected
-        if (step === 3) {
-          const serviceChecks = document.querySelectorAll(
-            'input[name="services[]"]',
+      // Update step name indicators
+      document.querySelectorAll(".step-name-indicator").forEach((indicator) => {
+        const step = parseInt(indicator.getAttribute("data-step") || "0");
+        if (step === currentStep) {
+          indicator.classList.add("text-accent-green", "font-semibold");
+          indicator.classList.remove("text-secondary");
+        } else if (step < currentStep) {
+          indicator.classList.add("text-accent-green/70");
+          indicator.classList.remove("text-secondary");
+        } else {
+          indicator.classList.remove(
+            "text-accent-green",
+            "font-semibold",
+            "text-accent-green/70",
           );
-          const anyChecked = Array.from(serviceChecks).some((cb) => cb.checked);
-          if (!anyChecked) {
-            showNotification("Please select at least one service", "warning");
+          indicator.classList.add("text-secondary");
+        }
+      });
+    }
+
+    function showStep(step) {
+      document
+        .querySelectorAll(".form-step")
+        .forEach((s) => s.classList.remove("active"));
+      const stepEl = document.querySelector(`[data-step="${step}"]`);
+      stepEl?.classList.add("active");
+
+      const prevBtnEl = document.getElementById("prev-btn");
+      const nextBtnEl = document.getElementById("next-btn");
+      const submitBtnEl = document.getElementById("submit-btn");
+
+      if (prevBtnEl) prevBtnEl.disabled = step === 1;
+
+      if (step === TOTAL_STEPS) {
+        if (nextBtnEl) nextBtnEl.classList.add("hidden");
+        if (submitBtnEl) submitBtnEl.classList.remove("hidden");
+      } else {
+        if (nextBtnEl) nextBtnEl.classList.remove("hidden");
+        if (submitBtnEl) submitBtnEl.classList.add("hidden");
+        // Check if current step is valid and update button state
+        checkStepValidity(step);
+      }
+
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Field labels mapping for user-friendly messages
+    const fieldLabels = {
+      name: "Full Name",
+      email: "Work Email",
+      company: "Company Name",
+      phone: "Phone Number",
+      industry: "Industry",
+      "company-size": "Company Size",
+      role: "Your Role",
+      timeline: "Project Timeline",
+      message: "Project Description",
+      "services[]": "Services You're Interested In",
+    };
+
+    // Get field label for display
+    function getFieldLabel(fieldId) {
+      // Try to get label from the field's associated label element
+      const field = document.getElementById(fieldId);
+      if (field) {
+        const label = field.closest("label")?.querySelector("span:first-child");
+        if (label) {
+          const text = label.textContent.trim();
+          // Remove asterisk and "(Optional)" text
+          return text
+            .replace(/\s*\*$/, "")
+            .replace(/\s*\(Optional\).*$/, "")
+            .trim();
+        }
+        // Fallback to fieldLabels mapping
+        return fieldLabels[fieldId] || fieldId;
+      }
+      return fieldLabels[fieldId] || fieldId;
+    }
+
+    // Simple, reliable validation function
+    function checkStepValidity(step) {
+      const stepEl = document.querySelector(`[data-step="${step}"]`);
+      const nextBtnEl = document.getElementById("next-btn");
+      const helpMsg = document.getElementById("next-btn-help");
+      const helpText = document.getElementById("next-btn-help-text");
+
+      if (!stepEl || !nextBtnEl) {
+        return false;
+      }
+
+      let isValid = true;
+      const missingFields = [];
+
+      // Step 2: Check hidden company-size field
+      if (step === 2) {
+        const companySizeField = document.getElementById("company-size");
+        if (companySizeField && companySizeField.hasAttribute("required")) {
+          const sizeValue = (companySizeField.value || "").trim();
+          if (!sizeValue) {
             isValid = false;
+            missingFields.push("Company Size");
           }
         }
-      } else {
+      }
+
+      // Step 3: Check service checkboxes
+      if (step === 3) {
+        const serviceChecks = document.querySelectorAll(
+          'input[name="services[]"]',
+        );
+        const anyChecked = Array.from(serviceChecks).some((cb) => cb.checked);
+        if (!anyChecked) {
+          isValid = false;
+          missingFields.push("Services You're Interested In");
+        }
+      }
+
+      // Check all required fields
+      const requiredFields = stepEl.querySelectorAll("[required]");
+      requiredFields.forEach((field) => {
+        // Skip hidden and checkbox fields (handled separately above)
+        if (field.type === "hidden" || field.type === "checkbox") {
+          return;
+        }
+
+        // Get field value
+        let value = "";
+        if (field.tagName === "SELECT") {
+          value = (field.value || "").trim();
+          // Check if it's a placeholder/default option
+          const selectedOption = field.options[field.selectedIndex];
+          if (
+            selectedOption &&
+            (selectedOption.disabled ||
+              selectedOption.value === "" ||
+              selectedOption.textContent.includes("Select") ||
+              selectedOption.textContent.includes("When do you need"))
+          ) {
+            value = ""; // Treat placeholder options as empty
+          }
+        } else {
+          value = (field.value || "").trim();
+        }
+
+        // Check if empty
+        if (!value) {
+          isValid = false;
+          const label = getFieldLabel(field.id);
+          if (label && !missingFields.includes(label)) {
+            missingFields.push(label);
+          }
+        } else if (field.type === "email") {
+          // Validate email format
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(value)) {
+            isValid = false;
+            const label = getFieldLabel(field.id);
+            if (label && !missingFields.includes(label + " (invalid format)")) {
+              missingFields.push(label + " (invalid format)");
+            }
+          }
+        }
+      });
+
+      // Update button state
+      nextBtnEl.disabled = !isValid;
+
+      // Update help message
+      if (helpMsg && helpText) {
+        if (isValid) {
+          helpMsg.classList.add("hidden");
+          helpText.textContent = "";
+        } else {
+          helpMsg.classList.remove("hidden");
+          if (missingFields.length === 1) {
+            helpText.textContent = `Fill in ${missingFields[0]}`;
+          } else if (missingFields.length > 1) {
+            helpText.textContent = `Fill in: ${missingFields.slice(0, 3).join(", ")}${missingFields.length > 3 ? "..." : ""}`;
+          } else {
+            helpText.textContent = "Fill all required fields to continue";
+          }
+        }
+      }
+
+      return isValid;
+    }
+
+    // Inline validation helper
+    function showFieldError(fieldId, message) {
+      const field = document.getElementById(fieldId);
+      const errorEl = document.getElementById(`${fieldId}-error`);
+      if (field && errorEl) {
+        field.classList.add("border-accent-red", "focus:border-accent-red");
+        field.classList.remove(
+          "border-theme",
+          "focus:border-accent-green",
+          "focus:ring-accent-green/30",
+        );
+        field.classList.add("focus:ring-accent-red/30");
+        errorEl.textContent = message;
+        errorEl.classList.remove("hidden");
+        // Scroll to error if needed
+        errorEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    }
+
+    function clearFieldError(fieldId) {
+      const field = document.getElementById(fieldId);
+      const errorEl = document.getElementById(`${fieldId}-error`);
+      if (field && errorEl) {
+        field.classList.remove(
+          "border-accent-red",
+          "focus:border-accent-red",
+          "focus:ring-accent-red/30",
+        );
+        field.classList.add(
+          "border-theme",
+          "focus:border-accent-green",
+          "focus:ring-accent-green/30",
+        );
+        errorEl.classList.add("hidden");
+        errorEl.textContent = "";
+      }
+    }
+
+    // Simple real-time validation setup
+    function setupFieldValidation() {
+      // Email validation
+      const emailField = document.getElementById("email");
+      if (emailField) {
+        emailField.addEventListener("blur", () => {
+          const email = emailField.value.trim();
+          if (email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+              showFieldError("email", formText.validation.invalidEmail);
+            } else {
+              clearFieldError("email");
+            }
+          }
+          checkStepValidity(currentStep);
+        });
+      }
+
+      // Phone validation (optional field)
+      const phoneField = document.getElementById("phone");
+      if (phoneField) {
+        phoneField.addEventListener("blur", () => {
+          const phone = phoneField.value.trim();
+          if (phone) {
+            const phoneRegex =
+              /^[\+]?[(]?[0-9]{1,4}[)]?[-\s\.]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,9}$/;
+            if (!phoneRegex.test(phone)) {
+              showFieldError("phone", formText.validation.invalidPhone);
+            } else {
+              clearFieldError("phone");
+            }
+          }
+        });
+      }
+
+      // Real-time validation for all required fields
+      const allFields = document.querySelectorAll(
+        "input[required], select[required], textarea[required]",
+      );
+
+      allFields.forEach((field) => {
+        // Input event - fires as user types
+        field.addEventListener("input", () => {
+          clearFieldError(field.id);
+          checkStepValidity(currentStep);
+        });
+
+        // Change event - fires when value changes (including autofill)
+        field.addEventListener("change", () => {
+          clearFieldError(field.id);
+          checkStepValidity(currentStep);
+        });
+
+        // Blur event - catches autofill
+        field.addEventListener("blur", () => {
+          checkStepValidity(currentStep);
+        });
+      });
+
+      // Handle company size buttons
+      document.querySelectorAll(".size-option").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          checkStepValidity(currentStep);
+        });
+      });
+
+      // Handle service checkboxes (step 3)
+      document
+        .querySelectorAll('input[name="services[]"]')
+        .forEach((checkbox) => {
+          checkbox.addEventListener("change", () => {
+            checkStepValidity(currentStep);
+          });
+        });
+
+      // Continuous validation as fallback - runs every 500ms
+      if (validationInterval) {
+        clearInterval(validationInterval);
+      }
+      validationInterval = setInterval(() => {
+        checkStepValidity(currentStep);
+      }, 500);
+    }
+
+    function validateStep(step) {
+      const currentStepEl = document.querySelector(`[data-step="${step}"]`);
+      if (!currentStepEl) return false;
+
+      let isValid = true;
+      const errors = [];
+
+      // Handle step 3 checkbox validation
+      if (step === 3) {
+        const serviceChecks = document.querySelectorAll(
+          'input[name="services[]"]',
+        );
+        const anyChecked = Array.from(serviceChecks).some((cb) => cb.checked);
+        if (!anyChecked) {
+          showNotification("Please select at least one service", "warning");
+          isValid = false;
+        }
+      }
+
+      // Validate required fields
+      const requiredFields = currentStepEl.querySelectorAll("[required]");
+      for (let field of requiredFields) {
+        // Skip hidden fields (like company-size which is handled by buttons)
+        if (field.type === "hidden") {
+          if (!field.value.trim()) {
+            isValid = false;
+            // Find the associated button group and highlight it
+            const sizeButtons = document.querySelectorAll(".size-option");
+            if (sizeButtons.length > 0) {
+              sizeButtons.forEach((btn) => {
+                btn.classList.add("border-accent-red");
+              });
+              showNotification("Please select a company size", "warning");
+            }
+          }
+          continue;
+        }
+
+        if (field.type === "checkbox") {
+          continue; // Already handled above for step 3
+        }
+
         const fieldId = field.id;
-        if (!field.value.trim()) {
-          field.focus();
+        const value = field.value.trim();
+
+        if (!value) {
+          errors.push(fieldId);
           showFieldError(fieldId, formText.validation.required);
-          showNotification(formText.validation.required, "warning");
           isValid = false;
         } else {
           clearFieldError(fieldId);
           // Additional validation for email
           if (field.type === "email") {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(field.value.trim())) {
+            if (!emailRegex.test(value)) {
               showFieldError(fieldId, formText.validation.invalidEmail);
               isValid = false;
             }
           }
         }
       }
-    }
-    return isValid;
-  }
 
-  const handleNext = () => {
-    if (validateStep(currentStep)) {
-      currentStep++;
+      // Focus first error field
+      if (errors.length > 0 && !isValid) {
+        const firstErrorField = document.getElementById(errors[0]);
+        if (firstErrorField) {
+          firstErrorField.focus();
+          showNotification("Please fill in all required fields", "warning");
+        }
+      }
+
+      return isValid;
+    }
+
+    const handleNext = () => {
+      const nextBtnEl = document.getElementById("next-btn");
+      if (nextBtnEl?.disabled) return; // Prevent click if disabled
+      if (validateStep(currentStep)) {
+        currentStep++;
+        showStep(currentStep);
+      }
+    };
+
+    const handlePrev = () => {
+      currentStep--;
       showStep(currentStep);
-    }
-  };
+    };
 
-  const handlePrev = () => {
-    currentStep--;
-    showStep(currentStep);
-  };
+    const handleSubmit = async () => {
+      if (!validateStep(currentStep)) return;
+      if (isSubmitting) return; // Prevent double submission
 
-  const handleSubmit = async () => {
-    if (!validateStep(currentStep)) return;
-    if (isSubmitting) return; // Prevent double submission
+      isSubmitting = true;
+      const submitBtnEl = document.getElementById("submit-btn");
+      const originalText = submitBtnEl?.textContent || "";
+      if (submitBtnEl) submitBtnEl.textContent = formText.navigation.submitting;
+      if (submitBtnEl) submitBtnEl.disabled = true;
 
-    isSubmitting = true;
-    const originalText = submitBtn?.textContent || "";
-    if (submitBtn) submitBtn.textContent = formText.navigation.submitting;
-    if (submitBtn) submitBtn.disabled = true;
+      try {
+        // XSS Prevention: Sanitize user input
+        const sanitizeInput = (input) => {
+          const div = document.createElement("div");
+          div.textContent = input;
+          return div.innerHTML.trim();
+        };
 
-    try {
-      // XSS Prevention: Sanitize user input
-      const sanitizeInput = (input) => {
-        const div = document.createElement("div");
-        div.textContent = input;
-        return div.innerHTML.trim();
-      };
+        // Collect form data with type safety and XSS prevention
+        const getInputValue = (id) => {
+          const el = document.getElementById(id);
+          return sanitizeInput(el?.value || "");
+        };
 
-      // Collect form data with type safety and XSS prevention
-      const getInputValue = (id) => {
-        const el = document.getElementById(id);
-        return sanitizeInput(el?.value || "");
-      };
+        const formData = {
+          name: getInputValue("name"),
+          email: getInputValue("email"),
+          company: getInputValue("company"),
+          phone: getInputValue("phone"),
+          industry: getInputValue("industry"),
+          companySize: getInputValue("company-size"),
+          role: getInputValue("role"),
+          services: Array.from(
+            document.querySelectorAll('input[name="services[]"]:checked'),
+          ).map((cb) => sanitizeInput(cb.value)),
+          timeline: getInputValue("timeline"),
+          budget: getInputValue("budget"),
+          message: getInputValue("message"),
+          hearAbout: getInputValue("hear-about"),
+          newsletter: document.getElementById("newsletter")?.checked || false,
+          website: document.getElementById("website")?.value || "", // Honeypot field
+          timestamp: new Date().toISOString(),
+        };
 
-      const formData = {
-        name: getInputValue("name"),
-        email: getInputValue("email"),
-        company: getInputValue("company"),
-        phone: getInputValue("phone"),
-        industry: getInputValue("industry"),
-        companySize: getInputValue("company-size"),
-        role: getInputValue("role"),
-        services: Array.from(
-          document.querySelectorAll('input[name="services[]"]:checked'),
-        ).map((cb) => sanitizeInput(cb.value)),
-        timeline: getInputValue("timeline"),
-        budget: getInputValue("budget"),
-        message: getInputValue("message"),
-        hearAbout: getInputValue("hear-about"),
-        newsletter: document.getElementById("newsletter")?.checked || false,
-        website: document.getElementById("website")?.value || "", // Honeypot field
-        timestamp: new Date().toISOString(),
-      };
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+          showNotification(formText.validation.invalidEmail, "warning");
+          return;
+        }
 
-      // Validate email format
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(formData.email)) {
-        showNotification(formText.validation.invalidEmail, "warning");
+        // Backend submission with timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT);
+
+        try {
+          // Ensure baseUrl ends with / and construct API URL correctly
+          const apiUrl = `${baseUrl.endsWith("/") ? baseUrl : baseUrl + "/"}api/contact`;
+          const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+            signal: controller.signal,
+          });
+
+          clearTimeout(timeoutId);
+
+          // Check if response is JSON before parsing
+          const contentType = response.headers.get("content-type");
+          if (!contentType || !contentType.includes("application/json")) {
+            // Clone response to read text without consuming the original
+            const clonedResponse = response.clone();
+            const text = await clonedResponse.text();
+            console.error("[Form] Non-JSON response:", {
+              status: response.status,
+              statusText: response.statusText,
+              contentType,
+              url: apiUrl,
+              responsePreview: text.substring(0, 200),
+            });
+            throw new Error(
+              `Server returned ${response.status} ${response.statusText}. The API endpoint may not be configured correctly.`,
+            );
+          }
+
+          const result = await response.json();
+
+          if (!response.ok) {
+            // Handle specific error messages from the API
+            const errorMessage =
+              result.error || `Server error: ${response.status}`;
+            throw new Error(errorMessage);
+          }
+
+          // Show success message with personalization
+          const userName = formData.name.split(" ")[0] || "there";
+          const successTitle = document.getElementById("success-title");
+          const successText = document.getElementById("success-message-text");
+
+          if (successTitle) {
+            successTitle.textContent = `Thank you, ${userName}!`;
+          }
+          if (successText) {
+            successText.textContent = `We've received your information and will get back to you within 24 hours. ${formData.preferredContact ? `We'll reach out via ${formData.preferredContact.toLowerCase()}.` : ""}`;
+          }
+
+          document
+            .querySelector(".form-step.active")
+            ?.classList.remove("active");
+          document
+            .getElementById("success-message")
+            ?.classList.remove("hidden");
+          document
+            .querySelector(".flex.justify-between")
+            ?.classList.add("hidden");
+          document.querySelector(".mb-8")?.classList.add("hidden");
+
+          showNotification("Thank you! We'll be in touch soon.", "success");
+        } catch (fetchError) {
+          if (fetchError instanceof Error && fetchError.name === "AbortError") {
+            throw new Error("Request timeout - please try again");
+          }
+          throw fetchError;
+        }
+      } catch (error) {
+        console.error("Contact form submission error:", error);
+        const errorMessage =
+          error instanceof Error
+            ? error.message
+            : "An unexpected error occurred";
+        showNotification(`Submission failed: ${errorMessage}`, "error");
+      } finally {
+        isSubmitting = false;
+        const submitBtnEl = document.getElementById("submit-btn");
+        if (submitBtnEl) {
+          submitBtnEl.textContent = originalText;
+          submitBtnEl.disabled = false;
+        }
+      }
+    };
+
+    // Initialize form - simplified and reliable
+    function initializeForm() {
+      // Get all elements
+      const nextBtnEl = document.getElementById("next-btn");
+      const prevBtnEl = document.getElementById("prev-btn");
+      const submitBtnEl = document.getElementById("submit-btn");
+
+      // Verify critical elements exist
+      if (!nextBtnEl) {
+        console.warn("Form elements not ready, retrying...");
+        setTimeout(initializeForm, 100);
         return;
       }
 
-      // Backend submission with timeout
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT);
+      // Initialize form state
+      showStep(1);
+      setupFieldValidation();
 
-      try {
-        const response = await fetch(`${import.meta.env.BASE_URL}api/contact`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-          signal: controller.signal,
-        });
-
-        clearTimeout(timeoutId);
-
-        const result = await response.json();
-
-        if (!response.ok) {
-          // Handle specific error messages from the API
-          const errorMessage =
-            result.error || `Server error: ${response.status}`;
-          throw new Error(errorMessage);
-        }
-
-        // Show success message with personalization
-        const userName = formData.name.split(" ")[0] || "there";
-        const successTitle = document.getElementById("success-title");
-        const successText = document.getElementById("success-message-text");
-        
-        if (successTitle) {
-          successTitle.textContent = `Thank you, ${userName}!`;
-        }
-        if (successText) {
-          successText.textContent = `We've received your information and will get back to you within 24 hours. ${formData.preferredContact ? `We'll reach out via ${formData.preferredContact.toLowerCase()}.` : ""}`;
-        }
-        
-        document.querySelector(".form-step.active")?.classList.remove("active");
-        document.getElementById("success-message")?.classList.remove("hidden");
-        document
-          .querySelector(".flex.justify-between")
-          ?.classList.add("hidden");
-        document.querySelector(".mb-8")?.classList.add("hidden");
-
-        showNotification("Thank you! We'll be in touch soon.", "success");
-      } catch (fetchError) {
-        if (fetchError instanceof Error && fetchError.name === "AbortError") {
-          throw new Error("Request timeout - please try again");
-        }
-        throw fetchError;
+      // Attach event listeners
+      nextBtnEl.addEventListener("click", handleNext);
+      if (prevBtnEl) {
+        prevBtnEl.addEventListener("click", handlePrev);
       }
-    } catch (error) {
-      console.error("Contact form submission error:", error);
-      const errorMessage =
-        error instanceof Error ? error.message : "An unexpected error occurred";
-      showNotification(`Submission failed: ${errorMessage}`, "error");
-    } finally {
-      isSubmitting = false;
-      if (submitBtn) {
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
+      if (submitBtnEl) {
+        submitBtnEl.addEventListener("click", handleSubmit);
       }
+
+      // Ensure help message is visible initially
+      const helpMsg = document.getElementById("next-btn-help");
+      if (helpMsg) {
+        helpMsg.classList.remove("hidden");
+      }
+
+      // Run initial validation
+      checkStepValidity(currentStep);
+
+      // Make checkStepValidity available globally for debugging
+      window.checkStepValidity = checkStepValidity;
     }
-  };
 
-  nextBtn?.addEventListener("click", handleNext);
-  prevBtn?.addEventListener("click", handlePrev);
-  submitBtn?.addEventListener("click", handleSubmit);
+    // Start initialization when DOM is ready - use IIFE to ensure execution
+    (function init() {
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", () => {
+          setTimeout(initializeForm, 100);
+        });
+      } else {
+        // DOM already ready, but give Astro time to hydrate
+        if (document.getElementById("next-btn")) {
+          initializeForm();
+        } else {
+          setTimeout(() => {
+            if (document.getElementById("next-btn")) {
+              initializeForm();
+            } else {
+              setTimeout(init, 100);
+            }
+          }, 100);
+        }
+      }
+    })();
 
-  // Initialize
-  showStep(1);
-  setupFieldValidation();
+    // Cleanup function for Astro view transitions
+    document.addEventListener("astro:before-swap", () => {
+      const nextBtnEl = document.getElementById("next-btn");
+      const prevBtnEl = document.getElementById("prev-btn");
+      const submitBtnEl = document.getElementById("submit-btn");
 
-  // Cleanup function for Astro view transitions
-  document.addEventListener("astro:before-swap", () => {
-    nextBtn?.removeEventListener("click", handleNext);
-    prevBtn?.removeEventListener("click", handlePrev);
-    submitBtn?.removeEventListener("click", handleSubmit);
+      if (nextBtnEl) {
+        nextBtnEl.removeEventListener("click", handleNext);
+      }
+      if (prevBtnEl) {
+        prevBtnEl.removeEventListener("click", handlePrev);
+      }
+      if (submitBtnEl) {
+        submitBtnEl.removeEventListener("click", handleSubmit);
+      }
 
-    // Clean up size option handlers
-    sizeOptionHandlers.forEach((handler, btn) => {
-      btn.removeEventListener("click", handler);
+      // Clean up validation interval
+      if (validationInterval) {
+        clearInterval(validationInterval);
+      }
+
+      // Clean up size option handlers
+      sizeOptionHandlers.forEach((handler, btn) => {
+        btn.removeEventListener("click", handler);
+      });
+      sizeOptionHandlers.clear();
     });
-    sizeOptionHandlers.clear();
-  });
+  } catch (error) {
+    console.error("[Form] Initialization error:", error);
+  }
 </script>

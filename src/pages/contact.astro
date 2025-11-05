@@ -37,33 +37,6 @@ const base = import.meta.env.BASE_URL;
       >
         {contactContent.hero.subtitle}
       </p>
-
-      {/* What You'll Get */}
-      {
-        contactContent.hero.benefits &&
-          contactContent.hero.benefits.length > 0 && (
-            <div class="bg-accent-green/10 border border-accent-green/30 rounded-xl p-4 sm:p-6 text-left max-w-2xl mx-auto">
-              <h3 class="font-bold mb-2 sm:mb-3 text-sm sm:text-base text-primary transition-colors flex items-center">
-                <Icon
-                  name="mdi:star-four-points"
-                  class="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-accent-green"
-                />
-                What You'll Get:
-              </h3>
-              <ul class="space-y-1.5 sm:space-y-2">
-                {contactContent.hero.benefits.map((benefit) => (
-                  <li class="flex items-start text-xs sm:text-sm text-secondary transition-colors">
-                    <Icon
-                      name="mdi:check-circle"
-                      class="w-4 h-4 text-accent-green mr-2 flex-shrink-0 mt-0.5"
-                    />
-                    <span>{benefit}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )
-      }
     </ContentWrapper>
 
     <!-- Two Column Layout -->
@@ -182,61 +155,6 @@ const base = import.meta.env.BASE_URL;
             </div>
           </div>
 
-          <!-- Quick Info Box -->
-          <div
-            class="mt-4 sm:mt-6 lg:mt-8 p-4 sm:p-6 bg-gradient-to-br from-accent-green/10 to-accent-green/20 border border-accent-green/20 rounded-lg transition-colors"
-          >
-            <h3
-              class="font-bold mb-1.5 sm:mb-2 text-sm sm:text-base text-primary transition-colors"
-            >
-              {contactContent.sidebar.info.fastResponse.title}
-            </h3>
-            <p class="text-xs sm:text-sm text-secondary transition-colors">
-              {contactContent.sidebar.info.fastResponse.description}
-            </p>
-          </div>
-
-          <!-- Quick Actions Section -->
-          <div
-            class="mt-4 sm:mt-6 lg:mt-8 p-4 sm:p-6 bg-card border border-theme rounded-lg"
-          >
-            <h3
-              class="font-bold mb-3 sm:mb-4 text-sm sm:text-base md:text-lg text-primary transition-colors flex items-center"
-            >
-              <Icon
-                name="mdi:lightning-bolt"
-                class="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-accent-green"
-              />
-              Quick Actions
-            </h3>
-            <div class="space-y-2 sm:space-y-3">
-              <a
-                href={`mailto:${siteData.email}`}
-                class="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 bg-accent-green/10 hover:bg-accent-green/20 border border-accent-green/30 rounded-lg text-xs sm:text-sm text-accent-green font-medium transition-colors group min-h-[44px] active:bg-accent-green/30"
-              >
-                <Icon
-                  name="mdi:email"
-                  class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
-                />
-                <span>Email Now</span>
-              </a>
-              {
-                siteData.phone && (
-                  <a
-                    href={`tel:${siteData.phone}`}
-                    class="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 bg-accent-green/10 hover:bg-accent-green/20 border border-accent-green/30 rounded-lg text-xs sm:text-sm text-accent-green font-medium transition-colors group min-h-[44px] active:bg-accent-green/30"
-                  >
-                    <Icon
-                      name="mdi:phone"
-                      class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
-                    />
-                    <span>Call Now</span>
-                  </a>
-                )
-              }
-            </div>
-          </div>
-
           <!-- Quick Links Section - Hidden on mobile, shown on tablet+ -->
           <div
             class="hidden sm:block mt-4 sm:mt-6 lg:mt-8 p-4 sm:p-6 bg-card border border-theme rounded-lg"
@@ -291,46 +209,11 @@ const base = import.meta.env.BASE_URL;
               </a>
             </div>
           </div>
-
-          <!-- Response Time Badge -->
-          <div
-            class="mt-4 sm:mt-6 lg:mt-8 p-3 sm:p-4 bg-accent-green/10 border border-accent-green/30 rounded-lg text-center"
-          >
-            <div class="flex items-center justify-center gap-2 mb-1.5 sm:mb-2">
-              <Icon
-                name="mdi:clock"
-                class="w-4 h-4 sm:w-5 sm:h-5 text-accent-green"
-              />
-              <span class="text-xs sm:text-sm font-semibold text-accent-green"
-                >24-hour response guarantee</span
-              >
-            </div>
-            <p class="text-xs text-secondary transition-colors">
-              Usually faster. We respect your time.
-            </p>
-          </div>
         </div>
       </div>
 
       <!-- Form Column -->
       <div class="lg:col-span-2 space-y-4 sm:space-y-6 order-1 lg:order-2">
-        <!-- Response Time Promise Badge -->
-        <div
-          class="flex items-center justify-center sm:justify-start gap-2 sm:gap-3"
-        >
-          <div
-            class="bg-accent-green/10 border border-accent-green/30 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 flex items-center gap-1.5 sm:gap-2"
-          >
-            <Icon
-              name="mdi:clock"
-              class="w-4 h-4 sm:w-5 sm:h-5 text-accent-green"
-            />
-            <span class="text-xs sm:text-sm font-semibold text-accent-green"
-              >We respond within 24 hours. Usually faster.</span
-            >
-          </div>
-        </div>
-
         <!-- What to Expect Section -->
         <div
           class="bg-accent-green/10 border border-accent-green/30 rounded-xl p-4 sm:p-6 md:p-8"
@@ -396,26 +279,6 @@ const base = import.meta.env.BASE_URL;
           </div>
         </div>
 
-        <!-- Startup Advantage Callout -->
-        <div
-          class="bg-card border border-accent-green/30 rounded-lg p-3 sm:p-4 md:p-6"
-        >
-          <div class="flex items-start gap-2 sm:gap-3">
-            <Icon
-              name="mdi:rocket"
-              class="w-4 h-4 sm:w-5 sm:w-6 sm:h-6 text-accent-green flex-shrink-0 mt-0.5"
-            />
-            <div>
-              <p
-                class="text-xs sm:text-sm md:text-base text-primary font-medium transition-colors"
-              >
-                Talk directly with founders. No account managers. No sales
-                pitches.
-              </p>
-            </div>
-          </div>
-        </div>
-
         <!-- Form -->
         <div
           class="bg-card/50 border border-theme rounded-2xl p-4 sm:p-6 md:p-8 transition-colors"
@@ -442,7 +305,7 @@ const base = import.meta.env.BASE_URL;
         <!-- What Happens Next Section -->
         <div class="bg-card border-2 border-theme rounded-xl p-4 sm:p-6 md:p-8">
           <h3
-            class="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-primary transition-colors flex items-center gap-1.5 sm:gap-2"
+            class="text-lg sm:text-xl font-bold mb-4 sm:mb-6 text-primary transition-colors flex items-center gap-1.5 sm:gap-2"
           >
             <Icon
               name="mdi:arrow-right"
@@ -451,138 +314,133 @@ const base = import.meta.env.BASE_URL;
             What Happens Next
           </h3>
 
-          {/* Visual Timeline */}
-          <div class="relative mb-4 sm:mb-6 pl-6 sm:pl-8">
-            <div
-              class="absolute left-3 sm:left-4 top-0 bottom-0 w-0.5 bg-accent-green/20"
-            >
+          {/* Two Column Grid Layout */}
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6 mb-4 sm:mb-6"
+          >
+            <div class="relative flex items-start gap-3 sm:gap-4">
+              <div
+                class="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-accent-green rounded-full flex items-center justify-center font-bold text-sm sm:text-base md:text-lg border-2 border-accent-green shadow-md shadow-accent-green/20 text-white dark:text-black"
+              >
+                1
+              </div>
+              <div class="flex-1 min-w-0">
+                <div
+                  class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-2.5 mb-1.5 sm:mb-2"
+                >
+                  <h4
+                    class="text-sm sm:text-base font-semibold text-primary transition-colors whitespace-nowrap"
+                  >
+                    We review
+                  </h4>
+                  <span
+                    class="text-[0.65rem] sm:text-xs text-accent-green font-medium whitespace-nowrap"
+                  >
+                    • Within 24 hours
+                  </span>
+                </div>
+                <p
+                  class="text-[0.7rem] sm:text-xs text-secondary/80 transition-colors leading-relaxed"
+                >
+                  A founder personally reviews your inquiry
+                </p>
+              </div>
             </div>
 
-            <div class="space-y-4 sm:space-y-6">
-              <div class="relative flex items-start gap-3 sm:gap-4">
-                <div
-                  class="absolute left-[-1.5rem] sm:left-[-2rem] top-0 w-6 h-6 sm:w-8 sm:h-8 bg-accent-green/20 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm text-accent-green border-2 border-accent-green z-10"
-                >
-                  1
-                </div>
-                <div class="flex-1">
-                  <div
-                    class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-1"
-                  >
-                    <h4
-                      class="text-sm sm:text-base font-semibold text-primary transition-colors"
-                    >
-                      We'll review your message
-                    </h4>
-                    <span
-                      class="text-xs bg-accent-green/10 text-accent-green px-2 py-0.5 rounded-full font-medium self-start sm:self-auto"
-                    >
-                      Within 24 hours
-                    </span>
-                  </div>
-                  <p
-                    class="text-xs sm:text-sm text-secondary transition-colors"
-                  >
-                    A founder will personally review your inquiry
-                  </p>
-                </div>
+            <div class="relative flex items-start gap-3 sm:gap-4">
+              <div
+                class="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-accent-green rounded-full flex items-center justify-center font-bold text-sm sm:text-base md:text-lg border-2 border-accent-green shadow-md shadow-accent-green/20 text-white dark:text-black"
+              >
+                2
               </div>
-
-              <div class="relative flex items-start gap-3 sm:gap-4">
+              <div class="flex-1 min-w-0">
                 <div
-                  class="absolute left-[-1.5rem] sm:left-[-2rem] top-0 w-6 h-6 sm:w-8 sm:h-8 bg-accent-green/20 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm text-accent-green border-2 border-accent-green z-10"
+                  class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-2.5 mb-1.5 sm:mb-2"
                 >
-                  2
-                </div>
-                <div class="flex-1">
-                  <div
-                    class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-1"
+                  <h4
+                    class="text-sm sm:text-base font-semibold text-primary transition-colors whitespace-nowrap"
                   >
-                    <h4
-                      class="text-sm sm:text-base font-semibold text-primary transition-colors"
-                    >
-                      Founder will reach out
-                    </h4>
-                    <span
-                      class="text-xs bg-accent-green/10 text-accent-green px-2 py-0.5 rounded-full font-medium self-start sm:self-auto"
-                    >
-                      Same day or next
-                    </span>
-                  </div>
-                  <p
-                    class="text-xs sm:text-sm text-secondary transition-colors"
+                    We connect
+                  </h4>
+                  <span
+                    class="text-[0.65rem] sm:text-xs text-accent-green font-medium whitespace-nowrap"
                   >
-                    Via your preferred method (email, phone, or video call)
-                  </p>
+                    • Same day or next
+                  </span>
                 </div>
+                <p
+                  class="text-[0.7rem] sm:text-xs text-secondary/80 transition-colors leading-relaxed"
+                >
+                  Via email, phone, or video call—your choice
+                </p>
               </div>
+            </div>
 
-              <div class="relative flex items-start gap-3 sm:gap-4">
-                <div
-                  class="absolute left-[-1.5rem] sm:left-[-2rem] top-0 w-6 h-6 sm:w-8 sm:h-8 bg-accent-green/20 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm text-accent-green border-2 border-accent-green z-10"
-                >
-                  3
-                </div>
-                <div class="flex-1">
-                  <div
-                    class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-1"
-                  >
-                    <h4
-                      class="text-sm sm:text-base font-semibold text-primary transition-colors"
-                    >
-                      Free consultation call
-                    </h4>
-                    <span
-                      class="text-xs bg-accent-green/10 text-accent-green px-2 py-0.5 rounded-full font-medium self-start sm:self-auto"
-                    >
-                      30-45 minutes
-                    </span>
-                  </div>
-                  <p
-                    class="text-xs sm:text-sm text-secondary transition-colors"
-                  >
-                    Understand your needs and answer questions
-                  </p>
-                </div>
+            <div class="relative flex items-start gap-3 sm:gap-4">
+              <div
+                class="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-accent-green rounded-full flex items-center justify-center font-bold text-sm sm:text-base md:text-lg border-2 border-accent-green shadow-md shadow-accent-green/20 text-white dark:text-black"
+              >
+                3
               </div>
-
-              <div class="relative flex items-start gap-3 sm:gap-4">
+              <div class="flex-1 min-w-0">
                 <div
-                  class="absolute left-[-1.5rem] sm:left-[-2rem] top-0 w-6 h-6 sm:w-8 sm:h-8 bg-accent-green/20 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm text-accent-green border-2 border-accent-green z-10"
+                  class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-2.5 mb-1.5 sm:mb-2"
                 >
-                  4
-                </div>
-                <div class="flex-1">
-                  <div
-                    class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-1"
+                  <h4
+                    class="text-sm sm:text-base font-semibold text-primary transition-colors whitespace-nowrap"
                   >
-                    <h4
-                      class="text-sm sm:text-base font-semibold text-primary transition-colors"
-                    >
-                      Personalized recommendations
-                    </h4>
-                    <span
-                      class="text-xs bg-accent-green/10 text-accent-green px-2 py-0.5 rounded-full font-medium self-start sm:self-auto"
-                    >
-                      Actionable steps
-                    </span>
-                  </div>
-                  <p
-                    class="text-xs sm:text-sm text-secondary transition-colors"
+                    Free call
+                  </h4>
+                  <span
+                    class="text-[0.65rem] sm:text-xs text-accent-green font-medium whitespace-nowrap"
                   >
-                    Clear next steps with no obligation
-                  </p>
+                    • 30-45 minutes
+                  </span>
                 </div>
+                <p
+                  class="text-[0.7rem] sm:text-xs text-secondary/80 transition-colors leading-relaxed"
+                >
+                  We understand your needs and answer questions
+                </p>
+              </div>
+            </div>
+
+            <div class="relative flex items-start gap-3 sm:gap-4">
+              <div
+                class="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-accent-green rounded-full flex items-center justify-center font-bold text-sm sm:text-base md:text-lg border-2 border-accent-green shadow-md shadow-accent-green/20 text-white dark:text-black"
+              >
+                4
+              </div>
+              <div class="flex-1 min-w-0">
+                <div
+                  class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-2.5 mb-1.5 sm:mb-2"
+                >
+                  <h4
+                    class="text-sm sm:text-base font-semibold text-primary transition-colors whitespace-nowrap"
+                  >
+                    Your plan
+                  </h4>
+                  <span
+                    class="text-[0.65rem] sm:text-xs text-accent-green font-medium whitespace-nowrap"
+                  >
+                    • Actionable steps
+                  </span>
+                </div>
+                <p
+                  class="text-[0.7rem] sm:text-xs text-secondary/80 transition-colors leading-relaxed"
+                >
+                  Clear next steps, no obligation
+                </p>
               </div>
             </div>
           </div>
 
           {/* What to Prepare Checklist */}
           <div
-            class="bg-accent-green/5 border border-accent-green/20 rounded-lg p-3 sm:p-4"
+            class="bg-accent-green/5 border border-accent-green rounded-lg p-3 sm:p-4 md:p-5"
           >
             <h4
-              class="text-sm sm:text-base font-semibold mb-2 text-primary transition-colors flex items-center"
+              class="text-sm sm:text-base font-semibold mb-2 sm:mb-3 text-primary transition-colors flex items-center"
             >
               <Icon
                 name="mdi:check-circle"
@@ -591,7 +449,7 @@ const base = import.meta.env.BASE_URL;
               What to Prepare (Optional):
             </h4>
             <ul
-              class="space-y-1 text-xs sm:text-sm text-secondary transition-colors"
+              class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-secondary transition-colors"
             >
               <li class="flex items-start">
                 <Icon
@@ -635,7 +493,13 @@ const base = import.meta.env.BASE_URL;
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
         {
           contactContent.additionalOptions.map((option) => (
-            <Card interactive hoverEffect accentBorder padding="md" class="text-center group">
+            <Card
+              interactive
+              hoverEffect
+              accentBorder
+              padding="md"
+              class="text-center group flex flex-col"
+            >
               <div class="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-accent-green/10 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:bg-accent-green/20 transition-colors">
                 <Icon
                   name={option.icon}
@@ -645,14 +509,14 @@ const base = import.meta.env.BASE_URL;
               <h3 class="font-bold mb-1.5 sm:mb-2 text-base sm:text-lg text-primary transition-colors">
                 {option.title}
               </h3>
-              <p class="text-xs sm:text-sm text-secondary mb-4 sm:mb-6 transition-colors">
+              <p class="text-xs sm:text-sm text-secondary mb-4 sm:mb-6 transition-colors flex-grow">
                 {option.description}
               </p>
               {option.action.type === "button" ? (
                 <Button
                   variant="primary"
                   id={option.action.id}
-                  class="w-full"
+                  class="w-full mt-auto"
                 >
                   {option.action.text}
                 </Button>
@@ -662,7 +526,7 @@ const base = import.meta.env.BASE_URL;
                   href={`${base}${option.action.href}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="w-full"
+                  class="w-full mt-auto"
                 >
                   {option.action.text}
                 </Button>
@@ -670,7 +534,7 @@ const base = import.meta.env.BASE_URL;
                 <Button
                   variant="primary"
                   href={`${base}${option.action.href}`}
-                  class="w-full"
+                  class="w-full mt-auto"
                 >
                   {option.action.text}
                 </Button>
@@ -688,17 +552,17 @@ const base = import.meta.env.BASE_URL;
           class="bg-accent-green/10 border-2 border-accent-green/30 rounded-xl p-4 sm:p-6 text-center"
         >
           <Icon
-            name="mdi:clock"
+            name="mdi:handshake"
             class="w-10 h-10 sm:w-12 sm:h-12 text-accent-green mx-auto mb-2 sm:mb-3"
           />
           <h3
             class="font-bold mb-1.5 sm:mb-2 text-sm sm:text-base text-primary transition-colors"
           >
-            Guaranteed Response Time
+            No Sales Pressure
           </h3>
           <p class="text-xs sm:text-sm text-secondary transition-colors">
-            We respond within 24 hours. Usually faster. No automated
-            replies—just real conversations.
+            Get honest advice tailored to your needs. If we can't help, we'll
+            tell you upfront—no pushy sales tactics.
           </p>
         </div>
         <div

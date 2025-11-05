@@ -52,8 +52,9 @@ const navItems: NavItem[] = [
       <!-- Logo Section -->
       <a 
         href={`${base}`} 
-        class="flex items-center space-x-2.5 sm:space-x-3 group relative" 
+        class="flex items-center space-x-2.5 sm:space-x-3 group relative touch-manipulation" 
         aria-label="AUXO Data Labs Home"
+        data-nav-home
       >
         <div class="relative">
           <svg 
@@ -124,6 +125,7 @@ const navItems: NavItem[] = [
                   item.name === 'Services' ? 'w-[600px]' : 'w-[280px]'
                 ]}
                 data-dropdown-menu={index}
+                data-dropdown-content
               >
                 <div class="relative">
                   <!-- Arrow Pointer -->
@@ -201,8 +203,11 @@ const navItems: NavItem[] = [
       </div>
 
       <!-- Mobile Menu Button -->
-      <div class="flex items-center gap-2 lg:hidden">
-        <ThemeToggle />
+      <div class="flex items-center gap-3 lg:hidden">
+        <!-- Theme Toggle - Mobile (enhanced visibility) -->
+        <div class="relative" title="Toggle theme">
+          <ThemeToggle />
+        </div>
         <button 
           type="button"
           id="mobile-menu-button" 
@@ -634,8 +639,13 @@ const navItems: NavItem[] = [
   // Desktop dropdown handlers
   let openDropdown: HTMLElement | null = null;
   let dropdownLeaveTimer: ReturnType<typeof setTimeout> | null = null;
+  let isTransitioning = false;
+  let dropdownHoverState = false;
 
   const closeDropdown = (dropdown: HTMLElement) => {
+    // Don't close during transitions
+    if (isTransitioning) return;
+    
     const menu = dropdown.querySelector('.dropdown-menu') as HTMLElement;
     const button = dropdown.querySelector('.dropdown-toggle') as HTMLElement;
     const arrow = dropdown.querySelector('.dropdown-arrow') as HTMLElement;
@@ -645,7 +655,9 @@ const navItems: NavItem[] = [
       button.classList.remove('active');
       button.setAttribute('aria-expanded', 'false');
       arrow.classList.remove('open');
-      openDropdown = null;
+      if (openDropdown === dropdown) {
+        openDropdown = null;
+      }
     }
   };
 
@@ -685,6 +697,7 @@ const navItems: NavItem[] = [
       button.setAttribute('aria-expanded', 'true');
       arrow.classList.add('open');
       openDropdown = dropdown;
+      dropdownHoverState = true;
     }
   };
 
@@ -709,22 +722,63 @@ const navItems: NavItem[] = [
       });
     });
 
+    // Enhanced hover handling with longer delay and better state tracking
     document.querySelectorAll('.dropdown-container').forEach(container => {
       const containerEl = container as HTMLElement;
-      containerEl.addEventListener('mouseleave', () => {
-        if (openDropdown === containerEl) {
+      const menu = containerEl.querySelector('.dropdown-menu') as HTMLElement;
+      
+      // Mouse leave from container
+      containerEl.addEventListener('mouseleave', (e) => {
+        if (openDropdown === containerEl && !isTransitioning) {
+          // Check if mouse is moving to the dropdown menu
+          const relatedTarget = e.relatedTarget as HTMLElement;
+          if (relatedTarget && menu && menu.contains(relatedTarget)) {
+            return; // Mouse is moving to menu, don't close
+          }
+          
           dropdownLeaveTimer = setTimeout(() => {
-            closeDropdown(containerEl);
-          }, 200);
+            // Double-check hover state before closing
+            if (!dropdownHoverState && openDropdown === containerEl) {
+              closeDropdown(containerEl);
+            }
+          }, 400); // Increased from 200ms to 400ms
         }
       });
 
+      // Mouse enter container
       containerEl.addEventListener('mouseenter', () => {
         if (dropdownLeaveTimer) {
           clearTimeout(dropdownLeaveTimer);
           dropdownLeaveTimer = null;
         }
+        dropdownHoverState = true;
       });
+
+      // Mouse enter dropdown menu itself
+      if (menu) {
+        menu.addEventListener('mouseenter', () => {
+          if (dropdownLeaveTimer) {
+            clearTimeout(dropdownLeaveTimer);
+            dropdownLeaveTimer = null;
+          }
+          dropdownHoverState = true;
+        });
+
+        menu.addEventListener('mouseleave', (e) => {
+          const relatedTarget = e.relatedTarget as HTMLElement;
+          if (relatedTarget && containerEl.contains(relatedTarget)) {
+            return; // Mouse is moving within container, don't close
+          }
+          dropdownHoverState = false;
+          if (openDropdown === containerEl && !isTransitioning) {
+            dropdownLeaveTimer = setTimeout(() => {
+              if (!dropdownHoverState && openDropdown === containerEl) {
+                closeDropdown(containerEl);
+              }
+            }, 400);
+          }
+        });
+      }
     });
   }
 
@@ -843,6 +897,9 @@ const navItems: NavItem[] = [
   document.addEventListener('astro:page-load', updateActiveLinks);
 
   document.addEventListener('astro:before-swap', () => {
+    // Mark transition state to prevent dropdown closing
+    isTransitioning = true;
+    
     // Close mobile menu if open before navigation
     const currentMenu = document.getElementById('mobile-menu');
     if (currentMenu?.classList.contains('open')) {
@@ -870,13 +927,59 @@ const navItems: NavItem[] = [
       dropdownLeaveTimer = null;
     }
     
-    openDropdown = null;
+    // Keep dropdowns open during transition (will be re-initialized on page-load)
+    // Don't set openDropdown to null here - let it persist through transition
   });
 
   // Reinitialize everything after page transition
   document.addEventListener('astro:page-load', () => {
+    // Reset transition state after a short delay to allow DOM to settle
+    setTimeout(() => {
+      isTransitioning = false;
+      dropdownHoverState = false;
+    }, 100);
+    
     initializeMobileMenu();
     initializeDropdowns();
     updateActiveLinks();
+    
+    // Ensure logo navigation works correctly in mobile
+    const logoLink = document.querySelector('[data-nav-home]') as HTMLAnchorElement;
+    if (logoLink) {
+      // Ensure href is set correctly (should already be set from Astro, but verify)
+      const currentHref = logoLink.getAttribute('href');
+      if (!currentHref || currentHref === '#') {
+        // Fallback: get base from any existing nav link
+        const firstNavLink = document.querySelector('.nav-link') as HTMLAnchorElement;
+        if (firstNavLink) {
+          const navHref = firstNavLink.getAttribute('href') || '';
+          const baseMatch = navHref.match(/^(.+?)\/services\/?/);
+          if (baseMatch) {
+            logoLink.href = baseMatch[1] + '/';
+          } else {
+            logoLink.href = '/';
+          }
+        } else {
+          logoLink.href = '/';
+        }
+      }
+      
+      logoLink.addEventListener('click', (e) => {
+        // Ensure navigation happens even if menu is open
+        const currentMenu = document.getElementById('mobile-menu');
+        if (currentMenu?.classList.contains('open')) {
+          closeMobileMenu();
+        }
+      }, { passive: true });
+    }
+  });
+  
+  // Handle theme toggle events to prevent dropdown closing
+  document.addEventListener('themechange', () => {
+    // Brief delay to prevent dropdown closing during theme transition
+    isTransitioning = true;
+    setTimeout(() => {
+      isTransitioning = false;
+    }, 300);
   });
 </script>

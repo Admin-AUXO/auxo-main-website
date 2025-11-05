@@ -330,6 +330,49 @@
     position: relative;
   }
 
+  /* ============================================
+     FORM PRESET VALUES STYLING
+     Light color in dark theme, Dark color in light theme
+     Applies to all forms across the website
+     ============================================ */
+  
+  /* Placeholder colors - Light in dark theme, Dark in light theme */
+  :root.dark input::placeholder,
+  :root:not(.light) input::placeholder,
+  :root.dark textarea::placeholder,
+  :root:not(.light) textarea::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+  }
+
+  :root.light input::placeholder,
+  :root.light textarea::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.6;
+  }
+
+  /* Select option preset values - Light in dark theme, Dark in light theme */
+  :root.dark select option,
+  :root:not(.light) select option {
+    background-color: var(--bg-surface);
+    color: var(--text-secondary);
+  }
+
+  :root.light select option {
+    background-color: var(--bg-surface);
+    color: var(--text-secondary);
+  }
+
+  /* Selected option text color */
+  :root.dark select,
+  :root:not(.light) select {
+    color: var(--text-primary);
+  }
+
+  :root.light select {
+    color: var(--text-primary);
+  }
+
   /* Theme-aware text colors */
   .text-primary {
     color: var(--text-primary);

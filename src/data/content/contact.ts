@@ -35,7 +35,7 @@ export const contactContent: ContactContent = {
   hero: {
     title: "Let's Start Your Analytics",
     titleHighlight: 'Journey Together',
-    subtitle: "As a startup, we move fast. Share your challenges and we'll respond within 24 hours with a personalized approach—no automated replies, no sales funnels. Just real conversations.",
+    subtitle: "Share your data challenges. Get a personalized response within 24 hours from founders—no automated replies, no sales pitches. Just real conversations.",
     benefits: [
       'Free strategy session with founders',
       'Custom assessment of your data needs',

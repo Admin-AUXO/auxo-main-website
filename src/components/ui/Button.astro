@@ -121,25 +121,19 @@ const tagProps = href
   .btn-primary {
     background-color: var(--btn-primary-bg);
     color: var(--btn-primary-text);
-    box-shadow: var(--btn-primary-shadow);
   }
 
   .btn-primary:hover:not(:disabled) {
     background-color: var(--btn-primary-bg-hover);
-    box-shadow: var(--btn-primary-shadow-hover);
-    transform: translateY(-1px);
   }
 
   .btn-primary:active:not(:disabled) {
     background-color: var(--btn-primary-bg-active);
-    transform: translateY(0);
-    box-shadow: var(--btn-primary-shadow);
   }
 
   .btn-primary:disabled {
     background-color: var(--btn-primary-bg-disabled);
     color: var(--btn-primary-text-disabled);
-    box-shadow: none;
   }
 
   /* ============================================
@@ -149,25 +143,21 @@ const tagProps = href
     background-color: var(--btn-secondary-bg);
     color: var(--btn-secondary-text);
     border-color: var(--btn-secondary-border);
-    box-shadow: var(--btn-secondary-shadow);
   }
 
   .btn-secondary:hover:not(:disabled) {
     background-color: var(--btn-secondary-bg-hover);
     border-color: var(--btn-secondary-border-hover);
-    transform: translateY(-1px);
   }
 
   .btn-secondary:active:not(:disabled) {
     background-color: var(--btn-secondary-bg-active);
-    transform: translateY(0);
   }
 
   .btn-secondary:disabled {
     background-color: var(--btn-secondary-bg-disabled);
     color: var(--btn-secondary-text-disabled);
     border-color: var(--border-color);
-    box-shadow: none;
   }
 
   /* ============================================
@@ -207,12 +197,10 @@ const tagProps = href
   .btn-outline:hover:not(:disabled) {
     background-color: var(--btn-outline-bg-hover);
     border-color: var(--btn-outline-border-hover);
-    transform: translateY(-1px);
   }
 
   .btn-outline:active:not(:disabled) {
     background-color: var(--btn-outline-bg-active);
-    transform: translateY(0);
   }
 
   .btn-outline:disabled {
@@ -228,9 +216,7 @@ const tagProps = href
   .btn-outline {
     transition: background-color var(--duration-fast) var(--timing-smooth),
                 color var(--duration-fast) var(--timing-smooth),
-                border-color var(--duration-fast) var(--timing-smooth),
-                box-shadow var(--duration-fast) var(--timing-smooth),
-                transform var(--duration-fast) var(--timing-smooth);
+                border-color var(--duration-fast) var(--timing-smooth);
   }
 
   /* Ensure text remains readable in all states */

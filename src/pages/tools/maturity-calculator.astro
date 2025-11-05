@@ -161,7 +161,7 @@ const calculatorFAQs = [
 
         <button
           id="start-btn"
-          class="w-full py-4 bg-accent-green text-black dark:text-white font-bold rounded-lg hover:bg-accent-green/90 transition-all transform hover:scale-105 min-h-[44px] touch-manipulation"
+          class="w-full py-4 bg-accent-green text-on-accent font-bold rounded-lg hover:bg-accent-green/90 transition-colors active:scale-95 min-h-[44px] touch-manipulation"
         >
           {maturityCalculatorContent.intro.startButton}
         </button>
@@ -233,7 +233,7 @@ const calculatorFAQs = [
           </button>
           <button
             id="q-next-btn"
-            class="px-6 py-3 bg-accent-green text-black dark:text-white font-semibold rounded-lg hover:bg-accent-green/90 transition-colors disabled:opacity-50 min-h-[44px] touch-manipulation"
+            class="px-6 py-3 bg-accent-green text-on-accent font-semibold rounded-lg hover:bg-accent-green/90 transition-colors disabled:opacity-50 min-h-[44px] touch-manipulation"
             disabled
           >
             {maturityCalculatorContent.questionScreen.nextButton}
@@ -584,7 +584,7 @@ const calculatorFAQs = [
 
       // Enhanced styling with better highlighting
       button.className = isSelected
-        ? "answer-option w-full p-4 bg-accent-green/15 border-2 border-accent-green rounded-lg text-left transition-all shadow-lg shadow-accent-green/20 hover:border-accent-green/80 hover:bg-accent-green/20 min-h-[44px] touch-manipulation"
+        ? "answer-option w-full p-4 bg-accent-green/15 border-2 border-accent-green rounded-lg text-left transition-colors hover:border-accent-green/80 hover:bg-accent-green/20 min-h-[44px] touch-manipulation"
         : "answer-option w-full p-4 bg-surface border-2 border-theme rounded-lg text-left hover:border-accent-green hover:bg-surface/80 transition-all min-h-[44px] touch-manipulation";
 
       button.innerHTML = `
@@ -623,7 +623,7 @@ const calculatorFAQs = [
         "border-accent-green",
         "bg-accent-green/15",
         "shadow-lg",
-        "shadow-accent-green/20",
+        "",
         "hover:border-accent-green/80",
         "hover:bg-accent-green/20",
       );
@@ -649,7 +649,7 @@ const calculatorFAQs = [
         "border-accent-green",
         "bg-accent-green/15",
         "shadow-lg",
-        "shadow-accent-green/20",
+        "",
         "hover:border-accent-green/80",
         "hover:bg-accent-green/20",
       );

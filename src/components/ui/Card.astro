@@ -64,12 +64,10 @@ const baseClasses = `
     contain: layout style paint;
   }
 
-  /* Hover effect */
+  /* Hover effect - color changes only, no shadows or transforms */
   .box-hover:hover {
     background-color: var(--box-bg-hover);
     border-color: var(--box-border-hover);
-    box-shadow: var(--box-shadow-hover);
-    transform: translateY(-2px);
   }
 
   /* Accent border variant */
@@ -85,9 +83,7 @@ const baseClasses = `
   /* Smooth transitions */
   .bg-card {
     transition: background-color var(--duration-fast) var(--timing-smooth),
-                border-color var(--duration-fast) var(--timing-smooth),
-                box-shadow var(--duration-fast) var(--timing-smooth),
-                transform var(--duration-fast) var(--timing-smooth);
+                border-color var(--duration-fast) var(--timing-smooth);
   }
 
   /* Ensure text remains readable */

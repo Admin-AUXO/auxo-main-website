@@ -134,13 +134,13 @@ const base = getBaseUrl();
                 <div class="flex gap-3">
                   <a
                     href={siteData.social.linkedin}
-                    class="w-8 h-8 bg-surface rounded-lg flex items-center justify-center hover:bg-accent-green hover:text-black dark:hover:text-white transition-colors min-h-[44px] min-w-[44px] touch-manipulation"
+                    class="w-8 h-8 bg-surface rounded-lg flex items-center justify-center hover:bg-accent-green hover:text-on-accent transition-colors touch-target-manipulation"
                   >
                     <Icon name="mdi:linkedin" class="w-4 h-4" />
                   </a>
                   <a
                     href={siteData.social.twitter}
-                    class="w-8 h-8 bg-surface rounded-lg flex items-center justify-center hover:bg-accent-green hover:text-black dark:hover:text-white transition-colors min-h-[44px] min-w-[44px] touch-manipulation"
+                    class="w-8 h-8 bg-surface rounded-lg flex items-center justify-center hover:bg-accent-green hover:text-on-accent transition-colors touch-target-manipulation"
                   >
                     <Icon name="mdi:twitter" class="w-4 h-4" />
                   </a>
@@ -255,7 +255,7 @@ const base = getBaseUrl();
             {contactContent.whatHappensNext.steps.map((step) => (
               <div class="relative flex items-start gap-3 sm:gap-4">
                 <div
-                  class="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-accent-green rounded-full flex items-center justify-center font-bold text-sm sm:text-base md:text-lg border-2 border-accent-green shadow-md shadow-accent-green/20 text-white dark:text-black"
+                  class="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-accent-green rounded-full flex items-center justify-center font-bold text-sm sm:text-base md:text-lg border-2 border-accent-green shadow-md shadow-accent-green/20 text-on-accent"
                 >
                   {step.number}
                 </div>

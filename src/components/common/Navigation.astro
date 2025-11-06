@@ -172,7 +172,7 @@ const navItems: NavItem[] = [
         <button 
           type="button"
           id="mobile-menu-button" 
-          class="relative z-50 text-secondary hover:text-primary p-2 min-w-[44px] min-h-[44px] rounded-lg hover:bg-surface active:bg-surface transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-green/50 touch-manipulation pointer-events-auto" 
+          class="relative z-50 text-secondary hover:text-primary p-2 touch-target-manipulation rounded-lg hover:bg-surface active:bg-surface transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-green/50 pointer-events-auto" 
           aria-label="Toggle mobile menu" 
           aria-expanded="false"
         >
@@ -283,7 +283,7 @@ const navItems: NavItem[] = [
       <!-- Mobile CTA Button - Theme-aware: Black text in dark mode, White text in light mode -->
       <a 
         href={createUrl('contact')} 
-        class="nav-cta-mobile block mt-4 px-6 py-3.5 min-h-[56px] bg-accent-green font-bold rounded-lg active:bg-accent-green/90 transition-colors duration-200 text-center touch-manipulation flex items-center justify-center text-base relative"
+        class="nav-cta-mobile block mt-4 px-6 py-3.5 touch-target-large bg-accent-green font-bold rounded-lg active:bg-accent-green/90 transition-colors duration-200 text-center touch-manipulation flex items-center justify-center text-base relative"
         aria-label="Let's Talk - Contact us"
       >
         <span class="text-on-accent">Let's Talk</span>

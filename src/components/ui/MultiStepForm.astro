@@ -608,7 +608,7 @@ const base = getBaseUrl();
         <button
           type="button"
           id="prev-btn"
-          class="order-2 sm:order-1 px-6 py-3 bg-surface border border-theme text-primary rounded-lg hover:bg-accent-green/10 hover:border-accent-green/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px] min-w-[44px] w-full sm:w-auto"
+          class="order-2 sm:order-1 px-6 py-3 bg-surface border border-theme text-primary rounded-lg hover:bg-accent-green/10 hover:border-accent-green/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed touch-target w-full sm:w-auto"
           disabled
         >
           {multiStepFormContent.navigation.back}
@@ -617,7 +617,7 @@ const base = getBaseUrl();
           <button
             type="button"
             id="next-btn"
-            class="w-full sm:w-auto px-6 py-3 bg-accent-green text-on-accent font-semibold rounded-lg hover:bg-accent-green/90 transition-all min-h-[44px] min-w-[44px] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-accent-green/50 disabled:hover:bg-accent-green/50"
+            class="w-full sm:w-auto px-6 py-3 bg-accent-green text-on-accent font-semibold rounded-lg hover:bg-accent-green/90 transition-all touch-target cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-accent-green/50 disabled:hover:bg-accent-green/50"
             disabled
           >
             {multiStepFormContent.navigation.next}
@@ -649,7 +649,7 @@ const base = getBaseUrl();
         <button
           type="submit"
           id="submit-btn"
-          class="hidden order-1 sm:order-2 px-6 py-3 bg-accent-green text-on-accent font-semibold rounded-lg hover:bg-accent-green/90 transition-colors min-h-[44px] min-w-[44px] w-full sm:w-auto cursor-pointer"
+          class="hidden order-1 sm:order-2 px-6 py-3 bg-accent-green text-on-accent font-semibold rounded-lg hover:bg-accent-green/90 transition-colors touch-target w-full sm:w-auto cursor-pointer"
         >
           {multiStepFormContent.navigation.submit}
         </button>
@@ -760,13 +760,13 @@ const base = getBaseUrl();
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
           <a
             href={base}
-            class="inline-flex items-center justify-center px-6 py-3 bg-accent-green text-on-accent font-semibold rounded-lg hover:bg-accent-green/90 transition-colors min-h-[44px] min-w-[44px]"
+            class="inline-flex items-center justify-center px-6 py-3 bg-accent-green text-on-accent font-semibold rounded-lg hover:bg-accent-green/90 transition-colors touch-target"
           >
             {commonText.buttons.returnHome}
           </a>
           <a
             href={createUrl('about')}
-            class="inline-flex items-center justify-center px-6 py-3 bg-surface text-primary font-semibold rounded-lg hover:bg-surface/80 transition-colors border border-theme min-h-[44px] min-w-[44px]"
+            class="inline-flex items-center justify-center px-6 py-3 bg-surface text-primary font-semibold rounded-lg hover:bg-surface/80 transition-colors border border-theme touch-target"
           >
             Learn More About Us
           </a>

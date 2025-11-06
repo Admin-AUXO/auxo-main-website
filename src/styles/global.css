@@ -558,6 +558,31 @@
 
 @layer utilities {
   /* ============================================
+     TOUCH TARGET UTILITIES
+     WCAG AA compliant minimum touch target sizes
+     ============================================ */
+  
+  /* Minimum touch target size (44px x 44px) - WCAG AA compliant */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Touch target with touch manipulation for better mobile performance */
+  .touch-target-manipulation {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Large touch target (56px x 56px) for primary actions */
+  .touch-target-large {
+    min-height: 56px;
+    min-width: 56px;
+  }
+  
+  /* ============================================
      ANIMATIONS & KEYFRAMES
      ============================================ */
   
@@ -723,14 +748,7 @@
     @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4;
   }
 
-  /* Touch-friendly interactive elements */
-  .touch-target {
-    @apply min-h-[44px] min-w-[44px] active:opacity-75;
-  }
-
-  .touch-target-lg {
-    @apply min-h-[56px] min-w-[56px] active:opacity-75;
-  }
+  /* Touch-friendly interactive elements - Use utilities from @layer utilities instead */
 
   /* Responsive spacing */
   .responsive-gap {

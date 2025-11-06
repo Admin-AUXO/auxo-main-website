@@ -23,11 +23,8 @@ const { isMobileSwitch = false } = Astro.props;
   data-mobile-switch={isMobileSwitch}
 >
   {isMobileSwitch ? (
-    <!-- Switch Style for Mobile -->
     <div class="theme-switch-track relative w-full h-full rounded-full bg-surface overflow-hidden">
-      <!-- Background gradient that changes with theme -->
       <div class="theme-switch-bg absolute inset-0 transition-colors duration-300"></div>
-      <!-- Switch knob -->
       <div class="theme-switch-knob absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-primary border border-theme shadow-md transition-transform duration-300 flex items-center justify-center">
         <Icon
           name="mdi:moon-waning-crescent"
@@ -42,8 +39,7 @@ const { isMobileSwitch = false } = Astro.props;
       </div>
     </div>
   ) : (
-    <!-- Icon Button Style for Desktop -->
-    <>
+    <div class="relative">
       <Icon
         name="mdi:moon-waning-crescent"
         class="theme-icon-dark absolute w-5 h-5 transition-all duration-300 opacity-100 rotate-0 scale-100"
@@ -54,7 +50,7 @@ const { isMobileSwitch = false } = Astro.props;
         class="theme-icon-light absolute w-5 h-5 transition-all duration-300 opacity-0 rotate-90 scale-0"
         style="color: var(--text-secondary) !important;"
       />
-    </>
+    </div>
   )}
 </button>
 
@@ -76,21 +72,18 @@ const { isMobileSwitch = false } = Astro.props;
       return "dark";
     };
 
-    // Apply theme to document
+    // Apply theme to document - synchronous and immediate
     const applyTheme = (theme: "light" | "dark") => {
       const root = document.documentElement;
-      if (theme === "light") {
-        root.classList.remove("dark");
-        root.classList.add("light");
-      } else {
-        root.classList.remove("light");
-        root.classList.add("dark");
-      }
+      // Remove both classes first, then add the correct one - prevents flicker
+      root.classList.remove("dark", "light");
+      root.classList.add(theme);
       localStorage.setItem("theme", theme);
+      // Update icon immediately, synchronously
       updateIcon(theme);
     };
 
-    // Update icon and switch based on theme
+    // Update icon and switch based on theme - synchronous and immediate
     const updateIcon = (theme: "light" | "dark") => {
       // Get fresh reference to theme toggle (important after view transitions)
       const currentToggle = document.getElementById("theme-toggle");
@@ -103,7 +96,7 @@ const { isMobileSwitch = false } = Astro.props;
       const switchBg = currentToggle.querySelector(".theme-switch-bg");
 
       if (isMobileSwitch && switchKnob) {
-        // Update switch position using inline style for precise control
+        // Update switch position using inline style for immediate, precise control
         if (theme === "dark") {
           (switchKnob as HTMLElement).style.transform = "translateX(0)";
           if (switchBg) {
@@ -119,7 +112,7 @@ const { isMobileSwitch = false } = Astro.props;
           }
         }
         
-        // Update icons in switch (for mobile switch style)
+        // Update icons in switch (for mobile switch style) - synchronous
         if (darkIcon && lightIcon) {
           if (theme === "dark") {
             darkIcon.classList.remove("opacity-0");
@@ -134,7 +127,7 @@ const { isMobileSwitch = false } = Astro.props;
           }
         }
       } else if (darkIcon && lightIcon) {
-        // Update icons for desktop button style
+        // Update icons for desktop button style - synchronous
         if (theme === "dark") {
           darkIcon.classList.remove("opacity-0", "rotate-90", "scale-0");
           darkIcon.classList.add("opacity-100", "rotate-0", "scale-100");
@@ -149,16 +142,19 @@ const { isMobileSwitch = false } = Astro.props;
       }
     };
 
-    // Toggle theme
+    // Toggle theme - immediate and synchronous
     const toggleTheme = () => {
       const currentTheme = getTheme();
       const newTheme = currentTheme === "dark" ? "light" : "dark";
+      // Apply theme immediately - no delays
       applyTheme(newTheme);
       
-      // Dispatch custom event for navigation to listen to
-      document.dispatchEvent(new CustomEvent('themechange', {
-        detail: { theme: newTheme }
-      }));
+      // Dispatch custom event for navigation to listen to (async, doesn't block)
+      requestAnimationFrame(() => {
+        document.dispatchEvent(new CustomEvent('themechange', {
+          detail: { theme: newTheme }
+        }));
+      });
     };
 
     // Initialize theme on load
@@ -189,10 +185,10 @@ const { isMobileSwitch = false } = Astro.props;
         });
     }
 
-    // Re-initialize on Astro view transitions
+    // Re-initialize on Astro view transitions - use requestAnimationFrame for immediate execution
     document.addEventListener("astro:page-load", () => {
-      // Small delay to ensure DOM is fully ready
-      setTimeout(() => {
+      // Use requestAnimationFrame to ensure DOM is ready but execute immediately on next frame
+      requestAnimationFrame(() => {
         // Get fresh reference to theme toggle (might be new DOM element after swap)
         const currentToggle = document.getElementById("theme-toggle");
         if (currentToggle) {
@@ -202,21 +198,18 @@ const { isMobileSwitch = false } = Astro.props;
           
           // Re-attach event listener to the new button element
           currentToggle.addEventListener("click", toggleTheme);
-          
-          // Update switch position and icons (important for mobile switch)
-          updateIcon(theme);
         }
-      }, 50);
+      });
     });
     
-    // Also update on initial page load after a short delay to ensure DOM is ready
-    setTimeout(() => {
+    // Also update on initial page load using requestAnimationFrame for immediate execution
+    requestAnimationFrame(() => {
       const currentToggle = document.getElementById("theme-toggle");
       if (currentToggle) {
         const theme = getTheme();
         updateIcon(theme);
       }
-    }, 100);
+    });
 
     // Cleanup on Astro view transitions (optional - not strictly needed with replaceWith approach)
     document.addEventListener("astro:before-swap", () => {
@@ -263,11 +256,13 @@ const { isMobileSwitch = false } = Astro.props;
 
   .theme-switch-bg {
     background-color: var(--bg-surface);
+    transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .theme-switch-knob {
     transform: translateX(0);
     z-index: 1;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* Dark theme - knob on left (default position) */

@@ -11,33 +11,27 @@ interface Props {
 const { team: teamMembers, content } = Astro.props;
 ---
 
-<div class="max-w-5xl mx-auto mb-6 sm:mb-8 md:mb-12 lg:mb-20">
-  <div class="text-center mb-4 sm:mb-6 md:mb-8 lg:mb-12">
+<div class="max-w-5xl mx-auto mb-4 sm:mb-5 md:mb-6 lg:mb-8 px-4 sm:px-0">
+  <div class="text-center mb-3 sm:mb-4 md:mb-5 lg:mb-6">
     <h2
-      class="text-xl sm:text-2xl md:text-3xl font-bold mb-1.5 sm:mb-2 md:mb-3 lg:mb-4 text-primary transition-colors"
+      class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-1.5 sm:mb-2 md:mb-3 text-primary transition-colors"
     >
       {content.title}
     </h2>
     <p
-      class="text-xs sm:text-sm md:text-base text-secondary hidden md:block transition-colors"
+      class="text-xs sm:text-sm md:text-base text-secondary hidden sm:block transition-colors"
     >
       {content.subtitle}
     </p>
   </div>
 
   <div
-    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8"
+    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 lg:gap-8"
   >
     {
       teamMembers.map((member) => (
-        <div class="bg-card border border-theme rounded-xl p-5 sm:p-6 text-center hover:border-accent-green transition-all group hover:shadow-lg">
-          <div class="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-accent-green to-accent-green/80 rounded-full mx-auto mb-3 sm:mb-4 flex items-center justify-center text-on-accent text-2xl sm:text-3xl font-bold transition-colors group-hover:scale-110">
-            {member.name
-              .split(" ")
-              .map((n) => n[0])
-              .join("")}
-          </div>
-          <h3 class="font-bold text-base sm:text-lg mb-1 text-primary transition-colors">
+        <div class="bg-card border border-theme rounded-xl p-4 sm:p-5 md:p-6 text-center hover:border-accent-green transition-all group hover:shadow-lg">
+          <h3 class="font-bold text-sm sm:text-base md:text-lg mb-1 text-primary transition-colors">
             {member.name}
           </h3>
           <p class="text-accent-green text-xs sm:text-sm mb-2 sm:mb-3 transition-colors">
@@ -46,7 +40,7 @@ const { team: teamMembers, content } = Astro.props;
 
           {/* Expertise Badges */}
           {member.expertise && member.expertise.length > 0 && (
-            <div class="mb-3 sm:mb-4">
+            <div class="mb-2 sm:mb-3 md:mb-4">
               <div class="flex flex-wrap gap-1.5 justify-center">
                 {member.expertise.slice(0, 3).map((skill) => (
                   <span class="px-2 py-1 bg-accent-green/10 border border-accent-green rounded-full text-xs text-accent-green font-medium transition-colors group-hover:bg-accent-green/20">
@@ -57,14 +51,14 @@ const { team: teamMembers, content } = Astro.props;
             </div>
           )}
 
-          <p class="text-xs sm:text-sm text-secondary mb-3 sm:mb-4 transition-colors">
+          <p class="text-xs sm:text-sm text-secondary mb-2 sm:mb-3 md:mb-4 transition-colors leading-relaxed">
             {member.bio}
           </p>
 
           {/* Fun Fact */}
           {member.funFact && (
-            <div class="mb-3 sm:mb-4 p-2 bg-accent-green/5 border border-accent-green/10 rounded-lg">
-              <p class="text-xs text-secondary transition-colors italic">
+            <div class="mb-2 sm:mb-3 md:mb-4 p-2 bg-accent-green/5 border border-accent-green/10 rounded-lg">
+              <p class="text-xs text-secondary transition-colors italic leading-relaxed">
                 💡 {member.funFact}
               </p>
             </div>
@@ -73,7 +67,7 @@ const { team: teamMembers, content } = Astro.props;
           {member.linkedin && (
             <a
               href={member.linkedin}
-              class="inline-flex items-center text-sm text-secondary hover:text-accent-green transition-colors min-h-[44px]"
+              class="inline-flex items-center justify-center text-sm text-secondary hover:text-accent-green transition-colors min-h-[44px] min-w-[100px]"
               aria-label={`Connect with ${member.name} on LinkedIn`}
             >
               <Icon name="mdi:linkedin" class="w-4 h-4 mr-1" />

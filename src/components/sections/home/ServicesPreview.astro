@@ -101,23 +101,27 @@ const getCardClasses = (index: number) => {
                     </div>
                   </div>
                   
-                  <!-- Icon Container with Animated Background -->
-                  <div class="relative mb-6">
-                    <div class="absolute -inset-2 bg-accent-green/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div class="relative w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-accent-green/20 to-accent-green/5 rounded-2xl flex items-center justify-center group-hover:from-accent-green/30 group-hover:to-accent-green/10 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
-                      <Icon 
-                        name={service.icon} 
-                        class="w-8 h-8 sm:w-10 sm:h-10 text-accent-green transition-transform duration-500 group-hover:scale-110" 
-                      />
+                  <!-- Icon and Title Row -->
+                  <div class="flex items-center gap-3 sm:gap-4 mb-4">
+                    <!-- Icon Container with Animated Background -->
+                    <div class="relative flex-shrink-0">
+                      <div class="absolute -inset-2 bg-accent-green/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <div class="relative w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-accent-green/20 to-accent-green/5 rounded-2xl flex items-center justify-center group-hover:from-accent-green/30 group-hover:to-accent-green/10 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
+                        <Icon 
+                          name={service.icon} 
+                          class="w-8 h-8 sm:w-10 sm:h-10 text-accent-green transition-transform duration-500 group-hover:scale-110" 
+                        />
+                      </div>
                     </div>
+                    <!-- Title -->
+                    <h3 class="flex-1 text-xl sm:text-2xl font-bold text-primary transition-colors group-hover:text-accent-green" style="font-family: var(--font-display);">
+                      {service.title}
+                    </h3>
                   </div>
 
                   <!-- Content -->
                   <div class="flex-1 flex flex-col">
-                    <h3 class="text-xl sm:text-2xl font-bold mb-3 text-primary transition-colors group-hover:text-accent-green" style="font-family: var(--font-display);">
-                      {service.title}
-                    </h3>
-                    <p class="text-sm sm:text-base text-secondary leading-relaxed transition-colors flex-1 mb-6" style="font-family: var(--font-body);">
+                    <p class="text-sm sm:text-base text-secondary leading-relaxed transition-colors flex-1 mb-4" style="font-family: var(--font-body);">
                       {service.description}
                     </p>
                     

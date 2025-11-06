@@ -39,15 +39,15 @@ const { isMobileSwitch = false } = Astro.props;
       </div>
     </div>
   ) : (
-    <div class="relative">
+    <div class="relative w-full h-full flex items-center justify-center">
       <Icon
         name="mdi:moon-waning-crescent"
-        class="theme-icon-dark absolute w-5 h-5 transition-all duration-300 opacity-100 rotate-0 scale-100"
+        class="theme-icon-dark absolute w-5 h-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-300 opacity-100 rotate-0 scale-100"
         style="color: var(--text-secondary) !important;"
       />
       <Icon
         name="mdi:white-balance-sunny"
-        class="theme-icon-light absolute w-5 h-5 transition-all duration-300 opacity-0 rotate-90 scale-0"
+        class="theme-icon-light absolute w-5 h-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-300 opacity-0 rotate-90 scale-0"
         style="color: var(--text-secondary) !important;"
       />
     </div>

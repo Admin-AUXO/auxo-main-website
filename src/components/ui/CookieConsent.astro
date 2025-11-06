@@ -217,7 +217,8 @@ import { COOKIE_CONSENT } from "../../utils/constants";
   // Cookie Consent Management
   // @ts-expect-error - define:vars injects variables at runtime
   const COOKIE_CONSENT_KEY = cookieKey;
-  // @ts-expect-error - define:vars injects variables at runtime
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // @ts-expect-error - define:vars injects cookieExpiryDays at runtime, TypeScript doesn't see it
   const COOKIE_EXPIRY_DAYS = cookieExpiryDays;
 
   // Check if consent already given

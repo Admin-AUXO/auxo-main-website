@@ -1126,6 +1126,7 @@ const calculatorFAQs = [
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     printWindow.document.open();
     // eslint-disable-next-line @typescript-eslint/no-deprecated
+    // @ts-ignore - document.write is deprecated but necessary for print window functionality
     printWindow.document.write(`<!DOCTYPE html>
 <html>
   <head>

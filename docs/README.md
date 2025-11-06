@@ -191,6 +191,21 @@ This documentation is designed for **AI Coding Agents** and developers working o
 
 ---
 
+#### [`AUDIT_REPORT.md`](./AUDIT_REPORT.md)
+**Purpose:** Comprehensive code audit report and findings
+
+**Contains:**
+- Code quality assessment
+- Security audit results
+- Performance analysis
+- Accessibility review
+- Dependency status
+- Recommendations
+
+**When to read:** To understand codebase health, security status, and optimization opportunities
+
+---
+
 #### [`GITHUB_GUIDELINES.md`](./GITHUB_GUIDELINES.md)
 **Purpose:** Instructions for using GitHub for change tracking
 

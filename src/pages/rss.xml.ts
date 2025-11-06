@@ -35,7 +35,7 @@ export async function GET(context: APIContext) {
     items.push({
       title: 'Welcome to AUXO Data Labs',
       description: 'Transforming data into actionable insights for businesses across the UAE',
-      link: `${base}about`,
+      link: `${base}about/`,
       pubDate: new Date('2025-01-01'),
       author: siteData.email,
     });

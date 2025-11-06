@@ -2,21 +2,12 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageContainer from "../../components/layouts/PageContainer.astro";
 import ContentWrapper from "../../components/layouts/ContentWrapper.astro";
-import { Breadcrumbs } from "astro-breadcrumbs";
 import FAQSchema from "../../components/schema/FAQSchema.astro";
 import { maturityCalculatorContent } from "../../data/content/maturityCalculator";
 import Button from "../../components/ui/Button.astro";
 import { Icon } from "astro-icon/components";
-import { generateBreadcrumbs } from "../../utils/breadcrumbs";
 
 const base = import.meta.env.BASE_URL;
-
-// Generate formatted breadcrumbs
-const breadcrumbItems = generateBreadcrumbs(
-  Astro.url.pathname,
-  {},
-  "Data Analytics Maturity Assessment",
-);
 
 // FAQ data for structured data
 const calculatorFAQs = [
@@ -55,15 +46,6 @@ const calculatorFAQs = [
   description="Professional data analytics maturity assessment from AUXO Data Labs. Evaluate your organization's capabilities across five key dimensions and receive a strategic report to guide your data journey."
 >
   <PageContainer maxWidth="4xl" paddingTop="pt-24" paddingBottom="pb-16">
-    <!-- Breadcrumb with Structured Data -->
-    <ContentWrapper maxWidth="4xl" class="mb-8">
-      <Breadcrumbs
-        class="text-sm breadcrumb-theme"
-        separator="chevron"
-        crumbs={breadcrumbItems}
-      />
-    </ContentWrapper>
-
     <!-- Header -->
     <ContentWrapper maxWidth="4xl" class="text-center mb-12 sm:mb-16">
       <div
@@ -612,6 +594,7 @@ const calculatorFAQs = [
     // Update navigation
     const backBtn = getElementSafe("q-back-btn");
     const nextBtn = getElementSafe("q-next-btn");
+    const currentAnswers = getCurrentAnswers();
 
     if (backBtn) backBtn.disabled = index === 0;
     if (nextBtn) nextBtn.disabled = !currentAnswers[index];
@@ -632,7 +615,6 @@ const calculatorFAQs = [
         "border-accent-green",
         "bg-accent-green/15",
         "shadow-lg",
-        "",
         "hover:border-accent-green/80",
         "hover:bg-accent-green/20",
       );
@@ -658,7 +640,6 @@ const calculatorFAQs = [
         "border-accent-green",
         "bg-accent-green/15",
         "shadow-lg",
-        "",
         "hover:border-accent-green/80",
         "hover:bg-accent-green/20",
       );

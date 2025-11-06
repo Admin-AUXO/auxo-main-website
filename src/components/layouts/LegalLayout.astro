@@ -15,7 +15,7 @@ const base = import.meta.env.BASE_URL;
 // Generate table of contents from slot content
 const legalPages = legalContent.navigation.pages.map((page) => ({
   name: page.name,
-  href: `${base}${page.href}`,
+  href: page.href === '' ? `${base}` : `${base}${page.href}/`,
 }));
 ---
 

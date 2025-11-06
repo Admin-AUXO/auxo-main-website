@@ -414,6 +414,18 @@ const navItems: NavItem[] = [
     transform: translateY(0);
     opacity: 1;
   }
+
+  /* Mobile dropdown content animation */
+  .mobile-dropdown-content {
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: max-height, opacity;
+  }
+
+  /* Ensure dropdown content is visible when not hidden */
+  .mobile-dropdown-content:not(.hidden) {
+    display: block;
+  }
 </style>
 
 <script>

@@ -101,6 +101,8 @@ function toggleMenu(): void {
     mobileMenu.classList.add('open');
     mobileMenu.classList.remove('-translate-y-full', 'opacity-0');
     mobileMenu.classList.add('translate-y-0', 'opacity-100');
+    // Enable pointer events when menu is open
+    (mobileMenu as HTMLElement).style.pointerEvents = 'auto';
     menuOpen.classList.add('opacity-0');
     menuOpen.classList.remove('opacity-100');
     menuClose.classList.remove('opacity-0');
@@ -210,6 +212,8 @@ function closeMobileMenu(): void {
   mobileMenu.classList.remove('open');
   mobileMenu.classList.add('-translate-y-full', 'opacity-0');
   mobileMenu.classList.remove('translate-y-0', 'opacity-100');
+  // Disable pointer events when menu is closed to prevent accidental clicks
+  (mobileMenu as HTMLElement).style.pointerEvents = 'none';
   menuOpen.classList.remove('opacity-0');
   menuOpen.classList.add('opacity-100');
   menuClose.classList.add('opacity-0');
@@ -597,6 +601,12 @@ function setupMobileNavContainer(): void {
   
   const containerEl = navContainer as HTMLElementWithHandler;
   
+  // Ensure mobile menu has pointer-events: none when closed
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (mobileMenu && !mobileMenu.classList.contains('open')) {
+    mobileMenu.style.pointerEvents = 'none';
+  }
+  
   // Set pointer-events to none on container, then enable on children
   containerEl.style.pointerEvents = 'none';
   
@@ -609,6 +619,18 @@ function setupMobileNavContainer(): void {
   // Add comprehensive click handler
   const handleContainerClick = (e: Event): boolean => {
     const target = e.target as HTMLElement;
+    
+    // Prevent clicks on hidden mobile menu elements
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu && !mobileMenu.classList.contains('open')) {
+      // If click target is inside closed mobile menu, prevent it
+      if (mobileMenu.contains(target)) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        return false;
+      }
+    }
     
     // If clicking directly on container (empty space), prevent everything
     if (target === navContainer) {
@@ -655,6 +677,7 @@ function setupMobileNavContainer(): void {
       // For any other non-interactive click, prevent
       e.preventDefault();
       e.stopPropagation();
+      e.stopImmediatePropagation();
       return false;
     }
     
@@ -667,6 +690,7 @@ function setupMobileNavContainer(): void {
       if (href.includes('/contact') && !link.classList.contains('nav-cta-mobile') && !link.classList.contains('nav-cta')) {
         e.preventDefault();
         e.stopPropagation();
+        e.stopImmediatePropagation();
         return false;
       }
     }

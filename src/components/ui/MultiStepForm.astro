@@ -126,7 +126,7 @@ const base = getBaseUrl();
         <div>
           <label for="phone" class="block">
             <span class="block text-sm font-medium mb-2">
-              Phone Number <span class="text-secondary text-xs">(Optional)</span
+              Phone Number <span class="text-secondary text-xs transition-colors">(Optional)</span
               >
             </span>
             <input
@@ -150,7 +150,7 @@ const base = getBaseUrl();
         <div>
           <label for="whyReachingOut" class="block">
             <span class="block text-sm font-medium mb-2">
-              Why are you reaching out? <span class="text-secondary text-xs"
+              Why are you reaching out? <span class="text-secondary text-xs transition-colors"
                 >(Optional)</span
               >
             </span>
@@ -917,7 +917,7 @@ const base = getBaseUrl();
           ? "bg-accent-green text-on-accent"
           : type === "error"
             ? "bg-accent-red text-on-accent"
-            : "bg-yellow-500 text-black"
+            : "bg-yellow-500 text-primary"
       }`;
       toast.innerHTML = `
       <div class="flex items-center gap-3">

@@ -36,9 +36,9 @@ const calculatorFAQs = [
       "You'll receive an overall maturity score (1-5), detailed scores for each dimension, personalized recommendations for improvement, and insights into your organization's data strengths and areas for development.",
   },
   {
-    question: "Is the maturity assessment free?",
+    question: "What does the maturity assessment cost?",
     answer:
-      "The AUXO Data Maturity Assessment is provided as a professional assessment tool. There are no hidden costs or obligations. We provide this tool to help organizations understand their data capabilities and identify improvement opportunities.",
+      "The AUXO Data Maturity Assessment is provided as a professional assessment tool at no cost. There are no hidden costs or obligations. We provide this tool to help organizations understand their data capabilities and identify improvement opportunities.",
   },
   {
     question: "How is my data used?",
@@ -69,16 +69,25 @@ const calculatorFAQs = [
       <div
         class="inline-block px-5 py-2.5 bg-accent-green/10 border border-accent-green rounded-full backdrop-blur-sm mb-6"
       >
-        <span class="text-accent-green text-xs font-bold tracking-wider uppercase transition-colors" style="font-family: var(--font-body);"
+        <span
+          class="text-accent-green text-xs font-bold tracking-wider uppercase transition-colors"
+          style="font-family: var(--font-body);"
           >{maturityCalculatorContent.hero.badge}</span
         >
       </div>
       <h1
-        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 text-primary transition-colors leading-[1.1] tracking-tight" style="font-family: var(--font-display);"
+        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 text-primary transition-colors leading-[1.1] tracking-tight"
+        style="font-family: var(--font-display);"
       >
-        {maturityCalculatorContent.hero.title} <span class="text-gradient-green block mt-2">{maturityCalculatorContent.hero.titleHighlight}</span>
+        {maturityCalculatorContent.hero.title}
+        <span class="text-gradient-green block mt-2"
+          >{maturityCalculatorContent.hero.titleHighlight}</span
+        >
       </h1>
-      <p class="text-lg sm:text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal mb-4" style="font-family: var(--font-body);">
+      <p
+        class="text-lg sm:text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal mb-4"
+        style="font-family: var(--font-body);"
+      >
         {maturityCalculatorContent.hero.subtitle}
       </p>
       <p class="text-sm text-tertiary transition-colors">
@@ -467,11 +476,14 @@ const calculatorFAQs = [
     );
 
     // Determine pathway based on score ranges
+    // Classification scores: 3 questions × 5 max = 15 maximum
     if (totalScore <= 6) return "early";
     if (totalScore <= 10) return "growing";
     if (totalScore <= 13) return "medium";
-    if (totalScore <= 15) return "advanced";
-    return "enterprise";
+    if (totalScore === 14) return "advanced";
+    if (totalScore === 15) return "enterprise";
+    // Fallback (shouldn't happen with 3 questions)
+    return "early";
   }
 
   /**
@@ -950,7 +962,7 @@ const calculatorFAQs = [
       recs.push({
         title: "Establish Foundational Data Infrastructure",
         description:
-          "Start by centralizing your data sources and implementing basic data quality controls. Consider cloud-based solutions like AWS or Azure for scalability. This foundation will enable all future analytics initiatives.",
+          "Start by centralizing your data sources and implementing basic data quality controls. Consider cloud-based solutions (AWS, Azure, GCP) with UAE data residency options for scalability and compliance. This foundation will enable all future analytics initiatives.",
       });
       recs.push({
         title: "Build Core Data Skills",
@@ -960,7 +972,7 @@ const calculatorFAQs = [
       recs.push({
         title: "Create Basic Governance Framework",
         description:
-          "Define data ownership, establish basic security policies, and ensure UAE PDPL compliance. Start simple - document where critical data lives and who can access it.",
+          "Define data ownership, establish basic security policies, and ensure UAE PDPL compliance (and GDPR if applicable). Start simple - document where critical data lives, who can access it, and basic data protection measures.",
       });
       recs.push({
         title: "Identify Quick Wins",
@@ -975,12 +987,12 @@ const calculatorFAQs = [
       recs.push({
         title: "Implement Self-Service Analytics",
         description:
-          "Deploy user-friendly BI tools (like Power BI, Tableau, or Looker) and create accessible dashboards. Train power users to create their own reports, reducing IT dependency.",
+          "Deploy user-friendly BI tools (Power BI, Tableau, or Looker) with Arabic language support where needed. Create accessible dashboards and train power users to build their own reports, reducing IT dependency and accelerating insights.",
       });
       recs.push({
         title: "Develop a Data Strategy Roadmap",
         description:
-          "Create a 12-month roadmap aligned with business objectives. Identify 3-5 key initiatives that will drive measurable ROI and align with your primary data goal.",
+          "Create a 12-month strategic roadmap aligned with your business objectives. Identify 3-5 prioritized initiatives that will drive measurable ROI, considering both regional market dynamics and international compliance requirements.",
       });
       recs.push({
         title: "Establish Data-Driven Decision Processes",
@@ -996,12 +1008,12 @@ const calculatorFAQs = [
       recs.push({
         title: "Build a Data Center of Excellence",
         description:
-          "Create a centralized team to standardize best practices, provide training, and support analytics initiatives across departments. This accelerates organization-wide maturity.",
+          "Create a centralized team to standardize best practices, provide training, and support analytics initiatives across departments. This accelerates organization-wide maturity and ensures consistent, high-quality analytics delivery.",
       });
       recs.push({
         title: "Implement Real-Time Data Capabilities",
         description:
-          "Set up streaming data pipelines for time-sensitive use cases. Consider event-driven architectures for inventory, pricing, or customer experience optimization.",
+          "Set up streaming data pipelines for time-sensitive use cases. Consider event-driven architectures for inventory, pricing, customer experience optimization, or real-time fraud detection.",
       });
       recs.push({
         title: "Scale ML and AI Initiatives",
@@ -1012,7 +1024,7 @@ const calculatorFAQs = [
       recs.push({
         title: "Explore Next-Generation AI Capabilities",
         description:
-          "Investigate generative AI, automated decision systems, and AI-powered insights. These technologies can maintain your competitive advantage and unlock new business models.",
+          "Investigate generative AI, automated decision systems, and AI-powered insights. These technologies can maintain your competitive advantage and unlock new business models. Consider responsible AI frameworks and governance for ethical deployment.",
       });
       recs.push({
         title: "Optimize and Innovate Continuously",
@@ -1022,7 +1034,7 @@ const calculatorFAQs = [
       recs.push({
         title: "Build External Data Partnerships",
         description:
-          "Consider integrating external data sources (market data, industry benchmarks) to enhance insights. Share best practices with the broader analytics community.",
+          "Consider integrating external data sources (market data, industry benchmarks, regional economic indicators) to enhance insights. Leverage partnerships with data providers and share best practices with the broader analytics community.",
       });
       recs.push({
         title: "Lead Industry Innovation",
@@ -1043,7 +1055,7 @@ const calculatorFAQs = [
     recs.push({
       title: "Work with AUXO Data Labs",
       description:
-        "As a startup consultancy, we bring fresh perspective and rapid execution. Work directly with our Dubai-based founding team for strategy consulting, implementation, and training—personal attention, no bureaucracy.",
+        "Partner with our Dubai-based team for enterprise-grade expertise delivered with modern efficiency. Work directly with senior professionals for strategy consulting, implementation, and training—streamlined processes and dedicated focus on your strategic objectives.",
     });
 
     return recs;
@@ -1052,15 +1064,15 @@ const calculatorFAQs = [
   function getDimensionSpecificRecommendation(dimension) {
     const recommendations = {
       "Data Infrastructure":
-        "Focus on modernizing your data platform, improving integration between systems, and establishing automated data quality processes.",
+        "Focus on modernizing your data platform, improving integration between systems, and establishing automated data quality processes. Consider cloud-based solutions for scalability and regional data residency requirements.",
       "Analytics Capabilities":
-        "Enhance your analytics tools, move beyond basic reporting to diagnostic and predictive analytics, and improve insight delivery speed.",
+        "Enhance your analytics tools, move beyond basic reporting to diagnostic and predictive analytics, and improve insight delivery speed. Invest in self-service capabilities to reduce dependency on IT.",
       "People & Skills":
-        "Invest in training programs, consider hiring data professionals or upskilling existing team members, and establish clear data roles and responsibilities.",
+        "Invest in training programs, consider hiring data professionals or upskilling existing team members, and establish clear data roles and responsibilities. Build a data literacy program to expand capabilities organization-wide.",
       "Data Culture":
-        "Foster a data-driven mindset through leadership support, regular data discussions, and celebrating data-informed decisions.",
+        "Foster a data-driven mindset through leadership support, regular data discussions, and celebrating data-informed decisions. Make data a required input for strategic planning and key business decisions.",
       Governance:
-        "Strengthen your governance framework with formal policies, data stewardship, better documentation, and compliance monitoring.",
+        "Strengthen your governance framework with formal policies, data stewardship, better documentation, and compliance monitoring. Ensure alignment with UAE PDPL and international regulations if operating across borders.",
     };
     return (
       recommendations[dimension] ||
@@ -1074,13 +1086,13 @@ const calculatorFAQs = [
         return {
           title: "Start with Cloud-Based Solutions",
           description:
-            "As a smaller organization, leverage cloud platforms (AWS, Azure, Google Cloud) to avoid large upfront infrastructure costs. Start with managed services and scale as you grow.",
+            "As a smaller organization, leverage cloud platforms (AWS, Azure, Google Cloud) with UAE data residency options to avoid large upfront infrastructure costs. Start with managed services and scale as you grow, ensuring compliance from day one.",
         };
       }
       return {
         title: "Invest in Scalable Foundations",
         description:
-          "Build your data infrastructure with growth in mind. Choose solutions that can scale with your organization without requiring complete rebuilds.",
+          "Build your data infrastructure with growth in mind. Choose solutions that can scale with your organization without requiring complete rebuilds. Consider regional compliance requirements and multi-region capabilities if expanding internationally.",
       };
     }
     return null;

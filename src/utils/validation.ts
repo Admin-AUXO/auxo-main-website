@@ -98,9 +98,9 @@ export type NewsletterData = z.infer<typeof newsletterSchema>;
 
 /**
  * Checks if a value is a non-empty string.
- * @param {any} value - The value to check.
+ * @param {unknown} value - The value to check.
  * @returns {boolean} True if the value is a non-empty string, false otherwise.
  */
-export function isNonEmptyString(value: any): boolean {
+export function isNonEmptyString(value: unknown): boolean {
   return typeof value === 'string' && value.trim() !== '';
 }

@@ -13,45 +13,49 @@ const { isMobileSwitch = false } = Astro.props;
   type="button"
   class:list={[
     "theme-toggle relative transition-all duration-200 flex items-center justify-center active:scale-95",
-    isMobileSwitch 
-      ? "theme-toggle-switch w-12 h-6 rounded-full bg-surface border border-theme flex-shrink-0" 
-      : "w-10 h-10 rounded-lg bg-surface border border-theme text-secondary hover:text-accent-green hover:bg-accent-green/10 hover:border-accent-green/30 min-w-[44px] min-h-[44px]"
+    isMobileSwitch
+      ? "theme-toggle-switch w-12 h-6 rounded-full bg-surface border border-theme flex-shrink-0"
+      : "w-10 h-10 rounded-lg bg-surface border border-theme text-secondary hover:text-accent-green hover:bg-accent-green/10 hover:border-accent-green/30 min-w-[44px] min-h-[44px]",
   ]}
-  style={!isMobileSwitch ? "color: var(--text-secondary) !important;" : undefined}
+  style={!isMobileSwitch
+    ? "color: var(--text-secondary) !important;"
+    : undefined}
   aria-label="Toggle theme"
   title="Toggle dark/light mode"
   data-mobile-switch={isMobileSwitch}
 >
-  {isMobileSwitch ? (
-    <div class="theme-switch-track relative w-full h-full rounded-full bg-surface overflow-hidden">
-      <div class="theme-switch-bg absolute inset-0 transition-colors duration-300"></div>
-      <div class="theme-switch-knob absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-primary border border-theme shadow-md transition-transform duration-300 flex items-center justify-center">
+  {
+    isMobileSwitch ? (
+      <div class="theme-switch-track relative w-full h-full rounded-full bg-surface overflow-hidden">
+        <div class="theme-switch-bg absolute inset-0 transition-colors duration-300" />
+        <div class="theme-switch-knob absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-primary border border-theme shadow-md transition-transform duration-300 flex items-center justify-center">
+          <Icon
+            name="mdi:moon-waning-crescent"
+            class="theme-icon-dark absolute w-3 h-3 transition-all duration-300 opacity-100"
+            style="color: var(--text-secondary) !important;"
+          />
+          <Icon
+            name="mdi:white-balance-sunny"
+            class="theme-icon-light absolute w-3 h-3 transition-all duration-300 opacity-0"
+            style="color: var(--text-secondary) !important;"
+          />
+        </div>
+      </div>
+    ) : (
+      <div class="relative w-full h-full flex items-center justify-center">
         <Icon
           name="mdi:moon-waning-crescent"
-          class="theme-icon-dark absolute w-3 h-3 transition-all duration-300 opacity-100"
+          class="theme-icon-dark absolute w-5 h-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-300 opacity-100 rotate-0 scale-100"
           style="color: var(--text-secondary) !important;"
         />
         <Icon
           name="mdi:white-balance-sunny"
-          class="theme-icon-light absolute w-3 h-3 transition-all duration-300 opacity-0"
+          class="theme-icon-light absolute w-5 h-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-300 opacity-0 rotate-90 scale-0"
           style="color: var(--text-secondary) !important;"
         />
       </div>
-    </div>
-  ) : (
-    <div class="relative w-full h-full flex items-center justify-center">
-      <Icon
-        name="mdi:moon-waning-crescent"
-        class="theme-icon-dark absolute w-5 h-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-300 opacity-100 rotate-0 scale-100"
-        style="color: var(--text-secondary) !important;"
-      />
-      <Icon
-        name="mdi:white-balance-sunny"
-        class="theme-icon-light absolute w-5 h-5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-300 opacity-0 rotate-90 scale-0"
-        style="color: var(--text-secondary) !important;"
-      />
-    </div>
-  )}
+    )
+  }
 </button>
 
 <script>
@@ -89,7 +93,8 @@ const { isMobileSwitch = false } = Astro.props;
       const currentToggle = document.getElementById("theme-toggle");
       if (!currentToggle) return;
 
-      const isMobileSwitch = currentToggle.getAttribute("data-mobile-switch") === "true";
+      const isMobileSwitch =
+        currentToggle.getAttribute("data-mobile-switch") === "true";
       const darkIcon = currentToggle.querySelector(".theme-icon-dark");
       const lightIcon = currentToggle.querySelector(".theme-icon-light");
       const switchKnob = currentToggle.querySelector(".theme-switch-knob");
@@ -105,13 +110,14 @@ const { isMobileSwitch = false } = Astro.props;
           }
         } else {
           // Calculate: button width (3rem/48px) - knob width (1.25rem/20px) - padding (0.125rem/2px)
-          (switchKnob as HTMLElement).style.transform = "translateX(calc(3rem - 1.25rem - 0.125rem))";
+          (switchKnob as HTMLElement).style.transform =
+            "translateX(calc(3rem - 1.25rem - 0.125rem))";
           if (switchBg) {
             switchBg.classList.remove("bg-surface");
             switchBg.classList.add("bg-accent-green/20");
           }
         }
-        
+
         // Update icons in switch (for mobile switch style) - synchronous
         if (darkIcon && lightIcon) {
           if (theme === "dark") {
@@ -143,17 +149,24 @@ const { isMobileSwitch = false } = Astro.props;
     };
 
     // Toggle theme - immediate and synchronous
-    const toggleTheme = () => {
+    const toggleTheme = (e?: Event) => {
+      // Prevent any default behavior or propagation issues
+      if (e) {
+        e.stopPropagation();
+      }
+
       const currentTheme = getTheme();
       const newTheme = currentTheme === "dark" ? "light" : "dark";
       // Apply theme immediately - no delays
       applyTheme(newTheme);
-      
+
       // Dispatch custom event for navigation to listen to (async, doesn't block)
       requestAnimationFrame(() => {
-        document.dispatchEvent(new CustomEvent('themechange', {
-          detail: { theme: newTheme }
-        }));
+        document.dispatchEvent(
+          new CustomEvent("themechange", {
+            detail: { theme: newTheme, duration: 300 },
+          }),
+        );
       });
     };
 
@@ -163,8 +176,23 @@ const { isMobileSwitch = false } = Astro.props;
       applyTheme(theme);
     };
 
-    // Set up event listeners
-    themeToggle.addEventListener("click", toggleTheme);
+    // Set up event listeners with proper mobile support
+    const handleThemeToggle = (e: Event) => {
+      e.stopPropagation(); // Prevent event bubbling
+      toggleTheme(e);
+    };
+
+    // Use both click and touchend for better mobile support
+    // Handle all theme toggles (desktop and mobile) on initial load
+    const allToggles = document.querySelectorAll("#theme-toggle");
+    allToggles.forEach((toggle) => {
+      toggle.addEventListener("click", handleThemeToggle, {
+        passive: false,
+      });
+      toggle.addEventListener("touchend", handleThemeToggle, {
+        passive: false,
+      });
+    });
 
     // Initialize on page load
     if (document.readyState === "loading") {
@@ -189,24 +217,42 @@ const { isMobileSwitch = false } = Astro.props;
     document.addEventListener("astro:page-load", () => {
       // Use requestAnimationFrame to ensure DOM is ready but execute immediately on next frame
       requestAnimationFrame(() => {
-        // Get fresh reference to theme toggle (might be new DOM element after swap)
-        const currentToggle = document.getElementById("theme-toggle");
-        if (currentToggle) {
+        // Get fresh reference to ALL theme toggles (there might be multiple - desktop and mobile)
+        const currentToggles = document.querySelectorAll("#theme-toggle");
+        if (currentToggles.length > 0) {
           // Re-apply theme to ensure consistency across page transitions
           const theme = getTheme();
           applyTheme(theme);
+
+          // Re-attach event listeners to all theme toggle buttons with mobile support
+          const handleThemeToggle = (e: Event) => {
+            e.stopPropagation();
+            toggleTheme(e);
+          };
           
-          // Re-attach event listener to the new button element
-          currentToggle.addEventListener("click", toggleTheme);
+          currentToggles.forEach((toggle) => {
+            // Remove old listeners by cloning the element
+            const newToggle = toggle.cloneNode(true);
+            toggle.parentNode?.replaceChild(newToggle, toggle);
+            
+            // Re-attach listeners to the new element
+            newToggle.addEventListener("click", handleThemeToggle, {
+              passive: false,
+            });
+            newToggle.addEventListener("touchend", handleThemeToggle, {
+              passive: false,
+            });
+          });
         }
       });
     });
-    
+
     // Also update on initial page load using requestAnimationFrame for immediate execution
     requestAnimationFrame(() => {
-      const currentToggle = document.getElementById("theme-toggle");
-      if (currentToggle) {
+      const currentToggles = document.querySelectorAll("#theme-toggle");
+      if (currentToggles.length > 0) {
         const theme = getTheme();
+        // updateIcon will handle all toggles since it queries fresh
         updateIcon(theme);
       }
     });
@@ -279,7 +325,7 @@ const { isMobileSwitch = false } = Astro.props;
   .theme-toggle-switch:hover {
     border-color: var(--accent-green);
   }
-  
+
   /* Ensure switch is properly sized and doesn't take too much space */
   .theme-toggle-switch {
     flex-shrink: 0;

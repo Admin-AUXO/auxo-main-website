@@ -163,10 +163,10 @@ const {
     >
       <slot />
       <Footer hideNewsletter={hideFooterNewsletter} />
-      <!-- Lazy load BackToTop - only needed after user scrolls -->
-      <BackToTop client:load />
-      <!-- Lazy load CookieConsent - not critical for initial render -->
-      <CookieConsent client:load />
+      <!-- BackToTop component with inline script handles its own initialization -->
+      <BackToTop />
+      <!-- CookieConsent component with inline script handles its own initialization -->
+      <CookieConsent />
       <DevBar />
     </main>
   </body>

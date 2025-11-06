@@ -1,14 +1,14 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { commonText } from "../data/content/shared/common";
+import { error404Content } from "../data/content/error404";
 import { Icon } from "astro-icon/components";
 
 const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
-  title="404 - Page Not Found | AUXO Data Labs"
-  description="The page you're looking for doesn't exist. Return to AUXO Data Labs homepage or explore our services."
+  title={error404Content.meta.title}
+  description={error404Content.meta.description}
 >
   <div class="min-h-screen flex items-center justify-center px-4 py-16">
     <div class="max-w-2xl w-full text-center">
@@ -33,104 +33,70 @@ const base = import.meta.env.BASE_URL;
       </div>
 
       <!-- Error Message -->
-      <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4">
-        {commonText.errors.pageNotFound}
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 text-primary transition-colors leading-[1.1] tracking-tight" style="font-family: var(--font-display);">
+        {error404Content.hero.title}
       </h1>
-      <p class="text-xl text-secondary transition-colors mb-8 leading-relaxed">
-        {commonText.errors.pageNotFoundDescription}
+      <p class="text-lg sm:text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal mb-12" style="font-family: var(--font-body);">
+        {error404Content.hero.description}
       </p>
 
       <!-- Action Buttons -->
-      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
         <a
           href={base}
-          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent-green text-on-accent font-bold rounded-lg hover:bg-accent-green/90 transition-colors active:scale-95 focus:outline-none focus:ring-2 focus:ring-accent-green/50 focus:ring-offset-2 focus:ring-offset-black"
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent-green text-on-accent font-bold rounded-lg hover:bg-accent-green/90 transition-colors active:scale-95 focus:outline-none focus:ring-2 focus:ring-accent-green/50 focus:ring-offset-2 focus:ring-offset-black min-h-[44px] touch-manipulation"
         >
-          <Icon name="mdi:home" class="w-5 h-5" />
-          {commonText.buttons.returnHome}
+          <Icon name={error404Content.actions.primary.icon} class="w-5 h-5" />
+          {error404Content.actions.primary.text}
         </a>
         <a
-          href={`${base}contact/`}
-          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-surface text-primary font-bold rounded-lg hover:bg-surface/70 transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent-green/50 focus:ring-offset-2 focus:ring-offset-black"
+          href={`${base}${error404Content.actions.secondary.href}/`}
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-surface text-primary font-bold rounded-lg hover:bg-surface/70 transition-all transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent-green/50 focus:ring-offset-2 focus:ring-offset-black min-h-[44px] touch-manipulation"
         >
-          <Icon name="mdi:email-outline" class="w-5 h-5" />
-          {commonText.cta.contactUs}
+          <Icon name={error404Content.actions.secondary.icon} class="w-5 h-5" />
+          {error404Content.actions.secondary.text}
         </a>
       </div>
 
       <!-- Helpful Links -->
-      <div class="pt-8">
-        <h2 class="text-lg font-semibold text-primary mb-4">
-          Explore AUXO Data Labs
+      <div class="pt-8 mb-12">
+        <h2 class="text-lg sm:text-xl font-semibold text-primary mb-6">
+          {error404Content.explore.title}
         </h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-          <a
-            href={`${base}services/`}
-            class="flex flex-col items-center gap-2 p-4 bg-card rounded-lg hover:bg-surface transition-colors group"
-          >
-            <Icon
-              name="mdi:briefcase"
-              class="w-6 h-6 text-accent-green transition-colors group-hover:scale-110 transition-transform"
-            />
-            <span
-              class="text-secondary transition-colors group-hover:text-primary transition-colors"
-              >Services</span
+          {error404Content.explore.links.map((link) => (
+            <a
+              href={`${base}${link.href}/`}
+              class="flex flex-col items-center gap-2 p-4 bg-card rounded-lg hover:bg-surface transition-colors group min-h-[44px] touch-manipulation"
             >
-          </a>
-          <a
-            href={`${base}about/`}
-            class="flex flex-col items-center gap-2 p-4 bg-card rounded-lg hover:bg-surface transition-colors group"
-          >
-            <Icon
-              name="mdi:information"
-              class="w-6 h-6 text-accent-green transition-colors group-hover:scale-110 transition-transform"
-            />
-            <span
-              class="text-secondary transition-colors group-hover:text-primary transition-colors"
-              >About Us</span
-            >
-          </a>
-          <a
-            href={`${base}blog/`}
-            class="flex flex-col items-center gap-2 p-4 bg-card rounded-lg hover:bg-surface transition-colors group"
-          >
-            <Icon
-              name="mdi:post"
-              class="w-6 h-6 text-accent-green transition-colors group-hover:scale-110 transition-transform"
-            />
-            <span
-              class="text-secondary transition-colors group-hover:text-primary transition-colors"
-              >Blog</span
-            >
-          </a>
-          <a
-            href={`${base}tools/maturity-calculator/`}
-            class="flex flex-col items-center gap-2 p-4 bg-card rounded-lg hover:bg-surface transition-colors group"
-          >
-            <Icon
-              name="mdi:calculator"
-              class="w-6 h-6 text-accent-green transition-colors group-hover:scale-110 transition-transform"
-            />
-            <span
-              class="text-secondary transition-colors group-hover:text-primary transition-colors"
-              >Assessment</span
-            >
-          </a>
+              <Icon
+                name={link.icon}
+                class="w-6 h-6 text-accent-green transition-colors group-hover:scale-110 transition-transform"
+              />
+              <span
+                class="text-secondary transition-colors group-hover:text-primary transition-colors"
+              >
+                {link.text}
+              </span>
+            </a>
+          ))}
         </div>
       </div>
 
       <!-- Search Suggestion -->
       <div class="mt-8 text-sm text-tertiary transition-colors">
         <p>
-          Lost? Try starting from our <a
+          {error404Content.search.text} <a
             href={base}
             class="text-accent-green transition-colors hover:underline"
-            >homepage</a
-          > or <a
-            href={`${base}contact/`}
+          >
+            {error404Content.search.homepage.text}
+          </a> or <a
+            href={`${base}${error404Content.search.contact.href}/`}
             class="text-accent-green transition-colors hover:underline"
-            >contact us</a
-          > for assistance.
+          >
+            {error404Content.search.contact.text}
+          </a> for assistance.
         </p>
       </div>
     </div>

@@ -15,7 +15,7 @@ const base = import.meta.env.BASE_URL;
 
 <BaseLayout
   title="Contact Us - Get Started with Data Analytics | AUXO Data Labs"
-  description="Ready to transform your data into insights? As a startup, we move fast with personal attention. Contact AUXO Data Labs for a free consultation—responses within 24 hours."
+  description="Start a strategic conversation. Share your analytics objectives, and a senior member of our team will respond within 24 hours. No sales pitches, just professional dialogue focused on your goals."
 >
   <PageContainer
     maxWidth="7xl"
@@ -23,17 +23,16 @@ const base = import.meta.env.BASE_URL;
     paddingBottom="pb-12 sm:pb-16"
   >
     <!-- Header -->
-    <ContentWrapper maxWidth="3xl" class="text-center mb-6 sm:mb-8 md:mb-12">
+    <ContentWrapper maxWidth="3xl" class="text-center mb-12 sm:mb-16">
       <h1
-        class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 md:mb-4"
+        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 text-primary transition-colors leading-[1.1] tracking-tight"
+        style="font-family: var(--font-display);"
       >
-        {contactContent.hero.title}
-        <span class="text-accent-green transition-colors">
-          {contactContent.hero.titleHighlight}</span
-        >
+        {contactContent.hero.title} <span class="text-gradient-green block mt-2">{contactContent.hero.titleHighlight}</span>
       </h1>
       <p
-        class="text-sm sm:text-base md:text-lg lg:text-xl text-secondary transition-colors mb-4 sm:mb-6"
+        class="text-lg sm:text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal mb-8"
+        style="font-family: var(--font-body);"
       >
         {contactContent.hero.subtitle}
       </p>
@@ -42,17 +41,11 @@ const base = import.meta.env.BASE_URL;
     <!-- Two Column Layout -->
     <ContentWrapper
       maxWidth="7xl"
-      class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12 mb-6 sm:mb-8 md:mb-12"
+      class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12 mb-16 sm:mb-20"
     >
       <!-- Contact Information Column -->
       <div class="lg:col-span-1 mb-4 lg:mb-0 order-2 lg:order-1">
         <div class="lg:sticky lg:top-24">
-          <h2
-            class="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4 md:mb-6"
-          >
-            {contactContent.sidebar.title}
-          </h2>
-
           <div class="space-y-4 sm:space-y-6">
             <!-- Email -->
             <div class="flex items-start space-x-4">
@@ -162,51 +155,21 @@ const base = import.meta.env.BASE_URL;
             <h3
               class="font-bold mb-3 sm:mb-4 text-sm sm:text-base md:text-lg text-primary transition-colors"
             >
-              Before you reach out, you might want to:
+              {contactContent.sidebar.quickLinks.title}
             </h3>
             <div class="space-y-2 sm:space-y-3">
-              <a
-                href={`${base}about/`}
-                class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-secondary hover:text-accent-green transition-colors group min-h-[44px] active:text-accent-green"
-              >
-                <Icon
-                  name="mdi:account-group"
-                  class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
-                />
-                <span class="group-hover:underline">See how we work</span>
-              </a>
-              <a
-                href={`${base}tools/maturity-calculator/`}
-                class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-secondary hover:text-accent-green transition-colors group min-h-[44px] active:text-accent-green"
-              >
-                <Icon
-                  name="mdi:calculator"
-                  class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
-                />
-                <span class="group-hover:underline"
-                  >Take maturity assessment</span
+              {contactContent.sidebar.quickLinks.links.map((link) => (
+                <a
+                  href={`${base}${link.href}/`}
+                  class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-secondary hover:text-accent-green transition-colors group min-h-[44px] active:text-accent-green"
                 >
-              </a>
-              <a
-                href={`${base}services/`}
-                class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-secondary hover:text-accent-green transition-colors group min-h-[44px] active:text-accent-green"
-              >
-                <Icon
-                  name="mdi:briefcase"
-                  class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
-                />
-                <span class="group-hover:underline">Explore our services</span>
-              </a>
-              <a
-                href={`${base}faq/`}
-                class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-secondary hover:text-accent-green transition-colors group min-h-[44px] active:text-accent-green"
-              >
-                <Icon
-                  name="mdi:help-circle"
-                  class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
-                />
-                <span class="group-hover:underline">Check our FAQ</span>
-              </a>
+                  <Icon
+                    name={link.icon}
+                    class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
+                  />
+                  <span class="group-hover:underline">{link.text}</span>
+                </a>
+              ))}
             </div>
           </div>
         </div>
@@ -216,7 +179,7 @@ const base = import.meta.env.BASE_URL;
       <div class="lg:col-span-2 space-y-4 sm:space-y-6 order-1 lg:order-2">
         <!-- What to Expect Section -->
         <div
-          class="bg-accent-green/10 border border-accent-green/30 rounded-xl p-4 sm:p-6 md:p-8"
+          class="bg-accent-green/10 border border-accent-green/30 rounded-xl p-4 sm:p-6 md:p-8 mb-6"
         >
           <div class="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
             <div
@@ -231,49 +194,22 @@ const base = import.meta.env.BASE_URL;
               <h3
                 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3 text-primary transition-colors"
               >
-                Your Free Consultation Includes:
+                {contactContent.hero.consultation.title}
               </h3>
               <ul class="space-y-1.5 sm:space-y-2">
-                <li class="flex items-start gap-2">
-                  <Icon
-                    name="mdi:check"
-                    class="w-4 h-4 sm:w-5 sm:h-5 text-accent-green flex-shrink-0 mt-0.5"
-                  />
-                  <span
-                    class="text-xs sm:text-sm text-secondary transition-colors"
-                    >Custom assessment of your data needs</span
-                  >
-                </li>
-                <li class="flex items-start gap-2">
-                  <Icon
-                    name="mdi:check"
-                    class="w-4 h-4 sm:w-5 sm:h-5 text-accent-green flex-shrink-0 mt-0.5"
-                  />
-                  <span
-                    class="text-xs sm:text-sm text-secondary transition-colors"
-                    >Personalized recommendations</span
-                  >
-                </li>
-                <li class="flex items-start gap-2">
-                  <Icon
-                    name="mdi:check"
-                    class="w-4 h-4 sm:w-5 sm:h-5 text-accent-green flex-shrink-0 mt-0.5"
-                  />
-                  <span
-                    class="text-xs sm:text-sm text-secondary transition-colors"
-                    >Implementation roadmap</span
-                  >
-                </li>
-                <li class="flex items-start gap-2">
-                  <Icon
-                    name="mdi:check"
-                    class="w-4 h-4 sm:w-5 sm:h-5 text-accent-green flex-shrink-0 mt-0.5"
-                  />
-                  <span
-                    class="text-xs sm:text-sm text-secondary transition-colors"
-                    >No obligation, just honest advice</span
-                  >
-                </li>
+                {contactContent.hero.consultation.benefits.map((benefit) => (
+                  <li class="flex items-start gap-2">
+                    <Icon
+                      name="mdi:check"
+                      class="w-4 h-4 sm:w-5 sm:h-5 text-accent-green flex-shrink-0 mt-0.5"
+                    />
+                    <span
+                      class="text-xs sm:text-sm text-secondary transition-colors"
+                    >
+                      {benefit}
+                    </span>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -295,15 +231,12 @@ const base = import.meta.env.BASE_URL;
               name="mdi:shield-check"
               class="w-3 h-3 sm:w-4 sm:h-4 text-accent-green"
             />
-            <span
-              >Your information is confidential. We never share details. PDPL
-              compliant.</span
-            >
+            <span>{contactContent.privacy.text}</span>
           </p>
         </div>
 
         <!-- What Happens Next Section -->
-        <div class="bg-card border-2 border-theme rounded-xl p-4 sm:p-6 md:p-8">
+        <div class="bg-card border-2 border-theme rounded-xl p-4 sm:p-6 md:p-8 mb-6">
           <h3
             class="text-lg sm:text-xl font-bold mb-4 sm:mb-6 text-primary transition-colors flex items-center gap-1.5 sm:gap-2"
           >
@@ -311,128 +244,43 @@ const base = import.meta.env.BASE_URL;
               name="mdi:arrow-right"
               class="w-5 h-5 sm:w-6 sm:h-6 text-accent-green"
             />
-            What Happens Next
+            {contactContent.whatHappensNext.title}
           </h3>
 
           {/* Two Column Grid Layout */}
           <div
             class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6 mb-4 sm:mb-6"
           >
-            <div class="relative flex items-start gap-3 sm:gap-4">
-              <div
-                class="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-accent-green rounded-full flex items-center justify-center font-bold text-sm sm:text-base md:text-lg border-2 border-accent-green shadow-md shadow-accent-green/20 text-white dark:text-black"
-              >
-                1
-              </div>
-              <div class="flex-1 min-w-0">
+            {contactContent.whatHappensNext.steps.map((step) => (
+              <div class="relative flex items-start gap-3 sm:gap-4">
                 <div
-                  class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-2.5 mb-1.5 sm:mb-2"
+                  class="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-accent-green rounded-full flex items-center justify-center font-bold text-sm sm:text-base md:text-lg border-2 border-accent-green shadow-md shadow-accent-green/20 text-white dark:text-black"
                 >
-                  <h4
-                    class="text-sm sm:text-base font-semibold text-primary transition-colors whitespace-nowrap"
-                  >
-                    We review
-                  </h4>
-                  <span
-                    class="text-[0.65rem] sm:text-xs text-accent-green font-medium whitespace-nowrap"
-                  >
-                    • Within 24 hours
-                  </span>
+                  {step.number}
                 </div>
-                <p
-                  class="text-[0.7rem] sm:text-xs text-secondary/80 transition-colors leading-relaxed"
-                >
-                  A founder personally reviews your inquiry
-                </p>
-              </div>
-            </div>
-
-            <div class="relative flex items-start gap-3 sm:gap-4">
-              <div
-                class="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-accent-green rounded-full flex items-center justify-center font-bold text-sm sm:text-base md:text-lg border-2 border-accent-green shadow-md shadow-accent-green/20 text-white dark:text-black"
-              >
-                2
-              </div>
-              <div class="flex-1 min-w-0">
-                <div
-                  class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-2.5 mb-1.5 sm:mb-2"
-                >
-                  <h4
-                    class="text-sm sm:text-base font-semibold text-primary transition-colors whitespace-nowrap"
+                <div class="flex-1 min-w-0">
+                  <div
+                    class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-2.5 mb-1.5 sm:mb-2"
                   >
-                    We connect
-                  </h4>
-                  <span
-                    class="text-[0.65rem] sm:text-xs text-accent-green font-medium whitespace-nowrap"
+                    <h4
+                      class="text-sm sm:text-base font-semibold text-primary transition-colors whitespace-nowrap"
+                    >
+                      {step.title}
+                    </h4>
+                    <span
+                      class="text-[0.65rem] sm:text-xs text-accent-green font-medium whitespace-nowrap"
+                    >
+                      • {step.timeframe}
+                    </span>
+                  </div>
+                  <p
+                    class="text-[0.7rem] sm:text-xs text-secondary/80 transition-colors leading-relaxed"
                   >
-                    • Same day or next
-                  </span>
+                    {step.description}
+                  </p>
                 </div>
-                <p
-                  class="text-[0.7rem] sm:text-xs text-secondary/80 transition-colors leading-relaxed"
-                >
-                  Via email, phone, or video call—your choice
-                </p>
               </div>
-            </div>
-
-            <div class="relative flex items-start gap-3 sm:gap-4">
-              <div
-                class="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-accent-green rounded-full flex items-center justify-center font-bold text-sm sm:text-base md:text-lg border-2 border-accent-green shadow-md shadow-accent-green/20 text-white dark:text-black"
-              >
-                3
-              </div>
-              <div class="flex-1 min-w-0">
-                <div
-                  class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-2.5 mb-1.5 sm:mb-2"
-                >
-                  <h4
-                    class="text-sm sm:text-base font-semibold text-primary transition-colors whitespace-nowrap"
-                  >
-                    Free call
-                  </h4>
-                  <span
-                    class="text-[0.65rem] sm:text-xs text-accent-green font-medium whitespace-nowrap"
-                  >
-                    • 30-45 minutes
-                  </span>
-                </div>
-                <p
-                  class="text-[0.7rem] sm:text-xs text-secondary/80 transition-colors leading-relaxed"
-                >
-                  We understand your needs and answer questions
-                </p>
-              </div>
-            </div>
-
-            <div class="relative flex items-start gap-3 sm:gap-4">
-              <div
-                class="flex-shrink-0 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-accent-green rounded-full flex items-center justify-center font-bold text-sm sm:text-base md:text-lg border-2 border-accent-green shadow-md shadow-accent-green/20 text-white dark:text-black"
-              >
-                4
-              </div>
-              <div class="flex-1 min-w-0">
-                <div
-                  class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-2.5 mb-1.5 sm:mb-2"
-                >
-                  <h4
-                    class="text-sm sm:text-base font-semibold text-primary transition-colors whitespace-nowrap"
-                  >
-                    Your plan
-                  </h4>
-                  <span
-                    class="text-[0.65rem] sm:text-xs text-accent-green font-medium whitespace-nowrap"
-                  >
-                    • Actionable steps
-                  </span>
-                </div>
-                <p
-                  class="text-[0.7rem] sm:text-xs text-secondary/80 transition-colors leading-relaxed"
-                >
-                  Clear next steps, no obligation
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
 
           {/* What to Prepare Checklist */}
@@ -446,32 +294,20 @@ const base = import.meta.env.BASE_URL;
                 name="mdi:check-circle"
                 class="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2 text-accent-green"
               />
-              What to Prepare (Optional):
+              {contactContent.whatHappensNext.prepare.title}
             </h4>
             <ul
               class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-secondary transition-colors"
             >
-              <li class="flex items-start">
-                <Icon
-                  name="mdi:check"
-                  class="w-3 h-3 sm:w-4 sm:h-4 text-accent-green mr-1.5 sm:mr-2 flex-shrink-0 mt-0.5"
-                />
-                <span>Current data challenges or goals</span>
-              </li>
-              <li class="flex items-start">
-                <Icon
-                  name="mdi:check"
-                  class="w-3 h-3 sm:w-4 sm:h-4 text-accent-green mr-1.5 sm:mr-2 flex-shrink-0 mt-0.5"
-                />
-                <span>Existing analytics tools (if any)</span>
-              </li>
-              <li class="flex items-start">
-                <Icon
-                  name="mdi:check"
-                  class="w-3 h-3 sm:w-4 sm:h-4 text-accent-green mr-1.5 sm:mr-2 flex-shrink-0 mt-0.5"
-                />
-                <span>Key business questions you want answered</span>
-              </li>
+              {contactContent.whatHappensNext.prepare.items.map((item) => (
+                <li class="flex items-start">
+                  <Icon
+                    name="mdi:check"
+                    class="w-3 h-3 sm:w-4 sm:h-4 text-accent-green mr-1.5 sm:mr-2 flex-shrink-0 mt-0.5"
+                  />
+                  <span>{item}</span>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -479,20 +315,20 @@ const base = import.meta.env.BASE_URL;
     </ContentWrapper>
 
     <!-- Additional Contact Options -->
-    <ContentWrapper maxWidth="4xl" class="mt-6 sm:mt-8 md:mt-12">
+    <ContentWrapper maxWidth="4xl" class="mb-16 sm:mb-20">
       <div class="text-center mb-6 sm:mb-8">
         <h2
           class="text-xl sm:text-2xl font-bold mb-1.5 sm:mb-2 text-primary transition-colors"
         >
-          Other Ways to Connect
+          {contactContent.additionalOptions.title}
         </h2>
         <p class="text-sm sm:text-base text-secondary transition-colors">
-          Choose the method that works best for you
+          {contactContent.additionalOptions.subtitle}
         </p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
         {
-          contactContent.additionalOptions.map((option) => (
+          contactContent.additionalOptions.options.map((option) => (
             <Card
               interactive
               hoverEffect
@@ -546,48 +382,32 @@ const base = import.meta.env.BASE_URL;
     </ContentWrapper>
 
     <!-- Trust Indicators -->
-    <ContentWrapper maxWidth="4xl" class="mt-6 sm:mt-8 md:mt-12">
+    <ContentWrapper maxWidth="4xl" class="mb-16 sm:mb-20">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-        <div
-          class="bg-accent-green/10 border-2 border-accent-green/30 rounded-xl p-4 sm:p-6 text-center"
-        >
-          <Icon
-            name="mdi:handshake"
-            class="w-10 h-10 sm:w-12 sm:h-12 text-accent-green mx-auto mb-2 sm:mb-3"
-          />
-          <h3
-            class="font-bold mb-1.5 sm:mb-2 text-sm sm:text-base text-primary transition-colors"
+        {contactContent.trustIndicators.map((indicator) => (
+          <div
+            class="bg-accent-green/10 border-2 border-accent-green/30 rounded-xl p-4 sm:p-6 text-center"
           >
-            No Sales Pressure
-          </h3>
-          <p class="text-xs sm:text-sm text-secondary transition-colors">
-            Get honest advice tailored to your needs. If we can't help, we'll
-            tell you upfront—no pushy sales tactics.
-          </p>
-        </div>
-        <div
-          class="bg-accent-green/10 border-2 border-accent-green/30 rounded-xl p-4 sm:p-6 text-center"
-        >
-          <Icon
-            name="mdi:shield-check"
-            class="w-10 h-10 sm:w-12 sm:h-12 text-accent-green mx-auto mb-2 sm:mb-3"
-          />
-          <h3
-            class="font-bold mb-1.5 sm:mb-2 text-sm sm:text-base text-primary transition-colors"
-          >
-            Privacy Promise
-          </h3>
-          <p class="text-xs sm:text-sm text-secondary transition-colors">
-            Your information is confidential. PDPL compliant. We never share
-            your details with third parties.
-          </p>
-        </div>
+            <Icon
+              name={indicator.icon}
+              class="w-10 h-10 sm:w-12 sm:h-12 text-accent-green mx-auto mb-2 sm:mb-3"
+            />
+            <h3
+              class="font-bold mb-1.5 sm:mb-2 text-sm sm:text-base text-primary transition-colors"
+            >
+              {indicator.title}
+            </h3>
+            <p class="text-xs sm:text-sm text-secondary transition-colors">
+              {indicator.description}
+            </p>
+          </div>
+        ))}
       </div>
     </ContentWrapper>
   </PageContainer>
 </BaseLayout>
 
-<script>
+<script is:inline define:vars={{ email: siteData.email }}>
   // Schedule call button handler
   const scheduleBtn = document.getElementById("schedule-btn");
 
@@ -602,7 +422,7 @@ const base = import.meta.env.BASE_URL;
     );
     if (proceed) {
       window.location.href =
-        "mailto:hello@auxodata.com?subject=Schedule a Consultation";
+        `mailto:${email}?subject=Schedule a Consultation`;
     }
   });
 </script>

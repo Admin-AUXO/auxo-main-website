@@ -41,15 +41,14 @@ const popularPosts = postsWithReadTime.slice(0, 4);
 >
   <PageContainer maxWidth="7xl" paddingTop="pt-24" paddingBottom="pb-16">
       <!-- Header -->
-      <div class="max-w-3xl mx-auto text-center mb-8">
-        <div class="inline-block px-4 py-2 bg-accent-green/10 border border-accent-green rounded-full mb-4">
-          <span class="text-accent-green text-sm font-semibold transition-colors">{blogPageContent.hero.badge}</span>
+      <div class="max-w-3xl mx-auto text-center mb-12 sm:mb-16">
+        <div class="inline-block px-5 py-2.5 bg-accent-green/10 border border-accent-green rounded-full backdrop-blur-sm mb-6">
+          <span class="text-accent-green text-xs font-bold tracking-wider uppercase transition-colors" style="font-family: var(--font-body);">{blogPageContent.hero.badge}</span>
         </div>
-        <h1 class="text-4xl md:text-5xl font-bold mb-4 text-primary transition-colors">
-          {blogPageContent.hero.title}
-          <span class="text-accent-green transition-colors"> {blogPageContent.hero.titleHighlight}</span>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 text-primary transition-colors leading-[1.1] tracking-tight" style="font-family: var(--font-display);">
+          {blogPageContent.hero.title} <span class="text-gradient-green block mt-2">{blogPageContent.hero.titleHighlight}</span>
         </h1>
-        <p class="text-xl text-secondary transition-colors">
+        <p class="text-lg sm:text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal" style="font-family: var(--font-body);">
           {blogPageContent.hero.subtitle}
         </p>
       </div>
@@ -65,10 +64,10 @@ const popularPosts = postsWithReadTime.slice(0, 4);
 
           <!-- Popular Posts Section -->
           {popularPosts.length > 0 && (
-            <div class="max-w-6xl mx-auto mb-6">
-              <div class="flex items-center gap-3 mb-4">
+            <div class="max-w-6xl mx-auto mb-16 sm:mb-20">
+              <div class="flex items-center gap-3 mb-6 sm:mb-8">
                 <Icon name="mdi:trending-up" class="w-8 h-8 text-accent-green transition-colors" />
-                <h2 class="text-2xl font-bold text-primary transition-colors">Popular Posts</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold text-primary transition-colors">{blogPageContent.popularPosts.title}</h2>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 blog-posts-container">
                 {popularPosts.slice(1, 5).map((post) => (
@@ -82,8 +81,8 @@ const popularPosts = postsWithReadTime.slice(0, 4);
 
           <!-- Recent Posts Grid -->
           {recentPosts.length > 0 && (
-            <div class="max-w-6xl mx-auto mb-6">
-              <h2 class="text-2xl font-bold mb-4 text-primary transition-colors">{blogPageContent.recentPosts.title}</h2>
+            <div class="max-w-6xl mx-auto mb-16 sm:mb-20">
+              <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-primary transition-colors">{blogPageContent.recentPosts.title}</h2>
 
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 blog-posts-container">
                 {recentPosts.map((post) => (
@@ -96,52 +95,26 @@ const popularPosts = postsWithReadTime.slice(0, 4);
           )}
 
           <!-- Related Content Section -->
-          <SectionContainer class="mb-6">
+          <SectionContainer class="mb-16 sm:mb-20">
             <div class="max-w-6xl mx-auto">
-              <h2 class="text-2xl font-bold mb-4 text-primary transition-colors">Explore Related Content</h2>
+              <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-primary transition-colors">{blogPageContent.relatedContent.title}</h2>
               <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <a
-                  href={`${base}services/`}
-                  class="group bg-card border-2 border-theme rounded-xl p-6 hover:border-accent-green transition-all duration-300 hover:-translate-y-1"
-                >
-                  <div class="flex items-center gap-3 mb-4">
-                    <Icon name="mdi:chart-bar" class="w-8 h-8 text-accent-green transition-colors" />
-                    <h3 class="text-xl font-bold text-primary group-hover:text-accent-green transition-colors">Our Services</h3>
-                  </div>
-                  <p class="text-secondary mb-4 transition-colors">Explore our data analytics and business intelligence services</p>
-                  <span class="text-accent-green font-semibold group-hover:gap-3 transition-all inline-flex items-center gap-2 min-h-[44px]">
-                    View Services
-                    <Icon name="mdi:arrow-right" class="w-5 h-5" />
-                  </span>
-                </a>
-                <a
-                  href={`${base}tools/maturity-calculator/`}
-                  class="group bg-card border-2 border-theme rounded-xl p-6 hover:border-accent-green transition-all duration-300 hover:-translate-y-1"
-                >
-                  <div class="flex items-center gap-3 mb-4">
-                    <Icon name="mdi:calculator" class="w-8 h-8 text-accent-green transition-colors" />
-                    <h3 class="text-xl font-bold text-primary group-hover:text-accent-green transition-colors">Maturity Calculator</h3>
-                  </div>
-                  <p class="text-secondary mb-4 transition-colors">Assess your data analytics maturity level</p>
-                  <span class="text-accent-green font-semibold group-hover:gap-3 transition-all inline-flex items-center gap-2 min-h-[44px]">
-                    Try Calculator
-                    <Icon name="mdi:arrow-right" class="w-5 h-5" />
-                  </span>
-                </a>
-                <a
-                  href={`${base}contact/`}
-                  class="group bg-card border-2 border-theme rounded-xl p-6 hover:border-accent-green transition-all duration-300 hover:-translate-y-1"
-                >
-                  <div class="flex items-center gap-3 mb-4">
-                    <Icon name="mdi:chat" class="w-8 h-8 text-accent-green transition-colors" />
-                    <h3 class="text-xl font-bold text-primary group-hover:text-accent-green transition-colors">Get in Touch</h3>
-                  </div>
-                  <p class="text-secondary mb-4 transition-colors">Have questions? Contact us for a consultation</p>
-                  <span class="text-accent-green font-semibold group-hover:gap-3 transition-all inline-flex items-center gap-2 min-h-[44px]">
-                    Contact Us
-                    <Icon name="mdi:arrow-right" class="w-5 h-5" />
-                  </span>
-                </a>
+                {blogPageContent.relatedContent.links.map((link) => (
+                  <a
+                    href={`${base}${link.href}/`}
+                    class="group bg-card border-2 border-theme rounded-xl p-6 hover:border-accent-green transition-all duration-300 hover:-translate-y-1"
+                  >
+                    <div class="flex items-center gap-3 mb-4">
+                      <Icon name={link.icon} class="w-8 h-8 text-accent-green transition-colors" />
+                      <h3 class="text-xl font-bold text-primary group-hover:text-accent-green transition-colors">{link.title}</h3>
+                    </div>
+                    <p class="text-secondary mb-4 transition-colors">{link.description}</p>
+                    <span class="text-accent-green font-semibold group-hover:gap-3 transition-all inline-flex items-center gap-2 min-h-[44px]">
+                      {link.linkText}
+                      <Icon name="mdi:arrow-right" class="w-5 h-5" />
+                    </span>
+                  </a>
+                ))}
               </div>
             </div>
           </SectionContainer>
@@ -161,21 +134,15 @@ const popularPosts = postsWithReadTime.slice(0, 4);
           <div class="bg-card border border-theme rounded-lg p-6 mb-8 text-left">
             <h3 class="text-lg font-semibold mb-4 text-primary transition-colors flex items-center gap-2">
               <Icon name="mdi:lightbulb" class="w-5 h-5 text-accent-green" />
-              What to Expect
+              {blogPageContent.empty.whatToExpect.title}
             </h3>
             <div class="space-y-2">
-              <div class="flex items-start gap-2">
-                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
-                <span class="text-sm text-secondary transition-colors">Data analytics insights and best practices</span>
-              </div>
-              <div class="flex items-start gap-2">
-                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
-                <span class="text-sm text-secondary transition-colors">Industry trends and case studies</span>
-              </div>
-              <div class="flex items-start gap-2">
-                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
-                <span class="text-sm text-secondary transition-colors">Practical guides and tutorials</span>
-              </div>
+              {blogPageContent.empty.whatToExpect.items.map((item) => (
+                <div class="flex items-start gap-2">
+                  <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                  <span class="text-sm text-secondary transition-colors">{item}</span>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -196,15 +163,15 @@ const popularPosts = postsWithReadTime.slice(0, 4);
 
           <!-- Explore Services Section -->
           <div class="bg-card border border-theme rounded-lg p-6">
-            <h3 class="text-lg font-semibold mb-4 text-primary transition-colors">Explore Our Services</h3>
+            <h3 class="text-lg font-semibold mb-4 text-primary transition-colors">{blogPageContent.empty.exploreServices.title}</h3>
             <p class="text-sm text-secondary mb-4 transition-colors">
-              While you wait for new content, discover how we can help transform your data analytics.
+              {blogPageContent.empty.exploreServices.description}
             </p>
             <a
-              href={`${base}services/`}
+              href={`${base}${blogPageContent.empty.exploreServices.href}/`}
               class="inline-flex items-center gap-2 text-accent-green hover:text-accent-green/80 font-semibold text-sm transition-colors min-h-[44px]"
             >
-              View Services
+              {blogPageContent.empty.exploreServices.linkText}
               <Icon name="mdi:arrow-right" class="w-4 h-4" />
             </a>
           </div>
@@ -217,36 +184,26 @@ const popularPosts = postsWithReadTime.slice(0, 4);
         <div class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-8 md:p-12 text-center transition-colors">
           <Icon name="mdi:email-newsletter" class="w-16 h-16 text-accent-green mx-auto mb-4 transition-colors" />
           <div class="inline-block px-4 py-2 bg-accent-green/20 border border-accent-green/40 rounded-full mb-4">
-            <span class="text-accent-green text-sm font-semibold transition-colors">Join 500+ subscribers</span>
+            <span class="text-accent-green text-sm font-semibold transition-colors">{commonText.newsletter.subscriberCount}</span>
           </div>
           <h2 class="text-3xl font-bold mb-4 text-primary transition-colors">{commonText.newsletter.title}</h2>
           <p class="text-secondary mb-6 max-w-2xl mx-auto transition-colors">
             {commonText.newsletter.subtitle}
           </p>
           <div class="bg-card/50 border border-accent-green/20 rounded-lg p-6 mb-8 max-w-2xl mx-auto text-left">
-            <p class="text-sm font-semibold mb-3 text-primary transition-colors">What you'll receive:</p>
+            <p class="text-sm font-semibold mb-3 text-primary transition-colors">{commonText.newsletter.whatYoullReceive}</p>
             <div class="space-y-2">
-              <div class="flex items-start gap-2">
-                <Icon name="mdi:check" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
-                <span class="text-sm text-secondary transition-colors">Industry trends and insights</span>
-              </div>
-              <div class="flex items-start gap-2">
-                <Icon name="mdi:check" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
-                <span class="text-sm text-secondary transition-colors">ROI frameworks and practical tips</span>
-              </div>
-              <div class="flex items-start gap-2">
-                <Icon name="mdi:check" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
-                <span class="text-sm text-secondary transition-colors">Data analytics best practices</span>
-              </div>
-              <div class="flex items-start gap-2">
-                <Icon name="mdi:check" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
-                <span class="text-sm text-secondary transition-colors">Exclusive early access to new content</span>
-              </div>
+              {commonText.newsletter.benefits.map((benefit) => (
+                <div class="flex items-start gap-2">
+                  <Icon name="mdi:check" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                  <span class="text-sm text-secondary transition-colors">{benefit}</span>
+                </div>
+              ))}
             </div>
           </div>
           <div class="flex items-center justify-center gap-2 mb-6 text-sm text-secondary">
             <Icon name="mdi:calendar-clock" class="w-5 h-5 text-accent-green" />
-            <span>Monthly insights. No spam. Unsubscribe anytime.</span>
+            <span>{commonText.newsletter.frequency}</span>
           </div>
           <form id="blog-newsletter-form" class="flex flex-col gap-4 max-w-md mx-auto">
             <div class="flex flex-col sm:flex-row gap-4">

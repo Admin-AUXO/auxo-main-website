@@ -11,64 +11,43 @@ const base = import.meta.env.BASE_URL;
 
 <BaseLayout
   title="Case Studies - Success Stories | AUXO Data Labs"
-  description="See the types of results our founding team has delivered. As a new consultancy, we're building our portfolio—these examples represent what we'll achieve together."
+  description="See the types of results our methodologies can deliver. Our team has extensive experience delivering similar outcomes for clients across the GCC, Europe, and international markets."
 >
   <PageContainer maxWidth="7xl" paddingTop="pt-24" paddingBottom="pb-16">
       <!-- Header -->
-      <ContentWrapper maxWidth="3xl" class="text-center mb-12">
-        <div class="inline-block px-4 py-2 bg-accent-green/10 border border-accent-green rounded-full mb-4">
-          <span class="text-accent-green transition-colors text-sm font-semibold">{caseStudiesContent.hero.badge}</span>
+      <ContentWrapper maxWidth="3xl" class="text-center mb-12 sm:mb-16">
+        <div class="inline-block px-5 py-2.5 bg-accent-green/10 border border-accent-green rounded-full backdrop-blur-sm mb-6">
+          <span class="text-accent-green text-xs font-bold tracking-wider uppercase transition-colors" style="font-family: var(--font-body);">{caseStudiesContent.hero.badge}</span>
         </div>
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">
-          {caseStudiesContent.hero.title}
-          <span class="text-accent-green transition-colors"> {caseStudiesContent.hero.titleHighlight}</span>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 text-primary transition-colors leading-[1.1] tracking-tight" style="font-family: var(--font-display);">
+          {caseStudiesContent.hero.title} <span class="text-gradient-green block mt-2">{caseStudiesContent.hero.titleHighlight}</span>
         </h1>
-        <p class="text-xl text-secondary transition-colors">
+        <p class="text-lg sm:text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal" style="font-family: var(--font-body);">
           {caseStudiesContent.hero.subtitle}
         </p>
       </ContentWrapper>
 
-      <!-- Founder Experience & Methodology -->
-      <ContentWrapper maxWidth="6xl" class="mb-16">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- Founder Experience -->
-          <div class="bg-accent-green/10 border border-accent-green/30 rounded-xl p-6 sm:p-8">
-            <div class="flex items-start gap-4">
-              <div class="flex-shrink-0 w-10 h-10 bg-accent-green/20 rounded-lg flex items-center justify-center">
-                <Icon name="mdi:account-group" class="w-6 h-6 text-accent-green" />
-              </div>
-              <div>
-                <h3 class="font-bold mb-2 text-base sm:text-lg text-primary transition-colors">
-                  {caseStudiesContent.hero.founderExperience.title}
-                </h3>
-                <p class="text-sm sm:text-base text-secondary transition-colors leading-relaxed">
-                  {caseStudiesContent.hero.founderExperience.description}
-                </p>
-              </div>
+      <!-- Proven Methodology -->
+      <ContentWrapper maxWidth="6xl" class="mb-16 sm:mb-20">
+        <div class="bg-accent-green/10 border border-accent-green/30 rounded-xl p-6 sm:p-8">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-accent-green/20 rounded-lg flex items-center justify-center">
+              <Icon name="mdi:certificate" class="w-6 h-6 text-accent-green" />
             </div>
-          </div>
-          
-          <!-- Proven Methodology -->
-          <div class="bg-accent-green/10 border border-accent-green/30 rounded-xl p-6 sm:p-8">
-            <div class="flex items-start gap-4">
-              <div class="flex-shrink-0 w-10 h-10 bg-accent-green/20 rounded-lg flex items-center justify-center">
-                <Icon name="mdi:certificate" class="w-6 h-6 text-accent-green" />
-              </div>
-              <div>
-                <h3 class="font-bold mb-2 text-base sm:text-lg text-primary transition-colors">
-                  {caseStudiesContent.hero.provenMethodology.title}
-                </h3>
-                <p class="text-sm sm:text-base text-secondary transition-colors leading-relaxed">
-                  {caseStudiesContent.hero.provenMethodology.description}
-                </p>
-              </div>
+            <div>
+              <h3 class="font-bold mb-2 text-base sm:text-lg text-primary transition-colors">
+                {caseStudiesContent.hero.provenMethodology.title}
+              </h3>
+              <p class="text-sm sm:text-base text-secondary transition-colors leading-relaxed">
+                {caseStudiesContent.hero.provenMethodology.description}
+              </p>
             </div>
           </div>
         </div>
       </ContentWrapper>
 
       <!-- Stats Bar -->
-      <ContentWrapper maxWidth="5xl" class="mb-16">
+      <ContentWrapper maxWidth="5xl" class="mb-16 sm:mb-20">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
           <div class="bg-card border border-theme rounded-xl p-6 text-center hover:border-accent-green/50 hover:shadow-lg transition-all group cursor-help" data-stat="projects" data-tooltip="Combined projects delivered by founding team across previous organizations">
             <div class="text-3xl font-bold text-accent-green transition-colors mb-2 stat-value" data-target={siteData.stats.foundingClients.replace('+', '')}>{siteData.stats.foundingClients}</div>
@@ -90,7 +69,7 @@ const base = import.meta.env.BASE_URL;
       </ContentWrapper>
 
       <!-- Case Studies Grid -->
-      <ContentWrapper maxWidth="6xl" class="space-y-12">
+      <ContentWrapper maxWidth="6xl" class="space-y-12 mb-16 sm:mb-20">
         {caseStudies.map((study) => (
           <div class={`bg-card border-2 ${study.borderColor} rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300`}>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-0">
@@ -232,17 +211,14 @@ const base = import.meta.env.BASE_URL;
       </ContentWrapper>
 
       <!-- CTA Section -->
-      <ContentWrapper maxWidth="4xl" class="mt-20">
+      <ContentWrapper maxWidth="4xl" class="mb-16 sm:mb-20">
         <div class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-8 md:p-12 text-center">
-          <h2 class="text-3xl font-bold mb-4">{caseStudiesContent.finalCta.title}</h2>
-          <p class="text-secondary transition-colors mb-4 max-w-2xl mx-auto">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-primary transition-colors leading-[1.1] tracking-tight" style="font-family: var(--font-display);">
+            {caseStudiesContent.finalCta.title}
+          </h2>
+          <p class="text-lg sm:text-xl text-secondary transition-colors mb-8 max-w-2xl mx-auto leading-relaxed font-normal" style="font-family: var(--font-body);">
             {caseStudiesContent.finalCta.subtitle}
           </p>
-          {caseStudiesContent.finalCta.contextualText && (
-            <p class="text-sm text-accent-green mb-6">
-              {caseStudiesContent.finalCta.contextualText}
-            </p>
-          )}
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href={`${base}${caseStudiesContent.finalCta.primaryCta.href}`}
@@ -256,13 +232,6 @@ const base = import.meta.env.BASE_URL;
               class="px-8 py-4 bg-surface text-primary font-bold rounded-lg hover:bg-surface/80 transition-colors inline-flex items-center justify-center min-h-[44px] touch-manipulation border border-theme"
             >
               {caseStudiesContent.finalCta.secondaryCta.text}
-            </a>
-            <a
-              href={`${base}contact/`}
-              class="px-8 py-4 bg-card text-primary font-bold rounded-lg hover:bg-card/80 transition-colors inline-flex items-center justify-center min-h-[44px] touch-manipulation border border-theme"
-            >
-              <Icon name="mdi:calendar-clock" class="w-5 h-5 mr-2" />
-              Schedule Strategy Session
             </a>
           </div>
         </div>

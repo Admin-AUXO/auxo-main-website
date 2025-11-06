@@ -38,7 +38,7 @@ const calculatorFAQs = [
   {
     question: "Is the maturity assessment free?",
     answer:
-      "Yes, the AUXO Data Maturity Assessment is completely free. There are no hidden costs or obligations. We provide this tool to help organizations understand their data capabilities and identify improvement opportunities.",
+      "The AUXO Data Maturity Assessment is provided as a professional assessment tool. There are no hidden costs or obligations. We provide this tool to help organizations understand their data capabilities and identify improvement opportunities.",
   },
   {
     question: "How is my data used?",
@@ -52,7 +52,7 @@ const calculatorFAQs = [
 
 <BaseLayout
   title="Data Analytics Maturity Assessment | AUXO Data Labs"
-  description="Free data analytics maturity assessment from AUXO Data Labs. Discover your organization's maturity level and get personalized recommendations—100% free and anonymous."
+  description="Professional data analytics maturity assessment from AUXO Data Labs. Evaluate your organization's capabilities across five key dimensions and receive a strategic report to guide your data journey."
 >
   <PageContainer maxWidth="4xl" paddingTop="pt-24" paddingBottom="pb-16">
     <!-- Breadcrumb with Structured Data -->
@@ -65,23 +65,20 @@ const calculatorFAQs = [
     </ContentWrapper>
 
     <!-- Header -->
-    <ContentWrapper maxWidth="4xl" class="text-center mb-12">
+    <ContentWrapper maxWidth="4xl" class="text-center mb-12 sm:mb-16">
       <div
-        class="inline-block px-4 py-2 bg-accent-green/10 border border-accent-green rounded-full mb-4"
+        class="inline-block px-5 py-2.5 bg-accent-green/10 border border-accent-green rounded-full backdrop-blur-sm mb-6"
       >
-        <span class="text-accent-green transition-colors text-sm font-semibold"
+        <span class="text-accent-green text-xs font-bold tracking-wider uppercase transition-colors" style="font-family: var(--font-body);"
           >{maturityCalculatorContent.hero.badge}</span
         >
       </div>
       <h1
-        class="text-4xl md:text-5xl font-bold mb-4 text-primary transition-colors"
+        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 text-primary transition-colors leading-[1.1] tracking-tight" style="font-family: var(--font-display);"
       >
-        {maturityCalculatorContent.hero.title}
-        <span class="text-accent-green transition-colors">
-          {maturityCalculatorContent.hero.titleHighlight}</span
-        >
+        {maturityCalculatorContent.hero.title} <span class="text-gradient-green block mt-2">{maturityCalculatorContent.hero.titleHighlight}</span>
       </h1>
-      <p class="text-xl text-secondary transition-colors mb-6">
+      <p class="text-lg sm:text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal mb-4" style="font-family: var(--font-body);">
         {maturityCalculatorContent.hero.subtitle}
       </p>
       <p class="text-sm text-tertiary transition-colors">

@@ -40,10 +40,10 @@ export interface Pathway {
 
 export const maturityCalculatorContent = {
   hero: {
-    badge: 'Free Assessment Tool',
+    badge: 'Professional Assessment Tool',
     title: 'Data Analytics',
     titleHighlight: 'Maturity Assessment',
-    subtitle: 'Discover where your organization stands and get personalized recommendations for growth',
+    subtitle: 'Evaluate your organization\'s analytics capabilities across five key dimensions and receive a strategic report to guide your data journey.',
     subtitleMeta: 'Personalized questions based on your organization • Takes 5-10 minutes',
   },
   intro: {
@@ -51,10 +51,9 @@ export const maturityCalculatorContent = {
       title: 'What You\'ll Get',
       icon: 'mdi:chart-line',
       items: [
-        'Your maturity score across 5 key dimensions',
-        'Personalized improvement roadmap tailored to your organization',
-        'Comparison with industry benchmarks',
-        'Downloadable PDF report',
+        'Receive a comprehensive maturity score',
+        'Benchmark your performance against industry standards',
+        'Get a strategic roadmap with prioritized recommendations',
       ],
     } as BenefitItem,
     privacy: {

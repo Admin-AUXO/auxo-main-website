@@ -230,8 +230,8 @@ export const aboutContent: AboutContent = {
     comparisons: [
       {
         feature: 'Implementation Speed',
-        them: 'Months of planning and bureaucracy',
-        us: 'Weeks to first insights, agile delivery',
+        them: 'Months of planning and extended approval processes',
+        us: 'Weeks to first insights, efficient delivery',
       },
       {
         feature: 'Who You Work With',

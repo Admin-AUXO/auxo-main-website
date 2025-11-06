@@ -51,7 +51,7 @@ export const commonText = {
   },
   newsletter: {
     title: 'Stay Updated',
-    subtitle: 'Subscribe to our newsletter to receive the latest insights, trends, and best practices in data analytics',
+    subtitle: 'Receive strategic insights on data analytics, AI, and digital transformation, with a focus on regional market trends and international compliance for organizations in the GCC, Europe, and beyond.',
     emailPlaceholder: 'Enter your email',
     consent: 'I consent to receive marketing emails and understand I can unsubscribe at any time.',
     privacyLink: 'Privacy Policy',
@@ -59,6 +59,15 @@ export const commonText = {
     subscribing: 'Subscribing...',
     success: 'Thank you! Please check your email to confirm your subscription.',
     error: 'Subscription failed. Please try again.',
+    subscriberCount: 'Join industry leaders',
+    whatYoullReceive: 'What you\'ll receive:',
+    benefits: [
+      'Strategic insights on regional market trends (GCC, Europe, and beyond)',
+      'International compliance guidance (UAE PDPL, GDPR)',
+      'ROI frameworks and business outcome strategies',
+      'Technical deep-dives and industry best practices',
+    ],
+    frequency: 'Monthly insights delivered to your inbox. Unsubscribe at any time.',
   },
 };
 

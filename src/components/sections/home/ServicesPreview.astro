@@ -16,9 +16,9 @@ const base = import.meta.env.BASE_URL;
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
       <!-- Section Header -->
-      <div class="text-center mb-12 sm:mb-16 lg:mb-20 animate-fade-in">
+      <div class="text-center mb-16 sm:mb-20 animate-fade-in">
         <div
-          class="inline-block mb-3 px-4 py-2 bg-accent-green/10 border border-accent-green rounded-full"
+          class="inline-block mb-6 px-5 py-2.5 bg-accent-green/10 border border-accent-green rounded-full backdrop-blur-sm"
         >
           <span
             class="text-accent-green text-xs font-bold tracking-wider uppercase"
@@ -27,7 +27,7 @@ const base = import.meta.env.BASE_URL;
           >
         </div>
         <h2
-          class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-primary transition-colors"
+          class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 text-primary transition-colors leading-[1.1] tracking-tight"
           style="font-family: var(--font-display);"
         >
           {content.title} <span class="text-gradient-green block mt-2"
@@ -35,7 +35,7 @@ const base = import.meta.env.BASE_URL;
           >
         </h2>
         <p
-          class="text-base sm:text-lg text-secondary max-w-2xl mx-auto leading-relaxed transition-colors"
+          class="text-lg sm:text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal"
           style="font-family: var(--font-body);"
         >
           {content.subtitle}

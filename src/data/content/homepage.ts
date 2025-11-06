@@ -194,8 +194,8 @@ export const homepageContent: HomepageContent = {
   },
   servicesPreview: {
     badge: 'Our Solutions',
-    title: 'Comprehensive Analytics',
-    titleHighlight: 'Services',
+    title: 'Comprehensive',
+    titleHighlight: 'Analytics Solutions',
     subtitle: 'Enterprise-grade analytics delivered with startup speed. From strategy to AI—we make data intelligence accessible.',
     viewAllText: 'View All Services',
   },
@@ -248,8 +248,8 @@ export const homepageContent: HomepageContent = {
   },
   methodology: {
     badge: 'How We Work',
-    title: 'Our Proven Process',
-    titleHighlight: '',
+    title: 'How We Deliver',
+    titleHighlight: 'Results',
     subtitle: 'A systematic approach to delivering data analytics excellence',
     steps: [
       {

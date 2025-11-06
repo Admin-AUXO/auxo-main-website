@@ -11,23 +11,28 @@ interface Value {
 interface Props {
   values: Value[];
   title: string;
+  titleHighlight: string;
   subtitle: string;
 }
 
-const { values, title, subtitle } = Astro.props;
+const { values, title, titleHighlight, subtitle } = Astro.props;
 ---
 
-<div class="max-w-6xl mx-auto mb-4 sm:mb-5 md:mb-6 lg:mb-8 px-4 sm:px-0">
-  <div class="text-center mb-3 sm:mb-4 md:mb-5 lg:mb-6">
+<div class="max-w-6xl mx-auto mb-16 sm:mb-20 px-4 sm:px-0">
+  <div class="text-center mb-12 sm:mb-16 animate-fade-in">
     <h2
-      class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-1.5 sm:mb-2 md:mb-3 text-primary transition-colors"
+      class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 text-primary transition-colors leading-[1.1] tracking-tight"
+      style="font-family: var(--font-display);"
     >
-      {title}
+      {title} <span class="text-gradient-green block mt-2"
+        >{titleHighlight}</span
+      >
     </h2>
     <p
-      class="text-xs sm:text-sm md:text-base text-secondary leading-relaxed transition-colors"
+      class="text-lg sm:text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal italic"
+      style="font-family: var(--font-body);"
     >
-      <em>{subtitle}</em>
+      {subtitle}
     </p>
   </div>
 

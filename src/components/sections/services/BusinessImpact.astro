@@ -10,26 +10,36 @@ interface BusinessImpactItem {
 interface Props {
   impacts: BusinessImpactItem[];
   title?: string;
+  titleHighlight?: string;
   subtitle?: string;
 }
 
 const { 
   impacts, 
   title = "What This Means for Your Business",
+  titleHighlight,
   subtitle = "Business outcomes, not just technical features"
 } = Astro.props;
 ---
 
 <div class="max-w-6xl mx-auto">
-  {(title || subtitle) && (
-    <div class="text-center mb-4 sm:mb-6">
-      {title && (
-        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-primary transition-colors">
-          {title}
+  {(title || titleHighlight || subtitle) && (
+    <div class="text-center mb-12 sm:mb-16">
+      {(title || titleHighlight) && (
+        <h2
+          class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 text-primary transition-colors leading-[1.1] tracking-tight"
+          style="font-family: var(--font-display);"
+        >
+          {title} {titleHighlight && <span class="text-gradient-green block mt-2"
+            >{titleHighlight}</span
+          >}
         </h2>
       )}
       {subtitle && (
-        <p class="text-base sm:text-lg text-secondary max-w-2xl mx-auto transition-colors">
+        <p
+          class="text-lg sm:text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal"
+          style="font-family: var(--font-body);"
+        >
           {subtitle}
         </p>
       )}

@@ -50,16 +50,19 @@ export interface AboutContent {
   };
   values: {
     title: string;
+    titleHighlight: string;
     subtitle: string;
     items: Value[];
   };
   whyChoose: {
     title: string;
+    titleHighlight: string;
     subtitle: string;
     stats: Stat[];
   };
   team: {
     title: string;
+    titleHighlight: string;
     subtitle: string;
     hiring: {
       text: string;
@@ -69,11 +72,13 @@ export interface AboutContent {
   };
   credentials: {
     title: string;
+    titleHighlight: string;
     subtitle: string;
     items: Credential[];
   };
   whyDifferent: {
     title: string;
+    titleHighlight: string;
     subtitle: string;
     comparisons: Comparison[];
     labels: {
@@ -84,6 +89,7 @@ export interface AboutContent {
   };
   finalCta: {
     title: string;
+    titleHighlight: string;
     subtitle: string;
     primaryCta: {
       text: string;
@@ -122,7 +128,8 @@ export const aboutContent: AboutContent = {
     description: 'To make intelligence effortless — a world where every decision is clear, confident, and precise',
   },
   values: {
-    title: 'Our Core Values',
+    title: 'Our Core',
+    titleHighlight: 'Values',
     subtitle: 'The principles that guide everything we do',
     items: [
       {
@@ -158,7 +165,8 @@ export const aboutContent: AboutContent = {
     ] as Value[],
   },
   whyChoose: {
-    title: 'Our Foundation in Numbers',
+    title: 'Our Foundation in',
+    titleHighlight: 'Numbers',
     subtitle: 'The metrics that define our expertise and commitment',
     stats: [
       {
@@ -179,7 +187,8 @@ export const aboutContent: AboutContent = {
     ] as Stat[],
   },
   team: {
-    title: 'Meet the Founders',
+    title: 'Meet the',
+    titleHighlight: 'Founders',
     subtitle: 'Experienced data professionals serving organizations across the GCC, Europe, and global markets',
     hiring: {
       text: 'Interested in joining our team?',
@@ -188,7 +197,8 @@ export const aboutContent: AboutContent = {
     },
   },
   credentials: {
-    title: 'Our Credentials',
+    title: 'Our',
+    titleHighlight: 'Credentials',
     subtitle: 'Trust through proven expertise and compliance',
     items: [
       {
@@ -209,7 +219,8 @@ export const aboutContent: AboutContent = {
     ] as Credential[],
   },
   whyDifferent: {
-    title: "Why We're Different",
+    title: "Why We're",
+    titleHighlight: 'Different',
     subtitle: 'Efficient delivery meets enterprise expertise',
     labels: {
       feature: 'Feature',
@@ -245,7 +256,8 @@ export const aboutContent: AboutContent = {
     ] as Comparison[],
   },
   finalCta: {
-    title: "Let's Build the Future Together",
+    title: "Let's Build the",
+    titleHighlight: 'Future Together',
     subtitle: "Ready to transform your data into strategic advantage? Share your analytics objectives, and let's explore how we can help you achieve measurable business outcomes.",
     primaryCta: {
       text: 'Discuss Your Project',

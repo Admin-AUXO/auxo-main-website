@@ -225,7 +225,7 @@ export const homepageContent: HomepageContent = {
         icon: 'mdi:handshake',
         title: 'Flexible Engagement',
         description: 'Transparent pricing with flexible terms and no long-term commitments, designed to align with your strategic objectives',
-      },
+    },
     ],
     cta: {
       text: 'Explore Partnership',

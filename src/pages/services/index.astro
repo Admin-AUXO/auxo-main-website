@@ -108,7 +108,7 @@ const servicesFAQs = [
     question:
       "How do I choose the right data analytics service for my business?",
     answer:
-      "The right service depends on your current data maturity, business objectives, and specific challenges. We recommend starting with our free Data Maturity Assessment to understand your current capabilities, or contact us for a consultation where we'll assess your needs and recommend the most appropriate solution.",
+      "The right service depends on your current data maturity, business objectives, and specific challenges. We recommend starting with our Data Maturity Assessment to understand your current capabilities, or contact us for a strategic consultation where we'll assess your needs and recommend the most appropriate solution.",
   },
   {
     question: "Do you work with businesses of all sizes?",
@@ -132,7 +132,7 @@ const servicesFAQs = [
 
 <BaseLayout
   title="Data Analytics Services | AUXO Data Labs"
-  description="Enterprise-grade data analytics services delivered with startup speed. From Business Intelligence to AI solutions—work directly with our senior team for personalized attention."
+  description="Comprehensive data analytics services designed to address specific business challenges and drive strategic value. From Business Intelligence to AI solutions—delivered with measurable outcomes."
 >
   <PageContainer
     maxWidth="7xl"
@@ -143,18 +143,22 @@ const servicesFAQs = [
     <ServicesHero content={servicesPageContent.hero} />
 
     <!-- Priority 1: Services Grid -->
-    <SectionContainer class="mb-4 sm:mb-6">
+    <SectionContainer class="mb-16 sm:mb-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
-        <div class="text-center mb-4 sm:mb-6">
+        <div class="text-center mb-16 sm:mb-20 animate-fade-in">
           <h2
-            class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-primary transition-colors"
+            class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 text-primary transition-colors leading-[1.1] tracking-tight"
+            style="font-family: var(--font-display);"
           >
-            Our <span class="text-accent-green">Services</span>
+            {servicesPageContent.servicesGrid.title} <span class="text-gradient-green block mt-2"
+              >{servicesPageContent.servicesGrid.titleHighlight}</span
+            >
           </h2>
           <p
-            class="text-base sm:text-lg text-secondary max-w-2xl mx-auto transition-colors"
+            class="text-lg sm:text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal"
+            style="font-family: var(--font-body);"
           >
-            Explore our comprehensive data analytics services—each designed to transform your business with actionable insights
+            {servicesPageContent.servicesGrid.subtitle}
           </p>
         </div>
         <ServiceGrid services={services} />
@@ -162,27 +166,32 @@ const servicesFAQs = [
     </SectionContainer>
 
     <!-- Priority 2: Business Impact Section -->
-    <SectionContainer class="mb-4 sm:mb-6">
+    <SectionContainer class="mb-16 sm:mb-20">
       <BusinessImpact
         impacts={allBusinessImpacts}
-        title="Business Outcomes You Can Expect"
-        subtitle="What our services mean for your business—executive-focused outcomes, not just technical features"
+        title={servicesPageContent.businessImpact.title}
+        titleHighlight={servicesPageContent.businessImpact.titleHighlight}
+        subtitle={servicesPageContent.businessImpact.subtitle}
       />
     </SectionContainer>
 
     <!-- Industries We Serve Section -->
-    <SectionContainer class="mb-4 sm:mb-6">
+    <SectionContainer class="mb-16 sm:mb-20">
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="text-center mb-4 sm:mb-6">
+        <div class="text-center mb-16 sm:mb-20 animate-fade-in">
           <h2
-            class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-primary transition-colors"
+            class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 text-primary transition-colors leading-[1.1] tracking-tight"
+            style="font-family: var(--font-display);"
           >
-            Industries We <span class="text-accent-green">Serve</span>
+            {servicesPageContent.industries.title} <span class="text-gradient-green block mt-2"
+              >{servicesPageContent.industries.titleHighlight}</span
+            >
           </h2>
           <p
-            class="text-base sm:text-lg text-secondary max-w-2xl mx-auto transition-colors"
+            class="text-lg sm:text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal"
+            style="font-family: var(--font-body);"
           >
-            Our data analytics solutions are tailored to meet the unique challenges and requirements of different industries
+            {servicesPageContent.industries.subtitle}
           </p>
         </div>
 
@@ -216,26 +225,28 @@ const servicesFAQs = [
     </SectionContainer>
 
     <!-- How We Work Section (Concise) -->
-    <SectionContainer class="mb-4 sm:mb-6">
+    <SectionContainer class="mb-16 sm:mb-20">
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="text-center mb-4 sm:mb-6">
+        <div class="text-center mb-16 sm:mb-20 animate-fade-in">
           <div
-            class="inline-block mb-3 px-4 py-2 bg-accent-green/10 border border-accent-green rounded-full"
+            class="inline-block mb-6 px-5 py-2.5 bg-accent-green/10 border border-accent-green rounded-full backdrop-blur-sm"
           >
             <span
-              class="text-accent-green text-sm font-semibold"
+              class="text-accent-green text-xs font-bold tracking-wider uppercase"
               style="font-family: var(--font-body);"
-              >How We Work</span
+              >{servicesPageContent.process.badge}</span
             >
           </div>
           <h2
-            class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-primary transition-colors"
+            class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 text-primary transition-colors leading-[1.1] tracking-tight"
             style="font-family: var(--font-display);"
           >
-            {servicesPageContent.process.title}
+            {servicesPageContent.process.title} <span class="text-gradient-green block mt-2"
+              >{servicesPageContent.process.titleHighlight}</span
+            >
           </h2>
           <p
-            class="text-base sm:text-lg text-secondary max-w-2xl mx-auto transition-colors"
+            class="text-lg sm:text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal"
             style="font-family: var(--font-body);"
           >
             {servicesPageContent.process.subtitle}
@@ -302,18 +313,22 @@ const servicesFAQs = [
     </SectionContainer>
 
     <!-- FAQ Section -->
-    <SectionContainer class="mb-4 sm:mb-6">
+    <SectionContainer class="mb-16 sm:mb-20">
       <div class="max-w-4xl mx-auto px-4 sm:px-6">
-        <div class="text-center mb-4 sm:mb-6">
+        <div class="text-center mb-16 sm:mb-20 animate-fade-in">
           <h2
-            class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-primary transition-colors"
+            class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 text-primary transition-colors leading-[1.1] tracking-tight"
+            style="font-family: var(--font-display);"
           >
-            Frequently Asked <span class="text-accent-green">Questions</span>
+            {servicesPageContent.faq.title} <span class="text-gradient-green block mt-2"
+              >{servicesPageContent.faq.titleHighlight}</span
+            >
           </h2>
           <p
-            class="text-base sm:text-lg text-secondary max-w-2xl mx-auto transition-colors"
+            class="text-lg sm:text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal"
+            style="font-family: var(--font-body);"
           >
-            Common questions about our services—get answers before reaching out
+            {servicesPageContent.faq.subtitle}
           </p>
         </div>
 
@@ -361,7 +376,7 @@ const servicesFAQs = [
             href={`${base}faq/`}
             class="inline-flex items-center gap-2 text-accent-green hover:text-accent-green/80 font-semibold transition-colors"
           >
-            View all FAQs
+            {servicesPageContent.faq.viewAllText}
             <Icon name="mdi:arrow-right" class="w-5 h-5" />
           </a>
         </div>
@@ -369,16 +384,22 @@ const servicesFAQs = [
     </SectionContainer>
 
     <!-- CTA Section -->
-    <SectionContainer class="mb-4 sm:mb-6">
+    <SectionContainer class="mb-16 sm:mb-20">
       <div class="max-w-4xl mx-auto px-4 sm:px-6">
         <div
           class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-6 sm:p-8 md:p-10 text-center transition-colors"
         >
-          <h2 class="text-2xl sm:text-3xl font-bold mb-3 text-primary transition-colors">
-            {servicesPageContent.cta.title}
+          <h2
+            class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 text-primary transition-colors leading-[1.1] tracking-tight"
+            style="font-family: var(--font-display);"
+          >
+            {servicesPageContent.cta.title} <span class="text-gradient-green block mt-2"
+              >{servicesPageContent.cta.titleHighlight}</span
+            >
           </h2>
           <p
-            class="text-secondary mb-5 sm:mb-6 max-w-2xl mx-auto leading-relaxed transition-colors"
+            class="text-lg sm:text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal mb-5 sm:mb-6"
+            style="font-family: var(--font-body);"
           >
             {servicesPageContent.cta.subtitle}
           </p>
@@ -386,25 +407,15 @@ const servicesFAQs = [
           <!-- What You'll Get Section -->
           <div class="bg-card/50 border border-accent-green/20 rounded-xl p-5 sm:p-6 mb-5 sm:mb-6 max-w-2xl mx-auto">
             <h3 class="text-lg font-semibold text-primary mb-3 transition-colors">
-              What You'll Get
+              {servicesPageContent.cta.benefitsTitle}
             </h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 text-left">
-              <div class="flex items-start gap-2 sm:gap-3">
-                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
-                <span class="text-sm text-secondary transition-colors">Free 30-minute consultation</span>
-              </div>
-              <div class="flex items-start gap-2 sm:gap-3">
-                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
-                <span class="text-sm text-secondary transition-colors">Custom assessment of your needs</span>
-              </div>
-              <div class="flex items-start gap-2 sm:gap-3">
-                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
-                <span class="text-sm text-secondary transition-colors">No obligation, just honest advice</span>
-              </div>
-              <div class="flex items-start gap-2 sm:gap-3">
-                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
-                <span class="text-sm text-secondary transition-colors">Direct access to founders</span>
-              </div>
+              {servicesPageContent.cta.benefits.map((benefit) => (
+                <div class="flex items-start gap-2 sm:gap-3">
+                  <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
+                  <span class="text-sm text-secondary transition-colors">{benefit}</span>
+                </div>
+              ))}
             </div>
           </div>
           
@@ -432,7 +443,7 @@ const servicesFAQs = [
           <div class="text-center">
             <p class="text-sm text-secondary transition-colors flex items-center justify-center gap-2">
               <Icon name="mdi:account-group" class="w-4 h-4 text-accent-green" />
-              <span>Join 50+ businesses we've helped</span>
+              <span>{servicesPageContent.cta.trustBadge}</span>
             </p>
           </div>
         </div>

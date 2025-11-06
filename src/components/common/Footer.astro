@@ -9,7 +9,7 @@ import Logo from "./Logo.astro";
 import { siteData } from "../../data/config/site";
 
 // Utils
-import { getBaseUrl, createUrl } from "../../utils/url";
+import { getBaseUrl, createUrl, createApiUrl } from "../../utils/url";
 
 interface Props {
   hideNewsletter?: boolean;
@@ -17,6 +17,7 @@ interface Props {
 
 const { hideNewsletter = false } = Astro.props;
 const base = getBaseUrl();
+const apiNewsletterUrl = createApiUrl("api/newsletter");
 const currentYear = new Date().getFullYear();
 
 const legalLinks = [
@@ -494,9 +495,7 @@ const legalLinks = [
   </div>
 </footer>
 
-<script>
+<script is:inline define:vars={{ apiNewsletterUrl }}>
   import { initNewsletterForm } from '../../scripts/newsletter';
-  import { getBaseUrl } from '../../utils/url';
-  const base = getBaseUrl();
-  initNewsletterForm(base);
+  initNewsletterForm(apiNewsletterUrl);
 </script>

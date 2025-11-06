@@ -74,22 +74,5 @@ function setupIntersectionObserver(): void {
   fadeInElements.forEach((el) => observer.observe(el));
 }
 
-/**
- * Initialize on DOM ready and Astro page load
- */
-function init(): void {
-  if (typeof document === "undefined") return;
-
-  // Run on initial load
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", setupHomepageAnimations);
-  } else {
-    setupHomepageAnimations();
-  }
-
-  // Run on Astro page transitions
-  document.addEventListener("astro:page-load", setupHomepageAnimations);
-}
-
-// Auto-initialize
-init();
+// Note: Initialization is handled by the page that imports this module
+// This allows pages to control when animations are set up

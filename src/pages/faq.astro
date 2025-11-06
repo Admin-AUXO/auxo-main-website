@@ -442,24 +442,25 @@ const base = getBaseUrl();
     });
     
     // Keyboard navigation
-    question.addEventListener("keydown", (e: KeyboardEvent) => {
+    question.addEventListener("keydown", (e: Event) => {
+      const keyboardEvent = e as KeyboardEvent;
       const faqItem = question.parentElement;
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
+      if (keyboardEvent.key === "Enter" || keyboardEvent.key === " ") {
+        keyboardEvent.preventDefault();
         (question as HTMLElement).click();
-      } else if (e.key === "ArrowDown") {
-        e.preventDefault();
+      } else if (keyboardEvent.key === "ArrowDown") {
+        keyboardEvent.preventDefault();
         const nextItem = faqItem?.nextElementSibling?.querySelector(".faq-question") as HTMLElement;
         if (nextItem) {
           nextItem.focus();
         }
-      } else if (e.key === "ArrowUp") {
-        e.preventDefault();
+      } else if (keyboardEvent.key === "ArrowUp") {
+        keyboardEvent.preventDefault();
         const prevItem = faqItem?.previousElementSibling?.querySelector(".faq-question") as HTMLElement;
         if (prevItem) {
           prevItem.focus();
         }
-      } else if (e.key === "Escape") {
+      } else if (keyboardEvent.key === "Escape") {
         const answer = faqItem?.querySelector(".faq-answer") as HTMLElement;
         const chevron = question.querySelector(".faq-chevron");
         if (answer && answer.style.maxHeight && answer.style.maxHeight !== "0px") {

@@ -6,9 +6,10 @@ import { multiStepFormContent } from "../../data/content/forms";
 import { commonText } from "../../data/content/shared/common";
 
 // Utils
-import { getBaseUrl, createUrl } from "../../utils/url";
+import { getBaseUrl, createUrl, createApiUrl } from "../../utils/url";
 
 const base = getBaseUrl();
+const apiContactUrl = createApiUrl("api/contact");
 ---
 
 <div class="max-w-4xl mx-auto">
@@ -885,6 +886,7 @@ const base = getBaseUrl();
     formText: multiStepFormContent,
     commonText: commonText,
     baseUrl: base,
+    apiContactUrl: apiContactUrl,
   }}
 >
   // Verify script execution
@@ -1425,9 +1427,8 @@ const base = getBaseUrl();
         const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT);
 
         try {
-          // Construct API URL with base URL
-          const apiUrl = `${baseUrl}api/contact`;
-          const response = await fetch(apiUrl, {
+          // Use pre-constructed API URL with proper base URL handling
+          const response = await fetch(apiContactUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),

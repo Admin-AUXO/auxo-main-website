@@ -5,9 +5,9 @@
 
 /**
  * Initialize newsletter form
- * @param baseUrl - Base URL for API calls
+ * @param apiUrl - Full API URL for newsletter endpoint (should use createApiUrl)
  */
-export function initNewsletterForm(baseUrl: string): void {
+export function initNewsletterForm(apiUrl: string): void {
   const newsletterForm = document.getElementById("newsletter-form") as HTMLFormElement | null;
   if (!newsletterForm) return;
 
@@ -54,7 +54,6 @@ export function initNewsletterForm(baseUrl: string): void {
     }
 
     try {
-      const apiUrl = `${baseUrl}api/newsletter`;
       const response = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

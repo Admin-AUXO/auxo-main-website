@@ -11,7 +11,7 @@ interface Props {
 const { team: teamMembers, content } = Astro.props;
 ---
 
-<div class="max-w-5xl mx-auto mb-16 sm:mb-20 px-4 sm:px-0">
+<section class="max-w-5xl mx-auto mb-16 sm:mb-20 responsive-padding-x">
   <div class="text-center mb-12 sm:mb-16 animate-fade-in">
     <h2
       class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 text-primary transition-colors leading-[1.1] tracking-tight"
@@ -30,7 +30,7 @@ const { team: teamMembers, content } = Astro.props;
   </div>
 
   <div
-    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 lg:gap-8"
+    class="responsive-grid-3 gap-3 sm:gap-4 md:gap-6 lg:gap-8"
   >
     {
       teamMembers.map((member) => (
@@ -84,4 +84,4 @@ const { team: teamMembers, content } = Astro.props;
       ))
     }
   </div>
-</div>
+</section>

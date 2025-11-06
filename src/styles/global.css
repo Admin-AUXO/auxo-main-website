@@ -676,6 +676,76 @@
   .animate-delay-500 { animation-delay: 500ms; }
 
   /* ============================================
+     RESPONSIVE UTILITY CLASSES
+     Common responsive patterns for consistency
+     ============================================ */
+
+  /* Responsive padding - Mobile to Desktop */
+  .responsive-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .responsive-padding-y {
+    @apply py-3 sm:py-4 lg:py-6;
+  }
+
+  .responsive-padding-x {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Responsive text sizing */
+  .responsive-text-xl {
+    @apply text-xl sm:text-2xl lg:text-3xl;
+  }
+
+  .responsive-text-2xl {
+    @apply text-2xl sm:text-3xl lg:text-4xl;
+  }
+
+  .responsive-text-3xl {
+    @apply text-3xl sm:text-4xl lg:text-5xl;
+  }
+
+  .responsive-text-4xl {
+    @apply text-4xl sm:text-5xl lg:text-6xl;
+  }
+
+  /* Responsive grid layouts */
+  .responsive-grid-2 {
+    @apply grid grid-cols-1 sm:grid-cols-2;
+  }
+
+  .responsive-grid-3 {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .responsive-grid-4 {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4;
+  }
+
+  /* Touch-friendly interactive elements */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px] active:opacity-75;
+  }
+
+  .touch-target-lg {
+    @apply min-h-[56px] min-w-[56px] active:opacity-75;
+  }
+
+  /* Responsive spacing */
+  .responsive-gap {
+    @apply gap-4 sm:gap-6 lg:gap-8;
+  }
+
+  .responsive-gap-y {
+    @apply gap-y-4 sm:gap-y-6 lg:gap-y-8;
+  }
+
+  .responsive-gap-x {
+    @apply gap-x-4 sm:gap-x-6 lg:gap-x-8;
+  }
+
+  /* ============================================
      INTERACTIVE ELEMENTS
      ============================================ */
   

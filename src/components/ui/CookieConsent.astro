@@ -2,6 +2,7 @@
 // Cookie Consent Banner Component for GDPR/UAE PDPL Compliance
 import { cookieConsentContent } from "../../data/content/cookies";
 import { getBaseUrl, createUrl } from "../../utils/url";
+import { COOKIE_CONSENT } from "../../utils/constants";
 
 const base = getBaseUrl();
 ---
@@ -210,25 +211,18 @@ const base = getBaseUrl();
   </div>
 </div>
 
-<script>
+<script define:vars={{ cookieKey: COOKIE_CONSENT.KEY, cookieExpiryDays: COOKIE_CONSENT.EXPIRY_DAYS }} is:inline>
   // Cookie Consent Management
-  const COOKIE_CONSENT_KEY = "auxo-cookie-consent";
-  const COOKIE_EXPIRY_DAYS = 365;
-
-  interface CookieConsent {
-    essential: boolean;
-    analytics: boolean;
-    marketing: boolean;
-    timestamp: string;
-  }
+  const COOKIE_CONSENT_KEY = cookieKey;
+  const COOKIE_EXPIRY_DAYS = cookieExpiryDays;
 
   // Check if consent already given
-  function hasConsent(): boolean {
+  function hasConsent() {
     return localStorage.getItem(COOKIE_CONSENT_KEY) !== null;
   }
 
   // Get current consent
-  function getConsent(): CookieConsent | null {
+  function getConsent() {
     const stored = localStorage.getItem(COOKIE_CONSENT_KEY);
     if (!stored) return null;
 
@@ -242,7 +236,7 @@ const base = getBaseUrl();
   }
 
   // Save consent
-  function saveConsent(consent: CookieConsent): void {
+  function saveConsent(consent) {
     localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(consent));
 
     // Set cookie for server-side detection
@@ -253,7 +247,7 @@ const base = getBaseUrl();
   }
 
   // Initialize third-party services
-  function initializeServices(consent: CookieConsent): void {
+  function initializeServices(consent) {
     if (consent.analytics) {
       // TODO: Initialize Google Analytics when configured
       // gtag('consent', 'update', { 'analytics_storage': 'granted' });
@@ -279,8 +273,8 @@ const base = getBaseUrl();
   }
 
   // Accept all cookies
-  function acceptAll(): void {
-    const consent: CookieConsent = {
+  function acceptAll() {
+    const consent = {
       essential: true,
       analytics: true,
       marketing: true,
@@ -292,8 +286,8 @@ const base = getBaseUrl();
   }
 
   // Reject optional cookies
-  function rejectOptional(): void {
-    const consent: CookieConsent = {
+  function rejectOptional() {
+    const consent = {
       essential: true,
       analytics: false,
       marketing: false,
@@ -304,16 +298,12 @@ const base = getBaseUrl();
   }
 
   // Show settings modal
-  function showSettings(): void {
+  function showSettings() {
     const consent = getConsent();
     if (consent) {
       // Restore previous settings
-      const analyticsCheckbox = document.getElementById(
-        "cookie-analytics",
-      ) as HTMLInputElement;
-      const marketingCheckbox = document.getElementById(
-        "cookie-marketing",
-      ) as HTMLInputElement;
+      const analyticsCheckbox = document.getElementById("cookie-analytics");
+      const marketingCheckbox = document.getElementById("cookie-marketing");
 
       if (analyticsCheckbox) analyticsCheckbox.checked = consent.analytics;
       if (marketingCheckbox) marketingCheckbox.checked = consent.marketing;
@@ -323,15 +313,11 @@ const base = getBaseUrl();
   }
 
   // Save custom settings
-  function saveSettings(): void {
-    const analyticsCheckbox = document.getElementById(
-      "cookie-analytics",
-    ) as HTMLInputElement;
-    const marketingCheckbox = document.getElementById(
-      "cookie-marketing",
-    ) as HTMLInputElement;
+  function saveSettings() {
+    const analyticsCheckbox = document.getElementById("cookie-analytics");
+    const marketingCheckbox = document.getElementById("cookie-marketing");
 
-    const consent: CookieConsent = {
+    const consent = {
       essential: true,
       analytics: analyticsCheckbox?.checked || false,
       marketing: marketingCheckbox?.checked || false,
@@ -345,7 +331,7 @@ const base = getBaseUrl();
 
   // Event handlers with cleanup
   const closeModal = () => modal?.classList.add("hidden");
-  const handleEscape = (e: KeyboardEvent) => {
+  const handleEscape = (e) => {
     if (e.key === "Escape" && modal && !modal.classList.contains("hidden")) {
       modal.classList.add("hidden");
     }

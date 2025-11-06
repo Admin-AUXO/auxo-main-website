@@ -21,7 +21,7 @@ const getCardClasses = (index: number) => {
 ---
 
 <SectionContainer id="services" padding="md">
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="container mx-auto responsive-padding">
     <!-- Header Section -->
     <div class="text-center mb-12 sm:mb-16 lg:mb-20">
       <h2
@@ -38,7 +38,7 @@ const getCardClasses = (index: number) => {
 
     <!-- Creative Grid Layout -->
     <div
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto mb-12"
+      class="responsive-grid-3 responsive-gap max-w-7xl mx-auto mb-12"
     >
       {
         services.slice(0, 6).map((service, index) => {

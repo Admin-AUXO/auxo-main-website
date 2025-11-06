@@ -1,0 +1,91 @@
+---
+/**
+ * Skeleton Loader Component
+ * 
+ * Provides loading placeholders for better perceived performance.
+ * Supports different sizes and layouts for various content types.
+ * 
+ * @example
+ * <SkeletonLoader type="text" lines={3} />
+ * <SkeletonLoader type="card" />
+ * <SkeletonLoader type="image" />
+ */
+export interface Props {
+  type?: 'text' | 'card' | 'image' | 'button' | 'avatar';
+  lines?: number;
+  width?: string;
+  height?: string;
+  class?: string;
+}
+
+const {
+  type = 'text',
+  lines = 3,
+  width,
+  height,
+  class: className = '',
+} = Astro.props;
+
+const baseClasses = 'animate-pulse bg-surface rounded';
+---
+
+{type === 'text' && (
+  <div class={`space-y-2 ${className}`}>
+    {Array.from({ length: lines }).map((_, i) => (
+      <div
+        class={`${baseClasses} h-4 ${i === lines - 1 ? 'w-3/4' : 'w-full'}`}
+        style={i === lines - 1 && width ? `width: ${width}` : undefined}
+      />
+    ))}
+  </div>
+)}
+
+{type === 'card' && (
+  <div class={`${baseClasses} p-6 ${className}`} style={width && height ? `width: ${width}; height: ${height}` : undefined}>
+    <div class="space-y-4">
+      <div class={`${baseClasses} h-6 w-3/4`} />
+      <div class="space-y-2">
+        <div class={`${baseClasses} h-4 w-full`} />
+        <div class={`${baseClasses} h-4 w-full`} />
+        <div class={`${baseClasses} h-4 w-5/6`} />
+      </div>
+    </div>
+  </div>
+)}
+
+{type === 'image' && (
+  <div
+    class={`${baseClasses} ${className}`}
+    style={`width: ${width || '100%'}; height: ${height || '200px'};`}
+  />
+)}
+
+{type === 'button' && (
+  <div
+    class={`${baseClasses} h-12 w-32 ${className}`}
+    style={width ? `width: ${width}` : undefined}
+  />
+)}
+
+{type === 'avatar' && (
+  <div
+    class={`${baseClasses} rounded-full ${className}`}
+    style={`width: ${width || '48px'}; height: ${height || '48px'};`}
+  />
+)}
+
+<style>
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  .animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+</style>
+

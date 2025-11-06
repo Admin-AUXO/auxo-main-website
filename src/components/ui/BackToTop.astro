@@ -1,5 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { SCROLL_THRESHOLDS } from '../../utils/constants';
 ---
 
 <button
@@ -10,7 +11,7 @@ import { Icon } from 'astro-icon/components';
   <Icon name="mdi:arrow-up" class="w-6 h-6" />
 </button>
 
-<script>
+<script define:vars={{ scrollThreshold: SCROLL_THRESHOLDS.BACK_TO_TOP }} is:inline>
   function initBackToTop() {
     const backToTopBtn = document.getElementById('back-to-top');
     if (!backToTopBtn) return;
@@ -18,7 +19,7 @@ import { Icon } from 'astro-icon/components';
     const handleScroll = () => {
       const scrollY = window.scrollY || window.pageYOffset;
       
-      if (scrollY > 300) {
+      if (scrollY > scrollThreshold) {
         backToTopBtn.classList.remove('opacity-0', 'invisible', 'pointer-events-none');
         backToTopBtn.classList.add('opacity-100', 'visible', 'pointer-events-auto');
       } else {
@@ -27,7 +28,7 @@ import { Icon } from 'astro-icon/components';
       }
     };
 
-    const scrollToTop = (e: Event) => {
+    const scrollToTop = (e) => {
       e.preventDefault();
       window.scrollTo({
         top: 0,

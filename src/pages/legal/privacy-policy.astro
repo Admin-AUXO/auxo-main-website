@@ -1,8 +1,9 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import LegalLayout from "../../components/layouts/LegalLayout.astro";
+import { getBaseUrl, createUrl } from "../../utils/url";
 
-const base = import.meta.env.BASE_URL;
+const base = getBaseUrl();
 ---
 
 <BaseLayout
@@ -56,7 +57,7 @@ const base = import.meta.env.BASE_URL;
         <ul>
           <li>Email: privacy@auxodata.com</li>
           <li>General Contact: hello@auxodata.com</li>
-          <li>Website: <a href={`${base}contact/`}>Contact Form</a></li>
+          <li>Website: <a href={createUrl('contact')}>Contact Form</a></li>
         </ul>
 
         <h2>2. Information We Collect</h2>
@@ -113,7 +114,7 @@ const base = import.meta.env.BASE_URL;
         </ul>
         <p>
           For detailed information about our use of cookies, please see our <a
-            href={`${base}legal/cookie-policy/`}>Cookie Policy</a
+            href={createUrl('legal/cookie-policy')}>Cookie Policy</a
           >.
         </p>
 
@@ -504,7 +505,7 @@ const base = import.meta.env.BASE_URL;
           </p>
           <p class="!mb-2 text-secondary transition-colors">Location: Dubai, United Arab Emirates</p>
           <p class="!mb-0 text-secondary transition-colors">
-            Contact Form: <a href={`${base}contact/`}>Visit Contact Page</a>
+            Contact Form: <a href={createUrl('contact')}>Visit Contact Page</a>
           </p>
         </div>
 

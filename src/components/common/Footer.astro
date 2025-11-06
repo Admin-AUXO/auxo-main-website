@@ -1,19 +1,21 @@
 ---
 import { siteData } from "../../data/config/site";
 import { Icon } from "astro-icon/components";
+import Logo from "./Logo.astro";
+import { getBaseUrl, createUrl } from "../../utils/url";
 
 interface Props {
   hideNewsletter?: boolean;
 }
 
 const { hideNewsletter = false } = Astro.props;
-const base = import.meta.env.BASE_URL;
+const base = getBaseUrl();
 const currentYear = new Date().getFullYear();
 
 const legalLinks = [
-  { href: `${base}legal/privacy-policy/`, label: "Privacy Policy" },
-  { href: `${base}legal/terms/`, label: "Terms of Service" },
-  { href: `${base}legal/cookie-policy/`, label: "Cookie Policy" },
+  { href: createUrl('legal/privacy-policy'), label: "Privacy Policy" },
+  { href: createUrl('legal/terms'), label: "Terms of Service" },
+  { href: createUrl('legal/cookie-policy'), label: "Cookie Policy" },
 ];
 ---
 
@@ -27,36 +29,7 @@ const legalLinks = [
       <div class="sm:hidden space-y-3">
         <!-- Logo + Social Row -->
         <div class="flex items-center justify-between">
-          <a 
-            href={`${base}`} 
-            class="flex items-center space-x-2 group" 
-            aria-label="AUXO Data Labs Home"
-          >
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              viewBox="0 0 40 40" 
-              fill="none"
-              class="h-10 w-10 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
-              aria-label="AUXO Data Labs Logo"
-            >
-              <rect x="0" y="0" width="18" height="18" fill="var(--accent-green)" class="transition-colors duration-300"/>
-              <text x="9" y="14" text-anchor="middle" font-family="var(--font-brand)" font-weight="900" font-size="13" fill="var(--logo-text-color)" class="transition-colors duration-300">A</text>
-              <rect x="22" y="0" width="18" height="18" fill="var(--accent-green)" class="transition-colors duration-300"/>
-              <text x="31" y="14" text-anchor="middle" font-family="var(--font-brand)" font-weight="900" font-size="13" fill="var(--logo-text-color)" class="transition-colors duration-300">U</text>
-              <rect x="0" y="22" width="18" height="18" fill="var(--accent-green)" class="transition-colors duration-300"/>
-              <text x="9" y="36" text-anchor="middle" font-family="var(--font-brand)" font-weight="900" font-size="13" fill="var(--logo-text-color)" class="transition-colors duration-300">X</text>
-              <rect x="22" y="22" width="18" height="18" fill="var(--accent-green)" class="transition-colors duration-300"/>
-              <text x="31" y="36" text-anchor="middle" font-family="var(--font-brand)" font-weight="900" font-size="13" fill="var(--logo-text-color)" class="transition-colors duration-300">O</text>
-            </svg>
-            <div class="flex flex-col">
-              <span class="text-primary text-base font-extrabold tracking-tight transition-colors" style="font-family: var(--font-display);">
-                Data Labs
-              </span>
-              <span class="text-accent-green text-xs font-semibold italic leading-tight transition-colors" style="font-family: var(--font-display);">
-                Look Beyond Data
-              </span>
-            </div>
-          </a>
+          <Logo size="sm" showText={true} href={base} />
           <!-- Social Links - Compact -->
           <div class="flex gap-2">
             <a
@@ -95,47 +68,7 @@ const legalLinks = [
       <!-- Desktop: Brand Section (Full) -->
       <section class="hidden sm:block lg:col-span-5 space-y-4 sm:space-y-6">
         <!-- Logo and Brand Name - Desktop: Left-aligned -->
-        <a 
-          href={`${base}`} 
-          class="flex items-center space-x-2.5 sm:space-x-3 group relative inline-block" 
-          aria-label="AUXO Data Labs Home"
-        >
-          <div class="relative">
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              viewBox="0 0 40 40" 
-              fill="none"
-              class="h-14 w-14 lg:h-16 lg:w-16 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
-              aria-label="AUXO Data Labs Logo"
-            >
-              <!-- 2x2 Grid - Sharp corners -->
-              <!-- Top-left - A -->
-              <rect x="0" y="0" width="18" height="18" fill="var(--accent-green)" class="transition-colors duration-300"/>
-              <text x="9" y="14" text-anchor="middle" font-family="var(--font-brand)" font-weight="900" font-size="13" fill="var(--logo-text-color)" class="transition-colors duration-300">A</text>
-
-              <!-- Top-right - U -->
-              <rect x="22" y="0" width="18" height="18" fill="var(--accent-green)" class="transition-colors duration-300"/>
-              <text x="31" y="14" text-anchor="middle" font-family="var(--font-brand)" font-weight="900" font-size="13" fill="var(--logo-text-color)" class="transition-colors duration-300">U</text>
-
-              <!-- Bottom-left - X -->
-              <rect x="0" y="22" width="18" height="18" fill="var(--accent-green)" class="transition-colors duration-300"/>
-              <text x="9" y="36" text-anchor="middle" font-family="var(--font-brand)" font-weight="900" font-size="13" fill="var(--logo-text-color)" class="transition-colors duration-300">X</text>
-
-              <!-- Bottom-right - O -->
-              <rect x="22" y="22" width="18" height="18" fill="var(--accent-green)" class="transition-colors duration-300"/>
-              <text x="31" y="36" text-anchor="middle" font-family="var(--font-brand)" font-weight="900" font-size="13" fill="var(--logo-text-color)" class="transition-colors duration-300">O</text>
-            </svg>
-            <div class="absolute inset-0 bg-accent-green/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </div>
-          <div class="flex flex-col items-start">
-            <span class="text-primary text-xl lg:text-2xl font-extrabold tracking-tight leading-tight transition-colors" style="font-family: var(--font-display);">
-              Data Labs
-            </span>
-            <span class="text-accent-green text-sm font-semibold italic leading-tight transition-colors" style="font-family: var(--font-display);">
-              Look Beyond Data
-            </span>
-          </div>
-        </a>
+        <Logo size="lg" showText={true} href={base} class="items-start" />
 
         <!-- Email Contact - Desktop: Full -->
         <div class="space-y-4">
@@ -214,7 +147,7 @@ const legalLinks = [
           <ul class="grid grid-cols-2 gap-2">
             <li>
               <a
-                href={`${base}about/`}
+                href={createUrl('about')}
                 class="flex items-center justify-center gap-1.5 text-sm text-accent-green hover:text-accent-green/80 active:text-accent-green transition-colors duration-200 min-h-[44px] font-medium"
                 style="font-family: var(--font-body);"
               >
@@ -224,7 +157,7 @@ const legalLinks = [
             </li>
             <li>
               <a
-                href={`${base}services/`}
+                href={createUrl('services')}
                 class="flex items-center justify-center gap-1.5 text-sm text-accent-green hover:text-accent-green/80 active:text-accent-green transition-colors duration-200 min-h-[44px] font-medium"
                 style="font-family: var(--font-body);"
               >
@@ -234,7 +167,7 @@ const legalLinks = [
             </li>
             <li>
               <a
-                href={`${base}blog/`}
+                href={createUrl('blog')}
                 class="flex items-center justify-center gap-1.5 text-sm text-accent-green hover:text-accent-green/80 active:text-accent-green transition-colors duration-200 min-h-[44px] font-medium"
                 style="font-family: var(--font-body);"
               >
@@ -244,7 +177,7 @@ const legalLinks = [
             </li>
             <li>
               <a
-                href={`${base}faq/`}
+                href={createUrl('faq')}
                 class="flex items-center justify-center gap-1.5 text-sm text-accent-green hover:text-accent-green/80 active:text-accent-green transition-colors duration-200 min-h-[44px] font-medium"
                 style="font-family: var(--font-body);"
               >
@@ -270,7 +203,7 @@ const legalLinks = [
               <ul class="space-y-2 sm:space-y-2.5">
                 <li>
                   <a
-                    href={`${base}about/`}
+                    href={createUrl('about')}
                     class="text-sm sm:text-base text-secondary hover:text-accent-green transition-colors duration-200 inline-flex items-center gap-2 group min-h-[44px] active:text-accent-green font-medium"
                     style="font-family: var(--font-body);"
                   >
@@ -283,7 +216,7 @@ const legalLinks = [
                 </li>
                 <li>
                   <a
-                    href={`${base}services/`}
+                    href={createUrl('services')}
                     class="text-sm sm:text-base text-secondary hover:text-accent-green transition-colors duration-200 inline-flex items-center gap-2 group min-h-[44px] active:text-accent-green font-medium"
                     style="font-family: var(--font-body);"
                   >
@@ -296,7 +229,7 @@ const legalLinks = [
                 </li>
                 <li>
                   <a
-                    href={`${base}case-studies/`}
+                    href={createUrl('case-studies')}
                     class="text-sm sm:text-base text-secondary hover:text-accent-green transition-colors duration-200 inline-flex items-center gap-2 group min-h-[44px] active:text-accent-green font-medium"
                     style="font-family: var(--font-body);"
                   >
@@ -309,7 +242,7 @@ const legalLinks = [
                 </li>
                 <li>
                   <a
-                    href={`${base}blog/`}
+                    href={createUrl('blog')}
                     class="text-sm sm:text-base text-secondary hover:text-accent-green transition-colors duration-200 inline-flex items-center gap-2 group min-h-[44px] active:text-accent-green font-medium"
                     style="font-family: var(--font-body);"
                   >
@@ -336,7 +269,7 @@ const legalLinks = [
             <ul class="space-y-2 sm:space-y-2.5">
               <li>
                 <a
-                  href={`${base}contact/`}
+                  href={createUrl('contact')}
                   class="text-sm sm:text-base text-secondary hover:text-accent-green transition-colors duration-200 inline-flex items-center gap-2 group min-h-[44px] active:text-accent-green font-medium"
                   style="font-family: var(--font-body);"
                 >
@@ -349,7 +282,7 @@ const legalLinks = [
               </li>
               <li>
                 <a
-                  href={`${base}tools/maturity-calculator/`}
+                  href={createUrl('tools/maturity-calculator')}
                   class="text-sm sm:text-base text-secondary hover:text-accent-green transition-colors duration-200 inline-flex items-center gap-2 group min-h-[44px] active:text-accent-green font-medium"
                   style="font-family: var(--font-body);"
                 >
@@ -362,7 +295,7 @@ const legalLinks = [
               </li>
               <li>
                 <a
-                  href={`${base}faq/`}
+                  href={createUrl('faq')}
                   class="text-sm sm:text-base text-secondary hover:text-accent-green transition-colors duration-200 inline-flex items-center gap-2 group min-h-[44px] active:text-accent-green font-medium"
                   style="font-family: var(--font-body);"
                 >
@@ -458,7 +391,7 @@ const legalLinks = [
                 >
                   I consent to receive monthly insights from AUXO Data Labs.
                   <a
-                    href={`${base}legal/privacy-policy/`}
+                    href={createUrl('legal/privacy-policy')}
                     class="text-accent-green hover:underline transition-colors"
                     >Privacy Policy</a
                   >
@@ -489,7 +422,7 @@ const legalLinks = [
     <!-- Mobile: Privacy, PDPL Compliant, Copyright - all centered with reduced spacing -->
     <div class="flex flex-col items-center gap-1 sm:hidden">
       <a
-        href={`${base}legal/privacy-policy/`}
+        href={createUrl('legal/privacy-policy')}
         class="text-xs text-accent-green hover:underline transition-colors text-center"
         aria-label="Privacy Policy"
         style="font-family: var(--font-body);"
@@ -497,7 +430,7 @@ const legalLinks = [
         Privacy
       </a>
       <a
-        href={`${base}legal/privacy-policy/`}
+        href={createUrl('legal/privacy-policy')}
         class="flex items-center gap-1.5 text-xs text-accent-green hover:underline transition-colors text-center"
         aria-label="PDPL Compliant"
         style="font-family: var(--font-body);"
@@ -539,7 +472,7 @@ const legalLinks = [
 
       <!-- PDPL Compliance Badge -->
       <a
-        href={`${base}legal/privacy-policy/`}
+        href={createUrl('legal/privacy-policy')}
         class="flex items-center gap-2 whitespace-nowrap px-3 py-1.5 bg-accent-green/10 border border-accent-green rounded-lg hover:bg-accent-green/20 transition-all duration-200 group min-h-[44px]"
         aria-label="View Privacy Policy - PDPL Compliant"
         style="font-family: var(--font-body);"
@@ -554,23 +487,17 @@ const legalLinks = [
   </div>
 </footer>
 
-<script>
+<script define:vars={{ base }}>
   (function initNewsletterForm() {
     const newsletterForm = document.getElementById("newsletter-form");
     if (!newsletterForm) return;
 
-    const newsletterEmail = document.getElementById(
-      "newsletter-email",
-    ) as HTMLInputElement | null;
+    const newsletterEmail = document.getElementById("newsletter-email");
     const newsletterMessage = document.getElementById("newsletter-message");
-    const consentCheckbox = document.getElementById(
-      "newsletter-consent",
-    ) as HTMLInputElement | null;
-    const submitBtn = newsletterForm.querySelector(
-      'button[type="submit"]',
-    ) as HTMLButtonElement | null;
+    const consentCheckbox = document.getElementById("newsletter-consent");
+    const submitBtn = newsletterForm.querySelector('button[type="submit"]');
 
-    const showMessage = (text: string, isError = false) => {
+    const showMessage = (text, isError = false) => {
       if (!newsletterMessage) return;
       newsletterMessage.textContent = text;
       newsletterMessage.className = `text-xs mt-2 ${isError ? "text-red-400" : "text-accent-green"}`;
@@ -582,7 +509,7 @@ const legalLinks = [
       }
     };
 
-    const handleNewsletterSubmit = async (e: Event) => {
+    const handleNewsletterSubmit = async (e) => {
       e.preventDefault();
 
       if (!newsletterEmail || !newsletterMessage || !consentCheckbox) return;
@@ -609,8 +536,8 @@ const legalLinks = [
       }
 
       try {
-        const response = await fetch(
-          `${import.meta.env.BASE_URL}api/newsletter`,
+        const apiUrl = `${base}api/newsletter`;
+        const response = await fetch(apiUrl,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },

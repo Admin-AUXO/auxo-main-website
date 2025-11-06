@@ -42,6 +42,19 @@ Core components used across the entire site.
     | `hideNewsletter` | `boolean` | `false` |
 -   **Usage:** `<Footer hideNewsletter={true} />`
 
+### Logo.astro
+
+-   **Location:** `src/components/common/Logo.astro`
+-   **Purpose:** Reusable logo component used in Navigation and Footer.
+-   **Props:**
+    | Prop | Type | Default |
+    | :--- | :--- | :--- |
+    | `size` | `'sm' \| 'md' \| 'lg'` | `'md'` |
+    | `showText` | `boolean` | `true` |
+    | `href` | `string` | `getBaseUrl()` |
+    | `class` | `string` | `''` |
+-   **Usage:** `<Logo size="lg" showText={true} />`
+
 ### SEO.astro
 
 -   **Location:** `src/components/common/SEO.astro`

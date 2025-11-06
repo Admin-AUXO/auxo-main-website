@@ -1,13 +1,20 @@
 import type { APIRoute } from 'astro';
 import { newsletterSchema } from '../../utils/validation';
 import { checkRateLimit, getClientIP, RateLimitPresets } from '../../utils/rateLimit';
-import { ZodError } from 'zod';
 import {
   sendEmail,
   createOrUpdateContact,
   subscribeToList,
   isSubscribedToList,
 } from '../../utils/maileroo';
+import { getNewsletterConfirmationEmail } from '../../utils/emailTemplates';
+import {
+  logError,
+  createErrorResponse,
+  createSuccessResponse,
+  handleValidationError,
+  formatError,
+} from '../../utils/errorHandler';
 
 /**
  * Newsletter Subscription API Endpoint
@@ -179,100 +186,25 @@ export const POST: APIRoute = async ({ request }) => {
       // This custom confirmation email is informational only.
       // For proper double opt-in, configure it in Maileroo dashboard or implement a confirmation endpoint.
       
-      // Send informational confirmation email
-      const confirmationTextContent = `Thanks for subscribing to the AUXO Data Labs newsletter!
-
-Your subscription request has been received.${MAILEROO_API_KEY ? ' If double opt-in is enabled in Maileroo, you will receive a confirmation email to complete your subscription.' : ' Welcome!'}
-
-What to expect:
-• Expert insights on data analytics and business intelligence
-• Industry trends and case studies from the UAE and beyond
-• Practical tips to improve your data strategy
-• Exclusive content and early access to resources
-
-If you didn't request this subscription, you can safely ignore this email.
-
-Best,
-The AUXO Data Labs Team
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-AUXO Data Labs
-Data Analytics Consultancy | Dubai, UAE
-${SITE_URL} | ${FROM_EMAIL}`;
-      const confirmationHtmlContent = `
-<!DOCTYPE html>
-<html>
-<head>
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
-    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-    .header { background: linear-gradient(135deg, #000 0%, #1a1a1a 100%); color: #A3E635; padding: 40px; text-align: center; border-radius: 8px 8px 0 0; }
-    .logo { font-size: 32px; font-weight: 900; margin-bottom: 10px; }
-    .content { background: #f8f9fa; padding: 30px; }
-    .button { display: inline-block; padding: 15px 40px; background: #A3E635; color: #000; text-decoration: none; border-radius: 6px; font-weight: 600; margin: 20px 0; }
-    .benefits { background: white; padding: 20px; border-radius: 6px; margin: 20px 0; }
-    .benefit-item { margin: 10px 0; padding-left: 25px; position: relative; }
-    .benefit-item:before { content: "✓"; position: absolute; left: 0; color: #A3E635; font-weight: bold; }
-    .footer { background: #000; color: #A3E635; padding: 30px; text-align: center; border-radius: 0 0 8px 8px; font-size: 14px; }
-    .footer a { color: #A3E635; text-decoration: none; }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="header">
-      <div class="logo">AUXO</div>
-      <div>Data Labs</div>
-    </div>
-    <div class="content">
-      <h2>Welcome to AUXO Data Labs</h2>
-      <p>Thanks for subscribing. You're one step away from receiving expert insights on data analytics and business intelligence.</p>
-
-      ${MAILEROO_API_KEY ? '<p style="color: #666; font-size: 14px;">If you receive a confirmation email from Maileroo, click the link to complete your subscription.</p>' : ''}
-
-      <div class="benefits">
-        <h3 style="margin-top: 0;">What you'll receive</h3>
-        <div class="benefit-item">Expert insights on data analytics and business intelligence</div>
-        <div class="benefit-item">Industry trends and case studies from the UAE and beyond</div>
-        <div class="benefit-item">Practical tips to improve your data strategy</div>
-        <div class="benefit-item">Exclusive content and early access to resources</div>
-      </div>
-
-      <p style="color: #666; font-size: 14px; margin-top: 30px;">
-        If you didn't request this subscription, you can safely ignore this email.
-      </p>
-    </div>
-    <div class="footer">
-      <strong>AUXO Data Labs</strong><br>
-      Data Analytics Consultancy | Dubai, UAE<br><br>
-      <a href="${SITE_URL}">Visit Website</a> |
-      <a href="mailto:${FROM_EMAIL}">Contact Us</a>
-    </div>
-  </div>
-</body>
-</html>`;
+      // Generate confirmation email
+      const confirmationEmail = getNewsletterConfirmationEmail({
+        siteUrl: SITE_URL,
+        fromEmail: FROM_EMAIL,
+        hasDoubleOptIn: !!MAILEROO_API_KEY,
+      });
 
       try {
         await sendEmail({
           from: { email: FROM_EMAIL, name: FROM_NAME },
           to: [{ email: email }],
           subject: 'Welcome to AUXO Data Labs Newsletter',
-          html: confirmationHtmlContent,
-          plain: confirmationTextContent,
+          html: confirmationEmail.html,
+          plain: confirmationEmail.plain,
         });
       } catch (emailError) {
         // Log email sending error but don't fail the subscription
         // The contact is already added to Maileroo, so subscription succeeded
-        const errorMessage = emailError instanceof Error ? emailError.message : 'Unknown error';
-        const errorStatus = (emailError as { statusCode?: number })?.statusCode;
-        
-        console.error('Error sending confirmation email:', {
-          error: errorMessage,
-          statusCode: errorStatus,
-          email,
-          timestamp: new Date().toISOString(),
-          ...(import.meta.env.DEV && { details: emailError })
-        });
-        
+        logError('Error sending confirmation email', emailError, { email });
         // If it's a critical Maileroo service error, still return success
         // since the subscription was processed
         // User will receive Maileroo's double opt-in email if configured
@@ -280,23 +212,15 @@ ${SITE_URL} | ${FROM_EMAIL}`;
 
     } catch (mailerooError) {
       // Enhanced error logging for critical errors
-      const errorMessage = mailerooError instanceof Error ? mailerooError.message : 'Unknown error';
-      const errorStatus = (mailerooError as { statusCode?: number })?.statusCode;
-      
-      console.error('Maileroo API error:', {
-        error: errorMessage,
-        statusCode: errorStatus,
-        email,
-        timestamp: new Date().toISOString(),
-        ...(import.meta.env.DEV && { details: mailerooError })
-      });
+      const { statusCode } = formatError(mailerooError);
+      logError('Maileroo API error', mailerooError, { email });
 
       // Provide more specific error messages based on status code
-      if (errorStatus === 401 || errorStatus === 403) {
+      if (statusCode === 401 || statusCode === 403) {
         throw new Error('We\'re having a technical issue. Please try again later or contact us at hello@auxodata.com.');
-      } else if (errorStatus === 429) {
+      } else if (statusCode === 429) {
         throw new Error('Too many requests. Please wait a moment and try again.');
-      } else if (errorStatus && errorStatus >= 500) {
+      } else if (statusCode && statusCode >= 500) {
         throw new Error('Our subscription service is temporarily unavailable. Please try again in a few minutes.');
       }
       
@@ -304,57 +228,19 @@ ${SITE_URL} | ${FROM_EMAIL}`;
       throw new Error('We couldn\'t complete your subscription. Please try again.');
     }
 
-    return new Response(
-      JSON.stringify({
-        success: true,
-        message: 'Please check your email to confirm your subscription.'
-      }),
-      {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' }
-      }
-    );
+    return createSuccessResponse('Please check your email to confirm your subscription.');
 
   } catch (error) {
     // Handle Zod validation errors
-    if (error instanceof ZodError) {
-      // Get the first validation error message (user-friendly)
-      const firstError = error.errors[0];
-      const friendlyMessage = firstError?.message || 'Please check your email address and try again.';
-      
-      return new Response(
-        JSON.stringify({
-          success: false,
-          error: friendlyMessage,
-          errors: error.errors.map(e => ({
-            field: e.path.join('.'),
-            message: e.message
-          }))
-        }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
-    }
+    const validationError = handleValidationError(error);
+    if (validationError) return validationError;
 
     // Enhanced error logging
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    console.error('Newsletter subscription error:', {
-      error: errorMessage,
-      timestamp: new Date().toISOString(),
-      ...(import.meta.env.DEV && { details: error })
-    });
+    logError('Newsletter subscription error', error);
 
-    return new Response(
-      JSON.stringify({
-        success: false,
-        error: 'Oops! Something went wrong on our end. Please try again in a moment, or contact us at hello@auxodata.com.'
-      }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      }
+    return createErrorResponse(
+      'Oops! Something went wrong on our end. Please try again in a moment, or contact us at hello@auxodata.com.',
+      500
     );
   }
 };

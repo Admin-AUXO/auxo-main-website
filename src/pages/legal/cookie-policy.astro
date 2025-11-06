@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import LegalLayout from '../../components/layouts/LegalLayout.astro';
+import { getBaseUrl, createUrl } from '../../utils/url';
 
-const base = import.meta.env.BASE_URL;
+const base = getBaseUrl();
 ---
 
 <BaseLayout
@@ -27,7 +28,7 @@ const base = import.meta.env.BASE_URL;
             They are widely used to make websites work more efficiently, provide analytics insights, and deliver a personalized experience. Cookies can remember your preferences, track your browsing behavior, and help website owners understand how visitors use their sites.
           </p>
           <p>
-            This Cookie Policy should be read in conjunction with our <a href={`${base}legal/privacy-policy/`}>Privacy Policy</a>, which provides more details about how we collect and use your personal information.
+            This Cookie Policy should be read in conjunction with our <a href={createUrl('legal/privacy-policy')}>Privacy Policy</a>, which provides more details about how we collect and use your personal information.
           </p>
         </div>
 
@@ -386,7 +387,7 @@ const base = import.meta.env.BASE_URL;
           <li>Data Processing Agreements with all third-party providers</li>
           <li>Regular vendor security and compliance audits</li>
         </ul>
-        <p>For more information, see our <a href={`${base}legal/privacy-policy/`}>Privacy Policy</a> section on International Data Transfers.</p>
+        <p>For more information, see our <a href={createUrl('legal/privacy-policy')}>Privacy Policy</a> section on International Data Transfers.</p>
 
         <h2>7. Do Not Track (DNT) Signals</h2>
         <p>
@@ -416,7 +417,7 @@ const base = import.meta.env.BASE_URL;
           <p class="!mb-2 text-secondary transition-colors">Email: <a href="mailto:privacy@auxodata.com">privacy@auxodata.com</a></p>
           <p class="!mb-2 text-secondary transition-colors">General Inquiries: <a href="mailto:hello@auxodata.com">hello@auxodata.com</a></p>
           <p class="!mb-2 text-secondary transition-colors">Location: Dubai, United Arab Emirates</p>
-          <p class="!mb-0 text-secondary transition-colors">Contact Form: <a href={`${base}contact/`}>Visit Contact Page</a></p>
+          <p class="!mb-0 text-secondary transition-colors">Contact Form: <a href={createUrl('contact')}>Visit Contact Page</a></p>
         </div>
 
         <div class="mt-8 p-6 bg-lime-400/10 border-l-4 border-lime-400 rounded-r-lg">

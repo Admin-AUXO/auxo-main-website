@@ -2,9 +2,10 @@ import rss from '@astrojs/rss';
 import { siteData } from '../data/config/site';
 import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
+import { createUrl } from '../utils/url';
 
 export async function GET(context: APIContext) {
-  const base = context.site?.href || siteData.url;
+  const siteUrl = context.site?.href || siteData.url;
   
   // Get all blog posts (excluding drafts)
   const posts = await getCollection('blog', ({ data }) => {
@@ -19,7 +20,9 @@ export async function GET(context: APIContext) {
   // Generate RSS items from blog posts
   const items = sortedPosts.map((post) => {
     const slug = post.id.replace(/\.mdx?$/, '');
-    const postUrl = `${base}blog/${slug}/`;
+    // Use createUrl for consistent path handling, then prepend site URL for absolute URL
+    const relativePath = createUrl(`blog/${slug}`);
+    const postUrl = `${siteUrl}${relativePath}`;
     
     return {
       title: post.data.title,
@@ -32,10 +35,12 @@ export async function GET(context: APIContext) {
 
   // If no posts exist, include a default welcome item
   if (items.length === 0) {
+    // Use createUrl for consistent path handling
+    const relativePath = createUrl('about');
     items.push({
       title: 'Welcome to AUXO Data Labs',
       description: 'Transforming data into actionable insights for businesses across the UAE',
-      link: `${base}about/`,
+      link: `${siteUrl}${relativePath}`,
       pubDate: new Date('2025-01-01'),
       author: siteData.email,
     });
@@ -44,7 +49,7 @@ export async function GET(context: APIContext) {
   return rss({
     title: siteData.name,
     description: siteData.description,
-    site: base,
+    site: siteUrl,
     items,
     customData: `<language>en-us</language>`,
     stylesheet: '/rss-styles.xsl',

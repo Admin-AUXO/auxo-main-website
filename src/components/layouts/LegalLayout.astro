@@ -1,6 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import { legalContent } from "../../data/content/legal";
+import { getBaseUrl, createUrl } from "../../utils/url";
 
 interface Props {
   title: string;
@@ -10,12 +11,12 @@ interface Props {
 }
 
 const { title, lastUpdated, effectiveDate, summary } = Astro.props;
-const base = import.meta.env.BASE_URL;
+const base = getBaseUrl();
 
 // Generate table of contents from slot content
 const legalPages = legalContent.navigation.pages.map((page) => ({
   name: page.name,
-  href: page.href === '' ? `${base}` : `${base}${page.href}/`,
+  href: page.href === '' ? base : createUrl(page.href),
 }));
 ---
 
@@ -56,7 +57,7 @@ const legalPages = legalContent.navigation.pages.map((page) => ({
           </h3>
           <div class="space-y-3 text-sm">
             <a
-              href={`${base}contact/`}
+              href={createUrl('contact')}
               class="flex items-center gap-2 text-secondary hover:text-accent-green transition-colors min-h-[44px]"
             >
               <Icon name="mdi:email-outline" class="w-4 h-4" />
@@ -140,7 +141,7 @@ const legalPages = legalContent.navigation.pages.map((page) => ({
             {legalContent.footer.questions.description}
           </p>
           <a
-            href={`${base}contact/`}
+            href={createUrl('contact')}
             class="inline-flex items-center text-accent-green hover:text-accent-green/80 font-semibold text-sm transition-colors min-h-[44px]"
           >
             {legalContent.footer.questions.cta}

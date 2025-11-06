@@ -8,8 +8,9 @@ import { getCollection } from 'astro:content';
 import { commonText } from '../../data/content/shared/common';
 import { blogPageContent } from '../../data/content/blog';
 import { calculateReadTime } from '../../utils/content';
+import { getBaseUrl, createUrl } from '../../utils/url';
 
-const base = import.meta.env.BASE_URL;
+const base = getBaseUrl();
 
 // Get all blog posts (excluding drafts)
 const posts = await getCollection('blog', ({ data }) => {
@@ -101,7 +102,7 @@ const popularPosts = postsWithReadTime.slice(0, 4);
               <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {blogPageContent.relatedContent.links.map((link) => (
                   <a
-                    href={`${base}${link.href}/`}
+                    href={createUrl(link.href)}
                     class="group bg-card border-2 border-theme rounded-xl p-6 hover:border-accent-green transition-all duration-300 hover:-translate-y-1"
                   >
                     <div class="flex items-center gap-3 mb-4">
@@ -148,13 +149,13 @@ const popularPosts = postsWithReadTime.slice(0, 4);
 
           <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <a
-              href={`${base}contact/`}
+              href={createUrl('contact')}
               class="px-6 py-3 bg-accent-green font-semibold rounded-lg hover:bg-accent-green/90 transition-colors inline-flex items-center justify-center min-h-[44px] min-w-[44px]"
             >
               {commonText.buttons.subscribe}
             </a>
             <a
-              href={`${base}${blogPageContent.empty.ctaHref}/`}
+              href={createUrl(blogPageContent.empty.ctaHref)}
               class="px-6 py-3 bg-surface text-primary font-semibold rounded-lg hover:bg-surface/80 transition-colors inline-flex items-center justify-center min-h-[44px] min-w-[44px] border border-theme"
             >
               {blogPageContent.empty.ctaText}
@@ -168,7 +169,7 @@ const popularPosts = postsWithReadTime.slice(0, 4);
               {blogPageContent.empty.exploreServices.description}
             </p>
             <a
-              href={`${base}${blogPageContent.empty.exploreServices.href}/`}
+              href={createUrl(blogPageContent.empty.exploreServices.href)}
               class="inline-flex items-center gap-2 text-accent-green hover:text-accent-green/80 font-semibold text-sm transition-colors min-h-[44px]"
             >
               {blogPageContent.empty.exploreServices.linkText}
@@ -231,7 +232,7 @@ const popularPosts = postsWithReadTime.slice(0, 4);
               />
               <span class="text-xs text-secondary leading-tight group-hover:text-primary transition-colors">
                 {commonText.newsletter.consent}
-                <a href={`${base}legal/privacy-policy/`} class="text-accent-green hover:underline transition-colors"> {commonText.newsletter.privacyLink}</a>
+                <a href={createUrl('legal/privacy-policy')} class="text-accent-green hover:underline transition-colors"> {commonText.newsletter.privacyLink}</a>
               </span>
             </label>
             <p id="blog-newsletter-message" class="text-sm"></p>

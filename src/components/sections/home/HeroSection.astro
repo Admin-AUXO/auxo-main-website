@@ -5,9 +5,10 @@ import {
   type HomepageContent,
 } from "../../../data/content/homepage";
 import Button from "../../ui/Button.astro";
+import { getBaseUrl, createUrl } from "../../../utils/url";
 
 const content: HomepageContent["hero"] = homepageContent.hero;
-const base = import.meta.env.BASE_URL;
+const base = getBaseUrl();
 ---
 
 <section
@@ -94,7 +95,7 @@ const base = import.meta.env.BASE_URL;
               <Button
                 variant="primary"
                 size="md"
-                href={`${base}${content.primaryCta.href}/`}
+                href={createUrl(content.primaryCta.href)}
                 class="w-full sm:w-auto font-bold shadow-lg shadow-accent-green/20"
               >
                 {content.primaryCta.text}
@@ -107,7 +108,7 @@ const base = import.meta.env.BASE_URL;
               <Button
                 variant="outline"
                 size="md"
-                href={`${base}${content.secondaryCta.href}/`}
+                href={createUrl(content.secondaryCta.href)}
                 class="w-full sm:w-auto font-bold"
               >
                 {content.secondaryCta.text}

@@ -49,12 +49,14 @@ function formatBreadcrumbLabel(segment: string): string {
 /**
  * Generate breadcrumbs from current URL path
  */
+import { getBaseUrl } from './url';
+
 export function generateBreadcrumbs(
   pathname: string,
   customLabels?: Record<string, string>,
   currentPageLabel?: string
 ): BreadcrumbItem[] {
-  const base = import.meta.env.BASE_URL || '/';
+  const base = getBaseUrl();
   
   // Normalize base URL - ensure it ends with / for consistency
   const normalizedBase = base.endsWith('/') ? base : base + '/';

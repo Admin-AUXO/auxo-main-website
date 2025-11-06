@@ -7,9 +7,10 @@ import {
 import Button from "../../ui/Button.astro";
 import Card from "../../ui/Card.astro";
 import SectionContainer from "../../layouts/SectionContainer.astro";
+import { getBaseUrl, createUrl } from "../../../utils/url";
 
 const content: HomepageContent["finalCta"] = homepageContent.finalCta;
-const base = import.meta.env.BASE_URL;
+const base = getBaseUrl();
 ---
 
 <SectionContainer
@@ -41,7 +42,7 @@ const base = import.meta.env.BASE_URL;
           <Button
             variant="primary"
             size="lg"
-            href={`${base}${content.ctaHref}/`}
+            href={createUrl(content.ctaHref)}
             class="font-bold shadow-lg shadow-accent-green/20"
           >
             {content.ctaText}
@@ -50,7 +51,7 @@ const base = import.meta.env.BASE_URL;
           <Button
             variant="outline"
             size="lg"
-            href={`${base}${content.secondaryCtaHref}/`}
+            href={createUrl(content.secondaryCtaHref)}
             class="font-bold"
           >
             {content.secondaryCtaText}

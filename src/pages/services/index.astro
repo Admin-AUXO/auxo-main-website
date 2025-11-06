@@ -10,8 +10,9 @@ import { services } from "../../data/collections/services";
 import { servicesPageContent } from "../../data/content/services";
 import Button from "../../components/ui/Button.astro";
 import { Icon } from "astro-icon/components";
+import { getBaseUrl, createUrl } from "../../utils/url";
 
-const base = import.meta.env.BASE_URL;
+const base = getBaseUrl();
 
 // Transform business impacts into display format with icons
 const getImpactIcon = (impact: string): string => {
@@ -373,7 +374,7 @@ const servicesFAQs = [
 
         <div class="text-center mt-8">
           <a
-            href={`${base}faq/`}
+            href={createUrl('faq')}
             class="inline-flex items-center gap-2 text-accent-green hover:text-accent-green/80 font-semibold transition-colors"
           >
             {servicesPageContent.faq.viewAllText}
@@ -423,7 +424,7 @@ const servicesFAQs = [
             <Button
               variant="primary"
               size="md"
-              href={`${base}${servicesPageContent.cta.primaryCta.href}/`}
+              href={createUrl(servicesPageContent.cta.primaryCta.href)}
               class="animate-pulse hover:animate-none"
             >
               {servicesPageContent.cta.primaryCta.text}
@@ -432,7 +433,7 @@ const servicesFAQs = [
             <Button
               variant="secondary"
               size="md"
-              href={`${base}${servicesPageContent.cta.secondaryCta.href}/`}
+              href={createUrl(servicesPageContent.cta.secondaryCta.href)}
             >
               {servicesPageContent.cta.secondaryCta.text}
               <Icon name="mdi:calculator" class="w-5 h-5 ml-2" />

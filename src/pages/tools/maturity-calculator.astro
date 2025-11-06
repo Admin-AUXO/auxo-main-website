@@ -6,8 +6,9 @@ import FAQSchema from "../../components/schema/FAQSchema.astro";
 import { maturityCalculatorContent } from "../../data/content/maturityCalculator";
 import Button from "../../components/ui/Button.astro";
 import { Icon } from "astro-icon/components";
+import { getBaseUrl, createUrl } from "../../utils/url";
 
-const base = import.meta.env.BASE_URL;
+const base = getBaseUrl();
 
 // FAQ data for structured data
 const calculatorFAQs = [
@@ -408,7 +409,7 @@ const calculatorFAQs = [
             </Button>
             <Button
               variant="secondary"
-              href={`${base}contact/`}
+              href={createUrl('contact')}
               class="flex items-center justify-center"
             >
               {maturityCalculatorContent.results.contactUs} →

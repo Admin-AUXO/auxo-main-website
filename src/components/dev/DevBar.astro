@@ -1,16 +1,18 @@
 ---
 // Development toolbar - only shows in development mode
+import { getBaseUrl, createUrl } from "../../utils/url";
+
 const isDev = import.meta.env.DEV;
-const base = import.meta.env.BASE_URL;
+const base = getBaseUrl();
 
 const quickLinks = [
-  { name: 'Home', href: `${base}` },
-  { name: 'Services', href: `${base}services/` },
-  { name: 'About', href: `${base}about/` },
-  { name: 'Contact', href: `${base}contact/` },
-  { name: 'Calculator', href: `${base}tools/maturity-calculator/` },
-  { name: 'Blog', href: `${base}blog/` },
-  { name: 'Cases', href: `${base}case-studies/` },
+  { name: 'Home', href: base },
+  { name: 'Services', href: createUrl('services') },
+  { name: 'About', href: createUrl('about') },
+  { name: 'Contact', href: createUrl('contact') },
+  { name: 'Calculator', href: createUrl('tools/maturity-calculator') },
+  { name: 'Blog', href: createUrl('blog') },
+  { name: 'Cases', href: createUrl('case-studies') },
 ];
 ---
 

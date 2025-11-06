@@ -2,8 +2,9 @@
 import { Icon } from "astro-icon/components";
 import { services } from "../../../data/collections/services";
 import SectionContainer from "../../layouts/SectionContainer.astro";
+import { getBaseUrl, createUrl } from "../../../utils/url";
 
-const base = import.meta.env.BASE_URL;
+const base = getBaseUrl();
 
 // Create alternating layout pattern for visual interest
 const getCardClasses = (index: number) => {
@@ -45,7 +46,7 @@ const getCardClasses = (index: number) => {
           
           return (
             <a
-              href={`${base}services/${service.id}/`}
+              href={createUrl(`services/${service.id}`)}
               class={cardClasses}
               aria-label={`Learn more about ${service.title}`}
             >
@@ -126,7 +127,7 @@ const getCardClasses = (index: number) => {
     <!-- View All Button -->
     <div class="text-center">
       <a
-        href={`${base}services/`}
+        href={createUrl('services')}
         class="group inline-flex items-center gap-3 px-8 py-4 bg-surface/80 backdrop-blur-sm border-2 border-theme text-primary rounded-xl hover:border-accent-green/60 hover:bg-accent-green/10 transition-all duration-300 font-semibold min-h-[44px] hover:shadow-lg hover:shadow-accent-green/20 hover:-translate-y-1"
         aria-label="View all services"
       >

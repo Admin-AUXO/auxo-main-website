@@ -23,11 +23,13 @@ const {
   canonicalURL,
 } = Astro.props;
 
+import { getBaseUrl } from '../../utils/url';
+
 const siteName = 'AUXO Data Labs';
 const siteURL = Astro.site || 'https://auxodata.com';
 const canonical = canonicalURL || new URL(Astro.url.pathname, siteURL).href;
 const ogImage = new URL(image, siteURL).href;
-const base = import.meta.env.BASE_URL;
+const base = getBaseUrl();
 ---
 
 <!-- Primary Meta Tags -->
@@ -60,11 +62,11 @@ const base = import.meta.env.BASE_URL;
 <meta property="twitter:image" content={ogImage} />
 
 <!-- Favicon -->
-<link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
-<link rel="apple-touch-icon" sizes="180x180" href={`${base}apple-touch-icon.svg`} />
+<link rel="icon" type="image/svg+xml" href={`${getBaseUrl()}favicon.svg`} />
+<link rel="apple-touch-icon" sizes="180x180" href={`${getBaseUrl()}apple-touch-icon.svg`} />
 
 <!-- RSS Feed -->
-<link rel="alternate" type="application/rss+xml" title={siteName} href={`${base}rss.xml`} />
+<link rel="alternate" type="application/rss+xml" title={siteName} href={`${getBaseUrl()}rss.xml`} />
 
 <!-- Resource Hints for Performance -->
 <!-- DNS prefetch for external domains -->
@@ -103,7 +105,7 @@ const base = import.meta.env.BASE_URL;
       "url": siteURL,
       "logo": {
         "@type": "ImageObject",
-        "url": `${siteURL}${base}logo.svg`,
+        "url": `${siteURL}${getBaseUrl()}logo.svg`,
         "width": "512",
         "height": "512"
       },
@@ -241,7 +243,7 @@ const base = import.meta.env.BASE_URL;
       "name": "AUXO Data Labs",
       "logo": {
         "@type": "ImageObject",
-        "url": `${siteURL}${base}logo.svg`
+        "url": `${siteURL}${getBaseUrl()}logo.svg`
       }
     },
     "mainEntityOfPage": {

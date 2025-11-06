@@ -2,8 +2,9 @@
 // Multi-step lead generation form with assisted answer fields
 import { multiStepFormContent } from "../../data/content/forms";
 import { commonText } from "../../data/content/shared/common";
+import { getBaseUrl, createUrl } from "../../utils/url";
 
-const base = import.meta.env.BASE_URL;
+const base = getBaseUrl();
 ---
 
 <div class="max-w-4xl mx-auto">
@@ -580,7 +581,7 @@ const base = import.meta.env.BASE_URL;
             />
             <div class="text-sm text-primary transition-colors">
               I agree to the <a
-                href={`${base}legal/privacy-policy/`}
+                href={createUrl('legal/privacy-policy')}
                 class="text-accent-green hover:underline transition-colors"
                 >Privacy Policy</a
               > and consent to AUXO Data Labs contacting me about my inquiry. *
@@ -764,7 +765,7 @@ const base = import.meta.env.BASE_URL;
             {commonText.buttons.returnHome}
           </a>
           <a
-            href={`${base}about/`}
+            href={createUrl('about')}
             class="inline-flex items-center justify-center px-6 py-3 bg-surface text-primary font-semibold rounded-lg hover:bg-surface/80 transition-colors border border-theme min-h-[44px] min-w-[44px]"
           >
             Learn More About Us
@@ -1420,8 +1421,8 @@ const base = import.meta.env.BASE_URL;
         const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT);
 
         try {
-          // Ensure baseUrl ends with / and construct API URL correctly
-          const apiUrl = `${baseUrl.endsWith("/") ? baseUrl : baseUrl + "/"}api/contact`;
+          // Construct API URL with base URL
+          const apiUrl = `${baseUrl}api/contact`;
           const response = await fetch(apiUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },

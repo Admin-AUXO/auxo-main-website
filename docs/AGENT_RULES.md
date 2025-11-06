@@ -70,9 +70,12 @@
 
 ## 7. Navigation & URLs
 
--   **CRITICAL:** Always use `import.meta.env.BASE_URL` for all internal links and API calls.
--   **Pattern:** `<a href={`${base}about`}>About</a>`
--   **API Calls:** `fetch(`${import.meta.env.BASE_URL}api/contact`)`
+-   **CRITICAL:** Always use URL utility functions from `src/utils/url.ts` for all internal links and API calls.
+-   **Page URLs:** `import { createUrl } from '../utils/url';` then `<a href={createUrl('about')}>About</a>`
+-   **API Calls:** `import { createApiUrl } from '../utils/url';` then `fetch(createApiUrl('api/contact'))`
+-   **Static Assets:** `import { getBaseUrl } from '../utils/url';` then `<img src={`${getBaseUrl()}logo.svg`} />`
+-   **Trailing Slashes:** Automatically handled by utilities per `astro.config.mjs` (`trailingSlash: 'always'`)
+-   **DON'T:** Use `import.meta.env.BASE_URL` directly in components - always use utility functions
 
 ---
 

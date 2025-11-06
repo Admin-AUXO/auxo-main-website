@@ -83,6 +83,9 @@ src/
 | Contact Form API       | `src/pages/api/contact.ts`                |
 | Validation Schemas     | `src/utils/validation.ts`                 |
 | Rate Limiting          | `src/utils/rateLimit.ts`                  |
+| URL Utilities          | `src/utils/url.ts`                        |
+| Error Handler         | `src/utils/errorHandler.ts`                |
+| Email Templates        | `src/utils/emailTemplates.ts`              |
 | **Static Assets**      |                                           |
 | Logo                   | `public/logo.svg`                         |
 | Security Headers       | `public/_headers`                         |

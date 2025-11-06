@@ -2,13 +2,14 @@
 import { services } from "../../../data/collections/services";
 import { commonText } from "../../../data/content/shared/common";
 import { Icon } from "astro-icon/components";
+import { getBaseUrl, createUrl } from "../../../utils/url";
 
 interface Props {
   services: typeof services;
 }
 
 const { services: serviceList } = Astro.props;
-const base = import.meta.env.BASE_URL;
+const base = getBaseUrl();
 ---
 
 <div
@@ -17,7 +18,7 @@ const base = import.meta.env.BASE_URL;
   {
     serviceList.map((service) => (
       <a
-        href={`${base}services/${service.id}/`}
+        href={createUrl(`services/${service.id}`)}
         class="group bg-card border-2 border-theme rounded-2xl p-4 sm:p-5 md:p-8 hover:border-accent-green transition-all duration-300 hover:transform hover:-translate-y-1 relative"
         aria-label={`Learn more about ${service.title}`}
       >

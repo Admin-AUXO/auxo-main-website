@@ -26,6 +26,9 @@ A quick lookup guide for common tasks, file locations, and commands.
 | Global Styles          | `src/styles/global.css`                   |
 | Validation Schemas     | `src/utils/validation.ts`                 |
 | Rate Limiting          | `src/utils/rateLimit.ts`                  |
+| URL Utilities          | `src/utils/url.ts`                        |
+| Error Handler         | `src/utils/errorHandler.ts`                |
+| Email Templates        | `src/utils/emailTemplates.ts`              |
 | Security Headers       | `public/_headers`                         |
 | Astro Config           | `astro.config.mjs`                        |
 | Tailwind Config        | `tailwind.config.js`                      |
@@ -72,25 +75,61 @@ cd "A:\AUXO\Main Website"; npm run lint; npm run check; npm run build
 
 ## Base URL Usage
 
+**CRITICAL:** Always use the URL utility functions from `src/utils/url.ts` for consistent URL handling with trailing slash support per `astro.config.mjs` (`trailingSlash: 'always'`).
+
+### Import Pattern
+
 ```astro
 ---
-const base = import.meta.env.BASE_URL;
+import { getBaseUrl, createUrl, createApiUrl } from '../utils/url';
+---
+```
+
+### Page URLs (with trailing slash)
+
+```astro
+---
+import { createUrl } from '../utils/url';
 ---
 
-<!-- Links -->
-<a href={`${base}about`}>About</a>
+<!-- Internal page links -->
+<a href={createUrl('about')}>About</a>
+<a href={createUrl('services/data-strategy')}>Data Strategy</a>
+<a href={createUrl('blog')}>Blog</a>
+```
 
-<!-- Images -->
-<img src={`${base}logo.svg`} alt="Logo" />
+### API Endpoints (no trailing slash)
 
-<!-- Client-Side Scripts -->
-<script>
-  fetch(`${import.meta.env.BASE_URL}api/contact`, {
+```astro
+---
+import { createApiUrl } from '../utils/url';
+---
+
+<!-- In client-side scripts -->
+<script define:vars={{ createApiUrl }}>
+  fetch(createApiUrl('api/contact'), {
     method: 'POST',
     body: JSON.stringify(data),
   });
 </script>
 ```
+
+### Static Assets
+
+```astro
+---
+import { getBaseUrl } from '../utils/url';
+---
+
+<!-- For static assets like images -->
+<img src={`${getBaseUrl()}logo.svg`} alt="Logo" />
+```
+
+### Available Functions
+
+- **`getBaseUrl()`** - Returns base URL with trailing slash (e.g., `/auxo-main-website/`)
+- **`createUrl(path)`** - Creates page URLs with trailing slash (e.g., `createUrl('about')` → `/auxo-main-website/about/`)
+- **`createApiUrl(endpoint)`** - Creates API URLs without trailing slash (e.g., `createApiUrl('api/contact')` → `/auxo-main-website/api/contact`)
 
 ---
 
@@ -398,9 +437,13 @@ import { Icon } from 'astro-icon/components';
 
 ### Base URL Not Working
 
-**Problem:** Links/assets not loading correctly
+**Problem:** Links/assets not loading correctly or trailing slashes inconsistent
 
-**Solution:** Always use `import.meta.env.BASE_URL` prefix
+**Solution:** Always use URL utility functions from `src/utils/url.ts`:
+- Use `createUrl('path')` for page URLs (ensures trailing slash)
+- Use `createApiUrl('api/endpoint')` for API endpoints (no trailing slash)
+- Use `getBaseUrl()` for static assets or when base URL is needed directly
+- **Never use:** `import.meta.env.BASE_URL` directly in components
 
 ### Emails Not Sending
 

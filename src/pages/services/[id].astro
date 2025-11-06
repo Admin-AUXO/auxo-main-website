@@ -12,8 +12,9 @@ import ServiceBusinessImpact from "../../components/sections/services/ServiceBus
 import ServiceStartupAdvantage from "../../components/sections/services/ServiceStartupAdvantage.astro";
 import ServiceTimeline from "../../components/sections/services/ServiceTimeline.astro";
 import ExecutiveTimeCommitment from "../../components/sections/services/ExecutiveTimeCommitment.astro";
+import { getBaseUrl, createUrl } from "../../utils/url";
 
-const base = import.meta.env.BASE_URL;
+const base = getBaseUrl();
 
 export async function getStaticPaths() {
   return services.map((service) => ({
@@ -569,7 +570,7 @@ const expectedImpact =
               Custom pricing based on your project scope and requirements
             </p>
             <a
-              href={`${base}contact/`}
+              href={createUrl('contact')}
               class="block w-full py-2.5 bg-surface border border-theme font-semibold rounded-lg hover:bg-surface/80 hover:border-accent-green/50 active:bg-surface/70 transition-colors text-center text-xs sm:text-sm min-h-[44px] flex items-center justify-center touch-manipulation"
             >
               Request Quote
@@ -589,7 +590,7 @@ const expectedImpact =
               Schedule a strategic consultation to discuss your needs
             </p>
             <a
-              href={`${base}contact/`}
+              href={createUrl('contact')}
               class="block w-full py-3 sm:py-3 bg-accent-green font-semibold rounded-lg hover:bg-accent-green/90 active:bg-accent-green/80 transition-colors text-center text-sm sm:text-base min-h-[44px] flex items-center justify-center touch-manipulation"
             >
               Let's Talk
@@ -667,7 +668,7 @@ const expectedImpact =
                   .slice(0, 3)
                   .map((s) => (
                     <a
-                      href={`${base}services/${s.id}/`}
+                      href={createUrl(`services/${s.id}`)}
                       class="block p-3 sm:p-3 bg-surface rounded-lg hover:bg-surface/80 active:bg-surface/70 transition-colors group touch-manipulation min-h-[44px] flex items-center"
                     >
                       <Icon
@@ -682,7 +683,7 @@ const expectedImpact =
               }
             </div>
             <a
-              href={`${base}services/`}
+              href={createUrl('services')}
               class="block mt-4 text-xs sm:text-sm text-accent-green transition-colors hover:underline py-1 touch-manipulation"
             >
               View All Services →
@@ -702,7 +703,7 @@ const expectedImpact =
             </h3>
             <div class="space-y-2 sm:space-y-3">
               <a
-                href={`${base}blog/`}
+                href={createUrl('blog')}
                 class="block p-3 bg-surface rounded-lg hover:bg-surface/80 active:bg-surface/70 transition-colors group touch-manipulation min-h-[44px] flex items-center"
               >
                 <Icon
@@ -716,7 +717,7 @@ const expectedImpact =
                 </span>
               </a>
               <a
-                href={`${base}faq/`}
+                href={createUrl('faq')}
                 class="block p-3 bg-surface rounded-lg hover:bg-surface/80 active:bg-surface/70 transition-colors group touch-manipulation min-h-[44px] flex items-center"
               >
                 <Icon
@@ -730,7 +731,7 @@ const expectedImpact =
                 </span>
               </a>
               <a
-                href={`${base}case-studies/`}
+                href={createUrl('case-studies')}
                 class="block p-3 bg-surface rounded-lg hover:bg-surface/80 active:bg-surface/70 transition-colors group touch-manipulation min-h-[44px] flex items-center"
               >
                 <Icon
@@ -766,7 +767,7 @@ const expectedImpact =
               maturity level
             </p>
             <a
-              href={`${base}tools/maturity-calculator/`}
+              href={createUrl('tools/maturity-calculator')}
               class="block w-full py-3 bg-accent-green text-on-accent font-semibold rounded-lg hover:bg-accent-green/90 active:bg-accent-green/80 transition-colors text-center text-sm sm:text-base min-h-[44px] flex items-center justify-center touch-manipulation"
             >
               Take Assessment

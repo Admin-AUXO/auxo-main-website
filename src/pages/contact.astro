@@ -9,8 +9,9 @@ import { siteData } from "../data/config/site";
 import { contactContent } from "../data/content/contact";
 import { commonText } from "../data/content/shared/common";
 import { Icon } from "astro-icon/components";
+import { getBaseUrl, createUrl } from "../utils/url";
 
-const base = import.meta.env.BASE_URL;
+const base = getBaseUrl();
 ---
 
 <BaseLayout
@@ -160,7 +161,7 @@ const base = import.meta.env.BASE_URL;
             <div class="space-y-2 sm:space-y-3">
               {contactContent.sidebar.quickLinks.links.map((link) => (
                 <a
-                  href={`${base}${link.href}/`}
+                  href={createUrl(link.href)}
                   class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-secondary hover:text-accent-green transition-colors group min-h-[44px] active:text-accent-green"
                 >
                   <Icon
@@ -359,7 +360,7 @@ const base = import.meta.env.BASE_URL;
               ) : option.action.href === "brochure.pdf" ? (
                 <Button
                   variant="primary"
-                  href={`${base}${option.action.href}`}
+                  href={option.action.href && (option.action.href.startsWith('http') || option.action.href.endsWith('.pdf')) ? `${getBaseUrl()}${option.action.href}` : option.action.href ? createUrl(option.action.href) : '#'}
                   target="_blank"
                   rel="noopener noreferrer"
                   class="w-full mt-auto"
@@ -369,7 +370,7 @@ const base = import.meta.env.BASE_URL;
               ) : (
                 <Button
                   variant="primary"
-                  href={`${base}${option.action.href}/`}
+                  href={option.action.href ? createUrl(option.action.href) : '#'}
                   class="w-full mt-auto"
                 >
                   {option.action.text}

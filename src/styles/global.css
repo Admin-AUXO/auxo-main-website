@@ -968,50 +968,71 @@
       min-width: 44px;
     }
     
-    /* Improved text readability on mobile - Reduced for more content density */
+    /* Improved text readability on mobile - Further reduced for more content density */
     p {
-      line-height: 1.65;
-      font-size: 0.875rem; /* 14px - reduced from 15px for more content */
+      line-height: 1.6;
+      font-size: 0.8125rem; /* 13px - further reduced from 14px for more content */
     }
     
-    /* Better heading sizes for mobile - Reduced for more content density */
+    /* Better heading sizes for mobile - Further reduced for more content density */
     h1 {
-      font-size: 1.75rem; /* 28px - reduced from 32px */
+      font-size: 1.625rem; /* 26px - further reduced from 28px */
       line-height: 1.2;
       letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
     }
     
     h2 {
-      font-size: 1.5rem; /* 24px - reduced from 28px */
+      font-size: 1.375rem; /* 22px - further reduced from 24px */
       line-height: 1.25;
       letter-spacing: -0.02em;
+      margin-bottom: 0.625rem;
     }
     
     h3 {
-      font-size: 1.25rem; /* 20px - reduced from 24px */
+      font-size: 1.125rem; /* 18px - further reduced from 20px */
       line-height: 1.3;
       letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
     }
     
     h4 {
-      font-size: 1.125rem; /* 18px - reduced from 20px */
+      font-size: 1rem; /* 16px - further reduced from 18px */
       line-height: 1.35;
+      margin-bottom: 0.5rem;
     }
     
-    /* Better contrast for small text on mobile - Reduced for more content */
+    h5 {
+      font-size: 0.9375rem; /* 15px */
+      line-height: 1.4;
+      margin-bottom: 0.375rem;
+    }
+    
+    h6 {
+      font-size: 0.875rem; /* 14px */
+      line-height: 1.4;
+      margin-bottom: 0.375rem;
+    }
+    
+    /* Better contrast for small text on mobile - Further reduced for more content */
     .text-secondary {
       font-weight: 500;
-      font-size: 0.8125rem; /* 13px - reduced from 15px */
+      font-size: 0.75rem; /* 12px - further reduced from 13px */
     }
     
     .text-tertiary {
-      font-size: 0.75rem; /* 12px - reduced from 14px */
+      font-size: 0.6875rem; /* 11px - further reduced from 12px */
     }
     
-    /* Improved spacing for mobile */
+    /* Reduce base font size for better content density */
+    body {
+      font-size: 0.875rem; /* 14px base - reduced from default 16px */
+    }
+    
+    /* Improved spacing for mobile - Reduced for more content density */
     .responsive-padding {
-      padding-left: 1rem; /* 16px */
-      padding-right: 1rem; /* 16px */
+      padding-left: 0.875rem; /* 14px - reduced from 16px */
+      padding-right: 0.875rem; /* 14px - reduced from 16px */
     }
     
     /* Better form input sizing on mobile */
@@ -1022,45 +1043,110 @@
     input[type="number"],
     textarea,
     select {
-      font-size: 16px; /* Prevents zoom on iOS */
-      min-height: 48px; /* Better touch target */
-      padding: 0.75rem 1rem;
+      font-size: 16px; /* Prevents zoom on iOS - keep at 16px minimum */
+      min-height: 44px; /* Minimum touch target */
+      padding: 0.625rem 0.875rem; /* Reduced padding for more compact layout */
     }
     
-    /* Better button spacing on mobile */
+    /* Better button spacing on mobile - More compact */
     button,
     .btn-primary,
     .btn-secondary,
     .btn-ghost,
     .btn-outline {
-      padding: 0.75rem 1.25rem;
-      font-size: 1rem; /* 16px */
+      padding: 0.625rem 1rem; /* Reduced from 0.75rem 1.25rem */
+      font-size: 0.875rem; /* 14px - reduced from 16px */
+      min-height: 44px; /* Ensure minimum touch target */
     }
     
-    /* Improved card padding on mobile */
+    /* Improved card padding on mobile - More compact */
     .bg-card,
     .content-box {
-      padding: 1rem; /* 16px */
+      padding: 0.875rem; /* 14px - reduced from 16px */
     }
     
-    /* Better grid gaps on mobile */
+    /* Better grid gaps on mobile - Reduced for more content */
     .grid {
-      gap: 1rem; /* 16px */
+      gap: 0.875rem; /* 14px - reduced from 16px */
     }
     
-    /* Improved list spacing */
+    /* Improved list spacing - More compact */
     ul, ol {
-      padding-left: 1.5rem;
+      padding-left: 1.25rem; /* Reduced from 1.5rem */
+      margin-bottom: 0.75rem; /* Reduced spacing */
     }
     
     li {
-      margin-bottom: 0.5rem;
-      line-height: 1.6;
+      margin-bottom: 0.375rem; /* Reduced from 0.5rem */
+      line-height: 1.55; /* Slightly tighter */
+    }
+    
+    /* Reduce spacing between sections on mobile */
+    section {
+      margin-bottom: 2rem; /* Reduced from default */
+    }
+    
+    /* More compact spacing for containers */
+    .container {
+      padding-left: 0.875rem;
+      padding-right: 0.875rem;
     }
     
     /* Better scrolling performance on mobile */
     * {
       -webkit-tap-highlight-color: rgba(var(--accent-green-rgb), 0.1);
+    }
+    
+    /* Optimize mobile menu spacing */
+    #mobile-menu {
+      padding-top: 0.75rem; /* Reduced from default */
+      padding-bottom: 0.75rem;
+    }
+    
+    #mobile-menu .space-y-3 > * + * {
+      margin-top: 0.625rem; /* Reduced spacing between menu items */
+    }
+    
+    /* More compact mobile dropdown content */
+    .mobile-dropdown-content {
+      padding-top: 0.5rem; /* Reduced from mt-3 */
+      gap: 0.5rem; /* Reduced spacing */
+    }
+    
+    /* Reduce icon sizes slightly for mobile */
+    .mobile-dropdown-content .w-8 {
+      width: 1.75rem; /* 28px instead of 32px */
+      height: 1.75rem;
+    }
+    
+    /* Optimize mobile navigation button spacing */
+    #mobile-menu-button {
+      min-width: 44px;
+      min-height: 44px;
+      padding: 0.5rem;
+    }
+    
+    /* Reduce mobile menu item text size in dropdowns */
+    .mobile-dropdown-content .text-xs {
+      font-size: 0.6875rem; /* 11px - even smaller for nested items */
+      line-height: 1.4;
+    }
+    
+    /* More compact spacing for mobile sections */
+    section > * + * {
+      margin-top: 1.5rem; /* Reduced from default 2rem */
+    }
+    
+    /* Optimize paragraph spacing on mobile */
+    p + p {
+      margin-top: 0.875rem; /* Reduced spacing between paragraphs */
+    }
+    
+    /* More compact heading spacing */
+    h1 + p,
+    h2 + p,
+    h3 + p {
+      margin-top: 0.625rem; /* Reduced from default */
     }
     
     /* Improve touch interactions */
@@ -1105,22 +1191,22 @@
   /* Tablet optimizations (640px - 1024px) */
   @media (min-width: 640px) and (max-width: 1023px) {
     p {
-      line-height: 1.7;
-      font-size: 1rem; /* 16px */
+      line-height: 1.65;
+      font-size: 0.9375rem; /* 15px - slightly reduced for better content density */
     }
     
     h1 {
-      font-size: 2.5rem; /* 40px */
+      font-size: 2.25rem; /* 36px - reduced from 40px */
       line-height: 1.2;
     }
     
     h2 {
-      font-size: 2rem; /* 32px */
+      font-size: 1.875rem; /* 30px - reduced from 32px */
       line-height: 1.25;
     }
     
     h3 {
-      font-size: 1.75rem; /* 28px */
+      font-size: 1.625rem; /* 26px - reduced from 28px */
       line-height: 1.3;
     }
   }

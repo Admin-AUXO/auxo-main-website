@@ -8,6 +8,7 @@
 interface HTMLElementWithHandler extends HTMLElement {
   __dropdownHandlerAttached?: boolean;
   __containerClickHandler?: (e: Event) => void;
+  __menuButtonHandlerAttached?: boolean;
 }
 
 interface WindowWithAstro extends Window {
@@ -120,8 +121,19 @@ function setupMobileDropdowns(): void {
   const mobileDropdownButtons = document.querySelectorAll('#mobile-menu .mobile-dropdown-btn');
   
   mobileDropdownButtons.forEach(button => {
-    const buttonEl = button as HTMLElementWithHandler;
-    if (buttonEl.__dropdownHandlerAttached) return;
+    let buttonEl = button as HTMLElementWithHandler;
+    
+    // Always remove old handlers first (if they exist) by cloning
+    // This ensures clean state after page transitions
+    if (buttonEl.__dropdownHandlerAttached) {
+      const newButton = buttonEl.cloneNode(true) as HTMLElement;
+      const ariaLabel = newButton.getAttribute('aria-label');
+      buttonEl.parentNode?.replaceChild(newButton, buttonEl);
+      // Get fresh reference after clone
+      const freshButton = newButton.parentNode?.querySelector(`.mobile-dropdown-btn[aria-label="${ariaLabel}"]`) as HTMLElementWithHandler;
+      if (!freshButton) return;
+      buttonEl = freshButton;
+    }
     
     const handler = (e: Event): void => {
       e.preventDefault();
@@ -160,15 +172,24 @@ function setupMobileDropdowns(): void {
         content.style.maxHeight = `${currentHeight}px`;
         content.style.opacity = '1';
         
+        // Force reflow
+        content.offsetHeight;
+        
         requestAnimationFrame(() => {
           content.style.maxHeight = '0';
           content.style.opacity = '0';
           
           setTimeout(() => {
+            // Force hide by adding hidden class and resetting styles
             content.classList.add('hidden');
+            content.style.display = 'none';
             content.style.maxHeight = '';
             content.style.opacity = '';
-          }, 300);
+            // Remove display none after a brief moment to allow CSS to take over
+            setTimeout(() => {
+              content.style.display = '';
+            }, 50);
+          }, 350); // Slightly longer timeout to ensure hidden class is applied
         });
         
         icon?.classList.remove('open');
@@ -176,8 +197,8 @@ function setupMobileDropdowns(): void {
       }
     };
 
-    buttonEl.addEventListener('click', handler, { capture: true });
-    buttonEl.addEventListener('touchend', handler, { capture: true, passive: false });
+    addTrackedListener(buttonEl, 'click', handler, { capture: true });
+    addTrackedListener(buttonEl, 'touchend', handler, { capture: true, passive: false });
     
     buttonEl.__dropdownHandlerAttached = true;
   });
@@ -256,37 +277,86 @@ function initializeMobileMenu(): void {
   
   if (!mobileMenuButton || !mobileMenu || !menuOpen || !menuClose) return;
   
-  // Remove old event listeners if they exist
-  mobileMenuButton.replaceWith(mobileMenuButton.cloneNode(true));
-  const newBtn = document.getElementById('mobile-menu-button');
-  if (!newBtn) return;
+  // Don't clone here - let attachMenuButtonHandlers handle it
+  // Just get the button and attach handlers directly
+  const button = document.getElementById('mobile-menu-button');
+  if (button) {
+    attachMenuButtonHandlers(button);
+  } else {
+    // If not found, try again after a brief delay
+    setTimeout(() => {
+      const retryBtn = document.getElementById('mobile-menu-button');
+      if (retryBtn) {
+        attachMenuButtonHandlers(retryBtn);
+      }
+    }, 50);
+  }
   
-  // Re-attach menu button handlers
-  addTrackedListener(newBtn, 'click', handleMenuButtonClick, { capture: true });
-  addTrackedListener(newBtn, 'touchend', handleMenuButtonClick, { capture: true, passive: false });
+  // Re-attach outside click handler
+  addTrackedListener(document, 'click', handleOutsideClick);
+}
+
+/**
+ * Attach handlers to menu button
+ */
+function attachMenuButtonHandlers(button: HTMLElement): void {
+  const buttonEl = button as HTMLElementWithHandler;
+  
+  // If handlers were already attached, clone to remove old listeners
+  // This is important for re-initialization after page transitions
+  if (buttonEl.__menuButtonHandlerAttached) {
+    const newButton = button.cloneNode(true) as HTMLElement;
+    const parent = button.parentNode;
+    if (parent) {
+      parent.replaceChild(newButton, button);
+      const freshButton = document.getElementById('mobile-menu-button');
+      if (!freshButton) return;
+      // Use the fresh button
+      return attachMenuButtonHandlers(freshButton);
+    }
+  }
+  
+  // Re-attach menu button handlers with proper event handling
+  const clickHandler = (e: Event) => {
+    e.preventDefault();
+    e.stopPropagation();
+    handleMenuButtonClick(e);
+    return false;
+  };
+  
+  // Attach handlers using tracked listeners
+  addTrackedListener(buttonEl, 'click', clickHandler, { capture: true });
+  addTrackedListener(buttonEl, 'touchend', clickHandler, { capture: true, passive: false });
+  
+  // Mark as attached
+  buttonEl.__menuButtonHandlerAttached = true;
   
   // Ensure menu is closed and body scroll is unlocked
-  if (mobileMenu.classList.contains('open')) {
+  const updatedMenu = document.getElementById('mobile-menu');
+  if (updatedMenu?.classList.contains('open')) {
     closeMobileMenu();
   }
   document.body.style.overflow = '';
-  newBtn.setAttribute('aria-expanded', 'false');
+  buttonEl.setAttribute('aria-expanded', 'false');
   
   // Re-attach link click handlers - close menu on navigation
   const currentMobileLinks = document.querySelectorAll('#mobile-menu a');
   currentMobileLinks.forEach(link => {
-    link.removeEventListener('click', closeMobileMenu);
-    addTrackedListener(link, 'click', () => {
+    // Remove any existing listeners by cloning
+    const newLink = link.cloneNode(true) as HTMLElement;
+    link.parentNode?.replaceChild(newLink, link);
+    
+    // Add new listener
+    addTrackedListener(newLink, 'click', () => {
       // Close menu when navigating
       closeMobileMenu();
     });
   });
   
-  // Setup mobile dropdowns
-  setupMobileDropdowns();
-  
-  // Re-attach outside click handler
-  addTrackedListener(document, 'click', handleOutsideClick);
+  // Setup mobile dropdowns after DOM is ready
+  requestAnimationFrame(() => {
+    setupMobileDropdowns();
+  });
 }
 
 /**
@@ -733,10 +803,19 @@ function handlePageTransition(): void {
     state.dropdownLeaveTimer = null;
   }
   
-  // Clean up event listeners (they'll be re-attached on page-load)
-  cleanupEventListeners();
+  // Don't clean up document-level event listeners (event delegation)
+  // They persist across page transitions and will work with new DOM
+  // Only clean up element-specific listeners that will be recreated
+  // cleanupEventListeners(); // Commented out to preserve handlers during transition
+  
+  // Reset handler flags so they can be reattached (for direct handlers)
+  const menuButton = document.getElementById('mobile-menu-button');
+  if (menuButton) {
+    (menuButton as HTMLElementWithHandler).__menuButtonHandlerAttached = false;
+  }
   
   // Keep dropdown state during transition (will be re-initialized on page-load)
+  // Event delegation handlers on document persist and will work with new DOM
 }
 
 /**
@@ -751,15 +830,65 @@ function handlePageLoad(): void {
     }, 50); // Reduced from 100ms for faster response
   });
   
-  // Reinitialize components
-  initializeMobileMenu();
-  initializeDropdowns();
-  updateActiveLinks();
-  
-  // Setup logo navigation and mobile container after a brief delay
+  // Reinitialize components - ensure mobile dropdowns are set up
+  // Use multiple requestAnimationFrame calls to ensure DOM is fully ready
   requestAnimationFrame(() => {
-    setupLogoNavigation();
-    setupMobileNavContainer();
+    // First, ensure menu is closed
+    const { mobileMenu } = getNavElements();
+    if (mobileMenu?.classList.contains('open')) {
+      closeMobileMenu();
+    }
+    document.body.style.overflow = '';
+    
+    // Small delay to ensure Astro view transition is complete
+    setTimeout(() => {
+      // Initialize components
+      initializeMobileMenu();
+      initializeDropdowns();
+      updateActiveLinks();
+      
+      // Setup mobile dropdowns after menu is initialized
+      requestAnimationFrame(() => {
+        setupMobileDropdowns();
+        
+        // Setup logo navigation and mobile container
+        setupLogoNavigation();
+        setupMobileNavContainer();
+        
+        // Final setup of mobile dropdowns to ensure they work after all initialization
+        requestAnimationFrame(() => {
+          setupMobileDropdowns();
+          
+          // Final verification - ensure menu button handlers are attached
+          // Use multiple attempts to ensure it works
+          const attachHandlers = () => {
+            const menuBtn = document.getElementById('mobile-menu-button');
+            if (menuBtn) {
+              menuBtn.setAttribute('aria-expanded', 'false');
+              // Reset flag to force re-attachment
+              (menuBtn as HTMLElementWithHandler).__menuButtonHandlerAttached = false;
+              // Always re-attach handlers to ensure they work after page transition
+              attachMenuButtonHandlers(menuBtn);
+              return true;
+            }
+            return false;
+          };
+          
+          // Try immediately
+          if (!attachHandlers()) {
+            // Retry after a brief delay
+            setTimeout(() => {
+              if (!attachHandlers()) {
+                // One more retry
+                setTimeout(() => {
+                  attachHandlers();
+                }, 100);
+              }
+            }, 100);
+          }
+        });
+      });
+    }, 150); // Increased delay to ensure DOM is fully ready
   });
 }
 
@@ -791,10 +920,17 @@ function handleThemeChange(e: CustomEvent): void {
 export function initializeNavigation(): void {
   const { mobileMenuButton, mobileMenu, menuOpen, menuClose } = getNavElements();
 
-  // Initial setup
+  // Initial setup - use direct handlers for initial load
   if (mobileMenuButton && mobileMenu && menuOpen && menuClose) {
-    addTrackedListener(mobileMenuButton, 'click', handleMenuButtonClick, { capture: true });
-    addTrackedListener(mobileMenuButton, 'touchend', handleMenuButtonClick, { capture: true, passive: false });
+    const clickHandler = (e: Event) => {
+      e.preventDefault();
+      e.stopPropagation();
+      handleMenuButtonClick(e);
+      return false;
+    };
+    
+    addTrackedListener(mobileMenuButton, 'click', clickHandler, { capture: true });
+    addTrackedListener(mobileMenuButton, 'touchend', clickHandler, { capture: true, passive: false });
     
     const mobileLinks = document.querySelectorAll('#mobile-menu a');
     mobileLinks.forEach(link => {
@@ -854,10 +990,111 @@ export function initializeNavigation(): void {
     if (mobileMenu?.classList.contains('open')) {
       closeMobileMenu();
     }
+    
+    // Immediately start reinitializing after DOM swap
+    // This ensures handlers are attached as soon as new DOM is available
+    requestAnimationFrame(() => {
+      initializeMobileMenu();
+      setupMobileDropdowns();
+    });
   });
 
   // Reinitialize everything after page transition
+  // Use both astro:page-load and DOMContentLoaded for reliability
   addTrackedListener(document, 'astro:page-load', handlePageLoad);
+  
+  // Use event delegation for menu button and dropdowns to ensure they always work
+  // This approach works even if handlers aren't reattached immediately after page transitions
+  // Event delegation on document persists across Astro view transitions
+  const delegationHandler = (e: Event) => {
+    const target = e.target as HTMLElement;
+    if (!target) return;
+    
+    // Handle menu button clicks
+    const menuButton = target.closest('#mobile-menu-button');
+    if (menuButton) {
+      e.preventDefault();
+      e.stopPropagation();
+      handleMenuButtonClick(e);
+      return;
+    }
+    
+    // Handle mobile dropdown buttons via event delegation
+    // Only handle if menu is open
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu?.classList.contains('open')) {
+      const dropdownButton = target.closest('.mobile-dropdown-btn');
+      if (dropdownButton) {
+        e.preventDefault();
+        e.stopPropagation();
+        const buttonEl = dropdownButton as HTMLElementWithHandler;
+        const content = buttonEl.nextElementSibling as HTMLElement;
+        const icon = buttonEl.querySelector('.dropdown-arrow-mobile');
+        
+        if (!content) return;
+        
+        const isHidden = content.classList.contains('hidden');
+        
+        if (isHidden) {
+          // Open animation
+          content.classList.remove('hidden');
+          content.style.maxHeight = '0';
+          content.style.opacity = '0';
+          
+          requestAnimationFrame(() => {
+            const targetHeight = content.scrollHeight;
+            content.style.maxHeight = `${targetHeight}px`;
+            content.style.opacity = '1';
+            
+            setTimeout(() => {
+              content.style.maxHeight = '';
+              content.style.opacity = '';
+            }, 300);
+          });
+          
+          icon?.classList.add('open');
+          buttonEl.setAttribute('aria-expanded', 'true');
+        } else {
+          // Close animation
+          const currentHeight = content.scrollHeight;
+          content.style.maxHeight = `${currentHeight}px`;
+          content.style.opacity = '1';
+          content.offsetHeight; // Force reflow
+          
+          requestAnimationFrame(() => {
+            content.style.maxHeight = '0';
+            content.style.opacity = '0';
+            
+            setTimeout(() => {
+              content.classList.add('hidden');
+              content.style.display = 'none';
+              content.style.maxHeight = '';
+              content.style.opacity = '';
+              setTimeout(() => {
+                content.style.display = '';
+              }, 50);
+            }, 350);
+          });
+          
+          icon?.classList.remove('open');
+          buttonEl.setAttribute('aria-expanded', 'false');
+        }
+      }
+    }
+  };
+  
+  // Add event delegation handler - this persists across page transitions
+  addTrackedListener(document, 'click', delegationHandler, { capture: true });
+  
+  // Also listen for DOMContentLoaded as fallback
+  if (document.readyState === 'loading') {
+    addTrackedListener(document, 'DOMContentLoaded', () => {
+      // Small delay to ensure Astro has finished its initialization
+      setTimeout(() => {
+        handlePageLoad();
+      }, 100);
+    });
+  }
   
   // Handle theme toggle events efficiently
   addTrackedListener(document, 'themechange', handleThemeChange as EventListener);

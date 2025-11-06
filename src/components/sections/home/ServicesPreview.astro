@@ -77,17 +77,7 @@ const getCardClasses = (index: number) => {
                 <!-- Card Content -->
                 <div class="relative h-full bg-card/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 transition-all duration-500 group-hover:bg-card/95 group-hover:scale-[1.02] min-h-[300px] sm:min-h-[340px] flex flex-col border-2 border-accent-green/30 hover:border-accent-green">
                   <!-- Badges Container -->
-                  <div class="absolute top-4 right-4 z-10 flex flex-col gap-2.5 items-end">
-                    <div class="bg-accent-green/20 text-accent-green text-xs font-semibold px-3 py-1.5 rounded-full border border-accent-green backdrop-blur-sm whitespace-nowrap">
-                      Founder-Led
-                    </div>
-                    <!-- Time-to-Value Badge -->
-                    {service.timeline && (
-                      <div class="bg-accent-green/20 text-accent-green text-xs font-semibold px-3 py-1.5 rounded-full border border-accent-green backdrop-blur-sm flex items-center gap-1.5 whitespace-nowrap">
-                        <Icon name="mdi:clock" class="w-3.5 h-3.5" />
-                        <span>{service.timeline}</span>
-                      </div>
-                    )}
+                  <div class="absolute top-4 right-4 z-10 flex flex-row gap-2 items-center">
                     <!-- Complexity Badge -->
                     {service.complexity && (
                       <div class="bg-accent-green/20 text-accent-green text-xs font-semibold px-3 py-1.5 rounded-full border border-accent-green backdrop-blur-sm flex items-center gap-1.5 whitespace-nowrap">
@@ -98,6 +88,17 @@ const getCardClasses = (index: number) => {
                         <span>{service.complexity}</span>
                       </div>
                     )}
+                    <!-- Time-to-Value Badge -->
+                    {service.timeline && (
+                      <div class="bg-accent-green/20 text-accent-green text-xs font-semibold px-3 py-1.5 rounded-full border border-accent-green backdrop-blur-sm flex items-center gap-1.5 whitespace-nowrap">
+                        <Icon name="mdi:clock" class="w-3.5 h-3.5" />
+                        <span>{service.timeline}</span>
+                      </div>
+                    )}
+                    <!-- Founder-Led Badge -->
+                    <div class="bg-accent-green/20 text-accent-green text-xs font-semibold px-3 py-1.5 rounded-full border border-accent-green backdrop-blur-sm whitespace-nowrap">
+                      Founder-Led
+                    </div>
                   </div>
                   
                   <!-- Icon Container with Animated Background -->

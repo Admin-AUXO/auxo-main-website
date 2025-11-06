@@ -136,7 +136,7 @@ export const aboutContent: AboutContent = {
         icon: 'mdi:lightbulb',
         title: 'Innovation',
         description: 'We leverage contemporary, proven technologies to build solutions that are powerful and sustainable',
-        demonstration: 'We use modern tools and methodologies, not legacy systems. Our streamlined structure allows us to adopt the best-in-class technologies without being constrained by outdated technology stacks.',
+        demonstration: 'We use modern tools and methodologies, not legacy systems. Our streamlined structure allows us to adopt proven, contemporary technologies without being constrained by outdated technology stacks.',
       },
       {
         icon: 'mdi:handshake',

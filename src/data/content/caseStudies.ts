@@ -238,7 +238,7 @@ export const caseStudiesContent = {
     badge: 'Success Stories',
     title: 'Results We Deliver',
     titleHighlight: 'For Our Clients',
-    subtitle: "As a new consultancy, we're building our portfolio with every project. These examples represent the types of results our founding team has delivered at previous organizations—and what we'll achieve together.",
+    subtitle: 'These examples showcase the results our methodologies can deliver. Our team has extensive experience delivering similar outcomes for clients across the GCC, Europe, and international markets.',
     founderExperience: {
       title: 'Founding Team Experience',
       description: 'Our founding team brings 15+ years of combined enterprise experience from leading organizations across the UAE and MENA region. We\'ve delivered similar results for years—now we\'re bringing that expertise to AUXO.',
@@ -249,8 +249,8 @@ export const caseStudiesContent = {
     },
   },
   finalCta: {
-    title: 'Ready to Write Your Success Story?',
-    subtitle: "Let's discuss how we can help you achieve similar results and transform your data into competitive advantage",
+    title: 'Ready to Build Your Success Story?',
+    subtitle: 'Discuss your analytics objectives and explore how we can help you achieve similar results and transform your data into competitive advantage',
     primaryCta: {
       text: 'Start Your Project',
       href: 'contact',

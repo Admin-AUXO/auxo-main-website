@@ -37,7 +37,7 @@ export const commonText = {
     stillHaveQuestions: 'Still Have Questions?',
     readyToGetStarted: 'Ready to Get Started?',
     contactUs: 'Contact Us',
-    scheduleFreeConsultation: 'Schedule Free Consultation',
+    scheduleFreeConsultation: 'Schedule Consultation',
     exploreServices: 'Explore Services',
   },
   empty: {

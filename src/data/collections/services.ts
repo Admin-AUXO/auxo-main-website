@@ -126,7 +126,7 @@ export const services: Service[] = [
   {
     id: 'ml-ai',
     title: 'Machine Learning & AI Solutions',
-    description: 'Deploy cutting-edge AI and machine learning to automate processes, predict outcomes, and optimize your business performance.',
+    description: 'Deploy advanced AI and machine learning solutions to automate processes, predict outcomes, and optimize your business performance.',
     icon: 'mdi:robot',
     timeline: '10-16 weeks',
     complexity: 'Enterprise-Level',

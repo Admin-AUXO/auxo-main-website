@@ -196,7 +196,7 @@ export const homepageContent: HomepageContent = {
     badge: 'Our Solutions',
     title: 'Comprehensive',
     titleHighlight: 'Analytics Solutions',
-    subtitle: 'Enterprise-grade analytics delivered with startup speed. From strategy to AI—we make data intelligence accessible.',
+    subtitle: 'Comprehensive analytics solutions from strategic planning to advanced AI implementation. Delivering measurable outcomes for organizations across industries.',
     viewAllText: 'View All Services',
   },
   launchOffer: {

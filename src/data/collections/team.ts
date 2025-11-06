@@ -35,7 +35,7 @@ export const team: TeamMember[] = [
   {
     name: 'AUXO Data Labs',
     role: 'Founding Team',
-    bio: 'A team of experienced data professionals who came together in 2025 to build a different kind of analytics consultancy. We combine years of enterprise experience with startup agility and fresh perspectives. Based in Dubai, designed for the UAE.',
+    bio: 'A team of experienced data professionals who came together in 2025 to build a modern analytics consultancy. We combine years of enterprise experience with streamlined delivery and contemporary methodologies. Based in Dubai, serving clients across the GCC, Europe, and global markets.',
     linkedin: 'https://www.linkedin.com/company/auxo-data/',
     expertise: [
       'Data Strategy & Governance',

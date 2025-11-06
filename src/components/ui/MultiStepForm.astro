@@ -1,7 +1,11 @@
 ---
 // Multi-step lead generation form with assisted answer fields
+
+// Data
 import { multiStepFormContent } from "../../data/content/forms";
 import { commonText } from "../../data/content/shared/common";
+
+// Utils
 import { getBaseUrl, createUrl } from "../../utils/url";
 
 const base = getBaseUrl();
@@ -918,7 +922,7 @@ const base = getBaseUrl();
       toast.innerHTML = `
       <div class="flex items-center gap-3">
         <span class="font-semibold">${message}</span>
-        <button onclick="this.parentElement.parentElement.remove()" class="hover:opacity-70">✕</button>
+        <button onclick="this.parentElement.parentElement.remove()" class="hover:opacity-70 min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors" aria-label="Close notification">✕</button>
       </div>
     `;
       document.body.appendChild(toast);

@@ -1,14 +1,23 @@
 ---
+// Astro
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+// Third-party
+import { Icon } from "astro-icon/components";
+
+// Internal Components
 import MultiStepForm from "../components/ui/MultiStepForm.astro";
 import PageContainer from "../components/layouts/PageContainer.astro";
 import ContentWrapper from "../components/layouts/ContentWrapper.astro";
 import Button from "../components/ui/Button.astro";
 import Card from "../components/ui/Card.astro";
+
+// Data
 import { siteData } from "../data/config/site";
 import { contactContent } from "../data/content/contact";
 import { commonText } from "../data/content/shared/common";
-import { Icon } from "astro-icon/components";
+
+// Utils
 import { getBaseUrl, createUrl } from "../utils/url";
 
 const base = getBaseUrl();

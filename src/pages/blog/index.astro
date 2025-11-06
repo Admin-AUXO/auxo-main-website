@@ -1,12 +1,21 @@
 ---
+// Astro
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+// Third-party
+import { Icon } from 'astro-icon/components';
+
+// Internal Components
 import PageContainer from '../../components/layouts/PageContainer.astro';
 import SectionContainer from '../../components/layouts/SectionContainer.astro';
 import BlogPostCard from '../../components/sections/blog/BlogPostCard.astro';
-import { Icon } from 'astro-icon/components';
-import { getCollection } from 'astro:content';
+
+// Data
 import { commonText } from '../../data/content/shared/common';
 import { blogPageContent } from '../../data/content/blog';
+
+// Utils
 import { calculateReadTime } from '../../utils/content';
 import { getBaseUrl, createUrl } from '../../utils/url';
 

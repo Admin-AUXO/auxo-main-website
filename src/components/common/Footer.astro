@@ -1,7 +1,14 @@
 ---
-import { siteData } from "../../data/config/site";
+// Third-party
 import { Icon } from "astro-icon/components";
+
+// Internal Components
 import Logo from "./Logo.astro";
+
+// Data
+import { siteData } from "../../data/config/site";
+
+// Utils
 import { getBaseUrl, createUrl } from "../../utils/url";
 
 interface Props {
@@ -34,7 +41,7 @@ const legalLinks = [
           <div class="flex gap-2">
             <a
               href={siteData.social.linkedin}
-              class="w-10 h-10 bg-accent-green/10 hover:bg-accent-green/20 border border-accent-green/30 hover:border-accent-green rounded-lg flex items-center justify-center text-accent-green active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-green/50 min-w-[40px] min-h-[40px]"
+              class="w-10 h-10 bg-accent-green/10 hover:bg-accent-green/20 border border-accent-green/30 hover:border-accent-green rounded-lg flex items-center justify-center text-accent-green active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-green/50 min-w-[44px] min-h-[44px]"
               aria-label="Follow AUXO Data Labs on LinkedIn"
               target="_blank"
               rel="noopener noreferrer"
@@ -43,7 +50,7 @@ const legalLinks = [
             </a>
             <a
               href={siteData.social.twitter}
-              class="w-10 h-10 bg-accent-green/10 hover:bg-accent-green/20 border border-accent-green/30 hover:border-accent-green rounded-lg flex items-center justify-center text-accent-green active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-green/50 min-w-[40px] min-h-[40px]"
+              class="w-10 h-10 bg-accent-green/10 hover:bg-accent-green/20 border border-accent-green/30 hover:border-accent-green rounded-lg flex items-center justify-center text-accent-green active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-green/50 min-w-[44px] min-h-[44px]"
               aria-label="Follow AUXO Data Labs on Twitter"
               target="_blank"
               rel="noopener noreferrer"

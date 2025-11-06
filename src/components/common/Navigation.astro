@@ -1,8 +1,15 @@
 ---
-import { services } from '../../data/collections/services';
+// Third-party
 import { Icon } from 'astro-icon/components';
+
+// Internal Components
 import ThemeToggle from '../ui/ThemeToggle.astro';
 import Logo from './Logo.astro';
+
+// Data
+import { services } from '../../data/collections/services';
+
+// Utils
 import { getBaseUrl, createUrl } from '../../utils/url';
 
 const base = getBaseUrl();

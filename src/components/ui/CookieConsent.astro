@@ -5,10 +5,8 @@
 import { cookieConsentContent } from "../../data/content/cookies";
 
 // Utils
-import { getBaseUrl, createUrl } from "../../utils/url";
+import { createUrl } from "../../utils/url";
 import { COOKIE_CONSENT } from "../../utils/constants";
-
-const base = getBaseUrl();
 ---
 
 <div
@@ -217,7 +215,9 @@ const base = getBaseUrl();
 
 <script define:vars={{ cookieKey: COOKIE_CONSENT.KEY, cookieExpiryDays: COOKIE_CONSENT.EXPIRY_DAYS }} is:inline>
   // Cookie Consent Management
+  // @ts-expect-error - define:vars injects variables at runtime
   const COOKIE_CONSENT_KEY = cookieKey;
+  // @ts-expect-error - define:vars injects variables at runtime
   const COOKIE_EXPIRY_DAYS = cookieExpiryDays;
 
   // Check if consent already given

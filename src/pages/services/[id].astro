@@ -12,9 +12,7 @@ import ServiceBusinessImpact from "../../components/sections/services/ServiceBus
 import ServiceStartupAdvantage from "../../components/sections/services/ServiceStartupAdvantage.astro";
 import ServiceTimeline from "../../components/sections/services/ServiceTimeline.astro";
 import ExecutiveTimeCommitment from "../../components/sections/services/ExecutiveTimeCommitment.astro";
-import { getBaseUrl, createUrl } from "../../utils/url";
-
-const base = getBaseUrl();
+import { createUrl } from "../../utils/url";
 
 export async function getStaticPaths() {
   return services.map((service) => ({

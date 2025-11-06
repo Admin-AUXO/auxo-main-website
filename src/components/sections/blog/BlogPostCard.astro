@@ -5,7 +5,7 @@ import type { CollectionEntry } from "astro:content";
 
 // Utils
 import { formatDateLong } from "../../../utils/date";
-import { getBaseUrl, createUrl } from "../../../utils/url";
+import { createUrl } from "../../../utils/url";
 
 interface Props {
   post: CollectionEntry<"blog"> & { readTime?: number };
@@ -13,7 +13,6 @@ interface Props {
 }
 
 const { post, featured = false } = Astro.props;
-const base = getBaseUrl();
 const slug = post.id.replace(/\.mdx?$/, "");
 
 // Check if post is new (published in last 7 days)

@@ -10,9 +10,7 @@ import { services } from "../../data/collections/services";
 import { servicesPageContent } from "../../data/content/services";
 import Button from "../../components/ui/Button.astro";
 import { Icon } from "astro-icon/components";
-import { getBaseUrl, createUrl } from "../../utils/url";
-
-const base = getBaseUrl();
+import { createUrl } from "../../utils/url";
 
 // Transform business impacts into display format with icons
 const getImpactIcon = (impact: string): string => {

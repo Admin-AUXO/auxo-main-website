@@ -7,14 +7,13 @@ import { services } from "../../../data/collections/services";
 import { commonText } from "../../../data/content/shared/common";
 
 // Utils
-import { getBaseUrl, createUrl } from "../../../utils/url";
+import { createUrl } from "../../../utils/url";
 
 interface Props {
   services: typeof services;
 }
 
 const { services: serviceList } = Astro.props;
-const base = getBaseUrl();
 ---
 
 <div

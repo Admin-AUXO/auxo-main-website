@@ -17,9 +17,7 @@ import { blogPageContent } from '../../data/content/blog';
 
 // Utils
 import { calculateReadTime } from '../../utils/content';
-import { getBaseUrl, createUrl } from '../../utils/url';
-
-const base = getBaseUrl();
+import { createUrl } from '../../utils/url';
 
 // Get all blog posts (excluding drafts)
 const posts = await getCollection('blog', ({ data }) => {

@@ -35,9 +35,7 @@ export async function getStaticPaths() {
       return [];
     }
 
-    if (import.meta.env.DEV) {
-      console.log(`Generating ${posts.length} blog post pages`);
-    }
+    // Development logging removed for production
 
     return posts
       .map((post) => {

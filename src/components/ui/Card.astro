@@ -1,10 +1,10 @@
 ---
 /**
  * Card Component
- * 
+ *
  * Reusable card component with theme-aware styling and interactive states.
  * Supports hover effects and optional accent borders.
- * 
+ *
  * @example
  * <Card>Content here</Card>
  * <Card interactive hoverEffect>Interactive card</Card>
@@ -15,7 +15,7 @@ export interface Props {
   interactive?: boolean;
   hoverEffect?: boolean;
   accentBorder?: boolean;
-  padding?: 'sm' | 'md' | 'lg' | 'xl';
+  padding?: "sm" | "md" | "lg" | "xl";
   class?: string;
 }
 
@@ -23,24 +23,24 @@ const {
   interactive = false,
   hoverEffect = false,
   accentBorder = false,
-  padding = 'md',
-  class: className = '',
+  padding = "md",
+  class: className = "",
 } = Astro.props;
 
 const paddingClasses = {
-  sm: 'p-4',
-  md: 'p-6 sm:p-8',
-  lg: 'p-8 sm:p-10',
-  xl: 'p-10 sm:p-12',
+  sm: "p-4",
+  md: "p-6 sm:p-8",
+  lg: "p-8 sm:p-10",
+  xl: "p-10 sm:p-12",
 };
 
 const baseClasses = `
   bg-card border border-theme rounded-xl
-  transition-all duration-200
+  transition-all duration-fast
   ${paddingClasses[padding]}
-  ${interactive ? 'cursor-pointer' : ''}
-  ${hoverEffect ? 'box-hover' : ''}
-  ${accentBorder ? 'box-accent-border' : ''}
+  ${interactive ? "cursor-pointer" : ""}
+  ${hoverEffect ? "box-hover" : ""}
+  ${accentBorder ? "box-accent-border" : ""}
   ${className}
 `;
 ---
@@ -82,8 +82,9 @@ const baseClasses = `
 
   /* Smooth transitions */
   .bg-card {
-    transition: background-color var(--duration-fast) var(--timing-smooth),
-                border-color var(--duration-fast) var(--timing-smooth);
+    transition:
+      background-color var(--duration-fast) var(--timing-smooth),
+      border-color var(--duration-fast) var(--timing-smooth);
   }
 
   /* Ensure text remains readable */
@@ -91,4 +92,3 @@ const baseClasses = `
     color: inherit;
   }
 </style>
-

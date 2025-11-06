@@ -112,7 +112,7 @@ const popularPosts = postsWithReadTime.slice(0, 4);
                 {blogPageContent.relatedContent.links.map((link) => (
                   <a
                     href={createUrl(link.href)}
-                    class="group bg-card border-2 border-theme rounded-xl p-6 hover:border-accent-green transition-all duration-300 hover:-translate-y-1"
+                    class="group bg-card border-2 border-theme rounded-xl p-6 hover:border-accent-green transition-all duration-normal hover:-translate-y-1"
                   >
                     <div class="flex items-center gap-3 mb-4">
                       <Icon name={link.icon} class="w-8 h-8 text-accent-green transition-colors" />

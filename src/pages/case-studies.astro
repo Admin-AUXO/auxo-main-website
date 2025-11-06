@@ -72,7 +72,7 @@ const base = getBaseUrl();
       <!-- Case Studies Grid -->
       <ContentWrapper maxWidth="6xl" class="space-y-12 mb-16 sm:mb-20">
         {caseStudies.map((study) => (
-          <div class={`bg-card border-2 ${study.borderColor} rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300`}>
+          <div class={`bg-card border-2 ${study.borderColor} rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-normal`}>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-0">
               <!-- Left: Icon & Basic Info -->
               <div class={`bg-gradient-to-br ${study.color} p-8 flex flex-col justify-center items-center lg:items-start text-center lg:text-left font-sans`}>
@@ -267,7 +267,7 @@ const base = getBaseUrl();
       
       card.addEventListener('mouseenter', () => {
         const tooltipEl = document.createElement('div');
-        tooltipEl.className = 'absolute z-50 bg-primary text-on-accent px-3 py-2 rounded-lg text-xs shadow-lg max-w-xs pointer-events-none';
+        tooltipEl.className = 'absolute z-tooltip bg-primary text-on-accent px-3 py-2 rounded-lg text-xs shadow-lg max-w-xs pointer-events-none';
         tooltipEl.textContent = tooltip;
         tooltipEl.style.bottom = '100%';
         tooltipEl.style.marginBottom = '8px';
@@ -280,7 +280,7 @@ const base = getBaseUrl();
       });
       
       card.addEventListener('mouseleave', () => {
-        const tooltipEl = card.querySelector('.absolute.z-50');
+        const tooltipEl = card.querySelector('.absolute.z-tooltip');
         if (tooltipEl) tooltipEl.remove();
       });
     });

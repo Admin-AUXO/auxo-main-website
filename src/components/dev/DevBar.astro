@@ -17,7 +17,7 @@ const quickLinks = [
 ---
 
 {isDev && (
-  <div id="dev-bar" class="fixed bottom-0 left-0 right-0 z-[9999] bg-gradient-to-r from-purple-900 to-pink-900 border-t-2 border-purple-400 shadow-2xl transform transition-transform duration-300">
+  <div id="dev-bar" class="fixed bottom-0 left-0 right-0 z-dev-bar bg-gradient-to-r from-purple-900 to-pink-900 border-t-2 border-purple-400 shadow-2xl transform transition-transform duration-normal">
     <div class="container mx-auto px-4 py-2">
       <div class="flex items-center justify-between text-xs">
         <!-- Left: Status & Info -->
@@ -62,7 +62,7 @@ const quickLinks = [
     </div>
 
     <!-- Development Grid Overlay (hidden by default) -->
-    <div id="dev-grid" class="hidden fixed inset-0 pointer-events-none z-[9998]">
+    <div id="dev-grid" class="hidden fixed inset-0 pointer-events-none z-dev">
       <div class="container mx-auto h-full px-4">
         <div class="grid grid-cols-12 gap-4 h-full">
           {Array.from({ length: 12 }).map(() => (

@@ -58,15 +58,15 @@ const getCardClasses = (index: number) => {
               aria-label={`Learn more about ${service.title}`}
             >
               <!-- Card Background with Gradient Overlay -->
-              <div class="absolute inset-0 bg-gradient-to-br from-accent-green/5 via-transparent to-accent-green/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
+              <div class="absolute inset-0 bg-gradient-to-br from-accent-green/5 via-transparent to-accent-green/10 opacity-0 group-hover:opacity-100 transition-opacity duration-slow rounded-2xl"></div>
               
               <!-- Animated Border Glow on Hover -->
-              <div class="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-accent-green group-hover:shadow-[0_0_30px_rgba(var(--accent-green-rgb),0.3)] transition-all duration-500 pointer-events-none"></div>
+              <div class="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-accent-green group-hover:shadow-[0_0_30px_rgba(var(--accent-green-rgb),0.3)] transition-all duration-slow pointer-events-none"></div>
               
               <!-- Card Content -->
-              <div class="relative h-full bg-card/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 transition-all duration-500 group-hover:bg-card/95 group-hover:scale-[1.02] min-h-[300px] sm:min-h-[340px] flex flex-col border-2 border-accent-green/30 hover:border-accent-green">
+              <div class="relative h-full bg-card/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 transition-all duration-slow group-hover:bg-card/95 group-hover:scale-[1.02] min-h-[300px] sm:min-h-[340px] flex flex-col border-2 border-accent-green/30 hover:border-accent-green">
                 <!-- Badges Container -->
-                <div class="absolute top-4 right-4 z-10 flex flex-col gap-2.5 items-end">
+                <div class="absolute top-4 right-4 z-content flex flex-col gap-2.5 items-end">
                   <div class="bg-accent-green/20 text-accent-green text-xs font-semibold px-3 py-1.5 rounded-full border border-accent-green backdrop-blur-sm whitespace-nowrap">
                     Fast Implementation
                   </div>
@@ -91,11 +91,11 @@ const getCardClasses = (index: number) => {
                 
                 <!-- Icon Container with Animated Background -->
                 <div class="relative mb-6">
-                  <div class="absolute -inset-2 bg-accent-green/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div class="relative w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-accent-green/20 to-accent-green/5 rounded-2xl flex items-center justify-center group-hover:from-accent-green/30 group-hover:to-accent-green/10 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
+                  <div class="absolute -inset-2 bg-accent-green/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-slow"></div>
+                  <div class="relative w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-accent-green/20 to-accent-green/5 rounded-2xl flex items-center justify-center group-hover:from-accent-green/30 group-hover:to-accent-green/10 transition-all duration-slow group-hover:scale-110 group-hover:rotate-3">
                     <Icon 
                       name={service.icon} 
-                      class="w-8 h-8 sm:w-10 sm:h-10 text-accent-green transition-transform duration-500 group-hover:scale-110" 
+                      class="w-8 h-8 sm:w-10 sm:h-10 text-accent-green transition-transform duration-slow group-hover:scale-110" 
                     />
                   </div>
                 </div>
@@ -111,11 +111,11 @@ const getCardClasses = (index: number) => {
                   
                   <!-- CTA Link -->
                   <div class="mt-auto pt-4">
-                    <span class="inline-flex items-center gap-2 text-accent-green font-semibold text-sm sm:text-base group-hover:gap-3 transition-all duration-300 min-h-[44px]">
+                    <span class="inline-flex items-center gap-2 text-accent-green font-semibold text-sm sm:text-base group-hover:gap-3 transition-all duration-normal min-h-[44px]">
                       Learn more
                       <Icon 
                         name="mdi:arrow-right" 
-                        class="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-x-1"
+                        class="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-normal group-hover:translate-x-1"
                         aria-hidden="true"
                       />
                     </span>
@@ -123,7 +123,7 @@ const getCardClasses = (index: number) => {
                 </div>
 
                 <!-- Decorative Corner Element -->
-                <div class="absolute top-0 right-0 w-24 h-24 bg-accent-green/5 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div class="absolute top-0 right-0 w-24 h-24 bg-accent-green/5 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-slow pointer-events-none"></div>
               </div>
             </a>
           );
@@ -135,13 +135,13 @@ const getCardClasses = (index: number) => {
     <div class="text-center">
       <a
         href={createUrl('services')}
-        class="group inline-flex items-center gap-3 px-8 py-4 bg-surface/80 backdrop-blur-sm border-2 border-theme text-primary rounded-xl hover:border-accent-green/60 hover:bg-accent-green/10 transition-all duration-300 font-semibold min-h-[44px] hover:shadow-lg hover:shadow-accent-green/20 hover:-translate-y-1"
+        class="group inline-flex items-center gap-3 px-8 py-4 bg-surface/80 backdrop-blur-sm border-2 border-theme text-primary rounded-xl hover:border-accent-green/60 hover:bg-accent-green/10 transition-all duration-normal font-semibold min-h-[44px] hover:shadow-lg hover:shadow-accent-green/20 hover:-translate-y-1"
         aria-label="View all services"
       >
         <span>View All Services</span>
         <Icon 
           name="mdi:arrow-right" 
-          class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+          class="w-5 h-5 transition-transform duration-normal group-hover:translate-x-1"
           aria-hidden="true"
         />
       </a>

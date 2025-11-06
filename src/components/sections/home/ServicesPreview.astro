@@ -64,11 +64,11 @@ const base = getBaseUrl();
             return (
               <a
                 href={createUrl(`services/${service.id}`)}
-                class="group bg-card border-2 border-theme rounded-2xl p-4 sm:p-5 md:p-8 hover:border-accent-green transition-all duration-300 hover:transform hover:-translate-y-1 relative"
+                class="group bg-card border-2 border-theme rounded-2xl p-4 sm:p-5 md:p-8 hover:border-accent-green transition-all duration-normal hover:transform hover:-translate-y-1 relative"
                 aria-label={`Learn more about ${service.title}`}
               >
                   <!-- Badges Container -->
-                  <div class="absolute top-3 right-3 z-10 flex flex-row gap-2 items-center">
+                  <div class="absolute top-3 right-3 z-content flex flex-row gap-2 items-center">
                     {service.complexity && (
                       <div class="bg-accent-green/20 text-accent-green text-xs font-semibold px-2 py-1 rounded-full border border-accent-green backdrop-blur-sm flex items-center gap-1.5">
                         {service.complexity === 'Beginner-Friendly' && (
@@ -135,13 +135,13 @@ const base = getBaseUrl();
       <div class="text-center">
         <a
           href={createUrl('services')}
-          class="group inline-flex items-center gap-3 px-8 py-4 bg-surface/80 backdrop-blur-sm border-2 border-theme text-primary rounded-xl hover:border-accent-green/60 hover:bg-accent-green/10 transition-all duration-300 font-semibold min-h-[44px] hover:shadow-lg hover:shadow-accent-green/20 hover:-translate-y-1"
+          class="group inline-flex items-center gap-3 px-8 py-4 bg-surface/80 backdrop-blur-sm border-2 border-theme text-primary rounded-xl hover:border-accent-green/60 hover:bg-accent-green/10 transition-all duration-normal font-semibold min-h-[44px] hover:shadow-lg hover:shadow-accent-green/20 hover:-translate-y-1"
           aria-label="View all services"
         >
           <span style="font-family: var(--font-body);">{content.viewAllText}</span>
           <Icon 
             name="mdi:arrow-right" 
-            class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+            class="w-5 h-5 transition-transform duration-normal group-hover:translate-x-1"
             aria-hidden="true"
           />
         </a>

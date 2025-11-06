@@ -28,7 +28,7 @@ const base = getBaseUrl();
       <div class="h-2 bg-surface rounded-full overflow-hidden mb-3">
         <div
           id="progress-bar"
-          class="h-full bg-gradient-to-r from-accent-green to-green-500 transition-all duration-500"
+          class="h-full bg-gradient-to-r from-accent-green to-green-500 transition-all duration-slow"
           style="width: 25%"
         >
         </div>
@@ -628,7 +628,7 @@ const base = getBaseUrl();
           </button>
           <p
             id="next-btn-help"
-            class="mt-2 text-xs text-secondary/90 transition-all duration-200 text-center sm:text-left flex items-center gap-1.5 justify-center sm:justify-start"
+            class="mt-2 text-xs text-secondary/90 transition-all duration-fast text-center sm:text-left flex items-center gap-1.5 justify-center sm:justify-start"
             role="status"
             aria-live="polite"
           >
@@ -912,7 +912,7 @@ const base = getBaseUrl();
     // Utility: Show toast notification
     function showNotification(message, type = "error") {
       const toast = document.createElement("div");
-      toast.className = `fixed top-24 right-4 z-50 px-6 py-4 rounded-lg shadow-lg transform transition-all duration-300 translate-x-0 ${
+      toast.className = `fixed top-24 right-4 z-navigation px-6 py-4 rounded-lg shadow-lg transform transition-all duration-normal translate-x-0 ${
         type === "success"
           ? "bg-accent-green text-on-accent"
           : type === "error"

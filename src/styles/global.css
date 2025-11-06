@@ -22,6 +22,7 @@
     --duration-fast: 0.3s;
     --duration-normal: 0.5s;
     --duration-slow: 0.8s;
+    --duration-extra-slow: 1s;
 
     /* Transition duration for theme switching */
     --theme-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);

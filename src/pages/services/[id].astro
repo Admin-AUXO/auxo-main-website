@@ -57,7 +57,7 @@ const expectedImpact =
     <ContentWrapper maxWidth="5xl" class="mb-12 sm:mb-16">
       <div class="flex items-center space-x-4 mb-6">
         <div
-          class="w-16 h-16 bg-accent-green/10 rounded-xl flex items-center justify-center hover:bg-accent-green/20 transition-all duration-300 hover:scale-105"
+          class="w-16 h-16 bg-accent-green/10 rounded-xl flex items-center justify-center hover:bg-accent-green/20 transition-all duration-normal hover:scale-105"
         >
           <Icon
             name={service.icon}
@@ -190,7 +190,7 @@ const expectedImpact =
                 }
 
                 return (
-                  <li class="flex items-start gap-3 p-2 sm:p-3 rounded-lg hover:bg-surface/50 active:bg-surface/70 transition-all duration-300 group min-h-[44px]">
+                  <li class="flex items-start gap-3 p-2 sm:p-3 rounded-lg hover:bg-surface/50 active:bg-surface/70 transition-all duration-normal group min-h-[44px]">
                     <div class="w-6 h-6 sm:w-7 sm:h-7 bg-accent-green/20 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0 group-hover:bg-accent-green/30 transition-colors">
                       <Icon
                         name="mdi:check"
@@ -282,7 +282,7 @@ const expectedImpact =
 
                 return (
                   <div
-                    class={`flex items-start gap-3 p-3 sm:p-4 rounded-lg border transition-all duration-300 hover:scale-[1.02] hover:shadow-md min-h-[44px] ${
+                    class={`flex items-start gap-3 p-3 sm:p-4 rounded-lg border transition-all duration-normal hover:scale-[1.02] hover:shadow-md min-h-[44px] ${
                       isPrimary
                         ? "bg-gradient-to-br from-accent-green/10 to-accent-green/5 border-accent-green/30 sm:col-span-2"
                         : "bg-surface border-theme/50 hover:border-accent-green/50"
@@ -555,7 +555,7 @@ const expectedImpact =
                   class="w-4 h-4 text-secondary transition-colors cursor-help"
                 />
                 <div
-                  class="absolute right-0 top-6 w-48 bg-card border border-theme rounded-lg p-3 shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10"
+                  class="absolute right-0 top-6 w-48 bg-card border border-theme rounded-lg p-3 shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-fast z-content"
                 >
                   <p class="text-xs text-secondary leading-relaxed">
                     Project-based pricing tailored to your needs. Request a

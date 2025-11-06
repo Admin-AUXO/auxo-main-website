@@ -143,7 +143,7 @@ const {
     }
   </head>
   <body
-    class="min-h-screen flex flex-col relative bg-primary transition-colors duration-300"
+    class="min-h-screen flex flex-col relative bg-primary transition-colors duration-normal"
   >
     <!-- Particle Background Animation - Only render if enabled -->
     {showParticles && <ParticleBackground />}
@@ -151,14 +151,14 @@ const {
     <!-- Skip to main content link for keyboard accessibility -->
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-6 focus:py-3 focus:bg-accent-green focus:text-black focus:font-bold focus:rounded-lg focus:shadow-lg transition-colors"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-dev-bar focus:px-6 focus:py-3 focus:bg-accent-green focus:text-on-accent focus:font-bold focus:rounded-lg focus:shadow-lg transition-colors"
     >
       Skip to main content
     </a>
     {showNav && <Navigation />}
     <main
       id="main-content"
-      class="flex-1 relative z-10"
+      class="flex-1 relative z-content"
       transition:animate="fade"
     >
       <slot />

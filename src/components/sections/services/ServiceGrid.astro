@@ -24,11 +24,11 @@ const base = getBaseUrl();
     serviceList.map((service) => (
       <a
         href={createUrl(`services/${service.id}`)}
-        class="group bg-card border-2 border-theme rounded-2xl p-4 sm:p-5 md:p-8 hover:border-accent-green transition-all duration-300 hover:transform hover:-translate-y-1 relative"
+        class="group bg-card border-2 border-theme rounded-2xl p-4 sm:p-5 md:p-8 hover:border-accent-green transition-all duration-normal hover:transform hover:-translate-y-1 relative"
         aria-label={`Learn more about ${service.title}`}
       >
         <!-- Badges Container -->
-        <div class="absolute top-3 right-3 z-10 flex flex-row gap-2 items-center">
+        <div class="absolute top-3 right-3 z-content flex flex-row gap-2 items-center">
           {service.complexity && (
             <div class="bg-accent-green/20 text-accent-green text-xs font-semibold px-2 py-1 rounded-full border border-accent-green backdrop-blur-sm flex items-center gap-1.5">
               {service.complexity === 'Beginner-Friendly' && (

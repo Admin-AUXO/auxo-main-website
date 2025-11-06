@@ -159,7 +159,7 @@ const base = getBaseUrl();
                   
                   return (
                     <div 
-                      class="faq-item bg-card border border-theme rounded-xl overflow-hidden hover:border-accent-green/30 transition-all duration-200 hover:shadow-lg" 
+                      class="faq-item bg-card border border-theme rounded-xl overflow-hidden hover:border-accent-green/30 transition-all duration-fast hover:shadow-lg" 
                       data-faq-index={itemIndex}
                       data-category={category.category.toLowerCase().replace(/\s+/g, '-').replace(/[&?]/g, '').replace(/-+/g, '-')}
                       id={`faq-${category.category.toLowerCase().replace(/\s+/g, '-').replace(/[&?]/g, '').replace(/-+/g, '-')}-${itemIndex}`}
@@ -181,7 +181,7 @@ const base = getBaseUrl();
                           class="faq-chevron w-6 h-6 text-accent-green transition-all flex-shrink-0"
                         />
                       </button>
-                      <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
+                      <div class="faq-answer max-h-0 overflow-hidden transition-all duration-normal">
                         <div class="px-6 pb-5 text-secondary transition-colors leading-relaxed">
                           {/* Visual separator line */}
                           <div class="flex items-center gap-2 mb-4">

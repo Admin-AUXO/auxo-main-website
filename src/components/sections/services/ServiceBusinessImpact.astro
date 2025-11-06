@@ -58,7 +58,7 @@ const getImpactIcon = (impact: string): string => {
       const isHighImpact = hasPercentage || index < 2; // First 2 impacts are typically high priority
       
       return (
-        <div class={`flex items-start gap-3 p-3 sm:p-4 rounded-lg border transition-all duration-300 hover:scale-[1.02] ${
+        <div class={`flex items-start gap-3 p-3 sm:p-4 rounded-lg border transition-all duration-normal hover:scale-[1.02] ${
           isHighImpact 
             ? 'bg-card/70 border-accent-green/50 shadow-md' 
             : 'bg-card/50 border-theme/50 hover:border-accent-green/50'

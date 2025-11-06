@@ -11,7 +11,7 @@ const { timeline, involvement = "Minimal", expectedImpact } = Astro.props;
   </h3>
   <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
     {timeline && (
-      <div class="flex items-start gap-3 p-3 sm:p-4 bg-card/50 rounded-lg border border-theme/50 hover:border-accent-green/50 hover:bg-card/70 transition-all duration-300 group">
+      <div class="flex items-start gap-3 p-3 sm:p-4 bg-card/50 rounded-lg border border-theme/50 hover:border-accent-green/50 hover:bg-card/70 transition-all duration-normal group">
         <div class="w-12 h-12 bg-accent-green/20 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-accent-green/30 transition-colors">
           <Icon name="mdi:clock" class="w-6 h-6 text-accent-green transition-colors" />
         </div>
@@ -21,7 +21,7 @@ const { timeline, involvement = "Minimal", expectedImpact } = Astro.props;
         </div>
       </div>
     )}
-    <div class="flex items-start gap-3 p-3 sm:p-4 bg-card/50 rounded-lg border border-theme/50 hover:border-accent-green/50 hover:bg-card/70 transition-all duration-300 group">
+    <div class="flex items-start gap-3 p-3 sm:p-4 bg-card/50 rounded-lg border border-theme/50 hover:border-accent-green/50 hover:bg-card/70 transition-all duration-normal group">
       <div class="w-12 h-12 bg-accent-green/20 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-accent-green/30 transition-colors">
         <Icon name="mdi:account-group" class="w-6 h-6 text-accent-green transition-colors" />
       </div>
@@ -31,7 +31,7 @@ const { timeline, involvement = "Minimal", expectedImpact } = Astro.props;
       </div>
     </div>
     {expectedImpact && (
-      <div class="flex items-start gap-3 p-3 sm:p-4 bg-card/50 rounded-lg border border-theme/50 hover:border-accent-green/50 hover:bg-card/70 transition-all duration-300 group">
+      <div class="flex items-start gap-3 p-3 sm:p-4 bg-card/50 rounded-lg border border-theme/50 hover:border-accent-green/50 hover:bg-card/70 transition-all duration-normal group">
         <div class="w-12 h-12 bg-accent-green/20 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-accent-green/30 transition-colors">
           <Icon name="mdi:trending-up" class="w-6 h-6 text-accent-green transition-colors" />
         </div>

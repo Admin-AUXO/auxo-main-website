@@ -9,6 +9,7 @@ export const ANIMATION_DURATIONS = {
   NORMAL: 300,
   SLOW: 500,
   VERY_SLOW: 800,
+  EXTRA_SLOW: 1000,
 } as const;
 
 // Breakpoints (px) - Match Tailwind breakpoints

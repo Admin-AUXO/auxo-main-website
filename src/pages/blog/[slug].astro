@@ -236,7 +236,7 @@ const contextualCTA = getContextualCTA();
   author="AUXO Data Labs"
   tags={post.data.tags}
 >
-  <PageContainer maxWidth="4xl" paddingTop="pt-24" paddingBottom="pb-16">
+  <PageContainer maxWidth="4xl" paddingTop="pt-12 sm:pt-20 md:pt-24" paddingBottom="pb-16">
     <!-- Reading Progress Bar -->
     <div
       id="reading-progress"
@@ -252,8 +252,8 @@ const contextualCTA = getContextualCTA();
     </div>
 
     <article>
-      <!-- Breadcrumb with Structured Data -->
-      <ContentWrapper maxWidth="4xl" class="mb-8">
+      <!-- Breadcrumb with Structured Data - Hidden on mobile -->
+      <ContentWrapper maxWidth="4xl" class="mb-8 hidden sm:block">
         <Breadcrumbs
           class="text-sm breadcrumb-theme"
           separator="chevron"

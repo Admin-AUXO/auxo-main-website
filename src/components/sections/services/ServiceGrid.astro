@@ -17,13 +17,13 @@ const { services: serviceList } = Astro.props;
 ---
 
 <div
-  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8"
+  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8"
 >
   {
     serviceList.map((service) => (
       <a
         href={createUrl(`services/${service.id}`)}
-        class="group bg-card border-2 border-theme rounded-2xl p-4 sm:p-5 md:p-8 hover:border-accent-green transition-all duration-normal hover:transform hover:-translate-y-1 relative"
+        class="group bg-card border-2 border-theme rounded-2xl p-5 sm:p-6 md:p-8 hover:border-accent-green transition-all duration-normal hover:transform hover:-translate-y-1 relative min-h-[200px] sm:min-h-[220px] flex flex-col"
         aria-label={`Learn more about ${service.title}`}
       >
         <!-- Badges Container -->
@@ -63,14 +63,14 @@ const { services: serviceList } = Astro.props;
           </h3>
         </div>
 
-        <p class="text-secondary mb-3 sm:mb-4 text-xs sm:text-sm leading-relaxed line-clamp-2 md:line-clamp-3 lg:line-clamp-none transition-colors">
+        <p class="text-secondary mb-4 sm:mb-5 text-sm sm:text-base leading-relaxed line-clamp-3 md:line-clamp-4 lg:line-clamp-none transition-colors flex-grow">
           {service.description}
         </p>
 
-        <div class="flex items-center text-accent-green font-bold text-sm transition-colors mt-6 md:mt-8 mb-4 md:mb-6">
+        <div class="flex items-center text-accent-green font-bold text-sm sm:text-base transition-colors mt-auto pt-2">
           {commonText.buttons.learnMore}
           <svg
-            class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
+            class="w-4 h-4 sm:w-5 sm:h-5 ml-2 group-hover:translate-x-1 transition-transform"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"

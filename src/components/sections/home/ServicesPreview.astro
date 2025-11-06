@@ -23,9 +23,9 @@ const content: HomepageContent["servicesPreview"] = homepageContent.servicesPrev
   <div class="container mx-auto responsive-padding">
     <div class="max-w-7xl mx-auto">
       <!-- Section Header -->
-      <div class="text-center mb-16 sm:mb-20 animate-fade-in">
+      <div class="text-center mb-12 sm:mb-16 md:mb-20 animate-fade-in">
         <div
-          class="inline-block mb-6 px-5 py-2.5 bg-accent-green/10 border border-accent-green rounded-full backdrop-blur-sm"
+          class="inline-block mb-4 sm:mb-6 px-4 sm:px-5 py-2 sm:py-2.5 bg-accent-green/10 border border-accent-green rounded-full backdrop-blur-sm"
         >
           <span
             class="text-accent-green text-xs font-bold tracking-wider uppercase"
@@ -34,15 +34,15 @@ const content: HomepageContent["servicesPreview"] = homepageContent.servicesPrev
           >
         </div>
         <h2
-          class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 text-primary transition-colors leading-[1.1] tracking-tight"
+          class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold mb-6 sm:mb-8 text-primary transition-colors leading-[1.1] tracking-tight px-2"
           style="font-family: var(--font-display);"
         >
-          {content.title} <span class="text-gradient-green block mt-2"
+          {content.title} <span class="text-gradient-green block mt-2 sm:mt-3"
             >{content.titleHighlight}</span
           >
         </h2>
         <p
-          class="text-lg sm:text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal"
+          class="text-base sm:text-lg md:text-xl lg:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal px-2"
           style="font-family: var(--font-body);"
         >
           {content.subtitle}
@@ -51,7 +51,7 @@ const content: HomepageContent["servicesPreview"] = homepageContent.servicesPrev
 
       <!-- Services Grid - Matching Main Services Page Design -->
       <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-7xl mx-auto mb-12"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8 max-w-7xl mx-auto mb-8 sm:mb-12"
       >
         {
           (() => {
@@ -63,7 +63,7 @@ const content: HomepageContent["servicesPreview"] = homepageContent.servicesPrev
             return (
               <a
                 href={createUrl(`services/${service.id}`)}
-                class="group bg-card border-2 border-theme rounded-2xl p-4 sm:p-5 md:p-8 hover:border-accent-green transition-all duration-normal hover:transform hover:-translate-y-1 relative"
+                class="group bg-card border-2 border-theme rounded-2xl p-5 sm:p-6 md:p-8 hover:border-accent-green transition-all duration-normal hover:transform hover:-translate-y-1 relative min-h-[200px] sm:min-h-[220px] flex flex-col"
                 aria-label={`Learn more about ${service.title}`}
               >
                   <!-- Badges Container -->
@@ -103,14 +103,14 @@ const content: HomepageContent["servicesPreview"] = homepageContent.servicesPrev
                     </h3>
                   </div>
 
-                  <p class="text-secondary mb-3 sm:mb-4 text-xs sm:text-sm leading-relaxed line-clamp-2 md:line-clamp-3 lg:line-clamp-none transition-colors">
+                  <p class="text-secondary mb-4 sm:mb-5 text-sm sm:text-base leading-relaxed line-clamp-3 md:line-clamp-4 lg:line-clamp-none transition-colors flex-grow">
                     {service.description}
                   </p>
                     
-                  <div class="flex items-center text-accent-green font-bold text-sm transition-colors mt-6 md:mt-8 mb-4 md:mb-6">
+                  <div class="flex items-center text-accent-green font-bold text-sm sm:text-base transition-colors mt-auto pt-2">
                     Learn more
                     <svg
-                      class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
+                      class="w-4 h-4 sm:w-5 sm:h-5 ml-2 group-hover:translate-x-1 transition-transform"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -134,10 +134,10 @@ const content: HomepageContent["servicesPreview"] = homepageContent.servicesPrev
       <div class="text-center">
         <a
           href={createUrl('services')}
-          class="group inline-flex items-center gap-3 px-8 py-4 bg-surface/80 backdrop-blur-sm border-2 border-theme text-primary rounded-xl hover:border-accent-green/60 hover:bg-accent-green/10 transition-all duration-normal font-semibold min-h-[44px] hover:shadow-lg hover:shadow-accent-green/20 hover:-translate-y-1"
+          class="group inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-surface/80 backdrop-blur-sm border-2 border-theme text-primary rounded-xl hover:border-accent-green/60 hover:bg-accent-green/10 transition-all duration-normal font-semibold min-h-[48px] sm:min-h-[52px] hover:shadow-lg hover:shadow-accent-green/20 hover:-translate-y-1 w-full sm:w-auto"
           aria-label="View all services"
         >
-          <span style="font-family: var(--font-body);">{content.viewAllText}</span>
+          <span style="font-family: var(--font-body);" class="text-sm sm:text-base">{content.viewAllText}</span>
           <Icon 
             name="mdi:arrow-right" 
             class="w-5 h-5 transition-transform duration-normal group-hover:translate-x-1"

@@ -272,11 +272,14 @@ function initializeMobileMenu(): void {
   document.body.style.overflow = '';
   newBtn.setAttribute('aria-expanded', 'false');
   
-  // Re-attach link click handlers
+  // Re-attach link click handlers - close menu on navigation
   const currentMobileLinks = document.querySelectorAll('#mobile-menu a');
   currentMobileLinks.forEach(link => {
     link.removeEventListener('click', closeMobileMenu);
-    addTrackedListener(link, 'click', closeMobileMenu);
+    addTrackedListener(link, 'click', () => {
+      // Close menu when navigating
+      closeMobileMenu();
+    });
   });
   
   // Setup mobile dropdowns
@@ -843,8 +846,15 @@ export function initializeNavigation(): void {
   updateActiveLinks();
   addTrackedListener(document, 'astro:page-load', updateActiveLinks);
 
-  // Handle page transitions
+  // Handle page transitions - close mobile menu before navigation
   addTrackedListener(document, 'astro:before-swap', handlePageTransition);
+  addTrackedListener(document, 'astro:after-swap', () => {
+    // Ensure mobile menu is closed after swap
+    const { mobileMenu } = getNavElements();
+    if (mobileMenu?.classList.contains('open')) {
+      closeMobileMenu();
+    }
+  });
 
   // Reinitialize everything after page transition
   addTrackedListener(document, 'astro:page-load', handlePageLoad);

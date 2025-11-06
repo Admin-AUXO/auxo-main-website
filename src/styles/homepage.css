@@ -39,11 +39,22 @@
 .logo-char {
   font-family: var(--font-brand);
   font-weight: 900;
-  font-size: clamp(2.5rem, 8vmin, 4.5rem);
+  font-size: clamp(2rem, 6vmin, 4.5rem);
   color: #000000;
   line-height: 1;
   letter-spacing: -0.02em;
   transition: color var(--theme-transition);
+}
+
+/* Mobile optimizations for logo */
+@media (max-width: 640px) {
+  .logo-char {
+    font-size: clamp(1.75rem, 5vmin, 2.5rem);
+  }
+  
+  .logo-grid {
+    gap: 0.5rem;
+  }
 }
 
 /* Light theme: white text on darker green background */

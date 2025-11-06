@@ -12,11 +12,11 @@ import { createUrl } from "../utils/url";
   title="Frequently Asked Questions | AUXO Data Labs"
   description="Find answers to common questions about our data analytics services, consulting model, pricing, and international compliance expertise. Professional guidance for sophisticated organizations."
 >
-  <PageContainer maxWidth="7xl" paddingTop="pt-24" paddingBottom="pb-16">
+  <PageContainer maxWidth="7xl" paddingTop="pt-12 sm:pt-20 md:pt-24" paddingBottom="pb-16">
       <!-- Hero Section -->
-      <ContentWrapper maxWidth="4xl" class="text-center mb-12 sm:mb-16">
+      <ContentWrapper maxWidth="4xl" class="text-center mb-12 sm:mb-16 px-4">
         <div
-          class="inline-block mb-6 px-5 py-2.5 bg-accent-green/10 border border-accent-green rounded-full backdrop-blur-sm"
+          class="inline-block mb-4 sm:mb-6 px-4 sm:px-5 py-2 sm:py-2.5 bg-accent-green/10 border border-accent-green rounded-full backdrop-blur-sm"
         >
           <span
             class="text-accent-green text-xs font-bold tracking-wider uppercase transition-colors"
@@ -25,7 +25,7 @@ import { createUrl } from "../utils/url";
           >
         </div>
         <h1
-          class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 text-primary transition-colors leading-[1.1] tracking-tight"
+          class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold mb-6 sm:mb-8 text-primary transition-colors leading-[1.1] tracking-tight px-2"
           style="font-family: var(--font-display);"
         >
           {faqPageContent.hero.title} <span class="text-gradient-green block mt-2"
@@ -33,7 +33,7 @@ import { createUrl } from "../utils/url";
           >
         </h1>
         <p
-          class="text-lg sm:text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal"
+          class="text-base sm:text-lg md:text-xl lg:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal px-2"
           style="font-family: var(--font-body);"
         >
           {faqPageContent.hero.subtitle}
@@ -45,7 +45,7 @@ import { createUrl } from "../utils/url";
             <Icon name="mdi:star" class="w-5 h-5 text-accent-green" />
             Popular Questions
           </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
             <a
               href="#faq-our-consulting-model-0"
               class="p-3 bg-card border border-theme rounded-lg hover:border-accent-green hover:bg-surface transition-all text-left group min-h-[44px]"
@@ -230,7 +230,7 @@ import { createUrl } from "../utils/url";
           class="bg-gradient-to-r from-accent-green/10 to-accent-green/20 border-2 border-accent-green/20 rounded-2xl p-8 text-center"
         >
           <h2
-            class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 text-primary transition-colors leading-[1.1] tracking-tight"
+            class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold mb-6 sm:mb-8 text-primary transition-colors leading-[1.1] tracking-tight px-2"
             style="font-family: var(--font-display);"
           >
             {faqPageContent.cta.title} <span class="text-gradient-green block mt-2"
@@ -238,7 +238,7 @@ import { createUrl } from "../utils/url";
             >
           </h2>
           <p
-            class="text-lg sm:text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal mb-6"
+            class="text-base sm:text-lg md:text-xl lg:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal mb-6 px-4"
             style="font-family: var(--font-body);"
           >
             {faqPageContent.cta.subtitle}

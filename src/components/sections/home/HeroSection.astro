@@ -76,13 +76,13 @@ const content: HomepageContent["hero"] = homepageContent.hero;
       </div>
 
       <!-- Main Headline -->
-      <div class="hero-headline mb-5 sm:mb-6">
+      <div class="hero-headline mb-6 sm:mb-8">
         <h2
-          class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-primary transition-colors mb-2"
+          class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight text-primary transition-colors mb-3 sm:mb-4"
           style="font-family: var(--font-display);"
         >
           <span class="block">{content.title}</span>
-          <span class="block text-accent-green mt-1"
+          <span class="block text-accent-green mt-2 sm:mt-3"
             >{content.titleHighlight}</span
           >
         </h2>
@@ -90,19 +90,19 @@ const content: HomepageContent["hero"] = homepageContent.hero;
 
       <!-- CTA Buttons -->
       <div
-        class="hero-cta mb-4 sm:mb-6 animate-fade-in"
+        class="hero-cta mb-6 sm:mb-8 animate-fade-in"
         style="animation-delay: 0.8s;"
       >
         <div
-          class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
+          class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto"
         >
           {
             content.primaryCta.text && (
               <Button
                 variant="primary"
-                size="md"
+                size="lg"
                 href={createUrl(content.primaryCta.href)}
-                class="w-full sm:w-auto font-bold shadow-lg shadow-accent-green/20"
+                class="w-full sm:w-auto font-bold shadow-lg shadow-accent-green/20 justify-center"
               >
                 {content.primaryCta.text}
                 <Icon name="mdi:arrow-right" class="w-5 h-5" />
@@ -113,9 +113,9 @@ const content: HomepageContent["hero"] = homepageContent.hero;
             content.secondaryCta.text && (
               <Button
                 variant="outline"
-                size="md"
+                size="lg"
                 href={createUrl(content.secondaryCta.href)}
-                class="w-full sm:w-auto font-bold"
+                class="w-full sm:w-auto font-bold justify-center"
               >
                 {content.secondaryCta.text}
                 <Icon name="mdi:chart-line" class="w-5 h-5" />

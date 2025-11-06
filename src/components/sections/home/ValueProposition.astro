@@ -13,9 +13,9 @@ const content: HomepageContent["problems"] = homepageContent.problems;
 <SectionContainer id="value-proposition" padding="lg">
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-16 sm:mb-20 animate-fade-in">
+      <div class="text-center mb-12 sm:mb-16 md:mb-20 animate-fade-in">
         <div
-          class="inline-block mb-6 px-5 py-2.5 bg-accent-green/10 border border-accent-green rounded-full backdrop-blur-sm"
+          class="inline-block mb-4 sm:mb-6 px-4 sm:px-5 py-2 sm:py-2.5 bg-accent-green/10 border border-accent-green rounded-full backdrop-blur-sm"
         >
           <span
             class="text-accent-green text-xs font-bold tracking-wider uppercase"
@@ -24,15 +24,15 @@ const content: HomepageContent["problems"] = homepageContent.problems;
           >
         </div>
         <h2
-          class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 text-primary transition-colors leading-[1.1] tracking-tight"
+          class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold mb-6 sm:mb-8 text-primary transition-colors leading-[1.1] tracking-tight px-2"
           style="font-family: var(--font-display);"
         >
-          {content.title} <span class="text-gradient-green block mt-2"
+          {content.title} <span class="text-gradient-green block mt-2 sm:mt-3"
             >{content.titleHighlight}</span
           >
         </h2>
         <p
-          class="text-lg sm:text-xl md:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal"
+          class="text-base sm:text-lg md:text-xl lg:text-2xl text-secondary max-w-4xl mx-auto leading-relaxed transition-colors font-normal px-2"
           style="font-family: var(--font-body);"
         >
           {content.subtitle}
@@ -41,7 +41,7 @@ const content: HomepageContent["problems"] = homepageContent.problems;
 
       <!-- Value Props Grid -->
       <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8"
       >
         {
           content.challenges.map((value, index) => (

@@ -22,21 +22,20 @@ const content: HomepageContent["startupAdvantages"] =
           >
             <span
               class="text-accent-green text-xs font-bold tracking-wider uppercase"
-              style="font-family: var(--font-body);">Why Choose Us</span
+              style="font-family: var(--font-body);">{content.badge}</span
             >
           </div>
           <h2
             class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 text-primary transition-colors leading-tight tracking-tight"
             style="font-family: var(--font-display);"
           >
-            The <span class="text-gradient-green">Startup Advantage</span>
+            {content.title} <span class="text-gradient-green">{content.titleHighlight}</span>
           </h2>
           <p
             class="text-base sm:text-lg text-secondary leading-relaxed transition-colors font-normal"
             style="font-family: var(--font-body);"
           >
-            Big consultancies vs. startup agility—here's what makes AUXO
-            different.
+            {content.subtitle}
           </p>
         </div>
 
@@ -100,17 +99,12 @@ const content: HomepageContent["startupAdvantages"] =
                 class="text-2xl font-bold text-primary transition-colors"
                 style="font-family: var(--font-display);"
               >
-                Big Consultancies
+                {content.comparison.them.title}
               </h3>
             </div>
             <ul class="space-y-4">
               {
-                [
-                  "Slow processes",
-                  "Junior consultants",
-                  "High costs",
-                  "Multiple layers",
-                ].map((item) => (
+                content.comparison.them.items.map((item) => (
                   <li class="flex items-start gap-3">
                     <Icon
                       name="mdi:close"
@@ -142,17 +136,12 @@ const content: HomepageContent["startupAdvantages"] =
                 class="text-2xl font-bold text-primary transition-colors"
                 style="font-family: var(--font-display);"
               >
-                AUXO Data Labs
+                {content.comparison.us.title}
               </h3>
             </div>
             <ul class="space-y-4">
               {
-                [
-                  "Fast results",
-                  "Direct founder access",
-                  "Startup-friendly pricing",
-                  "No bureaucracy",
-                ].map((item) => (
+                content.comparison.us.items.map((item) => (
                   <li class="flex items-start gap-3">
                     <Icon
                       name="mdi:check-circle"

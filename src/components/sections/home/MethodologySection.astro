@@ -17,9 +17,9 @@ const content: HomepageContent["methodology"] = homepageContent.methodology;
           class="inline-block mb-3 px-4 py-2 bg-accent-green/10 border border-accent-green rounded-full"
         >
           <span
-            class="text-accent-green text-sm font-semibold"
+            class="text-accent-green text-xs font-bold tracking-wider uppercase"
             style="font-family: var(--font-body);"
-            >How We Work</span
+            >{content.badge}</span
           >
         </div>
         <h2
@@ -83,9 +83,10 @@ const content: HomepageContent["methodology"] = homepageContent.methodology;
                 </div>
                 
                 <!-- Description -->
-                <p class="text-secondary leading-relaxed text-sm sm:text-base transition-colors" style="font-family: var(--font-body);">
+                <p class="text-secondary leading-relaxed text-sm sm:text-base transition-colors mb-3" style="font-family: var(--font-body);">
                   {step.description}
                 </p>
+                
               </div>
               
               <!-- Connector Arrow -->
@@ -95,47 +96,6 @@ const content: HomepageContent["methodology"] = homepageContent.methodology;
             </div>
           ))
         }
-      </div>
-
-      <!-- Why Auxo & Why We Started Boxes -->
-      <div class="mt-12 sm:mt-16 max-w-5xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 animate-fade-in">
-          <!-- Why Auxo -->
-          <div class="bg-card border border-theme rounded-xl p-4 sm:p-6 md:p-8 hover:border-accent-green/50 transition-all duration-300 group">
-            <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-              <div class="w-8 h-8 sm:w-10 sm:h-10 bg-accent-green/10 rounded-lg flex items-center justify-center group-hover:bg-accent-green/20 transition-colors">
-                <Icon
-                  name="mdi:star-four-points"
-                  class="w-4 h-4 sm:w-5 sm:h-5 text-accent-green"
-                />
-              </div>
-              <h3 class="text-base sm:text-lg md:text-xl font-bold text-primary transition-colors" style="font-family: var(--font-display);">
-                Why AUXO?
-              </h3>
-            </div>
-            <p class="text-xs sm:text-sm md:text-base text-secondary leading-relaxed transition-colors" style="font-family: var(--font-body);">
-              AUXO comes from "auxilium"—Latin for "help" or "support." We're here to help you unlock your data's potential. Simple name, clear mission: transform data into decisions.
-            </p>
-          </div>
-
-          <!-- Why We Started AUXO -->
-          <div class="bg-gradient-to-br from-accent-green/10 to-accent-green/20 border-2 border-accent-green/30 rounded-xl p-4 sm:p-6 md:p-8 hover:border-accent-green/50 transition-all duration-300 group">
-            <div class="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-              <div class="w-8 h-8 sm:w-10 sm:h-10 bg-accent-green rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Icon
-                  name="mdi:rocket"
-                  class="w-4 h-4 sm:w-5 sm:h-5 text-on-accent"
-                />
-              </div>
-              <h3 class="text-base sm:text-lg md:text-xl font-bold text-primary transition-colors" style="font-family: var(--font-display);">
-                Why We Started AUXO
-              </h3>
-            </div>
-            <p class="text-xs sm:text-sm md:text-base text-secondary leading-relaxed transition-colors" style="font-family: var(--font-body);">
-              We saw great insights trapped behind slow processes and high costs. UAE startups and mid-sized companies needed enterprise analytics but couldn't access traditional consultancies. So we built AUXO—same quality, startup speed, transparent pricing. Your success drives every decision.
-            </p>
-          </div>
-        </div>
       </div>
     </div>
   </div>

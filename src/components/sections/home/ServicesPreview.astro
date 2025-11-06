@@ -1,8 +1,13 @@
 ---
 import { Icon } from "astro-icon/components";
 import { services } from "../../../data/collections/services";
+import {
+  homepageContent,
+  type HomepageContent,
+} from "../../../data/content/homepage";
 import SectionContainer from "../../layouts/SectionContainer.astro";
 
+const content: HomepageContent["servicesPreview"] = homepageContent.servicesPreview;
 const base = import.meta.env.BASE_URL;
 
 ---
@@ -16,24 +21,24 @@ const base = import.meta.env.BASE_URL;
           class="inline-block mb-3 px-4 py-2 bg-accent-green/10 border border-accent-green rounded-full"
         >
           <span
-            class="text-accent-green text-sm font-semibold"
+            class="text-accent-green text-xs font-bold tracking-wider uppercase"
             style="font-family: var(--font-body);"
-            >Our Services</span
+            >{content.badge}</span
           >
         </div>
         <h2
           class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-primary transition-colors"
           style="font-family: var(--font-display);"
         >
-          Transform Your <span class="text-gradient-green block mt-2"
-            >Data Into Decisions</span
+          {content.title} <span class="text-gradient-green block mt-2"
+            >{content.titleHighlight}</span
           >
         </h2>
         <p
           class="text-base sm:text-lg text-secondary max-w-2xl mx-auto leading-relaxed transition-colors"
           style="font-family: var(--font-body);"
         >
-          Enterprise-grade analytics delivered with startup speed. From strategy to AI—we make data intelligence accessible.
+          {content.subtitle}
         </p>
       </div>
 
@@ -125,7 +130,7 @@ const base = import.meta.env.BASE_URL;
           class="group inline-flex items-center gap-3 px-8 py-4 bg-surface/80 backdrop-blur-sm border-2 border-theme text-primary rounded-xl hover:border-accent-green/60 hover:bg-accent-green/10 transition-all duration-300 font-semibold min-h-[44px] hover:shadow-lg hover:shadow-accent-green/20 hover:-translate-y-1"
           aria-label="View all services"
         >
-          <span style="font-family: var(--font-body);">View All Services</span>
+          <span style="font-family: var(--font-body);">{content.viewAllText}</span>
           <Icon 
             name="mdi:arrow-right" 
             class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"

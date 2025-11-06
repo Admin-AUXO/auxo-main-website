@@ -1,48 +1,17 @@
 ---
 import { Icon } from "astro-icon/components";
+import { aboutContent } from "../../../data/content/about";
 
-interface Comparison {
-  feature: string;
-  them: string;
-  us: string;
-}
-
-const comparisons: Comparison[] = [
-  {
-    feature: "Implementation Speed",
-    them: "Months of planning and bureaucracy",
-    us: "Weeks to first insights, agile delivery",
-  },
-  {
-    feature: "Who You Work With",
-    them: "Junior consultants, account managers",
-    us: "Direct access to founders",
-  },
-  {
-    feature: "Pricing",
-    them: "High costs, long-term contracts",
-    us: "Startup-friendly pricing, flexible terms",
-  },
-  {
-    feature: "Decision Making",
-    them: "Multiple layers of approval",
-    us: "Fast decisions, no bureaucracy",
-  },
-  {
-    feature: "Personal Attention",
-    them: "One of many clients",
-    us: "Your success is our priority",
-  },
-];
+const { title, subtitle, comparisons, labels } = aboutContent.whyDifferent;
 ---
 
 <div class="max-w-6xl mx-auto mb-4 sm:mb-5 md:mb-6 lg:mb-8 px-4 sm:px-0">
   <div class="text-center mb-3 sm:mb-4 md:mb-5 lg:mb-6">
     <h2 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-1.5 sm:mb-2 md:mb-3 text-primary transition-colors">
-      Why We're Different
+      {title}
     </h2>
     <p class="text-xs sm:text-sm md:text-base text-secondary transition-colors">
-      Startup agility meets enterprise expertise
+      {subtitle}
     </p>
   </div>
 
@@ -51,13 +20,13 @@ const comparisons: Comparison[] = [
       <!-- Header -->
       <div class="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 mb-3 sm:mb-4 pb-2 sm:pb-3 md:pb-4 border-b border-theme">
         <div class="font-bold text-xs sm:text-sm md:text-base text-primary transition-colors">
-          Feature
+          {labels.feature}
         </div>
         <div class="font-bold text-xs sm:text-sm md:text-base text-secondary transition-colors text-center">
-          Big Consultancies
+          {labels.them}
         </div>
         <div class="font-bold text-xs sm:text-sm md:text-base text-accent-green transition-colors text-center">
-          AUXO
+          {labels.us}
         </div>
       </div>
 

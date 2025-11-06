@@ -11,6 +11,18 @@ export interface Stat {
   description: string;
 }
 
+export interface Credential {
+  icon: string;
+  label: string;
+  description: string;
+}
+
+export interface Comparison {
+  feature: string;
+  them: string;
+  us: string;
+}
+
 export interface AboutContent {
   hero: {
     badge: string;
@@ -55,6 +67,21 @@ export interface AboutContent {
       ctaHref: string;
     };
   };
+  credentials: {
+    title: string;
+    subtitle: string;
+    items: Credential[];
+  };
+  whyDifferent: {
+    title: string;
+    subtitle: string;
+    comparisons: Comparison[];
+    labels: {
+      feature: string;
+      them: string;
+      us: string;
+    };
+  };
   finalCta: {
     title: string;
     subtitle: string;
@@ -74,20 +101,20 @@ export const aboutContent: AboutContent = {
     badge: 'Our Story',
     title: 'Built to Transform',
     titleHighlight: 'Data Into Decisions',
-    subtitle: "Enterprise-grade analytics with startup speed. We're building the consultancy we wish existed—fast decisions, founder access, transparent pricing. No bureaucracy, just results.",
+    subtitle: "We're experienced analytics professionals who built the consultancy we'd want to hire: expert, efficient, and transparent. We serve sophisticated organizations across the GCC, Europe, and global markets.",
     namingStory: {
       title: 'Why AUXO?',
       description: 'AUXO comes from "auxilium"—Latin for "help" or "support." We\'re here to help you unlock your data\'s potential. Simple name, clear mission: transform data into decisions.',
     },
     whyStarted: {
-      title: 'Why We Started AUXO',
-      description: 'We saw great insights trapped behind slow processes and high costs. UAE startups and mid-sized companies needed enterprise analytics but couldn\'t access traditional consultancies. So we built AUXO—same quality, startup speed, transparent pricing. Your success drives every decision.',
+      title: 'A New Approach to Analytics',
+      description: 'The market is filled with traditional consultancies held back by high overhead and slow processes. We saw a clear need for a new model—one that provides the same enterprise-grade expertise but with the efficiency and direct senior involvement that drives faster results. That\'s why we built AUXO.',
     },
   },
   mission: {
     icon: 'mdi:target',
     title: 'Our Mission',
-    description: 'To make enterprise-grade data analytics accessible to every UAE business. We believe that powerful insights shouldn\'t be limited to large corporations with massive budgets. Every organization, from startups to enterprises, deserves access to world-class analytics that drive real business value.',
+    description: 'To empower organizations with clear, actionable insights that drive strategic growth and measurable value.',
   },
   vision: {
     icon: 'mdi:eye',
@@ -101,64 +128,127 @@ export const aboutContent: AboutContent = {
       {
         icon: 'mdi:lightbulb',
         title: 'Innovation',
-        description: 'We embrace cutting-edge technologies and continuously evolve our solutions',
-        demonstration: 'We use the latest tools and methodologies, not legacy systems. Our startup status means we\'re not tied to outdated technology stacks.',
+        description: 'We leverage contemporary, proven technologies to build solutions that are powerful and sustainable',
+        demonstration: 'We use modern tools and methodologies, not legacy systems. Our streamlined structure allows us to adopt the best-in-class technologies without being constrained by outdated technology stacks.',
       },
       {
         icon: 'mdi:handshake',
         title: 'Partnership',
         description: 'Your success is our success. We work as an extension of your team',
-        demonstration: 'Direct founder access means you get strategic thinking, not just execution. We\'re invested in your long-term success.',
+        demonstration: 'Senior team involvement means you get strategic thinking, not just execution. We\'re invested in your long-term success.',
       },
       {
         icon: 'mdi:shield-check',
         title: 'Integrity',
         description: 'We maintain the highest standards of data security and ethical practices',
-        demonstration: 'PDPL compliant from day one. Transparent processes. No hidden costs. Your data and trust are our top priorities.',
+        demonstration: 'UAE PDPL and GDPR compliant from day one. Transparent processes. No hidden costs. Your data and trust are our top priorities.',
       },
       {
         icon: 'mdi:trophy',
         title: 'Excellence',
         description: 'We deliver exceptional quality in every project, no matter the size',
-        demonstration: 'Every project gets founder attention. No junior consultants learning on your dime. We deliver enterprise quality with startup speed.',
+        demonstration: 'Every project receives senior attention. No junior consultants learning on your dime. We deliver enterprise quality with accelerated time-to-value.',
+      },
+      {
+        icon: 'mdi:earth',
+        title: 'International Perspective',
+        description: 'Based in Dubai, we are positioned at the crossroads of global markets. We bring a deep understanding of regional regulations and cross-border business dynamics',
+        demonstration: 'Our strategic location enables us to serve GCC clients expanding into Europe, European firms seeking Middle East expertise, and international organizations navigating complex cross-border data requirements.',
       },
     ] as Value[],
   },
   whyChoose: {
-    title: 'Why We Started AUXO',
-    subtitle: 'The story behind our launch and what drives us',
+    title: 'Our Foundation in Numbers',
+    subtitle: 'The metrics that define our expertise and commitment',
     stats: [
       {
         value: '15+',
         title: 'Years Combined Experience',
-        description: 'Our founding team brings deep expertise from leading organizations',
+        description: 'Across key industries in GCC and international markets',
       },
       {
         value: '2025',
         title: 'Launch Year',
-        description: 'Fresh perspective, latest methodologies, unburdened by legacy',
+        description: 'Contemporary methodologies, unburdened by legacy systems and processes',
       },
       {
         value: '100%',
         title: 'Client-Focused',
-        description: 'Every decision is made with your success in mind, not bureaucracy',
+        description: 'Every decision prioritizes your strategic objectives and measurable outcomes',
       },
     ] as Stat[],
   },
   team: {
     title: 'Meet the Founders',
-    subtitle: 'Experienced data professionals building something new for the UAE',
+    subtitle: 'Experienced data professionals serving organizations across the GCC, Europe, and global markets',
     hiring: {
       text: 'Interested in joining our team?',
       ctaText: "We're Hiring",
       ctaHref: 'contact',
     },
   },
+  credentials: {
+    title: 'Our Credentials',
+    subtitle: 'Trust through proven expertise and compliance',
+    items: [
+      {
+        icon: 'mdi:shield-check',
+        label: 'PDPL Compliant',
+        description: 'UAE Personal Data Protection Law compliance',
+      },
+      {
+        icon: 'mdi:security',
+        label: 'Security Best Practices',
+        description: 'Enterprise-grade security standards',
+      },
+      {
+        icon: 'mdi:certificate',
+        label: 'Proven Methodology',
+        description: 'Validated approach from years of experience',
+      },
+    ] as Credential[],
+  },
+  whyDifferent: {
+    title: "Why We're Different",
+    subtitle: 'Efficient delivery meets enterprise expertise',
+    labels: {
+      feature: 'Feature',
+      them: 'Big Consultancies',
+      us: 'AUXO',
+    },
+    comparisons: [
+      {
+        feature: 'Implementation Speed',
+        them: 'Months of planning and bureaucracy',
+        us: 'Weeks to first insights, agile delivery',
+      },
+      {
+        feature: 'Who You Work With',
+        them: 'Junior consultants, account managers',
+        us: 'Direct access to senior experts',
+      },
+      {
+        feature: 'Pricing',
+        them: 'High costs, long-term contracts',
+        us: 'Transparent pricing, flexible terms',
+      },
+      {
+        feature: 'Decision Making',
+        them: 'Multiple layers of approval',
+        us: 'Streamlined decision-making, rapid iteration',
+      },
+      {
+        feature: 'Personal Attention',
+        them: 'One of many clients',
+        us: 'Dedicated focus on your strategic objectives',
+      },
+    ] as Comparison[],
+  },
   finalCta: {
-    title: "Let's Work Together",
-    subtitle: "Ready to transform your data into insights? We'd love to hear about your challenges and explore how we can help.",
+    title: "Let's Build the Future Together",
+    subtitle: "Ready to transform your data into strategic advantage? Share your analytics objectives, and let's explore how we can help you achieve measurable business outcomes.",
     primaryCta: {
-      text: 'Get in Touch',
+      text: 'Discuss Your Project',
       href: 'contact',
     },
     secondaryCta: {

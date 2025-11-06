@@ -50,10 +50,10 @@ const base = import.meta.env.BASE_URL;
           <Button
             variant="outline"
             size="lg"
-            href={`${base}services/`}
+            href={`${base}${content.secondaryCtaHref}/`}
             class="font-bold"
           >
-            Explore Services
+            {content.secondaryCtaText}
             <Icon name="mdi:chart-line" class="w-5 h-5" />
           </Button>
         </div>
@@ -61,21 +61,14 @@ const base = import.meta.env.BASE_URL;
         <div
           class="flex flex-wrap justify-center gap-6 sm:gap-8 text-sm text-secondary font-medium"
         >
-          <div class="flex items-center gap-2">
-            <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green" />
-            <span style="font-family: var(--font-body);">Free Consultation</span
-            >
-          </div>
-          <div class="flex items-center gap-2">
-            <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green" />
-            <span style="font-family: var(--font-body);">No Obligation</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green" />
-            <span style="font-family: var(--font-body);"
-              >Direct Founder Access</span
-            >
-          </div>
+          {
+            content.benefits.map((benefit) => (
+              <div class="flex items-center gap-2">
+                <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green" />
+                <span style="font-family: var(--font-body);">{benefit}</span>
+              </div>
+            ))
+          }
         </div>
       </Card>
     </div>

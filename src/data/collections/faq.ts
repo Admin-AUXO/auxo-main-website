@@ -1,23 +1,23 @@
 export const faqData = [
   {
-    category: 'Why Choose a Startup?',
+    category: 'Our Consulting Model',
     icon: 'mdi:rocket',
     questions: [
       {
-        q: 'Why should I work with a startup instead of a big consultancy?',
-        a: 'Startups offer faster implementation, direct founder access, more flexible pricing, and no bureaucracy. You get enterprise expertise without the corporate overhead. As a startup, we move quickly, stay agile, and prioritize your success above everything.',
+        q: 'What makes your consulting model different?',
+        a: 'Our streamlined structure allows for direct collaboration with senior experts, ensuring faster decision-making and a more efficient path to achieving your goals. You get enterprise expertise with the efficiency that modern organizations demand—no account managers, no junior consultants, and transparent pricing.',
       },
       {
         q: 'What if you\'re too small for my needs?',
-        a: 'Our founding team brings 15+ years of combined enterprise experience. We\'re selective about clients to ensure we can deliver exceptional results. If we can\'t meet your needs, we\'ll tell you honestly—transparency is our advantage.',
+        a: 'Our founding team brings 15+ years of combined enterprise experience from leading organizations. We\'re selective about clients to ensure we can deliver exceptional results. If we can\'t meet your needs, we\'ll tell you honestly—transparency is our advantage.',
       },
       {
         q: 'How do I know you\'ll be around in a year?',
-        a: 'We\'re committed to building a sustainable, long-term business. Our founding team has deep roots in the UAE market and a proven track record. We\'re building AUXO for the long term, not a quick exit.',
+        a: 'We\'re committed to building a sustainable, long-term business. Our founding team has deep roots in the UAE market and a proven track record. AUXO is established for the long term, not a quick exit.',
       },
       {
         q: 'What\'s the advantage of working with founders directly?',
-        a: 'You get strategic thinking, not just execution. Founders make decisions fast, understand your business holistically, and are personally invested in your success. No account managers, no junior consultants, no layers of approval.',
+        a: 'You get strategic thinking and executive-level expertise, not just execution. Founders make decisions quickly, understand your business holistically, and are personally invested in your success. This ensures your project receives senior attention throughout every stage.',
       },
     ],
   },
@@ -39,7 +39,11 @@ export const faqData = [
       },
       {
         q: 'Can I work directly with founders?',
-        a: 'Yes, absolutely. Direct founder access is one of our key differentiators. You\'ll work directly with founders throughout the project—no account managers, no junior consultants. This ensures strategic thinking and fast decision-making.',
+        a: 'Yes, absolutely. Executive-level partnership is one of our key differentiators. You\'ll collaborate directly with founding partners on strategic decisions throughout the project, ensuring senior expertise and decisive leadership at every stage.',
+      },
+      {
+        q: 'How do you handle international data compliance requirements?',
+        a: 'We have deep expertise in both UAE PDPL and GDPR compliance frameworks. Our solutions are designed with international data protection requirements in mind from day one, ensuring regulatory peace of mind for organizations operating across GCC, European, and global markets. We help clients navigate complex cross-border data requirements and implement compliant data governance frameworks.',
       },
     ],
   },
@@ -57,27 +61,27 @@ export const faqData = [
       },
       {
         q: 'What makes AUXO different from other analytics consultancies?',
-        a: 'As a new consultancy launched in 2025, we bring a fresh perspective with the agility of a startup and the expertise of experienced professionals. Unlike large consultancies, you\'ll work directly with founders and senior team members—no junior consultants or account managers. We move fast, stay flexible, and put your success above everything else.',
+        a: 'We combine enterprise-grade expertise with streamlined delivery. Our contemporary methodologies and proven tools are unburdened by legacy processes, enabling faster implementation and more responsive execution that prioritizes your strategic objectives. Senior team members lead every engagement, ensuring consistent quality and strategic alignment.',
       },
       {
         q: 'Do you work with small businesses or only enterprises?',
-        a: 'We work with organizations of all sizes, from startups and SMEs to large enterprises. As a startup ourselves, we understand the unique challenges smaller businesses face. Our solutions are scalable and customized to match your business size, budget, and growth objectives.',
+        a: 'We work with organizations of all sizes, from startups and SMEs to large enterprises. Our solutions are scalable and customized to match your business size, budget, and growth objectives, ensuring every organization receives tailored analytics capabilities aligned with their strategic goals.',
       },
       {
         q: 'You\'re a new consultancy—should I be concerned about working with a startup?',
-        a: 'We\'re transparent about being new, and we see it as an advantage. Our founding team brings 15+ years of combined experience from leading organizations. Being a startup means we\'re agile, responsive, and focused—you get enterprise expertise without the corporate overhead. We\'re also selective about taking on founding clients to ensure we can deliver exceptional results.',
+        a: 'We\'re transparent about our recent founding, and we frame it as a strategic advantage. Our founding team brings 15+ years of combined experience from leading organizations. Our streamlined structure means we\'re agile, responsive, and focused—you get enterprise expertise without corporate overhead. We\'re also selective about taking on founding clients to ensure we can deliver exceptional results.',
       },
       {
         q: 'You\'re new—how do I know you can deliver?',
-        a: 'While we\'re new as AUXO, our founding team has delivered similar projects for years. We\'re building on proven methodologies, not experimenting. Plus, being new means we\'re hungry to prove ourselves—you get our absolute best effort and attention.',
+        a: 'While AUXO as a company is new, our founding team brings over 15 years of combined experience delivering successful data projects for leading organizations. We apply proven, battle-tested methodologies to every engagement, ensuring consistent, high-quality results.',
       },
       {
         q: 'Do you have any client references?',
-        a: 'As a new consultancy, we\'re building our portfolio. However, our founding team has extensive experience from previous roles. We\'re happy to discuss our methodology, credentials, and approach. We\'re also selective about early clients to ensure we can deliver exceptional results and build those references.',
+        a: 'While we\'re establishing our portfolio, our founding team has extensive experience from previous roles delivering successful data projects for leading organizations. We\'re happy to discuss our methodology, credentials, and approach. We\'re also selective about early clients to ensure we can deliver exceptional results and build those references.',
       },
       {
         q: 'What if something goes wrong?',
-        a: 'We\'re transparent, proactive communicators. If issues arise, we address them immediately—no bureaucracy, no blame games. As founders, we\'re personally invested in your success. We also maintain clear project scopes, regular check-ins, and documented processes to minimize risks.',
+        a: 'We\'re transparent, proactive communicators. If issues arise, we address them immediately through streamlined decision-making processes. As founders, we\'re personally invested in your success. We maintain clear project scopes, regular check-ins, and documented processes to minimize risks and ensure successful outcomes.',
       },
     ],
   },
@@ -129,7 +133,7 @@ export const faqData = [
       },
       {
         q: 'Do you require long-term contracts?',
-        a: 'No, we offer both project-based engagements and flexible month-to-month retainers. We believe in earning your continued business through results, not contractual obligations. As a startup, we\'re focused on building long-term relationships through trust and value, not contracts.',
+        a: 'No, we offer both project-based engagements and flexible month-to-month retainers. We believe in earning your continued business through results, not contractual obligations. Our focus is on building long-term relationships through trust and measurable value.',
       },
     ],
   },
@@ -161,11 +165,11 @@ export const faqData = [
     questions: [
       {
         q: 'How do you ensure data security and privacy?',
-        a: 'We implement enterprise-grade security measures and comply with UAE PDPL, GDPR, and international data protection standards. All data is encrypted in transit and at rest, and we sign NDAs and Data Processing Agreements (DPA) with every client.',
+        a: 'We implement enterprise-grade security measures and maintain full compliance with UAE PDPL, GDPR, and international data protection standards. All data is encrypted in transit and at rest, with strict access controls and audit trails. We sign comprehensive NDAs and Data Processing Agreements (DPA) with every client, and our team has extensive experience implementing compliant data governance frameworks for organizations operating across multiple jurisdictions.',
       },
       {
         q: 'Are you compliant with UAE PDPL?',
-        a: 'Yes, we are fully compliant with UAE Personal Data Protection Law (PDPL). We help clients implement PDPL-compliant data governance frameworks and ensure all our solutions meet regulatory requirements.',
+        a: 'Yes, we are fully compliant with UAE Personal Data Protection Law (PDPL) and GDPR. Our founding team has deep expertise in implementing compliant data governance frameworks. We help clients navigate both UAE PDPL and international data protection requirements, ensuring all solutions meet regulatory standards from day one. This expertise is particularly valuable for organizations operating across GCC and European markets.',
       },
       {
         q: 'Where is our data stored?',
@@ -187,11 +191,11 @@ export const faqData = [
     questions: [
       {
         q: 'How do I get started with AUXO?',
-        a: 'Simply contact us through our website, email, or phone. We will schedule a free initial consultation to understand your needs and discuss how we can help achieve your analytics goals.',
+        a: 'Simply contact us through our website, email, or phone. We will schedule a strategic consultation to understand your needs and discuss how we can help achieve your analytics goals.',
       },
       {
-        q: 'Do you offer free consultations?',
-        a: 'Yes, we offer a complimentary initial consultation to discuss your challenges, objectives, and explore potential solutions. This helps us understand if we are the right fit for your needs.',
+        q: 'Do you offer consultations?',
+        a: 'Yes, we offer an initial strategic consultation to discuss your challenges, objectives, and explore potential solutions. This helps us understand if we are the right fit for your needs and allows you to assess our approach before committing to an engagement.',
       },
       {
         q: 'What information should I prepare before our first meeting?',
@@ -199,11 +203,11 @@ export const faqData = [
       },
       {
         q: 'Can you provide references or case studies?',
-        a: 'As a new consultancy, we\'re building our portfolio. Our founding team brings proven track records from previous organizations. We can share examples of similar work our team has delivered, and we\'re happy to discuss how our methodology applies to your specific needs. Case studies will be added as we complete projects with founding clients.',
+        a: 'Our founding team brings proven track records from previous organizations where we\'ve delivered successful data projects. We can share examples of similar work our team has delivered, and we\'re happy to discuss how our methodology applies to your specific needs. Case studies from AUXO engagements will be added as we complete projects with founding clients.',
       },
       {
         q: 'What is the Data Maturity Assessment?',
-        a: 'Our free Data Maturity Calculator is a 20-question assessment tool that evaluates your organization analytics capabilities across five dimensions. It provides insights into your current state and recommendations for improvement.',
+        a: 'Our Data Maturity Calculator is a professional assessment tool that evaluates your organization\'s analytics capabilities across five key dimensions. It provides a comprehensive maturity score, benchmarks your performance against industry standards, and delivers a strategic roadmap with prioritized recommendations to guide your data journey.',
       },
     ],
   },

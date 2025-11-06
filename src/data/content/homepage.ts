@@ -9,12 +9,6 @@ export interface ProcessStep {
   icon: string;
   title: string;
   description: string;
-  details?: string[];
-}
-
-export interface ValueProp {
-  label: string;
-  description: string;
 }
 
 export interface WhyChooseItem {
@@ -29,7 +23,6 @@ export interface HomepageContent {
     title: string;
     titleHighlight: string;
     subtitle: string;
-    subheadline?: string;
     primaryCta: {
       text: string;
       href: string;
@@ -38,22 +31,32 @@ export interface HomepageContent {
       text: string;
       href: string;
     };
-    features: string[];
     scrollIndicator: string;
-    startupAdvantage?: {
-      text: string;
-      href: string;
-    };
   };
   startupAdvantages: {
+    badge: string;
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
     advantages: Array<{
       icon: string;
       title: string;
       description: string;
       metric?: string;
     }>;
+    comparison: {
+      them: {
+        title: string;
+        items: string[];
+      };
+      us: {
+        title: string;
+        items: string[];
+      };
+    };
   };
   problems: {
+    badge: string;
     title: string;
     titleHighlight: string;
     subtitle: string;
@@ -66,28 +69,8 @@ export interface HomepageContent {
     subtitle: string;
     items: WhyChooseItem[];
   };
-  maturityCalculator: {
+  servicesPreview: {
     badge: string;
-    title: string;
-    titleHighlight: string;
-    subtitle: string;
-    benefits: Array<{
-      title: string;
-      description: string;
-    }>;
-    cta: {
-      text: string;
-      href: string;
-    };
-    dimensions: Array<{
-      name: string;
-      score: string;
-      percentage: number;
-    }>;
-    resultLabel: string;
-    resultSubtext: string;
-  };
-  blog: {
     title: string;
     titleHighlight: string;
     subtitle: string;
@@ -95,6 +78,7 @@ export interface HomepageContent {
   };
   launchOffer: {
     badge: string;
+    sectionBadge: string;
     title: string;
     titleHighlight: string;
     subtitle: string;
@@ -103,12 +87,6 @@ export interface HomepageContent {
       title: string;
       description: string;
     }>;
-    limitedTime: {
-      title: string;
-      message: string;
-      count: string;
-      highlight: string;
-    };
     cta: {
       text: string;
       href: string;
@@ -120,8 +98,12 @@ export interface HomepageContent {
     subtitle: string;
     ctaText: string;
     ctaHref: string;
+    secondaryCtaText: string;
+    secondaryCtaHref: string;
+    benefits: string[];
   };
   methodology: {
+    badge: string;
     title: string;
     titleHighlight: string;
     subtitle: string;
@@ -131,10 +113,10 @@ export interface HomepageContent {
 
 export const homepageContent: HomepageContent = {
   hero: {
-    badge: 'Hello World!',
-    title: 'Every organization has data.',
-    titleHighlight: 'Few understand it!',
-    subtitle: 'We turn your data into competitive advantage. Fast, agile, and built for startups who think bigger.',
+    badge: 'HELLO WORLD!',
+    title: 'Transform Your Data Into',
+    titleHighlight: 'Strategic Advantage',
+    subtitle: 'Enterprise analytics expertise, delivered with the efficiency and direct access modern organizations demand. We partner with clients across the GCC, Europe, and global markets from our strategic hub in Dubai.',
     primaryCta: {
       text: 'Start Your Journey',
       href: 'contact',
@@ -143,156 +125,129 @@ export const homepageContent: HomepageContent = {
       text: 'Assess Your Data Maturity',
       href: 'tools/maturity-calculator',
     },
-    features: [],
     scrollIndicator: 'Scroll More',
-    startupAdvantage: {
-      text: 'Why choose a startup consultancy? See the difference',
-      href: '#startup-advantages',
-    },
   },
   problems: {
-    title: 'What Sets Us',
-    titleHighlight: 'Apart',
-    subtitle: 'We deliver real results through proven methods and modern tech—tailored to your business, not cookie-cutter solutions',
+    badge: 'What We Deliver',
+    title: 'Our Core',
+    titleHighlight: 'Capabilities',
+    subtitle: 'We deliver measurable results through proven methodologies and modern technology, tailored to your industry and strategic goals.',
     challenges: [
       {
-        icon: 'mdi:chart-line',
-        title: 'Data-Driven Decisions',
-        description: 'Transform complex data into clear, actionable insights that guide strategic business decisions',
-      },
-      {
         icon: 'mdi:rocket',
-        title: 'Rapid Implementation',
-        description: 'See results in weeks with our sprint-based approach that prioritizes quick wins and continuous improvement',
+        title: 'Speed-to-Value',
+        description: 'Rapid implementation through proven sprint-based methodologies that deliver measurable outcomes in weeks, not months',
       },
       {
         icon: 'mdi:shield-check',
-        title: 'Compliance Built-In',
-        description: 'UAE PDPL and GDPR compliance integrated from the start—no retrofitting or compliance debt',
+        title: 'International Compliance',
+        description: 'UAE PDPL and GDPR compliance expertise embedded from day one, ensuring regulatory peace of mind across global markets',
+      },
+      {
+        icon: 'mdi:chart-line',
+        title: 'Industry-Specific Frameworks',
+        description: 'Tailored analytics solutions designed for your sector, leveraging proven frameworks adapted to your strategic objectives',
       },
       {
         icon: 'mdi:lightbulb',
-        title: 'Custom Solutions',
-        description: 'Tailored analytics frameworks designed specifically for your industry, size, and growth stage',
+        title: 'Data-Driven Decisions',
+        description: 'Transform complex data into clear, actionable insights that guide strategic business decisions and drive measurable value',
       },
       {
         icon: 'mdi:chart-bar',
         title: 'Enterprise Scalability',
-        description: 'Architecture that grows with you—from startup dashboards to enterprise-wide analytics platforms',
+        description: 'Architecture that grows with you, from startup dashboards to enterprise-wide analytics platforms designed for sustainable growth',
       },
       {
         icon: 'mdi:code-tags',
         title: 'Modern Tech Stack',
-        description: 'Latest cloud technologies, open-source tools, and best-in-class platforms—no legacy baggage',
+        description: 'Contemporary cloud technologies and proven platforms, delivering scalable solutions without legacy system constraints',
       },
     ] as ProblemCard[],
   },
   whyChoose: {
-    title: 'Why Choose',
-    titleHighlight: 'AUXO?',
-    subtitle: 'The startup advantage: agility, innovation, and personal attention',
+    title: 'Why Leading Organizations',
+    titleHighlight: 'Partner With Us',
+    subtitle: 'Enterprise expertise meets modern efficiency—delivering strategic value with the agility that sophisticated organizations demand',
     items: [
       {
         icon: 'mdi:rocket',
-        title: 'Startup Agility',
-        description: 'Fast decision-making, flexible approaches, and rapid execution without corporate bureaucracy',
+        title: 'Rapid Iteration',
+        description: 'Fast decision-making and responsive execution through streamlined processes that prioritize your strategic objectives and deliver measurable outcomes',
       },
       {
         icon: 'mdi:account-group',
-        title: 'Direct Access',
-        description: 'Work directly with founders and senior team members, not junior consultants or account managers',
+        title: 'Senior Team Involvement',
+        description: 'Direct collaboration with experienced professionals on every engagement, ensuring strategic guidance and executive-level expertise throughout each project',
       },
       {
         icon: 'mdi:lightbulb',
         title: 'Fresh Perspective',
-        description: 'Latest methodologies and cutting-edge tools, unburdened by legacy processes or outdated approaches',
+        description: 'Contemporary methodologies and proven tools, unburdened by legacy processes or outdated approaches, delivering innovative solutions for modern challenges',
       },
       {
         icon: 'mdi:map-marker',
-        title: 'UAE-First',
-        description: 'Built in Dubai, designed for UAE businesses with deep understanding of local market and regulations',
+        title: 'Regional & International Expertise',
+        description: 'Dubai-based hub serving GCC, European, and global markets with deep understanding of cross-border regulations and strategic business dynamics',
       },
     ] as WhyChooseItem[],
   },
-  maturityCalculator: {
-    badge: 'Free Assessment',
-    title: 'Discover Your Data',
-    titleHighlight: 'Maturity Level',
-    subtitle: 'Take our free assessment to understand where your organization stands and identify opportunities for growth.',
-    benefits: [
-      {
-        title: 'Evaluate Key Dimensions',
-        description: 'Assess Infrastructure, Analytics, People, Culture, and Governance',
-      },
-      {
-        title: 'Get Actionable Insights',
-        description: 'Receive personalized recommendations tailored to your organization',
-      },
-    ],
-    cta: {
-      text: 'Start Free Assessment',
-      href: 'tools/maturity-calculator',
-    },
-    dimensions: [
-      { name: 'Infrastructure', score: '4.2/5', percentage: 84 },
-      { name: 'Analytics', score: '3.8/5', percentage: 76 },
-      { name: 'People & Skills', score: '3.5/5', percentage: 70 },
-    ],
-    resultLabel: 'Managed Level',
-    resultSubtext: 'Example Result Preview',
-  },
-  blog: {
-    title: 'Latest',
-    titleHighlight: '',
-    subtitle: 'Expert perspectives on analytics, AI, and digital transformation in the UAE',
-    viewAllText: 'View All Articles',
+  servicesPreview: {
+    badge: 'Our Solutions',
+    title: 'Comprehensive Analytics',
+    titleHighlight: 'Services',
+    subtitle: 'Enterprise-grade analytics delivered with startup speed. From strategy to AI—we make data intelligence accessible.',
+    viewAllText: 'View All Services',
   },
   launchOffer: {
-    badge: 'Building Together',
+    badge: 'Founding Client Program',
+    sectionBadge: 'Working With AUXO',
     title: 'Join Us as We',
     titleHighlight: 'Shape the Future',
-    subtitle: "We're building something new—a consultancy that combines enterprise expertise with startup agility. Join us as we reshape data analytics in the UAE.",
+    subtitle: 'Partner with us in our founding phase and benefit from preferential terms, priority access, and a collaborative approach to shaping our service frameworks.',
     benefits: [
       {
         icon: 'mdi:account-group',
-        title: 'Direct Founder Access',
-        description: 'Skip account managers and junior consultants—work directly with founders on every project',
+        title: 'Executive-Level Partnership',
+        description: 'Collaborate directly with founding partners on strategic decisions, ensuring your project receives senior expertise and decisive leadership from day one',
       },
       {
         icon: 'mdi:rocket',
         title: 'Rapid Iteration',
-        description: 'Get results in weeks, not months. Our sprint-based approach delivers value continuously',
+        description: 'Deliver measurable results in weeks, not months, through our proven sprint-based approach and continuous value delivery',
       },
       {
         icon: 'mdi:lightbulb',
         title: 'Modern Stack',
-        description: 'Latest tools and methodologies without legacy constraints',
+        description: 'Leverage contemporary tools and proven methodologies unburdened by legacy systems, ensuring scalable and sustainable solutions for your organization',
       },
       {
         icon: 'mdi:handshake',
         title: 'Flexible Engagement',
-        description: 'No long-term contracts. Transparent pricing. Cancel anytime',
+        description: 'Transparent pricing with flexible terms and no long-term commitments, designed to align with your strategic objectives',
       },
     ],
-    limitedTime: {
-      title: 'Early Partnership',
-      message: 'We\'re building',
-      count: 'something new',
-      highlight: 'in the UAE',
-    },
     cta: {
-      text: 'Start Partnership',
+      text: 'Explore Partnership',
       href: 'contact',
     },
-    disclaimer: 'Free consultation • No obligation • Transparent process',
+    disclaimer: 'Strategic consultation • No obligation • Transparent process',
   },
   finalCta: {
-    title: "Ready to Transform Your Data Into Decisions?",
-    subtitle: "Let's chat about your analytics challenges and see how AUXO can help. Free consultation, no obligation—just a real conversation about your data.",
-    ctaText: 'Schedule Free Consultation',
+    title: "Ready to Unlock Your Data's Potential?",
+    subtitle: 'Schedule a consultation to discuss your analytics objectives and explore how we can help you achieve measurable business outcomes.',
+    ctaText: 'Schedule Consultation',
     ctaHref: 'contact',
+    secondaryCtaText: 'Explore Services',
+    secondaryCtaHref: 'services',
+    benefits: [
+      'Strategic Consultation',
+      'No Obligation',
+      'Direct Senior Access',
+    ],
   },
   methodology: {
+    badge: 'How We Work',
     title: 'Our Proven Process',
     titleHighlight: '',
     subtitle: 'A systematic approach to delivering data analytics excellence',
@@ -300,56 +255,76 @@ export const homepageContent: HomepageContent = {
       {
         number: 1,
         icon: 'mdi:magnify',
-        title: 'Discovery',
-        description: 'Understand your business challenges and data landscape',
-        details: [],
+        title: 'Discovery & Strategy',
+        description: 'Deep-dive analysis of your business challenges and data landscape to understand your objectives and constraints',
       },
       {
         number: 2,
         icon: 'mdi:lightbulb',
-        title: 'Strategy',
-        description: 'Design tailored solutions aligned with your goals',
-        details: [],
+        title: 'Design & Planning',
+        description: 'Design tailored solutions aligned with your strategic objectives and industry requirements',
       },
       {
         number: 3,
         icon: 'mdi:cogs',
-        title: 'Implementation',
-        description: 'Build and deploy robust analytics solutions',
-        details: [],
+        title: 'Implementation & Delivery',
+        description: 'Build and deploy robust analytics solutions through agile sprints with regular check-ins',
       },
       {
         number: 4,
         icon: 'mdi:trending-up',
-        title: 'Support',
-        description: 'Ongoing optimization and knowledge transfer',
-        details: [],
+        title: 'Handover & Optimization',
+        description: 'Comprehensive knowledge transfer, performance review, and ongoing optimization to ensure long-term success',
       },
     ],
   },
   startupAdvantages: {
+    badge: 'Why Choose Us',
+    title: 'Efficiency Meets',
+    titleHighlight: 'Enterprise Expertise',
+    subtitle: 'Big consultancies vs. startup agility—here\'s what makes AUXO different.',
     advantages: [
       {
         icon: 'mdi:account-group',
-        title: 'Direct Access to Founders',
-        description: 'Work directly with founders and senior team members on every project. No account managers. No junior consultants.',
+        title: 'No Intermediary Layers',
+        description: 'Your project is handled directly by experienced founders and senior professionals from start to finish, ensuring strategic alignment and expertise at every stage',
       },
       {
         icon: 'mdi:rocket',
         title: 'Agile Methodology',
-        description: 'Fast results through iterative sprints. No lengthy planning phases. Quick wins, continuous improvement.',
+        description: 'Deliver fast results through proven iterative sprints and continuous improvement, prioritizing quick wins and measurable outcomes',
       },
       {
         icon: 'mdi:lightning-bolt',
-        title: 'No Bureaucracy',
-        description: 'Fast decisions. Quick responses. No layers of approval. We move at startup speed.',
+        title: 'Streamlined Decision-Making',
+        description: 'Enable rapid decisions and efficient processes through streamlined structures that move with the speed that drives results',
       },
       {
         icon: 'mdi:heart',
-        title: 'Personal Attention',
-        description: "You're not just a number. We care about your success. Every client gets dedicated attention from day one.",
+        title: 'Dedicated Focus',
+        description: 'Every client receives dedicated attention from day one, ensuring your strategic objectives remain our priority throughout the engagement',
       },
     ],
+    comparison: {
+      them: {
+        title: 'Big Consultancies',
+        items: [
+          'Slow processes',
+          'Junior consultants',
+          'High costs',
+          'Multiple layers',
+        ],
+      },
+      us: {
+        title: 'AUXO Data Labs',
+        items: [
+          'Fast results',
+          'Direct founder access',
+          'Transparent pricing',
+          'Streamlined processes',
+        ],
+      },
+    },
   },
 };
 

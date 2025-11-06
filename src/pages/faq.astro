@@ -10,7 +10,7 @@ const base = import.meta.env.BASE_URL;
 
 <BaseLayout
   title="Frequently Asked Questions | AUXO Data Labs"
-  description="Have questions about working with a startup consultancy? Find answers about our services, pricing, process, and the advantages of working with AUXO Data Labs."
+  description="Find answers to common questions about our data analytics services, consulting model, pricing, and international compliance expertise. Professional guidance for sophisticated organizations."
 >
   <PageContainer maxWidth="7xl" paddingTop="pt-24" paddingBottom="pb-16">
       <!-- Hero Section -->
@@ -31,29 +31,6 @@ const base = import.meta.env.BASE_URL;
           pricing, and how we can help transform your business.
         </p>
         
-        {/* Search Bar */}
-        <div class="max-w-2xl mx-auto mb-6">
-          <div class="relative">
-            <Icon name="mdi:magnify" class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-secondary" />
-            <input
-              type="text"
-              id="faq-search"
-              placeholder="Search FAQs (e.g., pricing, services, timeline)..."
-              class="w-full pl-12 pr-4 py-3 bg-card border-2 border-theme rounded-lg focus:border-accent-green focus:outline-none text-primary transition-colors min-h-[44px]"
-            />
-            <button
-              id="clear-search"
-              class="absolute right-4 top-1/2 transform -translate-y-1/2 hidden text-secondary hover:text-accent-green transition-colors"
-              aria-label="Clear search"
-            >
-              <Icon name="mdi:close" class="w-5 h-5" />
-            </button>
-          </div>
-          <p class="text-xs text-secondary mt-2 text-left">
-            Press <kbd class="px-2 py-1 bg-surface border border-theme rounded text-xs">/</kbd> to focus search
-          </p>
-        </div>
-        
         {/* Popular Questions */}
         <div class="max-w-4xl mx-auto mb-8">
           <h2 class="text-lg font-bold mb-4 text-primary transition-colors flex items-center justify-center gap-2">
@@ -62,14 +39,14 @@ const base = import.meta.env.BASE_URL;
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
             <a
-              href="#faq-why-choose-a-startup-0"
+              href="#faq-our-consulting-model-0"
               class="p-3 bg-card border border-theme rounded-lg hover:border-accent-green hover:bg-surface transition-all text-left group min-h-[44px]"
               data-popular-question
             >
               <div class="flex items-start gap-2">
                 <Icon name="mdi:help-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
                 <span class="text-sm text-primary transition-colors group-hover:text-accent-green">
-                  Why should I work with a startup instead of a big consultancy?
+                  What makes your consulting model different?
                 </span>
               </div>
             </a>
@@ -260,11 +237,11 @@ const base = import.meta.env.BASE_URL;
               </div>
               <div class="flex items-start gap-3">
                 <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
-                <span class="text-sm text-secondary transition-colors">Schedule a free consultation (if you want)</span>
+                <span class="text-sm text-secondary transition-colors">Schedule a strategic consultation to discuss your objectives</span>
               </div>
               <div class="flex items-start gap-3">
                 <Icon name="mdi:check-circle" class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" />
-                <span class="text-sm text-secondary transition-colors">No pressure, just honest advice</span>
+                <span class="text-sm text-secondary transition-colors">Receive professional assessment with clear, actionable recommendations</span>
               </div>
             </div>
           </div>
@@ -291,65 +268,6 @@ const base = import.meta.env.BASE_URL;
 </BaseLayout>
 
 <script>
-  // Search functionality
-  const searchInput = document.getElementById("faq-search") as HTMLInputElement;
-  const clearSearchBtn = document.getElementById("clear-search") as HTMLButtonElement;
-  const faqItems = document.querySelectorAll(".faq-item");
-  
-  if (searchInput) {
-    searchInput.addEventListener("input", (e) => {
-      const query = (e.target as HTMLInputElement).value.toLowerCase().trim();
-      
-      if (query) {
-        clearSearchBtn?.classList.remove("hidden");
-        
-        faqItems.forEach((item) => {
-          const question = item.querySelector(".faq-question span")?.textContent?.toLowerCase() || "";
-          const answer = item.querySelector(".faq-answer")?.textContent?.toLowerCase() || "";
-          const matches = question.includes(query) || answer.includes(query);
-          
-          if (matches) {
-            (item as HTMLElement).classList.remove("hidden");
-            // Highlight search term (simple approach)
-            const questionEl = item.querySelector(".faq-question span");
-            if (questionEl && question.includes(query)) {
-              questionEl.innerHTML = questionEl.textContent?.replace(
-                new RegExp(query, "gi"),
-                (match) => `<mark class="bg-accent-green/30">${match}</mark>`
-              ) || "";
-            }
-          } else {
-            (item as HTMLElement).classList.add("hidden");
-          }
-        });
-      } else {
-        clearSearchBtn?.classList.add("hidden");
-        faqItems.forEach((item) => {
-          (item as HTMLElement).classList.remove("hidden");
-          // Remove highlights
-          const questionEl = item.querySelector(".faq-question span");
-          if (questionEl) {
-            questionEl.innerHTML = questionEl.textContent || "";
-          }
-        });
-      }
-    });
-    
-    clearSearchBtn?.addEventListener("click", () => {
-      searchInput.value = "";
-      searchInput.dispatchEvent(new Event("input"));
-      searchInput.focus();
-    });
-    
-    // Keyboard shortcut: / to focus search
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "/" && document.activeElement?.tagName !== "INPUT") {
-        e.preventDefault();
-        searchInput.focus();
-      }
-    });
-  }
-  
   // Expand/Collapse All
   const expandAllBtn = document.getElementById("expand-all");
   const collapseAllBtn = document.getElementById("collapse-all");
@@ -521,8 +439,6 @@ const base = import.meta.env.BASE_URL;
         const prevItem = faqItem?.previousElementSibling?.querySelector(".faq-question") as HTMLElement;
         if (prevItem) {
           prevItem.focus();
-        } else {
-          searchInput?.focus();
         }
       } else if (e.key === "Escape") {
         const answer = faqItem?.querySelector(".faq-answer") as HTMLElement;
@@ -554,7 +470,7 @@ const base = import.meta.env.BASE_URL;
       let targetItem = document.getElementById(targetId);
       
       if (!targetItem) {
-        // If not found, it might be in a hidden category - find it by searching all categories
+        // If not found, it might be in a hidden category - find it by checking all categories
         const allFaqItems = document.querySelectorAll(".faq-item");
         allFaqItems.forEach((item) => {
           if (item.id === targetId) {
@@ -693,15 +609,4 @@ const base = import.meta.env.BASE_URL;
     }
   }
   
-  /* FAQ search hidden state */
-  .faq-item.hidden {
-    display: none !important;
-  }
-  
-  /* Search highlight */
-  mark {
-    background-color: rgba(var(--accent-green-rgb), 0.3);
-    padding: 0.125rem 0.25rem;
-    border-radius: 0.25rem;
-  }
 </style>

@@ -585,7 +585,7 @@ const contextualCTA = getContextualCTA();
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 blog-posts-container">
               {relatedPosts.map((relatedPost) => (
-                <div class="blog-related-post blog-post-item" data-categories={JSON.stringify(relatedPost.data.tags || [])}>
+                <div class="blog-related-post">
                   <BlogPostCard post={relatedPost} featured={false} />
                 </div>
               ))}

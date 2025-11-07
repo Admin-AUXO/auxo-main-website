@@ -237,7 +237,7 @@ export const homepageContent: HomepageContent = {
   },
   finalCta: {
     title: "Ready to Unlock Your Data's Potential?",
-    subtitle: 'Schedule a consultation to discuss your analytics objectives and explore how we can help you achieve measurable business outcomes.',
+    subtitle: 'Schedule a strategic consultation to explore how decision-grade analytics can accelerate your business performance.',
     ctaText: 'Schedule Consultation',
     ctaHref: 'contact',
     secondaryCtaText: 'Explore Services',

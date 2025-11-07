@@ -198,7 +198,7 @@ export const homepageContent: HomepageContent = {
     title: 'Most companies collect data,',
     titleHighlight: 'Few convert it into decisions.',
     subtitle: 'AUXO bridges the gap — connecting business understanding with data intelligence.',
-    titleHighlight2: 'Big-firm clarity. Startup agility. Delivered without compromise.',
+    titleHighlight2: 'Big-firm clarity. Startup agility. Compliant by Design.',
     viewAllText: 'View All Services',
   },
   launchOffer: {

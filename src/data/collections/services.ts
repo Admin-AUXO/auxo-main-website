@@ -14,7 +14,7 @@ export const services: Service[] = [
   {
     id: 'business-intelligence',
     title: 'Business Intelligence & Reporting',
-    description: 'Transform your complex data into clear, actionable insights with intuitive dashboards that empower faster, smarter decisions.',
+    description: 'Turn complex data into real-time insights through intuitive dashboards.',
     icon: 'mdi:chart-line',
     timeline: '4-8 weeks',
     complexity: 'Beginner-Friendly',
@@ -42,7 +42,7 @@ export const services: Service[] = [
   {
     id: 'data-analytics',
     title: 'Advanced Data Analytics',
-    description: 'Unlock hidden patterns in your data with predictive analytics and intelligent insights that drive competitive advantage.',
+    description: 'Transform raw information into predictive, actionable intelligence.',
     icon: 'mdi:chart-scatter-plot',
     timeline: '6-10 weeks',
     complexity: 'Intermediate',
@@ -70,7 +70,7 @@ export const services: Service[] = [
   {
     id: 'data-strategy',
     title: 'Data Strategy & Roadmap',
-    description: 'Build a clear, actionable data strategy that aligns with your business goals and maximizes your analytics investments.',
+    description: 'Align your data initiatives with business goals through a clear, execution-ready plan.',
     icon: 'mdi:strategy',
     timeline: '3-6 weeks',
     complexity: 'Beginner-Friendly',
@@ -98,7 +98,7 @@ export const services: Service[] = [
   {
     id: 'data-engineering',
     title: 'Data Engineering & Integration',
-    description: 'Build robust, scalable data pipelines that seamlessly unify your systems and power advanced analytics at enterprise scale.',
+    description: 'Build scalable pipelines that unify systems and power analytics.',
     icon: 'mdi:database-cog',
     timeline: '8-12 weeks',
     complexity: 'Enterprise-Level',
@@ -126,7 +126,7 @@ export const services: Service[] = [
   {
     id: 'ml-ai',
     title: 'Machine Learning & AI Solutions',
-    description: 'Deploy advanced AI and machine learning solutions to automate processes, predict outcomes, and optimize your business performance.',
+    description: 'Leverage AI to automate, predict, and optimize outcomes.',
     icon: 'mdi:robot',
     timeline: '10-16 weeks',
     complexity: 'Enterprise-Level',
@@ -154,7 +154,7 @@ export const services: Service[] = [
   {
     id: 'data-governance',
     title: 'Data Governance & Compliance',
-    description: 'Build a robust data governance framework that ensures compliance, security, and trust across your entire organization.',
+    description: 'Ensure trusted, secure, and compliant data across your enterprise.',
     icon: 'mdi:shield-check',
     timeline: '6-10 weeks',
     complexity: 'Intermediate',

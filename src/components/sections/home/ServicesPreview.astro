@@ -24,15 +24,17 @@ const content: HomepageContent["servicesPreview"] = homepageContent.servicesPrev
     <div class="max-w-7xl mx-auto">
       <!-- Section Header -->
       <div class="text-center mb-12 sm:mb-16 md:mb-20 animate-fade-in">
-        <div
-          class="inline-block mb-4 sm:mb-6 px-4 sm:px-5 py-2 sm:py-2.5 bg-accent-green/10 border border-accent-green rounded-full backdrop-blur-sm"
-        >
-          <span
-            class="text-accent-green text-xs font-bold tracking-wider uppercase"
-            style="font-family: var(--font-body);"
-            >{content.badge}</span
+        {content.badge && (
+          <div
+            class="inline-block mb-4 sm:mb-6 px-4 sm:px-5 py-2 sm:py-2.5 bg-accent-green/10 border border-accent-green rounded-full backdrop-blur-sm"
           >
-        </div>
+            <span
+              class="text-accent-green text-xs font-bold tracking-wider uppercase"
+              style="font-family: var(--font-body);"
+              >{content.badge}</span
+            >
+          </div>
+        )}
         <h2
           class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold mb-6 sm:mb-8 text-primary transition-colors leading-[1.3] tracking-tight px-2"
           style="font-family: var(--font-display);"
@@ -47,6 +49,14 @@ const content: HomepageContent["servicesPreview"] = homepageContent.servicesPrev
         >
           {content.subtitle}
         </p>
+        {content.titleHighlight2 && (
+          <h3
+            class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mt-6 sm:mt-8 text-primary transition-colors leading-[1.3] tracking-tight px-2"
+            style="font-family: var(--font-display);"
+          >
+            <span class="text-gradient-green">{content.titleHighlight2}</span>
+          </h3>
+        )}
       </div>
 
       <!-- Services Grid - Matching Main Services Page Design -->

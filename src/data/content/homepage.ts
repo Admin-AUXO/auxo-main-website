@@ -74,6 +74,7 @@ export interface HomepageContent {
     title: string;
     titleHighlight: string;
     subtitle: string;
+    titleHighlight2?: string;
     viewAllText: string;
   };
   launchOffer: {
@@ -193,10 +194,11 @@ export const homepageContent: HomepageContent = {
     ] as WhyChooseItem[],
   },
   servicesPreview: {
-    badge: 'Our Solutions',
-    title: 'Comprehensive',
-    titleHighlight: 'Analytics Solutions',
-    subtitle: 'Comprehensive analytics solutions from strategic planning to advanced AI implementation. Delivering measurable outcomes for organizations across industries.',
+    badge: '',
+    title: 'Most companies collect data,',
+    titleHighlight: 'Few convert it into decisions.',
+    subtitle: 'AUXO bridges the gap — connecting business understanding with data intelligence.',
+    titleHighlight2: 'Big-firm clarity. Startup agility. Delivered without compromise.',
     viewAllText: 'View All Services',
   },
   launchOffer: {

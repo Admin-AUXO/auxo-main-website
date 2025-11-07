@@ -107,7 +107,7 @@ export const aboutContent: AboutContent = {
     badge: 'Our Story',
     title: 'Built to Transform',
     titleHighlight: 'Data Into Decisions',
-    subtitle: "We're experienced analytics professionals who built the consultancy we'd want to hire: expert, efficient, and transparent. We serve sophisticated organizations across the GCC, Europe, and global markets.",
+    subtitle: "AUXO was built to be the analytics partner we'd want to hire — expert, transparent, and built for outcomes. Partnering with leading organizations across the GCC, Europe, the US, and beyond.",
     namingStory: {
       title: 'Why AUXO?',
       description: 'AUXO comes from "auxilium"—Latin for "help" or "support." We\'re here to help you unlock your data\'s potential. Simple name, clear mission: transform data into decisions.',

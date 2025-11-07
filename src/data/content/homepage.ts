@@ -113,9 +113,9 @@ export interface HomepageContent {
 
 export const homepageContent: HomepageContent = {
   hero: {
-    badge: 'HELLO WORLD!',
-    title: 'Transform Your Data Into',
-    titleHighlight: 'Strategic Advantage',
+    badge: '',
+    title: 'Intelligence,',
+    titleHighlight: 'Engineered.',
     subtitle: 'Enterprise analytics expertise, delivered with the efficiency and direct access modern organizations demand. We partner with clients across the GCC, Europe, and global markets from our strategic hub in Dubai.',
     primaryCta: {
       text: 'Start Your Journey',

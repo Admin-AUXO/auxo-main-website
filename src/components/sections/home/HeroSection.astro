@@ -30,7 +30,7 @@ const content: HomepageContent["hero"] = homepageContent.hero;
       {
         content.badge && (
           <div class="mb-4 sm:mb-6 animate-fade-in -mt-4 sm:-mt-6">
-            <div class="typing-badge typing-enhanced">
+            <div class="typing-badge typing-enhanced" data-badge-text={content.badge}>
               <span
                 id="typing-text"
                 class="text-xs sm:text-sm font-bold text-accent-green tracking-wider uppercase"
@@ -153,12 +153,10 @@ const content: HomepageContent["hero"] = homepageContent.hero;
 </section>
 
 <script>
-  // Typing animation for "HELLO WORLD!" badge with looping support
+  // Typing animation for badge with looping support
   let typingAnimationTimer: ReturnType<typeof setTimeout> | null = null;
   let typingCharIndex = 0;
   let typingIsDeleting = false;
-
-  const badgeText = "HELLO WORLD!";
 
   function initTypingAnimation() {
     // Clear any existing animation
@@ -169,6 +167,10 @@ const content: HomepageContent["hero"] = homepageContent.hero;
 
     const typingText = document.getElementById("typing-text");
     if (!typingText) return;
+
+    const badgeContainer = typingText.closest('[data-badge-text]');
+    const badgeText = badgeContainer?.getAttribute('data-badge-text');
+    if (!badgeText) return; // Don't animate if badge is empty
 
     const text = badgeText;
     typingCharIndex = 0;
